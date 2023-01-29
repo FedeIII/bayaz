@@ -1,4 +1,3 @@
-import type { MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -7,9 +6,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
 
-export const meta: MetaFunction = () => ({
+export const meta = () => ({
   charset: "utf-8",
   title: "New Remix App",
   viewport: "width=device-width,initial-scale=1",

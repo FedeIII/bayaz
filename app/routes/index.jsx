@@ -1,3 +1,5 @@
+import { Link } from "@remix-run/react";
+
 export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
@@ -25,6 +27,11 @@ export default function Index() {
           <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
             Remix Docs
           </a>
+        </li>
+        <li className="mx-auto mt-16 max-w-7xl text-center">
+          <Link to="/posts" className="text-xl text-blue-600 underline">
+            Blog Posts
+          </Link>
         </li>
       </ul>
     </div>
