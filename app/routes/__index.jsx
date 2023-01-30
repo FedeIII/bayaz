@@ -10,8 +10,8 @@ export default function Index() {
           <Link to="/dice" className={styles.mainButton}>
             Dados
           </Link>
-          <Link to="/dice" className={styles.mainButton}>
-            Dados
+          <Link to="/places" className={styles.mainButton}>
+            Lugares
           </Link>
           <Link to="/" className={styles.mainButton}>
             Button 3

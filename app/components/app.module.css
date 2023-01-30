@@ -43,4 +43,12 @@
 .mainButton {
   height: 32px;
   margin: 0 0 8px;
+  width: 100%;
+  background-color: #a3b3d0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
 }
