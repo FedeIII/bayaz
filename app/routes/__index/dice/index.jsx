@@ -1,9 +1,10 @@
 import { useState, Fragment, useMemo } from "react";
 import styles from "~/components/dice.module.css";
+import random from "~/utils/random";
 
 function getNumberOfDice(command) {
   const numberOfDice = command.substring(0, command.indexOf("D"));
-  return Number(numberOfDice) || 0;
+  return Number(numberOfDice) || 1;
 }
 
 function getNumberOfFaces(command) {
@@ -61,7 +62,7 @@ function processCommand(command) {
   const rolls = [...Array(numberOfDice)].map((_, i) => ({
     i,
     faces: numberOfFaces,
-    value: Math.ceil(Math.random() * numberOfFaces),
+    value: random.dieRoll(numberOfFaces),
   }));
 
   return {

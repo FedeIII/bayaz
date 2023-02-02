@@ -1,13 +1,22 @@
-import { useEffect, useState } from "react";
-import { Link } from "@remix-run/react";
+import { useEffect, useState } from 'react';
+import { Link } from '@remix-run/react';
 
-import random from "~/utils/random";
-import styles from "~/components/places.module.css";
-import { VILLAGE, getPopulation } from "~/utils/places";
+import random from '~/utils/random';
+import styles from '~/components/places.module.css';
+import { VILLAGE, getPopulation } from '~/utils/places';
 
 const noOp = () => {};
 
-function getVillageSecurity(population) {
+function getAccommodation(population) {
+  return population > VILLAGE.minPopulationForGuesthouse
+    ? random.split([
+        [50, 'Random guesthouse name'],
+        [50, 'Random inn name'],
+      ])
+    : null;
+}
+
+function getSecurity(population) {
   const security = {};
 
   const securityAmount = random.roundTo(
@@ -27,7 +36,7 @@ function getVillageSecurity(population) {
   return security;
 }
 
-function getVillageReligion() {
+function getReligion() {
   const religion = {
     temple: 0,
     shrine: 0,
@@ -45,23 +54,48 @@ function getVillageReligion() {
   return religion;
 }
 
+function getAccommodationTranslation(accommodation) {
+  return accommodation;
+}
+
+function getReligionTranslation(religion) {
+  const { temple, shrine } = religion;
+
+  return (
+    <>
+      {temple === 2 ? 'Dos templos' : temple === 1 ? 'Un templo' : null}
+      {temple && shrine ? ' y ' : null}
+      {shrine === 2 ? 'Dos santuarios' : shrine === 1 ? 'Un santuario' : null}
+    </>
+  );
+}
+
 function Village() {
   const [place, setPlace] = useState({ config: null });
-  const { name, population, government, security = {}, religion = {} } = place;
+  const {
+    name,
+    population,
+    accommodation,
+    government,
+    security = {},
+    religion = {},
+  } = place;
 
   useEffect(() => {
     const population = getPopulation(VILLAGE);
+    const accommodation = getAccommodation(population);
     const government = random.split([
       [50, true],
       [50, false],
     ]);
-    const security = getVillageSecurity(population);
-    const religion = getVillageReligion();
+    const security = getSecurity(population);
+    const religion = getReligion();
 
     setPlace((prevPlace) => ({
       ...prevPlace,
-      name: "Placeholder Name",
+      name: 'Placeholder Name',
       population,
+      accommodation,
       government,
       security,
       religion,
@@ -71,13 +105,18 @@ function Village() {
   return (
     <div className={styles.container}>
       <Link to="/places" className={styles.backButton}>
-        {"<<"} Volver
+        {'<<'} Volver
       </Link>
       <div className={styles.data}>Aldea</div>
       <div className={styles.data}>{name}</div>
       <div className={styles.data}>Población: ~{population}</div>
+      {!!accommodation && (
+        <div className={styles.data}>
+          Alojamientos: {getAccommodationTranslation(accommodation)}
+        </div>
+      )}
       <div className={styles.data}>
-        Gobierno: Alguacil {!government && "no "}presente
+        Gobierno: Alguacil {!government && 'no '}presente
       </div>
       <div className={styles.data}>
         <span>Seguridad: </span>
@@ -86,18 +125,7 @@ function Village() {
       </div>
       {!!(religion.temple || religion.shrine) && (
         <div className={styles.data}>
-          Religión:{" "}
-          {religion.temple === 2
-            ? "Dos templos"
-            : religion.temple === 1
-            ? "Un templo"
-            : null}
-          {religion.temple && religion.shrine ? " y " : null}
-          {religion.shrine === 2
-            ? "Dos santuarios"
-            : religion.shrine === 1
-            ? "Un santuario"
-            : null}
+          Religión: {getReligionTranslation(religion)}
         </div>
       )}
     </div>
