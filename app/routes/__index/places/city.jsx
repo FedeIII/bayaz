@@ -4,36 +4,70 @@ import { useEffect, useState } from 'react';
 import styles from '~/components/places.module.css';
 import { CITY, getPopulation } from '~/utils/places';
 import random from '~/utils/random';
-import { getComerceTranslation, getGovernmentTranslation } from '~/utils/places';
+import {
+  COMMERCE,
+  GOVERNMENTS,
+  getCommerceTranslation,
+  getGovernmentTranslation,
+} from '~/utils/places';
+
+function getAccommodation() {
+  const numberOfTaverns = random.invExp(...CITY.taverns);
+
+  return Array.from(Array(numberOfTaverns), (_, i) => 'Tavern ' + i);
+}
 
 function getGovernment() {
-  return random.split(CITY.governments);
+  return random.split(GOVERNMENTS);
 }
 
 function getSecurity(population) {
   return random.roundTo(
     10,
     random.linearUniform({
-      x: [CITY.minPopulation, CITY.maxPopulation],
-      y: [CITY.minSecurity, CITY.maxSecurity],
+      x: CITY.population,
+      y: CITY.security,
       t: population,
     })
   );
 }
 
-function getComerce() {
-  return random.split(CITY.comerce);
+function getCommerces() {
+  const numberOfCommerces = random.invExp(...CITY.commerces);
+  const commerces = [];
+  while (commerces.length < numberOfCommerces) {
+    const newCommerce = random.split(COMMERCE);
+    if (!commerces.includes(newCommerce)) commerces.push(newCommerce);
+  }
+
+  return commerces;
 }
 
 function getReligion() {
   return {
-    temple: random.split([[33, 2], [33, 3], [33, 4]]),
-    shrine: random.split([[33, 2], [33, 3], [33, 4]]),
+    temple: random.split([
+      [33, 2],
+      [33, 3],
+      [33, 4],
+    ]),
+    shrine: random.split([
+      [33, 2],
+      [33, 3],
+      [33, 4],
+    ]),
   };
+}
+
+function getAccommodationTranslation(accommodation = []) {
+  return accommodation.join(', ');
 }
 
 function getSecurityTranslation(security) {
   return security + ' guardias';
+}
+
+function getCommercesTranslation(commerces = []) {
+  return commerces.map(getCommerceTranslation).join(', ');
 }
 
 function getReligionTranslation(religion) {
@@ -45,11 +79,15 @@ function getReligionTranslation(religion) {
     4: 'Cuatro',
   };
 
-  return <>
-    {!!temple && numberTranslationMap[temple] + ' templo' + (temple > 1 ? 's' : '')}
-    {temple && shrine ? ' y ' : null}
-    {!!shrine && numberTranslationMap[shrine] + ' santuario' + (shrine > 1 ? 's' : '')}
-  </>
+  return (
+    <>
+      {!!temple &&
+        numberTranslationMap[temple] + ' templo' + (temple > 1 ? 's' : '')}
+      {temple && shrine ? ' y ' : null}
+      {!!shrine &&
+        numberTranslationMap[shrine] + ' santuario' + (shrine > 1 ? 's' : '')}
+    </>
+  );
 }
 
 function City() {
@@ -57,26 +95,29 @@ function City() {
   const {
     name,
     population,
+    accommodation,
     government,
     security = {},
-    comerce,
+    commerces,
     religion = {},
   } = place;
 
   useEffect(() => {
     const population = getPopulation(CITY);
+    const accommodation = getAccommodation(population);
     const government = getGovernment();
     const security = getSecurity(population);
-    const comerce = getComerce();
+    const commerces = getCommerces();
     const religion = getReligion();
 
     setPlace((prevPlace) => ({
       ...prevPlace,
       name: 'Placeholder Name',
       population,
+      accommodation,
       government,
       security,
-      comerce,
+      commerces,
       religion,
     }));
   }, [setPlace]);
@@ -90,13 +131,16 @@ function City() {
       <div className={styles.placeName}>{name}</div>
       <div className={styles.population}>Población: ~{population}</div>
       <div className={styles.population}>
+        Alojamiento: {getAccommodationTranslation(accommodation)}
+      </div>
+      <div className={styles.population}>
         Gobierno: {getGovernmentTranslation(government)}
       </div>
       <div className={styles.population}>
         Seguridad: {getSecurityTranslation(security)}
       </div>
       <div className={styles.population}>
-        Comercio: {getComerceTranslation(comerce)}
+        Comercio: {getCommercesTranslation(commerces)}
       </div>
       <div className={styles.population}>
         Religion: {getReligionTranslation(religion)}

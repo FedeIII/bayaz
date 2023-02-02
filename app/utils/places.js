@@ -1,64 +1,48 @@
 import random from '~/utils/random';
 
+export const COMMERCE = [
+  [10, 'FISHING'],
+  [7, 'TRADING'],
+  [5, 'WOODWORK'],
+  [10, 'STEELWORK'],
+  [2, 'MAGIC'],
+  [5, 'MINING'],
+];
+
+export const GOVERNMENTS = [
+  [3, 'DEMOCRACY'],
+  [5, 'DICTATORSHIP'],
+  [15, 'FEUDALISM'],
+  [2, 'GERONTOCRACY'],
+  [3, 'MAGOCRACY'],
+  [6, 'MILITOCRACY'],
+  [4, 'OLIGARCHY'],
+  [3, 'MERITOCRACY'],
+  [2, 'PLUTOCRACY'],
+  [7, 'REPUBLIC'],
+  [5, 'TEOCRACY'],
+];
+
 export const VILLAGE = {
-  minPopulation: 20,
-  maxPopulation: 500,
+  population: [20, 500],
   roundPopulation: 10,
   minPopulationForGuesthouse: 100,
-  minSecurity: 2,
-  maxSecurity: 25,
+  security: [2, 25],
 };
 
 export const TOWN = {
-  minPopulation: 1000,
-  maxPopulation: 5000,
+  population: [1000, 5000],
   roundPopulation: 500,
-  minSecurity: 25,
-  maxSecurity: 150,
-  minTaverns: 2,
-  maxTaverns: 6,
-  governments: [
-    [3, 'DEMOCRACY'],
-    [5, 'DICTATORSHIP'],
-    [15, 'FEUDALISM'],
-    [2, 'GERONTOCRACY'],
-    [3, 'MAGOCRACY'],
-    [6, 'MILITOCRACY'],
-    [4, 'OLIGARCHY'],
-    [3, 'MERITOCRACY'],
-    [2, 'PLUTOCRACY'],
-    [7, 'REPUBLIC'],
-    [5, 'TEOCRACY'],
-  ],
-  comerce: [
-    [10, 'FISHING'],
-    [7, 'TRADING'],
-    [5, 'WOODWORK'],
-    [10, 'STEELWORK'],
-    [2, 'MAGIC'],
-    [5, 'MINING'],
-  ],
+  security: [25, 150],
+  taverns: [2, 6],
 };
 
 export const CITY = {
-  minPopulation: 10000,
-  maxPopulation: 25000,
+  population: [10000, 25000],
   roundPopulation: 5000,
-  minSecurity: 200,
-  maxSecurity: 350,
-  governments: [
-    [3, 'DEMOCRACY'],
-    [5, 'DICTATORSHIP'],
-    [15, 'FEUDALISM'],
-    [2, 'GERONTOCRACY'],
-    [3, 'MAGOCRACY'],
-    [6, 'MILITOCRACY'],
-    [4, 'OLIGARCHY'],
-    [3, 'MERITOCRACY'],
-    [2, 'PLUTOCRACY'],
-    [7, 'REPUBLIC'],
-    [5, 'TEOCRACY'],
-  ],
+  security: [200, 350],
+  taverns: [5, 10],
+  commerces: [2, 4],
 };
 
 export function getGovernmentTranslation(government) {
@@ -89,8 +73,8 @@ export function getGovernmentTranslation(government) {
   }
 }
 
-export function getComerceTranslation(comerce) {
-  switch (comerce) {
+export function getCommerceTranslation(commerce) {
+  switch (commerce) {
     case 'FISHING':
       return 'Pesca';
     case 'TRADING':
@@ -109,8 +93,8 @@ export function getComerceTranslation(comerce) {
 
 export function getPopulation(PLACE) {
   const population = random.uniform(
-    PLACE.minPopulation,
-    PLACE.maxPopulation + PLACE.roundPopulation
+    PLACE.population[0],
+    PLACE.population[1] + PLACE.roundPopulation
   );
   return random.roundTo(PLACE.roundPopulation, population);
 }

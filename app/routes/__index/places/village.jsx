@@ -22,8 +22,8 @@ function getSecurity(population) {
   const securityAmount = random.roundTo(
     1,
     random.linearUniform({
-      x: [VILLAGE.minPopulation, VILLAGE.maxPopulation],
-      y: [VILLAGE.minSecurity, VILLAGE.maxSecurity],
+      x: VILLAGE.population,
+      y: VILLAGE.security,
       t: population,
     })
   );
