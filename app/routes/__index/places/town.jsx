@@ -1,7 +1,6 @@
 import { Link } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 
-import styles from '~/components/places.module.css';
 import { TOWN, getPopulation } from '~/utils/places';
 import random from '~/utils/random';
 import {
@@ -10,6 +9,9 @@ import {
   getCommerceTranslation,
   getGovernmentTranslation,
 } from '~/utils/places';
+
+import styles from '~/components/places.module.css';
+import menuStyles from '~/components/menus.module.css';
 
 function getAccommodation() {
   const numberOfTaverns = random.invExp(...TOWN.taverns);
@@ -113,7 +115,7 @@ function Town() {
 
   return (
     <div className={styles.container}>
-      <Link to="/places" className={styles.backButton}>
+      <Link to="../" className={menuStyles.backButton}>
         {'<<'} Volver
       </Link>
       <div className={styles.placeSize}>Pueblo</div>

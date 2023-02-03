@@ -13,8 +13,8 @@ export default function Index() {
           <Link to="/places" className={styles.mainButton}>
             Lugares
           </Link>
-          <Link to="/" className={styles.mainButton}>
-            Button 3
+          <Link to="/characters" className={styles.mainButton}>
+            Personajes
           </Link>
           <Link to="/" className={styles.mainButton}>
             Button 4

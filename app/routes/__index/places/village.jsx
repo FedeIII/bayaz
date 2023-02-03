@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link } from '@remix-run/react';
 
 import random from '~/utils/random';
-import styles from '~/components/places.module.css';
 import { VILLAGE, getPopulation } from '~/utils/places';
+
+import styles from '~/components/places.module.css';
+import menuStyles from '~/components/menus.module.css';
 
 const noOp = () => {};
 
@@ -104,7 +106,7 @@ function Village() {
 
   return (
     <div className={styles.container}>
-      <Link to="/places" className={styles.backButton}>
+      <Link to="../" className={menuStyles.backButton}>
         {'<<'} Volver
       </Link>
       <div className={styles.data}>Aldea</div>
