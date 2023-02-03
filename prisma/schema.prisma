@@ -46,3 +46,18 @@ model Post {
   updatedAt DateTime @updatedAt
 }
 
+model Pc {
+  name      String @id
+  race      String
+  subrace      String
+  age       Int
+  height    Int
+  weight    Int
+  size      String
+  speed     Int
+  class     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+

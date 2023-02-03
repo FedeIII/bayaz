@@ -30,3 +30,23 @@ npm run dev
 ```
 
 Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!
+
+## DB
+
+update local db with new schema
+
+```sh
+npx prisma db push
+```
+
+get seeds into the local db
+
+```sh
+npx prisma db seed
+```
+
+create migration file for schema changes
+
+```sh
+npx prisma migrate dev
+```
