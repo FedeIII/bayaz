@@ -6,3 +6,15 @@
 .rangeMarks {
   color: white;
 }
+
+.statsRoll {
+  margin-right: 8px;
+}
+
+.canDrag {
+  color: greenyellow;
+}
+
+.cannotDrag {
+  color: red;
+}

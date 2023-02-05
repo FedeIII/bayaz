@@ -6,6 +6,10 @@ export const RACES = {
       weight: [55, 100],
       size: 'M',
       speed: 8,
+      statMods: {
+        con: 2,
+        wis: 1,
+      },
     },
     mountains: {
       age: [40, 350],
@@ -13,6 +17,10 @@ export const RACES = {
       weight: [55, 100],
       size: 'M',
       speed: 8,
+      statMods: {
+        str: 2,
+        con: 2,
+      },
     },
   },
   elf: {
@@ -22,6 +30,10 @@ export const RACES = {
       weight: [40, 75],
       size: 'M',
       speed: 10,
+      statMods: {
+        dex: 2,
+        int: 1,
+      },
     },
     wood: {
       age: [80, 750],
@@ -29,6 +41,10 @@ export const RACES = {
       weight: [45, 80],
       size: 'M',
       speed: 11,
+      statMods: {
+        dex: 2,
+        wis: 1,
+      },
     },
     drow: {
       age: [80, 750],
@@ -36,6 +52,10 @@ export const RACES = {
       weight: [35, 70],
       size: 'M',
       speed: 10,
+      statMods: {
+        dex: 2,
+        cha: 1,
+      },
     },
   },
   halfling: {
@@ -45,6 +65,10 @@ export const RACES = {
       weight: [16, 20],
       size: 'S',
       speed: 8,
+      statMods: {
+        dex: 2,
+        cha: 1,
+      },
     },
     stout: {
       age: [18, 250],
@@ -52,6 +76,10 @@ export const RACES = {
       weight: [16, 20],
       size: 'S',
       speed: 8,
+      statMods: {
+        dex: 2,
+        con: 1,
+      },
     },
   },
   human: {
@@ -61,6 +89,14 @@ export const RACES = {
       weight: [55, 120],
       size: 'M',
       speed: 10,
+      statMods: {
+        str: 1,
+        dex: 1,
+        con: 1,
+        int: 1,
+        wis: 1,
+        cha: 1,
+      },
     },
   },
   ['half-elf']: {
@@ -70,6 +106,9 @@ export const RACES = {
       weight: [55, 120],
       size: 'M',
       speed: 10,
+      statMods: {
+        cha: 2,
+      },
     },
   },
   ['half-orc']: {
@@ -79,6 +118,10 @@ export const RACES = {
       weight: [65, 170],
       size: 'M',
       speed: 10,
+      statMods: {
+        str: 2,
+        con: 1,
+      },
     },
   },
 };
@@ -188,6 +231,34 @@ export function translateClass(race) {
     case 'wizard':
       return 'Mago';
   }
+}
+
+export const STATS = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+
+export function translateStat(stat) {
+  switch (stat) {
+    default:
+    case 'str':
+      return 'Fuerza';
+    case 'dex':
+      return 'Destreza';
+    case 'con':
+      return 'Constitución';
+    case 'int':
+      return 'Inteligencia';
+    case 'wis':
+      return 'Sabiduría';
+    case 'cha':
+      return 'Carisma';
+  }
+}
+
+export function getStatMod(stat, character, extraPointStats) {
+  const { race, subrace } = character;
+  let mod = RACES[race][subrace].statMods?.[stat] || 0;
+  if (extraPointStats.includes(stat)) mod++;
+
+  return mod;
 }
 
 export const ALIGNMENTS = {

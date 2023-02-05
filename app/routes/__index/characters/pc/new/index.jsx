@@ -16,7 +16,7 @@ import {
   CLASSES,
   translateClass,
 } from '~/utils/characters';
-import { createPC } from '~/models/pc.server';
+import { createPc } from '~/services/pc.server';
 
 import styles from '~/components/characters.module.css';
 import menuStyles from '~/components/menus.module.css';
@@ -32,7 +32,7 @@ export const action = async ({ request }) => {
   const age = parseInt(formData.get('age'), 10);
   const height = parseInt(formData.get('height'), 10);
   const weight = parseInt(formData.get('weight'), 10);
-  const pClass = formData.get('class');
+  const pClass = formData.get('pClass');
 
   const errors = {
     name: name ? null : 'Name is required',
@@ -51,13 +51,12 @@ export const action = async ({ request }) => {
     age,
     height,
     weight,
-    size: RACES[race][subrace].size,
-    speed: RACES[race][subrace].speed,
-    class: pClass,
+    pClass,
   };
-  await createPC(pc);
 
-  return redirect(pClass);
+  await createPc(pc);
+
+  return redirect(`${name}/stats`);
 };
 
 function getFirstSubrace(race) {
@@ -127,14 +126,16 @@ function PcRace() {
 
       <p>
         <label>
-          Raza: {errors?.race ? <em>{errors.race}</em> : null}
+          Raza:
           <select
             name="race"
             value={race}
             onChange={e => setRace(e.target.value)}
           >
             {Object.keys(RACES).map(raceName => (
-              <option value={raceName}>{translateRace(raceName)}</option>
+              <option value={raceName} key={raceName}>
+                {translateRace(raceName)}
+              </option>
             ))}
           </select>
         </label>
@@ -148,10 +149,11 @@ function PcRace() {
               name="subrace"
               value={subrace}
               onChange={e => setSubrace(e.target.value)}
-              defaultValue={getFirstSubrace(race)}
             >
               {subraces.map(subrace => (
-                <option value={subrace}>{translateRace(subrace)}</option>
+                <option value={subrace} key={subrace}>
+                  {translateRace(subrace)}
+                </option>
               ))}
             </select>
           </label>
@@ -256,14 +258,16 @@ function PcRace() {
 
       <p>
         <label>
-          Clase: {errors?.class ? <em>{errors.class}</em> : null}
+          Clase:
           <select
-            name="class"
+            name="pClass"
             value={pClass}
             onChange={e => setClass(e.target.value)}
           >
             {Object.keys(CLASSES).map(pClassName => (
-              <option value={pClassName}>{translateClass(pClassName)}</option>
+              <option value={pClassName} key={pClassName}>
+                {translateClass(pClassName)}
+              </option>
             ))}
           </select>
         </label>
