@@ -19,7 +19,7 @@ export const action = async ({ request }) => {
 
   await updatePc({ name, barbarian: { primalPath } });
 
-  return redirect(`../${name}/summary`);
+  return redirect(`/characters/pc/${name}/summary`);
 };
 
 function PcBarbarianSkills() {

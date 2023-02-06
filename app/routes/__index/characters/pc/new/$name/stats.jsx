@@ -1,6 +1,6 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import classnames from 'classnames';
 
@@ -97,28 +97,23 @@ function useStatDrop(stat, setStat, setUsedRolls) {
   return statDrop;
 }
 
-function useStats(setUsedRolls) {
+function useStats(setUsedRolls, pStats) {
   return STATS.map(statName => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(pStats?.[statName] || '');
     const drop = useStatDrop(value, setValue, setUsedRolls);
 
     return {
       name: statName,
       value,
       drop,
+      setValue,
     };
   });
 }
 
 function PcStats() {
   const { pc } = useLoaderData();
-  const { age, pClass, height, name, race, size, speed, subrace, weight } = pc;
-
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
-
-  const [rolls, setRolls] = useState(Array(6).fill(0));
-  const [usedRolls, setUsedRolls] = useState(Array(6).fill(false));
+  const { pClass, name, race, subrace, stats: initPStats } = pc;
 
   function addRoll() {
     const result = random.roll.processCommand('4d6p3');
@@ -129,8 +124,30 @@ function PcStats() {
     setRolls(newRolls);
   }
 
-  const stats = useStats(setUsedRolls);
-  const [semiElfExtraPoints, setSemiElfExtraPoints] = useState([]);
+  function reset() {
+    setRolls(Array(6).fill(0));
+    setUsedRolls(Array(6).fill(false));
+    setSemiElfExtraPoints([]);
+    setPStats(STATS.reduce((acc, statName) => ({ [statName]: '' }), {}));
+    stats.forEach(stat => stat.setValue(''));
+  }
+
+  const transition = useTransition();
+  const isCreating = Boolean(transition.submission);
+
+  const [pStats, setPStats] = useState(initPStats);
+
+  const areStatsSet = Object.values(pStats).filter(v => v).length >= 6;
+
+  const [rolls, setRolls] = useState(Array(6).fill(0));
+  const [usedRolls, setUsedRolls] = useState(
+    Array(6).fill(areStatsSet ? true : false)
+  );
+
+  const stats = useStats(setUsedRolls, pStats);
+  const [semiElfExtraPoints, setSemiElfExtraPoints] = useState(
+    areStatsSet ? [] : ['-', '-']
+  );
 
   const rollsComplete = rolls.filter(r => r).length === 6;
   const canContinue = usedRolls.filter(r => r).length === 6;
@@ -152,16 +169,18 @@ function PcStats() {
         />
       ))}
 
-      <p>
-        {rolls.map((roll, i) => (
-          <StatRoll roll={roll} index={i} canDrag={!usedRolls[i]} key={i} />
-        ))}
-        {!rollsComplete && (
-          <button type="button" onClick={addRoll}>
-            Add roll
-          </button>
-        )}
-      </p>
+      {!areStatsSet && (
+        <p>
+          {rolls.map((roll, i) => (
+            <StatRoll roll={roll} index={i} canDrag={!usedRolls[i]} key={i} />
+          ))}
+          {!rollsComplete && (
+            <button type="button" onClick={addRoll}>
+              1d6
+            </button>
+          )}
+        </p>
+      )}
 
       {stats.map(stat => {
         const statExtraPoints = getStatExtraPoints(
@@ -170,6 +189,7 @@ function PcStats() {
           semiElfExtraPoints
         );
         const showPlus1Button =
+          !areStatsSet &&
           race === 'half-elf' &&
           stat.name !== 'cha' &&
           semiElfExtraPoints.length !== 2 &&
@@ -186,10 +206,8 @@ function PcStats() {
                 value={stat.value}
                 readOnly
               />{' '}
-              {!!statExtraPoints && (
-                <span>
-                  {signed(statExtraPoints)}
-                </span>
+              {!!statExtraPoints && !areStatsSet && (
+                <span>{signed(statExtraPoints)}</span>
               )}
               {showPlus1Button && (
                 <button
@@ -213,6 +231,9 @@ function PcStats() {
             : canContinue
             ? 'Continuar'
             : 'Asigna stats'}
+        </button>
+        <button type="button" onClick={reset}>
+          Reiniciar
         </button>
       </p>
     </Form>
