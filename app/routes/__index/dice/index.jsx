@@ -1,6 +1,7 @@
 import { useState, Fragment, useMemo } from 'react';
 import styles from '~/components/dice.module.css';
 import random from '~/utils/random';
+import { signed } from '~/utils/display';
 
 function rollLevel(value, faces, isAccounted) {
   if (!isAccounted) {
@@ -45,8 +46,7 @@ function AllRolls(props) {
         ))}
         {!!modifier && (
           <span className={styles.modifier}>
-            {modifier > 0 && '+'}
-            {modifier}
+            {signed(modifier)}
           </span>
         )}
       </>

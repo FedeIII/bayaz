@@ -15,6 +15,7 @@ import {
   translateRace,
   CLASSES,
   translateClass,
+  getInitialHitPoints,
 } from '~/utils/characters';
 import { createPc } from '~/services/pc.server';
 
@@ -52,6 +53,10 @@ export const action = async ({ request }) => {
     height,
     weight,
     pClass,
+    level: 1,
+    maxHitPoints: getInitialHitPoints(pClass),
+    hitPoints: getInitialHitPoints(pClass),
+    exp: 0,
   };
 
   await createPc(pc);

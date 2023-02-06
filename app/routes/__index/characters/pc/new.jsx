@@ -5,13 +5,13 @@ import menuStyles from '~/components/menus.module.css';
 
 function NewPC() {
   return (
-    <div className={styles.container}>
+    <>
       <Link to="../" className={menuStyles.backButton}>
         {'<<'} Volver
       </Link>
 
       <Outlet />
-    </div>
+    </>
   );
 }
 

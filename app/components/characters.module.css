@@ -1,6 +1,9 @@
 .container {
-  width: 80%;
+  width: 95%;
+  height: fit-content;
+  padding: 8px 0;
   margin: auto;
+  position: relative;
 }
 
 .rangeMarks {

@@ -62,6 +62,9 @@ const pcSchema = new mongoose.Schema({
       'wizard',
     ],
   },
+  level: Number,
+  exp: Number,
+  hitPoints: Number,
   barbarian: barbarianSchema,
   stats: statsSchema,
 });

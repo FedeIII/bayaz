@@ -166,42 +166,78 @@ export function translateRace(race) {
 
 export const CLASSES = {
   barbarian: {
-    hitPoints: '1d12',
+    initialHitPoints: 12,
+    hitDice: '1d12',
+    proficiency: ['str', 'con'],
   },
   bard: {
-    hitPoints: '1d8',
+    initialHitPoints: 8,
+    hitDice: '1d8',
+    proficiency: ['dex', 'cha'],
   },
   cleric: {
-    hitPoints: '1d8',
+    initialHitPoints: 8,
+    hitDice: '1d8',
+    proficiency: ['wis', 'cha'],
   },
   druid: {
-    hitPoints: '1d8',
+    initialHitPoints: 8,
+    hitDice: '1d8',
+    proficiency: ['int', 'wis'],
   },
   fighter: {
-    hitPoints: '1d10',
+    initialHitPoints: 10,
+    hitDice: '1d10',
+    proficiency: ['str', 'con'],
   },
   monk: {
-    hitPoints: '1d8',
+    initialHitPoints: 8,
+    hitDice: '1d8',
+    proficiency: ['str', 'dex'],
   },
   palading: {
-    hitPoints: '1d10',
+    initialHitPoints: 10,
+    hitDice: '1d10',
+    proficiency: ['str', 'cha'],
   },
   ranger: {
-    hitPoints: '1d10',
+    initialHitPoints: 10,
+    hitDice: '1d10',
+    proficiency: ['str', 'dex'],
   },
   rogue: {
-    hitPoints: '1d8',
+    initialHitPoints: 8,
+    hitDice: '1d8',
+    proficiency: ['dex', 'int'],
   },
   sorcerer: {
-    hitPoints: '1d6',
+    initialHitPoints: 6,
+    hitDice: '1d6',
+    proficiency: ['con', 'cha'],
   },
   warlock: {
-    hitPoints: '1d8',
+    initialHitPoints: 8,
+    hitDice: '1d8',
+    proficiency: ['wis', 'cha'],
   },
   wizard: {
-    hitPoints: '1d6',
+    initialHitPoints: 6,
+    hitDice: '1d6',
+    proficiency: ['int', 'wis'],
   },
 };
+
+export function getInitialHitPoints(pClass) {
+  return CLASSES[pClass].initialHitPoints;
+}
+
+export function isProficientStat(stat, pClass) {
+  return CLASSES[pClass].proficiency.includes(stat);
+}
+
+export function statSavingThrow(stat, pClass, lvl) {
+  return isProficientStat(stat, pClass) ? proficiencyBonus(lvl) : 0;
+}
 
 export function translateClass(race) {
   switch (race) {
@@ -253,12 +289,24 @@ export function translateStat(stat) {
   }
 }
 
-export function getStatMod(stat, character, extraPointStats) {
+export function getStatExtraPoints(stat, character, extraPointStats) {
   const { race, subrace } = character;
   let mod = RACES[race][subrace].statMods?.[stat] || 0;
   if (extraPointStats.includes(stat)) mod++;
 
   return mod;
+}
+
+export function getStatMod(statValue) {
+  return Math.floor(statValue / 2) - 5;
+}
+
+export function proficiencyBonus(lvl) {
+  if (lvl <= 4) return 2;
+  if (lvl <= 8) return 3;
+  if (lvl <= 13) return 4;
+  if (lvl <= 16) return 5;
+  return 6;
 }
 
 export const ALIGNMENTS = {

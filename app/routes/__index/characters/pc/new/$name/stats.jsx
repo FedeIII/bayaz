@@ -6,7 +6,8 @@ import classnames from 'classnames';
 
 import { getPc, updatePc } from '~/services/pc.server';
 import random from '~/utils/random';
-import { STATS, translateStat, getStatMod } from '~/utils/characters';
+import { signed } from '~/utils/display';
+import { STATS, translateStat, getStatExtraPoints } from '~/utils/characters';
 
 import styles from '~/components/characters.module.css';
 
@@ -36,7 +37,7 @@ export const action = async ({ request }) => {
       ...pcStats,
       [statName]:
         parseInt(formData.get(statName), 10) +
-        getStatMod(statName, { race, subrace }, extraPoints),
+        getStatExtraPoints(statName, { race, subrace }, extraPoints),
     }),
     {}
   );
@@ -163,7 +164,11 @@ function PcStats() {
       </p>
 
       {stats.map(stat => {
-        const statMod = getStatMod(stat.name, pc, semiElfExtraPoints);
+        const statExtraPoints = getStatExtraPoints(
+          stat.name,
+          pc,
+          semiElfExtraPoints
+        );
         const showPlus1Button =
           race === 'half-elf' &&
           stat.name !== 'cha' &&
@@ -181,8 +186,10 @@ function PcStats() {
                 value={stat.value}
                 readOnly
               />{' '}
-              {!!statMod && (
-                <span>{statMod > 0 ? `+${statMod}` : statMod}</span>
+              {!!statExtraPoints && (
+                <span>
+                  {signed(statExtraPoints)}
+                </span>
               )}
               {showPlus1Button && (
                 <button
