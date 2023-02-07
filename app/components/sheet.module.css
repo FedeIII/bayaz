@@ -81,6 +81,13 @@
   width: 100%;
 }
 
+.annotation {
+  font-size: 10px;
+  position: absolute;
+  top: -5px;
+  left: 30px;
+}
+
 .data {
   color: blue;
   font-size: 18px;
@@ -89,6 +96,7 @@
   justify-content: flex-start;
   align-items: flex-end;
   line-height: 1;
+  position: relative;
 }
 
 .name {

@@ -11,6 +11,13 @@ export const RACES = {
         wis: 1,
       },
       extraHitPoints: 1,
+      conditionalSkills: {
+        history: pc =>
+          skillCheckBonus(
+            { ...pc, skills: [...pc.skills, 'history'] },
+            'history'
+          ),
+      },
     },
     mountains: {
       age: [40, 350],
@@ -21,6 +28,13 @@ export const RACES = {
       statMods: {
         str: 2,
         con: 2,
+      },
+      conditionalSkills: {
+        history: pc =>
+          skillCheckBonus(
+            { ...pc, skills: [...pc.skills, 'history'] },
+            'history'
+          ),
       },
     },
   },
@@ -126,6 +140,7 @@ export const RACES = {
         str: 2,
         con: 1,
       },
+      skills: ['intimidation'],
     },
   },
 };
@@ -166,6 +181,12 @@ export function translateRace(race) {
     case 'stout':
       return 'fornido';
   }
+}
+
+export function getConditionalSkills(pc) {
+  const { race, subrace } = pc;
+
+  return RACES[race][subrace].conditionalSkills || [];
 }
 
 export const CLASSES = {
@@ -390,7 +411,7 @@ export function translateSkill(skill) {
 }
 
 export function skills(pc) {
-  return [...pc.skills, ...pc.halfElf?.skills];
+  return [...(pc.skills || []), ...(pc.halfElf?.skills || [])];
 }
 
 export function isProficientSkill(pc, skillName) {

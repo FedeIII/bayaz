@@ -31,12 +31,12 @@ export const action = async ({ request }) => {
   const race = formData.get('race');
   const subrace = formData.get('subrace');
   const extraPoints = formData.getAll('extra-points[]');
-  const extraStr = formData.getAll('extra-str');
-  const extraDex = formData.getAll('extra-dex');
-  const extraCon = formData.getAll('extra-con');
-  const extraInt = formData.getAll('extra-int');
-  const extraWis = formData.getAll('extra-wis');
-  const extraCha = formData.getAll('extra-cha');
+  const extraStr = formData.get('extra-str');
+  const extraDex = formData.get('extra-dex');
+  const extraCon = formData.get('extra-con');
+  const extraInt = formData.get('extra-int');
+  const extraWis = formData.get('extra-wis');
+  const extraCha = formData.get('extra-cha');
 
   const stats = STATS.reduce(
     (pcStats, statName) => ({
@@ -59,12 +59,12 @@ export const action = async ({ request }) => {
         {}
       )
     : {
-        str: parseInt(extraStr, 10),
-        dex: parseInt(extraDex, 10),
-        con: parseInt(extraCon, 10),
-        int: parseInt(extraInt, 10),
-        wis: parseInt(extraWis, 10),
-        cha: parseInt(extraCha, 10),
+        str: parseInt(extraStr, 10) || 0,
+        dex: parseInt(extraDex, 10) || 0,
+        con: parseInt(extraCon, 10) || 0,
+        int: parseInt(extraInt, 10) || 0,
+        wis: parseInt(extraWis, 10) || 0,
+        cha: parseInt(extraCha, 10) || 0,
       };
 
   await updatePc({ name, stats, extraStats });
@@ -253,7 +253,7 @@ function PcStats() {
               {!!statExtraPoints && (
                 <>
                   <span>{signed(statExtraPoints)}</span>
-                  {Array(statExtraPoints).map(() => (
+                  {Array(statExtraPoints).fill(
                     <input
                       readOnly
                       type="text"
@@ -261,7 +261,7 @@ function PcStats() {
                       value={stat.name}
                       hidden
                     />
-                  ))}
+                  )}
                 </>
               )}
               {showPlus1Button && (

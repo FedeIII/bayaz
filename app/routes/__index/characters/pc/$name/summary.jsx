@@ -15,6 +15,7 @@ import {
   getExtraHitPoints,
   SKILLS,
   skillCheckBonus,
+  getConditionalSkills,
 } from '~/utils/characters';
 import { signed, increment } from '~/utils/display';
 
@@ -52,6 +53,7 @@ function PcSummary() {
   } = pc;
 
   const allSkills = [...skills, ...halfElfSkills];
+  const conditionalSkills = getConditionalSkills(pc);
 
   return (
     <>
@@ -123,6 +125,11 @@ function PcSummary() {
         {SKILLS.map(skill => (
           <span className={`${styles.data} ${styles[`${skill.name}Saving`]}`}>
             {increment(skillCheckBonus(pc, skill.name))}
+            {Object.keys(conditionalSkills).includes(skill.name) && (
+              <span className={styles.annotation}>
+                ({increment(conditionalSkills[skill.name](pc))})
+              </span>
+            )}
           </span>
         ))}
       </div>
