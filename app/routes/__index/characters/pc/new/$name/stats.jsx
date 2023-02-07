@@ -69,11 +69,11 @@ export const action = async ({ request }) => {
 
   await updatePc({ name, stats, extraStats });
 
-  if (race === 'half-elf') return redirect(`../${name}/half-elf`);
+  if (race === 'half-elf') return redirect(`../${name}/race/half-elf`);
 
-  if (pClass === 'barbarian') return redirect(`../${name}/barbarian`);
+  return redirect(`../${name}/class/${pClass}`);
 
-  return redirect(`/characters/pc/${name}/summary`);
+  // return redirect(`/characters/pc/${name}/summary`);
 };
 
 function StatRoll(props) {

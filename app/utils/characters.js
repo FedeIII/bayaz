@@ -208,11 +208,34 @@ export const CLASSES = {
     initialHitPoints: 8,
     hitDice: '1d8',
     proficiency: ['dex', 'cha'],
+    pickSkills: 3,
+    skillsToPick: [
+      'athletics',
+      'acrobatics',
+      'sleight-of-hand',
+      'stealth',
+      'arcana',
+      'history',
+      'investigation',
+      'nature',
+      'religion',
+      'animal-handling',
+      'insight',
+      'medicine',
+      'perception',
+      'survival',
+      'deception',
+      'intimidation',
+      'performance',
+      'persuasion',
+    ],
   },
   cleric: {
     initialHitPoints: 8,
     hitDice: '1d8',
     proficiency: ['wis', 'cha'],
+    pickSkills: 2,
+    skillsToPick: ['insight', 'history', 'medicine', 'persuasion', 'religion'],
   },
   druid: {
     initialHitPoints: 8,
@@ -253,6 +276,16 @@ export const CLASSES = {
     initialHitPoints: 8,
     hitDice: '1d8',
     proficiency: ['wis', 'cha'],
+    pickSkills: 2,
+    skillsToPick: [
+      'arcana',
+      'deception',
+      'history',
+      'intimidation',
+      'investigation',
+      'nature',
+      'religion',
+    ],
   },
   wizard: {
     initialHitPoints: 6,
@@ -377,9 +410,8 @@ export const SKILLS = [
   { name: 'persuasion', stat: 'cha' },
 ];
 
-export function translateSkill(skill) {
-  switch (skill) {
-    default:
+export function translateSkill(skillName) {
+  switch (skillName) {
     case 'athletics':
       return 'Atletismo';
     case 'acrobatics':
@@ -416,6 +448,8 @@ export function translateSkill(skill) {
       return 'Interpretación';
     case 'persuasion':
       return 'Persuasión';
+    default:
+      return 'unknown';
   }
 }
 
@@ -423,7 +457,7 @@ export function skills(pc) {
   return [
     ...(pc.skills || []),
     ...(pc.halfElf?.skills || []),
-    ...(pc.barbarian?.skills || []),
+    ...(pc.classAttrs?.skills || []),
   ];
 }
 

@@ -3,7 +3,13 @@ import { Form, useLoaderData, useTransition } from '@remix-run/react';
 import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import { SKILLS, translateSkill } from '~/utils/characters';
+import {
+  CLASSES,
+  translateSkill,
+  skills,
+  translateClass,
+} from '~/utils/characters';
+import BarbarianSkills from '~/components/barbarianSkills';
 
 import styles from '~/components/characters.module.css';
 
@@ -19,38 +25,41 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
-  const pClass = formData.get('pClass');
+  const primalPath = formData.get('primal-path');
   const skills = formData.getAll('skills[]');
-  const halfElfSkills = formData.getAll('half-elf-skills[]');
 
-  await updatePc({
-    name,
-    skills,
-    halfElf: { skills: halfElfSkills },
-  });
+  await updatePc({ name, classAttrs: { skills, primalPath } });
 
-  if (pClass === 'barbarian') return redirect(`../${name}/barbarian`);
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function PcHalfElfSkills() {
-  const { pc } = useLoaderData();
-  const {
-    name,
-    pClass,
-    skills = [],
-    halfElf: { skills: halfElfSkills } = { skills: [] },
-  } = pc;
+function ClassSkills(props) {
+  const { pc } = props;
+  const { pClass } = pc;
 
-  const allSkills = [...skills, ...halfElfSkills];
+  switch (pClass) {
+    case 'barbarian':
+      return <BarbarianSkills pc={pc} />;
+
+    default:
+      return null;
+  }
+}
+
+function PcClassSkills() {
+  const { pc } = useLoaderData();
+  const { pClass, name } = pc;
+  const { classAttrs: { skills: classSkills } = { skills: [] } } = pc;
 
   const transition = useTransition();
   const isCreating = Boolean(transition.submission);
 
+  const allSkills = skills(pc);
+
   const [checks, setChecks] = useState(
-    SKILLS.map(s => allSkills.includes(s.name))
+    CLASSES[pClass].skillsToPick.map(s => allSkills.includes(s))
   );
-  const [selectionCount, setSelectionCount] = useState(halfElfSkills.length);
+  const [selectionCount, setSelectionCount] = useState(classSkills.length);
 
   const onSkillChange = i => () => {
     if (checks[i]) {
@@ -58,7 +67,7 @@ function PcHalfElfSkills() {
       newChecks[i] = false;
       setChecks(newChecks);
       setSelectionCount(v => v - 1);
-    } else if (checks.filter(v => v).length < 2) {
+    } else {
       const newChecks = checks.slice();
       newChecks[i] = true;
       setChecks(newChecks);
@@ -66,33 +75,33 @@ function PcHalfElfSkills() {
     }
   };
 
-  const canContinue = selectionCount === 2;
+  const canContinue = selectionCount === CLASSES[pClass].pickSkills;
 
   return (
     <Form method="post">
-      <h2>Habilidades de semielfo para {name}</h2>
+      <h2>
+        Habilidades de {translateClass(pClass)} para {name}
+      </h2>
       <input readOnly type="text" name="name" value={name} hidden />
-      <input readOnly type="text" name="pClass" value={pClass} hidden />
+
+      <ClassSkills pc={pc} />
 
       <p>
-        Selecciona dos habilidades en las que ser competente
-        {SKILLS.map((skill, i) => (
-          <label
-            for={skill.name}
-            key={skill.name}
-            className={styles.skillLabel}
-          >
+        Escoge {CLASSES[pClass].pickSkills} habilidades
+        {CLASSES[pClass].skillsToPick.map((skillName, i) => (
+          <label for={skillName} key={skillName} className={styles.skillLabel}>
             <input
               type="checkbox"
-              name={
-                skills.includes(skill.name) ? 'skills[]' : 'half-elf-skills[]'
-              }
-              value={skill.name}
+              name="skills[]"
+              value={skillName}
               checked={checks[i]}
               onChange={onSkillChange(i)}
-              disabled={skills.includes(skill.name)}
+              disabled={
+                allSkills.includes(skillName) &&
+                !classSkills.includes(skillName)
+              }
             />
-            {translateSkill(skill.name)}
+            {translateSkill(skillName)}
           </label>
         ))}
       </p>
@@ -110,4 +119,4 @@ function PcHalfElfSkills() {
   );
 }
 
-export default PcHalfElfSkills;
+export default PcClassSkills;

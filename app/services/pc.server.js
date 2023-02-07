@@ -11,15 +11,15 @@ const statsSchema = new mongoose.Schema({
   ),
 });
 
-const halfElfSchema = new mongoose.Schema({
-  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
-});
-
-const barbarianSchema = new mongoose.Schema({
+const classAttrsSchema = new mongoose.Schema({
   primalPath: {
     type: String,
     enum: ['berserker', 'totem-warrior'],
   },
+  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+});
+
+const halfElfSchema = new mongoose.Schema({
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });
 
@@ -73,7 +73,7 @@ const pcSchema = new mongoose.Schema({
   hitPoints: Number,
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
   halfElf: halfElfSchema,
-  barbarian: barbarianSchema,
+  classAttrs: classAttrsSchema,
   stats: statsSchema,
   extraStats: statsSchema,
 });

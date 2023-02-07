@@ -1,11 +1,11 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import { CLASSES, translateSkill, skills } from '~/utils/characters';
+import { SKILLS, translateSkill } from '~/utils/characters';
 
 import styles from '~/components/characters.module.css';
-import { useState } from 'react';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -19,31 +19,41 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
-  const primalPath = formData.get('primal-path');
+  const pClass = formData.get('pClass');
   const skills = formData.getAll('skills[]');
+  const halfElfSkills = formData.getAll('half-elf-skills[]');
 
-  await updatePc({ name, barbarian: { primalPath, skills } });
+  await updatePc({
+    name,
+    skills,
+    halfElf: { skills: halfElfSkills },
+  });
 
-  return redirect(`/characters/pc/${name}/summary`);
+  return redirect(`../${name}/class/${pClass}`);
+  // if (pClass === 'bard') return redirect(`../${name}/bard`);
+  // if (pClass === 'warlock') return redirect(`../${name}/warlock`);
+  // if (pClass === 'cleric') return redirect(`../${name}/cleric`);
+  // return redirect(`/characters/pc/${name}/summary`);
 };
 
-function PcBarbarianSkills() {
+function PcHalfElfSkills() {
   const { pc } = useLoaderData();
   const {
-    pClass,
     name,
-    barbarian: { primalPath, skills: barbarianSkills } = { skills: [] },
+    pClass,
+    skills = [],
+    halfElf: { skills: halfElfSkills } = { skills: [] },
   } = pc;
+
+  const allSkills = [...skills, ...halfElfSkills];
 
   const transition = useTransition();
   const isCreating = Boolean(transition.submission);
 
-  const allSkills = skills(pc);
-
   const [checks, setChecks] = useState(
-    CLASSES[pClass].skillsToPick.map(s => allSkills.includes(s))
+    SKILLS.map(s => allSkills.includes(s.name))
   );
-  const [selectionCount, setSelectionCount] = useState(barbarianSkills.length);
+  const [selectionCount, setSelectionCount] = useState(halfElfSkills.length);
 
   const onSkillChange = i => () => {
     if (checks[i]) {
@@ -51,7 +61,7 @@ function PcBarbarianSkills() {
       newChecks[i] = false;
       setChecks(newChecks);
       setSelectionCount(v => v - 1);
-    } else {
+    } else if (checks.filter(v => v).length < 2) {
       const newChecks = checks.slice();
       newChecks[i] = true;
       setChecks(newChecks);
@@ -59,39 +69,33 @@ function PcBarbarianSkills() {
     }
   };
 
-  const canContinue = selectionCount === CLASSES[pClass].pickSkills;
+  const canContinue = selectionCount === 2;
 
   return (
     <Form method="post">
-      <h2>Habilidades de bárbaro para {name}</h2>
+      <h2>Habilidades de semielfo para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
+      <input readOnly type="text" name="pClass" value={pClass} hidden />
 
       <p>
-        <label>
-          Senda Primaria:{' '}
-          <select name="primal-path">
-            <option value="berserker">Senda del Berserker</option>
-            <option value="totem-warrior">Senda del Guerrero Totémico</option>
-          </select>
-        </label>
-      </p>
-
-      <p>
-        Escoge {CLASSES[pClass].pickSkills} habilidades
-        {CLASSES[pClass].skillsToPick.map((skillName, i) => (
-          <label for={skillName} key={skillName} className={styles.skillLabel}>
+        Selecciona dos habilidades en las que ser competente
+        {SKILLS.map((skill, i) => (
+          <label
+            for={skill.name}
+            key={skill.name}
+            className={styles.skillLabel}
+          >
             <input
               type="checkbox"
-              name="skills[]"
-              value={skillName}
+              name={
+                skills.includes(skill.name) ? 'skills[]' : 'half-elf-skills[]'
+              }
+              value={skill.name}
               checked={checks[i]}
               onChange={onSkillChange(i)}
-              disabled={
-                allSkills.includes(skillName) &&
-                !barbarianSkills.includes(skillName)
-              }
+              disabled={skills.includes(skill.name)}
             />
-            {translateSkill(skillName)}
+            {translateSkill(skill.name)}
           </label>
         ))}
       </p>
@@ -109,4 +113,4 @@ function PcBarbarianSkills() {
   );
 }
 
-export default PcBarbarianSkills;
+export default PcHalfElfSkills;
