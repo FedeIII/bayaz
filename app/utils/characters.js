@@ -194,6 +194,15 @@ export const CLASSES = {
     initialHitPoints: 12,
     hitDice: '1d12',
     proficiency: ['str', 'con'],
+    pickSkills: 2,
+    skillsToPick: [
+      'athletics',
+      'intimidation',
+      'nature',
+      'perception',
+      'survival',
+      'animal-handling',
+    ],
   },
   bard: {
     initialHitPoints: 8,
@@ -411,7 +420,11 @@ export function translateSkill(skill) {
 }
 
 export function skills(pc) {
-  return [...(pc.skills || []), ...(pc.halfElf?.skills || [])];
+  return [
+    ...(pc.skills || []),
+    ...(pc.halfElf?.skills || []),
+    ...(pc.barbarian?.skills || []),
+  ];
 }
 
 export function isProficientSkill(pc, skillName) {

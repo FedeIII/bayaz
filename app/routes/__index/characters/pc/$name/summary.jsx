@@ -16,6 +16,7 @@ import {
   SKILLS,
   skillCheckBonus,
   getConditionalSkills,
+  skills,
 } from '~/utils/characters';
 import { signed, increment } from '~/utils/display';
 
@@ -33,26 +34,18 @@ export const loader = async ({ params }) => {
 function PcSummary() {
   const { pc } = useLoaderData();
   const {
-    age,
     pClass,
-    height,
     name,
     race,
-    size,
     speed,
     subrace,
-    weight,
     level,
     maxHitPoints,
     hitPoints,
     exp,
-    stats,
-    extraStats,
-    skills,
-    halfElf: { skills: halfElfSkills } = { skills: [] },
   } = pc;
 
-  const allSkills = [...skills, ...halfElfSkills];
+  const allSkills = skills(pc);
   const conditionalSkills = getConditionalSkills(pc);
 
   return (

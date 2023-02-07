@@ -20,6 +20,7 @@ const barbarianSchema = new mongoose.Schema({
     type: String,
     enum: ['berserker', 'totem-warrior'],
   },
+  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });
 
 const pcSchema = new mongoose.Schema({
