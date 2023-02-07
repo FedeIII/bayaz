@@ -31,7 +31,7 @@ function PcBarbarianSkills() {
 
   return (
     <Form method="post">
-      <h2>{name}'s barbarian skills</h2>
+      <h2>Habilidades de bárbaro para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
 
       <p>

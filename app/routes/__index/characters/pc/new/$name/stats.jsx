@@ -1,6 +1,6 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import classnames from 'classnames';
 
@@ -31,20 +31,49 @@ export const action = async ({ request }) => {
   const race = formData.get('race');
   const subrace = formData.get('subrace');
   const extraPoints = formData.getAll('extra-points[]');
+  const extraStr = formData.getAll('extra-str');
+  const extraDex = formData.getAll('extra-dex');
+  const extraCon = formData.getAll('extra-con');
+  const extraInt = formData.getAll('extra-int');
+  const extraWis = formData.getAll('extra-wis');
+  const extraCha = formData.getAll('extra-cha');
 
   const stats = STATS.reduce(
     (pcStats, statName) => ({
       ...pcStats,
-      [statName]:
-        parseInt(formData.get(statName), 10) +
-        getStatExtraPoints(statName, { race, subrace }, extraPoints),
+      [statName]: parseInt(formData.get(statName), 10),
     }),
     {}
   );
 
-  await updatePc({ name, stats });
+  const extraStats = extraPoints?.length
+    ? STATS.reduce(
+        (pcStats, statName) => ({
+          ...pcStats,
+          [statName]: getStatExtraPoints(
+            statName,
+            { race, subrace },
+            extraPoints
+          ),
+        }),
+        {}
+      )
+    : {
+        str: parseInt(extraStr, 10),
+        dex: parseInt(extraDex, 10),
+        con: parseInt(extraCon, 10),
+        int: parseInt(extraInt, 10),
+        wis: parseInt(extraWis, 10),
+        cha: parseInt(extraCha, 10),
+      };
 
-  return redirect(`../${name}/${pClass}`);
+  await updatePc({ name, stats, extraStats });
+
+  if (race === 'half-elf') return redirect(`../${name}/half-elf`);
+
+  if (pClass === 'barbarian') return redirect(`../${name}/barbarian`);
+
+  return redirect(`/characters/pc/${name}/summary`);
 };
 
 function StatRoll(props) {
@@ -113,7 +142,7 @@ function useStats(setUsedRolls, pStats) {
 
 function PcStats() {
   const { pc } = useLoaderData();
-  const { pClass, name, race, subrace, stats: initPStats } = pc;
+  const { pClass, name, race, subrace, stats: initPStats, extraStats } = pc;
 
   function addRoll() {
     const result = random.roll.processCommand('4d6p3');
@@ -130,6 +159,7 @@ function PcStats() {
     setSemiElfExtraPoints([]);
     setPStats(STATS.reduce((acc, statName) => ({ [statName]: '' }), {}));
     stats.forEach(stat => stat.setValue(''));
+    setAreStatsPreloaded(false);
   }
 
   const transition = useTransition();
@@ -137,7 +167,11 @@ function PcStats() {
 
   const [pStats, setPStats] = useState(initPStats);
 
-  const areStatsSet = Object.values(pStats).filter(v => v).length >= 6;
+  const [areStatsPreloaded, setAreStatsPreloaded] = useState(
+    initPStats && Object.values(initPStats).filter(v => v).length >= 6
+  );
+  const areStatsSet =
+    pStats && Object.values(pStats).filter(v => v).length >= 6;
 
   const [rolls, setRolls] = useState(Array(6).fill(0));
   const [usedRolls, setUsedRolls] = useState(
@@ -145,12 +179,13 @@ function PcStats() {
   );
 
   const stats = useStats(setUsedRolls, pStats);
-  const [semiElfExtraPoints, setSemiElfExtraPoints] = useState(
-    areStatsSet ? [] : ['-', '-']
-  );
+  const [semiElfExtraPoints, setSemiElfExtraPoints] = useState([]);
 
   const rollsComplete = rolls.filter(r => r).length === 6;
-  const canContinue = usedRolls.filter(r => r).length === 6;
+  const canContinue =
+    areStatsPreloaded ||
+    (usedRolls.filter(r => r).length === 6 &&
+      (race != 'half-elf' || semiElfExtraPoints.length === 2));
 
   return (
     <Form method="post">
@@ -166,8 +201,19 @@ function PcStats() {
           name="extra-points[]"
           value={extraPointStat}
           hidden
+          key={extraPointStat}
         />
       ))}
+      {areStatsPreloaded &&
+        Object.entries(extraStats).map(([extraStatName, extraStatValue]) => (
+          <input
+            readOnly
+            type="text"
+            name={`extra-${extraStatName}`}
+            value={extraStatValue}
+            hidden
+          />
+        ))}
 
       {!areStatsSet && (
         <p>
@@ -183,11 +229,9 @@ function PcStats() {
       )}
 
       {stats.map(stat => {
-        const statExtraPoints = getStatExtraPoints(
-          stat.name,
-          pc,
-          semiElfExtraPoints
-        );
+        const statExtraPoints = areStatsPreloaded
+          ? extraStats[stat.name]
+          : getStatExtraPoints(stat.name, pc, semiElfExtraPoints);
         const showPlus1Button =
           !areStatsSet &&
           race === 'half-elf' &&
@@ -206,8 +250,19 @@ function PcStats() {
                 value={stat.value}
                 readOnly
               />{' '}
-              {!!statExtraPoints && !areStatsSet && (
-                <span>{signed(statExtraPoints)}</span>
+              {!!statExtraPoints && (
+                <>
+                  <span>{signed(statExtraPoints)}</span>
+                  {Array(statExtraPoints).map(() => (
+                    <input
+                      readOnly
+                      type="text"
+                      name="extra-points[]"
+                      value={stat.name}
+                      hidden
+                    />
+                  ))}
+                </>
               )}
               {showPlus1Button && (
                 <button

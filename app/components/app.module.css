@@ -25,7 +25,7 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: 16vw;
+  width: 10vw;
   padding: 8px;
   background-color: #5c687e;
   color: white;
@@ -35,7 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 84vw;
+  width: 90vw;
   color: white;
   overflow-y: scroll;
 }

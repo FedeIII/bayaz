@@ -1,5 +1,5 @@
 import { mongoose } from '~/services/db.server';
-import { RACES, STATS } from '~/utils/characters';
+import { RACES, STATS, SKILLS } from '~/utils/characters';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -9,6 +9,10 @@ const statsSchema = new mongoose.Schema({
     }),
     {}
   ),
+});
+
+const halfElfSchema = new mongoose.Schema({
+  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });
 
 const barbarianSchema = new mongoose.Schema({
@@ -64,9 +68,13 @@ const pcSchema = new mongoose.Schema({
   },
   level: Number,
   exp: Number,
+  maxHitPoints: Number,
   hitPoints: Number,
+  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  halfElf: halfElfSchema,
   barbarian: barbarianSchema,
   stats: statsSchema,
+  extraStats: statsSchema,
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);
@@ -82,18 +90,12 @@ export async function getPc(name) {
 }
 
 export async function createPc(pc) {
-  const { name, race, subrace, age, height, weight, pClass } = pc;
+  const { race, subrace } = pc;
 
   const newPc = await Pc.create({
-    name,
-    race,
-    subrace,
-    age,
-    height,
-    weight,
+    ...pc,
     size: RACES[race][subrace].size,
     speed: RACES[race][subrace].speed,
-    pClass,
   });
 
   return newPc;

@@ -1,8 +1,8 @@
 .summary {
   width: 100%;
   position: absolute;
-  top: 26px;
-  bottom: 13px;
+  top: 4px;
+  bottom: 4px;
   font-family: fantasy;
   display: grid;
   grid-template-columns: 8.5% 3.5% 5% 2.5% 19% 4.5% 2% 2% 5.5% 4% 5.5% 1% 5.5% 10% 13% 1% 7%;
@@ -39,41 +39,41 @@
     /* 27 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 27 */
     /* 28 */ '.   coM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 28 */
     /* 29 */ '.   coM .   .   .   .   hiD hiD .   .   .   .   .   .   .   .   .' /* 29 */
-    /* 30 */ '.   .   .   .   .   .   hiD hiD .   .   .   .   .   .   .   .   .' /* 30 */
-    /* 31 */ '.   con .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 31 */
-    /* 32 */ '.   con .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 32 */
-    /* 33 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 33 */
-    /* 34 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 34 */
+    /* 30 */ '.   .   .   sP1 sS1 .   hiD hiD .   .   .   .   .   .   .   .   .' /* 30 */
+    /* 31 */ '.   con .   .   .   exH exH exH .   .   .   .   .   .   .   .   .' /* 31 */
+    /* 32 */ '.   con .   sP2 sS2 exH exH exH .   .   .   .   .   .   .   .   .' /* 32 */
+    /* 33 */ '.   .   .   .   .   exH exH exH .   .   .   .   .   .   .   .   .' /* 33 */
+    /* 34 */ '.   .   .   sP3 sS3 .   .   .   .   .   .   .   .   .   .   .   .' /* 34 */
     /* 35 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 35 */
-    /* 36 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 36 */
+    /* 36 */ '.   .   .   sP4 sS4 .   .   .   .   .   .   .   .   .   .   .   .' /* 36 */
     /* 37 */ '.   inM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 37 */
-    /* 38 */ '.   inM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 38 */
+    /* 38 */ '.   inM .   sP5 sS5 .   .   .   .   .   .   .   .   .   .   .   .' /* 38 */
     /* 39 */ '.   inM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 39 */
-    /* 40 */ '.   inM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 40 */
+    /* 40 */ '.   inM .   sP6 sS6 .   .   .   .   .   .   .   .   .   .   .   .' /* 40 */
     /* 41 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 41 */
-    /* 42 */ '.   int .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 42 */
+    /* 42 */ '.   int .   sP7 sS7 .   .   .   .   .   .   .   .   .   .   .   .' /* 42 */
     /* 43 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 43 */
-    /* 44 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 44 */
+    /* 44 */ '.   .   .   sP8 sS8 .   .   .   .   .   .   .   .   .   .   .   .' /* 44 */
     /* 45 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 45 */
-    /* 46 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 46 */
+    /* 46 */ '.   .   .   sP9 sS9 .   .   .   .   .   .   .   .   .   .   .   .' /* 46 */
     /* 47 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 47 */
-    /* 48 */ '.   wiM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 48 */
+    /* 48 */ '.   wiM .   sP0 sS0 .   .   .   .   .   .   .   .   .   .   .   .' /* 48 */
     /* 49 */ '.   wiM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 49 */
-    /* 50 */ '.   wiM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 50 */
+    /* 50 */ '.   wiM .   sPA sSA .   .   .   .   .   .   .   .   .   .   .   .' /* 50 */
     /* 51 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 51 */
-    /* 52 */ '.   wis .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 52 */
+    /* 52 */ '.   wis .   sPB sSB .   .   .   .   .   .   .   .   .   .   .   .' /* 52 */
     /* 53 */ '.   wis .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 53 */
-    /* 54 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 54 */
+    /* 54 */ '.   .   .   sPC sSC .   .   .   .   .   .   .   .   .   .   .   .' /* 54 */
     /* 55 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 55 */
-    /* 56 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 56 */
+    /* 56 */ '.   .   .   sPD sSD .   .   .   .   .   .   .   .   .   .   .   .' /* 56 */
     /* 57 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 57 */
-    /* 58 */ '.   chM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 58 */
+    /* 58 */ '.   chM .   sPE sSE .   .   .   .   .   .   .   .   .   .   .   .' /* 58 */
     /* 59 */ '.   chM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 59 */
-    /* 60 */ '.   chM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 60 */
+    /* 60 */ '.   chM .   sPF sSF .   .   .   .   .   .   .   .   .   .   .   .' /* 60 */
     /* 61 */ '.   chM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 61 */
-    /* 62 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 62 */
+    /* 62 */ '.   .   .   sPG sSG .   .   .   .   .   .   .   .   .   .   .   .' /* 62 */
     /* 63 */ '.   cha .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 63 */
-    /* 64 */ '.   cha .   .   .   .   .   .   .   .   .   .   .   .   .   .   .'; /* 64 */
+    /* 64 */ '.   cha .   sPH sSH .   .   .   .   .   .   .   .   .   .   .   .'; /* 64 */
   /*******  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12  13  14  15  16  17 */
 }
 
@@ -153,6 +153,7 @@
   grid-area: inM;
   font-size: 32px;
   justify-content: center;
+  align-items: center;
 }
 
 .wis {
@@ -169,6 +170,7 @@
 .cha {
   grid-area: cha;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .chaMod {
@@ -192,6 +194,7 @@
 
 .strSaving {
   grid-area: stS;
+  align-items: center;
 }
 
 .dexProf {
@@ -202,6 +205,7 @@
 
 .dexSaving {
   grid-area: deS;
+  align-items: center;
 }
 
 .conProf {
@@ -212,6 +216,7 @@
 
 .conSaving {
   grid-area: coS;
+  align-items: center;
 }
 
 .intProf {
@@ -222,6 +227,7 @@
 
 .intSaving {
   grid-area: inS;
+  align-items: center;
 }
 
 .wisProf {
@@ -232,6 +238,7 @@
 
 .wisSaving {
   grid-area: wiS;
+  align-items: center;
 }
 
 .chaProf {
@@ -242,6 +249,7 @@
 
 .chaSaving {
   grid-area: chS;
+  align-items: center;
 }
 
 .speed {
@@ -268,4 +276,190 @@
 
 .hitDice {
   grid-area: hiD;
+}
+
+.extraHitPoints {
+  grid-area: exH;
+  font-size: 24px;
+  justify-content: center;
+}
+
+.acrobaticsProf {
+  grid-area: sP1;
+  margin-left: 5px;
+  line-height: 0.6;
+}
+
+.acrobaticsSaving {
+  grid-area: sS1;
+}
+
+.athleticsProf {
+  grid-area: sP2;
+  margin-left: 5px;
+  line-height: 0.6;
+}
+
+.athleticsSaving {
+  grid-area: sS2;
+}
+
+.arcanaProf {
+  grid-area: sP3;
+  margin-left: 5px;
+  line-height: 0.6;
+}
+
+.arcanaSaving {
+  grid-area: sS3;
+}
+
+.deceptionProf {
+  grid-area: sP4;
+  margin-left: 5px;
+  line-height: 0.6;
+}
+
+.deceptionSaving {
+  grid-area: sS4;
+}
+
+.historyProf {
+  grid-area: sP5;
+  margin-left: 5px;
+  line-height: 0.6;
+}
+
+.historySaving {
+  grid-area: sS5;
+}
+
+.performanceProf {
+  grid-area: sP6;
+  margin-left: 5px;
+  line-height: 0.6;
+}
+
+.performanceSaving {
+  grid-area: sS6;
+}
+
+.intimidationProf {
+  grid-area: sP7;
+  margin-left: 5px;
+  line-height: 0.6;
+}
+
+.intimidationSaving {
+  grid-area: sS7;
+}
+
+.investigationProf {
+  grid-area: sP8;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.investigationSaving {
+  grid-area: sS8;
+}
+
+.sleight-of-handProf {
+  grid-area: sP9;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.sleight-of-handSaving {
+  grid-area: sS9;
+}
+
+.medicineProf {
+  grid-area: sP0;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.medicineSaving {
+  grid-area: sS0;
+}
+
+.natureProf {
+  grid-area: sPA;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.natureSaving {
+  grid-area: sSA;
+}
+
+.perceptionProf {
+  grid-area: sPB;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.perceptionSaving {
+  grid-area: sSB;
+}
+
+.insightProf {
+  grid-area: sPC;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.insightSaving {
+  grid-area: sSC;
+}
+
+.persuasionProf {
+  grid-area: sPD;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.persuasionSaving {
+  grid-area: sSD;
+}
+
+.religionProf {
+  grid-area: sPE;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.religionSaving {
+  grid-area: sSE;
+}
+
+.stealthProf {
+  grid-area: sPF;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.stealthSaving {
+  grid-area: sSF;
+}
+
+.survivalProf {
+  grid-area: sPG;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.survivalSaving {
+  grid-area: sSG;
+}
+
+.animal-handlingProf {
+  grid-area: sPH;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.animal-handlingSaving {
+  grid-area: sSH;
 }

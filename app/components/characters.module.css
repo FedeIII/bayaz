@@ -21,3 +21,7 @@
 .cannotDrag {
   color: red;
 }
+
+.skillLabel {
+  display: block;
+}

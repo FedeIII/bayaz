@@ -10,6 +10,7 @@ export const RACES = {
         con: 2,
         wis: 1,
       },
+      extraHitPoints: 1,
     },
     mountains: {
       age: [40, 350],
@@ -34,6 +35,7 @@ export const RACES = {
         dex: 2,
         int: 1,
       },
+      skills: ['perception'],
     },
     wood: {
       age: [80, 750],
@@ -45,6 +47,7 @@ export const RACES = {
         dex: 2,
         wis: 1,
       },
+      skills: ['perception'],
     },
     drow: {
       age: [80, 750],
@@ -56,6 +59,7 @@ export const RACES = {
         dex: 2,
         cha: 1,
       },
+      skills: ['perception'],
     },
   },
   halfling: {
@@ -227,16 +231,23 @@ export const CLASSES = {
   },
 };
 
-export function getInitialHitPoints(pClass) {
-  return CLASSES[pClass].initialHitPoints;
+export function getInitialHitPoints(pClass, race, subrace) {
+  return CLASSES[pClass].initialHitPoints + getExtraHitPoints(race, subrace);
 }
 
 export function isProficientStat(stat, pClass) {
   return CLASSES[pClass].proficiency.includes(stat);
 }
 
-export function statSavingThrow(stat, pClass, lvl) {
-  return isProficientStat(stat, pClass) ? proficiencyBonus(lvl) : 0;
+export function getExtraHitPoints(race, subrace) {
+  return RACES[race][subrace].extraHitPoints || 0;
+}
+
+export function statSavingThrow(stat, statValue, pClass, lvl) {
+  return (
+    getStatMod(statValue) +
+    (isProficientStat(stat, pClass) ? proficiencyBonus(lvl) : 0)
+  );
 }
 
 export function translateClass(race) {
@@ -292,7 +303,7 @@ export function translateStat(stat) {
 export function getStatExtraPoints(stat, character, extraPointStats) {
   const { race, subrace } = character;
   let mod = RACES[race][subrace].statMods?.[stat] || 0;
-  if (extraPointStats.includes(stat)) mod++;
+  mod += extraPointStats.filter(v => v === stat).length;
 
   return mod;
 }
@@ -307,6 +318,92 @@ export function proficiencyBonus(lvl) {
   if (lvl <= 13) return 4;
   if (lvl <= 16) return 5;
   return 6;
+}
+
+export function stat(pc, statName) {
+  const { stats, extraStats } = pc;
+
+  return stats[statName] + extraStats[statName];
+}
+
+export const SKILLS = [
+  { name: 'athletics', stat: 'str' },
+  { name: 'acrobatics', stat: 'dex' },
+  { name: 'sleight-of-hand', stat: 'dex' },
+  { name: 'stealth', stat: 'dex' },
+  { name: 'arcana', stat: 'int' },
+  { name: 'history', stat: 'int' },
+  { name: 'investigation', stat: 'int' },
+  { name: 'nature', stat: 'int' },
+  { name: 'religion', stat: 'int' },
+  { name: 'animal-handling', stat: 'wis' },
+  { name: 'insight', stat: 'wis' },
+  { name: 'medicine', stat: 'wis' },
+  { name: 'perception', stat: 'wis' },
+  { name: 'survival', stat: 'wis' },
+  { name: 'deception', stat: 'cha' },
+  { name: 'intimidation', stat: 'cha' },
+  { name: 'performance', stat: 'cha' },
+  { name: 'persuasion', stat: 'cha' },
+];
+
+export function translateSkill(skill) {
+  switch (skill) {
+    default:
+    case 'athletics':
+      return 'Atletismo';
+    case 'acrobatics':
+      return 'Acrobacias';
+    case 'sleight-of-hand':
+      return 'Juego de Manos';
+    case 'stealth':
+      return 'Sigilo';
+    case 'arcana':
+      return 'Arcano';
+    case 'history':
+      return 'Historia';
+    case 'investigation':
+      return 'Investigación';
+    case 'nature':
+      return 'Naturaleza';
+    case 'religion':
+      return 'Religión';
+    case 'animal-handling':
+      return 'Manejo de animales';
+    case 'insight':
+      return 'Averiguar intenciones';
+    case 'medicine':
+      return 'Medicina';
+    case 'perception':
+      return 'Percepción';
+    case 'survival':
+      return 'Supervivencia';
+    case 'deception':
+      return 'Engañar';
+    case 'intimidation':
+      return 'Intimidación';
+    case 'performance':
+      return 'Interpretación';
+    case 'persuasion':
+      return 'Persuasión';
+  }
+}
+
+export function skills(pc) {
+  return [...pc.skills, ...pc.halfElf?.skills];
+}
+
+export function isProficientSkill(pc, skillName) {
+  return skills(pc).includes(skillName);
+}
+
+export function skillCheckBonus(pc, skillName) {
+  const { pClass, level } = pc;
+  const statName = SKILLS.find(skill => skill.name === skillName).stat;
+  return (
+    statSavingThrow(statName, stat(pc, statName), pClass, level) +
+    (isProficientSkill(pc, skillName) ? proficiencyBonus(level) : 0)
+  );
 }
 
 export const ALIGNMENTS = {

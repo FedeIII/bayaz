@@ -54,8 +54,9 @@ export const action = async ({ request }) => {
     weight,
     pClass,
     level: 1,
-    maxHitPoints: getInitialHitPoints(pClass),
-    hitPoints: getInitialHitPoints(pClass),
+    maxHitPoints: getInitialHitPoints(pClass, race, subrace),
+    hitPoints: getInitialHitPoints(pClass, race, subrace),
+    skills: RACES[race][subrace].skills,
     exp: 0,
   };
 

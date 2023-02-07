@@ -4,6 +4,7 @@ import { useLoaderData } from '@remix-run/react';
 import { getPc } from '~/services/pc.server';
 import {
   STATS,
+  stat,
   translateClass,
   translateRace,
   getStatMod,
@@ -11,10 +12,14 @@ import {
   statSavingThrow,
   isProficientStat,
   CLASSES,
+  getExtraHitPoints,
+  SKILLS,
+  skillCheckBonus,
 } from '~/utils/characters';
 import { signed, increment } from '~/utils/display';
 
 import styles from '~/components/sheet.module.css';
+import { Fragment } from 'react';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -41,12 +46,18 @@ function PcSummary() {
     hitPoints,
     exp,
     stats,
+    extraStats,
+    skills,
+    halfElf: { skills: halfElfSkills } = { skills: [] },
   } = pc;
+
+  const allSkills = [...skills, ...halfElfSkills];
 
   return (
     <>
       <img src="/images/sheet1.jpg" className={styles.sheetBackground} />
       <div className={styles.summary}>
+        {/* BASIC ATTRS */}
         <span className={`${styles.data} ${styles.name}`}>{name}</span>
         <span className={`${styles.data} ${styles.pClass}`}>
           {translateClass(pClass)} lvl {level}
@@ -55,31 +66,37 @@ function PcSummary() {
           {translateRace(race)}
         </span>
         <span className={`${styles.data} ${styles.exp}`}>{exp}</span>
+
+        {/* STATS */}
         {STATS.map(statName => (
-          <>
+          <Fragment key={statName}>
             <span className={`${styles.data} ${styles[`${statName}Mod`]}`}>
-              {increment(getStatMod(stats[statName]))}
+              {increment(getStatMod(stat(pc, statName)))}
             </span>
             <span className={`${styles.data} ${styles[statName]}`}>
-              {stats[statName]}
+              {stat(pc, statName)}
             </span>
-          </>
+          </Fragment>
         ))}
         <span className={`${styles.data} ${styles.proficiencyBonus}`}>
           {increment(proficiencyBonus(level))}
         </span>
         {STATS.map(statName => (
-          <>
+          <Fragment key={statName}>
             {isProficientStat(statName, pClass) && (
               <span className={`${styles.data} ${styles[`${statName}Prof`]}`}>
                 ◍
               </span>
             )}
             <span className={`${styles.data} ${styles[`${statName}Saving`]}`}>
-              {increment(statSavingThrow(statName, pClass, level))}
+              {increment(
+                statSavingThrow(statName, stat(pc, statName), pClass, level)
+              )}
             </span>
-          </>
+          </Fragment>
         ))}
+
+        {/* OTHER ATTRS */}
         <span className={`${styles.data} ${styles.speed}`}>{speed}m</span>
         <span className={`${styles.data} ${styles.maxHitPoints}`}>
           {maxHitPoints}
@@ -90,6 +107,24 @@ function PcSummary() {
         <span className={`${styles.data} ${styles.hitDice}`}>
           {CLASSES[pClass].hitDice}
         </span>
+        <span className={`${styles.data} ${styles.extraHitPoints}`}>
+          {increment(getExtraHitPoints(race, subrace))}
+        </span>
+
+        {/* SKILLS */}
+        {SKILLS.map(
+          skill =>
+            allSkills.includes(skill.name) && (
+              <span className={`${styles.data} ${styles[`${skill.name}Prof`]}`}>
+                ◍
+              </span>
+            )
+        )}
+        {SKILLS.map(skill => (
+          <span className={`${styles.data} ${styles[`${skill.name}Saving`]}`}>
+            {increment(skillCheckBonus(pc, skill.name))}
+          </span>
+        ))}
       </div>
     </>
   );
