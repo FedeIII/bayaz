@@ -5,43 +5,66 @@ import {
   translateDivineDomain,
   translateSkill,
 } from '~/utils/characters';
-import SkillsContext from '~/components/classSkillsSelection/skillsContext';
 
 import styles from '~/components/characters.module.css';
 
 function getSkillChecked(skillName, skillsToSelect) {
-  return skillsToSelect[skillName].selected;
+  return !!skillsToSelect[skillName]?.selected;
 }
 
 function getSkillAvailable(skillName, skillsToSelect) {
-  return skillsToSelect[skillName].available;
+  return !!skillsToSelect[skillName]?.available;
 }
 
 function ClericSkills(props) {
-  const { pc } = props;
+  const { pc, skillsToSelect, setSkills, setSkillsNamespace } = props;
   const { classSkills: { divineDomain: initDivineDomain } = { skills: [] } } =
     pc;
 
   const [divineDomain, setDivineDomain] = useState(initDivineDomain);
-  const { pickSkills, skillsToPick = [] } = DIVINE_DOMAINS[divineDomain] || {};
+  const { pickSkills = 0, skillsToPick = [] } =
+    DIVINE_DOMAINS[divineDomain] || {};
 
-  const { skillsToSelect, setSkill, setSkillsNamespace } =
-    useContext(SkillsContext);
-  const [checks, setChecks] = useState(
-    skillsToPick.map(
-      skillToPick =>
-        getSkillAvailable(skillToPick, skillsToSelect) &&
-        getSkillChecked(skillToPick, skillsToSelect)
-    )
-  );
+  const [checks, setChecks] = useState(skillsToPick.map(() => false));
+
+  function onDivineDomainChange(e) {
+    const newDivineDomain = e.target.value;
+    const divineDomainSkills =
+      DIVINE_DOMAINS[newDivineDomain].skillsToPick || [];
+    const newSkillsToPick = divineDomainSkills.reduce(
+      (newSkills, skillName) => {
+        return {
+          ...newSkills,
+          [skillName]: { available: true },
+        };
+      },
+      {}
+    );
+
+    setChecks(divineDomainSkills.map(() => false));
+    setSkills(newSkillsToPick);
+    setDivineDomain(newDivineDomain);
+  }
 
   useEffect(() => {
-    const areClericSkillsSelected = checks.filter(v => v).length === pickSkills;
+    const newPickSkills = DIVINE_DOMAINS[divineDomain]?.pickSkills || 0;
+    const areClericSkillsSelected =
+      checks.filter(v => v).length === newPickSkills;
     setSkillsNamespace('clericSkills', areClericSkillsSelected);
-  }, [checks, pickSkills, setSkillsNamespace]);
+  }, [divineDomain, checks]);
 
-  const onSkillChange = (skillName, isChecked) => {
-    setSkill(skillName, { selected: isChecked });
+  const onSkillChange = (skillName, isChecked, i) => {
+    setChecks(oldChecks => {
+      const newChecks = oldChecks.slice();
+      newChecks[i] = isChecked;
+      return newChecks;
+    });
+
+    setSkills({
+      [skillName]: {
+        selected: isChecked,
+      },
+    });
   };
 
   return (
@@ -52,7 +75,7 @@ function ClericSkills(props) {
           <select
             name="divine-domain"
             value={divineDomain}
-            onChange={e => setDivineDomain(e.target.value)}
+            onChange={onDivineDomainChange}
           >
             {Object.keys(DIVINE_DOMAINS).map(divineDomainName => (
               <option value={divineDomainName} key={divineDomainName}>
@@ -65,10 +88,11 @@ function ClericSkills(props) {
 
       {!!pickSkills && (
         <p>
-          Escoge {pickSkills} habilidad{pickSkills > 1 ? 'es' : ''}
+          Escoge {pickSkills} habilidad{pickSkills > 1 ? 'es' : ''} del Dominio
+          de {translateDivineDomain(divineDomain)}
           {skillsToPick.map((skillName, i) => (
             <label
-              for={skillName}
+              htmlFor={skillName}
               key={skillName}
               className={styles.skillLabel}
             >
@@ -77,7 +101,7 @@ function ClericSkills(props) {
                 name="skills[]"
                 value={skillName}
                 checked={getSkillChecked(skillName, skillsToSelect)}
-                onChange={e => onSkillChange(skillName, e.target.checked)}
+                onChange={e => onSkillChange(skillName, e.target.checked, i)}
                 disabled={!getSkillAvailable(skillName, skillsToSelect)}
               />
               {translateSkill(skillName)}

@@ -1,6 +1,6 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 import {
@@ -10,7 +10,6 @@ import {
   translateClass,
   SKILLS,
 } from '~/utils/characters';
-import SkillsContext from '~/components/classSkillsSelection/skillsContext';
 import BarbarianSkills from '~/components/classSkillsSelection/barbarianSkills';
 import ClericSkills from '~/components/classSkillsSelection/clericSkills';
 
@@ -43,26 +42,20 @@ function ClassSkills(props) {
 
   switch (pClass) {
     case 'barbarian':
-      return <BarbarianSkills pc={pc} />;
+      return <BarbarianSkills {...props} />;
     case 'cleric':
-      return <ClericSkills pc={pc} />;
+      return <ClericSkills {...props} />;
     default:
       return null;
   }
 }
 
-function useSkills(pc) {
-  const initSelectedSkillNames = skills(pc);
-  const skillsToSelectForClass = CLASSES[pc.pClass].skillsToPick || [];
+function getInitSkillsToSelect(pc) {
+  return useMemo(() => {
+    const initSelectedSkillNames = skills(pc);
+    const skillsToSelectForClass = CLASSES[pc.pClass].skillsToPick || [];
 
-  // skillsToSelect: {
-  //   [skillName]: {
-  //     available: Boolean,
-  //     selected: Boolean,
-  //   }
-  // }
-  const [skillsToSelect, setSkillsToSelect] = useState(
-    SKILLS.reduce(
+    return SKILLS.reduce(
       (initSkills, nextSkill) => ({
         ...initSkills,
         [nextSkill.name]: {
@@ -71,45 +64,65 @@ function useSkills(pc) {
         },
       }),
       {}
-    )
+    );
+  }, [pc]);
+}
+
+function useSkills(pc) {
+  // skillsToSelect: {
+  //   [skillName]: {
+  //     available: Boolean,
+  //     selected: Boolean,
+  //   }
+  // }
+  const [skillsToSelect, setSkillsToSelect] = useState(
+    getInitSkillsToSelect(pc)
   );
 
-  function setSkill(skillName, skillValues) {
-    const newSkillsToSelect = {
-      ...skillsToSelect,
-      [skillName]: {
-        ...skillsToSelect[skillName],
-        ...skillValues,
+  function setSkills(newSkills) {
+    const newSkillsToSelect = Object.entries(skillsToSelect).reduce(
+      (newSkillsToSelect, [skillName, skillValues]) => {
+        if (!newSkills[skillName])
+          return { ...newSkillsToSelect, [skillName]: skillValues };
+
+        return {
+          ...newSkillsToSelect,
+          [skillName]: {
+            ...skillValues,
+            ...newSkills[skillName],
+          },
+        };
       },
-    };
+      {}
+    );
 
     setSkillsToSelect(newSkillsToSelect);
   }
 
-  // areSkillsSelected: {
+  // areNamespacesReady: {
   //   [namespace1]: true,
   //   [namespace2]: false
   // }
-  const [areSkillsSelected, setAreSkillsSelected] = useState({
+  const [areNamespacesReady, setNamespacesReady] = useState({
     classSkills: false,
   });
 
-  function setSkillsNamespace(namespace, value) {
-    setAreSkillsSelected(oldAreSkillsSelected => ({
-      ...oldAreSkillsSelected,
+  const setSkillsNamespace = useCallback((namespace, value) => {
+    setNamespacesReady(oldAreNamespacesSelected => ({
+      ...oldAreNamespacesSelected,
       [namespace]: value,
     }));
-  }
+  }, []);
 
-  return [skillsToSelect, setSkill, setSkillsNamespace];
+  return [skillsToSelect, setSkills, setSkillsNamespace, areNamespacesReady];
 }
 
 function getSkillChecked(skillName, skillsToSelect) {
-  return skillsToSelect[skillName].selected;
+  return !!skillsToSelect[skillName]?.selected;
 }
 
 function getSkillAvailable(skillName, skillsToSelect) {
-  return skillsToSelect[skillName].available;
+  return !!skillsToSelect[skillName]?.available;
 }
 
 function PcClassSkills() {
@@ -120,80 +133,84 @@ function PcClassSkills() {
   const transition = useTransition();
   const isCreating = Boolean(transition.submission);
 
-  const [skillsToSelect, setSkill, setSkillsNamespace] = useSkills(pc);
+  const [skillsToSelect, setSkills, setSkillsNamespace, areNamespacesReady] =
+    useSkills(pc);
 
-  // const [checks, setChecks] = useState(
-  //   CLASSES[pClass].skillsToPick.map(s => allSkills.includes(s))
-  // );
-  // const [selectionCount, setSelectionCount] = useState(classSkills.length);
+  const { pickSkills, skillsToPick } = CLASSES[pClass];
 
-  const onSkillChange = (skillName, isChecked) => {
-    setSkill(skillName, { selected: isChecked });
+  const [checks, setChecks] = useState(skillsToPick.map(() => false));
 
-    // if (checks[i]) {
-    //   const newChecks = checks.slice();
-    //   newChecks[i] = false;
-    //   setChecks(newChecks);
-    //   setSelectionCount(v => v - 1);
-    // } else {
-    //   const newChecks = checks.slice();
-    //   newChecks[i] = true;
-    //   setChecks(newChecks);
-    //   setSelectionCount(v => v + 1);
-    // }
+  useEffect(() => {
+    setSkillsNamespace(
+      'classSkills',
+      checks.filter(v => v).length === pickSkills
+    );
+  }, [checks]);
+
+  const onSkillChange = (skillName, isChecked, i) => {
+    setChecks(oldChecks => {
+      const newChecks = oldChecks.slice();
+      newChecks[i] = isChecked;
+      return newChecks;
+    });
+
+    setSkills({
+      [skillName]: {
+        selected: isChecked,
+      },
+    });
   };
 
   // const canContinue = selectionCount === CLASSES[pClass].pickSkills;
-  const canContinue = true;
+  const canContinue =
+    Object.values(areNamespacesReady).filter(v => v === false).length === 0;
 
   return (
-    <SkillsContext.Provider
-      value={{
-        skillsToSelect,
-        setSkill,
-        setSkillsNamespace,
-      }}
-    >
-      <Form method="post">
-        <h2>
-          Habilidades de {translateClass(pClass)} para {name}
-        </h2>
-        <input readOnly type="text" name="name" value={name} hidden />
+    <Form method="post">
+      <h2>
+        Habilidades de {translateClass(pClass)} para {name}
+      </h2>
+      <input readOnly type="text" name="name" value={name} hidden />
 
-        <ClassSkills pc={pc} />
+      <p>
+        Escoge {CLASSES[pClass].pickSkills} habilidades de{' '}
+        {translateClass(pClass)}
+        {skillsToPick.map((skillName, i) => (
+          <label
+            htmlFor={skillName}
+            key={skillName}
+            className={styles.skillLabel}
+          >
+            <input
+              type="checkbox"
+              name="skills[]"
+              value={skillName}
+              checked={getSkillChecked(skillName, skillsToSelect)}
+              onChange={e => onSkillChange(skillName, e.target.checked, i)}
+              disabled={!getSkillAvailable(skillName, skillsToSelect)}
+            />
+            {translateSkill(skillName)}
+          </label>
+        ))}
+      </p>
 
-        <p>
-          Escoge {CLASSES[pClass].pickSkills} habilidades
-          {CLASSES[pClass].skillsToPick.map((skillName, i) => (
-            <label
-              for={skillName}
-              key={skillName}
-              className={styles.skillLabel}
-            >
-              <input
-                type="checkbox"
-                name="skills[]"
-                value={skillName}
-                checked={getSkillChecked(skillName, skillsToSelect)}
-                onChange={e => onSkillChange(skillName, e.target.checked)}
-                disabled={!getSkillAvailable(skillName, skillsToSelect)}
-              />
-              {translateSkill(skillName)}
-            </label>
-          ))}
-        </p>
+      <ClassSkills
+        pc={pc}
+        skillsToSelect={skillsToSelect}
+        setSkills={setSkills}
+        setSkillsNamespace={setSkillsNamespace}
+      />
 
-        <p>
-          <button type="submit" disabled={isCreating || !canContinue}>
-            {isCreating
-              ? 'Creando...'
-              : canContinue
-              ? 'Continuar'
-              : 'Elige habilidades'}
-          </button>
-        </p>
-      </Form>
-    </SkillsContext.Provider>
+      <p>
+        <button type="submit" disabled={isCreating || !canContinue}>
+          {isCreating
+            ? 'Creando...'
+            : canContinue
+            ? 'Continuar'
+            : 'Elige habilidades'}
+        </button>
+      </p>
+    </Form>
   );
 }
 
