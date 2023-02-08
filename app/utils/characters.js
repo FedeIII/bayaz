@@ -487,12 +487,29 @@ export function isProficientSkill(pc, skillName) {
   return getSkills(pc).includes(skillName);
 }
 
+export function isSkillWithSpecialBonus(pc, skillName) {
+  return (
+    pc.classAttrs?.skills.includes(skillName) &&
+    DIVINE_DOMAINS[getDivineDomain(pc)].specialSkillProficiencyBonus
+  );
+}
+
+export function specialProficiencyBonus(pc) {
+  return DIVINE_DOMAINS[getDivineDomain(pc)].specialSkillProficiencyBonus(
+    proficiencyBonus(pc.level)
+  );
+}
+
 export function skillCheckBonus(pc, skillName) {
   const { pClass, level } = pc;
   const statName = SKILLS.find(skill => skill.name === skillName).stat;
   return (
-    statSavingThrow(statName, getStat(pc, statName), pClass, level) +
-    (isProficientSkill(pc, skillName) ? proficiencyBonus(level) : 0)
+    getStatMod(getStat(pc, statName)) +
+    (isProficientSkill(pc, skillName)
+      ? isSkillWithSpecialBonus(pc, skillName)
+        ? specialProficiencyBonus(pc)
+        : proficiencyBonus(level)
+      : 0)
   );
 }
 
@@ -507,8 +524,8 @@ export const DIVINE_DOMAINS = {
   death: {},
   knowledge: {
     pickSkills: 2,
-    // bonus x2
     skillsToPick: ['arcana', 'history', 'nature', 'religion'],
+    specialSkillProficiencyBonus: bonus => 2 * bonus,
   },
   life: {},
   light: {},
@@ -542,6 +559,10 @@ export function translateDivineDomain(divineDomainName) {
     default:
       return 'unknown divine domain';
   }
+}
+
+export function getDivineDomain(pc) {
+  return pc.classAttrs?.divineDomain;
 }
 
 export const ALIGNMENTS = {

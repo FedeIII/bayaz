@@ -6,7 +6,7 @@ import { getPc, updatePc } from '~/services/pc.server';
 import {
   CLASSES,
   translateSkill,
-  skills,
+  getSkills,
   translateClass,
   SKILLS,
 } from '~/utils/characters';

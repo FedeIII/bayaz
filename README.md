@@ -52,5 +52,3 @@ npx prisma migrate dev
 ```
 
 ## TO DOs
-
-- review skills screen when there are multiple sources of skills

@@ -4,6 +4,7 @@ import {
   DIVINE_DOMAINS,
   translateDivineDomain,
   translateSkill,
+  getDivineDomain,
 } from '~/utils/characters';
 
 import styles from '~/components/characters.module.css';
@@ -21,8 +22,7 @@ function getSkillAvailable(skillName, skillsToSelect, isCheckedHere) {
 
 function ClericSkills(props) {
   const { pc, skillsToSelect, setSkills, setSkillsNamespace } = props;
-  const { classSkills: { divineDomain: initDivineDomain } = { skills: [] } } =
-    pc;
+  const initDivineDomain = getDivineDomain(pc);
 
   const [divineDomain, setDivineDomain] = useState(initDivineDomain);
   const { pickSkills = 0, skillsToPick = [] } =

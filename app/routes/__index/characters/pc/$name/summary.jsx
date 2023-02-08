@@ -16,9 +16,10 @@ import {
   SKILLS,
   skillCheckBonus,
   getConditionalSkills,
-  skills,
+  getSkills,
   translatePrimalPath,
   translateDivineDomain,
+  getDivineDomain,
 } from '~/utils/characters';
 import { signed, increment } from '~/utils/display';
 
@@ -45,7 +46,7 @@ function PcSummary() {
     maxHitPoints,
     hitPoints,
     exp,
-    classAttrs: { primalPath, divineDomain } = {},
+    classAttrs: { primalPath } = {},
   } = pc;
 
   const allSkills = getSkills(pc);
@@ -113,13 +114,19 @@ function PcSummary() {
         {SKILLS.map(
           skill =>
             allSkills.includes(skill.name) && (
-              <span className={`${styles.data} ${styles[`${skill.name}Prof`]}`}>
+              <span
+                className={`${styles.data} ${styles[`${skill.name}Prof`]}`}
+                key={skill.name}
+              >
                 ◍
               </span>
             )
         )}
         {SKILLS.map(skill => (
-          <span className={`${styles.data} ${styles[`${skill.name}Saving`]}`}>
+          <span
+            className={`${styles.data} ${styles[`${skill.name}Saving`]}`}
+            key={skill.name}
+          >
             {increment(skillCheckBonus(pc, skill.name))}
             {Object.keys(conditionalSkills).includes(skill.name) && (
               <span className={styles.annotation}>
@@ -139,11 +146,11 @@ function PcSummary() {
               </strong>
             </span>
           )}
-          {!!divineDomain && (
+          {!!getDivineDomain(pc) && (
             <span className={styles.traitLabel}>
               Dominio Divino:{' '}
               <strong className={styles.trait}>
-                Dominio de {translateDivineDomain(divineDomain)}
+                Dominio de {translateDivineDomain(getDivineDomain(pc))}
               </strong>
             </span>
           )}
