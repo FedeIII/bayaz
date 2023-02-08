@@ -24,6 +24,7 @@ const classAttrsSchema = new mongoose.Schema({
 });
 
 const halfElfSchema = new mongoose.Schema({
+  extraStats: statsSchema,
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });
 

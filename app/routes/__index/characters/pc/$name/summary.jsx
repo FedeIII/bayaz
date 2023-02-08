@@ -4,7 +4,7 @@ import { useLoaderData } from '@remix-run/react';
 import { getPc } from '~/services/pc.server';
 import {
   STATS,
-  stat,
+  getStat,
   translateClass,
   translateRace,
   getStatMod,
@@ -69,10 +69,10 @@ function PcSummary() {
         {STATS.map(statName => (
           <Fragment key={statName}>
             <span className={`${styles.data} ${styles[`${statName}Mod`]}`}>
-              {increment(getStatMod(stat(pc, statName)))}
+              {increment(getStatMod(getStat(pc, statName)))}
             </span>
             <span className={`${styles.data} ${styles[statName]}`}>
-              {stat(pc, statName)}
+              {getStat(pc, statName)}
             </span>
           </Fragment>
         ))}
@@ -88,13 +88,13 @@ function PcSummary() {
             )}
             <span className={`${styles.data} ${styles[`${statName}Saving`]}`}>
               {increment(
-                statSavingThrow(statName, stat(pc, statName), pClass, level)
+                statSavingThrow(statName, getStat(pc, statName), pClass, level)
               )}
             </span>
           </Fragment>
         ))}
 
-        {/* OTHER ATTRS */}
+        {/* COMBAT ATTRS */}
         <span className={`${styles.data} ${styles.speed}`}>{speed}m</span>
         <span className={`${styles.data} ${styles.maxHitPoints}`}>
           {maxHitPoints}

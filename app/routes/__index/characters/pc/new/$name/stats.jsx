@@ -7,7 +7,12 @@ import classnames from 'classnames';
 import { getPc, updatePc } from '~/services/pc.server';
 import random from '~/utils/random';
 import { signed } from '~/utils/display';
-import { STATS, translateStat, getStatExtraPoints } from '~/utils/characters';
+import {
+  STATS,
+  translateStat,
+  getStatRacialExtraPoints,
+  isStat,
+} from '~/utils/characters';
 
 import styles from '~/components/characters.module.css';
 
@@ -29,8 +34,8 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const pClass = formData.get('pClass');
   const race = formData.get('race');
-  const subrace = formData.get('subrace');
   const extraPoints = formData.getAll('extra-points[]');
+  const selectedExtraPoints = formData.getAll('selected-extra-points[]');
   const extraStr = formData.get('extra-str');
   const extraDex = formData.get('extra-dex');
   const extraCon = formData.get('extra-con');
@@ -46,17 +51,17 @@ export const action = async ({ request }) => {
     {}
   );
 
-  const extraStats = extraPoints?.length
-    ? STATS.reduce(
-        (pcStats, statName) => ({
-          ...pcStats,
-          [statName]: getStatExtraPoints(
-            statName,
-            { race, subrace },
-            extraPoints
-          ),
-        }),
-        {}
+  const extraStats = ({} = extraPoints?.length
+    ? extraPoints.reduce(
+        (s, statName) => {
+          if (!isStat(statName)) return s;
+
+          return {
+            ...s,
+            [statName]: s[statName] + 1,
+          };
+        },
+        { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 }
       )
     : {
         str: parseInt(extraStr, 10) || 0,
@@ -65,9 +70,26 @@ export const action = async ({ request }) => {
         int: parseInt(extraInt, 10) || 0,
         wis: parseInt(extraWis, 10) || 0,
         cha: parseInt(extraCha, 10) || 0,
-      };
+      });
 
-  await updatePc({ name, stats, extraStats });
+  const halfElfExtraStats = selectedExtraPoints.reduce(
+    (s, statName) => {
+      if (!isStat(statName)) return s;
+
+      return {
+        ...s,
+        [statName]: s[statName] + 1,
+      };
+    },
+    { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 }
+  );
+
+  await updatePc({
+    name,
+    stats,
+    extraStats,
+    halfElf: { extraStats: halfElfExtraStats },
+  });
 
   if (race === 'half-elf') return redirect(`../${name}/race/half-elf`);
 
@@ -140,9 +162,27 @@ function useStats(setUsedRolls, pStats) {
   });
 }
 
+function getInitSelectedExtraPoints(selectedExtraPoints = {}) {
+  return Object.entries(selectedExtraPoints).reduce(
+    (extraStatNames, [statName, statValue]) => [
+      ...extraStatNames,
+      ...Array(statValue).fill(statName),
+    ],
+    []
+  );
+}
+
 function PcStats() {
   const { pc } = useLoaderData();
-  const { pClass, name, race, subrace, stats: initPStats, extraStats } = pc;
+  const {
+    pClass,
+    name,
+    race,
+    subrace,
+    stats: initPStats,
+    extraStats = {},
+    halfElf: { extraStats: halfElfExtraStats } = {},
+  } = pc;
 
   function addRoll() {
     const result = random.roll.processCommand('4d6p3');
@@ -179,7 +219,9 @@ function PcStats() {
   );
 
   const stats = useStats(setUsedRolls, pStats);
-  const [selectedExtraPoints, setSelectedExtraPoints] = useState([]);
+  const [selectedExtraPoints, setSelectedExtraPoints] = useState(
+    getInitSelectedExtraPoints(halfElfExtraStats)
+  );
 
   const rollsComplete = rolls.filter(r => r).length === 6;
   const canContinue =
@@ -193,12 +235,11 @@ function PcStats() {
       <input readOnly type="text" name="name" value={name} hidden />
       <input readOnly type="text" name="pClass" value={pClass} hidden />
       <input readOnly type="text" name="race" value={race} hidden />
-      <input readOnly type="text" name="subrace" value={subrace} hidden />
       {selectedExtraPoints.map(extraPointStat => (
         <input
           readOnly
           type="text"
-          name="extra-points[]"
+          name="selected-extra-points[]"
           value={extraPointStat}
           hidden
           key={extraPointStat}
@@ -231,13 +272,20 @@ function PcStats() {
       {stats.map(stat => {
         const statExtraPoints = areStatsPreloaded
           ? extraStats[stat.name]
-          : getStatExtraPoints(stat.name, pc, selectedExtraPoints);
+          : getStatRacialExtraPoints(stat.name, pc);
         const showPlus1Button =
           !areStatsSet &&
           race === 'half-elf' &&
           stat.name !== 'cha' &&
           selectedExtraPoints.length !== 2 &&
           !selectedExtraPoints.includes(stat.name);
+
+        const extraStatFromSelected = selectedExtraPoints.reduce(
+          (amount, statName) => amount + (statName === stat.name ? 1 : 0),
+          0
+        );
+
+        const totalExtraPoints = statExtraPoints + extraStatFromSelected;
 
         return (
           <p key={stat.name}>
@@ -250,9 +298,9 @@ function PcStats() {
                 value={stat.value}
                 readOnly
               />{' '}
-              {!!statExtraPoints && (
+              {!!totalExtraPoints && (
                 <>
-                  <span>{signed(statExtraPoints)}</span>
+                  <span>{signed(totalExtraPoints)}</span>
                   {Array(statExtraPoints).fill(
                     <input
                       readOnly

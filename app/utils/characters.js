@@ -356,6 +356,10 @@ export function translateClass(race) {
 
 export const STATS = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
 
+export function isStat(name) {
+  return STATS.includes(name);
+}
+
 export function translateStat(stat) {
   switch (stat) {
     default:
@@ -374,10 +378,9 @@ export function translateStat(stat) {
   }
 }
 
-export function getStatExtraPoints(stat, character, extraPointStats) {
+export function getStatRacialExtraPoints(stat, character) {
   const { race, subrace } = character;
   let mod = RACES[race][subrace].statMods?.[stat] || 0;
-  mod += extraPointStats.filter(v => v === stat).length;
 
   return mod;
 }
@@ -394,10 +397,18 @@ export function proficiencyBonus(lvl) {
   return 6;
 }
 
-export function stat(pc, statName) {
-  const { stats, extraStats } = pc;
+export function getStat(pc, statName) {
+  const {
+    stats,
+    extraStats,
+    halfElf: { extraStats: halfElfExtraStats } = {},
+  } = pc;
 
-  return stats[statName] + extraStats[statName];
+  return (
+    (stats[statName] || 0) +
+    (extraStats[statName] || 0) +
+    (halfElfExtraStats[statName] || 0)
+  );
 }
 
 export const SKILLS = [
@@ -480,7 +491,7 @@ export function skillCheckBonus(pc, skillName) {
   const { pClass, level } = pc;
   const statName = SKILLS.find(skill => skill.name === skillName).stat;
   return (
-    statSavingThrow(statName, stat(pc, statName), pClass, level) +
+    statSavingThrow(statName, getStat(pc, statName), pClass, level) +
     (isProficientSkill(pc, skillName) ? proficiencyBonus(level) : 0)
   );
 }
