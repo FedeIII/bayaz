@@ -29,9 +29,14 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const primalPath = formData.get('primal-path');
   const divineDomain = formData.get('divine-domain');
-  const skills = formData.getAll('skills[]');
+  const classSkills = formData.getAll('class-skills[]');
+  const clericSkills = formData.getAll('cleric-skills[]');
 
-  await updatePc({ name, classAttrs: { skills, primalPath, divineDomain } });
+  await updatePc({
+    name,
+    skills: classSkills,
+    classAttrs: { skills: clericSkills, primalPath, divineDomain },
+  });
 
   return redirect(`/characters/pc/${name}/summary`);
 };
@@ -121,8 +126,11 @@ function getSkillChecked(skillName, skillsToSelect) {
   return !!skillsToSelect[skillName]?.selected;
 }
 
-function getSkillAvailable(skillName, skillsToSelect) {
-  return !!skillsToSelect[skillName]?.available;
+function getSkillAvailable(skillName, skillsToSelect, isCheckedHere) {
+  return (
+    !skillsToSelect[skillName].selected ||
+    (skillsToSelect[skillName].selected && isCheckedHere)
+  );
 }
 
 function PcClassSkills() {
@@ -183,11 +191,13 @@ function PcClassSkills() {
           >
             <input
               type="checkbox"
-              name="skills[]"
+              name="class-skills[]"
               value={skillName}
               checked={getSkillChecked(skillName, skillsToSelect)}
               onChange={e => onSkillChange(skillName, e.target.checked, i)}
-              disabled={!getSkillAvailable(skillName, skillsToSelect)}
+              disabled={
+                !getSkillAvailable(skillName, skillsToSelect, checks[i])
+              }
             />
             {translateSkill(skillName)}
           </label>

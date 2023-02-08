@@ -12,8 +12,11 @@ function getSkillChecked(skillName, skillsToSelect) {
   return !!skillsToSelect[skillName]?.selected;
 }
 
-function getSkillAvailable(skillName, skillsToSelect) {
-  return !!skillsToSelect[skillName]?.available;
+function getSkillAvailable(skillName, skillsToSelect, isCheckedHere) {
+  return (
+    !skillsToSelect[skillName]?.selected ||
+    (skillsToSelect[skillName]?.selected && isCheckedHere)
+  );
 }
 
 function ClericSkills(props) {
@@ -98,11 +101,13 @@ function ClericSkills(props) {
             >
               <input
                 type="checkbox"
-                name="skills[]"
+                name="cleric-skills[]"
                 value={skillName}
                 checked={getSkillChecked(skillName, skillsToSelect)}
                 onChange={e => onSkillChange(skillName, e.target.checked, i)}
-                disabled={!getSkillAvailable(skillName, skillsToSelect)}
+                disabled={
+                  !getSkillAvailable(skillName, skillsToSelect, checks[i])
+                }
               />
               {translateSkill(skillName)}
             </label>

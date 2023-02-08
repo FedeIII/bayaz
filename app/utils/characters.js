@@ -399,9 +399,9 @@ export function proficiencyBonus(lvl) {
 
 export function getStat(pc, statName) {
   const {
-    stats,
-    extraStats,
-    halfElf: { extraStats: halfElfExtraStats } = {},
+    stats = {},
+    extraStats = {},
+    halfElf: { extraStats: halfElfExtraStats = {} } = {},
   } = pc;
 
   return (
