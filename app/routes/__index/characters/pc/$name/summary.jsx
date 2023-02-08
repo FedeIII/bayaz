@@ -17,6 +17,8 @@ import {
   skillCheckBonus,
   getConditionalSkills,
   skills,
+  translatePrimalPath,
+  translateDivineDomain,
 } from '~/utils/characters';
 import { signed, increment } from '~/utils/display';
 
@@ -43,6 +45,7 @@ function PcSummary() {
     maxHitPoints,
     hitPoints,
     exp,
+    classAttrs: { primalPath, divineDomain } = {},
   } = pc;
 
   const allSkills = skills(pc);
@@ -125,6 +128,26 @@ function PcSummary() {
             )}
           </span>
         ))}
+
+        {/* FEATS & TRAITS */}
+        <div className={`${styles.data} ${styles.featsAndTraits}`}>
+          {!!primalPath && (
+            <span className={styles.traitLabel}>
+              Senda Primaria:{' '}
+              <strong className={styles.trait}>
+                Senda del {translatePrimalPath(primalPath)}
+              </strong>
+            </span>
+          )}
+          {!!divineDomain && (
+            <span className={styles.traitLabel}>
+              Dominio Divino:{' '}
+              <strong className={styles.trait}>
+                Dominio de {translateDivineDomain(divineDomain)}
+              </strong>
+            </span>
+          )}
+        </div>
       </div>
     </>
   );

@@ -241,6 +241,17 @@ export const CLASSES = {
     initialHitPoints: 8,
     hitDice: '1d8',
     proficiency: ['int', 'wis'],
+    pickSkills: 2,
+    skillsToPick: [
+      'arcana',
+      'insight',
+      'medicine',
+      'nature',
+      'perception',
+      'religion',
+      'survival',
+      'ani',
+    ],
   },
   fighter: {
     initialHitPoints: 10,
@@ -449,7 +460,7 @@ export function translateSkill(skillName) {
     case 'persuasion':
       return 'Persuasión';
     default:
-      return 'unknown';
+      return 'unknown skill';
   }
 }
 
@@ -472,6 +483,54 @@ export function skillCheckBonus(pc, skillName) {
     statSavingThrow(statName, stat(pc, statName), pClass, level) +
     (isProficientSkill(pc, skillName) ? proficiencyBonus(level) : 0)
   );
+}
+
+export const PRIMAL_PATHS = ['berserker', 'totem-warrior'];
+
+export function translatePrimalPath(primalPath) {
+  if (primalPath === 'berserker') return 'Berserker';
+  if (primalPath === 'totem-warrior') return 'Guerrero Totémico';
+}
+
+export const DIVINE_DOMAINS = {
+  death: {},
+  knowledge: {
+    pickSkills: 2,
+    // bonus x2
+    skillsToPick: ['arcana', 'history', 'nature', 'religion'],
+  },
+  life: {},
+  light: {},
+  nature: {
+    pickSkills: 1,
+    skillsToPick: ['animal-handling', 'nature', 'survival'],
+  },
+  tempest: {},
+  trickery: {},
+  war: {},
+};
+
+export function translateDivineDomain(divineDomainName) {
+  switch (divineDomainName) {
+    case 'death':
+      return 'Muerte';
+    case 'knowledge':
+      return 'Conocimiento';
+    case 'life':
+      return 'Vida';
+    case 'light':
+      return 'Luz';
+    case 'nature':
+      return 'Naturaleza';
+    case 'tempest':
+      return 'Tempestad';
+    case 'trickery':
+      return 'Superchería';
+    case 'war':
+      return 'Guerra';
+    default:
+      return 'unknown divine domain';
+  }
 }
 
 export const ALIGNMENTS = {

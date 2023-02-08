@@ -1,5 +1,5 @@
 import { mongoose } from '~/services/db.server';
-import { RACES, STATS, SKILLS } from '~/utils/characters';
+import { RACES, STATS, SKILLS, DIVINE_DOMAINS } from '~/utils/characters';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -15,6 +15,10 @@ const classAttrsSchema = new mongoose.Schema({
   primalPath: {
     type: String,
     enum: ['berserker', 'totem-warrior'],
+  },
+  divineDomain: {
+    type: String,
+    enum: Object.keys(DIVINE_DOMAINS),
   },
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });

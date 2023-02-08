@@ -156,7 +156,7 @@ function PcStats() {
   function reset() {
     setRolls(Array(6).fill(0));
     setUsedRolls(Array(6).fill(false));
-    setSemiElfExtraPoints([]);
+    setSelectedExtraPoints([]);
     setPStats(STATS.reduce((acc, statName) => ({ [statName]: '' }), {}));
     stats.forEach(stat => stat.setValue(''));
     setAreStatsPreloaded(false);
@@ -179,13 +179,13 @@ function PcStats() {
   );
 
   const stats = useStats(setUsedRolls, pStats);
-  const [semiElfExtraPoints, setSemiElfExtraPoints] = useState([]);
+  const [selectedExtraPoints, setSelectedExtraPoints] = useState([]);
 
   const rollsComplete = rolls.filter(r => r).length === 6;
   const canContinue =
     areStatsPreloaded ||
     (usedRolls.filter(r => r).length === 6 &&
-      (race != 'half-elf' || semiElfExtraPoints.length === 2));
+      (race != 'half-elf' || selectedExtraPoints.length === 2));
 
   return (
     <Form method="post">
@@ -194,7 +194,7 @@ function PcStats() {
       <input readOnly type="text" name="pClass" value={pClass} hidden />
       <input readOnly type="text" name="race" value={race} hidden />
       <input readOnly type="text" name="subrace" value={subrace} hidden />
-      {semiElfExtraPoints.map(extraPointStat => (
+      {selectedExtraPoints.map(extraPointStat => (
         <input
           readOnly
           type="text"
@@ -231,13 +231,13 @@ function PcStats() {
       {stats.map(stat => {
         const statExtraPoints = areStatsPreloaded
           ? extraStats[stat.name]
-          : getStatExtraPoints(stat.name, pc, semiElfExtraPoints);
+          : getStatExtraPoints(stat.name, pc, selectedExtraPoints);
         const showPlus1Button =
           !areStatsSet &&
           race === 'half-elf' &&
           stat.name !== 'cha' &&
-          semiElfExtraPoints.length !== 2 &&
-          !semiElfExtraPoints.includes(stat.name);
+          selectedExtraPoints.length !== 2 &&
+          !selectedExtraPoints.includes(stat.name);
 
         return (
           <p key={stat.name}>
@@ -268,7 +268,7 @@ function PcStats() {
                 <button
                   type="button"
                   onClick={() =>
-                    setSemiElfExtraPoints(old => [...old, stat.name])
+                    setSelectedExtraPoints(old => [...old, stat.name])
                   }
                 >
                   +1

@@ -50,3 +50,8 @@ create migration file for schema changes
 ```sh
 npx prisma migrate dev
 ```
+
+## TO DOs
+
+- extra points in stat screen keep accumulating
+- review skills screen when there are multiple sources of skills
