@@ -30,10 +30,12 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const primalPath = formData.get('primal-path');
   const divineDomain = formData.get('divine-domain');
+  const clericSkills = formData.getAll('cleric-skills[]');
   const favoredEnemy = formData.get('favored-enemy');
   const favoredEnemyHumanoids = formData.getAll('favored-enemy-humanoids[]');
+  const favoredTerrain = formData.get('favored-terrain');
+  const rangerArchetype = formData.get('ranger-archetype');
   const classSkills = formData.getAll('class-skills[]');
-  const clericSkills = formData.getAll('cleric-skills[]');
 
   await updatePc({
     name,
@@ -45,6 +47,8 @@ export const action = async ({ request }) => {
       favoredEnemies: favoredEnemyHumanoids?.length
         ? favoredEnemyHumanoids
         : [favoredEnemy],
+      favoredTerrains: [favoredTerrain],
+      rangerArchetype,
     },
   });
 

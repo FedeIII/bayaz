@@ -1,5 +1,6 @@
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
+import { Fragment } from 'react';
 
 import { getPc } from '~/services/pc.server';
 import {
@@ -22,11 +23,14 @@ import {
   getDivineDomain,
   getFavoredEnemies,
   translateFavoredEnemy,
+  getFavoredTerrains,
+  translateFavoredTerrain,
+  getRangerArchetype,
+  translateRangerArchetype,
 } from '~/utils/characters';
 import { signed, increment } from '~/utils/display';
 
 import styles from '~/components/sheet.module.css';
-import { Fragment } from 'react';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -147,13 +151,33 @@ function PcSummary() {
           )}
           {!!getFavoredEnemies(pc)?.length && (
             <ul className={styles.traitLabel}>
-              Enemigos Predilectos:{' '}
+              Enemigos Predilectos (Bonificacion en Inteligencia y Sabiduría
+              x2):{' '}
               {getFavoredEnemies(pc).map(favoredEnemy => (
-                <li className={styles.trait}>
+                <li className={styles.traitItem} key={favoredEnemy}>
                   {translateFavoredEnemy(favoredEnemy)}
                 </li>
               ))}
             </ul>
+          )}
+          {!!getFavoredTerrains(pc)?.length && (
+            <ul className={styles.traitLabel}>
+              Terrenos Predilectos (Bonificacion en Inteligencia y Sabiduría x2
+              + reglas extra):{' '}
+              {getFavoredTerrains(pc).map(favoredEnemy => (
+                <li className={styles.traitItem} key={favoredEnemy}>
+                  {translateFavoredTerrain(favoredEnemy)}
+                </li>
+              ))}
+            </ul>
+          )}
+          {!!getRangerArchetype(pc) && (
+            <span className={styles.traitLabel}>
+              Arquetipo de Explorador:{' '}
+              <strong className={styles.trait}>
+                {translateRangerArchetype(getRangerArchetype(pc))}
+              </strong>
+            </span>
           )}
         </div>
       </div>

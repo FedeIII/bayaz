@@ -670,11 +670,66 @@ export function translateFavoredEnemy(enemy) {
       return 'Goblins';
     case 'gnomes':
       return 'Gnomos';
+    default:
+      return 'unknown favored enemy';
   }
 }
 
 export function getFavoredEnemies(pc) {
   return pc.classAttrs?.favoredEnemies || [];
+}
+
+export const FAVORED_TERRAINS = [
+  'arctic',
+  'coast',
+  'desert',
+  'forest',
+  'grassland',
+  'mountain',
+  'swamp',
+  'underdark',
+];
+
+export function translateFavoredTerrain(terrain) {
+  switch (terrain) {
+    case 'arctic':
+      return 'Ártico';
+    case 'coast':
+      return 'Costa';
+    case 'desert':
+      return 'Desierto';
+    case 'forest':
+      return 'Bosques';
+    case 'grassland':
+      return 'Pradera';
+    case 'mountain':
+      return 'Montaña';
+    case 'swamp':
+      return 'Pantano';
+    case 'underdark':
+      return 'Infraoscuridad';
+  }
+}
+
+export function getFavoredTerrains(pc) {
+  return pc.classAttrs?.favoredTerrains || [];
+}
+
+export const RANGER_ARCHETYPES = ['hunter', 'beast-master'];
+
+export function translateRangerArchetype(archetype) {
+  switch (archetype) {
+    case 'hunter':
+      return 'Cazador';
+    case 'beast-master':
+      return 'Señor de las Bestias';
+    default:
+      return 'unknown ranger archetype';
+  }
+}
+
+export function getRangerArchetype(pc) {
+  return pc.classAttrs?.rangerArchetype;
 }
 
 export const ALIGNMENTS = {

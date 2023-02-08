@@ -2,6 +2,10 @@ import {
   FAVORED_ENEMIES,
   FAVORED_ENEMIES_HUMANOIDS,
   translateFavoredEnemy,
+  FAVORED_TERRAINS,
+  translateFavoredTerrain,
+  RANGER_ARCHETYPES,
+  translateRangerArchetype,
 } from '~/utils/characters';
 
 import styles from '~/components/characters.module.css';
@@ -38,6 +42,27 @@ function RangerSkills(props) {
             {translateFavoredEnemy(enemyType)}
           </label>
         ))}
+      </p>
+      <p>
+        Escoge terreno predilecto:{' '}
+        {FAVORED_TERRAINS.map(terrain => (
+          <label htmlFor={terrain} key={terrain} className={styles.skillLabel}>
+            <input type="radio" name="favored-terrain" value={terrain} />
+            {translateFavoredTerrain(terrain)}
+          </label>
+        ))}
+      </p>
+      <p>
+        <label>
+          Escoge arquetipo de explorador:{' '}
+          <select name="ranger-archetype">
+            {RANGER_ARCHETYPES.map(archetype => (
+              <option value={archetype} key={archetype}>
+                {translateRangerArchetype(archetype)}
+              </option>
+            ))}
+          </select>
+        </label>
       </p>
     </>
   );
