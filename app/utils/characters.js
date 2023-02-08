@@ -184,9 +184,28 @@ export function translateRace(race) {
 }
 
 export function getConditionalSkills(pc) {
-  const { race, subrace } = pc;
+  const {
+    race,
+    subrace,
+    classAttrs: { skills: classSkills },
+  } = pc;
 
-  return RACES[race][subrace].conditionalSkills || [];
+  return (
+    {
+      ...RACES[race][subrace].conditionalSkills,
+      ...classSkills.reduce(
+        (conditionalClassSkills, skillName) => ({
+          ...conditionalClassSkills,
+          [skillName]: pc => {
+            if (pc.pClass === 'cleric')
+              return translateDivineDomain(getDivineDomain(pc));
+            return translateClass(pc.pClass);
+          },
+        }),
+        {}
+      ),
+    } || {}
+  );
 }
 
 export const CLASSES = {
