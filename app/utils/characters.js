@@ -269,7 +269,7 @@ export const CLASSES = {
       'perception',
       'religion',
       'survival',
-      'ani',
+      'animal-handling',
     ],
   },
   fighter: {
@@ -291,6 +291,16 @@ export const CLASSES = {
     initialHitPoints: 10,
     hitDice: '1d10',
     proficiency: ['str', 'dex'],
+    pickSkills: 3,
+    skillsToPick: [
+      'athletics',
+      'insight',
+      'animal-handling',
+      'nature',
+      'perception',
+      'stealth',
+      'survival',
+    ],
   },
   rogue: {
     initialHitPoints: 8,
@@ -543,6 +553,10 @@ export function translatePrimalPath(primalPath) {
   if (primalPath === 'totem-warrior') return 'Guerrero Totémico';
 }
 
+export function getPrimalPath(pc) {
+  return pc.classAttrs?.primalPath;
+}
+
 export const DIVINE_DOMAINS = {
   death: {},
   knowledge: {
@@ -586,6 +600,81 @@ export function translateDivineDomain(divineDomainName) {
 
 export function getDivineDomain(pc) {
   return pc.classAttrs?.divineDomain;
+}
+
+export const FAVORED_ENEMIES = [
+  'aberrations',
+  'beasts',
+  'celestials',
+  'constructs',
+  'dragons',
+  'elementals',
+  'fey',
+  'fiends',
+  'giants',
+  'monstrosities',
+  'oozes',
+  'plants',
+  'undead',
+];
+
+export const FAVORED_ENEMIES_HUMANOIDS = [
+  'dwarfs',
+  'elfs',
+  'halflings',
+  'humans',
+  'orcs',
+  'goblins',
+  'gnomes',
+];
+
+export function translateFavoredEnemy(enemy) {
+  switch (enemy) {
+    case 'aberrations':
+      return 'Aberraciones';
+    case 'beasts':
+      return 'Bestias';
+    case 'celestials':
+      return 'Celestiales';
+    case 'constructs':
+      return 'Constructos';
+    case 'dragons':
+      return 'Dragones';
+    case 'elementals':
+      return 'Elementales';
+    case 'fey':
+      return 'Feéricos';
+    case 'fiends':
+      return 'Infernales';
+    case 'giants':
+      return 'Gigantes';
+    case 'monstrosities':
+      return 'Monstruos';
+    case 'oozes':
+      return 'Cienos';
+    case 'plants':
+      return 'Plantas';
+    case 'undead':
+      return 'No-muertos';
+    case 'dwarfs':
+      return 'Enanos';
+    case 'elfs':
+      return 'Elfos';
+    case 'halflings':
+      return 'Medianos';
+    case 'humans':
+      return 'Humanos';
+    case 'orcs':
+      return 'Orcos';
+    case 'goblins':
+      return 'Goblins';
+    case 'gnomes':
+      return 'Gnomos';
+  }
+}
+
+export function getFavoredEnemies(pc) {
+  return pc.classAttrs?.favoredEnemies || [];
 }
 
 export const ALIGNMENTS = {

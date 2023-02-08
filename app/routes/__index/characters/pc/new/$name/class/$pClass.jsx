@@ -12,6 +12,7 @@ import {
 } from '~/utils/characters';
 import BarbarianSkills from '~/components/classSkillsSelection/barbarianSkills';
 import ClericSkills from '~/components/classSkillsSelection/clericSkills';
+import RangerSkills from '~/components/classSkillsSelection/rangerSkills';
 
 import styles from '~/components/characters.module.css';
 
@@ -29,13 +30,22 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const primalPath = formData.get('primal-path');
   const divineDomain = formData.get('divine-domain');
+  const favoredEnemy = formData.get('favored-enemy');
+  const favoredEnemyHumanoids = formData.getAll('favored-enemy-humanoids[]');
   const classSkills = formData.getAll('class-skills[]');
   const clericSkills = formData.getAll('cleric-skills[]');
 
   await updatePc({
     name,
     skills: classSkills,
-    classAttrs: { skills: clericSkills, primalPath, divineDomain },
+    classAttrs: {
+      skills: clericSkills,
+      primalPath,
+      divineDomain,
+      favoredEnemies: favoredEnemyHumanoids?.length
+        ? favoredEnemyHumanoids
+        : [favoredEnemy],
+    },
   });
 
   return redirect(`/characters/pc/${name}/summary`);
@@ -50,6 +60,8 @@ function ClassSkills(props) {
       return <BarbarianSkills {...props} />;
     case 'cleric':
       return <ClericSkills {...props} />;
+    case 'ranger':
+      return <RangerSkills {...props} />;
     default:
       return null;
   }

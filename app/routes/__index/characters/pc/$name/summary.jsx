@@ -20,6 +20,8 @@ import {
   translatePrimalPath,
   translateDivineDomain,
   getDivineDomain,
+  getFavoredEnemies,
+  translateFavoredEnemy,
 } from '~/utils/characters';
 import { signed, increment } from '~/utils/display';
 
@@ -36,18 +38,7 @@ export const loader = async ({ params }) => {
 
 function PcSummary() {
   const { pc } = useLoaderData();
-  const {
-    pClass,
-    name,
-    race,
-    speed,
-    subrace,
-    level,
-    maxHitPoints,
-    hitPoints,
-    exp,
-    classAttrs: { primalPath } = {},
-  } = pc;
+  const { pClass, name, race, speed, level, maxHitPoints, hitPoints, exp } = pc;
 
   const allSkills = getSkills(pc);
   const conditionalSkills = getConditionalSkills(pc);
@@ -138,11 +129,11 @@ function PcSummary() {
 
         {/* FEATS & TRAITS */}
         <div className={`${styles.data} ${styles.featsAndTraits}`}>
-          {!!primalPath && (
+          {!!getDivineDomain(pc) && (
             <span className={styles.traitLabel}>
               Senda Primaria:{' '}
               <strong className={styles.trait}>
-                Senda del {translatePrimalPath(primalPath)}
+                Senda del {translatePrimalPath(getDivineDomain(pc))}
               </strong>
             </span>
           )}
@@ -153,6 +144,16 @@ function PcSummary() {
                 Dominio de {translateDivineDomain(getDivineDomain(pc))}
               </strong>
             </span>
+          )}
+          {!!getFavoredEnemies(pc)?.length && (
+            <ul className={styles.traitLabel}>
+              Enemigos Predilectos:{' '}
+              {getFavoredEnemies(pc).map(favoredEnemy => (
+                <li className={styles.trait}>
+                  {translateFavoredEnemy(favoredEnemy)}
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </div>

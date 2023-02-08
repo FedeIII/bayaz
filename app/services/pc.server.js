@@ -1,5 +1,12 @@
 import { mongoose } from '~/services/db.server';
-import { RACES, STATS, SKILLS, DIVINE_DOMAINS } from '~/utils/characters';
+import {
+  RACES,
+  STATS,
+  SKILLS,
+  DIVINE_DOMAINS,
+  FAVORED_ENEMIES,
+  FAVORED_ENEMIES_HUMANOIDS,
+} from '~/utils/characters';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -20,6 +27,9 @@ const classAttrsSchema = new mongoose.Schema({
     type: String,
     enum: Object.keys(DIVINE_DOMAINS),
   },
+  favoredEnemies: [
+    { type: String, enum: [...FAVORED_ENEMIES, ...FAVORED_ENEMIES_HUMANOIDS] },
+  ],
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });
 
