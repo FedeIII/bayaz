@@ -211,7 +211,8 @@
 
 .strProf {
   grid-area: stP;
-  margin-left: 4px;
+  transform: rotate(45deg);
+  margin: 6px 0px 0px 4px;
   align-items: flex-start;
 }
 
@@ -222,7 +223,8 @@
 
 .dexProf {
   grid-area: deP;
-  margin-left: 4px;
+  transform: rotate(45deg);
+  margin: 6px 0px 0px 4px;
   align-items: flex-start;
 }
 
@@ -233,7 +235,8 @@
 
 .conProf {
   grid-area: coP;
-  margin-left: 4px;
+  transform: rotate(45deg);
+  margin: 6px 0px 0px 4px;
   align-items: flex-start;
 }
 
@@ -244,7 +247,8 @@
 
 .intProf {
   grid-area: inP;
-  margin-left: 4px;
+  transform: rotate(45deg);
+  margin: 6px 0px 0px 4px;
   align-items: flex-start;
 }
 
@@ -254,8 +258,9 @@
 }
 
 .wisProf {
-  grid-area: stP;
-  margin-left: 4px;
+  grid-area: wiP;
+  transform: rotate(45deg);
+  margin: 6px 0px 0px 4px;
   align-items: flex-start;
 }
 
@@ -266,7 +271,8 @@
 
 .chaProf {
   grid-area: chP;
-  margin-left: 4px;
+  transform: rotate(45deg);
+  margin: 6px 0px 0px 4px;
   align-items: flex-start;
 }
 
@@ -310,7 +316,8 @@
 
 .acrobaticsProf {
   grid-area: sP1;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 0.6;
 }
 
@@ -320,7 +327,8 @@
 
 .athleticsProf {
   grid-area: sP2;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 0.6;
 }
 
@@ -330,7 +338,8 @@
 
 .arcanaProf {
   grid-area: sP3;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 0.6;
 }
 
@@ -340,7 +349,8 @@
 
 .deceptionProf {
   grid-area: sP4;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 0.6;
 }
 
@@ -350,7 +360,8 @@
 
 .historyProf {
   grid-area: sP5;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 0.6;
 }
 
@@ -360,7 +371,8 @@
 
 .performanceProf {
   grid-area: sP6;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 0.6;
 }
 
@@ -370,7 +382,8 @@
 
 .intimidationProf {
   grid-area: sP7;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 0.6;
 }
 
@@ -380,7 +393,8 @@
 
 .investigationProf {
   grid-area: sP8;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -390,7 +404,8 @@
 
 .sleight-of-handProf {
   grid-area: sP9;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -400,7 +415,8 @@
 
 .medicineProf {
   grid-area: sP0;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -410,7 +426,8 @@
 
 .natureProf {
   grid-area: sPA;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -420,7 +437,8 @@
 
 .perceptionProf {
   grid-area: sPB;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -430,7 +448,8 @@
 
 .insightProf {
   grid-area: sPC;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -440,7 +459,8 @@
 
 .persuasionProf {
   grid-area: sPD;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -450,7 +470,8 @@
 
 .religionProf {
   grid-area: sPE;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -460,7 +481,8 @@
 
 .stealthProf {
   grid-area: sPF;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -470,7 +492,8 @@
 
 .survivalProf {
   grid-area: sPG;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
@@ -480,7 +503,8 @@
 
 .animal-handlingProf {
   grid-area: sPH;
-  margin-left: 5px;
+  transform: rotate(45deg);
+  margin: 0px 0px -6px 3px;
   line-height: 1;
 }
 
