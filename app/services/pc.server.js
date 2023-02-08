@@ -108,7 +108,11 @@ export async function createPc(pc) {
 }
 
 export async function updatePc(pc) {
-  const updatedPc = await Pc.findOneAndUpdate({ name: pc.name }, pc).exec();
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pc.name },
+    { $set: pc },
+    { new: true }
+  ).exec();
 
   return updatedPc;
 }

@@ -12,6 +12,7 @@ import {
   translateStat,
   getStatRacialExtraPoints,
   isStat,
+  getInitialHitPoints,
 } from '~/utils/characters';
 
 import styles from '~/components/characters.module.css';
@@ -84,11 +85,17 @@ export const action = async ({ request }) => {
     { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 }
   );
 
-  await updatePc({
+  const updatedPc = await updatePc({
     name,
     stats,
     extraStats,
     halfElf: { extraStats: halfElfExtraStats },
+  });
+
+  await updatePc({
+    name,
+    maxHitPoints: getInitialHitPoints(updatedPc),
+    hitPoints: getInitialHitPoints(updatedPc),
   });
 
   if (race === 'half-elf') return redirect(`../${name}/race/half-elf`);
@@ -253,6 +260,7 @@ function PcStats() {
             name={`extra-${extraStatName}`}
             value={extraStatValue}
             hidden
+            key={extraStatName}
           />
         ))}
 

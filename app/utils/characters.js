@@ -324,16 +324,20 @@ export const CLASSES = {
   },
 };
 
-export function getInitialHitPoints(pClass, race, subrace) {
-  return CLASSES[pClass].initialHitPoints + getExtraHitPoints(race, subrace);
+export function getInitialHitPoints(pc) {
+  const { pClass } = pc;
+  return CLASSES[pClass].initialHitPoints + getExtraHitPoints(pc);
 }
 
 export function isProficientStat(stat, pClass) {
   return CLASSES[pClass].proficiency.includes(stat);
 }
 
-export function getExtraHitPoints(race, subrace) {
-  return RACES[race][subrace].extraHitPoints || 0;
+export function getExtraHitPoints(pc) {
+  const { race, subrace } = pc;
+  return (
+    (RACES[race][subrace].extraHitPoints || 0) + getStatMod(getStat(pc, 'con'))
+  );
 }
 
 export function statSavingThrow(stat, statValue, pClass, lvl) {

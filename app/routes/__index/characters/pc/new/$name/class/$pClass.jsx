@@ -128,7 +128,7 @@ function getSkillChecked(skillName, skillsToSelect) {
 
 function getSkillAvailable(skillName, skillsToSelect, isCheckedHere) {
   return (
-    !skillsToSelect[skillName].selected ||
+    !skillsToSelect[skillName]?.selected ||
     (skillsToSelect[skillName].selected && isCheckedHere)
   );
 }

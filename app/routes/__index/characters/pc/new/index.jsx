@@ -1,11 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import {
-  Link,
-  Outlet,
-  Form,
-  useActionData,
-  useTransition,
-} from '@remix-run/react';
+import { Form, useActionData, useTransition } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import invariant from 'tiny-invariant';
 
@@ -15,7 +9,6 @@ import {
   translateRace,
   CLASSES,
   translateClass,
-  getInitialHitPoints,
 } from '~/utils/characters';
 import { createPc } from '~/services/pc.server';
 
@@ -54,8 +47,6 @@ export const action = async ({ request }) => {
     weight,
     pClass,
     level: 1,
-    maxHitPoints: getInitialHitPoints(pClass, race, subrace),
-    hitPoints: getInitialHitPoints(pClass, race, subrace),
     skills: RACES[race][subrace].skills,
     exp: 0,
   };
