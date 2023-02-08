@@ -35,6 +35,7 @@ export const action = async ({ request }) => {
   const favoredEnemyHumanoids = formData.getAll('favored-enemy-humanoids[]');
   const favoredTerrain = formData.get('favored-terrain');
   const rangerArchetype = formData.get('ranger-archetype');
+  const fightingStyle = formData.get('fighting-style');
   const classSkills = formData.getAll('class-skills[]');
 
   await updatePc({
@@ -49,6 +50,7 @@ export const action = async ({ request }) => {
         : [favoredEnemy],
       favoredTerrains: [favoredTerrain],
       rangerArchetype,
+      fightingStyles: [fightingStyle],
     },
   });
 

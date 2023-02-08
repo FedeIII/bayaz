@@ -8,6 +8,7 @@ import {
   FAVORED_ENEMIES_HUMANOIDS,
   FAVORED_TERRAINS,
   RANGER_ARCHETYPES,
+  FIGHTING_STYLES,
 } from '~/utils/characters';
 
 const statsSchema = new mongoose.Schema({
@@ -34,6 +35,7 @@ const classAttrsSchema = new mongoose.Schema({
   ],
   favoredTerrains: [{ type: String, enum: FAVORED_TERRAINS }],
   rangerArchetype: { type: String, enum: RANGER_ARCHETYPES },
+  fightingStyles: [{ type: String, enum: FIGHTING_STYLES }],
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });
 

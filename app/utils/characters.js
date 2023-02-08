@@ -276,6 +276,17 @@ export const CLASSES = {
     initialHitPoints: 10,
     hitDice: '1d10',
     proficiency: ['str', 'con'],
+    pickSkills: 2,
+    skillsToPick: [
+      'acrobatics',
+      'athletics',
+      'insight',
+      'history',
+      'intimidation',
+      'animal-handling',
+      'perception',
+      'survival',
+    ],
   },
   monk: {
     initialHitPoints: 8,
@@ -546,6 +557,15 @@ export function skillCheckBonus(pc, skillName) {
   );
 }
 
+export const ALIGNMENTS = {
+  ethics: ['L', 'Ne', 'C'],
+  morals: ['G', 'Nm', 'E'],
+};
+
+///////////////
+// BARBARIAN //
+///////////////
+
 export const PRIMAL_PATHS = ['berserker', 'totem-warrior'];
 
 export function translatePrimalPath(primalPath) {
@@ -556,6 +576,10 @@ export function translatePrimalPath(primalPath) {
 export function getPrimalPath(pc) {
   return pc.classAttrs?.primalPath;
 }
+
+////////////
+// CLERIC //
+////////////
 
 export const DIVINE_DOMAINS = {
   death: {},
@@ -601,6 +625,10 @@ export function translateDivineDomain(divineDomainName) {
 export function getDivineDomain(pc) {
   return pc.classAttrs?.divineDomain;
 }
+
+////////////
+// RANGER //
+////////////
 
 export const FAVORED_ENEMIES = [
   'aberrations',
@@ -732,7 +760,39 @@ export function getRangerArchetype(pc) {
   return pc.classAttrs?.rangerArchetype;
 }
 
-export const ALIGNMENTS = {
-  ethics: ['L', 'Ne', 'C'],
-  morals: ['G', 'Nm', 'E'],
-};
+/////////////
+// FIGHTER //
+/////////////
+
+export const FIGHTING_STYLES = [
+  'archery',
+  'defense',
+  'dueling',
+  'great-Weapon-fighting',
+  'protection',
+  'two-weapon-fighting',
+];
+
+export function translateFightingStyle(fightingStyle) {
+  switch (fightingStyle) {
+    case 'archery':
+      return 'A distancia';
+    case 'defense':
+      return 'Defensa';
+    case 'dueling':
+      return 'Duelista';
+    case 'great-Weapon-fighting':
+      return 'Lucha con Arma a dos Manos';
+    case 'protection':
+      return 'Protección';
+    case 'two-weapon-fighting':
+      return 'Lucha con Dos Armas';
+
+    default:
+      return 'unknown fighting style';
+  }
+}
+
+export function getFightingStyle(pc) {
+  return pc.classAttrs?.fightingStyle;
+}
