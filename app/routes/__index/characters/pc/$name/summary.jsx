@@ -48,7 +48,7 @@ function PcSummary() {
     classAttrs: { primalPath, divineDomain } = {},
   } = pc;
 
-  const allSkills = skills(pc);
+  const allSkills = getSkills(pc);
   const conditionalSkills = getConditionalSkills(pc);
 
   return (

@@ -57,7 +57,7 @@ function ClassSkills(props) {
 
 function getInitSkillsToSelect(pc) {
   return useMemo(() => {
-    const initSelectedSkillNames = skills(pc);
+    const initSelectedSkillNames = getSkills(pc);
     const skillsToSelectForClass = CLASSES[pc.pClass].skillsToPick || [];
 
     return SKILLS.reduce(

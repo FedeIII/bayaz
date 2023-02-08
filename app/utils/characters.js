@@ -475,7 +475,7 @@ export function translateSkill(skillName) {
   }
 }
 
-export function skills(pc) {
+export function getSkills(pc) {
   return [
     ...(pc.skills || []),
     ...(pc.halfElf?.skills || []),
@@ -484,7 +484,7 @@ export function skills(pc) {
 }
 
 export function isProficientSkill(pc, skillName) {
-  return skills(pc).includes(skillName);
+  return getSkills(pc).includes(skillName);
 }
 
 export function skillCheckBonus(pc, skillName) {
