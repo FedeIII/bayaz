@@ -104,10 +104,10 @@ function PcSummary() {
           {hitPoints}
         </span>
         <span className={`${styles.data} ${styles.hitDice}`}>
-          {CLASSES[pClass].hitDice}
+          {CLASSES[pClass].hitDice} {increment(getExtraHitPoints(race, subrace))}
         </span>
-        <span className={`${styles.data} ${styles.extraHitPoints}`}>
-          {increment(getExtraHitPoints(race, subrace))}
+        <span className={`${styles.data} ${styles.remainingHitDice}`}>
+          {CLASSES[pClass].hitDice}
         </span>
 
         {/* SKILLS */}

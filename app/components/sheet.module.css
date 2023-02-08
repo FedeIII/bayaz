@@ -38,8 +38,8 @@
     /* 26 */ '.   .   .   chP chS .   .   .   .   .   .   .   .   .   .   .   .' /* 26 */
     /* 27 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 27 */
     /* 28 */ '.   coM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 28 */
-    /* 29 */ '.   coM .   .   .   .   hiD hiD .   .   .   .   .   .   .   .   .' /* 29 */
-    /* 30 */ '.   .   .   sP1 sS1 .   hiD hiD .   .   .   .   .   .   .   .   .' /* 30 */
+    /* 29 */ '.   coM .   .   .   hiD hiD hiD .   .   .   .   .   .   .   .   .' /* 29 */
+    /* 30 */ '.   .   .   sP1 sS1 hiD hiD hiD .   .   .   .   .   .   .   .   .' /* 30 */
     /* 31 */ '.   con .   .   .   exH exH exH .   .   .   .   .   .   .   .   .' /* 31 */
     /* 32 */ '.   con .   sP2 sS2 exH exH exH .   .   .   .   .   .   .   .   .' /* 32 */
     /* 33 */ '.   .   .   .   .   exH exH exH .   .   .   .   .   .   .   .   .' /* 33 */
@@ -299,9 +299,10 @@
 
 .hitDice {
   grid-area: hiD;
+  justify-content: flex-end;
 }
 
-.extraHitPoints {
+.remainingHitDice {
   grid-area: exH;
   font-size: 24px;
   justify-content: center;
