@@ -13,6 +13,8 @@ import {
 import BarbarianSkills from '~/components/classSkillsSelection/barbarianSkills';
 import ClericSkills from '~/components/classSkillsSelection/clericSkills';
 import RangerSkills from '~/components/classSkillsSelection/rangerSkills';
+import FighterSkills from '~/components/classSkillsSelection/fighterSkills';
+import SorcererSkills from '~/components/classSkillsSelection/sorcererSkills';
 
 import styles from '~/components/characters.module.css';
 
@@ -28,6 +30,7 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
+  const classSkills = formData.getAll('class-skills[]');
   const primalPath = formData.get('primal-path');
   const divineDomain = formData.get('divine-domain');
   const clericSkills = formData.getAll('cleric-skills[]');
@@ -36,23 +39,28 @@ export const action = async ({ request }) => {
   const favoredTerrain = formData.get('favored-terrain');
   const rangerArchetype = formData.get('ranger-archetype');
   const fightingStyle = formData.get('fighting-style');
-  const classSkills = formData.getAll('class-skills[]');
+  const sorcererOrigin = formData.get('sorcerer-origin');
+  const dragonAncestor = formData.get('dragon-ancestor');
 
-  await updatePc({
-    name,
-    skills: classSkills,
-    classAttrs: {
-      skills: clericSkills,
-      primalPath,
-      divineDomain,
-      favoredEnemies: favoredEnemyHumanoids?.length
-        ? favoredEnemyHumanoids
-        : [favoredEnemy],
-      favoredTerrains: [favoredTerrain],
-      rangerArchetype,
-      fightingStyles: [fightingStyle],
-    },
-  });
+  const pc = await getPc(name);
+  const pcAttrs = { name, skills: classSkills, classAttrs: {} };
+  if (primalPath) pcAttrs.classAttrs.primalPath = primalPath;
+  if (divineDomain) pcAttrs.classAttrs.divineDomain = divineDomain;
+  if (favoredEnemies)
+    pcAttrs.classAttrs.favoredEnemies = favoredEnemyHumanoids?.length
+      ? favoredEnemyHumanoids
+      : [favoredEnemy];
+  if (favoredTerrain) pcAttrs.classAttrs.favoredTerrains = [favoredTerrain];
+  if (rangerArchetype) pcAttrs.classAttrs.rangerArchetype = rangerArchetype;
+  if (fightingStyle) pcAttrs.classAttrs.fightingStyles = [fightingStyle];
+  if (sorcererOrigin) pcAttrs.classAttrs.sorcererOrigin = sorcererOrigin;
+  if (dragonAncestor) pcAttrs.classAttrs.dragonAncestor = dragonAncestor;
+  if (dragonAncestor === 'draconic-bloodline') {
+    pcAttrs.maxHitPoints = pc.maxHitPoints + 1;
+    pcAttrs.hitPoints = pc.hitPoints + 1;
+  }
+
+  await updatePc(pcAttrs);
 
   return redirect(`/characters/pc/${name}/summary`);
 };
@@ -68,6 +76,10 @@ function ClassSkills(props) {
       return <ClericSkills {...props} />;
     case 'ranger':
       return <RangerSkills {...props} />;
+    case 'fighter':
+      return <FighterSkills {...props} />;
+    case 'sorcerer':
+      return <SorcererSkills {...props} />;
     default:
       return null;
   }

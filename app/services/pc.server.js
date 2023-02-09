@@ -9,6 +9,8 @@ import {
   FAVORED_TERRAINS,
   RANGER_ARCHETYPES,
   FIGHTING_STYLES,
+  SORCERER_ORIGIN,
+  DRAGON_ANCESTORS,
 } from '~/utils/characters';
 
 const statsSchema = new mongoose.Schema({
@@ -36,6 +38,8 @@ const classAttrsSchema = new mongoose.Schema({
   favoredTerrains: [{ type: String, enum: FAVORED_TERRAINS }],
   rangerArchetype: { type: String, enum: RANGER_ARCHETYPES },
   fightingStyles: [{ type: String, enum: FIGHTING_STYLES }],
+  sorcererOrigin: { type: String, enum: SORCERER_ORIGIN },
+  dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });
 

@@ -322,6 +322,15 @@ export const CLASSES = {
     initialHitPoints: 6,
     hitDice: '1d6',
     proficiency: ['con', 'cha'],
+    pickSkills: 2,
+    skillsToPick: [
+      'arcana',
+      'insight',
+      'deception',
+      'intimidation',
+      'persuasion',
+      'religion',
+    ],
   },
   warlock: {
     initialHitPoints: 8,
@@ -795,4 +804,50 @@ export function translateFightingStyle(fightingStyle) {
 
 export function getFightingStyle(pc) {
   return pc.classAttrs?.fightingStyle;
+}
+
+//////////////
+// SORCERER //
+//////////////
+
+export const SORCERER_ORIGIN = ['draconic-bloodline', 'wild-magic'];
+
+export function translateSorcererOrigin(origin) {
+  switch (orign) {
+    case 'draconic-bloodline':
+      return 'Línea de sangre Dracónica';
+    case 'wild-magic':
+      return 'Magia Salvaje';
+
+    default:
+      return 'unknown sorcerer origin';
+  }
+}
+
+export function getSorcererOrigin(pc) {
+  return pc.classAttrs?.sorcererOrigin;
+}
+
+export const DRAGON_ANCESTORS = ['acid', 'cold', 'fire', 'lightning', 'poison'];
+
+export function translateDragonAncestor(ancestor) {
+  switch (ancestor) {
+    case 'acid':
+      return 'Dragón de Ácido';
+    case 'cold':
+      return 'Dragón de Frío';
+    case 'fire':
+      return 'Dragón de Fuego';
+    case 'lightning':
+      return 'Dragón Eléctrico';
+    case 'poison':
+      return 'Dragón Venenoso';
+
+    default:
+      return 'unknown dragon ancestor';
+  }
+}
+
+export function getDragonAncestor(pc) {
+  return pc.classAttrs?.dragonAncestor;
 }

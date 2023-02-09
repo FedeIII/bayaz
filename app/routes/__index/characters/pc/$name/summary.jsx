@@ -27,8 +27,14 @@ import {
   translateFavoredTerrain,
   getRangerArchetype,
   translateRangerArchetype,
+  getFightingStyle,
+  translateFightingStyle,
+  getSorcererOrigin,
+  translateSorcererOrigin,
+  getDragonAncestor,
+  translateDragonAncestor,
 } from '~/utils/characters';
-import { signed, increment } from '~/utils/display';
+import { increment } from '~/utils/display';
 
 import styles from '~/components/sheet.module.css';
 
@@ -176,6 +182,46 @@ function PcSummary() {
               Arquetipo de Explorador:{' '}
               <strong className={styles.trait}>
                 {translateRangerArchetype(getRangerArchetype(pc))}
+              </strong>
+            </span>
+          )}
+          {!!getFightingStyle(pc) && (
+            <span className={styles.traitLabel}>
+              Estilo de Combate:{' '}
+              <strong className={styles.trait}>
+                {translateFightingStyle(getFightingStyle(pc))}
+              </strong>
+            </span>
+          )}
+          {!!getSorcererOrigin(pc) && (
+            <ul className={styles.traitLabel}>
+              Origen de Hechicero:{' '}
+              <li className={styles.traitItem}>
+                {translateSorcererOrigin(getSorcererOrigin(pc))}
+              </li>
+              {getSorcererOrigin(pc) === 'draconic-bloodline' && (
+                <>
+                  <li className={styles.traitItem}>
+                    CA 13 + Dex bonus sin armadura
+                  </li>
+                  <li className={styles.traitItem}>
+                    x2 Bonus a pruebas de Carisma contra dragones
+                  </li>
+                </>
+              )}
+              {getSorcererOrigin(pc) === 'wild-magic' && (
+                <>
+                  <li className={styles.traitItem}>Oleada de Magia Salvaje</li>
+                  <li className={styles.traitItem}>Mareas de Caos</li>
+                </>
+              )}
+            </ul>
+          )}
+          {!!getDragonAncestor(pc) && (
+            <span className={styles.traitLabel}>
+              Ancestro Dragón:{' '}
+              <strong className={styles.trait}>
+                {translateDragonAncestor(getDragonAncestor(pc))}
               </strong>
             </span>
           )}
