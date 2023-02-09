@@ -72,11 +72,11 @@ function PcSummary() {
         {/* STATS */}
         {STATS.map(statName => (
           <Fragment key={statName}>
-            <span className={`${styles.data} ${styles[`${statName}Mod`]}`}>
-              {increment(getStatMod(getStat(pc, statName)))}
-            </span>
             <span className={`${styles.data} ${styles[statName]}`}>
               {getStat(pc, statName)}
+            </span>
+            <span className={`${styles.data} ${styles[`${statName}Mod`]}`}>
+              {increment(getStatMod(getStat(pc, statName)))}
             </span>
           </Fragment>
         ))}

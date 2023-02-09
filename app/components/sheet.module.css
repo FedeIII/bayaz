@@ -20,60 +20,60 @@
     /* 08 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 08 */
     /* 09 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 09 */
     /* 10 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 10 */
-    /* 11 */ '.   stM .   .   .   .   .   .   .   .   spe .   .   .   .   .   .' /* 11 */
-    /* 12 */ '.   stM .   pro .   .   .   .   .   .   .   .   .   .   .   .   .' /* 12 */
+    /* 11 */ '.   str .   .   .   .   .   .   .   .   spe .   .   .   .   .   .' /* 11 */
+    /* 12 */ '.   str .   pro .   .   .   .   .   .   .   .   .   .   .   .   .' /* 12 */
     /* 13 */ '.   .   .   pro .   .   .   .   .   .   .   .   .   .   .   .   .' /* 13 */
-    /* 14 */ '.   str .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 14 */
+    /* 14 */ '.   stM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 14 */
     /* 15 */ '.   .   .   .   .   .   .   .   .   .   mhp .   .   .   .   .   .' /* 15 */
     /* 16 */ '.   .   .   stP stS .   .   .   .   .   .   .   .   .   .   .   .' /* 16 */
     /* 17 */ '.   .   .   .   .   hps hps hps hps hps hps .   .   .   .   .   .' /* 17 */
-    /* 18 */ '.   deM .   deP deS hps hps hps hps hps hps .   .   .   .   .   .' /* 18 */
-    /* 19 */ '.   deM .   .   .   hps hps hps hps hps hps .   .   .   .   .   .' /* 19 */
-    /* 20 */ '.   deM .   coP coS hps hps hps hps hps hps .   .   .   .   .   .' /* 20 */
-    /* 21 */ '.   deM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 21 */
+    /* 18 */ '.   dex .   deP deS hps hps hps hps hps hps .   .   .   .   .   .' /* 18 */
+    /* 19 */ '.   dex .   .   .   hps hps hps hps hps hps .   .   .   .   .   .' /* 19 */
+    /* 20 */ '.   dex .   coP coS hps hps hps hps hps hps .   .   .   .   .   .' /* 20 */
+    /* 21 */ '.   dex .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 21 */
     /* 22 */ '.   .   .   inP inS .   .   .   .   .   .   .   .   .   .   .   .' /* 22 */
     /* 23 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 23 */
-    /* 24 */ '.   dex .   wiP wiS .   .   .   .   .   .   .   .   .   .   .   .' /* 24 */
+    /* 24 */ '.   deM .   wiP wiS .   .   .   .   .   .   .   .   .   .   .   .' /* 24 */
     /* 25 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 25 */
     /* 26 */ '.   .   .   chP chS .   .   .   .   .   .   .   .   .   .   .   .' /* 26 */
     /* 27 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 27 */
-    /* 28 */ '.   coM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 28 */
-    /* 29 */ '.   coM .   .   .   hiD hiD hiD .   .   .   .   .   .   .   .   .' /* 29 */
+    /* 28 */ '.   con .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 28 */
+    /* 29 */ '.   con .   .   .   hiD hiD hiD .   .   .   .   .   .   .   .   .' /* 29 */
     /* 30 */ '.   .   .   sP1 sS1 hiD hiD hiD .   .   .   .   .   .   .   .   .' /* 30 */
-    /* 31 */ '.   con .   .   .   exH exH exH .   .   .   .   .   .   .   .   .' /* 31 */
-    /* 32 */ '.   con .   sP2 sS2 exH exH exH .   .   .   .   .   .   .   .   .' /* 32 */
+    /* 31 */ '.   coM .   .   .   exH exH exH .   .   .   .   .   .   .   .   .' /* 31 */
+    /* 32 */ '.   coM .   sP2 sS2 exH exH exH .   .   .   .   .   .   .   .   .' /* 32 */
     /* 33 */ '.   .   .   .   .   exH exH exH .   .   .   .   .   .   .   .   .' /* 33 */
     /* 34 */ '.   .   .   sP3 sS3 .   .   .   .   .   .   .   .   .   .   .   .' /* 34 */
     /* 35 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 35 */
     /* 36 */ '.   .   .   sP4 sS4 .   .   .   .   .   .   .   .   .   .   .   .' /* 36 */
-    /* 37 */ '.   inM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 37 */
-    /* 38 */ '.   inM .   sP5 sS5 .   .   .   .   .   .   .   .   .   .   .   .' /* 38 */
-    /* 39 */ '.   inM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 39 */
-    /* 40 */ '.   inM .   sP6 sS6 .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 40 */
+    /* 37 */ '.   int .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 37 */
+    /* 38 */ '.   int .   sP5 sS5 .   .   .   .   .   .   .   .   .   .   .   .' /* 38 */
+    /* 39 */ '.   int .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 39 */
+    /* 40 */ '.   int .   sP6 sS6 .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 40 */
     /* 41 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 41 */
-    /* 42 */ '.   int .   sP7 sS7 .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 42 */
+    /* 42 */ '.   inM .   sP7 sS7 .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 42 */
     /* 43 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 43 */
     /* 44 */ '.   .   .   sP8 sS8 .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 44 */
     /* 45 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 45 */
     /* 46 */ '.   .   .   sP9 sS9 .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 46 */
     /* 47 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 47 */
-    /* 48 */ '.   wiM .   sP0 sS0 .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 48 */
-    /* 49 */ '.   wiM .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 49 */
-    /* 50 */ '.   wiM .   sPA sSA .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 50 */
+    /* 48 */ '.   wis .   sP0 sS0 .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 48 */
+    /* 49 */ '.   wis .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 49 */
+    /* 50 */ '.   wis .   sPA sSA .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 50 */
     /* 51 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 51 */
-    /* 52 */ '.   wis .   sPB sSB .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 52 */
-    /* 53 */ '.   wis .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 53 */
+    /* 52 */ '.   wiM .   sPB sSB .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 52 */
+    /* 53 */ '.   wiM .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 53 */
     /* 54 */ '.   .   .   sPC sSC .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 54 */
     /* 55 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 55 */
     /* 56 */ '.   .   .   sPD sSD .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 56 */
     /* 57 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 57 */
-    /* 58 */ '.   chM .   sPE sSE .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 58 */
-    /* 59 */ '.   chM .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 59 */
-    /* 60 */ '.   chM .   sPF sSF .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 60 */
-    /* 61 */ '.   chM .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 61 */
+    /* 58 */ '.   cha .   sPE sSE .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 58 */
+    /* 59 */ '.   cha .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 59 */
+    /* 60 */ '.   cha .   sPF sSF .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 60 */
+    /* 61 */ '.   cha .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 61 */
     /* 62 */ '.   .   .   sPG sSG .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 62 */
-    /* 63 */ '.   cha .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 63 */
-    /* 64 */ '.   cha .   sPH sSH .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 64 */
+    /* 63 */ '.   chM .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 63 */
+    /* 64 */ '.   chM .   sPH sSH .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 64 */
     /* 65 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 65 */
     /* 66 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 66 */
     /* 67 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 67 */
@@ -135,71 +135,77 @@
 .str {
   grid-area: str;
   justify-content: center;
+  font-size: 32px;
 }
 
 .strMod {
   grid-area: stM;
-  font-size: 32px;
   justify-content: center;
 }
 
 .dex {
   grid-area: dex;
   justify-content: center;
-  line-height: 0.5;
+  line-height: 1;
+  font-size: 32px;
 }
 
 .dexMod {
   grid-area: deM;
-  font-size: 32px;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .con {
   grid-area: con;
   justify-content: center;
+  align-items: center;
+  font-size: 32px;
 }
 
 .conMod {
   grid-area: coM;
-  font-size: 32px;
   justify-content: center;
+  align-items: center;
 }
 
 .int {
   grid-area: int;
   justify-content: center;
-  line-height: 0.4;
+  align-items: center;
+  line-height: 1;
+  font-size: 32px;
 }
 
 .intMod {
   grid-area: inM;
-  font-size: 32px;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .wis {
   grid-area: wis;
   justify-content: center;
+  align-items: center;
+  font-size: 32px;
 }
 
 .wisMod {
   grid-area: wiM;
-  font-size: 32px;
   justify-content: center;
 }
 
 .cha {
   grid-area: cha;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  font-size: 32px;
 }
 
 .chaMod {
   grid-area: chM;
-  font-size: 32px;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .proficiencyBonus {

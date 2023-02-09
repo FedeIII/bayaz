@@ -52,3 +52,9 @@ npx prisma migrate dev
 ```
 
 ## TO DOs
+
+- Languages
+- Equipment
+- Armor
+- Perception
+- Spells
