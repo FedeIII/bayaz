@@ -9,6 +9,7 @@ import {
   translateRace,
   CLASSES,
   translateClass,
+  setLanguages,
 } from '~/utils/characters';
 import { createPc } from '~/services/pc.server';
 
@@ -49,6 +50,7 @@ export const action = async ({ request }) => {
     level: 1,
     skills: RACES[race][subrace].skills,
     exp: 0,
+    languages: setLanguages(race, subrace, pClass),
   };
 
   await createPc(pc);

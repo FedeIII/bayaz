@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import {
   FAVORED_ENEMIES,
   FAVORED_ENEMIES_HUMANOIDS,
@@ -6,11 +8,25 @@ import {
   translateFavoredTerrain,
   RANGER_ARCHETYPES,
   translateRangerArchetype,
+  FAVORED_ENEMIES_LANGUAGES,
+  translateLanguage,
 } from '~/utils/characters';
 
 import styles from '~/components/characters.module.css';
 
 function RangerSkills(props) {
+  const { pc, setSkillsNamespace } = props;
+
+  const [favoredEnemies, setFavoredEnemies] = useState({
+    enemies: {},
+    humanoids: {},
+  });
+  const [isLanguageSelected, setIsLanguageSelected] = useState(false);
+
+  useEffect(() => {
+    setSkillsNamespace('rangerSkills', isLanguageSelected);
+  }, [isLanguageSelected]);
+
   return (
     <>
       <p>
@@ -21,7 +37,17 @@ function RangerSkills(props) {
             key={enemyType}
             className={styles.skillLabel}
           >
-            <input type="radio" name="favored-enemy" value={enemyType} />
+            <input
+              type="radio"
+              name="favored-enemy"
+              value={enemyType}
+              onChange={e =>
+                setFavoredEnemies(oldEnemies => ({
+                  humanoids: oldEnemies.humanoids,
+                  enemies: { [enemyType]: e.target.checked },
+                }))
+              }
+            />
             {translateFavoredEnemy(enemyType)}
           </label>
         ))}
@@ -38,10 +64,49 @@ function RangerSkills(props) {
               type="checkbox"
               name="favored-enemy-humanoids[]"
               value={enemyType}
+              onChange={e =>
+                setFavoredEnemies(oldEnemies => ({
+                  enemies: oldEnemies.enemies,
+                  humanoids: {
+                    ...oldEnemies.humanoids,
+                    [enemyType]: e.target.checked,
+                  },
+                }))
+              }
             />
             {translateFavoredEnemy(enemyType)}
           </label>
         ))}
+      </p>
+      <p>
+        Selecciona un idioma extra entre los que hablan tus Enemigos Predilectos
+        {(Object.entries(favoredEnemies.humanoids || {}).filter(
+          ([_, isSelected]) => isSelected
+        ).length
+          ? Object.entries(favoredEnemies.humanoids || {})
+          : Object.entries(favoredEnemies.enemies || {})
+        )
+          .filter(([_, isSelected]) => isSelected)
+          .map(([enemy]) => {
+            const language = FAVORED_ENEMIES_LANGUAGES[enemy];
+            if (!language || pc.languages.includes(language)) return null;
+
+            return (
+              <label
+                for={language}
+                key={language}
+                className={styles.skillLabel}
+              >
+                <input
+                  type="radio"
+                  name="languages[]"
+                  value={language}
+                  onChange={() => setIsLanguageSelected(true)}
+                />
+                {translateLanguage(language)}
+              </label>
+            );
+          })}
       </p>
       <p>
         Escoge terreno predilecto:{' '}

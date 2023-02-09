@@ -3,7 +3,13 @@ import { Form, useLoaderData, useTransition } from '@remix-run/react';
 import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import { SKILLS, translateSkill } from '~/utils/characters';
+import {
+  SKILLS,
+  translateSkill,
+  LANGUAGES,
+  RACES,
+  translateLanguage,
+} from '~/utils/characters';
 
 import styles from '~/components/characters.module.css';
 
@@ -20,6 +26,7 @@ export const action = async ({ request }) => {
 
   const name = formData.get('name');
   const pClass = formData.get('pClass');
+  const language = formData.get('language');
   const skills = formData.getAll('skills[]');
   const halfElfSkills = formData.getAll('half-elf-skills[]');
 
@@ -27,13 +34,10 @@ export const action = async ({ request }) => {
     name,
     skills,
     halfElf: { skills: halfElfSkills },
+    languages: [...RACES['half-elf'].subrace.languages, language],
   });
 
   return redirect(`../${name}/class/${pClass}`);
-  // if (pClass === 'bard') return redirect(`../${name}/bard`);
-  // if (pClass === 'warlock') return redirect(`../${name}/warlock`);
-  // if (pClass === 'cleric') return redirect(`../${name}/cleric`);
-  // return redirect(`/characters/pc/${name}/summary`);
 };
 
 function PcHalfElfSkills() {
@@ -69,13 +73,32 @@ function PcHalfElfSkills() {
     }
   };
 
-  const canContinue = selectionCount === 2;
+  const [isLanguageSelected, setIsLanguageSelected] = useState(false);
+
+  const canContinue = selectionCount === 2 && isLanguageSelected;
 
   return (
     <Form method="post">
       <h2>Habilidades de semielfo para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
       <input readOnly type="text" name="pClass" value={pClass} hidden />
+
+      <p>
+        Selecciona un idioma extra
+        {LANGUAGES.filter(
+          l => !RACES['half-elf'].subrace.languages.includes(l)
+        ).map(language => (
+          <label for={language} key={language} className={styles.skillLabel}>
+            <input
+              type="radio"
+              name="language"
+              value={language}
+              onChange={() => setIsLanguageSelected(true)}
+            />
+            {translateLanguage(language)}
+          </label>
+        ))}
+      </p>
 
       <p>
         Selecciona dos habilidades en las que ser competente

@@ -1,10 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   DIVINE_DOMAINS,
   translateDivineDomain,
   translateSkill,
   getDivineDomain,
+  LANGUAGES,
+  translateLanguage,
 } from '~/utils/characters';
 
 import styles from '~/components/characters.module.css';
@@ -22,6 +24,7 @@ function getSkillAvailable(skillName, skillsToSelect, isCheckedHere) {
 
 function ClericSkills(props) {
   const { pc, skillsToSelect, setSkills, setSkillsNamespace } = props;
+  const { languages } = pc;
   const initDivineDomain = getDivineDomain(pc);
 
   const [divineDomain, setDivineDomain] = useState(initDivineDomain);
@@ -49,12 +52,17 @@ function ClericSkills(props) {
     setDivineDomain(newDivineDomain);
   }
 
+  const [languagesSelected, setLanguagesSelected] = useState(0);
+
   useEffect(() => {
     const newPickSkills = DIVINE_DOMAINS[divineDomain]?.pickSkills || 0;
     const areClericSkillsSelected =
       checks.filter(v => v).length === newPickSkills;
-    setSkillsNamespace('clericSkills', areClericSkillsSelected);
-  }, [divineDomain, checks]);
+    setSkillsNamespace(
+      'clericSkills',
+      areClericSkillsSelected && languagesSelected === 2
+    );
+  }, [divineDomain, checks, languagesSelected]);
 
   const onSkillChange = (skillName, isChecked, i) => {
     setChecks(oldChecks => {
@@ -110,6 +118,26 @@ function ClericSkills(props) {
                 }
               />
               {translateSkill(skillName)}
+            </label>
+          ))}
+        </p>
+      )}
+
+      {divineDomain === 'knowledge' && (
+        <p>
+          Selecciona dos idiomas extra
+          {LANGUAGES.filter(l => !languages.includes(l)).map(language => (
+            <label for={language} key={language} className={styles.skillLabel}>
+              <input
+                type="checkbox"
+                name="languages[]"
+                value={language}
+                onChange={e => {
+                  if (e.target.checked) setLanguagesSelected(v => v + 1);
+                  else setLanguagesSelected(v => v - 1);
+                }}
+              />
+              {translateLanguage(language)}
             </label>
           ))}
         </p>

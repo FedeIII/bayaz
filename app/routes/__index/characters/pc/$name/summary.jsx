@@ -18,6 +18,7 @@ import {
   skillCheckBonus,
   getConditionalSkills,
   getSkills,
+  getPrimalPath,
   translatePrimalPath,
   translateDivineDomain,
   getDivineDomain,
@@ -27,7 +28,7 @@ import {
   translateFavoredTerrain,
   getRangerArchetype,
   translateRangerArchetype,
-  getFightingStyle,
+  getFightingStyles,
   translateFightingStyle,
   getSorcererOrigin,
   translateSorcererOrigin,
@@ -35,6 +36,7 @@ import {
   translateDragonAncestor,
   getExpertSkills,
   translateSkill,
+  translateLanguage,
 } from '~/utils/characters';
 import { increment } from '~/utils/display';
 
@@ -50,7 +52,17 @@ export const loader = async ({ params }) => {
 
 function PcSummary() {
   const { pc } = useLoaderData();
-  const { pClass, name, race, speed, level, maxHitPoints, hitPoints, exp } = pc;
+  const {
+    pClass,
+    name,
+    race,
+    speed,
+    level,
+    maxHitPoints,
+    hitPoints,
+    exp,
+    languages,
+  } = pc;
 
   const allSkills = getSkills(pc);
   const conditionalSkills = getConditionalSkills(pc);
@@ -141,12 +153,12 @@ function PcSummary() {
 
         {/* FEATS & TRAITS */}
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>
-          {!!getDivineDomain(pc) && (
+          {!!getPrimalPath(pc) && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>Senda Primaria:</span>
               <strong className={styles.trait}>
                 {' '}
-                Senda del {translatePrimalPath(getDivineDomain(pc))}
+                Senda del {translatePrimalPath(getPrimalPath(pc))}
               </strong>
             </li>
           )}
@@ -200,13 +212,16 @@ function PcSummary() {
               </strong>
             </li>
           )}
-          {!!getFightingStyle(pc) && (
+          {!!getFightingStyles(pc)?.length && (
             <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>Estilo de Combate:</span>
-              <strong className={styles.trait}>
-                {' '}
-                {translateFightingStyle(getFightingStyle(pc))}
-              </strong>
+              <span className={styles.traitTitle}>Estilos de Combate:</span>
+              <ul className={styles.traitLabel}>
+                {getFightingStyles(pc).map(fightingStyle => (
+                  <li className={styles.traitItem} key={fightingStyle}>
+                    {translateFightingStyle(fightingStyle)}
+                  </li>
+                ))}
+              </ul>
             </li>
           )}
           {!!getSorcererOrigin(pc) && (
@@ -259,6 +274,15 @@ function PcSummary() {
 
         {/* COMPETENCES & LANGUAGES */}
         <ul className={`${styles.data} ${styles.competencesAndLanguages}`}>
+          <li className={styles.traitLabel}>
+            <span className={styles.traitTitle}>Idiomas:</span>{' '}
+            <strong className={styles.trait}>
+              {languages
+                .map(language => translateLanguage(language))
+                .join(', ')}
+            </strong>
+          </li>
+
           {CLASSES[pClass].proficiencies &&
             Object.entries(CLASSES[pClass].proficiencies).map(
               ([profName, profValue]) => (

@@ -35,6 +35,7 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const pClass = formData.get('pClass');
   const race = formData.get('race');
+  const subrace = formData.get('subrace');
   const extraPoints = formData.getAll('extra-points[]');
   const selectedExtraPoints = formData.getAll('selected-extra-points[]');
   const extraStr = formData.get('extra-str');
@@ -99,6 +100,9 @@ export const action = async ({ request }) => {
   });
 
   if (race === 'half-elf') return redirect(`../${name}/race/half-elf`);
+  if (race === 'elf' && subrace === 'high')
+    return redirect(`../${name}/race/high-elf`);
+  if (race === 'human') return redirect(`../${name}/race/human`);
 
   return redirect(`../${name}/class/${pClass}`);
 
@@ -242,6 +246,7 @@ function PcStats() {
       <input readOnly type="text" name="name" value={name} hidden />
       <input readOnly type="text" name="pClass" value={pClass} hidden />
       <input readOnly type="text" name="race" value={race} hidden />
+      <input readOnly type="text" name="subrace" value={subrace} hidden />
       {selectedExtraPoints.map(extraPointStat => (
         <input
           readOnly

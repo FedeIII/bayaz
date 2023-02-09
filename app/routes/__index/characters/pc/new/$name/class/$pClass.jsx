@@ -35,6 +35,7 @@ export const action = async ({ request }) => {
   const primalPath = formData.get('primal-path');
   const divineDomain = formData.get('divine-domain');
   const clericSkills = formData.getAll('cleric-skills[]');
+  const languages = formData.getAll('languages[]');
   const favoredEnemy = formData.get('favored-enemy');
   const favoredEnemyHumanoids = formData.getAll('favored-enemy-humanoids[]');
   const favoredTerrain = formData.get('favored-terrain');
@@ -45,14 +46,16 @@ export const action = async ({ request }) => {
   const expertSkills = formData.getAll('expert-skills[]');
 
   const pc = await getPc(name);
+
   const pcAttrs = { name, skills: classSkills, classAttrs: {} };
   if (primalPath) pcAttrs.classAttrs.primalPath = primalPath;
   if (divineDomain) pcAttrs.classAttrs.divineDomain = divineDomain;
   if (clericSkills.length) pcAttrs.classAttrs.skills = clericSkills;
-  if (favoredEnemy || favoredEnemyHumanoids.length)
+  if (favoredEnemy || favoredEnemyHumanoids.length) {
     pcAttrs.classAttrs.favoredEnemies = favoredEnemyHumanoids?.length
       ? favoredEnemyHumanoids
       : [favoredEnemy];
+  }
   if (favoredTerrain) pcAttrs.classAttrs.favoredTerrains = [favoredTerrain];
   if (rangerArchetype) pcAttrs.classAttrs.rangerArchetype = rangerArchetype;
   if (fightingStyle) pcAttrs.classAttrs.fightingStyles = [fightingStyle];
@@ -63,6 +66,7 @@ export const action = async ({ request }) => {
     pcAttrs.hitPoints = pc.hitPoints + 1;
   }
   if (expertSkills.length) pcAttrs.classAttrs.expertSkills = expertSkills;
+  if (languages.length) pcAttrs.languages = [...pc.languages, ...languages];
 
   await updatePc(pcAttrs);
 

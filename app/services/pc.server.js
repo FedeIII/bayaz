@@ -11,6 +11,8 @@ import {
   FIGHTING_STYLES,
   SORCERER_ORIGIN,
   DRAGON_ANCESTORS,
+  LANGUAGES,
+  EXOTIC_LANGUAGES,
 } from '~/utils/characters';
 
 const statsSchema = new mongoose.Schema({
@@ -104,6 +106,7 @@ const pcSchema = new mongoose.Schema({
   classAttrs: classAttrsSchema,
   stats: statsSchema,
   extraStats: statsSchema,
+  languages: [{ type: String, enum: [...LANGUAGES, ...EXOTIC_LANGUAGES] }],
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);

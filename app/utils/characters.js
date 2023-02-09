@@ -18,6 +18,7 @@ export const RACES = {
             'history'
           ),
       },
+      languages: ['common', 'dwarvish'],
     },
     mountains: {
       age: [40, 350],
@@ -50,6 +51,7 @@ export const RACES = {
         int: 1,
       },
       skills: ['perception'],
+      languages: ['common', 'elvish'],
     },
     wood: {
       age: [80, 750],
@@ -62,6 +64,7 @@ export const RACES = {
         wis: 1,
       },
       skills: ['perception'],
+      languages: ['common', 'elvish'],
     },
     drow: {
       age: [80, 750],
@@ -74,6 +77,7 @@ export const RACES = {
         cha: 1,
       },
       skills: ['perception'],
+      languages: ['common', 'elvish'],
     },
   },
   halfling: {
@@ -87,6 +91,7 @@ export const RACES = {
         dex: 2,
         cha: 1,
       },
+      languages: ['common', 'halfling'],
     },
     stout: {
       age: [18, 250],
@@ -98,6 +103,7 @@ export const RACES = {
         dex: 2,
         con: 1,
       },
+      languages: ['common', 'halfling'],
     },
   },
   human: {
@@ -115,6 +121,7 @@ export const RACES = {
         wis: 1,
         cha: 1,
       },
+      languages: ['common'],
     },
   },
   ['half-elf']: {
@@ -127,6 +134,7 @@ export const RACES = {
       statMods: {
         cha: 2,
       },
+      languages: ['common', 'elvish'],
     },
   },
   ['half-orc']: {
@@ -141,6 +149,7 @@ export const RACES = {
         con: 1,
       },
       skills: ['intimidation'],
+      languages: ['common', 'orc'],
     },
   },
 };
@@ -167,19 +176,19 @@ export function translateRace(race) {
     case 'half-orc':
       return 'Semiorco';
     case 'hills':
-      return 'de las colinas';
+      return 'de las Colinas';
     case 'mountains':
-      return 'de las montañas';
+      return 'de las Montañas';
     case 'high':
-      return 'alto elfo';
+      return 'Alto Elfo';
     case 'wood':
-      return 'de los bosques';
+      return 'de los Bosques';
     case 'drow':
-      return 'oscuro';
+      return 'Oscuro';
     case 'lightfoot':
-      return 'piesligeros';
+      return 'Piesligeros';
     case 'stout':
-      return 'fornido';
+      return 'Fornido';
   }
 }
 
@@ -624,6 +633,82 @@ export function skillCheckBonus(pc, skillName) {
   );
 }
 
+export const LANGUAGES = [
+  'common',
+  'dwarvish',
+  'elvish',
+  'giant',
+  'gnomish',
+  'goblin',
+  'halfling',
+  'orc',
+];
+
+export const EXOTIC_LANGUAGES = [
+  'druidic',
+  'thieves-cant',
+  'abyssal',
+  'celestial',
+  'draconic',
+  'deep-speech',
+  'infernal',
+  'primordial',
+  'sylvan',
+  'undercommon',
+];
+
+export function translateLanguage(language) {
+  switch (language) {
+    case 'common':
+      return 'Común';
+    case 'dwarvish':
+      return 'Enano';
+    case 'elvish':
+      return 'Élfico';
+    case 'giant':
+      return 'Gigante';
+    case 'gnomish':
+      return 'Gnómico';
+    case 'goblin':
+      return 'Goblin';
+    case 'halfling':
+      return 'Mediano';
+    case 'orc':
+      return 'Orco';
+
+    case 'druidic':
+      return 'Druídico';
+    case 'thieves-cant':
+      return 'Jerga de Ladrones';
+    case 'abyssal':
+      return 'Abisal';
+    case 'celestial':
+      return 'Celestial';
+    case 'draconic':
+      return 'Dracónico';
+    case 'deep-speech':
+      return 'Habla Profunda';
+    case 'infernal':
+      return 'Infernal';
+    case 'primordial':
+      return 'Primordial';
+    case 'sylvan':
+      return 'Silvano';
+    case 'undercommon':
+      return 'Infracomún';
+    default:
+      return 'unknown language';
+  }
+}
+
+export function setLanguages(race, subrace, pClass) {
+  const languages = [...RACES[race][subrace].languages];
+  if (pClass === 'druid') languages.push('druidic');
+  if (pClass === 'rogue') languages.push('thieves-cant');
+
+  return languages;
+}
+
 export const ALIGNMENTS = {
   ethics: ['L', 'Ne', 'C'],
   morals: ['G', 'Nm', 'E'],
@@ -638,6 +723,7 @@ export const PRIMAL_PATHS = ['berserker', 'totem-warrior'];
 export function translatePrimalPath(primalPath) {
   if (primalPath === 'berserker') return 'Berserker';
   if (primalPath === 'totem-warrior') return 'Guerrero Totémico';
+  return 'unknown primal path';
 }
 
 export function getPrimalPath(pc) {
@@ -706,6 +792,7 @@ export const FAVORED_ENEMIES = [
   'elementals',
   'fey',
   'fiends',
+  'devils',
   'giants',
   'monstrosities',
   'oozes',
@@ -722,6 +809,24 @@ export const FAVORED_ENEMIES_HUMANOIDS = [
   'goblins',
   'gnomes',
 ];
+
+export const FAVORED_ENEMIES_LANGUAGES = {
+  dwarfs: 'dwarvish',
+  elfs: 'elvish',
+  halflings: 'halfling',
+  humans: 'common',
+  orcs: 'orc',
+  giants: 'giant',
+  goblins: 'goblin',
+  gnomes: 'gnomish',
+  fiends: 'abyssal',
+  celestials: 'celestial',
+  dragons: 'draconic',
+  aberrations: 'deep-speech',
+  devils: 'infernal',
+  elementals: 'primordial',
+  fey: 'sylvan',
+};
 
 export function translateFavoredEnemy(enemy) {
   switch (enemy) {
@@ -741,6 +846,8 @@ export function translateFavoredEnemy(enemy) {
       return 'Feéricos';
     case 'fiends':
       return 'Infernales';
+    case 'devils':
+      return 'Diablos';
     case 'giants':
       return 'Gigantes';
     case 'monstrosities':
@@ -860,8 +967,8 @@ export function translateFightingStyle(fightingStyle) {
   }
 }
 
-export function getFightingStyle(pc) {
-  return pc.classAttrs?.fightingStyle;
+export function getFightingStyles(pc) {
+  return pc.classAttrs?.fightingStyles;
 }
 
 //////////////
