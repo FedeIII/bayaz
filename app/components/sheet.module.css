@@ -80,11 +80,11 @@
     /* 68 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 68 */
     /* 69 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 69 */
     /* 70 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 70 */
-    /* 71 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 71 */
-    /* 72 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 72 */
-    /* 73 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 73 */
-    /* 74 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 74 */
-    /* 75 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 75 */
+    /* 71 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 71 */
+    /* 72 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 72 */
+    /* 73 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 73 */
+    /* 74 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 74 */
+    /* 75 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 75 */
     /* 76 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 76 */
     /* 77 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 77 */
     /* 78 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 78 */
@@ -516,9 +516,20 @@
   grid-area: FnT;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-top: 6px;
   flex-direction: column;
   line-height: 1.35;
+  padding: 6px 0 0 0;
+  margin: 0;
+}
+
+.competencesAndLanguages {
+  grid-area: CnL;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  line-height: 1.35;
+  padding: 14px 70px 0 0;
+  margin: 0;
 }
 
 /*  */
@@ -528,6 +539,10 @@
   margin: 0;
   padding: 0;
   text-align: left;
+}
+
+.traitTitle {
+  text-decoration: underline;
 }
 
 .trait {

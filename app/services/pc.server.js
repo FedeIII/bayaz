@@ -84,7 +84,7 @@ const pcSchema = new mongoose.Schema({
       'druid',
       'fighter',
       'monk',
-      'palading',
+      'paladin',
       'ranger',
       'rogue',
       'sorcerer',

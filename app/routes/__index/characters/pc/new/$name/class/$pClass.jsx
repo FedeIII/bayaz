@@ -46,7 +46,8 @@ export const action = async ({ request }) => {
   const pcAttrs = { name, skills: classSkills, classAttrs: {} };
   if (primalPath) pcAttrs.classAttrs.primalPath = primalPath;
   if (divineDomain) pcAttrs.classAttrs.divineDomain = divineDomain;
-  if (favoredEnemies)
+  if (clericSkills.length) pcAttrs.classAttrs.skills = clericSkills;
+  if (favoredEnemy || favoredEnemyHumanoids.length)
     pcAttrs.classAttrs.favoredEnemies = favoredEnemyHumanoids?.length
       ? favoredEnemyHumanoids
       : [favoredEnemy];

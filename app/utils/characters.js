@@ -292,11 +292,37 @@ export const CLASSES = {
     initialHitPoints: 8,
     hitDice: '1d8',
     proficiency: ['str', 'dex'],
+    pickSkills: 2,
+    skillsToPick: [
+      'acrobatics',
+      'athletics',
+      'insight',
+      'history',
+      'religion',
+      'stealth',
+    ],
   },
-  palading: {
+  paladin: {
     initialHitPoints: 10,
     hitDice: '1d10',
     proficiency: ['str', 'cha'],
+    pickSkills: 2,
+    skillsToPick: [
+      'athletics',
+      'insight',
+      'intimidation',
+      'medicine',
+      'persuasion',
+      'religion',
+    ],
+    proficiencies: {
+      ['Sentido Divino']: pc =>
+        `18m, ${getStatMod(getStat(pc, 'cha')) + 1} veces al día`,
+      ['Imposición de Manos']: pc =>
+        `Curación de ${
+          pc.level * 5
+        } Puntos de Golpe al día (5 puntos para curar enfermedad/veneno)`,
+    },
   },
   ranger: {
     initialHitPoints: 10,
@@ -351,6 +377,15 @@ export const CLASSES = {
     initialHitPoints: 6,
     hitDice: '1d6',
     proficiency: ['int', 'wis'],
+    pickSkills: 2,
+    skillsToPick: [
+      'arcana',
+      'insight',
+      'history',
+      'investigation',
+      'medicine',
+      'religion',
+    ],
   },
 };
 
@@ -813,7 +848,7 @@ export function getFightingStyle(pc) {
 export const SORCERER_ORIGIN = ['draconic-bloodline', 'wild-magic'];
 
 export function translateSorcererOrigin(origin) {
-  switch (orign) {
+  switch (origin) {
     case 'draconic-bloodline':
       return 'Línea de sangre Dracónica';
     case 'wild-magic':

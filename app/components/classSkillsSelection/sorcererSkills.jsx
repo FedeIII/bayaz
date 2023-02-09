@@ -10,7 +10,7 @@ import {
 
 function SorcererSkills(props) {
   const { pc } = props;
-  const initSorcererOrigin = getSorcererOrigin(pc);
+  const initSorcererOrigin = getSorcererOrigin(pc) || 'draconic-bloodline';
   const [sorcererOrigin, setSorcererOrigin] = useState(initSorcererOrigin);
 
   return (

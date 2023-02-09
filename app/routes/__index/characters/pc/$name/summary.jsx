@@ -138,94 +138,123 @@ function PcSummary() {
         ))}
 
         {/* FEATS & TRAITS */}
-        <div className={`${styles.data} ${styles.featsAndTraits}`}>
+        <ul className={`${styles.data} ${styles.featsAndTraits}`}>
           {!!getDivineDomain(pc) && (
-            <span className={styles.traitLabel}>
-              Senda Primaria:{' '}
+            <li className={styles.traitLabel}>
+              <span className={styles.traitTitle}>Senda Primaria:</span>
               <strong className={styles.trait}>
+                {' '}
                 Senda del {translatePrimalPath(getDivineDomain(pc))}
               </strong>
-            </span>
+            </li>
           )}
           {!!getDivineDomain(pc) && (
-            <span className={styles.traitLabel}>
-              Dominio Divino:{' '}
+            <li className={styles.traitLabel}>
+              <span className={styles.traitTitle}>Dominio Divino:</span>
               <strong className={styles.trait}>
+                {' '}
                 Dominio de {translateDivineDomain(getDivineDomain(pc))}
               </strong>
-            </span>
+            </li>
           )}
           {!!getFavoredEnemies(pc)?.length && (
-            <ul className={styles.traitLabel}>
-              Enemigos Predilectos (Bonificacion en Inteligencia y Sabiduría
-              x2):{' '}
-              {getFavoredEnemies(pc).map(favoredEnemy => (
-                <li className={styles.traitItem} key={favoredEnemy}>
-                  {translateFavoredEnemy(favoredEnemy)}
-                </li>
-              ))}
-            </ul>
+            <li className={styles.traitLabel}>
+              <span className={styles.traitTitle}>
+                Enemigos Predilectos (Bonificacion en Inteligencia y Sabiduría
+                x2):
+              </span>
+              <ul className={styles.traitLabel}>
+                {getFavoredEnemies(pc).map(favoredEnemy => (
+                  <li className={styles.traitItem} key={favoredEnemy}>
+                    {translateFavoredEnemy(favoredEnemy)}
+                  </li>
+                ))}
+              </ul>
+            </li>
           )}
           {!!getFavoredTerrains(pc)?.length && (
-            <ul className={styles.traitLabel}>
-              Terrenos Predilectos (Bonificacion en Inteligencia y Sabiduría x2
-              + reglas extra):{' '}
-              {getFavoredTerrains(pc).map(favoredEnemy => (
-                <li className={styles.traitItem} key={favoredEnemy}>
-                  {translateFavoredTerrain(favoredEnemy)}
-                </li>
-              ))}
-            </ul>
+            <li className={styles.traitLabel}>
+              <span className={styles.traitTitle}>
+                Terrenos Predilectos (Bonificacion en Inteligencia y Sabiduría
+                x2 + reglas extra):
+              </span>
+              <ul className={styles.traitLabel}>
+                {getFavoredTerrains(pc).map(favoredEnemy => (
+                  <li className={styles.traitItem} key={favoredEnemy}>
+                    {translateFavoredTerrain(favoredEnemy)}
+                  </li>
+                ))}
+              </ul>
+            </li>
           )}
           {!!getRangerArchetype(pc) && (
-            <span className={styles.traitLabel}>
-              Arquetipo de Explorador:{' '}
+            <li className={styles.traitLabel}>
+              <span className={styles.traitTitle}>
+                Arquetipo de Explorador:
+              </span>
               <strong className={styles.trait}>
+                {' '}
                 {translateRangerArchetype(getRangerArchetype(pc))}
               </strong>
-            </span>
+            </li>
           )}
           {!!getFightingStyle(pc) && (
-            <span className={styles.traitLabel}>
-              Estilo de Combate:{' '}
+            <li className={styles.traitLabel}>
+              <span className={styles.traitTitle}>Estilo de Combate:</span>
               <strong className={styles.trait}>
+                {' '}
                 {translateFightingStyle(getFightingStyle(pc))}
               </strong>
-            </span>
+            </li>
           )}
           {!!getSorcererOrigin(pc) && (
-            <ul className={styles.traitLabel}>
-              Origen de Hechicero:{' '}
-              <li className={styles.traitItem}>
+            <li className={styles.traitLabel}>
+              <span className={styles.traitTitle}>Origen de Hechicero:</span>
+              <strong className={styles.trait}>
+                {' '}
                 {translateSorcererOrigin(getSorcererOrigin(pc))}
-              </li>
+              </strong>
               {getSorcererOrigin(pc) === 'draconic-bloodline' && (
-                <>
+                <ul className={styles.traitLabel}>
                   <li className={styles.traitItem}>
                     CA 13 + Dex bonus sin armadura
                   </li>
                   <li className={styles.traitItem}>
                     x2 Bonus a pruebas de Carisma contra dragones
                   </li>
-                </>
+                </ul>
               )}
               {getSorcererOrigin(pc) === 'wild-magic' && (
-                <>
+                <ul className={styles.traitLabel}>
                   <li className={styles.traitItem}>Oleada de Magia Salvaje</li>
                   <li className={styles.traitItem}>Mareas de Caos</li>
-                </>
+                </ul>
               )}
-            </ul>
+            </li>
           )}
           {!!getDragonAncestor(pc) && (
-            <span className={styles.traitLabel}>
-              Ancestro Dragón:{' '}
+            <li className={styles.traitLabel}>
+              <span className={styles.traitTitle}>Ancestro Dragón:</span>
               <strong className={styles.trait}>
+                {' '}
                 {translateDragonAncestor(getDragonAncestor(pc))}
               </strong>
-            </span>
+            </li>
           )}
-        </div>
+        </ul>
+
+        {/* COMPETENCES & LANGUAGES */}
+        <ul className={`${styles.data} ${styles.competencesAndLanguages}`}>
+          {CLASSES[pClass].proficiencies &&
+            Object.entries(CLASSES[pClass].proficiencies).map(
+              ([profName, profValue]) => (
+                <li className={styles.traitLabel} key={profName}>
+                  {profName}:{' '}
+                  <strong className={styles.trait}>{profValue(pc)}</strong>
+                </li>
+              )
+            )}
+        </ul>
       </div>
     </>
   );
