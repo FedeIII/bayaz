@@ -343,6 +343,23 @@ export const CLASSES = {
     initialHitPoints: 8,
     hitDice: '1d8',
     proficiency: ['dex', 'int'],
+    pickSkills: 4,
+    skillsToPick: [
+      'athletics',
+      'acrobatics',
+      'insight',
+      'deception',
+      'performance',
+      'intimidation',
+      'investigation',
+      'sleight-of-hand',
+      'perception',
+      'persuasion',
+      'stealth',
+    ],
+    proficiencies: {
+      ['Ataque Furtivo']: pc => `${Math.ceil(pc.level / 2)}d6 daño extra`,
+    },
   },
   sorcerer: {
     initialHitPoints: 6,
@@ -558,6 +575,8 @@ export function translateSkill(skillName) {
       return 'Interpretación';
     case 'persuasion':
       return 'Persuasión';
+    case 'thieves-tools':
+      return 'Herramientas de Ladrón';
     default:
       return 'unknown skill';
   }
@@ -575,11 +594,20 @@ export function isProficientSkill(pc, skillName) {
   return getSkills(pc).includes(skillName);
 }
 
-export function isSkillWithSpecialBonus(pc, skillName) {
-  return (
+export function bonusForSkill(pc, skillName) {
+  const { level } = pc;
+  if (
     pc.classAttrs?.skills.includes(skillName) &&
     DIVINE_DOMAINS[getDivineDomain(pc)].specialSkillProficiencyBonus
-  );
+  )
+    return DIVINE_DOMAINS[getDivineDomain(pc)].specialSkillProficiencyBonus(
+      proficiencyBonus(pc.level)
+    );
+
+  if (pc.pClass === 'rogue' && pc.classAttrs?.expertSkills.includes(skillName))
+    return 2 * proficiencyBonus(level);
+
+  return proficiencyBonus(level);
 }
 
 export function specialProficiencyBonus(pc) {
@@ -589,15 +617,10 @@ export function specialProficiencyBonus(pc) {
 }
 
 export function skillCheckBonus(pc, skillName) {
-  const { pClass, level } = pc;
   const statName = SKILLS.find(skill => skill.name === skillName).stat;
   return (
     getStatMod(getStat(pc, statName)) +
-    (isProficientSkill(pc, skillName)
-      ? isSkillWithSpecialBonus(pc, skillName)
-        ? specialProficiencyBonus(pc)
-        : proficiencyBonus(level)
-      : 0)
+    (isProficientSkill(pc, skillName) ? bonusForSkill(pc, skillName) : 0)
   );
 }
 
@@ -885,4 +908,12 @@ export function translateDragonAncestor(ancestor) {
 
 export function getDragonAncestor(pc) {
   return pc.classAttrs?.dragonAncestor;
+}
+
+///////////
+// ROGUE //
+///////////
+
+export function getExpertSkills(pc) {
+  return pc.classAttrs?.expertSkills || [];
 }

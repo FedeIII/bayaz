@@ -15,6 +15,7 @@ import ClericSkills from '~/components/classSkillsSelection/clericSkills';
 import RangerSkills from '~/components/classSkillsSelection/rangerSkills';
 import FighterSkills from '~/components/classSkillsSelection/fighterSkills';
 import SorcererSkills from '~/components/classSkillsSelection/sorcererSkills';
+import RogueSkills from '~/components/classSkillsSelection/rogueSkills';
 
 import styles from '~/components/characters.module.css';
 
@@ -41,6 +42,7 @@ export const action = async ({ request }) => {
   const fightingStyle = formData.get('fighting-style');
   const sorcererOrigin = formData.get('sorcerer-origin');
   const dragonAncestor = formData.get('dragon-ancestor');
+  const expertSkills = formData.getAll('expert-skills[]');
 
   const pc = await getPc(name);
   const pcAttrs = { name, skills: classSkills, classAttrs: {} };
@@ -60,6 +62,7 @@ export const action = async ({ request }) => {
     pcAttrs.maxHitPoints = pc.maxHitPoints + 1;
     pcAttrs.hitPoints = pc.hitPoints + 1;
   }
+  if (expertSkills.length) pcAttrs.classAttrs.expertSkills = expertSkills;
 
   await updatePc(pcAttrs);
 
@@ -81,6 +84,9 @@ function ClassSkills(props) {
       return <FighterSkills {...props} />;
     case 'sorcerer':
       return <SorcererSkills {...props} />;
+      return <SorcererSkills {...props} />;
+    case 'rogue':
+      return <RogueSkills {...props} />;
     default:
       return null;
   }

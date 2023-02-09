@@ -33,6 +33,8 @@ import {
   translateSorcererOrigin,
   getDragonAncestor,
   translateDragonAncestor,
+  getExpertSkills,
+  translateSkill,
 } from '~/utils/characters';
 import { increment } from '~/utils/display';
 
@@ -239,6 +241,18 @@ function PcSummary() {
                 {' '}
                 {translateDragonAncestor(getDragonAncestor(pc))}
               </strong>
+            </li>
+          )}
+          {!!getExpertSkills(pc)?.length && (
+            <li className={styles.traitLabel}>
+              <span className={styles.traitTitle}>Experto en:</span>
+              <ul className={styles.traitLabel}>
+                {getExpertSkills(pc).map(skillName => (
+                  <li className={styles.traitItem} key={skillName}>
+                    {translateSkill(skillName)}
+                  </li>
+                ))}
+              </ul>
             </li>
           )}
         </ul>
