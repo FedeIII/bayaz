@@ -20,6 +20,7 @@ import {
   getSkills,
   translateSkill,
   translateLanguage,
+  getPassivePerception,
 } from '~/utils/characters';
 import { getExpertSkills } from '~/utils/rogue';
 import {
@@ -151,6 +152,10 @@ function PcSummary() {
             )}
           </span>
         ))}
+
+        <span className={`${styles.data} ${styles.passivePerception}`}>
+          {getPassivePerception(pc)}
+        </span>
 
         {/* FEATS & TRAITS */}
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>

@@ -55,7 +55,5 @@ npx prisma migrate dev
 
 - Equipment
 - Armor
-- Perception
-- Capacidad de carga
 - Spells
 - Trasfondo

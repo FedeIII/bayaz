@@ -76,7 +76,7 @@
     /* 64 */ '.   chM .   sPH sSH .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 64 */
     /* 65 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 65 */
     /* 66 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 66 */
-    /* 67 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 67 */
+    /* 67 */ 'per .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 67 */
     /* 68 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 68 */
     /* 69 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 69 */
     /* 70 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 70 */
@@ -516,6 +516,14 @@
 
 .animal-handlingSaving {
   grid-area: sSH;
+}
+
+.passivePerception {
+  grid-area: per;
+  justify-content: flex-end;
+  align-items: flex-start;
+  font-size: 28px;
+  margin-right: -5px;
 }
 
 .featsAndTraits {

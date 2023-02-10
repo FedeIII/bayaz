@@ -227,7 +227,7 @@ export const CLASSES = {
   barbarian: {
     initialHitPoints: 12,
     hitDice: '1d12',
-    proficiency: ['str', 'con'],
+    proficientStats: ['str', 'con'],
     pickSkills: 2,
     skillsToPick: [
       'athletics',
@@ -241,7 +241,7 @@ export const CLASSES = {
   bard: {
     initialHitPoints: 8,
     hitDice: '1d8',
-    proficiency: ['dex', 'cha'],
+    proficientStats: ['dex', 'cha'],
     pickSkills: 3,
     skillsToPick: [
       'athletics',
@@ -267,14 +267,14 @@ export const CLASSES = {
   cleric: {
     initialHitPoints: 8,
     hitDice: '1d8',
-    proficiency: ['wis', 'cha'],
+    proficientStats: ['wis', 'cha'],
     pickSkills: 2,
     skillsToPick: ['insight', 'history', 'medicine', 'persuasion', 'religion'],
   },
   druid: {
     initialHitPoints: 8,
     hitDice: '1d8',
-    proficiency: ['int', 'wis'],
+    proficientStats: ['int', 'wis'],
     pickSkills: 2,
     skillsToPick: [
       'arcana',
@@ -290,7 +290,7 @@ export const CLASSES = {
   fighter: {
     initialHitPoints: 10,
     hitDice: '1d10',
-    proficiency: ['str', 'con'],
+    proficientStats: ['str', 'con'],
     pickSkills: 2,
     skillsToPick: [
       'acrobatics',
@@ -306,7 +306,7 @@ export const CLASSES = {
   monk: {
     initialHitPoints: 8,
     hitDice: '1d8',
-    proficiency: ['str', 'dex'],
+    proficientStats: ['str', 'dex'],
     pickSkills: 2,
     skillsToPick: [
       'acrobatics',
@@ -320,7 +320,7 @@ export const CLASSES = {
   paladin: {
     initialHitPoints: 10,
     hitDice: '1d10',
-    proficiency: ['str', 'cha'],
+    proficientStats: ['str', 'cha'],
     pickSkills: 2,
     skillsToPick: [
       'athletics',
@@ -342,7 +342,7 @@ export const CLASSES = {
   ranger: {
     initialHitPoints: 10,
     hitDice: '1d10',
-    proficiency: ['str', 'dex'],
+    proficientStats: ['str', 'dex'],
     pickSkills: 3,
     skillsToPick: [
       'athletics',
@@ -357,7 +357,7 @@ export const CLASSES = {
   rogue: {
     initialHitPoints: 8,
     hitDice: '1d8',
-    proficiency: ['dex', 'int'],
+    proficientStats: ['dex', 'int'],
     pickSkills: 4,
     skillsToPick: [
       'athletics',
@@ -379,7 +379,7 @@ export const CLASSES = {
   sorcerer: {
     initialHitPoints: 6,
     hitDice: '1d6',
-    proficiency: ['con', 'cha'],
+    proficientStats: ['con', 'cha'],
     pickSkills: 2,
     skillsToPick: [
       'arcana',
@@ -393,7 +393,7 @@ export const CLASSES = {
   warlock: {
     initialHitPoints: 8,
     hitDice: '1d8',
-    proficiency: ['wis', 'cha'],
+    proficientStats: ['wis', 'cha'],
     pickSkills: 2,
     skillsToPick: [
       'arcana',
@@ -408,7 +408,7 @@ export const CLASSES = {
   wizard: {
     initialHitPoints: 6,
     hitDice: '1d6',
-    proficiency: ['int', 'wis'],
+    proficientStats: ['int', 'wis'],
     pickSkills: 2,
     skillsToPick: [
       'arcana',
@@ -427,7 +427,7 @@ export function getInitialHitPoints(pc) {
 }
 
 export function isProficientStat(stat, pClass) {
-  return CLASSES[pClass].proficiency.includes(stat);
+  return CLASSES[pClass].proficientStats.includes(stat);
 }
 
 export function getExtraHitPoints(pc) {
@@ -726,4 +726,8 @@ export function getCarryingCapacity(pc) {
 
 export function getEncumbrance(pc) {
   return getStat(pc, 'str') * 10;
+}
+
+export function getPassivePerception(pc) {
+  return 10 + getStatMod(getStat(pc, 'wis'));
 }
