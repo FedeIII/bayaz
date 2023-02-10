@@ -1,4 +1,10 @@
-import { STATS, isStat, getInitialHitPoints } from '~/utils/characters';
+import {
+  STATS,
+  isStat,
+  getInitialHitPoints,
+  getCarryingCapacity,
+  getEncumbrance,
+} from '~/utils/characters';
 import { updatePc } from '~/services/pc.server';
 
 export async function setPcStats(pcParams) {
@@ -8,12 +14,6 @@ export async function setPcStats(pcParams) {
     selectedExtraPoints,
     stats: paramStats,
     extraStats: paramExtraStats,
-    extraStr,
-    extraDex,
-    extraCon,
-    extraInt,
-    extraWis,
-    extraCha,
   } = pcParams;
 
   const stats = STATS.reduce(

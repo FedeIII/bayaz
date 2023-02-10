@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 
 import {
-  DIVINE_DOMAINS,
-  translateDivineDomain,
   translateSkill,
-  getDivineDomain,
   LANGUAGES,
   translateLanguage,
 } from '~/utils/characters';
+import {
+  DIVINE_DOMAINS,
+  translateDivineDomain,
+  getDivineDomain,
+} from '~/utils/cleric';
 
 import styles from '~/components/characters.module.css';
 

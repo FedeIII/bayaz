@@ -1,7 +1,7 @@
 import {
   FIGHTING_STYLES,
-  translateFightingStyle,
-} from '~/utils/characters';
+  translateFightingStyle
+} from "~/utils/fighter";
 
 function FighterSkills(props) {
   return (

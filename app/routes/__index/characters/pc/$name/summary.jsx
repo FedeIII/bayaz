@@ -18,26 +18,27 @@ import {
   skillCheckBonus,
   getConditionalSkills,
   getSkills,
-  getPrimalPath,
-  translatePrimalPath,
-  translateDivineDomain,
-  getDivineDomain,
+  translateSkill,
+  translateLanguage,
+} from '~/utils/characters';
+import { getExpertSkills } from '~/utils/rogue';
+import {
+  getSorcererOrigin,
+  translateSorcererOrigin,
+  getDragonAncestor,
+  translateDragonAncestor,
+} from '~/utils/sorcerer';
+import { getFightingStyles, translateFightingStyle } from '~/utils/fighter';
+import {
   getFavoredEnemies,
   translateFavoredEnemy,
   getFavoredTerrains,
   translateFavoredTerrain,
   getRangerArchetype,
   translateRangerArchetype,
-  getFightingStyles,
-  translateFightingStyle,
-  getSorcererOrigin,
-  translateSorcererOrigin,
-  getDragonAncestor,
-  translateDragonAncestor,
-  getExpertSkills,
-  translateSkill,
-  translateLanguage,
-} from '~/utils/characters';
+} from '~/utils/ranger';
+import { translateDivineDomain, getDivineDomain } from '~/utils/cleric';
+import { getPrimalPath, translatePrimalPath } from '~/utils/barbarian';
 import { increment } from '~/utils/display';
 
 import styles from '~/components/sheet.module.css';

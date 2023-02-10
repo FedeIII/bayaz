@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { translateLanguage } from '~/utils/characters';
 import {
   FAVORED_ENEMIES,
   FAVORED_ENEMIES_HUMANOIDS,
@@ -9,8 +10,7 @@ import {
   RANGER_ARCHETYPES,
   translateRangerArchetype,
   FAVORED_ENEMIES_LANGUAGES,
-  translateLanguage,
-} from '~/utils/characters';
+} from '~/utils/ranger';
 
 import styles from '~/components/characters.module.css';
 

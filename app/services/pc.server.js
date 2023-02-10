@@ -3,17 +3,21 @@ import {
   RACES,
   STATS,
   SKILLS,
-  DIVINE_DOMAINS,
-  FAVORED_ENEMIES,
-  FAVORED_ENEMIES_HUMANOIDS,
-  FAVORED_TERRAINS,
-  RANGER_ARCHETYPES,
-  FIGHTING_STYLES,
-  SORCERER_ORIGIN,
-  DRAGON_ANCESTORS,
   LANGUAGES,
   EXOTIC_LANGUAGES,
 } from '~/utils/characters';
+import {
+  SORCERER_ORIGIN,
+  DRAGON_ANCESTORS
+} from "~/utils/sorcerer";
+import { FIGHTING_STYLES } from "~/utils/fighter";
+import {
+  FAVORED_ENEMIES,
+  FAVORED_ENEMIES_HUMANOIDS,
+  FAVORED_TERRAINS,
+  RANGER_ARCHETYPES
+} from "~/utils/ranger";
+import { DIVINE_DOMAINS } from "~/utils/cleric";
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(

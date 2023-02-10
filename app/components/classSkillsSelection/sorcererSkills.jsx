@@ -6,7 +6,7 @@ import {
   getSorcererOrigin,
   DRAGON_ANCESTORS,
   translateDragonAncestor,
-} from '~/utils/characters';
+} from '~/utils/sorcerer';
 
 function SorcererSkills(props) {
   const { pc } = props;
