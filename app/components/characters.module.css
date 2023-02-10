@@ -25,3 +25,19 @@
 .skillLabel {
   display: block;
 }
+
+.statValues {
+  display: flex;
+  justify-content: center;
+}
+
+.statValue {
+  width: 32px;
+  margin: 0 8px;
+  font-weight: bold;
+  background-color: #a3ffa3;
+}
+
+.statValue:disabled {
+  background-color: #ffaaaa;
+}

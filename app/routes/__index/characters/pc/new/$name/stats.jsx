@@ -1,11 +1,9 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
 import { useState } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
-import classnames from 'classnames';
+import { useDrop } from 'react-dnd';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import random from '~/utils/random';
 import { signed } from '~/utils/display';
 import {
   STATS,
@@ -14,8 +12,8 @@ import {
   isStat,
   getInitialHitPoints,
 } from '~/utils/characters';
-
-import styles from '~/components/characters.module.css';
+import { RandomStatValues } from '~/components/statSelection/randomStatValues';
+import { CustomStatValues } from '~/components/statSelection/customStatValues';
 
 const ItemTypes = {
   ROLL: 'ROLL',
@@ -105,36 +103,7 @@ export const action = async ({ request }) => {
   if (race === 'human') return redirect(`../${name}/race/human`);
 
   return redirect(`../${name}/class/${pClass}`);
-
-  // return redirect(`/characters/pc/${name}/summary`);
 };
-
-function StatRoll(props) {
-  const { roll, index, canDrag } = props;
-
-  const [{ isDragging }, drag] = useDrag(
-    () => ({
-      type: ItemTypes.ROLL,
-      item: { value: roll, index },
-      canDrag: () => canDrag && roll,
-      collect: monitor => ({
-        isDragging: !!monitor.isDragging(),
-      }),
-    }),
-    [roll, index, canDrag]
-  );
-
-  const className = classnames(styles.statsRoll, {
-    [styles.canDrag]: canDrag && roll,
-    [styles.cannotDrag]: !canDrag && roll,
-  });
-
-  return (
-    <span ref={drag} className={className}>
-      {roll}
-    </span>
-  );
-}
 
 function useStatDrop(stat, setStat, setUsedRolls) {
   const [{ isOver }, statDrop] = useDrop(
@@ -183,6 +152,33 @@ function getInitSelectedExtraPoints(selectedExtraPoints = {}) {
   );
 }
 
+function SelectVariant(props) {
+  const { setVariant } = props;
+
+  return (
+    <p>
+      <label>
+        Variante:{' '}
+        <select defaultValue="" onChange={e => setVariant(e.target.value)}>
+          <option value="" disabled>
+            Selecciona Variante
+          </option>
+          <option value="random">Random</option>
+          <option value="custom">Custom</option>
+        </select>
+      </label>
+    </p>
+  );
+}
+
+function ShowStatValues(props) {
+  const { variant, setVariant, usedRolls } = props;
+
+  if (variant === 'random') return <RandomStatValues usedRolls={usedRolls} />;
+  if (variant === 'custom') return <CustomStatValues usedRolls={usedRolls} />;
+  return <SelectVariant setVariant={setVariant} />;
+}
+
 function PcStats() {
   const { pc } = useLoaderData();
   const {
@@ -195,17 +191,7 @@ function PcStats() {
     halfElf: { extraStats: halfElfExtraStats } = {},
   } = pc;
 
-  function addRoll() {
-    const result = random.roll.processCommand('4d6p3');
-    const roll = random.roll.calculateResult(result);
-    const newRolls = rolls.slice();
-    const i = newRolls.findIndex(r => !r);
-    newRolls[i] = roll;
-    setRolls(newRolls);
-  }
-
   function reset() {
-    setRolls(Array(6).fill(0));
     setUsedRolls(Array(6).fill(false));
     setSelectedExtraPoints([]);
     setPStats(STATS.reduce((acc, statName) => ({ [statName]: '' }), {}));
@@ -224,7 +210,6 @@ function PcStats() {
   const areStatsSet =
     pStats && Object.values(pStats).filter(v => v).length >= 6;
 
-  const [rolls, setRolls] = useState(Array(6).fill(0));
   const [usedRolls, setUsedRolls] = useState(
     Array(6).fill(areStatsSet ? true : false)
   );
@@ -234,11 +219,12 @@ function PcStats() {
     getInitSelectedExtraPoints(halfElfExtraStats)
   );
 
-  const rollsComplete = rolls.filter(r => r).length === 6;
   const canContinue =
     areStatsPreloaded ||
     (usedRolls.filter(r => r).length === 6 &&
       (race != 'half-elf' || selectedExtraPoints.length === 2));
+
+  const [variant, setVariant] = useState(null);
 
   return (
     <Form method="post">
@@ -270,88 +256,86 @@ function PcStats() {
         ))}
 
       {!areStatsSet && (
-        <p>
-          {rolls.map((roll, i) => (
-            <StatRoll roll={roll} index={i} canDrag={!usedRolls[i]} key={i} />
-          ))}
-          {!rollsComplete && (
-            <button type="button" onClick={addRoll}>
-              1d6
-            </button>
-          )}
-        </p>
+        <ShowStatValues
+          variant={variant}
+          setVariant={setVariant}
+          usedRolls={usedRolls}
+        />
       )}
 
-      {stats.map(stat => {
-        const statExtraPoints = areStatsPreloaded
-          ? extraStats[stat.name]
-          : getStatRacialExtraPoints(stat.name, pc);
-        const showPlus1Button =
-          !areStatsSet &&
-          race === 'half-elf' &&
-          stat.name !== 'cha' &&
-          selectedExtraPoints.length !== 2 &&
-          !selectedExtraPoints.includes(stat.name);
+      {(!!variant || areStatsSet) &&
+        stats.map(stat => {
+          const statExtraPoints = areStatsPreloaded
+            ? extraStats[stat.name]
+            : getStatRacialExtraPoints(stat.name, pc);
+          const showPlus1Button =
+            !areStatsSet &&
+            race === 'half-elf' &&
+            stat.name !== 'cha' &&
+            selectedExtraPoints.length !== 2 &&
+            !selectedExtraPoints.includes(stat.name);
 
-        const extraStatFromSelected = selectedExtraPoints.reduce(
-          (amount, statName) => amount + (statName === stat.name ? 1 : 0),
-          0
-        );
+          const extraStatFromSelected = selectedExtraPoints.reduce(
+            (amount, statName) => amount + (statName === stat.name ? 1 : 0),
+            0
+          );
 
-        const totalExtraPoints = statExtraPoints + extraStatFromSelected;
+          const totalExtraPoints = statExtraPoints + extraStatFromSelected;
 
-        return (
-          <p key={stat.name}>
-            <label ref={stat.drop} htmlFor={stat.name}>
-              {translateStat(stat.name)}:{' '}
-              <input
-                type="number"
-                id={stat.name}
-                name={stat.name}
-                value={stat.value}
-                readOnly
-              />{' '}
-              {!!totalExtraPoints && (
-                <>
-                  <span>{signed(totalExtraPoints)}</span>
-                  {Array(statExtraPoints).fill(
-                    <input
-                      readOnly
-                      type="text"
-                      name="extra-points[]"
-                      value={stat.name}
-                      hidden
-                    />
-                  )}
-                </>
-              )}
-              {showPlus1Button && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSelectedExtraPoints(old => [...old, stat.name])
-                  }
-                >
-                  +1
-                </button>
-              )}
-            </label>
-          </p>
-        );
-      })}
+          return (
+            <p key={stat.name}>
+              <label ref={stat.drop} htmlFor={stat.name}>
+                {translateStat(stat.name)}:{' '}
+                <input
+                  type="number"
+                  id={stat.name}
+                  name={stat.name}
+                  value={stat.value}
+                  readOnly
+                />{' '}
+                {!!totalExtraPoints && (
+                  <>
+                    <span>{signed(totalExtraPoints)}</span>
+                    {Array(statExtraPoints).fill(
+                      <input
+                        readOnly
+                        type="text"
+                        name="extra-points[]"
+                        value={stat.name}
+                        hidden
+                      />
+                    )}
+                  </>
+                )}
+                {showPlus1Button && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setSelectedExtraPoints(old => [...old, stat.name])
+                    }
+                  >
+                    +1
+                  </button>
+                )}
+              </label>
+            </p>
+          );
+        })}
 
-      <p>
-        <button type="submit" disabled={isCreating || !canContinue}>
-          {isCreating
-            ? 'Creando...'
-            : canContinue
-            ? 'Continuar'
-            : 'Asigna stats'}
-        </button>
-        <button type="button" onClick={reset}>
-          Reiniciar
-        </button>
-      </p>
+      {(!!variant || areStatsSet) && (
+        <p>
+          <button type="submit" disabled={isCreating || !canContinue}>
+            {isCreating
+              ? 'Creando...'
+              : canContinue
+              ? 'Continuar'
+              : 'Asigna stats'}
+          </button>
+          <button type="button" onClick={reset}>
+            Reiniciar
+          </button>
+        </p>
+      )}
     </Form>
   );
 }
