@@ -3,17 +3,16 @@ import { Form, useLoaderData, useTransition } from '@remix-run/react';
 import { useState } from 'react';
 import { useDrop } from 'react-dnd';
 
-import { getPc, updatePc } from '~/services/pc.server';
+import { getPc } from '~/services/pc.server';
 import { signed } from '~/utils/display';
 import {
   STATS,
   translateStat,
   getStatRacialExtraPoints,
-  isStat,
-  getInitialHitPoints,
 } from '~/utils/characters';
 import { RandomStatValues } from '~/components/statSelection/randomStatValues';
 import { CustomStatValues } from '~/components/statSelection/customStatValues';
+import { setPcStats } from '~/utils/characterMutations';
 
 const ItemTypes = {
   ROLL: 'ROLL',
@@ -36,65 +35,21 @@ export const action = async ({ request }) => {
   const subrace = formData.get('subrace');
   const extraPoints = formData.getAll('extra-points[]');
   const selectedExtraPoints = formData.getAll('selected-extra-points[]');
-  const extraStr = formData.get('extra-str');
-  const extraDex = formData.get('extra-dex');
-  const extraCon = formData.get('extra-con');
-  const extraInt = formData.get('extra-int');
-  const extraWis = formData.get('extra-wis');
-  const extraCha = formData.get('extra-cha');
-
   const stats = STATS.reduce(
-    (pcStats, statName) => ({
-      ...pcStats,
-      [statName]: parseInt(formData.get(statName), 10),
-    }),
+    (acc, s) => ({ ...acc, [s]: formData.get(s) }),
+    {}
+  );
+  const extraStats = STATS.reduce(
+    (acc, s) => ({ ...acc, [s]: formData.get(`extra-${s}`) }),
     {}
   );
 
-  const extraStats = ({} = extraPoints?.length
-    ? extraPoints.reduce(
-        (s, statName) => {
-          if (!isStat(statName)) return s;
-
-          return {
-            ...s,
-            [statName]: s[statName] + 1,
-          };
-        },
-        { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 }
-      )
-    : {
-        str: parseInt(extraStr, 10) || 0,
-        dex: parseInt(extraDex, 10) || 0,
-        con: parseInt(extraCon, 10) || 0,
-        int: parseInt(extraInt, 10) || 0,
-        wis: parseInt(extraWis, 10) || 0,
-        cha: parseInt(extraCha, 10) || 0,
-      });
-
-  const halfElfExtraStats = selectedExtraPoints.reduce(
-    (s, statName) => {
-      if (!isStat(statName)) return s;
-
-      return {
-        ...s,
-        [statName]: s[statName] + 1,
-      };
-    },
-    { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 }
-  );
-
-  const updatedPc = await updatePc({
+  await setPcStats({
     name,
+    extraPoints,
+    selectedExtraPoints,
     stats,
     extraStats,
-    halfElf: { extraStats: halfElfExtraStats },
-  });
-
-  await updatePc({
-    name,
-    maxHitPoints: getInitialHitPoints(updatedPc),
-    hitPoints: getInitialHitPoints(updatedPc),
   });
 
   if (race === 'half-elf') return redirect(`../${name}/race/half-elf`);
