@@ -1,4 +1,4 @@
-import { EXPLORER_PACK } from './adventure';
+import { EXPLORER_PACK, getExplorerPackItems } from './adventure';
 import { WEAPONS } from './weapons';
 
 export function translateEquipment(type) {
@@ -7,8 +7,14 @@ export function translateEquipment(type) {
       return 'Arma';
 
     default:
-      break;
+      return 'unknown equipment type';
   }
+}
+
+export function translateItem(itemName) {
+  const item = getAllItems().find(item => item().name === itemName)();
+
+  return item.translation;
 }
 
 export function getAllItems() {
@@ -19,4 +25,14 @@ export function pcItem(itemName, itemAmount) {
   const item = getAllItems().find(item => item().name === itemName)();
 
   return { name: item.name, amount: itemAmount || 1 };
+}
+
+export function getPackItems(packName) {
+  switch (packName) {
+    case 'explorer-pack':
+      return getExplorerPackItems();
+
+    default:
+      return [];
+  }
 }

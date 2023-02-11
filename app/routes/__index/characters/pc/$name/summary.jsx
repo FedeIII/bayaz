@@ -40,7 +40,8 @@ import {
 } from '~/utils/ranger';
 import { translateDivineDomain, getDivineDomain } from '~/utils/cleric';
 import { getPrimalPath, translatePrimalPath } from '~/utils/barbarian';
-import { increment } from '~/utils/display';
+import { increment, listItems } from '~/utils/display';
+import { getPackItems } from '~/utils/equipment/equipment';
 
 import styles from '~/components/sheet.module.css';
 
@@ -64,6 +65,8 @@ function PcSummary() {
     hitPoints,
     exp,
     languages,
+    equipment,
+    pack,
   } = pc;
 
   const allSkills = getSkills(pc);
@@ -112,21 +115,6 @@ function PcSummary() {
           </Fragment>
         ))}
 
-        {/* COMBAT ATTRS */}
-        <span className={`${styles.data} ${styles.speed}`}>{speed}m</span>
-        <span className={`${styles.data} ${styles.maxHitPoints}`}>
-          {maxHitPoints}
-        </span>
-        <span className={`${styles.data} ${styles.hitPoints}`}>
-          {hitPoints}
-        </span>
-        <span className={`${styles.data} ${styles.hitDice}`}>
-          {CLASSES[pClass].hitDice} {increment(getExtraHitPoints(pc))}
-        </span>
-        <span className={`${styles.data} ${styles.remainingHitDice}`}>
-          {CLASSES[pClass].hitDice}
-        </span>
-
         {/* SKILLS */}
         {SKILLS.map(
           skill =>
@@ -156,6 +144,32 @@ function PcSummary() {
         <span className={`${styles.data} ${styles.passivePerception}`}>
           {getPassivePerception(pc)}
         </span>
+
+        {/* COMBAT ATTRS */}
+        <span className={`${styles.data} ${styles.speed}`}>{speed}m</span>
+        <span className={`${styles.data} ${styles.maxHitPoints}`}>
+          {maxHitPoints}
+        </span>
+        <span className={`${styles.data} ${styles.hitPoints}`}>
+          {hitPoints}
+        </span>
+        <span className={`${styles.data} ${styles.hitDice}`}>
+          {CLASSES[pClass].hitDice} {increment(getExtraHitPoints(pc))}
+        </span>
+        <span className={`${styles.data} ${styles.remainingHitDice}`}>
+          {CLASSES[pClass].hitDice}
+        </span>
+
+        {/* EQUIPMENTs */}
+        <div className={`${styles.data} ${styles.equipment}`}>
+          <div>{listItems(equipment)}</div>
+          {pack && (
+            <div>
+              <u>{pack + ':'}</u>
+              {' ' + listItems(getPackItems(pack))}
+            </div>
+          )}
+        </div>
 
         {/* FEATS & TRAITS */}
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>

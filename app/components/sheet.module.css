@@ -77,19 +77,19 @@
     /* 65 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 65 */
     /* 66 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 66 */
     /* 67 */ 'per .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 67 */
-    /* 68 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 68 */
-    /* 69 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 69 */
-    /* 70 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 70 */
-    /* 71 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 71 */
-    /* 72 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 72 */
-    /* 73 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 73 */
-    /* 74 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 74 */
-    /* 75 */ '.   CnL CnL CnL CnL .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 75 */
-    /* 76 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 76 */
-    /* 77 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 77 */
-    /* 78 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 78 */
+    /* 68 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 68 */
+    /* 69 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 69 */
+    /* 70 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 70 */
+    /* 71 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 71 */
+    /* 72 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 72 */
+    /* 73 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 73 */
+    /* 74 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 74 */
+    /* 75 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 75 */
+    /* 76 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 76 */
+    /* 77 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 77 */
+    /* 78 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 78 */
     /* 79 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .'; /* 79 */
-  /*******  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12  13  14  15  16  17 */
+  /*********  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12  13  14  15  16  17 */
 }
 
 .sheetBackground {
@@ -524,6 +524,15 @@
   align-items: flex-start;
   font-size: 28px;
   margin-right: -5px;
+}
+
+.equipment {
+  grid-area: equ;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.3;
 }
 
 .featsAndTraits {

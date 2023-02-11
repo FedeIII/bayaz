@@ -33,8 +33,6 @@ export const action = async ({ request }) => {
     i++;
   }
 
-  // const pc = await getPc(name);
-
   await updatePc({
     name,
     equipment: [...choices, ...items].map(item => {
