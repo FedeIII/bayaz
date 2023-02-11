@@ -19,7 +19,6 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
-  const pClass = formData.get('pClass');
   const language = formData.get('language');
 
   const pc = await getPc(name);
@@ -29,7 +28,7 @@ export const action = async ({ request }) => {
     languages: [...pc.languages, language],
   });
 
-  return redirect(`../${name}/class/${pClass}`);
+  return redirect(`../${name}/class`);
 };
 
 function PcHumanSkills() {
@@ -45,7 +44,6 @@ function PcHumanSkills() {
     <Form method="post">
       <h2>Habilidades de Humano para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
-      <input readOnly type="text" name="pClass" value={pClass} hidden />
 
       <p>
         Selecciona un idioma extra

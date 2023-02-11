@@ -30,7 +30,6 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
-  const pClass = formData.get('pClass');
   const race = formData.get('race');
   const subrace = formData.get('subrace');
   const extraPoints = formData.getAll('extra-points[]');
@@ -57,7 +56,7 @@ export const action = async ({ request }) => {
     return redirect(`../${name}/race/high-elf`);
   if (race === 'human') return redirect(`../${name}/race/human`);
 
-  return redirect(`../${name}/class/${pClass}`);
+  return redirect(`../${name}/class`);
 };
 
 function useStatDrop(stat, setStat, setUsedRolls) {
@@ -185,7 +184,6 @@ function PcStats() {
     <Form method="post">
       <h2>{name}'s Stats</h2>
       <input readOnly type="text" name="name" value={name} hidden />
-      <input readOnly type="text" name="pClass" value={pClass} hidden />
       <input readOnly type="text" name="race" value={race} hidden />
       <input readOnly type="text" name="subrace" value={subrace} hidden />
       {selectedExtraPoints.map(extraPointStat => (

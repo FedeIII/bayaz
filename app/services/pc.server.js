@@ -6,18 +6,15 @@ import {
   LANGUAGES,
   EXOTIC_LANGUAGES,
 } from '~/utils/characters';
-import {
-  SORCERER_ORIGIN,
-  DRAGON_ANCESTORS
-} from "~/utils/sorcerer";
-import { FIGHTING_STYLES } from "~/utils/fighter";
+import { SORCERER_ORIGIN, DRAGON_ANCESTORS } from '~/utils/sorcerer';
+import { FIGHTING_STYLES } from '~/utils/fighter';
 import {
   FAVORED_ENEMIES,
   FAVORED_ENEMIES_HUMANOIDS,
   FAVORED_TERRAINS,
-  RANGER_ARCHETYPES
-} from "~/utils/ranger";
-import { DIVINE_DOMAINS } from "~/utils/cleric";
+  RANGER_ARCHETYPES,
+} from '~/utils/ranger';
+import { DIVINE_DOMAINS } from '~/utils/cleric';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -55,6 +52,11 @@ const classAttrsSchema = new mongoose.Schema({
 const halfElfSchema = new mongoose.Schema({
   extraStats: statsSchema,
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+});
+
+const itemSchema = new mongoose.Schema({
+  name: String,
+  amount: Number,
 });
 
 const pcSchema = new mongoose.Schema({
@@ -111,6 +113,8 @@ const pcSchema = new mongoose.Schema({
   stats: statsSchema,
   extraStats: statsSchema,
   languages: [{ type: String, enum: [...LANGUAGES, ...EXOTIC_LANGUAGES] }],
+  equipment: [itemSchema],
+  pack: String,
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);

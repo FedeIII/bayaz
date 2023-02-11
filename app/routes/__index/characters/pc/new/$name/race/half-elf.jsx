@@ -25,7 +25,6 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
-  const pClass = formData.get('pClass');
   const language = formData.get('language');
   const skills = formData.getAll('skills[]');
   const halfElfSkills = formData.getAll('half-elf-skills[]');
@@ -37,7 +36,7 @@ export const action = async ({ request }) => {
     languages: [...RACES['half-elf'].subrace.languages, language],
   });
 
-  return redirect(`../${name}/class/${pClass}`);
+  return redirect(`../${name}/class`);
 };
 
 function PcHalfElfSkills() {
@@ -81,7 +80,6 @@ function PcHalfElfSkills() {
     <Form method="post">
       <h2>Habilidades de semielfo para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
-      <input readOnly type="text" name="pClass" value={pClass} hidden />
 
       <p>
         Selecciona un idioma extra

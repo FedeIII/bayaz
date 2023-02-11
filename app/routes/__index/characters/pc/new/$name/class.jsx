@@ -70,7 +70,7 @@ export const action = async ({ request }) => {
 
   await updatePc(pcAttrs);
 
-  return redirect(`/characters/pc/${name}/summary`);
+  return redirect(`/characters/pc/new/${name}/equipment`);
 };
 
 function ClassSkills(props) {
