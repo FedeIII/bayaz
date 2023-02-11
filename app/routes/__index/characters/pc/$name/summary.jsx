@@ -41,7 +41,7 @@ import {
 import { translateDivineDomain, getDivineDomain } from '~/utils/cleric';
 import { getPrimalPath, translatePrimalPath } from '~/utils/barbarian';
 import { increment, listItems } from '~/utils/display';
-import { getPackItems } from '~/utils/equipment/equipment';
+import { getPackItems, translatePack } from '~/utils/equipment/equipment';
 
 import styles from '~/components/sheet.module.css';
 
@@ -165,7 +165,7 @@ function PcSummary() {
           <div>{listItems(equipment)}</div>
           {pack && (
             <div>
-              <u>{pack + ':'}</u>
+              <u>{translatePack(pack) + ':'}</u>
               {' ' + listItems(getPackItems(pack))}
             </div>
           )}

@@ -1,7 +1,7 @@
-export const EXPLORER_PACK = {
+export const EXPLORERS_PACK = {
   price: [10, 0, 0],
-  packName: 'explorer-pack',
-  translation: 'Equipo de explorador',
+  packName: 'explorers-pack',
+  translation: 'Equipo de Explorador',
   items: {
     backpack() {
       return {
@@ -65,6 +65,162 @@ export const EXPLORER_PACK = {
   },
 };
 
-export function getExplorerPackItems() {
-  return Object.values(EXPLORER_PACK.items).map(item => item());
+export const DIPLOMATS_PACK = {
+  price: [39, 0, 0],
+  packName: 'diplomats-pack',
+  translation: 'Equipo de Diplomático',
+  items: {
+    chest() {
+      return {
+        name: 'chest',
+        translation: 'Cofre',
+        type: 'adventure',
+      };
+    },
+    cases() {
+      return {
+        name: 'cases',
+        translation: 'Estuches de mapas y pergaminos',
+        type: 'adventure',
+        amount: 2,
+      };
+    },
+    fineClothes() {
+      return {
+        name: 'fineClothes',
+        translation: 'Conjunto de ropa fina',
+        type: 'adventure',
+      };
+    },
+    inkBottle() {
+      return {
+        name: 'inkBottle',
+        translation: 'Frasco de tinta',
+        type: 'adventure',
+      };
+    },
+    inkPen() {
+      return {
+        name: 'inkPen',
+        translation: 'Pluma',
+        type: 'adventure',
+      };
+    },
+    lamp() {
+      return {
+        name: 'lamp',
+        translation: 'Lámpara',
+        type: 'adventure',
+      };
+    },
+    oilFlasks() {
+      return {
+        name: 'oilFlasks',
+        translation: 'Frascos de aceite',
+        type: 'adventure',
+        amount: 2,
+      };
+    },
+    paperSheets() {
+      return {
+        name: 'paperSheets',
+        translation: 'Hojas de papel',
+        type: 'adventure',
+        amount: 5,
+      };
+    },
+    perfumeVial() {
+      return {
+        name: 'perfumeVial',
+        translation: 'Frasco de perfume',
+        type: 'adventure',
+      };
+    },
+    sealingWax() {
+      return {
+        name: 'sealingWax',
+        translation: 'Lacre',
+        type: 'adventure',
+      };
+    },
+    soap() {
+      return {
+        name: 'soap',
+        translation: 'Jabón',
+        type: 'adventure',
+      };
+    },
+  },
+};
+
+export const ENTERTAINERS_PACK = {
+  price: [40, 0, 0],
+  packName: 'entertainers-pack',
+  translation: 'Equipo de Actor',
+  items: {
+    backpack() {
+      return {
+        name: 'backpack',
+        translation: 'Mochila',
+        type: 'adventure',
+      };
+    },
+    bedroll() {
+      return {
+        name: 'bedroll',
+        translation: 'Saco',
+        type: 'adventure',
+      };
+    },
+    costumes() {
+      return {
+        name: 'costumes',
+        translation: 'Trajes',
+        type: 'adventure',
+        amount: 2,
+      };
+    },
+    candles() {
+      return {
+        name: 'candles',
+        translation: 'velas',
+        type: 'adventure',
+        amount: 5,
+      };
+    },
+    rations() {
+      return {
+        name: 'rations',
+        translation: 'Raciones',
+        type: 'adventure',
+        amount: 5,
+      };
+    },
+    waterskin() {
+      return {
+        name: 'waterskin',
+        translation: 'Odre',
+        type: 'adventure',
+      };
+    },
+    disguiseKit() {
+      return {
+        name: 'disguiseKit',
+        translation: 'Kit de disfraz',
+        type: 'adventure',
+      };
+    },
+  },
+};
+
+export function getExplorersPackItems() {
+  return Object.values(EXPLORERS_PACK.items).map(item => item());
+}
+
+export function getDiplomatsPackItems() {
+  return Object.values(DIPLOMATS_PACK.items).map(item => item());
+}
+
+export function getEntertainersPackItems() {
+  return Object.values(ENTERTAINERS_PACK.items).map(item => item());
 }

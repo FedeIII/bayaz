@@ -3,12 +3,14 @@ import { Form, useLoaderData, useTransition } from '@remix-run/react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 import { BARBARIAN_EQUIPMENT } from '~/utils/barbarian';
+import { BARD_EQUIPMENT } from '~/utils/bard';
 
 import styles from '~/components/characters.module.css';
 import { pcItem, translateEquipment } from '~/utils/equipment/equipment';
 
 const EQUIPMENT = {
   barbarian: BARBARIAN_EQUIPMENT,
+  bard: BARD_EQUIPMENT,
 };
 
 export const loader = async ({ params }) => {
@@ -22,16 +24,15 @@ export const loader = async ({ params }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get('name');
+  const pClass = formData.get('pClass');
   const packName = formData.get('pack');
   const items = formData.getAll('items[]');
 
-  let i = 0;
-  const choices = [];
-  let choice;
-  while ((choice = formData.get(`choices-${i}`))) {
-    choices.push(choice);
-    i++;
-  }
+  const choices = Array.from(Array(EQUIPMENT[pClass].length), (_, i) =>
+    formData.get(`choices-${i}`)
+  ).filter(v => v);
+
+  // TODO what
 
   await updatePc({
     name,
@@ -64,23 +65,44 @@ function EquipmentCombo(props) {
     );
   }
   if (Array.isArray(combo)) {
-    return combo.map((item, i) => (
-      <label htmlFor={item.name} className={styles.equipmentItem} key={i}>
-        <input
-          type="radio"
-          name={`choices-${comboItem}`}
-          id={item.name}
-          value={[item.name, item.amount]}
-        />{' '}
-        {!!(item.amount > 1) && item.amount + 'x'} {item.translation}
-      </label>
-    ));
+    return combo.map((item, i) => {
+      if (item.pack)
+        return (
+          <EquipmentCombo
+            combo={item}
+            comboItem={comboItem}
+            depth={depth + 1}
+          />
+        );
+      return (
+        <label htmlFor={item.name} className={styles.equipmentItem} key={i}>
+          <input
+            type="radio"
+            name={`choices-${comboItem}`}
+            id={item.name}
+            value={[item.name, item.amount]}
+          />{' '}
+          {!!(item.amount > 1) && item.amount + 'x'} {item.translation}
+        </label>
+      );
+    });
   }
   if (combo.pack) {
     return (
       <>
+        {depth > 1 && (
+          <label htmlFor={combo.pack.packName} className={styles.equipmentItem}>
+            <input
+              type="radio"
+              name="pack"
+              id={combo.pack.packName}
+              value={combo.pack.packName}
+            />{' '}
+            {combo.pack.translation}
+          </label>
+        )}
+        {depth === 1 && <span>un {combo.pack.translation}</span>}
         {depth === 0 && <h3>Un {combo.pack.translation}</h3>}
-        {depth > 0 && <span>un {combo.pack.translation}</span>}
         <p>
           Que contiene:
           <ul>
@@ -97,7 +119,15 @@ function EquipmentCombo(props) {
   if (combo.packName) {
     return (
       <>
-        <input readOnly type="text" name="pack" value={combo.packName} hidden />
+        {depth < 2 && (
+          <input
+            readOnly
+            type="text"
+            name="pack"
+            value={combo.packName}
+            hidden
+          />
+        )}
         {Object.values(combo.items).map(item => (
           <li key={item().name}>{item().translation}</li>
         ))}
@@ -136,6 +166,7 @@ function PcEquipment() {
     <Form method="post">
       <h2>Equipamiento para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
+      <input readOnly type="text" name="pClass" value={pClass} hidden />
 
       <div className={styles.equipmentContainer}>
         <div className={styles.equipment}>

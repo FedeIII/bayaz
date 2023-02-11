@@ -1,4 +1,4 @@
-import { EXPLORER_PACK } from './equipment/adventure';
+import { EXPLORERS_PACK } from './equipment/adventure';
 import {
   getAllMartialMelee,
   getAllSimpleMelee,
@@ -22,6 +22,6 @@ export const BARBARIAN_EQUIPMENT = [
   {
     or: [WEAPONS.handaxe({ amount: 2 }), ...getAllSimpleMelee()],
   },
-  { pack: EXPLORER_PACK },
+  { pack: EXPLORERS_PACK },
   WEAPONS.javelin({ amount: 4 }),
 ];
