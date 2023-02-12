@@ -53,7 +53,7 @@ export function pcItem(itemName, itemAmount) {
   const itemBuilder = getAllItems().find(item => item().name === itemName);
   const item = itemBuilder();
 
-  return { name: item.name, amount: itemAmount || 1 };
+  return { name: item.name, amount: parseInt(itemAmount, 10) || 1 };
 }
 
 export function getPackItems(packName) {
@@ -75,7 +75,22 @@ export function getPackItems(packName) {
 }
 
 export function translatePack(packName) {
-  const packs = [EXPLORERS_PACK, DIPLOMATS_PACK];
+  const packs = [
+    EXPLORERS_PACK,
+    DIPLOMATS_PACK,
+    ENTERTAINERS_PACK,
+    SCHOLARS_PACK,
+    DUNGEONEERS_PACK,
+  ];
 
   return packs.find(pack => pack.packName === packName).translation;
+}
+
+export function unifyEquipment(pcEquipment) {
+  return pcEquipment.reduce((unifiedEquipment, item) => {
+    const itemIndex = unifiedEquipment.findIndex(i => i.name === item.name);
+    if (itemIndex >= 0) unifiedEquipment[itemIndex].amount += item.amount;
+    else unifiedEquipment.push({ ...item });
+    return unifiedEquipment;
+  }, []);
 }

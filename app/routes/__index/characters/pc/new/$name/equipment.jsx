@@ -36,12 +36,19 @@ export const action = async ({ request }) => {
     formData.get(`choices-${i}`)
   ).filter(v => v);
 
+  const equipment = [...choices, ...items].reduce((items, inputValue) => {
+    const itemPairs = inputValue.split('|').map(pair => pair.split(','));
+    return [
+      ...items,
+      ...itemPairs.map(([itemName, itemAmount]) =>
+        pcItem(itemName, itemAmount)
+      ),
+    ];
+  }, []);
+
   await updatePc({
     name,
-    equipment: [...choices, ...items].map(item => {
-      const [itemName, itemAmount] = item.split(',');
-      return pcItem(itemName, itemAmount);
-    }),
+    equipment,
     pack: packName,
   });
 
@@ -49,131 +56,127 @@ export const action = async ({ request }) => {
 };
 
 function EquipmentCombo(props) {
-  const { combo, logic, comboItem, depth } = props;
+  const { combo, logic, comboSection, depth } = props;
 
-  if (combo.or) {
+  if (combo.or)
     return (
       <>
         {depth === 0 && <h3>Escoge entre</h3>}
-        {depth > 0 && <span>entre</span>}
+        {/* {depth > 0 && <span>entre</span>} */}
         <div>
-          <EquipmentCombo
-            combo={combo.or}
-            logic="or"
-            comboItem={comboItem}
-            depth={depth + 1}
-          />
+          {combo.or.map((orItem, i) => (
+            <EquipmentCombo
+              combo={orItem}
+              logic="or"
+              comboSection={comboSection}
+              depth={depth + 1}
+              key={i}
+            />
+          ))}
         </div>
       </>
     );
-  }
-  if (combo.and) {
-    <EquipmentCombo
-      combo={combo.and}
-      logic="and"
-      comboItem={comboItem}
-      depth={depth + 1}
-    />;
-  }
-  if (Array.isArray(combo)) {
-    return combo.map((item, i) => {
-      if (item.pack)
-        return (
-          <EquipmentCombo
-            combo={item}
-            comboItem={comboItem}
-            depth={depth + 1}
-          />
-        );
-      if (logic === 'or')
-        return (
-          <label
-            htmlFor={item.name}
-            className={styles.equipmentItem}
-            key={item.name}
-          >
-            <input
-              type="radio"
-              name={`choices-${comboItem}`}
-              id={item.name}
-              value={[item.name, item.amount]}
-            />{' '}
-            {itemWithAmount(item.translation, item.amount)}
-          </label>
-        );
-      if (logic === 'and')
-        return (
-          <Fragment key={item.name}>
-            <input
-              readOnly
-              type="text"
-              name={`choices-${comboItem}`}
-              id={item.name}
-              value={[item.name, item.amount]}
-              hidden
-            />
-            <li>{itemWithAmount(item.translation, item.amount)}</li>
-          </Fragment>
-        );
 
+  if (combo.and) {
+    if (logic === 'or') {
       return (
-        <EquipmentCombo combo={item} comboItem={comboItem} depth={depth + 1} />
+        <label
+          htmlFor={combo.name}
+          className={styles.equipmentItem}
+          key={combo.name}
+        >
+          <input
+            type="radio"
+            name={`choices-${comboSection}`}
+            id={combo.name}
+            value={combo.and
+              .map(item => `${item.name},${item.amount}`)
+              .join('|')}
+          />{' '}
+          {combo.and
+            .map(item => itemWithAmount(item.translation, item.amount))
+            .join(', ')}
+        </label>
       );
-    });
+    } else {
+      return (
+        <>
+          {depth === 0 && <h3>Escoge entre</h3>}
+          {/* {depth > 0 && <span>entre</span>} */}
+          <div>
+            {combo.and.map((andItem, i) => (
+              <EquipmentCombo
+                combo={andItem}
+                logic="and"
+                comboSection={comboSection}
+                depth={depth + 1}
+                key={i}
+              />
+            ))}
+          </div>
+        </>
+      );
+    }
   }
-  if (combo.pack) {
-    return (
-      <>
-        {depth > 1 && (
-          <label htmlFor={combo.pack.packName} className={styles.equipmentItem}>
+
+  if (logic === 'or') {
+    if (combo.type)
+      return (
+        <label htmlFor={combo.name} className={styles.equipmentItem}>
+          <input
+            type="radio"
+            name={`choices-${comboSection}`}
+            id={combo.name}
+            value={[combo.name, combo.amount]}
+          />{' '}
+          {itemWithAmount(combo.translation, combo.amount)}
+        </label>
+      );
+    else if (combo.packName)
+      return (
+        <>
+          <label htmlFor={combo.packName} className={styles.equipmentItem}>
             <input
               type="radio"
               name="pack"
-              id={combo.pack.packName}
-              value={combo.pack.packName}
+              id={combo.packName}
+              value={combo.packName}
             />{' '}
-            {combo.pack.translation}
+            {combo.translation}
           </label>
-        )}
-        {depth === 1 && <span>un {combo.pack.translation}</span>}
-        {depth === 0 && <h3>Un {combo.pack.translation}</h3>}
-        <p>
-          Que contiene:
-          <ul>
-            <EquipmentCombo
-              combo={combo.pack}
-              comboItem={comboItem}
-              depth={depth + 1}
-            />
-          </ul>
-        </p>
-      </>
-    );
-  }
-  if (combo.packName) {
-    return (
-      <>
-        {depth < 2 && (
+          <div>
+            Que contiene:
+            <ul>
+              <ul>
+                {Object.values(combo.items).map(item => (
+                  <li key={item().name}>{item().translation}</li>
+                ))}
+              </ul>
+            </ul>
+          </div>
+        </>
+      );
+  } else if (logic === 'and') {
+    if (combo.type)
+      return (
+        <Fragment key={combo.name}>
           <input
             readOnly
             type="text"
-            name="pack"
-            value={combo.packName}
+            name={`choices-${comboSection}`}
+            id={combo.name}
+            value={[combo.name, combo.amount]}
             hidden
           />
-        )}
-        {Object.values(combo.items).map(item => (
-          <li key={item().name}>{item().translation}</li>
-        ))}
-      </>
-    );
-  }
-  if (combo.type) {
-    return (
-      <>
-        {depth === 0 && <h3>{translateEquipment(combo.type)}</h3>}
-        {depth > 0 && <span>{translateEquipment(combo.type)}s </span>}
-        <div>
+          <li>{itemWithAmount(combo.translation, combo.amount)}</li>
+        </Fragment>
+      );
+  } else {
+    if (combo.type)
+      return (
+        <>
+          {depth === 0 && <h3>{translateEquipment(combo.type)}</h3>}
+          {/* {depth > 0 && <h4>{translateEquipment(combo.type)}s </h4>} */}
           {itemWithAmount(combo.translation, combo.amount)}
           <input
             readOnly
@@ -182,10 +185,32 @@ function EquipmentCombo(props) {
             value={[combo.name, combo.amount]}
             hidden
           />
-        </div>
-      </>
-    );
+        </>
+      );
+    else if (combo.packName)
+      return (
+        <>
+          {<h3>Un {combo.translation}</h3>}
+          <input
+            readOnly
+            type="text"
+            name="pack"
+            value={combo.packName}
+            hidden
+          />
+          <div>
+            Que contiene:
+            <ul>
+              {Object.values(combo.items).map(item => (
+                <li key={item().name}>{item().translation}</li>
+              ))}
+            </ul>
+          </div>
+        </>
+      );
   }
+
+  return 'Equipment case not implemented';
 }
 
 function PcEquipment() {
@@ -203,9 +228,13 @@ function PcEquipment() {
 
       <div className={styles.equipmentContainer}>
         <div className={styles.equipment}>
-          {EQUIPMENT[pClass].map((combo, comboItem) => (
-            <div className={styles.equipmentOptions} key={comboItem}>
-              <EquipmentCombo combo={combo} comboItem={comboItem} depth={0} />
+          {EQUIPMENT[pClass].map((combo, comboSection) => (
+            <div className={styles.equipmentOptions} key={comboSection}>
+              <EquipmentCombo
+                combo={combo}
+                comboSection={comboSection}
+                depth={0}
+              />
             </div>
           ))}
         </div>

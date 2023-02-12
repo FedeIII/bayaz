@@ -22,6 +22,6 @@ export const BARBARIAN_EQUIPMENT = [
   {
     or: [WEAPONS.handaxe({ amount: 2 }), ...getAllSimpleMelee()],
   },
-  { pack: EXPLORERS_PACK },
+  EXPLORERS_PACK,
   WEAPONS.javelin({ amount: 4 }),
 ];

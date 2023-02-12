@@ -15,7 +15,7 @@ export const WARLOCK_EQUIPMENT = [
     ],
   },
   { or: [TOOLS.componentPouch(), TOOLS.arcaneFocus()] },
-  { or: [{ pack: SCHOLARS_PACK }, { pack: DUNGEONEERS_PACK }] },
+  { or: [SCHOLARS_PACK, DUNGEONEERS_PACK] },
   ARMORS.leather(),
   { or: getAllSimpleMelee() },
   WEAPONS.dagger({ amount: 2 }),

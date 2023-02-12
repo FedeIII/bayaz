@@ -1,5 +1,5 @@
 export const TOOLS = {
-  shawn() {
+  shawn(props) {
     return {
       name: 'shawn',
       translation: 'Caramillo',
@@ -7,9 +7,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [2, 0, 0],
       weight: 0.5,
+      ...props,
     };
   },
-  horn() {
+  horn(props) {
     return {
       name: 'horn',
       translation: 'Cuerno',
@@ -17,9 +18,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [3, 0, 0],
       weight: 1,
+      ...props,
     };
   },
-  dulcimer() {
+  dulcimer(props) {
     return {
       name: 'dulcimer',
       translation: 'Dulcimer',
@@ -27,9 +29,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [25, 0, 0],
       weight: 5,
+      ...props,
     };
   },
-  flute() {
+  flute(props) {
     return {
       name: 'flute',
       translation: 'Flauta',
@@ -37,9 +40,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [2, 0, 0],
       weight: 0.5,
+      ...props,
     };
   },
-  panFlute() {
+  panFlute(props) {
     return {
       name: 'panFlute',
       translation: 'Flauta de pan',
@@ -47,9 +51,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [12, 0, 0],
       weight: 1,
+      ...props,
     };
   },
-  bagpipes() {
+  bagpipes(props) {
     return {
       name: 'bagpipes',
       translation: 'Gaita',
@@ -57,9 +62,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [30, 0, 0],
       weight: 3,
+      ...props,
     };
   },
-  lute() {
+  lute(props) {
     return {
       name: 'lute',
       translation: 'Laúd',
@@ -67,9 +73,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [35, 0, 0],
       weight: 1,
+      ...props,
     };
   },
-  lyre() {
+  lyre(props) {
     return {
       name: 'lyre',
       translation: 'Lira',
@@ -77,9 +84,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [30, 0, 0],
       weight: 1,
+      ...props,
     };
   },
-  drum() {
+  drum(props) {
     return {
       name: 'drum',
       translation: 'Tambor',
@@ -87,9 +95,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [6, 0, 0],
       weight: 1.5,
+      ...props,
     };
   },
-  viol() {
+  viol(props) {
     return {
       name: 'viol',
       translation: 'Viola',
@@ -97,9 +106,10 @@ export const TOOLS = {
       subtype: 'musicalInstruments',
       price: [30, 0, 0],
       weight: 0.5,
+      ...props,
     };
   },
-  crossbowBolts() {
+  crossbowBolts(props) {
     return {
       name: 'crossbowBolts',
       translation: 'Virotes',
@@ -107,9 +117,10 @@ export const TOOLS = {
       subtype: 'ammunition',
       price: [0, 0, 5],
       weight: 0.03,
+      ...props,
     };
   },
-  componentPouch() {
+  componentPouch(props) {
     return {
       name: 'componentPouch',
       translation: 'Bolsa de componentes',
@@ -117,9 +128,10 @@ export const TOOLS = {
       subtype: 'adventure',
       price: [25, 0, 0],
       weight: 1,
+      ...props,
     };
   },
-  arcaneFocus() {
+  arcaneFocus(props) {
     return {
       name: 'arcaneFocus',
       translation: 'Foco arcano',
@@ -127,6 +139,7 @@ export const TOOLS = {
       subtype: 'adventure',
       price: [11, 0, 0],
       weight: 1,
+      ...props,
     };
   },
 };

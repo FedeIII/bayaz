@@ -15,6 +15,7 @@ import {
   RANGER_ARCHETYPES,
 } from '~/utils/ranger';
 import { DIVINE_DOMAINS } from '~/utils/cleric';
+import { unifyEquipment } from '~/utils/equipment/equipment';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -142,6 +143,8 @@ export async function createPc(pc) {
 }
 
 export async function updatePc(pc) {
+  if (pc.equipment) pc.equipment = unifyEquipment(pc.equipment);
+
   const updatedPc = await Pc.findOneAndUpdate(
     { name: pc.name },
     { $set: pc },
