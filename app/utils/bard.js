@@ -1,4 +1,4 @@
-import { DIPLOMATS_PACK, ENTERTAINERS_PACK } from './equipment/adventure';
+import { DIPLOMATS_PACK, ENTERTAINERS_PACK } from './equipment/packs';
 import { ARMORS } from './equipment/armors';
 import { getAllMusicalInstruments } from './equipment/tools';
 import { getAllSimpleMelee, WEAPONS } from './equipment/weapons';

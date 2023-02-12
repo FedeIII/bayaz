@@ -1,4 +1,4 @@
-import { EXPLORERS_PACK } from './equipment/adventure';
+import { EXPLORERS_PACK } from './equipment/packs';
 import {
   getAllMartialMelee,
   getAllSimpleMelee,

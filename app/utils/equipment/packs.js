@@ -358,3 +358,33 @@ export function getScholarsPackItems() {
 export function getDungeoneersPackItems() {
   return Object.values(DUNGEONEERS_PACK.items).map(item => item());
 }
+
+export const PACKS = [
+  EXPLORERS_PACK,
+  DIPLOMATS_PACK,
+  ENTERTAINERS_PACK,
+  SCHOLARS_PACK,
+  DUNGEONEERS_PACK,
+];
+
+export function getAllPackItems() {
+  return PACKS.reduce((allItems, pack) => ({ ...allItems, ...pack.items }), {});
+}
+
+export function getPackItems(packName) {
+  switch (packName) {
+    case 'explorers-pack':
+      return getExplorersPackItems();
+    case 'diplomats-pack':
+      return getDiplomatsPackItems();
+    case 'entertainers-pack':
+      return getEntertainersPackItems();
+    case 'scholars-pack':
+      return getScholarsPackItems();
+    case 'dungeoneers-pack':
+      return getDungeoneersPackItems();
+
+    default:
+      return 'unknown pack name';
+  }
+}

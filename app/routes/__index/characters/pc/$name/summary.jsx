@@ -41,7 +41,8 @@ import {
 import { translateDivineDomain, getDivineDomain } from '~/utils/cleric';
 import { getPrimalPath, translatePrimalPath } from '~/utils/barbarian';
 import { increment, listItems } from '~/utils/display';
-import { getPackItems, translatePack } from '~/utils/equipment/equipment';
+import { translatePack } from '~/utils/equipment/equipment';
+import { getPackItems } from '~/utils/equipment/packs';
 
 import styles from '~/components/sheet.module.css';
 

@@ -1,4 +1,4 @@
-import { SCHOLARS_PACK, DUNGEONEERS_PACK } from './equipment/adventure';
+import { SCHOLARS_PACK, DUNGEONEERS_PACK } from './equipment/packs';
 import { ARMORS } from './equipment/armors';
 import { TOOLS } from './equipment/tools';
 import {
