@@ -18,3 +18,7 @@ export function listItems(items) {
       .join(', ') + '.'
   );
 }
+
+export function itemWithAmount(translation, amount) {
+  return (amount > 1 ? amount + 'x ' : '') + translation;
+}

@@ -1,5 +1,6 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import { Fragment } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 import { BARBARIAN_EQUIPMENT } from '~/utils/barbarian';
@@ -7,10 +8,13 @@ import { BARD_EQUIPMENT } from '~/utils/bard';
 
 import styles from '~/components/characters.module.css';
 import { pcItem, translateEquipment } from '~/utils/equipment/equipment';
+import { WARLOCK_EQUIPMENT } from '~/utils/warlock';
+import { itemWithAmount } from '~/utils/display';
 
 const EQUIPMENT = {
   barbarian: BARBARIAN_EQUIPMENT,
   bard: BARD_EQUIPMENT,
+  warlock: WARLOCK_EQUIPMENT,
 };
 
 export const loader = async ({ params }) => {
@@ -32,8 +36,6 @@ export const action = async ({ request }) => {
     formData.get(`choices-${i}`)
   ).filter(v => v);
 
-  // TODO what
-
   await updatePc({
     name,
     equipment: [...choices, ...items].map(item => {
@@ -47,7 +49,7 @@ export const action = async ({ request }) => {
 };
 
 function EquipmentCombo(props) {
-  const { combo, comboItem, depth } = props;
+  const { combo, logic, comboItem, depth } = props;
 
   if (combo.or) {
     return (
@@ -57,12 +59,21 @@ function EquipmentCombo(props) {
         <div>
           <EquipmentCombo
             combo={combo.or}
+            logic="or"
             comboItem={comboItem}
             depth={depth + 1}
           />
         </div>
       </>
     );
+  }
+  if (combo.and) {
+    <EquipmentCombo
+      combo={combo.and}
+      logic="and"
+      comboItem={comboItem}
+      depth={depth + 1}
+    />;
   }
   if (Array.isArray(combo)) {
     return combo.map((item, i) => {
@@ -74,16 +85,39 @@ function EquipmentCombo(props) {
             depth={depth + 1}
           />
         );
+      if (logic === 'or')
+        return (
+          <label
+            htmlFor={item.name}
+            className={styles.equipmentItem}
+            key={item.name}
+          >
+            <input
+              type="radio"
+              name={`choices-${comboItem}`}
+              id={item.name}
+              value={[item.name, item.amount]}
+            />{' '}
+            {itemWithAmount(item.translation, item.amount)}
+          </label>
+        );
+      if (logic === 'and')
+        return (
+          <Fragment key={item.name}>
+            <input
+              readOnly
+              type="text"
+              name={`choices-${comboItem}`}
+              id={item.name}
+              value={[item.name, item.amount]}
+              hidden
+            />
+            <li>{itemWithAmount(item.translation, item.amount)}</li>
+          </Fragment>
+        );
+
       return (
-        <label htmlFor={item.name} className={styles.equipmentItem} key={i}>
-          <input
-            type="radio"
-            name={`choices-${comboItem}`}
-            id={item.name}
-            value={[item.name, item.amount]}
-          />{' '}
-          {!!(item.amount > 1) && item.amount + 'x'} {item.translation}
-        </label>
+        <EquipmentCombo combo={item} comboItem={comboItem} depth={depth + 1} />
       );
     });
   }
@@ -140,8 +174,7 @@ function EquipmentCombo(props) {
         {depth === 0 && <h3>{translateEquipment(combo.type)}</h3>}
         {depth > 0 && <span>{translateEquipment(combo.type)}s </span>}
         <div>
-          {combo.amount > 1 && combo.amount + 'x '}
-          {combo.translation}
+          {itemWithAmount(combo.translation, combo.amount)}
           <input
             readOnly
             type="text"

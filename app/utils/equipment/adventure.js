@@ -213,6 +213,132 @@ export const ENTERTAINERS_PACK = {
   },
 };
 
+export const SCHOLARS_PACK = {
+  price: [40, 0, 0],
+  packName: 'scholars-pack',
+  translation: 'Equipo de Erudito',
+  items: {
+    backpack() {
+      return {
+        name: 'backpack',
+        translation: 'Mochila',
+        type: 'adventure',
+      };
+    },
+    loreBook() {
+      return {
+        name: 'loreBook',
+        translation: 'Libro de conocimiento',
+        type: 'adventure',
+      };
+    },
+    inkBottle() {
+      return {
+        name: 'inkBottle',
+        translation: 'Frasco de tinta',
+        type: 'adventure',
+      };
+    },
+    inkPen() {
+      return {
+        name: 'inkPen',
+        translation: 'Pluma',
+        type: 'adventure',
+      };
+    },
+    cases() {
+      return {
+        name: 'cases',
+        translation: 'Estuches de mapas y pergaminos',
+        type: 'adventure',
+        amount: 10,
+      };
+    },
+    sandBag() {
+      return {
+        name: 'sandBag',
+        translation: 'Bolsa de arena',
+        type: 'adventure',
+      };
+    },
+  },
+};
+
+export const DUNGEONEERS_PACK = {
+  price: [12, 0, 0],
+  packName: 'dungeoneers-pack',
+  translation: 'Equipo para Dungeons',
+  items: {
+    backpack() {
+      return {
+        name: 'backpack',
+        translation: 'Mochila',
+        type: 'adventure',
+      };
+    },
+    crowbar() {
+      return {
+        name: 'crowbar',
+        translation: 'Palanca',
+        type: 'adventure',
+      };
+    },
+    hammer() {
+      return {
+        name: 'hammer',
+        translation: 'Martillo',
+        type: 'adventure',
+      };
+    },
+    pitons() {
+      return {
+        name: 'pitons',
+        translation: 'Pitones',
+        type: 'adventure',
+        amount: 10,
+      };
+    },
+    torches() {
+      return {
+        name: 'torches',
+        translation: 'Antorchas',
+        type: 'adventure',
+        amount: 10,
+      };
+    },
+    tinderbox() {
+      return {
+        name: 'tinderbox',
+        translation: 'Yesquero',
+        type: 'adventure',
+      };
+    },
+    rations() {
+      return {
+        name: 'rations',
+        translation: 'Raciones',
+        type: 'adventure',
+        amount: 10,
+      };
+    },
+    waterskin() {
+      return {
+        name: 'waterskin',
+        translation: 'Odre',
+        type: 'adventure',
+      };
+    },
+  },
+  hempenRope() {
+    return {
+      name: 'hempenRope',
+      translation: 'Cuerda de cáñamo',
+      type: 'adventure',
+      amount: 50,
+    };
+  },
+};
+
 export function getExplorersPackItems() {
   return Object.values(EXPLORERS_PACK.items).map(item => item());
 }
@@ -223,4 +349,12 @@ export function getDiplomatsPackItems() {
 
 export function getEntertainersPackItems() {
   return Object.values(ENTERTAINERS_PACK.items).map(item => item());
+}
+
+export function getScholarsPackItems() {
+  return Object.values(SCHOLARS_PACK.items).map(item => item());
+}
+
+export function getDungeoneersPackItems() {
+  return Object.values(DUNGEONEERS_PACK.items).map(item => item());
 }

@@ -1,0 +1,22 @@
+import { SCHOLARS_PACK, DUNGEONEERS_PACK } from './equipment/adventure';
+import { ARMORS } from './equipment/armors';
+import { TOOLS } from './equipment/tools';
+import {
+  getAllSimpleMelee,
+  getAllSimpleRanged,
+  WEAPONS,
+} from './equipment/weapons';
+
+export const WARLOCK_EQUIPMENT = [
+  {
+    or: [
+      { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
+      { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
+    ],
+  },
+  { or: [TOOLS.componentPouch(), TOOLS.arcaneFocus()] },
+  { or: [{ pack: SCHOLARS_PACK }, { pack: DUNGEONEERS_PACK }] },
+  ARMORS.leather(),
+  { or: getAllSimpleMelee() },
+  WEAPONS.dagger({ amount: 2 }),
+];

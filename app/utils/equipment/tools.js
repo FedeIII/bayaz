@@ -99,6 +99,36 @@ export const TOOLS = {
       weight: 0.5,
     };
   },
+  crossbowBolts() {
+    return {
+      name: 'crossbowBolts',
+      translation: 'Virotes',
+      type: 'tool',
+      subtype: 'ammunition',
+      price: [0, 0, 5],
+      weight: 0.03,
+    };
+  },
+  componentPouch() {
+    return {
+      name: 'componentPouch',
+      translation: 'Bolsa de componentes',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [25, 0, 0],
+      weight: 1,
+    };
+  },
+  arcaneFocus() {
+    return {
+      name: 'arcaneFocus',
+      translation: 'Foco arcano',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [11, 0, 0],
+      weight: 1,
+    };
+  },
 };
 
 export function translateTool(tool) {

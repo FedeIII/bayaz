@@ -2,9 +2,13 @@ import {
   EXPLORERS_PACK,
   DIPLOMATS_PACK,
   ENTERTAINERS_PACK,
+  SCHOLARS_PACK,
+  DUNGEONEERS_PACK,
   getExplorersPackItems,
   getDiplomatsPackItems,
   getEntertainersPackItems,
+  getScholarsPackItems,
+  getDungeoneersPackItems,
 } from './adventure';
 import { WEAPONS } from './weapons';
 import { TOOLS } from './tools';
@@ -40,6 +44,8 @@ export function getAllItems() {
     ...EXPLORERS_PACK.items,
     ...DIPLOMATS_PACK.items,
     ...ENTERTAINERS_PACK.items,
+    ...SCHOLARS_PACK.items,
+    ...DUNGEONEERS_PACK.items,
   });
 }
 
@@ -58,6 +64,10 @@ export function getPackItems(packName) {
       return getDiplomatsPackItems();
     case 'entertainers-pack':
       return getEntertainersPackItems();
+    case 'scholars-pack':
+      return getScholarsPackItems();
+    case 'dungeoneers-pack':
+      return getDungeoneersPackItems();
 
     default:
       return [];
