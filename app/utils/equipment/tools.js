@@ -461,6 +461,17 @@ export const TOOLS = {
       ...props,
     };
   },
+  spellbook(props) {
+    return {
+      name: 'spellbook',
+      translation: 'Libro de conjuros',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [50, 0, 0],
+      weight: 1.5,
+      ...props,
+    };
+  },
 };
 
 export function translateTool(tool) {

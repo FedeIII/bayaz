@@ -10,6 +10,7 @@ import { DRUID_EQUIPMENT } from '../druid';
 import { RANGER_EQUIPMENT } from '../ranger';
 import { FIGHTER_EQUIPMENT } from '../fighter';
 import { SORCERER_EQUIPMENT } from '../sorcerer';
+import { WIZARD_EQUIPMENT } from '../wizard';
 
 export function translateEquipment(type) {
   switch (type) {
@@ -79,4 +80,5 @@ export const CLASS_EQUIPMENT = {
   ranger: RANGER_EQUIPMENT,
   fighter: FIGHTER_EQUIPMENT,
   sorcerer: SORCERER_EQUIPMENT,
+  wizard: WIZARD_EQUIPMENT,
 };

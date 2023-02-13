@@ -492,6 +492,11 @@ export const CLASSES = {
       'nature',
       'religion',
     ],
+    proficientItems: [
+      ...getAllLightArmors(),
+      ...getAllSimpleMelee(),
+      ...getAllSimpleRanged(),
+    ],
   },
   wizard: {
     initialHitPoints: 6,
@@ -505,6 +510,13 @@ export const CLASSES = {
       'investigation',
       'medicine',
       'religion',
+    ],
+    proficientItems: [
+      'quarterstaff',
+      'lightCrossbow',
+      'dagger',
+      'dart',
+      'sling',
     ],
   },
 };
