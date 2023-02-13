@@ -62,7 +62,8 @@ function ClericSkills(props) {
       checks.filter(v => v).length === newPickSkills;
     setSkillsNamespace(
       'clericSkills',
-      areClericSkillsSelected && languagesSelected === 2
+      areClericSkillsSelected &&
+        (divineDomain !== 'knowledge' || languagesSelected === 2)
     );
   }, [divineDomain, checks, languagesSelected]);
 
@@ -129,7 +130,11 @@ function ClericSkills(props) {
         <p>
           Selecciona dos idiomas extra
           {LANGUAGES.filter(l => !languages.includes(l)).map(language => (
-            <label for={language} key={language} className={styles.skillLabel}>
+            <label
+              htmlFor={language}
+              key={language}
+              className={styles.skillLabel}
+            >
               <input
                 type="checkbox"
                 name="languages[]"

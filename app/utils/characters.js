@@ -775,9 +775,13 @@ export function getPassivePerception(pc) {
 export function getItemProficiencies(pc) {
   const { race, subrace, pClass } = pc;
 
+  const divineDomain = getDivineDomain(pc);
+
   return [
     ...(RACES[race][subrace].proficientItems || []),
     ...(CLASSES[pClass].proficientItems || []),
     ...(pc.proficientItems?.map(item => item.name) || []),
+    ...((divineDomain ? DIVINE_DOMAINS[divineDomain].proficientItems : []) ||
+      []),
   ];
 }

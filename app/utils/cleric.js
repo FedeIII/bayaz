@@ -1,8 +1,14 @@
 import { getItemProficiencies } from './characters';
-import { ARMORS } from './equipment/armors';
+import { ARMORS, getAllHeavyArmors } from './equipment/armors';
 import { EXPLORERS_PACK, PRIESTS_PACK } from './equipment/packs';
 import { TOOLS } from './equipment/tools';
-import { getAllSimpleMelee, getAllSimpleRanged, WEAPONS } from './equipment/weapons';
+import {
+  getAllMartialMelee,
+  getAllMartialRanged,
+  getAllSimpleMelee,
+  getAllSimpleRanged,
+  WEAPONS,
+} from './equipment/weapons';
 
 export const DIVINE_DOMAINS = {
   death: {},
@@ -11,15 +17,30 @@ export const DIVINE_DOMAINS = {
     skillsToPick: ['arcana', 'history', 'nature', 'religion'],
     specialSkillProficiencyBonus: bonus => 2 * bonus,
   },
-  life: {},
+  life: {
+    proficientItems: [...getAllHeavyArmors().map(item => item.name)],
+  },
   light: {},
   nature: {
     pickSkills: 1,
     skillsToPick: ['animal-handling', 'nature', 'survival'],
+    proficientItems: [...getAllHeavyArmors().map(item => item.name)],
   },
-  tempest: {},
+  tempest: {
+    proficientItems: [
+      ...getAllMartialMelee().map(item => item.name),
+      ...getAllMartialRanged().map(item => item.name),
+      ...getAllHeavyArmors().map(item => item.name),
+    ],
+  },
   trickery: {},
-  war: {},
+  war: {
+    proficientItems: [
+      ...getAllMartialMelee().map(item => item.name),
+      ...getAllMartialRanged().map(item => item.name),
+      ...getAllHeavyArmors().map(item => item.name),
+    ],
+  },
 };
 
 export function translateDivineDomain(divineDomainName) {
