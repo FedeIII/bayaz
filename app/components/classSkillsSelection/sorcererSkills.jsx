@@ -23,7 +23,7 @@ function SorcererSkills(props) {
             value={sorcererOrigin}
             onChange={e => setSorcererOrigin(e.target.value)}
           >
-            {SORCERER_ORIGIN.map(sorcererOrigin => (
+            {Object.keys(SORCERER_ORIGIN).map(sorcererOrigin => (
               <option value={sorcererOrigin} key={sorcererOrigin}>
                 {translateSorcererOrigin(sorcererOrigin)}
               </option>

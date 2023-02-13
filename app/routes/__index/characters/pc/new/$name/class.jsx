@@ -9,6 +9,7 @@ import {
   getSkills,
   translateClass,
   SKILLS,
+  getInitialHitPoints,
 } from '~/utils/characters';
 import BarbarianSkills from '~/components/classSkillsSelection/barbarianSkills';
 import BardSkills from '~/components/classSkillsSelection/bardSkills';
@@ -69,14 +70,16 @@ export const action = async ({ request }) => {
   if (fightingStyle) pcAttrs.classAttrs.fightingStyles = [fightingStyle];
   if (sorcererOrigin) pcAttrs.classAttrs.sorcererOrigin = sorcererOrigin;
   if (dragonAncestor) pcAttrs.classAttrs.dragonAncestor = dragonAncestor;
-  if (dragonAncestor === 'draconic-bloodline') {
-    pcAttrs.maxHitPoints = pc.maxHitPoints + 1;
-    pcAttrs.hitPoints = pc.hitPoints + 1;
-  }
   if (expertSkills.length) pcAttrs.classAttrs.expertSkills = expertSkills;
   if (languages.length) pcAttrs.languages = [...pc.languages, ...languages];
 
-  await updatePc(pcAttrs);
+  const updatedPc = await updatePc(pcAttrs);
+
+  await updatePc({
+    name,
+    maxHitPoints: getInitialHitPoints(updatedPc),
+    hitPoints: getInitialHitPoints(updatedPc),
+  });
 
   return redirect(`/characters/pc/new/${name}/equipment`);
 };

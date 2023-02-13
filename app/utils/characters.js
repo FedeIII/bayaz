@@ -15,6 +15,7 @@ import {
   getAllSimpleRanged,
   getAllWeapons,
 } from './equipment/weapons';
+import { getSorcererOrigin, SORCERER_ORIGIN } from './sorcerer';
 
 export const RACES = {
   dwarf: {
@@ -469,6 +470,13 @@ export const CLASSES = {
       'persuasion',
       'religion',
     ],
+    proficientItems: [
+      'dagger',
+      'dart',
+      'sling',
+      'quarterstaff',
+      'lightCrossbow',
+    ],
   },
   warlock: {
     initialHitPoints: 8,
@@ -511,9 +519,13 @@ export function isProficientStat(stat, pClass) {
 }
 
 export function getExtraHitPoints(pc) {
-  const { race, subrace } = pc;
+  const { race, subrace, pClass } = pc;
   return (
-    (RACES[race][subrace].extraHitPoints || 0) + getStatMod(getStat(pc, 'con'))
+    (RACES[race][subrace].extraHitPoints || 0) +
+    getStatMod(getStat(pc, 'con')) +
+    (pClass === 'sorcerer' && getSorcererOrigin(pc)
+      ? SORCERER_ORIGIN[getSorcererOrigin(pc)]?.extraHitPoints(pc) || 0
+      : 0)
   );
 }
 

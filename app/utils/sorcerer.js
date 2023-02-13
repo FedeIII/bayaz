@@ -1,4 +1,17 @@
-export const SORCERER_ORIGIN = ['draconic-bloodline', 'wild-magic'];
+import { DUNGEONEERS_PACK, EXPLORERS_PACK } from './equipment/packs';
+import { getAllArcaneFocus, TOOLS } from './equipment/tools';
+import {
+  getAllSimpleMelee,
+  getAllSimpleRanged,
+  WEAPONS,
+} from './equipment/weapons';
+
+export const SORCERER_ORIGIN = {
+  ['draconic-bloodline']: {
+    extraHitPoints: pc => pc.level,
+  },
+  ['wild-magic']: {},
+};
 
 export function translateSorcererOrigin(origin) {
   switch (origin) {
@@ -39,3 +52,15 @@ export function translateDragonAncestor(ancestor) {
 export function getDragonAncestor(pc) {
   return pc.classAttrs?.dragonAncestor;
 }
+
+export const SORCERER_EQUIPMENT = [
+  {
+    or: [
+      { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
+      ...getAllSimpleMelee(),
+      ...getAllSimpleRanged(),
+    ],
+  },
+  { or: [TOOLS.componentPouch(), ...getAllArcaneFocus()] },
+  { or: [DUNGEONEERS_PACK, EXPLORERS_PACK] },
+];

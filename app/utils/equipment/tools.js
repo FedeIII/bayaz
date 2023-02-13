@@ -304,7 +304,7 @@ export const TOOLS = {
   rod(props) {
     return {
       name: 'rod',
-      translation: 'Cetro',
+      translation: 'Cetro (Foco arcano)',
       type: 'tool',
       subtype: 'arcaneFocus',
       price: [10, 0, 0],
@@ -315,7 +315,7 @@ export const TOOLS = {
   crystal(props) {
     return {
       name: 'crystal',
-      translation: 'Cristal',
+      translation: 'Cristal (Foco arcano)',
       type: 'tool',
       subtype: 'arcaneFocus',
       price: [10, 0, 0],
@@ -326,7 +326,7 @@ export const TOOLS = {
   orb(props) {
     return {
       name: 'orb',
-      translation: 'Orbe',
+      translation: 'Orbe (Foco arcano)',
       type: 'tool',
       subtype: 'arcaneFocus',
       price: [20, 0, 0],
@@ -337,7 +337,7 @@ export const TOOLS = {
   staff(props) {
     return {
       name: 'staff',
-      translation: 'Vara',
+      translation: 'Vara (Foco arcano)',
       type: 'tool',
       subtype: 'arcaneFocus',
       price: [5, 0, 0],
@@ -348,7 +348,7 @@ export const TOOLS = {
   wand(props) {
     return {
       name: 'wand',
-      translation: 'Varita',
+      translation: 'Varita (Foco arcano)',
       type: 'tool',
       subtype: 'arcaneFocus',
       price: [10, 0, 0],
@@ -361,7 +361,7 @@ export const TOOLS = {
   mistletoeSprig(props) {
     return {
       name: 'mistletoeSprig',
-      translation: 'Ramita de muérdago',
+      translation: 'Ramita de muérdago (Foco druídico)',
       type: 'tool',
       subtype: 'druidicFocus',
       price: [1, 0, 0],
@@ -372,7 +372,7 @@ export const TOOLS = {
   totem(props) {
     return {
       name: 'totem',
-      translation: 'Ramita de muérdago',
+      translation: 'Tótem (Foco druídico)',
       type: 'tool',
       subtype: 'druidicFocus',
       price: [1, 0, 0],
@@ -383,7 +383,7 @@ export const TOOLS = {
   woodenStaff(props) {
     return {
       name: 'woodenStaff',
-      translation: 'Vara de madera',
+      translation: 'Vara de madera (Foco druídico)',
       type: 'tool',
       subtype: 'druidicFocus',
       price: [5, 0, 0],
@@ -394,7 +394,7 @@ export const TOOLS = {
   yewWand(props) {
     return {
       name: 'yewWand',
-      translation: 'Varita de tejo',
+      translation: 'Varita de tejo (Foco druídico)',
       type: 'tool',
       subtype: 'druidicFocus',
       price: [10, 0, 0],
