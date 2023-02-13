@@ -1,5 +1,5 @@
 import { EXPLORERS_PACK, SCHOLARS_PACK } from './equipment/packs';
-import { TOOLS } from './equipment/tools';
+import { getAllArcaneFocus, TOOLS } from './equipment/tools';
 import { WEAPONS } from './equipment/weapons';
 
 export const WIZARD_EQUIPMENT = [

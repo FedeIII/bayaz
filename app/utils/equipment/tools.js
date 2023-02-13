@@ -485,6 +485,12 @@ export function getAllMusicalInstruments() {
     .map(([name, builder]) => builder());
 }
 
+export function getAllArtisansTools() {
+  return Object.entries(TOOLS)
+    .filter(([name, builder]) => builder().subtype === 'artisansTools')
+    .map(([name, builder]) => builder());
+}
+
 export function getAllArcaneFocus() {
   return Object.entries(TOOLS)
     .filter(([name, builder]) => builder().subtype === 'arcaneFocus')

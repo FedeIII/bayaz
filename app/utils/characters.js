@@ -388,6 +388,11 @@ export const CLASSES = {
       'religion',
       'stealth',
     ],
+    proficientItems: [
+      ...getAllSimpleMelee().map(weapon => weapon.name),
+      ...getAllSimpleRanged().map(weapon => weapon.name),
+      'shortsword',
+    ],
   },
   paladin: {
     initialHitPoints: 10,

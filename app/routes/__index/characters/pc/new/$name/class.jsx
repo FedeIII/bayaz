@@ -18,9 +18,10 @@ import RangerSkills from '~/components/classSkillsSelection/rangerSkills';
 import FighterSkills from '~/components/classSkillsSelection/fighterSkills';
 import SorcererSkills from '~/components/classSkillsSelection/sorcererSkills';
 import RogueSkills from '~/components/classSkillsSelection/rogueSkills';
+import MonkSkills from '~/components/classSkillsSelection/monkSkills';
+import { pcItem } from '~/utils/equipment/equipment';
 
 import styles from '~/components/characters.module.css';
-import { pcItem } from '~/utils/equipment/equipment';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -103,6 +104,8 @@ function ClassSkills(props) {
       return <SorcererSkills {...props} />;
     case 'rogue':
       return <RogueSkills {...props} />;
+    case 'monk':
+      return <MonkSkills {...props} />;
     default:
       return null;
   }

@@ -58,3 +58,4 @@ npx prisma migrate dev
 - Spells
 - Trasfondo
 - Extra racial skills
+- Some class skills can be piled up if you go back and forth in the browser navigation
