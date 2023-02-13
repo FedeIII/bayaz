@@ -6,6 +6,7 @@ import { BARBARIAN_EQUIPMENT } from '../barbarian';
 import { BARD_EQUIPMENT } from '../bard';
 import { WARLOCK_EQUIPMENT } from '../warlock';
 import { CLERIC_EQUIPMENT } from '../cleric';
+import { DRUID_EQUIPMENT } from '../druid';
 
 export function translateEquipment(type) {
   switch (type) {
@@ -71,4 +72,5 @@ export const CLASS_EQUIPMENT = {
   bard: BARD_EQUIPMENT,
   warlock: WARLOCK_EQUIPMENT,
   cleric: CLERIC_EQUIPMENT,
+  druid: DRUID_EQUIPMENT,
 };

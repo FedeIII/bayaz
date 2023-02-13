@@ -300,6 +300,109 @@ export const TOOLS = {
     };
   },
 
+  //ARCANE FOCUS
+  rod(props) {
+    return {
+      name: 'rod',
+      translation: 'Cetro',
+      type: 'tool',
+      subtype: 'arcaneFocus',
+      price: [10, 0, 0],
+      weight: 1,
+      ...props,
+    };
+  },
+  crystal(props) {
+    return {
+      name: 'crystal',
+      translation: 'Cristal',
+      type: 'tool',
+      subtype: 'arcaneFocus',
+      price: [10, 0, 0],
+      weight: 0.5,
+      ...props,
+    };
+  },
+  orb(props) {
+    return {
+      name: 'orb',
+      translation: 'Orbe',
+      type: 'tool',
+      subtype: 'arcaneFocus',
+      price: [20, 0, 0],
+      weight: 1.5,
+      ...props,
+    };
+  },
+  staff(props) {
+    return {
+      name: 'staff',
+      translation: 'Vara',
+      type: 'tool',
+      subtype: 'arcaneFocus',
+      price: [5, 0, 0],
+      weight: 2,
+      ...props,
+    };
+  },
+  wand(props) {
+    return {
+      name: 'wand',
+      translation: 'Varita',
+      type: 'tool',
+      subtype: 'arcaneFocus',
+      price: [10, 0, 0],
+      weight: 0.5,
+      ...props,
+    };
+  },
+
+  //DRUIDIC FOCUS
+  mistletoeSprig(props) {
+    return {
+      name: 'mistletoeSprig',
+      translation: 'Ramita de muérdago',
+      type: 'tool',
+      subtype: 'druidicFocus',
+      price: [1, 0, 0],
+      weight: 0,
+      ...props,
+    };
+  },
+  totem(props) {
+    return {
+      name: 'totem',
+      translation: 'Ramita de muérdago',
+      type: 'tool',
+      subtype: 'druidicFocus',
+      price: [1, 0, 0],
+      weight: 0,
+      ...props,
+    };
+  },
+  woodenStaff(props) {
+    return {
+      name: 'woodenStaff',
+      translation: 'Vara de madera',
+      type: 'tool',
+      subtype: 'druidicFocus',
+      price: [5, 0, 0],
+      weight: 2,
+      ...props,
+    };
+  },
+  yewWand(props) {
+    return {
+      name: 'yewWand',
+      translation: 'Varita de tejo',
+      type: 'tool',
+      subtype: 'druidicFocus',
+      price: [10, 0, 0],
+      weight: 0.5,
+      ...props,
+    };
+  },
+
   //OTHERS
   crossbowBolts(props) {
     return {
@@ -323,17 +426,6 @@ export const TOOLS = {
       ...props,
     };
   },
-  arcaneFocus(props) {
-    return {
-      name: 'arcaneFocus',
-      translation: 'Foco arcano',
-      type: 'tool',
-      subtype: 'adventure',
-      price: [11, 0, 0],
-      weight: 1,
-      ...props,
-    };
-  },
   holySymbol(props) {
     return {
       name: 'holySymbol',
@@ -342,6 +434,17 @@ export const TOOLS = {
       subtype: 'adventure',
       price: [0, 0, 0],
       weight: 0.1,
+      ...props,
+    };
+  },
+  herbalismKit(props) {
+    return {
+      name: 'herbalismKit',
+      translation: 'Kit de herbolistería',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [5, 0, 0],
+      weight: 1.5,
       ...props,
     };
   },
@@ -355,5 +458,17 @@ export function translateTool(tool) {
 export function getAllMusicalInstruments() {
   return Object.entries(TOOLS)
     .filter(([name, builder]) => builder().subtype === 'musicalInstruments')
+    .map(([name, builder]) => builder());
+}
+
+export function getAllArcaneFocus() {
+  return Object.entries(TOOLS)
+    .filter(([name, builder]) => builder().subtype === 'arcaneFocus')
+    .map(([name, builder]) => builder());
+}
+
+export function getAllDruidicFocus() {
+  return Object.entries(TOOLS)
+    .filter(([name, builder]) => builder().subtype === 'arcaneFocus')
     .map(([name, builder]) => builder());
 }

@@ -1,6 +1,6 @@
 import { SCHOLARS_PACK, DUNGEONEERS_PACK } from './equipment/packs';
 import { ARMORS } from './equipment/armors';
-import { TOOLS } from './equipment/tools';
+import { getAllArcaneFocus, TOOLS } from './equipment/tools';
 import {
   getAllSimpleMelee,
   getAllSimpleRanged,
@@ -14,7 +14,7 @@ export const WARLOCK_EQUIPMENT = [
       { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
     ],
   },
-  { or: [TOOLS.componentPouch(), TOOLS.arcaneFocus()] },
+  { or: [TOOLS.componentPouch(), ...getAllArcaneFocus()] },
   { or: [SCHOLARS_PACK, DUNGEONEERS_PACK] },
   ARMORS.leather(),
   { or: getAllSimpleMelee() },
