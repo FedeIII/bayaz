@@ -471,6 +471,16 @@ export const CLASSES = {
     proficiencies: {
       ['Ataque Furtivo']: pc => `${Math.ceil(pc.level / 2)}d6 daño extra`,
     },
+    proficientItems: [
+      ...getAllLightArmors().map(armor => armor.name),
+      ...getAllSimpleMelee().map(weapon => weapon.name),
+      ...getAllSimpleRanged().map(weapon => weapon.name),
+      'handCrossbow',
+      'longsword',
+      'rapier',
+      'shortsword',
+      'thievesTools',
+    ],
   },
   sorcerer: {
     initialHitPoints: 6,

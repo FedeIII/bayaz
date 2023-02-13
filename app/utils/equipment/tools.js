@@ -472,6 +472,17 @@ export const TOOLS = {
       ...props,
     };
   },
+  thievesTools(props) {
+    return {
+      name: 'thievesTools',
+      translation: 'Herramientas de ladrón',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [25, 0, 0],
+      weight: 0.5,
+      ...props,
+    };
+  },
 };
 
 export function translateTool(tool) {

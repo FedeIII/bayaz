@@ -53,7 +53,6 @@ npx prisma migrate dev
 
 ## TO DOs
 
-- Equipment
 - Armor
 - Spells
 - Trasfondo
