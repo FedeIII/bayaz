@@ -8,6 +8,7 @@ import {
   getAllLightArmors,
   getAllMediumArmors,
 } from './equipment/armors';
+import { getItem } from './equipment/equipment';
 import {
   getAllMartialMelee,
   getAllMartialRanged,
@@ -660,6 +661,16 @@ export function getStat(pc, statName) {
   );
 }
 
+export function getStats(pc) {
+  return STATS.reduce(
+    (allStats, statName) => ({
+      ...allStats,
+      [statName]: getStat(pc, statName),
+    }),
+    {}
+  );
+}
+
 export const SKILLS = [
   { name: 'athletics', stat: 'str' },
   { name: 'acrobatics', stat: 'dex' },
@@ -873,4 +884,31 @@ export function getItemProficiencies(pc) {
     ...((divineDomain ? DIVINE_DOMAINS[divineDomain].proficientItems : []) ||
       []),
   ];
+}
+
+export function getArmorClass(pc) {
+  const { equipment, pClass } = pc;
+  const armor = equipment.find(item => getItem(item.name)?.properties?.AC);
+  const shield = equipment.find(
+    item => getItem(item.name).subtype === 'shield'
+  );
+
+  if (pClass === 'barbarian' && !armor) {
+    return 10 + getStatMod(getStat(pc, 'dex')) + getStatMod(getStat(pc, 'con'));
+  }
+
+  if (pClass === 'monk' && !armor && !shield) {
+    return 10 + getStatMod(getStat(pc, 'dex')) + getStatMod(getStat(pc, 'wis'));
+  }
+
+  if (armor) return getItem(armor.name).properties.AC(getStats(pc));
+  else return 10 * getStatMod(getStat(pc, 'dex'));
+}
+
+export function getExtraArmorClass(pc) {
+  const shield = pc.equipment.find(
+    item => getItem(item.name).subtype === 'shield'
+  );
+  if (shield) return getItem(shield.name).properties.AC(getStats(pc));
+  else return 0;
 }

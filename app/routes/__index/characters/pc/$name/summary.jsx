@@ -22,6 +22,8 @@ import {
   translateLanguage,
   getPassivePerception,
   getItemProficiencies,
+  getArmorClass,
+  getExtraArmorClass,
 } from '~/utils/characters';
 import { getExpertSkills } from '~/utils/rogue';
 import {
@@ -148,6 +150,14 @@ function PcSummary() {
         </span>
 
         {/* COMBAT ATTRS */}
+        <div className={`${styles.data} ${styles.armorClass}`}>
+          {getArmorClass(pc)}
+          <span className={`${styles.data} ${styles.extraArmorClass}`}>
+            {getExtraArmorClass(pc)
+              ? `(${increment(getExtraArmorClass(pc))})`
+              : null}
+          </span>
+        </div>
         <span className={`${styles.data} ${styles.speed}`}>{speed}m</span>
         <span className={`${styles.data} ${styles.maxHitPoints}`}>
           {maxHitPoints}
