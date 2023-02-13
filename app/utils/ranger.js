@@ -1,3 +1,8 @@
+import { ARMORS } from './equipment/armors';
+import { DUNGEONEERS_PACK, EXPLORERS_PACK } from './equipment/packs';
+import { TOOLS } from './equipment/tools';
+import { getAllSimpleMelee, WEAPONS } from './equipment/weapons';
+
 export const FAVORED_ENEMIES = [
   'aberrations',
   'beasts',
@@ -148,3 +153,15 @@ export function translateRangerArchetype(archetype) {
 export function getRangerArchetype(pc) {
   return pc.classAttrs?.rangerArchetype;
 }
+
+export const RANGER_EQUIPMENT = [
+  { or: [ARMORS.scaleMail(), ARMORS.leather()] },
+  {
+    or: [
+      WEAPONS.shortsword({ amount: 2 }),
+      ...getAllSimpleMelee({ amount: 2 }),
+    ],
+  },
+  { or: [DUNGEONEERS_PACK, EXPLORERS_PACK] },
+  { and: [WEAPONS.longbow(), TOOLS.arrows({ amount: 20 })] },
+];

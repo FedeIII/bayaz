@@ -505,35 +505,35 @@ export function translateWeapon(weapon) {
   return WEAPONS[weapon]().translation;
 }
 
-export function getAllSimpleMelee() {
+export function getAllSimpleMelee(props) {
   return Object.entries(WEAPONS)
     .filter(([name, builder]) => builder().subtype === 'simpleMelee')
-    .map(([name, builder]) => builder());
+    .map(([name, builder]) => builder(props));
 }
 
-export function getAllSimpleRanged() {
+export function getAllSimpleRanged(props) {
   return Object.entries(WEAPONS)
     .filter(([name, builder]) => builder().subtype === 'simpleRanged')
-    .map(([name, builder]) => builder());
+    .map(([name, builder]) => builder(props));
 }
 
-export function getAllMartialMelee() {
+export function getAllMartialMelee(props) {
   return Object.entries(WEAPONS)
     .filter(([name, builder]) => builder().subtype === 'martialMelee')
-    .map(([name, builder]) => builder());
+    .map(([name, builder]) => builder(props));
 }
 
-export function getAllMartialRanged() {
+export function getAllMartialRanged(props) {
   return Object.entries(WEAPONS)
     .filter(([name, builder]) => builder().subtype === 'martialRanged')
-    .map(([name, builder]) => builder());
+    .map(([name, builder]) => builder(props));
 }
 
-export function getAllWeapons() {
+export function getAllWeapons(props) {
   return [
-    ...getAllSimpleMelee(),
-    ...getAllSimpleRanged(),
-    ...getAllMartialMelee(),
-    ...getAllMartialRanged(),
+    ...getAllSimpleMelee(props),
+    ...getAllSimpleRanged(props),
+    ...getAllMartialMelee(props),
+    ...getAllMartialRanged(props),
   ];
 }

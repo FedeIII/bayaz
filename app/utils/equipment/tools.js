@@ -403,7 +403,7 @@ export const TOOLS = {
     };
   },
 
-  //OTHERS
+  //AMMUNITION
   crossbowBolts(props) {
     return {
       name: 'crossbowBolts',
@@ -415,6 +415,19 @@ export const TOOLS = {
       ...props,
     };
   },
+  arrows(props) {
+    return {
+      name: 'arrows',
+      translation: 'Flechas',
+      type: 'tool',
+      subtype: 'ammunition',
+      price: [0, 0, 5],
+      weight: 0.05,
+      ...props,
+    };
+  },
+
+  //OTHERS
   componentPouch(props) {
     return {
       name: 'componentPouch',

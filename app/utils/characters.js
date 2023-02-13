@@ -5,6 +5,8 @@ import {
 } from './cleric';
 import { getAllLightArmors, getAllMediumArmors } from './equipment/armors';
 import {
+  getAllMartialMelee,
+  getAllMartialRanged,
   getAllSimpleMelee,
   getAllSimpleRanged,
   getAllWeapons,
@@ -407,6 +409,15 @@ export const CLASSES = {
       'perception',
       'stealth',
       'survival',
+    ],
+    proficientItems: [
+      ...getAllLightArmors().map(armor => armor.name),
+      ...getAllMediumArmors().map(armor => armor.name),
+      'shield',
+      ...getAllSimpleMelee().map(weapon => weapon.name),
+      ...getAllSimpleRanged().map(weapon => weapon.name),
+      ...getAllMartialMelee().map(weapon => weapon.name),
+      ...getAllMartialRanged().map(weapon => weapon.name),
     ],
   },
   rogue: {

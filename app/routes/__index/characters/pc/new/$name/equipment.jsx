@@ -97,9 +97,19 @@ function EquipmentCombo(props) {
     } else {
       return (
         <>
-          {depth === 0 && <h3>Escoge entre</h3>}
+          {depth === 0 && <h3>{translateEquipment(combo.and[0].type)}</h3>}
           {/* {depth > 0 && <span>entre</span>} */}
           <div>
+            <input
+              readOnly
+              type="text"
+              name={`choices-${comboSection}`}
+              id={combo.name}
+              value={combo.and
+                .map(item => `${item.name},${item.amount}`)
+                .join('|')}
+              hidden
+            />
             {combo.and.map((andItem, i) => (
               <EquipmentCombo
                 pc={pc}
@@ -168,19 +178,7 @@ function EquipmentCombo(props) {
     }
   } else if (logic === 'and') {
     if (combo.type)
-      return (
-        <Fragment key={combo.name}>
-          <input
-            readOnly
-            type="text"
-            name={`choices-${comboSection}`}
-            id={combo.name}
-            value={[combo.name, combo.amount]}
-            hidden
-          />
-          <li>{itemWithAmount(combo.translation, combo.amount)}</li>
-        </Fragment>
-      );
+      return <li>{itemWithAmount(combo.translation, combo.amount)}</li>;
   } else {
     if (combo.type)
       return (
