@@ -3,7 +3,11 @@ import {
   getDivineDomain,
   DIVINE_DOMAINS,
 } from './cleric';
-import { getAllLightArmors, getAllMediumArmors } from './equipment/armors';
+import {
+  getAllHeavyArmors,
+  getAllLightArmors,
+  getAllMediumArmors,
+} from './equipment/armors';
 import {
   getAllMartialMelee,
   getAllMartialRanged,
@@ -358,6 +362,16 @@ export const CLASSES = {
       'animal-handling',
       'perception',
       'survival',
+    ],
+    proficientItems: [
+      ...getAllLightArmors().map(armor => armor.name),
+      ...getAllMediumArmors().map(armor => armor.name),
+      ...getAllHeavyArmors().map(armor => armor.name),
+      'shield',
+      ...getAllSimpleMelee().map(weapon => weapon.name),
+      ...getAllSimpleRanged().map(weapon => weapon.name),
+      ...getAllMartialMelee().map(weapon => weapon.name),
+      ...getAllMartialRanged().map(weapon => weapon.name),
     ],
   },
   monk: {

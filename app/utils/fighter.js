@@ -1,3 +1,8 @@
+import { ARMORS } from './equipment/armors';
+import { DUNGEONEERS_PACK, EXPLORERS_PACK } from './equipment/packs';
+import { TOOLS } from './equipment/tools';
+import { getAllMartialMelee, WEAPONS } from './equipment/weapons';
+
 export const FIGHTING_STYLES = [
   'archery',
   'defense',
@@ -30,3 +35,31 @@ export function translateFightingStyle(fightingStyle) {
 export function getFightingStyles(pc) {
   return pc.classAttrs?.fightingStyles;
 }
+
+export const FIGHTER_EQUIPMENT = [
+  {
+    or: [
+      ARMORS.chainMail(),
+      {
+        and: [
+          ARMORS.leather(),
+          WEAPONS.longbow(),
+          TOOLS.arrows({ amount: 20 }),
+        ],
+      },
+    ],
+  },
+  {
+    or: [
+      ...getAllMartialMelee().map(weapon => [weapon, ARMORS.shield()]),
+      ...getAllMartialMelee({ amount: 2 }),
+    ],
+  },
+  {
+    or: [
+      { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
+      WEAPONS.handaxe({ amount: 2 }),
+    ],
+  },
+  { or: [DUNGEONEERS_PACK, EXPLORERS_PACK] },
+];

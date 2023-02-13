@@ -127,7 +127,23 @@ function EquipmentCombo(props) {
   }
 
   if (logic === 'or') {
-    if (combo.if) {
+    if (Array.isArray(combo)) {
+      return (
+        <label className={styles.equipmentItem}>
+          <input
+            type="radio"
+            name={`choices-${comboSection}`}
+            id={combo.name}
+            value={combo
+              .map(comboItem => `${comboItem.name},${comboItem.amount}`)
+              .join('|')}
+          />{' '}
+          {combo
+            .map(item => itemWithAmount(item.translation, item.amount))
+            .join(', ')}
+        </label>
+      );
+    } else if (combo.if) {
       if (combo.if(pc))
         return (
           <EquipmentCombo
