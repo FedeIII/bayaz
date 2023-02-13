@@ -1,4 +1,5 @@
 export const TOOLS = {
+  // MUSICAL INSTRUMENTS
   shawn(props) {
     return {
       name: 'shawn',
@@ -109,6 +110,197 @@ export const TOOLS = {
       ...props,
     };
   },
+
+  // ARTISANS TOOLS
+  alchemistsSupplies(props) {
+    return {
+      name: 'alchemistsSupplies',
+      translation: 'Materiales alquímicos',
+      type: 'tools',
+      subtype: 'artisansTools',
+      price: [50, 0, 0],
+      weight: 4,
+      ...props,
+    };
+  },
+  brewersSupplies(props) {
+    return {
+      name: 'brewersSupplies',
+      translation: 'Materiales de cervecería',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [20, 0, 0],
+      weight: 4.5,
+      ...props,
+    };
+  },
+  calligraphersSupplies(props) {
+    return {
+      name: 'calligraphersSupplies',
+      translation: 'Materiales de caligrafía',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [10, 0, 0],
+      weight: 2.5,
+      ...props,
+    };
+  },
+  carpentersTools(props) {
+    return {
+      name: 'carpentersTools',
+      translation: 'Herramientas de carpintero',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [8, 0, 0],
+      weight: 3,
+      ...props,
+    };
+  },
+  cartographersTools(props) {
+    return {
+      name: 'cartographersTools',
+      translation: 'Herramientas de cartógrafo',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [15, 0, 0],
+      weight: 3,
+      ...props,
+    };
+  },
+  cobblersTools(props) {
+    return {
+      name: 'cobblersTools',
+      translation: 'Herramientas de zapatero',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [5, 0, 0],
+      weight: 2.5,
+      ...props,
+    };
+  },
+  cooksUtensils(props) {
+    return {
+      name: 'cooksUtensils',
+      translation: 'Utensilios de cocina',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [1, 0, 0],
+      weight: 4,
+      ...props,
+    };
+  },
+  glassblowersTools(props) {
+    return {
+      name: 'glassblowersTools',
+      translation: 'Herramientas de soplador de vidrio',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [30, 0, 0],
+      weight: 2.5,
+      ...props,
+    };
+  },
+  jewelersTools(props) {
+    return {
+      name: 'jewelersTools',
+      translation: 'Herramientas de joyero',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [25, 0, 0],
+      weight: 1,
+      ...props,
+    };
+  },
+  leatherworkersTools(props) {
+    return {
+      name: 'leatherworkersTools',
+      translation: 'Herramientas de peletero',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [5, 0, 0],
+      weight: 2.5,
+      ...props,
+    };
+  },
+  masonsTools(props) {
+    return {
+      name: 'masonsTools',
+      translation: 'Herramientas de albañil',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [10, 0, 0],
+      weight: 4,
+      ...props,
+    };
+  },
+  paintersSupplies(props) {
+    return {
+      name: 'paintersSupplies',
+      translation: 'Materiales de pintor',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [10, 0, 0],
+      weight: 2.5,
+      ...props,
+    };
+  },
+  pottersTools(props) {
+    return {
+      name: 'pottersTools',
+      translation: 'Herramientas de alfarero',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [10, 0, 0],
+      weight: 1.5,
+      ...props,
+    };
+  },
+  smithsTools(props) {
+    return {
+      name: 'smithsTools',
+      translation: 'Herramientas de herrero',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [20, 0, 0],
+      weight: 4,
+      ...props,
+    };
+  },
+  tinkersTools(props) {
+    return {
+      name: 'tinkersTools',
+      translation: 'Herramientas de hojalatero',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [50, 0, 0],
+      weight: 5,
+      ...props,
+    };
+  },
+  weaversTools(props) {
+    return {
+      name: 'weaversTools',
+      translation: 'Herramientas de tejedor',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [1, 0, 0],
+      weight: 2.5,
+      ...props,
+    };
+  },
+  woodcarversTools(props) {
+    return {
+      name: 'woodcarversTools',
+      translation: 'Herramientas de tallista',
+      type: 'tool',
+      subtype: 'artisansTools',
+      price: [1, 0, 0],
+      weight: 2.5,
+      ...props,
+    };
+  },
+
+  //OTHERS
   crossbowBolts(props) {
     return {
       name: 'crossbowBolts',

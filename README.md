@@ -57,3 +57,4 @@ npx prisma migrate dev
 - Armor
 - Spells
 - Trasfondo
+- Extra racial skills

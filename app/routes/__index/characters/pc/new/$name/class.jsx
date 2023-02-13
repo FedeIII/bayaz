@@ -11,6 +11,7 @@ import {
   SKILLS,
 } from '~/utils/characters';
 import BarbarianSkills from '~/components/classSkillsSelection/barbarianSkills';
+import BardSkills from '~/components/classSkillsSelection/bardSkills';
 import ClericSkills from '~/components/classSkillsSelection/clericSkills';
 import RangerSkills from '~/components/classSkillsSelection/rangerSkills';
 import FighterSkills from '~/components/classSkillsSelection/fighterSkills';
@@ -18,6 +19,7 @@ import SorcererSkills from '~/components/classSkillsSelection/sorcererSkills';
 import RogueSkills from '~/components/classSkillsSelection/rogueSkills';
 
 import styles from '~/components/characters.module.css';
+import { pcItem } from '~/utils/equipment/equipment';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -32,6 +34,7 @@ export const action = async ({ request }) => {
 
   const name = formData.get('name');
   const classSkills = formData.getAll('class-skills[]');
+  const items = formData.getAll('items[]');
   const primalPath = formData.get('primal-path');
   const divineDomain = formData.get('divine-domain');
   const clericSkills = formData.getAll('cleric-skills[]');
@@ -48,6 +51,11 @@ export const action = async ({ request }) => {
   const pc = await getPc(name);
 
   const pcAttrs = { name, skills: classSkills, classAttrs: {} };
+  if (items.length)
+    pcAttrs.proficientItems = [
+      ...pc.proficientItems,
+      ...items.map(itemName => pcItem(itemName)),
+    ];
   if (primalPath) pcAttrs.classAttrs.primalPath = primalPath;
   if (divineDomain) pcAttrs.classAttrs.divineDomain = divineDomain;
   if (clericSkills.length) pcAttrs.classAttrs.skills = clericSkills;
@@ -80,6 +88,8 @@ function ClassSkills(props) {
   switch (pClass) {
     case 'barbarian':
       return <BarbarianSkills {...props} />;
+    case 'bard':
+      return <BardSkills {...props} />;
     case 'cleric':
       return <ClericSkills {...props} />;
     case 'ranger':
@@ -87,7 +97,6 @@ function ClassSkills(props) {
     case 'fighter':
       return <FighterSkills {...props} />;
     case 'sorcerer':
-      return <SorcererSkills {...props} />;
       return <SorcererSkills {...props} />;
     case 'rogue':
       return <RogueSkills {...props} />;

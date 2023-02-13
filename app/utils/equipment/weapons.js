@@ -528,3 +528,12 @@ export function getAllMartialRanged() {
     .filter(([name, builder]) => builder().subtype === 'martialRanged')
     .map(([name, builder]) => builder());
 }
+
+export function getAllWeapons() {
+  return [
+    ...getAllSimpleMelee(),
+    ...getAllSimpleRanged(),
+    ...getAllMartialMelee(),
+    ...getAllMartialRanged(),
+  ];
+}

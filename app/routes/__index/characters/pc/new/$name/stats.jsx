@@ -55,6 +55,7 @@ export const action = async ({ request }) => {
   if (race === 'elf' && subrace === 'high')
     return redirect(`../${name}/race/high-elf`);
   if (race === 'human') return redirect(`../${name}/race/human`);
+  if (race === 'dwarf') return redirect(`../${name}/race/dwarf`);
 
   return redirect(`../${name}/class`);
 };

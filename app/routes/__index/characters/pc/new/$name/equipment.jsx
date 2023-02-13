@@ -3,19 +3,14 @@ import { Form, useLoaderData, useTransition } from '@remix-run/react';
 import { Fragment } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import { BARBARIAN_EQUIPMENT } from '~/utils/barbarian';
-import { BARD_EQUIPMENT } from '~/utils/bard';
+import { itemWithAmount } from '~/utils/display';
+import {
+  CLASS_EQUIPMENT,
+  pcItem,
+  translateEquipment,
+} from '~/utils/equipment/equipment';
 
 import styles from '~/components/characters.module.css';
-import { pcItem, translateEquipment } from '~/utils/equipment/equipment';
-import { WARLOCK_EQUIPMENT } from '~/utils/warlock';
-import { itemWithAmount } from '~/utils/display';
-
-const EQUIPMENT = {
-  barbarian: BARBARIAN_EQUIPMENT,
-  bard: BARD_EQUIPMENT,
-  warlock: WARLOCK_EQUIPMENT,
-};
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -32,7 +27,7 @@ export const action = async ({ request }) => {
   const packName = formData.get('pack');
   const items = formData.getAll('items[]');
 
-  const choices = Array.from(Array(EQUIPMENT[pClass].length), (_, i) =>
+  const choices = Array.from(Array(CLASS_EQUIPMENT[pClass].length), (_, i) =>
     formData.get(`choices-${i}`)
   ).filter(v => v);
 
@@ -228,7 +223,7 @@ function PcEquipment() {
 
       <div className={styles.equipmentContainer}>
         <div className={styles.equipment}>
-          {EQUIPMENT[pClass].map((combo, comboSection) => (
+          {CLASS_EQUIPMENT[pClass].map((combo, comboSection) => (
             <div className={styles.equipmentOptions} key={comboSection}>
               <EquipmentCombo
                 combo={combo}

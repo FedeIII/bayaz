@@ -2,6 +2,10 @@ import { PACKS, getAllPackItems } from './packs';
 import { WEAPONS } from './weapons';
 import { TOOLS } from './tools';
 import { ARMORS } from './armors';
+import { BARBARIAN_EQUIPMENT } from '../barbarian';
+import { BARD_EQUIPMENT } from '../bard';
+import { WARLOCK_EQUIPMENT } from '../warlock';
+import { CLERIC_EQUIPMENT } from '../cleric';
 
 export function translateEquipment(type) {
   switch (type) {
@@ -19,10 +23,18 @@ export function translateEquipment(type) {
   }
 }
 
-export function translateItem(itemName) {
-  const item = getAllItems().find(item => item().name === itemName)();
+export function getItem(itemName) {
+  return getAllItems().find(item => item().name === itemName)();
+}
 
-  return item.translation;
+export function translateItem(itemName) {
+  if (itemName === 'simpleWeapons') return 'Armas simples';
+  if (itemName === 'martialWeapons') return 'Armas marciales';
+  if (itemName === 'lightArmors') return 'Armaduras ligeras';
+  if (itemName === 'mediumArmors') return 'Armaduras medias';
+  if (itemName === 'heavyArmors') return 'Armaduras pesadas';
+
+  return getItem(itemName).translation;
 }
 
 export function getAllItems() {
@@ -53,3 +65,10 @@ export function unifyEquipment(pcEquipment) {
     return unifiedEquipment;
   }, []);
 }
+
+export const CLASS_EQUIPMENT = {
+  barbarian: BARBARIAN_EQUIPMENT,
+  bard: BARD_EQUIPMENT,
+  warlock: WARLOCK_EQUIPMENT,
+  cleric: CLERIC_EQUIPMENT,
+};

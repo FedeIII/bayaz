@@ -42,3 +42,5 @@ export function translateDivineDomain(divineDomainName) {
 export function getDivineDomain(pc) {
   return pc.classAttrs?.divineDomain;
 }
+
+export const CLERIC_EQUIPMENT = [];

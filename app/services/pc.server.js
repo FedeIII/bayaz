@@ -116,6 +116,7 @@ const pcSchema = new mongoose.Schema({
   languages: [{ type: String, enum: [...LANGUAGES, ...EXOTIC_LANGUAGES] }],
   equipment: [itemSchema],
   pack: String,
+  proficientItems: [itemSchema],
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);

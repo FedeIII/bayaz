@@ -21,6 +21,7 @@ import {
   translateSkill,
   translateLanguage,
   getPassivePerception,
+  getItemProficiencies,
 } from '~/utils/characters';
 import { getExpertSkills } from '~/utils/rogue';
 import {
@@ -40,8 +41,8 @@ import {
 } from '~/utils/ranger';
 import { translateDivineDomain, getDivineDomain } from '~/utils/cleric';
 import { getPrimalPath, translatePrimalPath } from '~/utils/barbarian';
-import { increment, listItems } from '~/utils/display';
-import { translatePack } from '~/utils/equipment/equipment';
+import { getItemDisplayList, increment, listItems } from '~/utils/display';
+import { translateItem, translatePack } from '~/utils/equipment/equipment';
 import { getPackItems } from '~/utils/equipment/packs';
 
 import styles from '~/components/sheet.module.css';
@@ -293,7 +294,7 @@ function PcSummary() {
           )}
         </ul>
 
-        {/* COMPETENCES & LANGUAGES */}
+        {/* PROFICIENCIES & LANGUAGES */}
         <ul className={`${styles.data} ${styles.competencesAndLanguages}`}>
           <li className={styles.traitLabel}>
             <span className={styles.traitTitle}>Idiomas:</span>{' '}
@@ -302,6 +303,18 @@ function PcSummary() {
                 .map(language => translateLanguage(language))
                 .join(', ')}
             </strong>
+          </li>
+
+          <li className={styles.traitLabel}>
+            <span className={styles.traitTitle}>Competente con:</span>{' '}
+            {getItemDisplayList(getItemProficiencies(pc)).map(
+              (itemName, i, proficiencies) => (
+                <strong className={styles.trait} key={itemName}>
+                  {translateItem(itemName)}
+                  {i + 1 < proficiencies.length && ', '}
+                </strong>
+              )
+            )}
           </li>
 
           {CLASSES[pClass].proficiencies &&

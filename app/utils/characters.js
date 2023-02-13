@@ -3,6 +3,12 @@ import {
   getDivineDomain,
   DIVINE_DOMAINS,
 } from './cleric';
+import { getAllLightArmors, getAllMediumArmors } from './equipment/armors';
+import {
+  getAllSimpleMelee,
+  getAllSimpleRanged,
+  getAllWeapons,
+} from './equipment/weapons';
 
 export const RACES = {
   dwarf: {
@@ -25,6 +31,7 @@ export const RACES = {
           ),
       },
       languages: ['common', 'dwarvish'],
+      proficientItems: ['battleaxe', 'handaxe', 'lightHammer', 'warhammer'],
     },
     mountains: {
       age: [40, 350],
@@ -43,6 +50,14 @@ export const RACES = {
             'history'
           ),
       },
+      proficientItems: [
+        'battleaxe',
+        'handaxe',
+        'lightHammer',
+        'warhammer',
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllMediumArmors().map(armor => armor.name),
+      ],
     },
   },
   elf: {
@@ -58,6 +73,7 @@ export const RACES = {
       },
       skills: ['perception'],
       languages: ['common', 'elvish'],
+      proficientItems: ['longsword', 'shortsword', 'longbow', 'shortbow'],
     },
     wood: {
       age: [80, 750],
@@ -71,6 +87,7 @@ export const RACES = {
       },
       skills: ['perception'],
       languages: ['common', 'elvish'],
+      proficientItems: ['longsword', 'shortsword', 'longbow', 'shortbow'],
     },
     drow: {
       age: [80, 750],
@@ -84,6 +101,7 @@ export const RACES = {
       },
       skills: ['perception'],
       languages: ['common', 'elvish'],
+      proficientItems: ['rapier', 'shortsword', 'handCrossbow'],
     },
   },
   halfling: {
@@ -228,6 +246,12 @@ export const CLASSES = {
     initialHitPoints: 12,
     hitDice: '1d12',
     proficientStats: ['str', 'con'],
+    proficientItems: [
+      ...getAllLightArmors().map(armor => armor.name),
+      ...getAllMediumArmors().map(armor => armor.name),
+      'shield',
+      ...getAllWeapons().map(weapon => weapon.name),
+    ],
     pickSkills: 2,
     skillsToPick: [
       'athletics',
@@ -262,6 +286,15 @@ export const CLASSES = {
       'intimidation',
       'performance',
       'persuasion',
+    ],
+    proficientItems: [
+      ...getAllLightArmors().map(armor => armor.name),
+      ...getAllSimpleMelee().map(weapon => weapon.name),
+      ...getAllSimpleRanged().map(weapon => weapon.name),
+      'handCrossbow',
+      'longsword',
+      'rapier',
+      'shortsword',
     ],
   },
   cleric: {
@@ -730,4 +763,14 @@ export function getEncumbrance(pc) {
 
 export function getPassivePerception(pc) {
   return 10 + getStatMod(getStat(pc, 'wis'));
+}
+
+export function getItemProficiencies(pc) {
+  const { race, subrace, pClass } = pc;
+
+  return [
+    ...(RACES[race][subrace].proficientItems || []),
+    ...(CLASSES[pClass].proficientItems || []),
+    ...(pc.proficientItems?.map(item => item.name) || []),
+  ];
 }
