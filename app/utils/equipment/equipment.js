@@ -12,6 +12,7 @@ import { FIGHTER_EQUIPMENT } from '../fighter';
 import { SORCERER_EQUIPMENT } from '../sorcerer';
 import { WIZARD_EQUIPMENT } from '../wizard';
 import { MONK_EQUIPMENT } from '../monk';
+import { PALADIN_EQUIPMENT } from '../paladin';
 
 export function translateEquipment(type) {
   switch (type) {
@@ -83,4 +84,5 @@ export const CLASS_EQUIPMENT = {
   sorcerer: SORCERER_EQUIPMENT,
   wizard: WIZARD_EQUIPMENT,
   monk: MONK_EQUIPMENT,
+  paladin: PALADIN_EQUIPMENT,
 };

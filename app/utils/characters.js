@@ -415,6 +415,16 @@ export const CLASSES = {
           pc.level * 5
         } Puntos de Golpe al día (5 puntos para curar enfermedad/veneno)`,
     },
+    proficientItems: [
+      ...getAllLightArmors().map(armor => armor.name),
+      ...getAllMediumArmors().map(armor => armor.name),
+      ...getAllHeavyArmors().map(armor => armor.name),
+      'shield',
+      ...getAllSimpleMelee().map(weapon => weapon.name),
+      ...getAllSimpleRanged().map(weapon => weapon.name),
+      ...getAllMartialMelee().map(weapon => weapon.name),
+      ...getAllMartialRanged().map(weapon => weapon.name),
+    ],
   },
   ranger: {
     initialHitPoints: 10,
