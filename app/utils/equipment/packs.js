@@ -339,6 +339,80 @@ export const DUNGEONEERS_PACK = {
   },
 };
 
+export const PRIESTS_PACK = {
+  price: [19, 0, 0],
+  packName: 'priests-pack',
+  translation: 'Equipo de Sacerdote',
+  items: {
+    backpack() {
+      return {
+        name: 'backpack',
+        translation: 'Mochila',
+        type: 'adventure',
+      };
+    },
+    blanket() {
+      return {
+        name: 'blanket',
+        translation: 'Manta',
+        type: 'adventure',
+      };
+    },
+    candles() {
+      return {
+        name: 'candles',
+        translation: 'Velas',
+        type: 'adventure',
+        amount: 10,
+      };
+    },
+    tinderbox() {
+      return {
+        name: 'tinderbox',
+        translation: 'Yesquero',
+        type: 'adventure',
+      };
+    },
+    incenseBlocks() {
+      return {
+        name: 'incenseBlocks',
+        translation: 'Barras de incienso',
+        type: 'adventure',
+        amount: 2,
+      };
+    },
+    censer() {
+      return {
+        name: 'censer',
+        translation: 'Incensario',
+        type: 'adventure',
+      };
+    },
+    vestments() {
+      return {
+        name: 'vestments',
+        translation: 'Vestimentas',
+        type: 'adventure',
+      };
+    },
+    rations() {
+      return {
+        name: 'rations',
+        translation: 'Raciones',
+        type: 'adventure',
+        amount: 2,
+      };
+    },
+    waterskin() {
+      return {
+        name: 'waterskin',
+        translation: 'Odre',
+        type: 'adventure',
+      };
+    },
+  },
+};
+
 export function getExplorersPackItems() {
   return Object.values(EXPLORERS_PACK.items).map(item => item());
 }
@@ -359,12 +433,17 @@ export function getDungeoneersPackItems() {
   return Object.values(DUNGEONEERS_PACK.items).map(item => item());
 }
 
+export function getPriestsPackItems() {
+  return Object.values(PRIESTS_PACK.items).map(item => item());
+}
+
 export const PACKS = [
   EXPLORERS_PACK,
   DIPLOMATS_PACK,
   ENTERTAINERS_PACK,
   SCHOLARS_PACK,
   DUNGEONEERS_PACK,
+  PRIESTS_PACK,
 ];
 
 export function getAllPackItems() {
@@ -383,6 +462,8 @@ export function getPackItems(packName) {
       return getScholarsPackItems();
     case 'dungeoneers-pack':
       return getDungeoneersPackItems();
+    case 'priests-pack':
+      return getPriestsPackItems();
 
     default:
       return 'unknown pack name';

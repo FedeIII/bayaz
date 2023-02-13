@@ -1,3 +1,9 @@
+import { getItemProficiencies } from './characters';
+import { ARMORS } from './equipment/armors';
+import { EXPLORERS_PACK, PRIESTS_PACK } from './equipment/packs';
+import { TOOLS } from './equipment/tools';
+import { getAllSimpleMelee, getAllSimpleRanged, WEAPONS } from './equipment/weapons';
+
 export const DIVINE_DOMAINS = {
   death: {},
   knowledge: {
@@ -43,4 +49,33 @@ export function getDivineDomain(pc) {
   return pc.classAttrs?.divineDomain;
 }
 
-export const CLERIC_EQUIPMENT = [];
+export const CLERIC_EQUIPMENT = [
+  {
+    or: [
+      WEAPONS.mace(),
+      {
+        item: WEAPONS.warhammer(),
+        if: pc => getItemProficiencies(pc).includes('warhammer'),
+      },
+    ],
+  },
+  {
+    or: [
+      ARMORS.scaleMail(),
+      ARMORS.leather(),
+      {
+        item: ARMORS.chainMail(),
+        if: pc => getItemProficiencies(pc).includes('chainMail'),
+      },
+    ],
+  },
+  {
+    or: [
+      { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
+      { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
+    ],
+  },
+  { or: [PRIESTS_PACK, EXPLORERS_PACK] },
+  ARMORS.shield(),
+  TOOLS.holySymbol(),
+];

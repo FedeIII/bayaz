@@ -51,7 +51,7 @@ export const action = async ({ request }) => {
 };
 
 function EquipmentCombo(props) {
-  const { combo, logic, comboSection, depth } = props;
+  const { pc, combo, logic, comboSection, depth } = props;
 
   if (combo.or)
     return (
@@ -61,6 +61,7 @@ function EquipmentCombo(props) {
         <div>
           {combo.or.map((orItem, i) => (
             <EquipmentCombo
+              pc={pc}
               combo={orItem}
               logic="or"
               comboSection={comboSection}
@@ -101,6 +102,7 @@ function EquipmentCombo(props) {
           <div>
             {combo.and.map((andItem, i) => (
               <EquipmentCombo
+                pc={pc}
                 combo={andItem}
                 logic="and"
                 comboSection={comboSection}
@@ -115,7 +117,19 @@ function EquipmentCombo(props) {
   }
 
   if (logic === 'or') {
-    if (combo.type)
+    if (combo.if) {
+      if (combo.if(pc))
+        return (
+          <EquipmentCombo
+            pc={pc}
+            combo={combo.item}
+            logic="or"
+            comboSection={comboSection}
+            depth={depth + 1}
+          />
+        );
+      else return null;
+    } else if (combo.type) {
       return (
         <label htmlFor={combo.name} className={styles.equipmentItem}>
           <input
@@ -127,7 +141,7 @@ function EquipmentCombo(props) {
           {itemWithAmount(combo.translation, combo.amount)}
         </label>
       );
-    else if (combo.packName)
+    } else if (combo.packName) {
       return (
         <>
           <label htmlFor={combo.packName} className={styles.equipmentItem}>
@@ -151,6 +165,7 @@ function EquipmentCombo(props) {
           </div>
         </>
       );
+    }
   } else if (logic === 'and') {
     if (combo.type)
       return (
@@ -226,6 +241,7 @@ function PcEquipment() {
           {CLASS_EQUIPMENT[pClass].map((combo, comboSection) => (
             <div className={styles.equipmentOptions} key={comboSection}>
               <EquipmentCombo
+                pc={pc}
                 combo={combo}
                 comboSection={comboSection}
                 depth={0}

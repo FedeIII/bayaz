@@ -303,6 +303,13 @@ export const CLASSES = {
     proficientStats: ['wis', 'cha'],
     pickSkills: 2,
     skillsToPick: ['insight', 'history', 'medicine', 'persuasion', 'religion'],
+    proficientItems: [
+      ...getAllLightArmors().map(armor => armor.name),
+      ...getAllMediumArmors().map(armor => armor.name),
+      'shield',
+      ...getAllSimpleMelee().map(weapon => weapon.name),
+      ...getAllSimpleRanged().map(weapon => weapon.name),
+    ],
   },
   druid: {
     initialHitPoints: 8,

@@ -334,6 +334,17 @@ export const TOOLS = {
       ...props,
     };
   },
+  holySymbol(props) {
+    return {
+      name: 'holySymbol',
+      translation: 'Símbolo sagrado',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 0, 0],
+      weight: 0.1,
+      ...props,
+    };
+  },
 };
 
 export function translateTool(tool) {
