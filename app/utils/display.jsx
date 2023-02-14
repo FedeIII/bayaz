@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { getAttackBonus, getDamageBonus } from './characters';
 import {
   getAllHeavyArmors,
@@ -10,6 +11,7 @@ import {
   getAllMartialRanged,
   getAllSimpleMelee,
   getAllSimpleRanged,
+  translateDamage,
 } from './equipment/weapons';
 
 export function increment(num) {
@@ -128,25 +130,138 @@ export function getItemDisplayList(itemNames) {
   return list;
 }
 
-export function getAttackFromWeapon(pc, weapon) {
+function displayDamage(pc, weapon) {
+  const { properties: { versatile } = {} } = weapon;
+  if (versatile) return `${weapon.damage[0]} (${versatile}) + ${getDamageBonus(pc, weapon)}`;
+  return `${weapon.damage[0]} + ${getDamageBonus(pc, weapon)}`;
+}
+
+function getAttackFromWeapon(pc, weapon, specialAttackIndex) {
   return {
     name: weapon.translation,
+    specialAttackIndex,
     bonus: getAttackBonus(pc, weapon),
-    type: `${weapon.damage[0]} + ${getDamageBonus(pc, weapon)} (${
-      weapon.damage[1]
-    })`,
+    damage: displayDamage(pc, weapon),
+    type: `(${translateDamage(weapon.damage[1])})`,
   };
 }
 
 export function getAttacks(pc) {
   const { equipment } = pc;
 
+  let specialAttackIndex = 0;
   return equipment.reduce((attacks, pcItem) => {
     const item = getItem(pcItem.name);
     if (item.type === 'weapon' && attacks.length < 3) {
-      attacks.push(getAttackFromWeapon(pc, item));
+      attacks.push(
+        getAttackFromWeapon(
+          pc,
+          item,
+          hasSpecialAttack(item) && ++specialAttackIndex
+        )
+      );
     }
 
     return attacks;
+  }, []);
+}
+
+function hasSpecialAttack(weapon) {
+  const { properties } = weapon;
+  return !!(
+    properties &&
+    (properties.thrown ||
+      properties.reach ||
+      properties.twoHanded ||
+      properties.loading ||
+      properties.ammunition ||
+      properties.special ||
+      properties.light ||
+      properties.heavy ||
+      properties.finesse ||
+      properties.versatile)
+  );
+}
+
+function SpecialAttackFromWeapon(props) {
+  const { pc, weapon } = props;
+  const {
+    properties: {
+      thrown,
+      reach,
+      twoHanded,
+      loading,
+      ammunition,
+      special,
+      light,
+      heavy,
+      finesse,
+      versatile,
+    } = {},
+  } = weapon;
+
+  const components = [];
+
+  if (thrown)
+    components.push(
+      <Fragment key="throw">
+        Puedes lanzar esta arma {<u>{thrown[0] + 'm'}</u>}, o hasta{' '}
+        {<u>{thrown[1] + 'm'}</u>} con desventaja en la tirada de ataque.{' '}
+      </Fragment>
+    );
+
+  if (reach)
+    components.push(
+      <Fragment key="reach">Tu alcance aumenta en 1.5m. </Fragment>
+    );
+
+  if (twoHanded)
+    components.push(
+      <Fragment key="twoHanded">Requiere de dos manos. </Fragment>
+    );
+
+  if (loading)
+    components.push(<Fragment key="loading">Requiere recarga. </Fragment>);
+
+  if (ammunition)
+    components.push(
+      <Fragment key="ammunition">
+        Puedes disparar con esta arma {<u>{ammunition[0] + 'm'}</u>}, o hasta{' '}
+        {<u>{ammunition[1] + 'm'}</u>} con desventaja en la tirada de ataque.
+        Gastas una pieza de munición.{' '}
+      </Fragment>
+    );
+
+  if (special) components.push(<Fragment key="special">Especial. </Fragment>);
+
+  if (light)
+    components.push(
+      <Fragment key="light">Ligera (Atacar con dos armas). </Fragment>
+    );
+
+  if (heavy) components.push(<Fragment key="heavy">Pesada. </Fragment>);
+
+  if (finesse) components.push(<Fragment key="finesse">Sutil (Str o Dex bonus). </Fragment>);
+
+  if (versatile)
+    components.push(
+      <Fragment key="versatile">Versátil (una o dos manos). </Fragment>
+    );
+
+  return components;
+}
+
+export function getSpecialAttacks(pc) {
+  const { equipment } = pc;
+
+  return equipment.reduce((specialAttacks, pcItem) => {
+    const item = getItem(pcItem.name);
+    if (item.type === 'weapon' && hasSpecialAttack(item)) {
+      specialAttacks.push(
+        <SpecialAttackFromWeapon pc={pc} weapon={item} key={item.name} />
+      );
+    }
+
+    return specialAttacks;
   }, []);
 }

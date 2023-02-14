@@ -914,10 +914,17 @@ export function getExtraArmorClass(pc) {
 }
 
 export function getAttackBonus(pc, weapon) {
-  const statMod =
-    weapon.subtype === 'simpleMelee' || weapon.subtype === 'martialMelee'
-      ? getStatMod(getStat(pc, 'str'))
-      : getStatMod(getStat(pc, 'dex'));
+  const { subtype, properties: { finesse } = {} } = weapon;
+  let statMod = 0;
+
+  const strMod = getStatMod(getStat(pc, 'str'));
+  const dexMod = getStatMod(getStat(pc, 'dex'));
+
+  if (finesse) statMod = strMod > dexMod ? statMod : dexMod;
+  else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
+    statMod = strMod;
+  else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')
+    statMod = dexMod;
 
   const proficiencyBonus = getItemProficiencies(pc).includes(weapon.name)
     ? getProficiencyBonus(pc.level)
@@ -927,10 +934,17 @@ export function getAttackBonus(pc, weapon) {
 }
 
 export function getDamageBonus(pc, weapon) {
-  const statMod =
-    weapon.subtype === 'simpleMelee' || weapon.subtype === 'martialMelee'
-      ? getStatMod(getStat(pc, 'str'))
-      : getStatMod(getStat(pc, 'dex'));
+  const { subtype, properties: { finesse } = {} } = weapon;
+  let statMod = 0;
+
+  const strMod = getStatMod(getStat(pc, 'str'));
+  const dexMod = getStatMod(getStat(pc, 'dex'));
+
+  if (finesse) statMod = strMod > dexMod ? statMod : dexMod;
+  else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
+    statMod = strMod;
+  else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')
+    statMod = dexMod;
 
   return statMod;
 }

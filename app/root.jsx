@@ -29,7 +29,7 @@ export const links = () => {
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="es-ES">
       <head>
         <Meta />
         <Links />

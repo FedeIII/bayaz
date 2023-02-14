@@ -59,21 +59,21 @@
     /* 47 */ '.   .   .   .   .   aN2 aN2 aN2 aB2 aT2 aT2 aT2 .   FnT FnT FnT .' /* 47 */
     /* 48 */ '.   wis .   sP0 sS0 .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 48 */
     /* 49 */ '.   wis .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 49 */
-    /* 50 */ '.   wis .   sPA sSA .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 50 */
-    /* 51 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 51 */
-    /* 52 */ '.   wiM .   sPB sSB .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 52 */
-    /* 53 */ '.   wiM .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 53 */
-    /* 54 */ '.   .   .   sPC sSC .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 54 */
-    /* 55 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 55 */
-    /* 56 */ '.   .   .   sPD sSD .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 56 */
-    /* 57 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 57 */
-    /* 58 */ '.   cha .   sPE sSE .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 58 */
-    /* 59 */ '.   cha .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 59 */
-    /* 60 */ '.   cha .   sPF sSF .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 60 */
-    /* 61 */ '.   cha .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 61 */
-    /* 62 */ '.   .   .   sPG sSG .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 62 */
-    /* 63 */ '.   chM .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 63 */
-    /* 64 */ '.   chM .   sPH sSH .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 64 */
+    /* 50 */ '.   wis .   sPA sSA sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 50 */
+    /* 51 */ '.   .   .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 51 */
+    /* 52 */ '.   wiM .   sPB sSB sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 52 */
+    /* 53 */ '.   wiM .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 53 */
+    /* 54 */ '.   .   .   sPC sSC sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 54 */
+    /* 55 */ '.   .   .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 55 */
+    /* 56 */ '.   .   .   sPD sSD sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 56 */
+    /* 57 */ '.   .   .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 57 */
+    /* 58 */ '.   cha .   sPE sSE sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 58 */
+    /* 59 */ '.   cha .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 59 */
+    /* 60 */ '.   cha .   sPF sSF sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 60 */
+    /* 61 */ '.   cha .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 61 */
+    /* 62 */ '.   .   .   sPG sSG sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 62 */
+    /* 63 */ '.   chM .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 63 */
+    /* 64 */ '.   chM .   sPH sSH sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT .' /* 64 */
     /* 65 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 65 */
     /* 66 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 66 */
     /* 67 */ 'per .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 67 */
@@ -104,7 +104,7 @@
 }
 
 .data {
-  color: blue;
+  color: #0000d4;
   font-size: 18px;
   z-index: 1;
   display: flex;
@@ -352,7 +352,9 @@
 .attackType-0 {
   grid-area: aT0;
   font-size: 14px;
-  justify-content: flex-end;
+  justify-content: center;
+  width: 110%;
+  margin-bottom: -8px;
 }
 
 .attackName-1 {
@@ -373,7 +375,9 @@
 .attackType-1 {
   grid-area: aT1;
   font-size: 14px;
-  justify-content: flex-end;
+  justify-content: center;
+  width: 110%;
+  margin-bottom: -8px;
 }
 
 .attackName-2 {
@@ -394,7 +398,31 @@
 .attackType-2 {
   grid-area: aT2;
   font-size: 14px;
-  justify-content: flex-end;
+  justify-content: center;
+  width: 110%;
+  margin-bottom: -8px;
+}
+
+.superscript {
+  margin: 0 0 8px 4px;
+}
+
+.specialAttacks {
+  grid-area: sAt;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  list-style: decimal;
+  padding-left: 12px;
+  font-size: 14px;
+  margin: 4px 0px 0px -20px;
+  line-height: 1.5;
+  width: 105%;
+  hyphens: auto;
+}
+
+.specialAttack {
+  text-align: left;
 }
 
 .acrobaticsProf {
@@ -610,6 +638,9 @@
   text-align: left;
   font-size: 14px;
   line-height: 1.3;
+  hyphens: auto;
+  width: 106%;
+  margin-left: -4px;
 }
 
 .featsAndTraits {

@@ -537,3 +537,37 @@ export function getAllWeapons(props) {
     ...getAllMartialRanged(props),
   ];
 }
+
+export function translateDamage(damage) {
+  switch (damage) {
+    case 'acid':
+      return 'Ácido';
+    case 'bludgeoning':
+      return 'Contundente';
+    case 'frost':
+      return 'Frío';
+    case 'fire':
+      return 'Fuego';
+    case 'force':
+      return 'Fuerza';
+    case 'lightning':
+      return 'Relámpago';
+    case 'negrotic':
+      return 'Necrótico';
+    case 'piercing':
+      return 'Perforante';
+    case 'poison':
+      return 'Veneno';
+    case 'psychic':
+      return 'Psíquico';
+    case 'radiant':
+      return 'Radiante';
+    case 'slashing':
+      return 'Cortante';
+    case 'thunder':
+      return 'Trueno';
+
+    default:
+      break;
+  }
+}

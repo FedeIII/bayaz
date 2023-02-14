@@ -46,6 +46,7 @@ import { getPrimalPath, translatePrimalPath } from '~/utils/barbarian';
 import {
   getAttacks,
   getItemDisplayList,
+  getSpecialAttacks,
   increment,
   listItems,
 } from '~/utils/display';
@@ -183,18 +184,32 @@ function PcSummary() {
 
         {/* ATTACKS */}
         {getAttacks(pc).map((attack, i) => (
-          <>
+          <Fragment key={attack.name}>
             <span className={`${styles.data} ${styles['attackName-' + i]}`}>
-              {attack.name}
+              {attack.name}{' '}
+              {!!attack.specialAttackIndex && (
+                <sup className={styles.superscript}>
+                  {attack.specialAttackIndex}
+                </sup>
+              )}
             </span>
             <span className={`${styles.data} ${styles['attackBonus-' + i]}`}>
               {increment(attack.bonus)}
             </span>
             <span className={`${styles.data} ${styles['attackType-' + i]}`}>
+              {attack.damage}
+              <br />
               {attack.type}
             </span>
-          </>
+          </Fragment>
         ))}
+        <ul className={`${styles.data} ${styles.specialAttacks}`}>
+          {getSpecialAttacks(pc).map((specialAttack, i) => (
+            <li className={styles.specialAttack} key={i}>
+              {specialAttack}
+            </li>
+          ))}
+        </ul>
 
         {/* EQUIPMENT */}
         <div className={`${styles.data} ${styles.equipment}`}>
