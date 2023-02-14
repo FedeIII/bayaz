@@ -60,6 +60,13 @@ const itemSchema = new mongoose.Schema({
   amount: Number,
 });
 
+const freeTextSchema = new mongoose.Schema({
+  personality: String,
+  ideals: String,
+  bonds: String,
+  flaws: String,
+});
+
 const pcSchema = new mongoose.Schema({
   name: String,
   race: {
@@ -117,6 +124,7 @@ const pcSchema = new mongoose.Schema({
   equipment: [itemSchema],
   pack: String,
   proficientItems: [itemSchema],
+  freeText: freeTextSchema,
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);

@@ -17,32 +17,32 @@
     /* 05 */ '.   .   nam nam nam .   .   rac rac rac rac .   .   .   exp .   .' /* 05 */
     /* 06 */ '.   .   .   .   .   .   .   rac rac rac rac .   .   .   exp .   .' /* 06 */
     /* 07 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 07 */
-    /* 08 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 08 */
-    /* 09 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 09 */
-    /* 10 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 10 */
-    /* 11 */ '.   str .   .   .   pAC .   .   .   .   spe .   .   .   .   .   .' /* 11 */
-    /* 12 */ '.   str .   pro .   .   .   .   .   .   .   .   .   .   .   .   .' /* 12 */
-    /* 13 */ '.   .   .   pro .   .   .   .   .   .   .   .   .   .   .   .   .' /* 13 */
+    /* 08 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   mit .   .' /* 08 */
+    /* 09 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   ity ity ity .' /* 09 */
+    /* 10 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   ity ity ity .' /* 10 */
+    /* 11 */ '.   str .   .   .   pAC .   .   .   .   spe .   .   ity ity ity .' /* 11 */
+    /* 12 */ '.   str .   pro .   .   .   .   .   .   .   .   .   ity ity ity .' /* 12 */
+    /* 13 */ '.   .   .   pro .   .   .   .   .   .   .   .   .   ity ity ity .' /* 13 */
     /* 14 */ '.   stM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 14 */
     /* 15 */ '.   .   .   .   .   .   .   .   .   .   mhp .   .   .   .   .   .' /* 15 */
     /* 16 */ '.   .   .   stP stS .   .   .   .   .   .   .   .   .   .   .   .' /* 16 */
-    /* 17 */ '.   .   .   .   .   hps hps hps hps hps hps .   .   .   .   .   .' /* 17 */
-    /* 18 */ '.   dex .   deP deS hps hps hps hps hps hps .   .   .   .   .   .' /* 18 */
-    /* 19 */ '.   dex .   .   .   hps hps hps hps hps hps .   .   .   .   .   .' /* 19 */
-    /* 20 */ '.   dex .   coP coS hps hps hps hps hps hps .   .   .   .   .   .' /* 20 */
+    /* 17 */ '.   .   .   .   .   hps hps hps hps hps hps .   .   ide ide ide .' /* 17 */
+    /* 18 */ '.   dex .   deP deS hps hps hps hps hps hps .   .   ide ide ide .' /* 18 */
+    /* 19 */ '.   dex .   .   .   hps hps hps hps hps hps .   .   ide ide ide .' /* 19 */
+    /* 20 */ '.   dex .   coP coS hps hps hps hps hps hps .   .   ide ide ide .' /* 20 */
     /* 21 */ '.   dex .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 21 */
     /* 22 */ '.   .   .   inP inS .   .   .   .   .   .   .   .   .   .   .   .' /* 22 */
     /* 23 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 23 */
-    /* 24 */ '.   deM .   wiP wiS .   .   .   .   .   .   .   .   .   .   .   .' /* 24 */
-    /* 25 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 25 */
-    /* 26 */ '.   .   .   chP chS .   .   .   .   .   .   .   .   .   .   .   .' /* 26 */
-    /* 27 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 27 */
+    /* 24 */ '.   deM .   wiP wiS .   .   .   .   .   .   .   .   bnd bnd bnd .' /* 24 */
+    /* 25 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   bnd bnd bnd .' /* 25 */
+    /* 26 */ '.   .   .   chP chS .   .   .   .   .   .   .   .   bnd bnd bnd .' /* 26 */
+    /* 27 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   bnd bnd bnd .' /* 27 */
     /* 28 */ '.   con .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 28 */
-    /* 29 */ '.   con .   .   .   hiD hiD hiD .   .   .   .   .   .   .   .   .' /* 29 */
-    /* 30 */ '.   .   .   sP1 sS1 hiD hiD hiD .   .   .   .   .   .   .   .   .' /* 30 */
-    /* 31 */ '.   coM .   .   .   exH exH exH .   .   .   .   .   .   .   .   .' /* 31 */
-    /* 32 */ '.   coM .   sP2 sS2 exH exH exH .   .   .   .   .   .   .   .   .' /* 32 */
-    /* 33 */ '.   .   .   .   .   exH exH exH .   .   .   .   .   .   .   .   .' /* 33 */
+    /* 29 */ '.   con .   .   .   hiD hiD hiD .   .   .   .   .   flw flw flw .' /* 29 */
+    /* 30 */ '.   .   .   sP1 sS1 hiD hiD hiD .   .   .   .   .   flw flw flw .' /* 30 */
+    /* 31 */ '.   coM .   .   .   exH exH exH .   .   .   .   .   flw flw flw .' /* 31 */
+    /* 32 */ '.   coM .   sP2 sS2 exH exH exH .   .   .   .   .   flw flw flw .' /* 32 */
+    /* 33 */ '.   .   .   .   .   exH exH exH .   .   .   .   .   flw flw flw .' /* 33 */
     /* 34 */ '.   .   .   sP3 sS3 .   .   .   .   .   .   .   .   .   .   .   .' /* 34 */
     /* 35 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 35 */
     /* 36 */ '.   .   .   sP4 sS4 .   .   .   .   .   .   .   .   .   .   .   .' /* 36 */
@@ -112,6 +112,14 @@
   align-items: flex-end;
   line-height: 1;
   position: relative;
+}
+
+.submit {
+  grid-area: mit;
+  margin: -28px 90px 14px -30px;
+  font-family: fantasy;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .name {
@@ -651,6 +659,54 @@
   line-height: 1.35;
   padding: 6px 0 0 0;
   margin: 0;
+}
+
+.personality {
+  grid-area: ity;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  margin: 4px 0px 0px 0px;
+  font-family: fantasy;
+  font-size: 14px;
+  line-height: 1.5;
+  hyphens: auto;
+}
+
+.ideals {
+  grid-area: ide;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  margin: -11px 0px 0px 0px;
+  font-family: fantasy;
+  font-size: 14px;
+  line-height: 1.5;
+  hyphens: auto;
+}
+
+.bonds {
+  grid-area: bnd;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  margin: 4px 0px 0px 0px;
+  font-family: fantasy;
+  font-size: 14px;
+  line-height: 1.5;
+  hyphens: auto;
+}
+
+.flaws {
+  grid-area: flw;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  margin: -2px 0px -7px 0px;
+  font-family: fantasy;
+  font-size: 14px;
+  line-height: 1.5;
+  hyphens: auto;
 }
 
 .competencesAndLanguages {

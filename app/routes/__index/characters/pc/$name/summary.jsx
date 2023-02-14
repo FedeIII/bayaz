@@ -1,8 +1,8 @@
 import { json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
-import { Fragment } from 'react';
+import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import { Fragment, useState } from 'react';
 
-import { getPc } from '~/services/pc.server';
+import { getPc, updatePc } from '~/services/pc.server';
 import {
   STATS,
   getStat,
@@ -50,11 +50,7 @@ import {
   increment,
   listItems,
 } from '~/utils/display';
-import {
-  getItem,
-  translateItem,
-  translatePack,
-} from '~/utils/equipment/equipment';
+import { translateItem, translatePack } from '~/utils/equipment/equipment';
 import { getPackItems } from '~/utils/equipment/packs';
 
 import styles from '~/components/sheet.module.css';
@@ -65,6 +61,23 @@ export const loader = async ({ params }) => {
     throw new Error('pc not found');
   }
   return json({ pc });
+};
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+
+  const name = formData.get('name');
+  const personality = formData.get('personality');
+  const ideals = formData.get('ideals');
+  const bonds = formData.get('bonds');
+  const flaws = formData.get('flaws');
+
+  await updatePc({
+    name,
+    freeText: { personality, ideals, bonds, flaws },
+  });
+
+  return null;
 };
 
 function PcSummary() {
@@ -81,15 +94,38 @@ function PcSummary() {
     languages,
     equipment,
     pack,
+    freeText: { personality, ideals, bonds, flaws } = {},
   } = pc;
+
+  const transition = useTransition();
+  const isCreating = Boolean(transition.submission);
 
   const allSkills = getSkills(pc);
   const conditionalSkills = getConditionalSkills(pc);
 
+  const [isSubmitShown, setIsSubmitShown] = useState(false);
+
+  function onFreeTextChange() {
+    setIsSubmitShown(true);
+  }
+
+  function onFormSubmit(e) {
+    setIsSubmitShown(false);
+  }
+
   return (
     <>
       <img src="/images/sheet1.jpg" className={styles.sheetBackground} />
-      <div className={styles.summary}>
+      <Form method="post" className={styles.summary} onSubmit={onFormSubmit}>
+        <input readOnly type="text" name="name" value={name} hidden />
+
+        {/* FREE TEXT SUBMIT */}
+        {isSubmitShown && (
+          <button type="submit" disabled={isCreating} className={`${styles.data} ${styles.submit}`}>
+            Actualizar
+          </button>
+        )}
+
         {/* BASIC ATTRS */}
         <span className={`${styles.data} ${styles.name}`}>{name}</span>
         <span className={`${styles.data} ${styles.pClass}`}>
@@ -221,6 +257,32 @@ function PcSummary() {
             </div>
           )}
         </div>
+
+        {/* FREETEXT */}
+        <textarea
+          className={`${styles.data} ${styles.personality}`}
+          name="personality"
+          defaultValue={personality}
+          onChange={onFreeTextChange}
+        ></textarea>
+        <textarea
+          className={`${styles.data} ${styles.ideals}`}
+          name="ideals"
+          defaultValue={ideals}
+          onChange={onFreeTextChange}
+        ></textarea>
+        <textarea
+          className={`${styles.data} ${styles.bonds}`}
+          name="bonds"
+          defaultValue={bonds}
+          onChange={onFreeTextChange}
+        ></textarea>
+        <textarea
+          className={`${styles.data} ${styles.flaws}`}
+          name="flaws"
+          defaultValue={flaws}
+          onChange={onFreeTextChange}
+        ></textarea>
 
         {/* FEATS & TRAITS */}
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>
@@ -376,7 +438,7 @@ function PcSummary() {
               )
             )}
         </ul>
-      </div>
+      </Form>
     </>
   );
 }
