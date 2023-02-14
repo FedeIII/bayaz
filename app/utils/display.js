@@ -1,3 +1,4 @@
+import { getAttackBonus, getDamageBonus } from './characters';
 import {
   getAllHeavyArmors,
   getAllLightArmors,
@@ -125,4 +126,27 @@ export function getItemDisplayList(itemNames) {
   });
 
   return list;
+}
+
+export function getAttackFromWeapon(pc, weapon) {
+  return {
+    name: weapon.translation,
+    bonus: getAttackBonus(pc, weapon),
+    type: `${weapon.damage[0]} + ${getDamageBonus(pc, weapon)} (${
+      weapon.damage[1]
+    })`,
+  };
+}
+
+export function getAttacks(pc) {
+  const { equipment } = pc;
+
+  return equipment.reduce((attacks, pcItem) => {
+    const item = getItem(pcItem.name);
+    if (item.type === 'weapon' && attacks.length < 3) {
+      attacks.push(getAttackFromWeapon(pc, item));
+    }
+
+    return attacks;
+  }, []);
 }

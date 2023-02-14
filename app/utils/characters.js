@@ -570,7 +570,7 @@ export function getExtraHitPoints(pc) {
 export function statSavingThrow(stat, statValue, pClass, lvl) {
   return (
     getStatMod(statValue) +
-    (isProficientStat(stat, pClass) ? proficiencyBonus(lvl) : 0)
+    (isProficientStat(stat, pClass) ? getProficiencyBonus(lvl) : 0)
   );
 }
 
@@ -639,7 +639,7 @@ export function getStatMod(statValue) {
   return Math.floor(statValue / 2) - 5;
 }
 
-export function proficiencyBonus(lvl) {
+export function getProficiencyBonus(lvl) {
   if (lvl <= 4) return 2;
   if (lvl <= 8) return 3;
   if (lvl <= 13) return 4;
@@ -756,18 +756,18 @@ export function bonusForSkill(pc, skillName) {
     DIVINE_DOMAINS[getDivineDomain(pc)].specialSkillProficiencyBonus
   )
     return DIVINE_DOMAINS[getDivineDomain(pc)].specialSkillProficiencyBonus(
-      proficiencyBonus(pc.level)
+      getProficiencyBonus(pc.level)
     );
 
   if (pc.pClass === 'rogue' && pc.classAttrs?.expertSkills.includes(skillName))
-    return 2 * proficiencyBonus(level);
+    return 2 * getProficiencyBonus(level);
 
-  return proficiencyBonus(level);
+  return getProficiencyBonus(level);
 }
 
 export function specialProficiencyBonus(pc) {
   return DIVINE_DOMAINS[getDivineDomain(pc)].specialSkillProficiencyBonus(
-    proficiencyBonus(pc.level)
+    getProficiencyBonus(pc.level)
   );
 }
 
@@ -911,4 +911,26 @@ export function getExtraArmorClass(pc) {
   );
   if (shield) return getItem(shield.name).properties.AC(getStats(pc));
   else return 0;
+}
+
+export function getAttackBonus(pc, weapon) {
+  const statMod =
+    weapon.subtype === 'simpleMelee' || weapon.subtype === 'martialMelee'
+      ? getStatMod(getStat(pc, 'str'))
+      : getStatMod(getStat(pc, 'dex'));
+
+  const proficiencyBonus = getItemProficiencies(pc).includes(weapon.name)
+    ? getProficiencyBonus(pc.level)
+    : 0;
+
+  return statMod + proficiencyBonus;
+}
+
+export function getDamageBonus(pc, weapon) {
+  const statMod =
+    weapon.subtype === 'simpleMelee' || weapon.subtype === 'martialMelee'
+      ? getStatMod(getStat(pc, 'str'))
+      : getStatMod(getStat(pc, 'dex'));
+
+  return statMod;
 }

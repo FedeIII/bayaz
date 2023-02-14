@@ -9,7 +9,7 @@ import {
   translateClass,
   translateRace,
   getStatMod,
-  proficiencyBonus,
+  getProficiencyBonus,
   statSavingThrow,
   isProficientStat,
   CLASSES,
@@ -43,8 +43,17 @@ import {
 } from '~/utils/ranger';
 import { translateDivineDomain, getDivineDomain } from '~/utils/cleric';
 import { getPrimalPath, translatePrimalPath } from '~/utils/barbarian';
-import { getItemDisplayList, increment, listItems } from '~/utils/display';
-import { translateItem, translatePack } from '~/utils/equipment/equipment';
+import {
+  getAttacks,
+  getItemDisplayList,
+  increment,
+  listItems,
+} from '~/utils/display';
+import {
+  getItem,
+  translateItem,
+  translatePack,
+} from '~/utils/equipment/equipment';
 import { getPackItems } from '~/utils/equipment/packs';
 
 import styles from '~/components/sheet.module.css';
@@ -102,7 +111,7 @@ function PcSummary() {
           </Fragment>
         ))}
         <span className={`${styles.data} ${styles.proficiencyBonus}`}>
-          {increment(proficiencyBonus(level))}
+          {increment(getProficiencyBonus(level))}
         </span>
         {STATS.map(statName => (
           <Fragment key={statName}>
@@ -172,7 +181,22 @@ function PcSummary() {
           {CLASSES[pClass].hitDice}
         </span>
 
-        {/* EQUIPMENTs */}
+        {/* ATTACKS */}
+        {getAttacks(pc).map((attack, i) => (
+          <>
+            <span className={`${styles.data} ${styles['attackName-' + i]}`}>
+              {attack.name}
+            </span>
+            <span className={`${styles.data} ${styles['attackBonus-' + i]}`}>
+              {increment(attack.bonus)}
+            </span>
+            <span className={`${styles.data} ${styles['attackType-' + i]}`}>
+              {attack.type}
+            </span>
+          </>
+        ))}
+
+        {/* EQUIPMENT */}
         <div className={`${styles.data} ${styles.equipment}`}>
           <div>{listItems(equipment)}</div>
           {pack && (
