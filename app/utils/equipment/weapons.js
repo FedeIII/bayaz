@@ -566,6 +566,8 @@ export function translateDamage(damage) {
       return 'Cortante';
     case 'thunder':
       return 'Trueno';
+    case 'charm':
+      return 'Encantamiento';
 
     default:
       break;

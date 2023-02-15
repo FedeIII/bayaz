@@ -24,6 +24,7 @@ import {
   getItemProficiencies,
   getArmorClass,
   getExtraArmorClass,
+  getTraits,
 } from '~/utils/characters';
 import { getExpertSkills } from '~/utils/rogue';
 import {
@@ -44,6 +45,7 @@ import {
 import { translateDivineDomain, getDivineDomain } from '~/utils/cleric';
 import { getPrimalPath, translatePrimalPath } from '~/utils/barbarian';
 import {
+  displayTrait,
   getAttacks,
   getItemDisplayList,
   getSpecialAttacks,
@@ -86,6 +88,7 @@ function PcSummary() {
     pClass,
     name,
     race,
+    subrace,
     speed,
     level,
     maxHitPoints,
@@ -121,7 +124,11 @@ function PcSummary() {
 
         {/* FREE TEXT SUBMIT */}
         {isSubmitShown && (
-          <button type="submit" disabled={isCreating} className={`${styles.data} ${styles.submit}`}>
+          <button
+            type="submit"
+            disabled={isCreating}
+            className={`${styles.data} ${styles.submit}`}
+          >
             Actualizar
           </button>
         )}
@@ -133,6 +140,7 @@ function PcSummary() {
         </span>
         <span className={`${styles.data} ${styles.race}`}>
           {translateRace(race)}
+          {subrace !== 'subrace' && ' ' + translateRace(subrace)}
         </span>
         <span className={`${styles.data} ${styles.exp}`}>{exp}</span>
 
@@ -185,7 +193,8 @@ function PcSummary() {
             {increment(skillCheckBonus(pc, skill.name))}
             {Object.keys(conditionalSkills).includes(skill.name) && (
               <span className={styles.annotation}>
-                ({increment(conditionalSkills[skill.name](pc))})
+                ({increment(conditionalSkills[skill.name](pc)[0])}{' '}
+                {conditionalSkills[skill.name](pc)[1]})
               </span>
             )}
           </span>
@@ -286,6 +295,12 @@ function PcSummary() {
 
         {/* FEATS & TRAITS */}
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>
+          {Object.entries(getTraits(pc)).map(([traitName, trait]) => (
+            <li className={styles.traitLabel} key={traitName}>
+              {displayTrait(traitName, trait)}
+            </li>
+          ))}
+
           {!!getPrimalPath(pc) && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>Senda Primaria:</span>
@@ -295,6 +310,7 @@ function PcSummary() {
               </strong>
             </li>
           )}
+
           {!!getDivineDomain(pc) && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>Dominio Divino:</span>
@@ -304,6 +320,7 @@ function PcSummary() {
               </strong>
             </li>
           )}
+
           {!!getFavoredEnemies(pc)?.length && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>
@@ -319,6 +336,7 @@ function PcSummary() {
               </ul>
             </li>
           )}
+
           {!!getFavoredTerrains(pc)?.length && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>
@@ -334,6 +352,7 @@ function PcSummary() {
               </ul>
             </li>
           )}
+
           {!!getRangerArchetype(pc) && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>
@@ -345,6 +364,7 @@ function PcSummary() {
               </strong>
             </li>
           )}
+
           {!!getFightingStyles(pc)?.length && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>Estilos de Combate:</span>
@@ -357,6 +377,7 @@ function PcSummary() {
               </ul>
             </li>
           )}
+
           {!!getSorcererOrigin(pc) && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>Origen de Hechicero:</span>
@@ -382,6 +403,7 @@ function PcSummary() {
               )}
             </li>
           )}
+
           {!!getDragonAncestor(pc) && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>Ancestro Dragón:</span>
@@ -391,6 +413,7 @@ function PcSummary() {
               </strong>
             </li>
           )}
+
           {!!getExpertSkills(pc)?.length && (
             <li className={styles.traitLabel}>
               <span className={styles.traitTitle}>Experto en:</span>

@@ -1,5 +1,9 @@
 import { Fragment } from 'react';
-import { getAttackBonus, getDamageBonus } from './characters';
+import {
+  getAttackBonus,
+  getDamageBonus,
+  translateSavingThrowStatus,
+} from './characters';
 import {
   getAllHeavyArmors,
   getAllLightArmors,
@@ -132,7 +136,8 @@ export function getItemDisplayList(itemNames) {
 
 function displayDamage(pc, weapon) {
   const { properties: { versatile } = {} } = weapon;
-  if (versatile) return `${weapon.damage[0]} (${versatile}) + ${getDamageBonus(pc, weapon)}`;
+  if (versatile)
+    return `${weapon.damage[0]} (${versatile}) + ${getDamageBonus(pc, weapon)}`;
   return `${weapon.damage[0]} + ${getDamageBonus(pc, weapon)}`;
 }
 
@@ -241,7 +246,10 @@ function SpecialAttackFromWeapon(props) {
 
   if (heavy) components.push(<Fragment key="heavy">Pesada. </Fragment>);
 
-  if (finesse) components.push(<Fragment key="finesse">Sutil (Str o Dex bonus). </Fragment>);
+  if (finesse)
+    components.push(
+      <Fragment key="finesse">Sutil (Str o Dex bonus). </Fragment>
+    );
 
   if (versatile)
     components.push(
@@ -264,4 +272,32 @@ export function getSpecialAttacks(pc) {
 
     return specialAttacks;
   }, []);
+}
+
+export function displayTrait(traitName, trait) {
+  switch (traitName) {
+    case 'savingThrows':
+      return Object.entries(trait).map(([salvation, status]) => (
+        <Fragment key={salvation}>
+          <u>{translateSavingThrowStatus(status)}</u> en las tiradas de
+          salvación contra <u>{translateDamage(salvation)}</u>
+        </Fragment>
+      ));
+
+    case 'resistances':
+      return trait.map(damage => (
+        <Fragment key={damage}>
+          Resistencia contra <u>{translateDamage(damage)}</u>
+        </Fragment>
+      ));
+
+    case 'darkvision':
+      return `Visión en la oscuridad (${trait}m)`;
+
+    case 'trance':
+      return 'Trance';
+
+    default:
+      return 'unknown trait name';
+  }
 }

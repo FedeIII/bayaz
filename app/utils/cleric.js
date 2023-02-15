@@ -70,33 +70,35 @@ export function getDivineDomain(pc) {
   return pc.classAttrs?.divineDomain;
 }
 
-export const CLERIC_EQUIPMENT = [
-  {
-    or: [
-      WEAPONS.mace(),
-      {
-        item: WEAPONS.warhammer(),
-        if: pc => getItemProficiencies(pc).includes('warhammer'),
-      },
-    ],
-  },
-  {
-    or: [
-      ARMORS.scaleMail(),
-      ARMORS.leather(),
-      {
-        item: ARMORS.chainMail(),
-        if: pc => getItemProficiencies(pc).includes('chainMail'),
-      },
-    ],
-  },
-  {
-    or: [
-      { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
-      { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
-    ],
-  },
-  { or: [PRIESTS_PACK, EXPLORERS_PACK] },
-  ARMORS.shield(),
-  TOOLS.holySymbol(),
-];
+export const CLERIC_EQUIPMENT = () => {
+  return [
+    {
+      or: [
+        WEAPONS.mace(),
+        {
+          item: WEAPONS.warhammer(),
+          if: pc => getItemProficiencies(pc).includes('warhammer'),
+        },
+      ],
+    },
+    {
+      or: [
+        ARMORS.scaleMail(),
+        ARMORS.leather(),
+        {
+          item: ARMORS.chainMail(),
+          if: pc => getItemProficiencies(pc).includes('chainMail'),
+        },
+      ],
+    },
+    {
+      or: [
+        { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
+        { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
+      ],
+    },
+    { or: [PRIESTS_PACK, EXPLORERS_PACK] },
+    ARMORS.shield(),
+    TOOLS.holySymbol(),
+  ];
+};

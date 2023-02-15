@@ -1,6 +1,5 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
-import { Fragment } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 import { itemWithAmount } from '~/utils/display';
@@ -182,11 +181,9 @@ function EquipmentCombo(props) {
           <div>
             Que contiene:
             <ul>
-              <ul>
-                {Object.values(combo.items).map(item => (
-                  <li key={item().name}>{item().translation}</li>
-                ))}
-              </ul>
+              {Object.values(combo.items).map(item => (
+                <li key={item().name}>{item().translation}</li>
+              ))}
             </ul>
           </div>
         </>

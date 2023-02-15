@@ -32,14 +32,23 @@ export const RACES = {
       },
       extraHitPoints: 1,
       conditionalSkills: {
-        history: pc =>
+        history: pc => [
           skillCheckBonus(
             { ...pc, skills: [...pc.skills, 'history'] },
             'history'
           ),
+          'Piedra',
+        ],
       },
       languages: ['common', 'dwarvish'],
       proficientItems: ['battleaxe', 'handaxe', 'lightHammer', 'warhammer'],
+      traits: {
+        savingThrows: {
+          poison: 'advantage',
+        },
+        resistances: ['poison'],
+        darkvision: 18,
+      },
     },
     mountains: {
       age: [40, 350],
@@ -52,11 +61,13 @@ export const RACES = {
         con: 2,
       },
       conditionalSkills: {
-        history: pc =>
+        history: pc => [
           skillCheckBonus(
             { ...pc, skills: [...pc.skills, 'history'] },
             'history'
           ),
+          'Piedra',
+        ],
       },
       proficientItems: [
         'battleaxe',
@@ -66,6 +77,13 @@ export const RACES = {
         ...getAllLightArmors().map(armor => armor.name),
         ...getAllMediumArmors().map(armor => armor.name),
       ],
+      traits: {
+        savingThrows: {
+          poison: 'advantage',
+        },
+        resistances: ['poison'],
+        darkvision: 18,
+      },
     },
   },
   elf: {
@@ -82,6 +100,13 @@ export const RACES = {
       skills: ['perception'],
       languages: ['common', 'elvish'],
       proficientItems: ['longsword', 'shortsword', 'longbow', 'shortbow'],
+      traits: {
+        savingThrows: {
+          charm: 'advantage',
+        },
+        darkvision: 18,
+        trance: true,
+      },
     },
     wood: {
       age: [80, 750],
@@ -96,6 +121,13 @@ export const RACES = {
       skills: ['perception'],
       languages: ['common', 'elvish'],
       proficientItems: ['longsword', 'shortsword', 'longbow', 'shortbow'],
+      traits: {
+        savingThrows: {
+          charm: 'advantage',
+        },
+        darkvision: 18,
+        trance: true,
+      },
     },
     drow: {
       age: [80, 750],
@@ -110,6 +142,13 @@ export const RACES = {
       skills: ['perception'],
       languages: ['common', 'elvish'],
       proficientItems: ['rapier', 'shortsword', 'handCrossbow'],
+      traits: {
+        savingThrows: {
+          charm: 'advantage',
+        },
+        darkvision: 18,
+        trance: true,
+      },
     },
   },
   halfling: {
@@ -239,8 +278,8 @@ export function getConditionalSkills(pc) {
           ...conditionalClassSkills,
           [skillName]: pc => {
             if (pc.pClass === 'cleric')
-              return translateDivineDomain(getDivineDomain(pc));
-            return translateClass(pc.pClass);
+              return [translateDivineDomain(getDivineDomain(pc))];
+            return [translateClass(pc.pClass)];
           },
         }),
         {}
@@ -947,4 +986,16 @@ export function getDamageBonus(pc, weapon) {
     statMod = dexMod;
 
   return statMod;
+}
+
+export function translateSavingThrowStatus(status) {
+  if (status === 'advantage') return 'Ventaja';
+  if (status === 'disadvantage') return 'Desventaja';
+  return 'unknown saving throw status';
+}
+
+export function getTraits(pc) {
+  const { race, subrace } = pc;
+
+  return RACES[race][subrace].traits || {};
 }
