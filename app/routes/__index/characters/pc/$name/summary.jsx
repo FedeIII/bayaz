@@ -307,7 +307,7 @@ function PcSummary() {
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>
           {Object.entries(getTraits(pc)).map(([traitName, trait]) => (
             <li className={styles.traitLabel} key={traitName}>
-              {displayTrait(traitName, trait)}
+              {displayTrait(traitName, trait, pc)}
             </li>
           ))}
 

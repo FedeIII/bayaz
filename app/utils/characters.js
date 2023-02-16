@@ -377,6 +377,9 @@ export const CLASSES = {
       'shortsword',
     ],
     spellcastingAbility: 'cha',
+    traits: {
+      bardicInspiration: '1d6',
+    },
   },
   cleric: {
     initialHitPoints: 8,

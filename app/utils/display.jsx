@@ -2,6 +2,8 @@ import { Fragment } from 'react';
 import {
   getAttackBonus,
   getDamageBonus,
+  getStat,
+  getStatMod,
   translateSavingThrowStatus,
 } from './characters';
 import {
@@ -278,7 +280,7 @@ export function getSpecialAttacks(pc) {
   }, []);
 }
 
-export function displayTrait(traitName, trait) {
+export function displayTrait(traitName, trait, pc) {
   switch (traitName) {
     case 'savingThrows':
       return Object.entries(trait).map(([salvation, status]) => (
@@ -300,6 +302,14 @@ export function displayTrait(traitName, trait) {
 
     case 'trance':
       return 'Trance';
+
+    case 'bardicInspiration':
+      return (
+        <Fragment>
+          <u>Inspiración de Bardo:</u> {getStatMod(getStat(pc, 'cha'))} veces al
+          día. {trait}
+        </Fragment>
+      );
 
     default:
       return trait;
