@@ -136,9 +136,13 @@ export function getItemDisplayList(itemNames) {
 
 function displayDamage(pc, weapon) {
   const { properties: { versatile } = {} } = weapon;
+  const damageBonus = getDamageBonus(pc, weapon);
   if (versatile)
-    return `${weapon.damage[0]} (${versatile}) + ${getDamageBonus(pc, weapon)}`;
-  return `${weapon.damage[0]} + ${getDamageBonus(pc, weapon)}`;
+    if (damageBonus)
+      return `${weapon.damage[0]} (${versatile}) + ${damageBonus}`;
+    else return `${weapon.damage[0]} (${versatile})`;
+  if (damageBonus) return `${weapon.damage[0]} + ${damageBonus}`;
+  else return `${weapon.damage[0]}`;
 }
 
 function getAttackFromWeapon(pc, weapon, specialAttackIndex) {
@@ -298,6 +302,6 @@ export function displayTrait(traitName, trait) {
       return 'Trance';
 
     default:
-      return 'unknown trait name';
+      return trait;
   }
 }

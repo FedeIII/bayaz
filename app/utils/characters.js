@@ -128,6 +128,7 @@ export const RACES = {
         },
         darkvision: 18,
         trance: true,
+        maskOfTheWild: 'Máscara de la Espesura',
       },
     },
     drow: {
@@ -147,9 +148,11 @@ export const RACES = {
         savingThrows: {
           charm: 'advantage',
         },
-        darkvision: 18,
+        darkvision: 36,
         trance: true,
+        sunlightSensitivity: 'Sensibilidad a la Luz del Sol',
       },
+      spellcastingAbility: 'cha',
     },
   },
   halfling: {
@@ -164,6 +167,12 @@ export const RACES = {
         cha: 1,
       },
       languages: ['common', 'halfling'],
+      traits: {
+        lucky: 'Suertudo',
+        brave: 'Valiente',
+        nimble: 'Agilidad Mediana',
+        naturallyStealthy: 'Sigiloso por Naturaleza',
+      },
     },
     stout: {
       age: [18, 250],
@@ -176,6 +185,15 @@ export const RACES = {
         con: 1,
       },
       languages: ['common', 'halfling'],
+      traits: {
+        lucky: 'Suertudo',
+        brave: 'Valiente',
+        nimble: 'Agilidad Mediana',
+        savingThrows: {
+          poison: 'advantage',
+        },
+        resistances: ['poison'],
+      },
     },
   },
   human: {
@@ -207,6 +225,12 @@ export const RACES = {
         cha: 2,
       },
       languages: ['common', 'elvish'],
+      traits: {
+        darkvision: 18,
+        savingThrows: {
+          charm: 'advantage',
+        },
+      },
     },
   },
   ['half-orc']: {
@@ -222,6 +246,11 @@ export const RACES = {
       },
       skills: ['intimidation'],
       languages: ['common', 'orc'],
+      traits: {
+        darkvision: 18,
+        relentlessEndurance: 'Resistencia Incansable',
+        savageAttacks: 'Ataques Salvajes',
+      },
     },
   },
 };
@@ -309,6 +338,9 @@ export const CLASSES = {
       'survival',
       'animal-handling',
     ],
+    traits: {
+      rage: 'Furia',
+    },
   },
   bard: {
     initialHitPoints: 8,
@@ -996,7 +1028,7 @@ export function translateSavingThrowStatus(status) {
 }
 
 export function getTraits(pc) {
-  const { race, subrace } = pc;
+  const { race, subrace, pClass } = pc;
 
-  return RACES[race][subrace].traits || {};
+  return { ...RACES[race][subrace].traits, ...CLASSES[pClass].traits } || {};
 }

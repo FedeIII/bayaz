@@ -39,6 +39,9 @@ export const action = async ({ request }) => {
 
   invariant(typeof name === 'string', 'name must be a string');
 
+  const spells = [];
+  if (race === 'elf' && subrace === 'drow') spells.push('dancingLights');
+
   const pc = {
     name,
     race,
@@ -51,6 +54,7 @@ export const action = async ({ request }) => {
     skills: RACES[race][subrace].skills,
     exp: 0,
     languages: setLanguages(race, subrace, pClass),
+    spells,
   };
 
   await createPc(pc);
