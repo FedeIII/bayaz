@@ -376,6 +376,7 @@ export const CLASSES = {
       'rapier',
       'shortsword',
     ],
+    spellcastingAbility: 'cha',
   },
   cleric: {
     initialHitPoints: 8,
@@ -992,7 +993,7 @@ export function getAttackBonus(pc, weapon) {
   const strMod = getStatMod(getStat(pc, 'str'));
   const dexMod = getStatMod(getStat(pc, 'dex'));
 
-  if (finesse) statMod = strMod > dexMod ? statMod : dexMod;
+  if (finesse) statMod = strMod > dexMod ? strMod : dexMod;
   else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
     statMod = strMod;
   else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')
@@ -1012,7 +1013,7 @@ export function getDamageBonus(pc, weapon) {
   const strMod = getStatMod(getStat(pc, 'str'));
   const dexMod = getStatMod(getStat(pc, 'dex'));
 
-  if (finesse) statMod = strMod > dexMod ? statMod : dexMod;
+  if (finesse) statMod = strMod > dexMod ? strMod : dexMod;
   else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
     statMod = strMod;
   else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')

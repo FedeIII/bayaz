@@ -20,6 +20,7 @@ import SorcererSkills from '~/components/classSkillsSelection/sorcererSkills';
 import RogueSkills from '~/components/classSkillsSelection/rogueSkills';
 import MonkSkills from '~/components/classSkillsSelection/monkSkills';
 import { pcItem } from '~/utils/equipment/equipment';
+import { getSpell, getSpellSlots, getTotalSpells } from '~/utils/spells/spells';
 
 import styles from '~/components/characters.module.css';
 
@@ -49,6 +50,7 @@ export const action = async ({ request }) => {
   const sorcererOrigin = formData.get('sorcerer-origin');
   const dragonAncestor = formData.get('dragon-ancestor');
   const expertSkills = formData.getAll('expert-skills[]');
+  const spellNames = formData.getAll('spells[]');
 
   const pc = await getPc(name);
 
@@ -73,6 +75,17 @@ export const action = async ({ request }) => {
   if (dragonAncestor) pcAttrs.classAttrs.dragonAncestor = dragonAncestor;
   if (expertSkills.length) pcAttrs.classAttrs.expertSkills = expertSkills;
   if (languages.length) pcAttrs.languages = [...pc.languages, ...languages];
+  if (spellNames.length)
+    pcAttrs.spells = [
+      ...pc.spells,
+      ...spellNames.map(spellName => getSpell(spellName, pc.pClass)),
+    ];
+  if (pc.pClass === 'bard')
+    pcAttrs.preparedSpells = spellNames.map(spellName =>
+      getSpell(spellName, pc.pClass)
+    );
+  pcAttrs.spellSlots = getSpellSlots(pc);
+  pcAttrs.totalSpells = getTotalSpells(pc);
 
   const updatedPc = await updatePc(pcAttrs);
 

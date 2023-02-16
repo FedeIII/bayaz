@@ -17,6 +17,7 @@ import {
   getSpellAttackBonus,
   getSpellcastingAbility,
   getSpellSavingThrow,
+  getSpellSlots,
   isPreparedSpell,
 } from '~/utils/spells/spells';
 
@@ -58,6 +59,7 @@ function PcSummary() {
   ]);
 
   const spellsByLevel = divideSpells(pc);
+  const spellSlots = getSpellSlots(pc);
 
   return (
     <>
@@ -87,7 +89,7 @@ function PcSummary() {
               <span
                 className={`${styles.data} ${styles[`totalSpaces-${level}`]}`}
               >
-                2
+                {spellSlots[level]}
               </span>
             )}
             {level > 0 && (
@@ -100,12 +102,10 @@ function PcSummary() {
             <ul className={`${styles.data} ${styles[`spells-${level}`]}`}>
               {spells.map(spell => (
                 <Fragment key={spell.name}>
-                  {isPreparedSpell(pc, spell.name) && (
-                    <span className={`${styles.data} ${styles.preparedSpell}`}>
-                      ◍
-                    </span>
-                  )}
                   <li className={`${styles.data} ${styles.spell}`}>
+                    <span className={`${styles.data} ${styles.preparedSpell}`}>
+                      {!!(level > 0 && isPreparedSpell(pc, spell.name)) && '◍'}
+                    </span>
                     {spell.translation}
                   </li>
                 </Fragment>

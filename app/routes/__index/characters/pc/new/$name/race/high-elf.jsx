@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { getPc, updatePc } from '~/services/pc.server';
 import { LANGUAGES, RACES, translateLanguage } from '~/utils/characters';
 import { WIZARD_SPELLS } from '~/utils/spells/wizard';
+import { getSpell } from '~/utils/spells/spells';
 
 import styles from '~/components/characters.module.css';
 
@@ -25,7 +26,7 @@ export const action = async ({ request }) => {
 
   await updatePc({
     name,
-    spells: [cantrip],
+    spells: [getSpell(cantrip)],
     languages: [...RACES.elf.high.languages, language],
   });
 

@@ -12,6 +12,7 @@ import {
   setLanguages,
 } from '~/utils/characters';
 import { createPc } from '~/services/pc.server';
+import { getSpell } from '~/utils/spells/spells';
 
 import styles from '~/components/characters.module.css';
 import menuStyles from '~/components/menus.module.css';
@@ -40,7 +41,8 @@ export const action = async ({ request }) => {
   invariant(typeof name === 'string', 'name must be a string');
 
   const spells = [];
-  if (race === 'elf' && subrace === 'drow') spells.push('dancingLights');
+  if (race === 'elf' && subrace === 'drow')
+    spells.push(getSpell('dancingLights', 'sorcerer'));
 
   const pc = {
     name,

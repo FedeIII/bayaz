@@ -43,7 +43,7 @@
 
 .mainButton {
   height: 32px;
-  margin: 0 0 8px;
+  margin: 8px 0 8px;
   width: 100%;
   background-color: #a3b3d0;
   border-radius: 5px;
@@ -55,9 +55,22 @@
 }
 
 .secondaryButton {
-  height: 32px;
+  height: 24px;
   margin: 0 0 8px 16px;
   width: 80%;
+  background-color: #a3b3d0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+.tertiaryButton {
+  height: 20px;
+  margin: 0 0 8px 16px;
+  width: 65%;
   background-color: #a3b3d0;
   border-radius: 5px;
   display: flex;

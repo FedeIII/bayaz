@@ -16,7 +16,11 @@ export default function Index() {
             <Link
               to={button.url}
               className={`${
-                button.level === 0 ? styles.mainButton : styles.secondaryButton
+                button.level === 0
+                  ? styles.mainButton
+                  : button.level === 1
+                  ? styles.secondaryButton
+                  : styles.tertiaryButton
               }`}
               key={button.name}
             >

@@ -20,17 +20,17 @@
     /* 08 */ '.   sp0 sp0 sp0 sp0 sp0 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 08 */
     /* 09 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 09 */
     /* 10 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 10 */
-    /* 11 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 11 */
+    /* 11 */ '.   .   .   tS1 .   sS1 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 11 */
     /* 12 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 12 */
     /* 13 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 13 */
-    /* 14 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 14 */
-    /* 15 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 15 */
-    /* 16 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 16 */
-    /* 17 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 17 */
-    /* 18 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 18 */
-    /* 19 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 19 */
-    /* 20 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 20 */
-    /* 21 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 21 */
+    /* 14 */ '.   sp1 sp1 sp1 sp1 sp1 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 14 */
+    /* 15 */ '.   sp1 sp1 sp1 sp1 sp1 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 15 */
+    /* 16 */ '.   sp1 sp1 sp1 sp1 sp1 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 16 */
+    /* 17 */ '.   sp1 sp1 sp1 sp1 sp1 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 17 */
+    /* 18 */ '.   sp1 sp1 sp1 sp1 sp1 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 18 */
+    /* 19 */ '.   sp1 sp1 sp1 sp1 sp1 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 19 */
+    /* 20 */ '.   sp1 sp1 sp1 sp1 sp1 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 20 */
+    /* 21 */ '.   sp1 sp1 sp1 sp1 sp1 .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 21 */
     /* 22 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 22 */
     /* 23 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 23 */
     /* 24 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 24 */
@@ -109,6 +109,7 @@
 
 .spells-0 {
   grid-area: sp0;
+  flex-direction: column;
   align-items: flex-start;
   margin: -6px 0 0 0;
   padding: 0 0 0 8px;
@@ -116,14 +117,25 @@
 
 .totalSpaces-1 {
   grid-area: tS1;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  margin: 8px 0 0 0;
 }
 
 .spentSpaces-1 {
   grid-area: sS1;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  margin: 8px 0 0 0;
 }
 
 .spells-1 {
   grid-area: sp1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 0 1px;
 }
 
 .totalSpaces-2 {
@@ -136,6 +148,9 @@
 
 .spells-2 {
   grid-area: sp2;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 0 1px;
 }
 
 .totalSpaces-3 {
@@ -148,6 +163,9 @@
 
 .spells-3 {
   grid-area: sp3;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 0 1px;
 }
 
 .totalSpaces-4 {
@@ -160,6 +178,9 @@
 
 .spells-4 {
   grid-area: sp4;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 0 1px;
 }
 
 .totalSpaces-5 {
@@ -172,6 +193,9 @@
 
 .spells-5 {
   grid-area: sp5;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 0 1px;
 }
 
 .totalSpaces-6 {
@@ -184,6 +208,9 @@
 
 .spells-6 {
   grid-area: sp6;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 0 1px;
 }
 
 .totalSpaces-7 {
@@ -196,6 +223,9 @@
 
 .spells-7 {
   grid-area: sp7;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 0 1px;
 }
 
 .totalSpaces-8 {
@@ -208,6 +238,9 @@
 
 .spells-8 {
   grid-area: sp8;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 0 1px;
 }
 
 .totalSpaces-9 {
@@ -220,4 +253,16 @@
 
 .spells-9 {
   grid-area: sp9;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 0 1px;
+}
+
+.preparedSpell {
+  min-width: 11px;
+  margin: 0 8px 0 0;
+}
+
+.spell {
+  margin: 0 0 9.5px 0;
 }

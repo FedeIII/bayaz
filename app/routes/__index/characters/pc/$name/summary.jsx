@@ -122,7 +122,7 @@ function PcSummary() {
     {
       name: 'Conjuros',
       url: `/characters/pc/${name}/spells`,
-      level: 1,
+      level: 2,
     },
   ]);
 

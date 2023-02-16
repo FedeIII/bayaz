@@ -5,6 +5,7 @@ import {
   SKILLS,
   LANGUAGES,
   EXOTIC_LANGUAGES,
+  CLASSES,
 } from '~/utils/characters';
 import { SORCERER_ORIGIN, DRAGON_ANCESTORS } from '~/utils/sorcerer';
 import { FIGHTING_STYLES } from '~/utils/fighter';
@@ -68,6 +69,11 @@ const freeTextSchema = new mongoose.Schema({
   flaws: String,
 });
 
+const spellSchema = new mongoose.Schema({
+  name: { type: String, enum: ALL_SPELLS.map(spell => spell.name) },
+  type: { type: String, enum: Object.keys(CLASSES) },
+});
+
 const pcSchema = new mongoose.Schema({
   name: String,
   race: {
@@ -126,8 +132,10 @@ const pcSchema = new mongoose.Schema({
   pack: String,
   proficientItems: [itemSchema],
   freeText: freeTextSchema,
-  spells: [{ type: String, enum: ALL_SPELLS.map(spell => spell.name) }],
-  preparedSpells: [{ type: String, enum: ALL_SPELLS.map(spell => spell.name) }],
+  spells: [spellSchema],
+  preparedSpells: [spellSchema],
+  spellSlots: [Number],
+  totalSpells: Number,
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);

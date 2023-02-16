@@ -1,0 +1,98 @@
+export const SORCERER_SPELLS = {
+  friends: {
+    name: 'friends',
+    translation: 'Amigos',
+    type: 'sorcerer',
+    level: 0,
+  },
+  shockingGrasp: {
+    name: 'shockingGrasp',
+    translation: 'Contacto electrizante',
+    type: 'sorcerer',
+    level: 0,
+  },
+  bladeWard: {
+    name: 'bladeWard',
+    translation: 'Cuchilla protectora',
+    type: 'sorcerer',
+    level: 0,
+  },
+  minorIllusion: {
+    name: 'minorIllusion',
+    translation: 'Ilusión menor',
+    type: 'sorcerer',
+    level: 0,
+  },
+  trueStrike: {
+    name: 'trueStrike',
+    translation: 'Impacto verdadero',
+    type: 'sorcerer',
+    level: 0,
+  },
+  dancingLights: {
+    name: 'dancingLights',
+    translation: 'Luces danzantes',
+    type: 'sorcerer',
+    level: 0,
+  },
+  light: {
+    name: 'light',
+    translation: 'Luz',
+    type: 'sorcerer',
+    level: 0,
+  },
+  mageHand: {
+    name: 'mageHand',
+    translation: 'Mano de mago',
+    type: 'sorcerer',
+    level: 0,
+  },
+  message: {
+    name: 'message',
+    translation: 'Mensaje',
+    type: 'sorcerer',
+    level: 0,
+  },
+  prestidigitation: {
+    name: 'prestidigitation',
+    translation: 'Prestidigitación',
+    type: 'sorcerer',
+    level: 0,
+  },
+  rayOfFrost: {
+    name: 'rayOfFrost',
+    translation: 'Rayo de escarcha',
+    type: 'sorcerer',
+    level: 0,
+  },
+  mending: {
+    name: 'mending',
+    translation: 'Remendar',
+    type: 'sorcerer',
+    level: 0,
+  },
+  poisonSpray: {
+    name: 'poisonSpray',
+    translation: 'Rociada de veneno',
+    type: 'sorcerer',
+    level: 0,
+  },
+  firebolt: {
+    name: 'firebolt',
+    translation: 'Saeta de fuego',
+    type: 'sorcerer',
+    level: 0,
+  },
+  acidSplash: {
+    name: 'acidSplash',
+    translation: 'Salpicadura de ácido',
+    type: 'sorcerer',
+    level: 0,
+  },
+  chillTouch: {
+    name: 'chillTouch',
+    translation: 'Toque gélido',
+    type: 'sorcerer',
+    level: 0,
+  },
+};
