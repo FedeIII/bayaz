@@ -54,6 +54,7 @@ import {
 } from '~/utils/display';
 import { translateItem, translatePack } from '~/utils/equipment/equipment';
 import { getPackItems } from '~/utils/equipment/packs';
+import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
 import styles from '~/components/sheet.module.css';
 
@@ -115,6 +116,15 @@ function PcSummary() {
   function onFormSubmit(e) {
     setIsSubmitShown(false);
   }
+
+  useAddMenuItems('/characters', [
+    { name, url: `/characters/pc/${name}/summary`, level: 1 },
+    {
+      name: 'Conjuros',
+      url: `/characters/pc/${name}/spells`,
+      level: 1,
+    },
+  ]);
 
   return (
     <>

@@ -78,7 +78,7 @@ export const CLASS_EQUIPMENT = {
   barbarian: BARBARIAN_EQUIPMENT,
   bard: BARD_EQUIPMENT,
   warlock: WARLOCK_EQUIPMENT,
-  cleric: CLERIC_EQUIPMENT(),
+  cleric: CLERIC_EQUIPMENT,
   druid: DRUID_EQUIPMENT,
   ranger: RANGER_EQUIPMENT,
   fighter: FIGHTER_EQUIPMENT,

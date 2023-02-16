@@ -45,9 +45,7 @@ function AllRolls(props) {
           </Fragment>
         ))}
         {!!modifier && (
-          <span className={styles.modifier}>
-            {signed(modifier)}
-          </span>
+          <span className={styles.modifier}>{signed(modifier)}</span>
         )}
       </>
     );
@@ -57,11 +55,11 @@ function AllRolls(props) {
 }
 
 function TotalRoll(props) {
-  const { result } = props;
+  const { roll } = props;
 
   return (
     <span className={styles.historyLineTotal}>
-      {random.roll.calculateResult(result)}
+      {random.roll.calculateResult(roll)}
     </span>
   );
 }

@@ -13,6 +13,8 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import styles from '~/styles/global.css';
+import MenuContext from './components/contexts/menuContext';
+import { useEffect, useState } from 'react';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -27,7 +29,20 @@ export const links = () => {
   ];
 };
 
+const mainLinks = [
+  { name: 'Dados', url: '/dice', level: 0 },
+  { name: 'Lugares', url: '/places', level: 0 },
+  { name: 'Personajes', url: '/characters', level: 0 },
+  { name: 'Button 4', url: '/', level: 0 },
+];
+
 export default function App() {
+  const [menuItems, setMenuItems] = useState(mainLinks);
+
+  useEffect(() => {
+    setMenuItems(mainLinks);
+  }, [global.location?.href]);
+
   return (
     <html lang="es-ES">
       <head>
@@ -36,11 +51,13 @@ export default function App() {
       </head>
       <body>
         <DndProvider backend={HTML5Backend}>
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-          <Analytics />
+          <MenuContext.Provider value={{ menuItems, setMenuItems }}>
+            <Outlet />
+            <ScrollRestoration />
+            <Scripts />
+            <LiveReload />
+            <Analytics />
+          </MenuContext.Provider>
         </DndProvider>
       </body>
     </html>

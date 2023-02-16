@@ -1,0 +1,98 @@
+export const WIZARD_SPELLS = {
+  friends: {
+    name: 'friends',
+    translation: 'Amigos',
+    type: 'wizard',
+    level: 0,
+  },
+  shockingGrasp: {
+    name: 'shockingGrasp',
+    translation: 'Contacto electrizante',
+    type: 'wizard',
+    level: 0,
+  },
+  bladeWard: {
+    name: 'bladeWard',
+    translation: 'Cuchilla protectora',
+    type: 'wizard',
+    level: 0,
+  },
+  minorIllusion: {
+    name: 'minorIllusion',
+    translation: 'Ilusión menor',
+    type: 'wizard',
+    level: 0,
+  },
+  trueStrike: {
+    name: 'trueStrike',
+    translation: 'Impacto verdadero',
+    type: 'wizard',
+    level: 0,
+  },
+  dancingLights: {
+    name: 'dancingLights',
+    translation: 'Luces danzantes',
+    type: 'wizard',
+    level: 0,
+  },
+  light: {
+    name: 'light',
+    translation: 'Luz',
+    type: 'wizard',
+    level: 0,
+  },
+  mageHand: {
+    name: 'mageHand',
+    translation: 'Mano de mago',
+    type: 'wizard',
+    level: 0,
+  },
+  message: {
+    name: 'message',
+    translation: 'Mensaje',
+    type: 'wizard',
+    level: 0,
+  },
+  prestidigitation: {
+    name: 'prestidigitation',
+    translation: 'Prestidigitación',
+    type: 'wizard',
+    level: 0,
+  },
+  rayOfFrost: {
+    name: 'rayOfFrost',
+    translation: 'Rayo de escarcha',
+    type: 'wizard',
+    level: 0,
+  },
+  mending: {
+    name: 'mending',
+    translation: 'Remendar',
+    type: 'wizard',
+    level: 0,
+  },
+  poisonSpray: {
+    name: 'poisonSpray',
+    translation: 'Rociada de veneno',
+    type: 'wizard',
+    level: 0,
+  },
+  firebolt: {
+    name: 'firebolt',
+    translation: 'Saeta de fuego',
+    type: 'wizard',
+    level: 0,
+  },
+  acidSplash: {
+    name: 'acidSplash',
+    translation: 'Salpicadura de ácido',
+    type: 'wizard',
+    level: 0,
+  },
+  chillTouch: {
+    name: 'chillTouch',
+    translation: 'Toque gélido',
+    type: 'wizard',
+    level: 0,
+  },
+};

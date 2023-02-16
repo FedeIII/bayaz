@@ -107,6 +107,7 @@ export const RACES = {
         darkvision: 18,
         trance: true,
       },
+      spellcastingAbility: 'int',
     },
     wood: {
       age: [80, 750],

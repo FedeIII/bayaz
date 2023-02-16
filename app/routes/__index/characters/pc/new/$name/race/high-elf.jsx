@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 import { LANGUAGES, RACES, translateLanguage } from '~/utils/characters';
+import { WIZARD_SPELLS } from '~/utils/spells/wizard';
 
 import styles from '~/components/characters.module.css';
 
@@ -19,10 +20,12 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
+  const cantrip = formData.get('cantrip');
   const language = formData.get('language');
 
   await updatePc({
     name,
+    spells: [cantrip],
     languages: [...RACES.elf.high.languages, language],
   });
 
@@ -37,11 +40,31 @@ function PcElfSkills() {
   const isCreating = Boolean(transition.submission);
 
   const [isLanguageSelected, setIsLanguageSelected] = useState(false);
+  const [isCantripSelected, setIsCantripSelected] = useState(false);
 
   return (
     <Form method="post">
       <h2>Habilidades de Alto Elfo para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
+
+      <p>
+        Conoces un truco de mago (Inteligencia)
+        {Object.values(WIZARD_SPELLS).map(spell => (
+          <label
+            for={spell.name}
+            key={spell.name}
+            className={styles.skillLabel}
+          >
+            <input
+              type="radio"
+              name="cantrip"
+              value={spell.name}
+              onChange={() => setIsCantripSelected(true)}
+            />
+            {spell.translation}
+          </label>
+        ))}
+      </p>
 
       <p>
         Selecciona un idioma extra
@@ -61,10 +84,13 @@ function PcElfSkills() {
       </p>
 
       <p>
-        <button type="submit" disabled={isCreating || !isLanguageSelected}>
+        <button
+          type="submit"
+          disabled={isCreating || !isLanguageSelected || !isCantripSelected}
+        >
           {isCreating
             ? 'Creando...'
-            : isLanguageSelected
+            : isLanguageSelected && isCantripSelected
             ? 'Continuar'
             : 'Elige habilidades'}
         </button>

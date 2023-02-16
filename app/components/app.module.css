@@ -29,6 +29,7 @@
   padding: 8px;
   background-color: #5c687e;
   color: white;
+  align-items: flex-end;
 }
 
 .content {
@@ -44,6 +45,19 @@
   height: 32px;
   margin: 0 0 8px;
   width: 100%;
+  background-color: #a3b3d0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+.secondaryButton {
+  height: 32px;
+  margin: 0 0 8px 16px;
+  width: 80%;
   background-color: #a3b3d0;
   border-radius: 5px;
   display: flex;

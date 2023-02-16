@@ -16,6 +16,7 @@ import {
 } from '~/utils/ranger';
 import { DIVINE_DOMAINS } from '~/utils/cleric';
 import { unifyEquipment } from '~/utils/equipment/equipment';
+import { ALL_SPELLS } from '~/utils/spells/spells';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -125,6 +126,8 @@ const pcSchema = new mongoose.Schema({
   pack: String,
   proficientItems: [itemSchema],
   freeText: freeTextSchema,
+  spells: [{ type: String, enum: ALL_SPELLS.map(spell => spell.name) }],
+  preparedSpells: [{ type: String, enum: ALL_SPELLS.map(spell => spell.name) }],
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);
