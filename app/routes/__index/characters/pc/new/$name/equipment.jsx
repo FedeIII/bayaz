@@ -186,15 +186,15 @@ function EquipmentCombo(props) {
               value={combo.packName}
             />{' '}
             {combo.translation}
+            <div>
+              Que contiene:
+              <ul>
+                {Object.values(combo.items).map(item => (
+                  <li key={item().name}>{item().translation}</li>
+                ))}
+              </ul>
+            </div>
           </label>
-          <div>
-            Que contiene:
-            <ul>
-              {Object.values(combo.items).map(item => (
-                <li key={item().name}>{item().translation}</li>
-              ))}
-            </ul>
-          </div>
         </>
       );
     }

@@ -278,6 +278,7 @@ function PcClassSkills() {
             <input
               type="checkbox"
               name="class-skills[]"
+              id={skillName}
               value={skillName}
               checked={getSkillChecked(skillName, skillsToSelect)}
               onChange={e => onSkillChange(skillName, e.target.checked, i)}

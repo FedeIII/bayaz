@@ -281,6 +281,8 @@ export function getSpecialAttacks(pc) {
 }
 
 export function displayTrait(traitName, trait, pc) {
+  let times;
+
   switch (traitName) {
     case 'savingThrows':
       return Object.entries(trait).map(([salvation, status]) => (
@@ -312,23 +314,26 @@ export function displayTrait(traitName, trait, pc) {
       );
 
     case 'warCleric':
+      times = getStatMod(getStat(pc, 'wis'));
       return (
         <Fragment>
-          <u>{trait}.</u> {getStatMod(getStat(pc, 'wis'))} veces al día.
+          <u>{trait}.</u> {times > 0 ? times : 1} veces al día.
         </Fragment>
       );
 
     case 'wardingFlare':
+      times = getStatMod(getStat(pc, 'wis'));
       return (
         <Fragment>
-          <u>{trait}.</u> {getStatMod(getStat(pc, 'wis'))} veces al día.
+          <u>{trait}.</u> {times > 0 ? times : 1} veces al día.
         </Fragment>
       );
 
     case 'wrathOfTheStorm':
+      times = getStatMod(getStat(pc, 'wis'));
       return (
         <Fragment>
-          <u>{trait}.</u> {getStatMod(getStat(pc, 'wis'))} veces al día.
+          <u>{trait}.</u> {times > 0 ? times : 1} veces al día.
         </Fragment>
       );
 

@@ -53,6 +53,7 @@ function PcHumanSkills() {
               <input
                 type="radio"
                 name="language"
+                id={language}
                 value={language}
                 onChange={() => setIsLanguageSelected(true)}
               />
