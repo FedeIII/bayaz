@@ -10,20 +10,20 @@ import {
   getClericCantripsNumber,
   getClericExtraPreparedSpells,
   getClericSpellSlots,
-  getClericTotalSpells,
-} from '../cleric';
+  getClericTotalSpells
+} from "./cleric";
 import {
   DRUID_SPELLS,
   getDruidCantripsNumber,
   getDruidSpellSlots,
-  getDruidTotalSpells,
-} from '../druid';
+  getDruidTotalSpells
+} from "./druid";
 import {
   getWarlockCantripsNumber,
   getWarlockSpellSlots,
   getWarlockTotalSpells,
-  WARLOCK_SPELLS,
-} from '../warlock';
+  WARLOCK_SPELLS
+} from "./warlock";
 import {
   BARD_SPELLS,
   getBardCantripsNumber,

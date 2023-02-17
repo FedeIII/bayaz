@@ -4,8 +4,8 @@ import styles from '~/components/characters.module.css';
 import {
   getWarlockSpellSlots,
   getWarlockTotalSpells,
-  WARLOCK_SPELLS,
-} from '~/utils/warlock';
+  WARLOCK_SPELLS
+} from "~/utils/spells/warlock";
 
 function WarlockSkills(props) {
   const { pc, setSkillsNamespace } = props;

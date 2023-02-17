@@ -9,10 +9,12 @@ import {
   DIVINE_DOMAINS,
   translateDivineDomain,
   getDivineDomain,
-  getClericSpellSlots,
-  CLERIC_SPELLS,
 } from '~/utils/cleric';
-import { DRUID_SPELLS } from '~/utils/druid';
+import {
+  getClericSpellSlots,
+  CLERIC_SPELLS
+} from "~/utils/spells/cleric";
+import { DRUID_SPELLS } from "~/utils/spells/druid";
 
 import styles from '~/components/characters.module.css';
 

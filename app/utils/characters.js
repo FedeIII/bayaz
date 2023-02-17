@@ -586,6 +586,7 @@ export const CLASSES = {
       'quarterstaff',
       'lightCrossbow',
     ],
+    spellcastingAbility: 'cha',
   },
   warlock: {
     initialHitPoints: 8,
