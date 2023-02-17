@@ -32,7 +32,8 @@ export function translateEquipment(type) {
 }
 
 export function getItem(itemName) {
-  return getAllItems().find(item => item().name === itemName)();
+  const allItems = getAllItems();
+  return allItems.find(item => item().name === itemName)();
 }
 
 export function translateItem(itemName) {

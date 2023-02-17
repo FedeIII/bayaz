@@ -13,6 +13,7 @@ import {
 } from '~/utils/characters';
 import BarbarianSkills from '~/components/classSkillsSelection/barbarianSkills';
 import BardSkills from '~/components/classSkillsSelection/bardSkills';
+import WarlockSkills from '~/components/classSkillsSelection/warlockSkills';
 import ClericSkills from '~/components/classSkillsSelection/clericSkills';
 import RangerSkills from '~/components/classSkillsSelection/rangerSkills';
 import FighterSkills from '~/components/classSkillsSelection/fighterSkills';
@@ -39,6 +40,7 @@ export const action = async ({ request }) => {
   const classSkills = formData.getAll('class-skills[]');
   const items = formData.getAll('items[]');
   const primalPath = formData.get('primal-path');
+  const patron = formData.get('patron');
   const divineDomain = formData.get('divine-domain');
   const clericSkills = formData.getAll('cleric-skills[]');
   const languages = formData.getAll('languages[]');
@@ -61,6 +63,7 @@ export const action = async ({ request }) => {
       ...items.map(itemName => pcItem(itemName)),
     ];
   if (primalPath) pcAttrs.classAttrs.primalPath = primalPath;
+  if (patron) pcAttrs.classAttrs.patron = patron;
   if (divineDomain) pcAttrs.classAttrs.divineDomain = divineDomain;
   if (clericSkills.length) pcAttrs.classAttrs.skills = clericSkills;
   if (favoredEnemy || favoredEnemyHumanoids.length) {
@@ -80,7 +83,7 @@ export const action = async ({ request }) => {
       ...pc.spells,
       ...spellNames.map(spellName => getSpell(spellName, pc.pClass)),
     ];
-  if (pc.pClass === 'bard')
+  if (pc.pClass === 'bard' || pc.pClass === 'warlock')
     pcAttrs.preparedSpells = spellNames.map(spellName =>
       getSpell(spellName, pc.pClass)
     );
@@ -107,6 +110,8 @@ function ClassSkills(props) {
       return <BarbarianSkills {...props} />;
     case 'bard':
       return <BardSkills {...props} />;
+    case 'warlock':
+      return <WarlockSkills {...props} />;
     case 'cleric':
       return <ClericSkills {...props} />;
     case 'ranger':

@@ -76,14 +76,14 @@ function EquipmentCombo(props) {
     if (logic === 'or') {
       return (
         <label
-          htmlFor={combo.name}
+          htmlFor={`${combo.name}-${comboSection}`}
           className={styles.equipmentItem}
           key={combo.name}
         >
           <input
             type="radio"
             name={`choices-${comboSection}`}
-            id={combo.name}
+            id={`${combo.name}-${comboSection}`}
             value={combo.and
               .map(item => `${item.name},${item.amount}`)
               .join('|')}
@@ -128,11 +128,11 @@ function EquipmentCombo(props) {
   if (logic === 'or') {
     if (Array.isArray(combo)) {
       return (
-        <label className={styles.equipmentItem}>
+        <label htmlFor={`${combo.name}-${comboSection}`} className={styles.equipmentItem}>
           <input
             type="radio"
             name={`choices-${comboSection}`}
-            id={combo.name}
+            id={`${combo.name}-${comboSection}`}
             value={combo
               .map(comboItem => `${comboItem.name},${comboItem.amount}`)
               .join('|')}
@@ -156,11 +156,11 @@ function EquipmentCombo(props) {
       else return null;
     } else if (combo.type) {
       return (
-        <label htmlFor={combo.name} className={styles.equipmentItem}>
+        <label htmlFor={`${combo.name}-${comboSection}`} className={styles.equipmentItem}>
           <input
             type="radio"
             name={`choices-${comboSection}`}
-            id={combo.name}
+            id={`${combo.name}-${comboSection}`}
             value={[combo.name, combo.amount]}
           />{' '}
           {itemWithAmount(combo.translation, combo.amount)}
@@ -169,11 +169,11 @@ function EquipmentCombo(props) {
     } else if (combo.packName) {
       return (
         <>
-          <label htmlFor={combo.packName} className={styles.equipmentItem}>
+          <label htmlFor={`${combo.name}-${comboSection}`} className={styles.equipmentItem}>
             <input
               type="radio"
               name="pack"
-              id={combo.packName}
+              id={`${combo.name}-${comboSection}`}
               value={combo.packName}
             />{' '}
             {combo.translation}

@@ -17,6 +17,7 @@ import {
   getAllWeapons,
 } from './equipment/weapons';
 import { getSorcererOrigin, SORCERER_ORIGIN } from './sorcerer';
+import { PATRONS } from './warlock';
 
 export const RACES = {
   dwarf: {
@@ -595,10 +596,11 @@ export const CLASSES = {
       'religion',
     ],
     proficientItems: [
-      ...getAllLightArmors(),
-      ...getAllSimpleMelee(),
-      ...getAllSimpleRanged(),
+      ...getAllLightArmors().map(armor => armor.name),
+      ...getAllSimpleMelee().map(armor => armor.name),
+      ...getAllSimpleRanged().map(armor => armor.name),
     ],
+    spellcastingAbility: 'cha',
   },
   wizard: {
     initialHitPoints: 6,
@@ -1032,7 +1034,13 @@ export function translateSavingThrowStatus(status) {
 }
 
 export function getTraits(pc) {
-  const { race, subrace, pClass } = pc;
+  const { race, subrace, pClass, classAttrs: { patron } = {} } = pc;
 
-  return { ...RACES[race][subrace].traits, ...CLASSES[pClass].traits } || {};
+  return (
+    {
+      ...RACES[race][subrace].traits,
+      ...CLASSES[pClass].traits,
+      ...(pClass === 'warlock' ? PATRONS[patron]?.traits || {} : {}),
+    } || {}
+  );
 }

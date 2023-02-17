@@ -1,72 +1,67 @@
 import { useEffect, useState } from 'react';
 
-import { translateItem } from '~/utils/equipment/equipment';
-import { getAllMusicalInstruments } from '~/utils/equipment/tools';
-import {
-  BARD_SPELLS,
-  getBardSpellSlots,
-  getBardTotalSpells,
-} from '~/utils/spells/bard';
-
 import styles from '~/components/characters.module.css';
+import {
+  getWarlockSpellSlots,
+  getWarlockTotalSpells,
+  WARLOCK_SPELLS,
+} from '~/utils/warlock';
 
-const MAX_INSTRUMENTS = 3;
-
-function BardSkills(props) {
+function WarlockSkills(props) {
   const { pc, setSkillsNamespace } = props;
 
-  const [selectedInstruments, setSelectedInstruments] = useState([]);
+  const [selectedPatron, setSelectedPatron] = useState(null);
   const [selectedSpells0, setSelectedSpells0] = useState([]);
   const [selectedSpells1, setSelectedSpells1] = useState([]);
 
-  const spellSlots = getBardSpellSlots(pc);
-  const totalSpells = getBardTotalSpells(pc.level);
+  const spellSlots = getWarlockSpellSlots(pc);
+  const totalSpells = getWarlockTotalSpells(pc);
 
   useEffect(() => {
     setSkillsNamespace(
-      'bardSkills',
-      selectedInstruments.filter(v => v).length === MAX_INSTRUMENTS &&
+      'warlockSkills',
+      !!selectedPatron &&
         selectedSpells0.filter(v => v).length === spellSlots[0] &&
         selectedSpells1.filter(v => v).length === totalSpells
     );
-  }, [
-    setSkillsNamespace,
-    selectedInstruments,
-    selectedSpells0,
-    selectedSpells1,
-  ]);
+  }, [setSkillsNamespace, !!selectedPatron, selectedSpells0, selectedSpells1]);
 
   return (
     <>
       <p>
-        Selecciona {MAX_INSTRUMENTS} instrumentos con los que ser competente:{' '}
-        {getAllMusicalInstruments().map((instrument, i) => (
-          <label
-            htmlFor={instrument.name}
-            key={instrument.name}
-            className={styles.skillLabel}
-          >
-            <input
-              type="checkbox"
-              name="items[]"
-              checked={!!selectedInstruments[i]}
-              value={instrument.name}
-              onChange={() =>
-                setSelectedInstruments(oldChecks => {
-                  const newChecks = oldChecks.slice();
-                  newChecks[i] = !newChecks[i];
-                  return newChecks;
-                })
-              }
-            />
-            {translateItem(instrument.name)}
-          </label>
-        ))}
+        Firma un pacto con un ser de otro mundo:{' '}
+        <label htmlFor="archfey" className={styles.skillLabel}>
+          <input
+            type="radio"
+            name="patron"
+            value="archfey"
+            onChange={e => setSelectedPatron(e.target.value)}
+          />
+          El Archihada
+        </label>
+        <label htmlFor="fiend" className={styles.skillLabel}>
+          <input
+            type="radio"
+            name="patron"
+            value="fiend"
+            onChange={e => setSelectedPatron(e.target.value)}
+          />
+          El Diablo
+        </label>
+        <label htmlFor="greatOldOne" className={styles.skillLabel}>
+          <input
+            type="radio"
+            name="patron"
+            value="greatOldOne"
+            onChange={e => setSelectedPatron(e.target.value)}
+          />
+          El Gran Antiguo
+        </label>
       </p>
 
       <p>
-        Conoces {spellSlots[0]} trucos de bardo:{' '}
-        {Object.values(BARD_SPELLS)
+        Conoces {spellSlots[0]} trucos de brujo:{' '}
+        {Object.values(WARLOCK_SPELLS)
           .filter(s => s.level === 0)
           .map((spell, i) => (
             <label
@@ -93,9 +88,11 @@ function BardSkills(props) {
       </p>
 
       <p>
-        Conoces {totalSpells} conjuros de nivel 1 de bardo:{' '}
-        {Object.values(BARD_SPELLS)
-          .filter(s => s.level === 1)
+        Conoces {totalSpells} conjuros de nivel 1 de brujo:{' '}
+        {Object.values(WARLOCK_SPELLS)
+          .filter(
+            s => s.level === 1 && (!s.subtype || s.subtype === selectedPatron)
+          )
           .map((spell, i) => (
             <label
               htmlFor={spell.name}
@@ -123,4 +120,4 @@ function BardSkills(props) {
   );
 }
 
-export default BardSkills;
+export default WarlockSkills;

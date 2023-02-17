@@ -5,13 +5,25 @@ import {
   getStatMod,
   RACES,
 } from '../characters';
-import { BARD_SPELLS, getBardCantrips, getBardTotalSpells } from './bard';
+import {
+  getWarlockCantripsNumber,
+  getWarlockSpellSlots,
+  getWarlockTotalSpells,
+  WARLOCK_SPELLS,
+} from '../warlock';
+import {
+  BARD_SPELLS,
+  getBardCantripsNumber,
+  getBardSpellSlots,
+  getBardTotalSpells,
+} from './bard';
 import { SORCERER_SPELLS } from './sorcerer';
 import { WIZARD_SPELLS } from './wizard';
 
 export const ALL_SPELLS = [
-  ...Object.values(WIZARD_SPELLS),
   ...Object.values(BARD_SPELLS),
+  ...Object.values(WARLOCK_SPELLS),
+  ...Object.values(WIZARD_SPELLS),
   ...Object.values(SORCERER_SPELLS),
 ];
 
@@ -23,20 +35,31 @@ export function getSpell(spellName, spellType) {
   );
 }
 
-function getCantrips(pc) {
-  const { pClass, level } = pc;
+export function getCantripsNumber(pc) {
+  const { pClass } = pc;
 
   return {
-    bard: getBardCantrips,
-  }[pClass](level);
+    bard: getBardCantripsNumber,
+    warlock: getWarlockCantripsNumber,
+  }[pClass](pc);
 }
 
 export function getTotalSpells(pc) {
-  const { pClass, level } = pc;
+  const { pClass } = pc;
 
   return {
     bard: getBardTotalSpells,
-  }[pClass](level);
+    warlock: getWarlockTotalSpells,
+  }[pClass](pc);
+}
+
+export function getSpellSlots(pc) {
+  const { pClass } = pc;
+
+  return {
+    bard: getBardSpellSlots,
+    warlock: getWarlockSpellSlots,
+  }[pClass](pc);
 }
 
 export function getSpellcastingAbility(pc, spellType) {
@@ -78,34 +101,4 @@ export function isPreparedSpell(pc, spellName) {
   const { preparedSpells } = pc;
 
   return !!preparedSpells.find(spell => spell.name === spellName);
-}
-
-const spellSlots = lvl =>
-  [
-    /*  1 */ [2],
-    /*  2 */ [3],
-    /*  3 */ [4, 2],
-    /*  4 */ [4, 3],
-    /*  5 */ [4, 3, 2],
-    /*  6 */ [4, 3, 3],
-    /*  7 */ [4, 3, 3, 1],
-    /*  8 */ [4, 3, 3, 2],
-    /*  9 */ [4, 3, 3, 3, 1],
-    /* 10 */ [4, 3, 3, 3, 2],
-    /* 11 */ [4, 3, 3, 3, 2, 1],
-    /* 12 */ [4, 3, 3, 3, 2, 1],
-    /* 13 */ [4, 3, 3, 3, 2, 1, 1],
-    /* 14 */ [4, 3, 3, 3, 2, 1, 1],
-    /* 15 */ [4, 3, 3, 3, 2, 1, 1, 1],
-    /* 16 */ [4, 3, 3, 3, 2, 1, 1, 1],
-    /* 17 */ [4, 3, 3, 3, 2, 1, 1, 1, 1],
-    /* 18 */ [4, 3, 3, 3, 3, 1, 1, 1, 1],
-    /* 19 */ [4, 3, 3, 3, 3, 2, 1, 1, 1],
-    /* 20 */ [4, 3, 3, 3, 3, 2, 2, 1, 1],
-  ][lvl - 1];
-
-export function getSpellSlots(pc) {
-  const { level } = pc;
-
-  return [getCantrips(pc), ...spellSlots(level)];
 }
