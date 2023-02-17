@@ -352,6 +352,14 @@ export function displayTrait(traitName, trait, pc) {
         </Fragment>
       );
 
+    case 'secondWind':
+      return (
+        <Fragment>
+          <u>{trait}.</u> Recupera 1d10 + {pc.level} al día como acción
+          adicional.
+        </Fragment>
+      );
+
     default:
       return trait;
   }

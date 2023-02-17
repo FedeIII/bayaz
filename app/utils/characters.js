@@ -454,6 +454,9 @@ export const CLASSES = {
       ...getAllMartialMelee().map(weapon => weapon.name),
       ...getAllMartialRanged().map(weapon => weapon.name),
     ],
+    traits: {
+      secondWind: 'Nuevas Energías',
+    },
   },
   monk: {
     initialHitPoints: 8,
@@ -529,6 +532,7 @@ export const CLASSES = {
       ...getAllMartialMelee().map(weapon => weapon.name),
       ...getAllMartialRanged().map(weapon => weapon.name),
     ],
+    spellcastingAbility: 'wis',
   },
   rogue: {
     initialHitPoints: 8,
