@@ -6,6 +6,12 @@ import {
   RACES,
 } from '../characters';
 import {
+  CLERIC_SPELLS,
+  getClericCantripsNumber,
+  getClericSpellSlots,
+  getClericTotalSpells,
+} from '../cleric';
+import {
   getWarlockCantripsNumber,
   getWarlockSpellSlots,
   getWarlockTotalSpells,
@@ -23,6 +29,7 @@ import { WIZARD_SPELLS } from './wizard';
 export const ALL_SPELLS = [
   ...Object.values(BARD_SPELLS),
   ...Object.values(WARLOCK_SPELLS),
+  ...Object.values(CLERIC_SPELLS),
   ...Object.values(WIZARD_SPELLS),
   ...Object.values(SORCERER_SPELLS),
 ];
@@ -41,6 +48,7 @@ export function getCantripsNumber(pc) {
   return {
     bard: getBardCantripsNumber,
     warlock: getWarlockCantripsNumber,
+    cleric: getClericCantripsNumber,
   }[pClass](pc);
 }
 
@@ -50,6 +58,7 @@ export function getTotalSpells(pc) {
   return {
     bard: getBardTotalSpells,
     warlock: getWarlockTotalSpells,
+    cleric: getClericTotalSpells,
   }[pClass](pc);
 }
 
@@ -59,6 +68,7 @@ export function getSpellSlots(pc) {
   return {
     bard: getBardSpellSlots,
     warlock: getWarlockSpellSlots,
+    cleric: getClericSpellSlots,
   }[pClass](pc);
 }
 

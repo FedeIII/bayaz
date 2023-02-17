@@ -9,6 +9,8 @@ import {
   DIVINE_DOMAINS,
   translateDivineDomain,
   getDivineDomain,
+  getClericSpellSlots,
+  CLERIC_SPELLS,
 } from '~/utils/cleric';
 
 import styles from '~/components/characters.module.css';
@@ -55,6 +57,9 @@ function ClericSkills(props) {
   }
 
   const [languagesSelected, setLanguagesSelected] = useState(0);
+  const [selectedSpells0, setSelectedSpells0] = useState([]);
+
+  const spellSlots = getClericSpellSlots(pc);
 
   useEffect(() => {
     const newPickSkills = DIVINE_DOMAINS[divineDomain]?.pickSkills || 0;
@@ -63,9 +68,10 @@ function ClericSkills(props) {
     setSkillsNamespace(
       'clericSkills',
       areClericSkillsSelected &&
-        (divineDomain !== 'knowledge' || languagesSelected === 2)
+        (divineDomain !== 'knowledge' || languagesSelected === 2) &&
+        selectedSpells0.filter(v => v).length === spellSlots[0]
     );
-  }, [divineDomain, checks, languagesSelected]);
+  }, [divineDomain, checks, languagesSelected, selectedSpells0]);
 
   const onSkillChange = (skillName, isChecked, i) => {
     setChecks(oldChecks => {
@@ -149,6 +155,34 @@ function ClericSkills(props) {
           ))}
         </p>
       )}
+
+      <p>
+        Conoces {spellSlots[0]} trucos de clérigo:{' '}
+        {Object.values(CLERIC_SPELLS)
+          .filter(s => s.level === 0)
+          .map((spell, i) => (
+            <label
+              htmlFor={spell.name}
+              key={spell.name}
+              className={styles.skillLabel}
+            >
+              <input
+                type="checkbox"
+                name="spells[]"
+                checked={!!selectedSpells0[i]}
+                value={spell.name}
+                onChange={() =>
+                  setSelectedSpells0(oldChecks => {
+                    const newChecks = oldChecks.slice();
+                    newChecks[i] = !newChecks[i];
+                    return newChecks;
+                  })
+                }
+              />
+              {spell.translation}
+            </label>
+          ))}
+      </p>
     </>
   );
 }

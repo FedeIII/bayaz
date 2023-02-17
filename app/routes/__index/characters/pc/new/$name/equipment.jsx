@@ -128,7 +128,10 @@ function EquipmentCombo(props) {
   if (logic === 'or') {
     if (Array.isArray(combo)) {
       return (
-        <label htmlFor={`${combo.name}-${comboSection}`} className={styles.equipmentItem}>
+        <label
+          htmlFor={`${combo.name}-${comboSection}`}
+          className={styles.equipmentItem}
+        >
           <input
             type="radio"
             name={`choices-${comboSection}`}
@@ -156,7 +159,10 @@ function EquipmentCombo(props) {
       else return null;
     } else if (combo.type) {
       return (
-        <label htmlFor={`${combo.name}-${comboSection}`} className={styles.equipmentItem}>
+        <label
+          htmlFor={`${combo.name}-${comboSection}`}
+          className={styles.equipmentItem}
+        >
           <input
             type="radio"
             name={`choices-${comboSection}`}
@@ -169,7 +175,10 @@ function EquipmentCombo(props) {
     } else if (combo.packName) {
       return (
         <>
-          <label htmlFor={`${combo.name}-${comboSection}`} className={styles.equipmentItem}>
+          <label
+            htmlFor={`${combo.name}-${comboSection}`}
+            className={styles.equipmentItem}
+          >
             <input
               type="radio"
               name="pack"
@@ -249,7 +258,7 @@ function PcEquipment() {
 
       <div className={styles.equipmentContainer}>
         <div className={styles.equipment}>
-          {CLASS_EQUIPMENT[pClass].map((combo, comboSection) => (
+          {(CLASS_EQUIPMENT[pClass] || []).map((combo, comboSection) => (
             <div className={styles.equipmentOptions} key={comboSection}>
               <EquipmentCombo
                 pc={pc}

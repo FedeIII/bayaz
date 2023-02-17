@@ -50,7 +50,7 @@ export const ARMORS = {
       price: [10, 0, 0],
       weight: 6,
       properties: {
-        AC: ({ dex }) => (12 + getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+        AC: ({ dex }) => 12 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
       },
     };
   },
@@ -63,7 +63,7 @@ export const ARMORS = {
       price: [50, 0, 0],
       weight: 10,
       properties: {
-        AC: ({ dex }) => (13 + getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+        AC: ({ dex }) => 13 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
       },
     };
   },
@@ -76,7 +76,7 @@ export const ARMORS = {
       price: [50, 0, 0],
       weight: 22,
       properties: {
-        AC: ({ dex }) => (14 + getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+        AC: ({ dex }) => 14 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
         stealthDisadvantage: true,
       },
     };
@@ -90,7 +90,7 @@ export const ARMORS = {
       price: [400, 0, 0],
       weight: 10,
       properties: {
-        AC: ({ dex }) => (14 + getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+        AC: ({ dex }) => 14 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
       },
     };
   },
@@ -103,7 +103,7 @@ export const ARMORS = {
       price: [750, 0, 0],
       weight: 20,
       properties: {
-        AC: ({ dex }) => (15 + getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+        AC: ({ dex }) => 15 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
         stealthDisadvantage: true,
       },
     };

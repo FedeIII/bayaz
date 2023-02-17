@@ -210,7 +210,6 @@ function getSkillAvailable(skillName, skillsToSelect, isCheckedHere) {
 function PcClassSkills() {
   const { pc } = useLoaderData();
   const { pClass, name } = pc;
-  const { classAttrs: { skills: classSkills } = { skills: [] } } = pc;
 
   const transition = useTransition();
   const isCreating = Boolean(transition.submission);

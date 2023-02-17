@@ -20,7 +20,7 @@ function BardSkills(props) {
   const [selectedSpells1, setSelectedSpells1] = useState([]);
 
   const spellSlots = getBardSpellSlots(pc);
-  const totalSpells = getBardTotalSpells(pc.level);
+  const totalSpells = getBardTotalSpells(pc);
 
   useEffect(() => {
     setSkillsNamespace(
