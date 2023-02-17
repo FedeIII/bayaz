@@ -15,6 +15,7 @@ import BarbarianSkills from '~/components/classSkillsSelection/barbarianSkills';
 import BardSkills from '~/components/classSkillsSelection/bardSkills';
 import WarlockSkills from '~/components/classSkillsSelection/warlockSkills';
 import ClericSkills from '~/components/classSkillsSelection/clericSkills';
+import DruidSkills from '~/components/classSkillsSelection/druidSkills';
 import RangerSkills from '~/components/classSkillsSelection/rangerSkills';
 import FighterSkills from '~/components/classSkillsSelection/fighterSkills';
 import SorcererSkills from '~/components/classSkillsSelection/sorcererSkills';
@@ -101,7 +102,7 @@ export const action = async ({ request }) => {
   let preparedSpells;
   if (['bard', 'warlock'].includes(pc.pClass))
     preparedSpells = [...pcAttrs.spells, ...getExtraPreparedSpells(updatedPc)];
-  if (['cleric'].includes(updatedPc.pClass))
+  if (['cleric', 'druid'].includes(updatedPc.pClass))
     preparedSpells = getExtraPreparedSpells(updatedPc);
 
   await updatePc({
@@ -127,6 +128,8 @@ function ClassSkills(props) {
       return <WarlockSkills {...props} />;
     case 'cleric':
       return <ClericSkills {...props} />;
+    case 'druid':
+      return <DruidSkills {...props} />;
     case 'ranger':
       return <RangerSkills {...props} />;
     case 'fighter':

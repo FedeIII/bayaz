@@ -50,6 +50,7 @@ function BardSkills(props) {
               type="checkbox"
               name="items[]"
               checked={!!selectedInstruments[i]}
+              id={instrument.name}
               value={instrument.name}
               onChange={() =>
                 setSelectedInstruments(oldChecks => {
@@ -78,6 +79,7 @@ function BardSkills(props) {
                 type="checkbox"
                 name="spells[]"
                 checked={!!selectedSpells0[i]}
+                id={spell.name}
                 value={spell.name}
                 onChange={() =>
                   setSelectedSpells0(oldChecks => {
@@ -106,6 +108,7 @@ function BardSkills(props) {
                 type="checkbox"
                 name="spells[]"
                 checked={!!selectedSpells1[i]}
+                id={spell.name}
                 value={spell.name}
                 onChange={() =>
                   setSelectedSpells1(oldChecks => {

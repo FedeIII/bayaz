@@ -12,7 +12,12 @@ import {
   getClericSpellSlots,
   getClericTotalSpells,
 } from '../cleric';
-import { DRUID_SPELLS } from '../druid';
+import {
+  DRUID_SPELLS,
+  getDruidCantripsNumber,
+  getDruidSpellSlots,
+  getDruidTotalSpells,
+} from '../druid';
 import {
   getWarlockCantripsNumber,
   getWarlockSpellSlots,
@@ -52,6 +57,7 @@ export function getCantripsNumber(pc) {
     bard: getBardCantripsNumber,
     warlock: getWarlockCantripsNumber,
     cleric: getClericCantripsNumber,
+    druid: getDruidCantripsNumber,
     undefined: () => 0,
   }[pClass](pc);
 }
@@ -63,6 +69,7 @@ export function getTotalSpells(pc) {
     bard: getBardTotalSpells,
     warlock: getWarlockTotalSpells,
     cleric: getClericTotalSpells,
+    druid: getDruidTotalSpells,
     undefined: () => 0,
   }[pClass](pc);
 }
@@ -74,6 +81,7 @@ export function getSpellSlots(pc) {
     bard: getBardSpellSlots,
     warlock: getWarlockSpellSlots,
     cleric: getClericSpellSlots,
+    druid: getDruidSpellSlots,
     undefined: () => [],
   }[pClass](pc);
 }

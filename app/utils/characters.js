@@ -395,6 +395,7 @@ export const CLASSES = {
       ...getAllSimpleMelee().map(weapon => weapon.name),
       ...getAllSimpleRanged().map(weapon => weapon.name),
     ],
+    spellcastingAbility: 'wis',
   },
   druid: {
     initialHitPoints: 8,
@@ -426,6 +427,7 @@ export const CLASSES = {
       'mace',
       'herbalismKit',
     ],
+    spellcastingAbility: 'wis',
   },
   fighter: {
     initialHitPoints: 10,
