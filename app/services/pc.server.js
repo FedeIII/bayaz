@@ -70,7 +70,11 @@ const freeTextSchema = new mongoose.Schema({
 });
 
 const spellSchema = new mongoose.Schema({
-  name: { type: String, enum: ALL_SPELLS.map(spell => spell.name) },
+  name: {
+    type: String,
+    enum: ALL_SPELLS.map(spell => spell.name),
+    required: true,
+  },
   type: { type: String, enum: Object.keys(CLASSES) },
 });
 

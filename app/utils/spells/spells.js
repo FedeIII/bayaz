@@ -8,9 +8,11 @@ import {
 import {
   CLERIC_SPELLS,
   getClericCantripsNumber,
+  getClericExtraPreparedSpells,
   getClericSpellSlots,
   getClericTotalSpells,
 } from '../cleric';
+import { DRUID_SPELLS } from '../druid';
 import {
   getWarlockCantripsNumber,
   getWarlockSpellSlots,
@@ -30,6 +32,7 @@ export const ALL_SPELLS = [
   ...Object.values(BARD_SPELLS),
   ...Object.values(WARLOCK_SPELLS),
   ...Object.values(CLERIC_SPELLS),
+  ...Object.values(DRUID_SPELLS),
   ...Object.values(WIZARD_SPELLS),
   ...Object.values(SORCERER_SPELLS),
 ];
@@ -49,6 +52,7 @@ export function getCantripsNumber(pc) {
     bard: getBardCantripsNumber,
     warlock: getWarlockCantripsNumber,
     cleric: getClericCantripsNumber,
+    undefined: () => 0,
   }[pClass](pc);
 }
 
@@ -59,6 +63,7 @@ export function getTotalSpells(pc) {
     bard: getBardTotalSpells,
     warlock: getWarlockTotalSpells,
     cleric: getClericTotalSpells,
+    undefined: () => 0,
   }[pClass](pc);
 }
 
@@ -69,6 +74,16 @@ export function getSpellSlots(pc) {
     bard: getBardSpellSlots,
     warlock: getWarlockSpellSlots,
     cleric: getClericSpellSlots,
+    undefined: () => [],
+  }[pClass](pc);
+}
+
+export function getExtraPreparedSpells(pc) {
+  const { pClass } = pc;
+
+  return {
+    cleric: getClericExtraPreparedSpells,
+    undefined: () => [],
   }[pClass](pc);
 }
 

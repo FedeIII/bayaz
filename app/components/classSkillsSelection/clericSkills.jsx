@@ -12,6 +12,7 @@ import {
   getClericSpellSlots,
   CLERIC_SPELLS,
 } from '~/utils/cleric';
+import { DRUID_SPELLS } from '~/utils/druid';
 
 import styles from '~/components/characters.module.css';
 
@@ -31,7 +32,9 @@ function ClericSkills(props) {
   const { languages } = pc;
   const initDivineDomain = getDivineDomain(pc);
 
-  const [divineDomain, setDivineDomain] = useState(initDivineDomain);
+  const [divineDomain, setDivineDomain] = useState(
+    initDivineDomain || 'knowledge'
+  );
   const { pickSkills = 0, skillsToPick = [] } =
     DIVINE_DOMAINS[divineDomain] || {};
 
@@ -51,6 +54,18 @@ function ClericSkills(props) {
       {}
     );
 
+    if (newDivineDomain === 'light') {
+      const lightSpellIndex = Object.values(CLERIC_SPELLS)
+        .filter(s => s.level === 0)
+        .find(s => s.name === 'ligh');
+
+      setSelectedSpells0(oldChecks => {
+        const newChecks = oldChecks.slice();
+        newChecks[lightSpellIndex] = !newChecks[lightSpellIndex];
+        return newChecks;
+      });
+    }
+
     setChecks(divineDomainSkills.map(() => false));
     setSkills(newSkillsToPick);
     setDivineDomain(newDivineDomain);
@@ -58,6 +73,7 @@ function ClericSkills(props) {
 
   const [languagesSelected, setLanguagesSelected] = useState(0);
   const [selectedSpells0, setSelectedSpells0] = useState([]);
+  const [isDruidSpellSelected, setIsDruidSpellSelected] = useState(false);
 
   const spellSlots = getClericSpellSlots(pc);
 
@@ -69,9 +85,16 @@ function ClericSkills(props) {
       'clericSkills',
       areClericSkillsSelected &&
         (divineDomain !== 'knowledge' || languagesSelected === 2) &&
+        (divineDomain !== 'nature' || isDruidSpellSelected) &&
         selectedSpells0.filter(v => v).length === spellSlots[0]
     );
-  }, [divineDomain, checks, languagesSelected, selectedSpells0]);
+  }, [
+    divineDomain,
+    checks,
+    languagesSelected,
+    selectedSpells0,
+    isDruidSpellSelected,
+  ]);
 
   const onSkillChange = (skillName, isChecked, i) => {
     setChecks(oldChecks => {
@@ -90,10 +113,11 @@ function ClericSkills(props) {
   return (
     <>
       <p>
-        <label>
+        <label htmlFor="divine-domain">
           Dominio Divino:{' '}
           <select
             name="divine-domain"
+            id="divine-domain"
             value={divineDomain}
             onChange={onDivineDomainChange}
           >
@@ -119,6 +143,7 @@ function ClericSkills(props) {
               <input
                 type="checkbox"
                 name="cleric-skills[]"
+                id={skillName}
                 value={skillName}
                 checked={getSkillChecked(skillName, skillsToSelect)}
                 onChange={e => onSkillChange(skillName, e.target.checked, i)}
@@ -145,6 +170,7 @@ function ClericSkills(props) {
                 type="checkbox"
                 name="languages[]"
                 value={language}
+                id={language}
                 onChange={e => {
                   if (e.target.checked) setLanguagesSelected(v => v + 1);
                   else setLanguagesSelected(v => v - 1);
@@ -169,8 +195,12 @@ function ClericSkills(props) {
               <input
                 type="checkbox"
                 name="spells[]"
-                checked={!!selectedSpells0[i]}
+                checked={
+                  !!selectedSpells0[i] ||
+                  (divineDomain === 'light' && spell.name === 'light')
+                }
                 value={spell.name}
+                id={spell.name}
                 onChange={() =>
                   setSelectedSpells0(oldChecks => {
                     const newChecks = oldChecks.slice();
@@ -178,11 +208,53 @@ function ClericSkills(props) {
                     return newChecks;
                   })
                 }
+                disabled={divineDomain === 'light' && spell.name === 'light'}
               />
-              {spell.translation}
+              {spell.translation}{' '}
+              {divineDomain === 'light' &&
+                spell.name === 'light' &&
+                ' (Ya lo conoces por el Dominio de la Luz)'}
             </label>
           ))}
       </p>
+
+      {Object.values(CLERIC_SPELLS)
+        .filter(
+          s => s.level === 1 && (!s.subtype || s.subtype === divineDomain)
+        )
+        .map(spell => (
+          <input
+            readOnly
+            type="text"
+            name="spells[]"
+            value={spell.name}
+            hidden
+          />
+        ))}
+
+      {divineDomain === 'nature' && (
+        <p>
+          Conoces 1 truco de druida:{' '}
+          {Object.values(DRUID_SPELLS)
+            .filter(s => s.level === 0)
+            .map(spell => (
+              <label
+                htmlFor={spell.name}
+                key={spell.name}
+                className={styles.skillLabel}
+              >
+                <input
+                  type="radio"
+                  name="spells[]"
+                  id={spell.name}
+                  value={`${spell.name},druid`}
+                  onChange={() => setIsDruidSpellSelected(true)}
+                />
+                {spell.translation}
+              </label>
+            ))}
+        </p>
+      )}
     </>
   );
 }

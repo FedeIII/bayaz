@@ -311,6 +311,42 @@ export function displayTrait(traitName, trait, pc) {
         </Fragment>
       );
 
+    case 'warCleric':
+      return (
+        <Fragment>
+          <u>{trait}.</u> {getStatMod(getStat(pc, 'wis'))} veces al día.
+        </Fragment>
+      );
+
+    case 'wardingFlare':
+      return (
+        <Fragment>
+          <u>{trait}.</u> {getStatMod(getStat(pc, 'wis'))} veces al día.
+        </Fragment>
+      );
+
+    case 'wrathOfTheStorm':
+      return (
+        <Fragment>
+          <u>{trait}.</u> {getStatMod(getStat(pc, 'wis'))} veces al día.
+        </Fragment>
+      );
+
+    case 'blessingOfTheTrickster':
+      return (
+        <Fragment>
+          <u>{trait}.</u> Dura 1 hora.
+        </Fragment>
+      );
+
+    case 'discipleOfLife':
+      return (
+        <Fragment>
+          <u>{trait}.</u> Conjuros de sanación curan un extra de (2 + nivel del
+          conjuro).
+        </Fragment>
+      );
+
     default:
       return trait;
   }

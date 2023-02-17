@@ -1034,13 +1034,21 @@ export function translateSavingThrowStatus(status) {
 }
 
 export function getTraits(pc) {
-  const { race, subrace, pClass, classAttrs: { patron } = {} } = pc;
+  const {
+    race,
+    subrace,
+    pClass,
+    classAttrs: { patron, divineDomain } = {},
+  } = pc;
 
   return (
     {
       ...RACES[race][subrace].traits,
       ...CLASSES[pClass].traits,
       ...(pClass === 'warlock' ? PATRONS[patron]?.traits || {} : {}),
+      ...(pClass === 'cleric'
+        ? DIVINE_DOMAINS[divineDomain]?.traits || {}
+        : {}),
     } || {}
   );
 }

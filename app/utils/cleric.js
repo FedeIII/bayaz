@@ -11,7 +11,6 @@ import {
 } from './equipment/weapons';
 
 export const DIVINE_DOMAINS = {
-  death: {},
   knowledge: {
     pickSkills: 2,
     skillsToPick: ['arcana', 'history', 'nature', 'religion'],
@@ -19,8 +18,15 @@ export const DIVINE_DOMAINS = {
   },
   life: {
     proficientItems: [...getAllHeavyArmors().map(item => item.name)],
+    traits: {
+      discipleOfLife: 'Discípulo de la Vida',
+    },
   },
-  light: {},
+  light: {
+    traits: {
+      wardingFlare: 'Fulgor Protector',
+    },
+  },
   nature: {
     pickSkills: 1,
     skillsToPick: ['animal-handling', 'nature', 'survival'],
@@ -32,14 +38,24 @@ export const DIVINE_DOMAINS = {
       ...getAllMartialRanged().map(item => item.name),
       ...getAllHeavyArmors().map(item => item.name),
     ],
+    traits: {
+      wrathOfTheStorm: 'Ira de la Tormenta',
+    },
   },
-  trickery: {},
+  trickery: {
+    traits: {
+      blessingOfTheTrickster: 'Bendición del Tramposo',
+    },
+  },
   war: {
     proficientItems: [
       ...getAllMartialMelee().map(item => item.name),
       ...getAllMartialRanged().map(item => item.name),
       ...getAllHeavyArmors().map(item => item.name),
     ],
+    traits: {
+      warCleric: 'Inspiración de Clérico de Guerra',
+    },
   },
 };
 
@@ -70,36 +86,38 @@ export function getDivineDomain(pc) {
   return pc.classAttrs?.divineDomain;
 }
 
-export const CLERIC_EQUIPMENT = [
-  {
-    or: [
-      WEAPONS.mace(),
-      {
-        item: WEAPONS.warhammer(),
-        if: pc => getItemProficiencies(pc).includes('warhammer'),
-      },
-    ],
-  },
-  {
-    or: [
-      ARMORS.scaleMail(),
-      ARMORS.leather(),
-      {
-        item: ARMORS.chainMail(),
-        if: pc => getItemProficiencies(pc).includes('chainMail'),
-      },
-    ],
-  },
-  {
-    or: [
-      { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
-      { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
-    ],
-  },
-  { or: [PRIESTS_PACK, EXPLORERS_PACK] },
-  ARMORS.shield(),
-  TOOLS.holySymbol(),
-];
+export function CLERIC_EQUIPMENT() {
+  return [
+    {
+      or: [
+        WEAPONS.mace(),
+        {
+          item: WEAPONS.warhammer(),
+          if: pc => getItemProficiencies(pc).includes('warhammer'),
+        },
+      ],
+    },
+    {
+      or: [
+        ARMORS.scaleMail(),
+        ARMORS.leather(),
+        {
+          item: ARMORS.chainMail(),
+          if: pc => getItemProficiencies(pc).includes('chainMail'),
+        },
+      ],
+    },
+    {
+      or: [
+        { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
+        { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
+      ],
+    },
+    { or: [PRIESTS_PACK, EXPLORERS_PACK] },
+    ARMORS.shield(),
+    TOOLS.holySymbol(),
+  ];
+}
 
 export const CLERIC_SPELLS = {
   // LEVEL 0 //
@@ -237,6 +255,104 @@ export const CLERIC_SPELLS = {
     type: 'cleric',
     level: 1,
   },
+  command: {
+    name: 'command',
+    translation: 'Orden imperiosa (Conocimiento)',
+    type: 'cleric',
+    subtype: 'knowledge',
+    level: 1,
+  },
+  identify: {
+    name: 'identify',
+    translation: 'Identificar (Conocimiento)',
+    type: 'cleric',
+    subtype: 'knowledge',
+    level: 1,
+  },
+  divineFavor: {
+    name: 'divineFavor',
+    translation: 'Favor divino (Guerra)',
+    type: 'cleric',
+    subtype: 'war',
+    level: 1,
+  },
+  shieldOfFaith: {
+    name: 'shieldOfFaith',
+    translation: 'Escudo de la fe (Guerra)',
+    type: 'cleric',
+    subtype: 'war',
+    level: 1,
+  },
+  burningHands: {
+    name: 'burningHands',
+    translation: 'Manos ardientes (Luz)',
+    type: 'cleric',
+    subtype: 'light',
+    level: 1,
+  },
+  faerieFire: {
+    name: 'faerieFire',
+    translation: 'Fuego feérico (Luz)',
+    type: 'cleric',
+    subtype: 'light',
+    level: 1,
+  },
+  animalFriendship: {
+    name: 'animalFriendship',
+    translation: 'Amistad con los animales (Naturaleza)',
+    type: 'cleric',
+    subtype: 'nature',
+    level: 1,
+  },
+  speakWithAnimals: {
+    name: 'speakWithAnimals',
+    translation: 'Hablar con los animales (Naturaleza)',
+    type: 'cleric',
+    subtype: 'nature',
+    level: 1,
+  },
+  fogCloud: {
+    name: 'fogCloud',
+    translation: 'Nube brumosa (Tempestad)',
+    type: 'cleric',
+    subtype: 'tempest',
+    level: 1,
+  },
+  thunderwave: {
+    name: 'thunderwave',
+    translation: 'Onda atronadora (tempestad)',
+    type: 'cleric',
+    subtype: 'tempest',
+    level: 1,
+  },
+  charmPerson: {
+    name: 'charmPerson',
+    translation: 'Hechizar persona (Superchería)',
+    type: 'cleric',
+    subtype: 'trickery',
+    level: 1,
+  },
+  disguiseSelf: {
+    name: 'disguiseSelf',
+    translation: 'Disfrazarse (Superchería)',
+    type: 'cleric',
+    subtype: 'trickery',
+    level: 1,
+  },
+  bless: {
+    name: 'bless',
+    translation: 'Bendecir (Vida)',
+    type: 'cleric',
+    subtype: 'life',
+    level: 1,
+  },
+  cureWounds: {
+    name: 'cureWounds',
+    translation: 'Curar heridas (Vida)',
+    type: 'cleric',
+    subtype: 'life',
+    level: 1,
+  },
 };
 
 function clericSpellSlots(pc) {
@@ -284,4 +400,12 @@ export function getClericTotalSpells(pc) {
 
   const totalSpells = getStatMod(getStat(pc, 'wis')) + level;
   return totalSpells > 1 ? totalSpells : 1;
+}
+
+export function getClericExtraPreparedSpells(pc) {
+  const divineDomain = getDivineDomain(pc);
+
+  return Object.values(CLERIC_SPELLS).filter(
+    spell => spell.subtype === divineDomain
+  );
 }
