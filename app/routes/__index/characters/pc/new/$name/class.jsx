@@ -100,7 +100,7 @@ export const action = async ({ request }) => {
   const updatedPc = await updatePc(pcAttrs);
 
   let preparedSpells;
-  if (['bard', 'warlock'].includes(pc.pClass))
+  if (['bard', 'warlock', 'sorcerer'].includes(pc.pClass))
     preparedSpells = [...pcAttrs.spells, ...getExtraPreparedSpells(updatedPc)];
   if (['cleric', 'druid'].includes(updatedPc.pClass))
     preparedSpells = getExtraPreparedSpells(updatedPc);

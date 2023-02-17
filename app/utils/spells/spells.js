@@ -10,27 +10,32 @@ import {
   getClericCantripsNumber,
   getClericExtraPreparedSpells,
   getClericSpellSlots,
-  getClericTotalSpells
-} from "./cleric";
+  getClericTotalSpells,
+} from './cleric';
 import {
   DRUID_SPELLS,
   getDruidCantripsNumber,
   getDruidSpellSlots,
-  getDruidTotalSpells
-} from "./druid";
+  getDruidTotalSpells,
+} from './druid';
 import {
   getWarlockCantripsNumber,
   getWarlockSpellSlots,
   getWarlockTotalSpells,
-  WARLOCK_SPELLS
-} from "./warlock";
+  WARLOCK_SPELLS,
+} from './warlock';
 import {
   BARD_SPELLS,
   getBardCantripsNumber,
   getBardSpellSlots,
   getBardTotalSpells,
 } from './bard';
-import { SORCERER_SPELLS } from './sorcerer';
+import {
+  getSorcererCantripsNumber,
+  getSorcererSpellSlots,
+  getSorcererTotalSpells,
+  SORCERER_SPELLS,
+} from './sorcerer';
 import { WIZARD_SPELLS } from './wizard';
 
 export const ALL_SPELLS = [
@@ -38,8 +43,8 @@ export const ALL_SPELLS = [
   ...Object.values(WARLOCK_SPELLS),
   ...Object.values(CLERIC_SPELLS),
   ...Object.values(DRUID_SPELLS),
-  ...Object.values(WIZARD_SPELLS),
   ...Object.values(SORCERER_SPELLS),
+  ...Object.values(WIZARD_SPELLS),
 ];
 
 export function getSpell(spellName, spellType) {
@@ -53,46 +58,57 @@ export function getSpell(spellName, spellType) {
 export function getCantripsNumber(pc) {
   const { pClass } = pc;
 
-  return {
+  const getClassCantripsNumber = {
     bard: getBardCantripsNumber,
     warlock: getWarlockCantripsNumber,
     cleric: getClericCantripsNumber,
     druid: getDruidCantripsNumber,
-    undefined: () => 0,
-  }[pClass](pc);
+    sorcerer: getSorcererCantripsNumber,
+  }[pClass];
+
+  if (getClassCantripsNumber) return getClassCantripsNumber(pc);
+  else return 0;
 }
 
 export function getTotalSpells(pc) {
   const { pClass } = pc;
 
-  return {
+  const getClassTotalSpells = {
     bard: getBardTotalSpells,
     warlock: getWarlockTotalSpells,
     cleric: getClericTotalSpells,
     druid: getDruidTotalSpells,
-    undefined: () => 0,
-  }[pClass](pc);
+    sorcerer: getSorcererTotalSpells,
+  }[pClass];
+
+  if (getClassTotalSpells) return getClassTotalSpells(pc);
+  else return 0;
 }
 
 export function getSpellSlots(pc) {
   const { pClass } = pc;
 
-  return {
+  const getClassSpellSlots = {
     bard: getBardSpellSlots,
     warlock: getWarlockSpellSlots,
     cleric: getClericSpellSlots,
     druid: getDruidSpellSlots,
-    undefined: () => [],
-  }[pClass](pc);
+    sorcerer: getSorcererSpellSlots,
+  }[pClass];
+
+  if (getClassSpellSlots) return getClassSpellSlots(pc);
+  else return [];
 }
 
 export function getExtraPreparedSpells(pc) {
   const { pClass } = pc;
 
-  return {
+  const getClassExtraPreparedSpells = {
     cleric: getClericExtraPreparedSpells,
-    undefined: () => [],
-  }[pClass](pc);
+  }[pClass];
+
+  if (getClassExtraPreparedSpells) return getClassExtraPreparedSpells(pc);
+  else return [];
 }
 
 export function getSpellcastingAbility(pc, spellType) {
