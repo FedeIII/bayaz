@@ -36,7 +36,13 @@ import {
   getSorcererTotalSpells,
   SORCERER_SPELLS,
 } from './sorcerer';
-import { WIZARD_SPELLS } from './wizard';
+import {
+  getWizardCantripsNumber,
+  getWizardMaxPreparedSpells,
+  getWizardSpellSlots,
+  getWizardTotalSpells,
+  WIZARD_SPELLS,
+} from './wizard';
 
 export const ALL_SPELLS = [
   ...Object.values(BARD_SPELLS),
@@ -64,6 +70,7 @@ export function getCantripsNumber(pc) {
     cleric: getClericCantripsNumber,
     druid: getDruidCantripsNumber,
     sorcerer: getSorcererCantripsNumber,
+    wizard: getWizardCantripsNumber,
   }[pClass];
 
   if (getClassCantripsNumber) return getClassCantripsNumber(pc);
@@ -79,6 +86,7 @@ export function getTotalSpells(pc) {
     cleric: getClericTotalSpells,
     druid: getDruidTotalSpells,
     sorcerer: getSorcererTotalSpells,
+    wizard: getWizardTotalSpells,
   }[pClass];
 
   if (getClassTotalSpells) return getClassTotalSpells(pc);
@@ -94,10 +102,22 @@ export function getSpellSlots(pc) {
     cleric: getClericSpellSlots,
     druid: getDruidSpellSlots,
     sorcerer: getSorcererSpellSlots,
+    wizard: getWizardSpellSlots,
   }[pClass];
 
   if (getClassSpellSlots) return getClassSpellSlots(pc);
   else return [];
+}
+
+export function getMaxPreparedSpells(pc) {
+  const { pClass } = pc;
+
+  const getClassMaxPreparedSpells = {
+    wizard: getWizardMaxPreparedSpells,
+  }[pClass];
+
+  if (getClassMaxPreparedSpells) return getClassMaxPreparedSpells(pc);
+  else return null;
 }
 
 export function getExtraPreparedSpells(pc) {

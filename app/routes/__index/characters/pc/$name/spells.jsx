@@ -1,13 +1,18 @@
 import { json } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
-import { Fragment, useState } from 'react';
-
-import { getPc, updatePc } from '~/services/pc.server';
 import {
-  translateClass,
-  getConditionalSkills,
-  getSkills,
-} from '~/utils/characters';
+  Form,
+  useLoaderData,
+  useSubmit,
+  useTransition,
+} from '@remix-run/react';
+import { Fragment } from 'react';
+
+import {
+  addPreparedSpell,
+  deletePreparedSpell,
+  getPc,
+} from '~/services/pc.server';
+import { translateClass } from '~/utils/characters';
 import { increment } from '~/utils/display';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
@@ -20,6 +25,7 @@ import {
   getSpellSlots,
   isPreparedSpell,
 } from '~/utils/spells/spells';
+import { getWizardMaxPreparedSpells } from '~/utils/spells/wizard';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -29,21 +35,33 @@ export const loader = async ({ params }) => {
   return json({ pc });
 };
 
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+
+  const name = formData.get('name');
+  const pClass = formData.get('pClass');
+  const preparedSpell = formData.get('preparedSpell');
+  const [preparedSpellName, isPrepared] = preparedSpell.split(',');
+
+  if (isPrepared === 'true') {
+    await addPreparedSpell(name, { name: preparedSpellName, type: pClass });
+  } else {
+    await deletePreparedSpell(name, preparedSpellName);
+  }
+
+  return null;
+};
+
 function PcSummary() {
   const { pc } = useLoaderData();
-  const { pClass, name } = pc;
+  const { pClass, name, preparedSpells } = pc;
 
   const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
 
-  const allSkills = getSkills(pc);
-  const conditionalSkills = getConditionalSkills(pc);
+  const submit = useSubmit();
 
-  const [isSubmitShown, setIsSubmitShown] = useState(false);
-
-  function onFreeTextChange() {
-    setIsSubmitShown(true);
-  }
+  const spellsByLevel = divideSpells(pc);
+  const spellSlots = getSpellSlots(pc);
 
   function onFormSubmit(e) {
     setIsSubmitShown(false);
@@ -58,15 +76,25 @@ function PcSummary() {
     },
   ]);
 
-  const spellsByLevel = divideSpells(pc);
-  const spellSlots = getSpellSlots(pc);
+  function onPrepareSpellClick(spellName) {
+    return e => {
+      if (['wizard'].includes(pClass)) {
+        submit(
+          {
+            name,
+            pClass,
+            preparedSpell: [spellName, e.target.checked],
+          },
+          { method: 'post' }
+        );
+      }
+    };
+  }
 
   return (
     <>
       <img src="/images/spells.jpg" className={styles.sheetBackground} />
       <Form method="post" className={styles.spells} onSubmit={onFormSubmit}>
-        <input readOnly type="text" name="name" value={name} hidden />
-
         <span className={`${styles.data} ${styles.name}`}>
           {name}
           {' ('}
@@ -93,19 +121,49 @@ function PcSummary() {
               </span>
             )}
             {level > 0 && (
-              <span
+              <div
                 className={`${styles.data} ${styles[`spentSpaces-${level}`]}`}
               >
                 0
-              </span>
+                {pClass === 'wizard' && (
+                  <>
+                    {' '}
+                    /
+                    <span className={styles.preparedSpells}>
+                      {preparedSpells.length}/{getWizardMaxPreparedSpells(pc)}{' '}
+                      preparados
+                    </span>
+                  </>
+                )}
+              </div>
             )}
             <ul className={`${styles.data} ${styles[`spells-${level}`]}`}>
-              {spells.map(spell => (
+              {spells.map((spell, i) => (
                 <Fragment key={spell.name}>
                   <li className={`${styles.data} ${styles.spell}`}>
-                    <span className={`${styles.data} ${styles.preparedSpell}`}>
-                      {!!(level > 0 && isPreparedSpell(pc, spell.name)) && '◍'}
-                    </span>
+                    {!!(level > 0) && (
+                      <>
+                        <input
+                          type="checkbox"
+                          name="preparedSpells[]"
+                          id={spell.name}
+                          value={spell.name}
+                          className={`${styles.data} ${styles.preparedSpell}`}
+                          onChange={onPrepareSpellClick(spell.name)}
+                          checked={isPreparedSpell(pc, spell.name)}
+                        />
+                        <label
+                          htmlFor={spell.name}
+                          className={styles.preparedSpellNotChecked}
+                        />
+                        <label
+                          htmlFor={spell.name}
+                          className={styles.preparedSpellChecked}
+                        >
+                          ◍
+                        </label>
+                      </>
+                    )}
                     {spell.translation}
                   </li>
                 </Fragment>

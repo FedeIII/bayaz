@@ -360,6 +360,14 @@ export function displayTrait(traitName, trait, pc) {
         </Fragment>
       );
 
+    case 'arcaneRecovery':
+      return (
+        <Fragment>
+          <u>{trait}.</u> Recupera la mitad de tus espacios de conjuro tras un
+          descarto corto una vez al día
+        </Fragment>
+      );
+
     default:
       return trait;
   }

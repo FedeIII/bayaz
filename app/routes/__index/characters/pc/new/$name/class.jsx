@@ -19,6 +19,7 @@ import DruidSkills from '~/components/classSkillsSelection/druidSkills';
 import RangerSkills from '~/components/classSkillsSelection/rangerSkills';
 import FighterSkills from '~/components/classSkillsSelection/fighterSkills';
 import SorcererSkills from '~/components/classSkillsSelection/sorcererSkills';
+import WizardSkills from '~/components/classSkillsSelection/wizardSkills';
 import RogueSkills from '~/components/classSkillsSelection/rogueSkills';
 import MonkSkills from '~/components/classSkillsSelection/monkSkills';
 import { pcItem } from '~/utils/equipment/equipment';
@@ -100,9 +101,11 @@ export const action = async ({ request }) => {
   const updatedPc = await updatePc(pcAttrs);
 
   let preparedSpells;
+  // No need to prepare spells
   if (['bard', 'warlock', 'sorcerer'].includes(pc.pClass))
     preparedSpells = [...pcAttrs.spells, ...getExtraPreparedSpells(updatedPc)];
-  if (['cleric', 'druid'].includes(updatedPc.pClass))
+  // Need to prepare spells
+  if (['cleric', 'druid', 'wizard'].includes(updatedPc.pClass))
     preparedSpells = getExtraPreparedSpells(updatedPc);
 
   await updatePc({
@@ -136,6 +139,8 @@ function ClassSkills(props) {
       return <FighterSkills {...props} />;
     case 'sorcerer':
       return <SorcererSkills {...props} />;
+    case 'wizard':
+      return <WizardSkills {...props} />;
     case 'rogue':
       return <RogueSkills {...props} />;
     case 'monk':

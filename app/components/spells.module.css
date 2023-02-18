@@ -258,12 +258,61 @@
   padding: 0 0 0 1px;
 }
 
-.preparedSpell {
-  min-width: 11px;
-  margin: 0 8px 0 0;
-}
-
 .spell {
   margin: 0 0 11.2px 0;
   font-size: 16px;
+}
+
+.preparedSpells {
+  font-size: 16px;
+  margin: 0 0 0 8px;
+}
+
+.preparedSpell {
+  display: none;
+  /* min-width: 11px;
+  margin: 0 8px 0 0; */
+}
+
+.preparedSpellNotChecked {
+  height: 12px;
+  width: 12px;
+  display: inline-block;
+  padding: 0 0 0 0px;
+  margin: 0px 8px 2px 0px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.preparedSpellNotChecked:hover {
+  background-color: #9999c2;
+}
+
+.preparedSpellChecked {
+  height: 12px;
+  width: 12px;
+  display: inline-block;
+  padding: 0 0 0 0px;
+  margin: 0px 8px 2px 0px;
+  cursor: pointer;
+}
+
+.preparedSpellChecked:hover {
+  color: #9999c2;
+}
+
+.preparedSpell ~ .preparedSpellChecked {
+  display: none;
+}
+
+.preparedSpell ~ .preparedSpellNotChecked {
+  display: inline;
+}
+
+.preparedSpell:checked ~ .preparedSpellChecked {
+  display: inline;
+}
+
+.preparedSpell:checked ~ .preparedSpellNotChecked {
+  display: none;
 }

@@ -629,6 +629,10 @@ export const CLASSES = {
       'dart',
       'sling',
     ],
+    spellcastingAbility: 'int',
+    traits: {
+      arcaneRecovery: 'Recuperación Arcana'
+    },
   },
 };
 
@@ -987,7 +991,7 @@ export function getArmorClass(pc) {
   }
 
   if (armor) return getItem(armor.name).properties.AC(getStats(pc));
-  else return 10 * getStatMod(getStat(pc, 'dex'));
+  else return 10 + getStatMod(getStat(pc, 'dex'));
 }
 
 export function getExtraArmorClass(pc) {

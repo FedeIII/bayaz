@@ -17,7 +17,7 @@ import {
 } from '~/utils/ranger';
 import { DIVINE_DOMAINS } from '~/utils/cleric';
 import { unifyEquipment } from '~/utils/equipment/equipment';
-import { ALL_SPELLS } from '~/utils/spells/spells';
+import { ALL_SPELLS, getMaxPreparedSpells } from '~/utils/spells/spells';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -172,6 +172,36 @@ export async function updatePc(pc) {
   const updatedPc = await Pc.findOneAndUpdate(
     { name: pc.name },
     { $set: pc },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function addPreparedSpell(name, spell) {
+  const pc = await getPc(name);
+  const maxPreparedSpells = getMaxPreparedSpells(pc);
+
+  if (pc.preparedSpells.length < maxPreparedSpells) {
+    const updatedPc = await Pc.updateOne(
+      { name },
+      {
+        $push: {
+          preparedSpells: spell,
+        },
+      }
+    ).exec();
+
+    return updatedPc;
+  }
+
+  return pc;
+}
+
+export async function deletePreparedSpell(name, spellName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name },
+    { $pull: { preparedSpells: { name: spellName } } },
     { new: true }
   ).exec();
 
