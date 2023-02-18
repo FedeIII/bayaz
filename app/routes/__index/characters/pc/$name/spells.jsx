@@ -1,10 +1,5 @@
 import { json } from '@remix-run/node';
-import {
-  Form,
-  useLoaderData,
-  useSubmit,
-  useTransition,
-} from '@remix-run/react';
+import { Form, useLoaderData, useSubmit } from '@remix-run/react';
 import { Fragment } from 'react';
 
 import {
@@ -63,8 +58,6 @@ export const action = async ({ request }) => {
 function PcSummary() {
   const { pc } = useLoaderData();
   const { pClass, name, preparedSpells } = pc;
-
-  const transition = useTransition();
 
   const submit = useSubmit();
 
@@ -175,6 +168,7 @@ function PcSummary() {
                         >
                           ◍
                         </label>
+                        <span className={styles.hideNextBullet} />
                       </>
                     )}
                     {spell.translation}

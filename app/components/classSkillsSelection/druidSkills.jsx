@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { DRUID_SPELLS, getDruidSpellSlots } from "~/utils/spells/druid";
+import { DRUID_SPELLS, getDruidSpellSlots } from '~/utils/spells/druid';
 
 import styles from '~/components/characters.module.css';
 
@@ -34,6 +34,7 @@ function DruidSkills(props) {
                 type="checkbox"
                 name="spells[]"
                 checked={!!selectedSpells0[i]}
+                id={spell.name}
                 value={spell.name}
                 onChange={() =>
                   setSelectedSpells0(oldChecks => {
@@ -47,6 +48,18 @@ function DruidSkills(props) {
             </label>
           ))}
       </p>
+
+      {Object.values(DRUID_SPELLS)
+        .filter(s => s.level === 1)
+        .map(spell => (
+          <input
+            readOnly
+            type="text"
+            name="spells[]"
+            value={spell.name}
+            hidden
+          />
+        ))}
     </>
   );
 }

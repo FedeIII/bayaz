@@ -15,8 +15,8 @@ import {
 import {
   DRUID_SPELLS,
   getDruidCantripsNumber,
+  getDruidMaxPreparedSpells,
   getDruidSpellSlots,
-  getDruidTotalSpells,
 } from './druid';
 import {
   getWarlockCantripsNumber,
@@ -83,7 +83,6 @@ export function getTotalSpells(pc) {
   const getClassTotalSpells = {
     bard: getBardTotalSpells,
     warlock: getWarlockTotalSpells,
-    druid: getDruidTotalSpells,
     sorcerer: getSorcererTotalSpells,
     wizard: getWizardTotalSpells,
   }[pClass];
@@ -113,6 +112,7 @@ export function getMaxPreparedSpells(pc) {
 
   const getClassMaxPreparedSpells = {
     cleric: getClericMaxPreparedSpells,
+    druid: getDruidMaxPreparedSpells,
     wizard: getWizardMaxPreparedSpells,
   }[pClass];
 

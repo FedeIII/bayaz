@@ -1,4 +1,4 @@
-import { getStat, getStatMod } from "../characters";
+import { getStat, getStatMod } from '../characters';
 
 export const DRUID_SPELLS = {
   // LEVEL 0 //
@@ -190,7 +190,7 @@ export function getDruidSpellSlots(pc) {
   return [getDruidCantripsNumber(pc), ...druidSpellSlots(pc)];
 }
 
-export function getDruidTotalSpells(pc) {
+export function getDruidMaxPreparedSpells(pc) {
   const { level } = pc;
 
   const totalSpells = getStatMod(getStat(pc, 'wis')) + level;
