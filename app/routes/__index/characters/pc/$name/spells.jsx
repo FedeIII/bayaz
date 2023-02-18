@@ -19,13 +19,14 @@ import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import styles from '~/components/spells.module.css';
 import {
   divideSpells,
+  getMaxPreparedSpells,
   getSpellAttackBonus,
   getSpellcastingAbility,
   getSpellSavingThrow,
   getSpellSlots,
+  hasToPrepareSpells,
   isPreparedSpell,
 } from '~/utils/spells/spells';
-import { getWizardMaxPreparedSpells } from '~/utils/spells/wizard';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -41,12 +42,19 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const pClass = formData.get('pClass');
   const preparedSpell = formData.get('preparedSpell');
-  const [preparedSpellName, isPrepared] = preparedSpell.split(',');
+  const [preparedSpellName, spellType, spellSubtype, isPrepared] =
+    preparedSpell.split(',');
+
+  const spell = {
+    name: preparedSpellName,
+    type: spellType || pClass,
+    subtype: spellSubtype || undefined,
+  };
 
   if (isPrepared === 'true') {
-    await addPreparedSpell(name, { name: preparedSpellName, type: pClass });
+    await addPreparedSpell(name, spell);
   } else {
-    await deletePreparedSpell(name, preparedSpellName);
+    await deletePreparedSpell(name, spell);
   }
 
   return null;
@@ -76,14 +84,19 @@ function PcSummary() {
     },
   ]);
 
-  function onPrepareSpellClick(spellName) {
+  function onPrepareSpellClick(spell) {
     return e => {
-      if (['wizard'].includes(pClass)) {
+      if (hasToPrepareSpells(pc)) {
         submit(
           {
             name,
             pClass,
-            preparedSpell: [spellName, e.target.checked],
+            preparedSpell: [
+              spell.name,
+              spell.type,
+              spell.subtype,
+              e.target.checked,
+            ],
           },
           { method: 'post' }
         );
@@ -125,12 +138,12 @@ function PcSummary() {
                 className={`${styles.data} ${styles[`spentSpaces-${level}`]}`}
               >
                 0
-                {pClass === 'wizard' && (
+                {hasToPrepareSpells(pc) && (
                   <>
                     {' '}
                     /
                     <span className={styles.preparedSpells}>
-                      {preparedSpells.length}/{getWizardMaxPreparedSpells(pc)}{' '}
+                      {preparedSpells.length}/{getMaxPreparedSpells(pc)}{' '}
                       preparados
                     </span>
                   </>
@@ -149,7 +162,7 @@ function PcSummary() {
                           id={spell.name}
                           value={spell.name}
                           className={`${styles.data} ${styles.preparedSpell}`}
-                          onChange={onPrepareSpellClick(spell.name)}
+                          onChange={onPrepareSpellClick(spell)}
                           checked={isPreparedSpell(pc, spell.name)}
                         />
                         <label

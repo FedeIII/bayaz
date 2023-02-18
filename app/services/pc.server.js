@@ -17,7 +17,11 @@ import {
 } from '~/utils/ranger';
 import { DIVINE_DOMAINS } from '~/utils/cleric';
 import { unifyEquipment } from '~/utils/equipment/equipment';
-import { ALL_SPELLS, getMaxPreparedSpells } from '~/utils/spells/spells';
+import {
+  ALL_SPELLS,
+  getExtraPreparedSpells,
+  getMaxPreparedSpells,
+} from '~/utils/spells/spells';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -76,6 +80,7 @@ const spellSchema = new mongoose.Schema({
     required: true,
   },
   type: { type: String, enum: Object.keys(CLASSES) },
+  subtype: String,
 });
 
 const pcSchema = new mongoose.Schema({
@@ -181,27 +186,32 @@ export async function updatePc(pc) {
 export async function addPreparedSpell(name, spell) {
   const pc = await getPc(name);
   const maxPreparedSpells = getMaxPreparedSpells(pc);
-
-  if (pc.preparedSpells.length < maxPreparedSpells) {
-    const updatedPc = await Pc.updateOne(
-      { name },
-      {
-        $push: {
-          preparedSpells: spell,
-        },
-      }
-    ).exec();
-
-    return updatedPc;
+  if (pc.preparedSpells.length >= maxPreparedSpells) {
+    return pc;
   }
 
-  return pc;
+  const updatedPc = await Pc.updateOne(
+    { name },
+    {
+      $push: {
+        preparedSpells: spell,
+      },
+    }
+  ).exec();
+
+  return updatedPc;
 }
 
-export async function deletePreparedSpell(name, spellName) {
+export async function deletePreparedSpell(name, spell) {
+  const pc = await getPc(name);
+  const extraPreparedSpells = getExtraPreparedSpells(pc);
+  if (extraPreparedSpells.map(s => s.name).includes(spell.name)) {
+    return pc;
+  }
+
   const updatedPc = await Pc.findOneAndUpdate(
     { name },
-    { $pull: { preparedSpells: { name: spellName } } },
+    { $pull: { preparedSpells: spell } },
     { new: true }
   ).exec();
 

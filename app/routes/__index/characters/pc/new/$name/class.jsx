@@ -24,10 +24,12 @@ import RogueSkills from '~/components/classSkillsSelection/rogueSkills';
 import MonkSkills from '~/components/classSkillsSelection/monkSkills';
 import { pcItem } from '~/utils/equipment/equipment';
 import {
+  doesNotHaveToPrepareSpells,
   getExtraPreparedSpells,
   getSpell,
   getSpellSlots,
   getTotalSpells,
+  hasToPrepareSpells,
 } from '~/utils/spells/spells';
 
 import styles from '~/components/characters.module.css';
@@ -101,11 +103,9 @@ export const action = async ({ request }) => {
   const updatedPc = await updatePc(pcAttrs);
 
   let preparedSpells;
-  // No need to prepare spells
-  if (['bard', 'warlock', 'sorcerer'].includes(pc.pClass))
+  if (doesNotHaveToPrepareSpells(updatedPc))
     preparedSpells = [...pcAttrs.spells, ...getExtraPreparedSpells(updatedPc)];
-  // Need to prepare spells
-  if (['cleric', 'druid', 'wizard'].includes(updatedPc.pClass))
+  if (hasToPrepareSpells(updatedPc))
     preparedSpells = getExtraPreparedSpells(updatedPc);
 
   await updatePc({

@@ -1,7 +1,6 @@
 import { getStat, getStatMod } from '../characters';
 import { getDivineDomain } from '../cleric';
 
-
 export const CLERIC_SPELLS = {
   // LEVEL 0 //
   sacredFlame: {
@@ -240,26 +239,26 @@ export const CLERIC_SPELLS = {
 function clericSpellSlots(pc) {
   const { level } = pc;
   return [
-        /*  1 */[2],
-        /*  2 */[3],
-        /*  3 */[4, 2],
-        /*  4 */[4, 3],
-        /*  5 */[4, 3, 2],
-        /*  6 */[4, 3, 3],
-        /*  7 */[4, 3, 3, 1],
-        /*  8 */[4, 3, 3, 2],
-        /*  9 */[4, 3, 3, 3, 1],
-        /* 10 */[4, 3, 3, 3, 2],
-        /* 11 */[4, 3, 3, 3, 2, 1],
-        /* 12 */[4, 3, 3, 3, 2, 1],
-        /* 13 */[4, 3, 3, 3, 2, 1, 1],
-        /* 14 */[4, 3, 3, 3, 2, 1, 1],
-        /* 15 */[4, 3, 3, 3, 2, 1, 1, 1],
-        /* 16 */[4, 3, 3, 3, 2, 1, 1, 1],
-        /* 17 */[4, 3, 3, 3, 2, 1, 1, 1, 1],
-        /* 18 */[4, 3, 3, 3, 3, 1, 1, 1, 1],
-        /* 19 */[4, 3, 3, 3, 3, 2, 1, 1, 1],
-        /* 20 */[4, 3, 3, 3, 3, 2, 2, 1, 1],
+    /*  1 */ [2],
+    /*  2 */ [3],
+    /*  3 */ [4, 2],
+    /*  4 */ [4, 3],
+    /*  5 */ [4, 3, 2],
+    /*  6 */ [4, 3, 3],
+    /*  7 */ [4, 3, 3, 1],
+    /*  8 */ [4, 3, 3, 2],
+    /*  9 */ [4, 3, 3, 3, 1],
+    /* 10 */ [4, 3, 3, 3, 2],
+    /* 11 */ [4, 3, 3, 3, 2, 1],
+    /* 12 */ [4, 3, 3, 3, 2, 1],
+    /* 13 */ [4, 3, 3, 3, 2, 1, 1],
+    /* 14 */ [4, 3, 3, 3, 2, 1, 1],
+    /* 15 */ [4, 3, 3, 3, 2, 1, 1, 1],
+    /* 16 */ [4, 3, 3, 3, 2, 1, 1, 1],
+    /* 17 */ [4, 3, 3, 3, 2, 1, 1, 1, 1],
+    /* 18 */ [4, 3, 3, 3, 3, 1, 1, 1, 1],
+    /* 19 */ [4, 3, 3, 3, 3, 2, 1, 1, 1],
+    /* 20 */ [4, 3, 3, 3, 3, 2, 2, 1, 1],
   ][level - 1];
 }
 
@@ -277,11 +276,15 @@ export function getClericSpellSlots(pc) {
   return [getClericCantripsNumber(pc), ...clericSpellSlots(pc)];
 }
 
-export function getClericTotalSpells(pc) {
+export function getClericMaxPreparedSpells(pc) {
   const { level } = pc;
 
-  const totalSpells = getStatMod(getStat(pc, 'wis')) + level;
-  return totalSpells > 1 ? totalSpells : 1;
+  const extraSpells = getClericExtraPreparedSpells(pc);
+
+  let totalSpells = getStatMod(getStat(pc, 'wis')) + level;
+  totalSpells = totalSpells > 1 ? totalSpells : 1;
+
+  return totalSpells + extraSpells.length;
 }
 
 export function getClericExtraPreparedSpells(pc) {

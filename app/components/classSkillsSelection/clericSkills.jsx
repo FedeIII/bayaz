@@ -161,7 +161,7 @@ function ClericSkills(props) {
 
       {divineDomain === 'knowledge' && (
         <p>
-          Selecciona dos idiomas extra
+          Selecciona 2 idiomas extra
           {LANGUAGES.filter(l => !languages.includes(l)).map(language => (
             <label
               htmlFor={language}

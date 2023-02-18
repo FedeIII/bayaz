@@ -9,8 +9,8 @@ import {
   CLERIC_SPELLS,
   getClericCantripsNumber,
   getClericExtraPreparedSpells,
+  getClericMaxPreparedSpells,
   getClericSpellSlots,
-  getClericTotalSpells,
 } from './cleric';
 import {
   DRUID_SPELLS,
@@ -83,7 +83,6 @@ export function getTotalSpells(pc) {
   const getClassTotalSpells = {
     bard: getBardTotalSpells,
     warlock: getWarlockTotalSpells,
-    cleric: getClericTotalSpells,
     druid: getDruidTotalSpells,
     sorcerer: getSorcererTotalSpells,
     wizard: getWizardTotalSpells,
@@ -113,6 +112,7 @@ export function getMaxPreparedSpells(pc) {
   const { pClass } = pc;
 
   const getClassMaxPreparedSpells = {
+    cleric: getClericMaxPreparedSpells,
     wizard: getWizardMaxPreparedSpells,
   }[pClass];
 
@@ -129,6 +129,18 @@ export function getExtraPreparedSpells(pc) {
 
   if (getClassExtraPreparedSpells) return getClassExtraPreparedSpells(pc);
   else return [];
+}
+
+export function hasToPrepareSpells(pc) {
+  const { pClass } = pc;
+
+  return ['cleric', 'druid', 'wizard'].includes(pClass);
+}
+
+export function doesNotHaveToPrepareSpells(pc) {
+  const { pClass } = pc;
+
+  return ['bard', 'warlock', 'sorcerer'].includes(pClass);
 }
 
 export function getSpellcastingAbility(pc, spellType) {
