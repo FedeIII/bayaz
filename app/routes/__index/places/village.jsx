@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from '@remix-run/react';
 
-import random from '~/utils/random';
-import { VILLAGE, getPopulation } from '~/utils/places';
+import random from '~/domain/random';
+import { VILLAGE, getPopulation } from '~/domain/places';
 
 import styles from '~/components/places.module.css';
 import menuStyles from '~/components/menus.module.css';

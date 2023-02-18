@@ -4,17 +4,17 @@ import {
   translateSkill,
   LANGUAGES,
   translateLanguage,
-} from '~/utils/characters';
+} from '~/domain/characters';
 import {
   DIVINE_DOMAINS,
   translateDivineDomain,
   getDivineDomain,
-} from '~/utils/cleric';
+} from '~/domain/cleric';
 import {
   getClericSpellSlots,
   CLERIC_SPELLS
-} from "~/utils/spells/cleric";
-import { DRUID_SPELLS } from "~/utils/spells/druid";
+} from "~/domain/spells/cleric";
+import { DRUID_SPELLS } from "~/domain/spells/druid";
 
 import styles from '~/components/characters.module.css';
 

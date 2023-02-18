@@ -53,8 +53,6 @@ npx prisma migrate dev
 
 ## TO DOs
 
-- Spells
 - Trasfondo
-- Extra racial skills
 - Some class skills can be piled up if you go back and forth in the browser navigation
 - Conditions for equiped items

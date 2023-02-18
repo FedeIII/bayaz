@@ -1,4 +1,4 @@
-import random from '~/utils/random';
+import random from '~/domain/random';
 
 export const COMMERCE = [
   [10, 'FISHING'],

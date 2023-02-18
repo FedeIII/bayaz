@@ -4,7 +4,7 @@ import {
   getInitialHitPoints,
   getCarryingCapacity,
   getEncumbrance,
-} from '~/utils/characters';
+} from '~/domain/characters';
 import { updatePc } from '~/services/pc.server';
 
 export async function setPcStats(pcParams) {

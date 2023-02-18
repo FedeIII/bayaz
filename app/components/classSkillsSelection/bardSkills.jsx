@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { translateItem } from '~/utils/equipment/equipment';
-import { getAllMusicalInstruments } from '~/utils/equipment/tools';
+import { translateItem } from '~/domain/equipment/equipment';
+import { getAllMusicalInstruments } from '~/domain/equipment/tools';
 import {
   BARD_SPELLS,
   getBardSpellSlots,
   getBardTotalSpells,
-} from '~/utils/spells/bard';
+} from '~/domain/spells/bard';
 
 import styles from '~/components/characters.module.css';
 

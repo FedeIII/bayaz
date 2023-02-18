@@ -1,14 +1,14 @@
 import { Link } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 
-import { CITY, getPopulation } from '~/utils/places';
-import random from '~/utils/random';
+import { CITY, getPopulation } from '~/domain/places';
+import random from '~/domain/random';
 import {
   COMMERCE,
   GOVERNMENTS,
   getCommerceTranslation,
   getGovernmentTranslation,
-} from '~/utils/places';
+} from '~/domain/places';
 
 import styles from '~/components/places.module.css';
 import menuStyles from '~/components/menus.module.css';

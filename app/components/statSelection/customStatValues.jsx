@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDrag } from 'react-dnd';
 
-import { STATS } from '~/utils/characters';
+import { STATS } from '~/domain/characters';
 
 import styles from '~/components/characters.module.css';
 

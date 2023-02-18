@@ -25,15 +25,15 @@ import {
   getArmorClass,
   getExtraArmorClass,
   getTraits,
-} from '~/utils/characters';
-import { getExpertSkills } from '~/utils/rogue';
+} from '~/domain/characters';
+import { getExpertSkills } from '~/domain/rogue';
 import {
   getSorcererOrigin,
   translateSorcererOrigin,
   getDragonAncestor,
   translateDragonAncestor,
-} from '~/utils/sorcerer';
-import { getFightingStyles, translateFightingStyle } from '~/utils/fighter';
+} from '~/domain/sorcerer';
+import { getFightingStyles, translateFightingStyle } from '~/domain/fighter';
 import {
   getFavoredEnemies,
   translateFavoredEnemy,
@@ -41,9 +41,9 @@ import {
   translateFavoredTerrain,
   getRangerArchetype,
   translateRangerArchetype,
-} from '~/utils/ranger';
-import { translateDivineDomain, getDivineDomain } from '~/utils/cleric';
-import { getPrimalPath, translatePrimalPath } from '~/utils/barbarian';
+} from '~/domain/ranger';
+import { translateDivineDomain, getDivineDomain } from '~/domain/cleric';
+import { getPrimalPath, translatePrimalPath } from '~/domain/barbarian';
 import {
   displayTrait,
   getAttacks,
@@ -51,9 +51,9 @@ import {
   getSpecialAttacks,
   increment,
   listItems,
-} from '~/utils/display';
-import { translateItem, translatePack } from '~/utils/equipment/equipment';
-import { getPackItems } from '~/utils/equipment/packs';
+} from '~/domain/display';
+import { translateItem, translatePack } from '~/domain/equipment/equipment';
+import { getPackItems } from '~/domain/equipment/packs';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
 import styles from '~/components/sheet.module.css';

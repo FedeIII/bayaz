@@ -6,22 +6,22 @@ import {
   LANGUAGES,
   EXOTIC_LANGUAGES,
   CLASSES,
-} from '~/utils/characters';
-import { SORCERER_ORIGIN, DRAGON_ANCESTORS } from '~/utils/sorcerer';
-import { FIGHTING_STYLES } from '~/utils/fighter';
+} from '~/domain/characters';
+import { SORCERER_ORIGIN, DRAGON_ANCESTORS } from '~/domain/sorcerer';
+import { FIGHTING_STYLES } from '~/domain/fighter';
 import {
   FAVORED_ENEMIES,
   FAVORED_ENEMIES_HUMANOIDS,
   FAVORED_TERRAINS,
   RANGER_ARCHETYPES,
-} from '~/utils/ranger';
-import { DIVINE_DOMAINS } from '~/utils/cleric';
-import { unifyEquipment } from '~/utils/equipment/equipment';
+} from '~/domain/ranger';
+import { DIVINE_DOMAINS } from '~/domain/cleric';
+import { unifyEquipment } from '~/domain/equipment/equipment';
 import {
   ALL_SPELLS,
   getExtraPreparedSpells,
   getMaxPreparedSpells,
-} from '~/utils/spells/spells';
+} from '~/domain/spells/spells';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(

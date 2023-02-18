@@ -7,8 +7,8 @@ import {
   deletePreparedSpell,
   getPc,
 } from '~/services/pc.server';
-import { translateClass } from '~/utils/characters';
-import { increment } from '~/utils/display';
+import { translateClass } from '~/domain/characters';
+import { increment } from '~/domain/display';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
 import styles from '~/components/spells.module.css';
@@ -21,7 +21,7 @@ import {
   getSpellSlots,
   hasToPrepareSpells,
   isPreparedSpell,
-} from '~/utils/spells/spells';
+} from '~/domain/spells/spells';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);

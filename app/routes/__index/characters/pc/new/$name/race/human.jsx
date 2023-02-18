@@ -3,7 +3,7 @@ import { Form, useLoaderData, useTransition } from '@remix-run/react';
 import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import { LANGUAGES, RACES, translateLanguage } from '~/utils/characters';
+import { LANGUAGES, RACES, translateLanguage } from '~/domain/characters';
 
 import styles from '~/components/characters.module.css';
 

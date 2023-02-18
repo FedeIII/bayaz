@@ -6,12 +6,12 @@ import {
   getSorcererOrigin,
   DRAGON_ANCESTORS,
   translateDragonAncestor,
-} from '~/utils/sorcerer';
+} from '~/domain/sorcerer';
 import {
   getSorcererSpellSlots,
   getSorcererTotalSpells,
   SORCERER_SPELLS,
-} from '~/utils/spells/sorcerer';
+} from '~/domain/spells/sorcerer';
 
 import styles from '~/components/characters.module.css';
 

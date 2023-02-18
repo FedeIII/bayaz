@@ -3,8 +3,8 @@ import { Form, useLoaderData, useTransition } from '@remix-run/react';
 import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import { pcItem, translateItem } from '~/utils/equipment/equipment';
-import { TOOLS } from '~/utils/equipment/tools';
+import { pcItem, translateItem } from '~/domain/equipment/equipment';
+import { TOOLS } from '~/domain/equipment/tools';
 
 import styles from '~/components/characters.module.css';
 

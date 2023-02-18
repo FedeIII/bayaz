@@ -5,7 +5,7 @@ import {
   getWarlockSpellSlots,
   getWarlockTotalSpells,
   WARLOCK_SPELLS
-} from "~/utils/spells/warlock";
+} from "~/domain/spells/warlock";
 
 function WarlockSkills(props) {
   const { pc, setSkillsNamespace } = props;

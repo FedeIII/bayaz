@@ -4,7 +4,7 @@ import {
   getWizardSpellSlots,
   getWizardTotalSpells,
   WIZARD_SPELLS,
-} from '~/utils/spells/wizard';
+} from '~/domain/spells/wizard';
 
 import styles from '~/components/characters.module.css';
 

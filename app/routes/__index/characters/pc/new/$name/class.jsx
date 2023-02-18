@@ -10,7 +10,7 @@ import {
   translateClass,
   SKILLS,
   getInitialHitPoints,
-} from '~/utils/characters';
+} from '~/domain/characters';
 import BarbarianSkills from '~/components/classSkillsSelection/barbarianSkills';
 import BardSkills from '~/components/classSkillsSelection/bardSkills';
 import WarlockSkills from '~/components/classSkillsSelection/warlockSkills';
@@ -22,7 +22,7 @@ import SorcererSkills from '~/components/classSkillsSelection/sorcererSkills';
 import WizardSkills from '~/components/classSkillsSelection/wizardSkills';
 import RogueSkills from '~/components/classSkillsSelection/rogueSkills';
 import MonkSkills from '~/components/classSkillsSelection/monkSkills';
-import { pcItem } from '~/utils/equipment/equipment';
+import { pcItem } from '~/domain/equipment/equipment';
 import {
   doesNotHaveToPrepareSpells,
   getExtraPreparedSpells,
@@ -30,7 +30,7 @@ import {
   getSpellSlots,
   getTotalSpells,
   hasToPrepareSpells,
-} from '~/utils/spells/spells';
+} from '~/domain/spells/spells';
 
 import styles from '~/components/characters.module.css';
 

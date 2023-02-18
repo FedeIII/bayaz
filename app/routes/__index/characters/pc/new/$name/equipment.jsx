@@ -2,12 +2,12 @@ import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import { itemWithAmount } from '~/utils/display';
+import { itemWithAmount } from '~/domain/display';
 import {
   CLASS_EQUIPMENT,
   pcItem,
   translateEquipment,
-} from '~/utils/equipment/equipment';
+} from '~/domain/equipment/equipment';
 
 import styles from '~/components/characters.module.css';
 

@@ -1,7 +1,7 @@
 import { useState, Fragment, useMemo } from 'react';
 import styles from '~/components/dice.module.css';
-import random from '~/utils/random';
-import { signed } from '~/utils/display';
+import random from '~/domain/random';
+import { signed } from '~/domain/display';
 
 function rollLevel(value, faces, isAccounted) {
   if (!isAccounted) {

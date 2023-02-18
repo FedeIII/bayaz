@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { translateSkill } from '~/utils/characters';
+import { translateSkill } from '~/domain/characters';
 
 import styles from '~/components/characters.module.css';
 

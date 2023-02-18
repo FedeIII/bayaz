@@ -4,15 +4,15 @@ import { useState } from 'react';
 import { useDrop } from 'react-dnd';
 
 import { getPc } from '~/services/pc.server';
-import { signed } from '~/utils/display';
+import { signed } from '~/domain/display';
 import {
   STATS,
   translateStat,
   getStatRacialExtraPoints,
-} from '~/utils/characters';
+} from '~/domain/characters';
 import { RandomStatValues } from '~/components/statSelection/randomStatValues';
 import { CustomStatValues } from '~/components/statSelection/customStatValues';
-import { setPcStats } from '~/utils/characterMutations';
+import { setPcStats } from '~/domain/characterMutations';
 
 const ItemTypes = {
   ROLL: 'ROLL',

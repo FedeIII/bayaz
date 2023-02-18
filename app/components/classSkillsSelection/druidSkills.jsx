@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { DRUID_SPELLS, getDruidSpellSlots } from '~/utils/spells/druid';
+import { DRUID_SPELLS, getDruidSpellSlots } from '~/domain/spells/druid';
 
 import styles from '~/components/characters.module.css';
 

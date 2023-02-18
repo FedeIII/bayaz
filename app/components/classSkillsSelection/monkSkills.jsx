@@ -1,8 +1,8 @@
-import { translateItem } from '~/utils/equipment/equipment';
+import { translateItem } from '~/domain/equipment/equipment';
 import {
   getAllArtisansTools,
   getAllMusicalInstruments,
-} from '~/utils/equipment/tools';
+} from '~/domain/equipment/tools';
 
 import styles from '~/components/characters.module.css';
 

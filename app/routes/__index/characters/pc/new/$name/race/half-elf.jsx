@@ -9,7 +9,7 @@ import {
   LANGUAGES,
   RACES,
   translateLanguage,
-} from '~/utils/characters';
+} from '~/domain/characters';
 
 import styles from '~/components/characters.module.css';
 

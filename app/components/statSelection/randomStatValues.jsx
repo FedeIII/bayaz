@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import random from '~/utils/random';
+import random from '~/domain/random';
 
 import { StatRoll } from './statRoll';
 

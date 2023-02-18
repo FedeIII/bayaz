@@ -10,9 +10,9 @@ import {
   CLASSES,
   translateClass,
   setLanguages,
-} from '~/utils/characters';
+} from '~/domain/characters';
 import { createPc } from '~/services/pc.server';
-import { getSpell } from '~/utils/spells/spells';
+import { getSpell } from '~/domain/spells/spells';
 
 import styles from '~/components/characters.module.css';
 import menuStyles from '~/components/menus.module.css';
