@@ -22,6 +22,7 @@ import {
   getExtraPreparedSpells,
   getMaxPreparedSpells,
 } from '~/domain/spells/spells';
+import { BACKGROUNDS } from '~/domain/backgrounds';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -58,6 +59,11 @@ const classAttrsSchema = new mongoose.Schema({
 
 const halfElfSchema = new mongoose.Schema({
   extraStats: statsSchema,
+  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+});
+
+const backgroundSchema = mongoose.Schema({
+  name: { type: String, enum: Object.keys(BACKGROUNDS) },
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });
 
@@ -137,6 +143,7 @@ const pcSchema = new mongoose.Schema({
   stats: statsSchema,
   extraStats: statsSchema,
   languages: [{ type: String, enum: [...LANGUAGES, ...EXOTIC_LANGUAGES] }],
+  background: backgroundSchema,
   equipment: [itemSchema],
   pack: String,
   proficientItems: [itemSchema],
@@ -145,6 +152,7 @@ const pcSchema = new mongoose.Schema({
   preparedSpells: [spellSchema],
   spellSlots: [Number],
   totalSpells: Number,
+  money: [Number, Number, Number],
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);

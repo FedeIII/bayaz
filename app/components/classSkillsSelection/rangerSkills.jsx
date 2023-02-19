@@ -93,13 +93,14 @@ function RangerSkills(props) {
 
             return (
               <label
-                for={language}
+                htmlFor={language}
                 key={language}
                 className={styles.skillLabel}
               >
                 <input
                   type="radio"
                   name="languages[]"
+                  id={language}
                   value={language}
                   onChange={() => setIsLanguageSelected(true)}
                 />

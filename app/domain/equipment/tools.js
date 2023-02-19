@@ -483,6 +483,28 @@ export const TOOLS = {
       ...props,
     };
   },
+  prayerbook(props) {
+    return {
+      name: 'prayerbook',
+      translation: 'Libro de oraciones',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [1, 0, 0],
+      weight: 0.5,
+      ...props,
+    };
+  },
+  commonClothes(props) {
+    return {
+      name: 'commonClothes',
+      translation: 'Conjunto de ropa común',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 5, 0],
+      weight: 0.5,
+      ...props,
+    };
+  },
 };
 
 export function translateTool(tool) {

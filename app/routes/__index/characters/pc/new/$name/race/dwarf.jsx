@@ -53,10 +53,15 @@ function PcDwarfSkills() {
           TOOLS.brewersSupplies(),
           TOOLS.masonsTools(),
         ].map(tool => (
-          <label for={tool.name} key={tool.name} className={styles.skillLabel}>
+          <label
+            htmlFor={tool.name}
+            key={tool.name}
+            className={styles.skillLabel}
+          >
             <input
               type="radio"
               name="tool"
+              id={tool.name}
               value={tool.name}
               onChange={() => setIsToolSelected(true)}
             />

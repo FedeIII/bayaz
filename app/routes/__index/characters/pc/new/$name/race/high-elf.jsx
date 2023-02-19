@@ -52,13 +52,14 @@ function PcElfSkills() {
         Conoces un truco de mago (Inteligencia)
         {Object.values(WIZARD_SPELLS).map(spell => (
           <label
-            for={spell.name}
+            htmlFor={spell.name}
             key={spell.name}
             className={styles.skillLabel}
           >
             <input
               type="radio"
               name="cantrip"
+              id={spell.name}
               value={spell.name}
               onChange={() => setIsCantripSelected(true)}
             />
@@ -71,10 +72,15 @@ function PcElfSkills() {
         Selecciona un idioma extra
         {LANGUAGES.filter(l => !RACES.elf.high.languages.includes(l)).map(
           language => (
-            <label for={language} key={language} className={styles.skillLabel}>
+            <label
+              htmlFor={language}
+              key={language}
+              className={styles.skillLabel}
+            >
               <input
                 type="radio"
                 name="language"
+                id={language}
                 value={language}
                 onChange={() => setIsLanguageSelected(true)}
               />

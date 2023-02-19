@@ -1,3 +1,4 @@
+import { BACKGROUNDS } from './backgrounds';
 import {
   translateDivineDomain,
   getDivineDomain,
@@ -631,7 +632,7 @@ export const CLASSES = {
     ],
     spellcastingAbility: 'int',
     traits: {
-      arcaneRecovery: 'Recuperación Arcana'
+      arcaneRecovery: 'Recuperación Arcana',
     },
   },
 };
@@ -831,6 +832,7 @@ export function getSkills(pc) {
     ...(pc.skills || []),
     ...(pc.halfElf?.skills || []),
     ...(pc.classAttrs?.skills || []),
+    ...(pc.sbackground?.skills || []),
   ];
 }
 
@@ -1050,6 +1052,7 @@ export function getTraits(pc) {
     subrace,
     pClass,
     classAttrs: { patron, divineDomain } = {},
+    background = {},
   } = pc;
 
   return (
@@ -1060,6 +1063,18 @@ export function getTraits(pc) {
       ...(pClass === 'cleric'
         ? DIVINE_DOMAINS[divineDomain]?.traits || {}
         : {}),
+      ...(BACKGROUNDS[background.name]?.traits || {}),
     } || {}
   );
+}
+
+export function translateMoney(money) {
+  return money
+    .map((coin, i) => {
+      if (i === 0 && coin) return coin + ' Oro';
+      if (i === 1 && coin) return coin + ' Plata';
+      if (i === 2 && coin) return coin + ' Cobre';
+    })
+    .filter(v => v)
+    .join(', ');
 }

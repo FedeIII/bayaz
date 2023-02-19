@@ -86,10 +86,15 @@ function PcHalfElfSkills() {
         {LANGUAGES.filter(
           l => !RACES['half-elf'].subrace.languages.includes(l)
         ).map(language => (
-          <label for={language} key={language} className={styles.skillLabel}>
+          <label
+            htmlFor={language}
+            key={language}
+            className={styles.skillLabel}
+          >
             <input
               type="radio"
               name="language"
+              id={language}
               value={language}
               onChange={() => setIsLanguageSelected(true)}
             />
@@ -102,7 +107,7 @@ function PcHalfElfSkills() {
         Selecciona dos habilidades en las que ser competente
         {SKILLS.map((skill, i) => (
           <label
-            for={skill.name}
+            htmlFor={skill.name}
             key={skill.name}
             className={styles.skillLabel}
           >
@@ -111,6 +116,7 @@ function PcHalfElfSkills() {
               name={
                 skills.includes(skill.name) ? 'skills[]' : 'half-elf-skills[]'
               }
+              id={skill.name}
               value={skill.name}
               checked={checks[i]}
               onChange={onSkillChange(i)}

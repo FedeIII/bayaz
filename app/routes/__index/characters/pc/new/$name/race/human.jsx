@@ -49,7 +49,11 @@ function PcHumanSkills() {
         Selecciona un idioma extra
         {LANGUAGES.filter(l => !RACES.human.subrace.languages.includes(l)).map(
           language => (
-            <label for={language} key={language} className={styles.skillLabel}>
+            <label
+              htmlFor={language}
+              key={language}
+              className={styles.skillLabel}
+            >
               <input
                 type="radio"
                 name="language"

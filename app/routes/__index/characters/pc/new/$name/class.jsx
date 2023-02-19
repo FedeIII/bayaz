@@ -115,7 +115,8 @@ export const action = async ({ request }) => {
     preparedSpells,
   });
 
-  return redirect(`/characters/pc/new/${name}/equipment`);
+  return redirect(`/characters/pc/new/${name}/background`);
+  // return redirect(`/characters/pc/new/${name}/equipment`);
 };
 
 function ClassSkills(props) {
