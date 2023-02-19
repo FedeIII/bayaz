@@ -6,6 +6,7 @@ import { getPc, updatePc } from '~/services/pc.server';
 
 import { BACKGROUNDS, translateBackground } from '~/domain/backgrounds';
 import BackgroundSelection from '~/components/backgrounds/backgroundSelection';
+import { getEquipmentComboData } from '~/components/equipment/getEquipmentComboData';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -22,20 +23,31 @@ export const action = async ({ request }) => {
   const background = formData.get('background');
   const skills = formData.getAll('skills[]') || [];
   const languages = formData.getAll('languages[]') || [];
-  const items =
-    formData.getAll('items[]')?.map(pairs => ({
-      name: pairs.split(',')[0],
-      amount: pairs.split(',')[1],
-    })) || [];
+  const proficiencies = getEquipmentComboData({
+    formData,
+    numberOfEquipmentOptions: BACKGROUNDS[background].equipment?.length || 0,
+    comboSectionPrefix: 'proficiency',
+  });
+  const equipment = getEquipmentComboData({
+    formData,
+    numberOfEquipmentOptions: BACKGROUNDS[background].equipment?.length || 0,
+    comboSectionPrefix: 'equipment',
+    otherInputNames: ['items'],
+  });
   const money = formData.get('money')?.split(',');
+  const thingsFromTopics = Object.keys(BACKGROUNDS[background].select).reduce(
+    (pcAttrs, topic) => ({ ...pcAttrs, [topic]: formData.get(topic) }),
+    {}
+  );
 
   const pc = await getPc(name);
 
   await updatePc({
     name,
-    background: { name: background, skills },
+    background: { name: background, skills, ...thingsFromTopics },
     languages: [...pc.languages, ...languages],
-    equipment: [...pc.equipment, ...items],
+    proficientItems: [...pc.proficientItems, ...proficiencies],
+    equipment: [...pc.equipment, ...equipment],
     money: pc.money.map((coin, i) => coin + money[i]),
   });
 
@@ -56,6 +68,7 @@ function PcBackground() {
     <Form method="post">
       <h2>Trasfondo de {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
+      <input readOnly type="text" name="background" value={background} hidden />
 
       <p>
         <select

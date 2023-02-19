@@ -2,8 +2,11 @@ import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import { EquipmentCombo } from '~/components/equipment/equipmentCombo';
-import { CLASS_EQUIPMENT, pcItem } from '~/domain/equipment/equipment';
+import {
+  EquipmentCombo,
+} from '~/components/equipment/equipmentCombo';
+import { getEquipmentComboData } from "~/components/equipment/getEquipmentComboData";
+import { CLASS_EQUIPMENT } from '~/domain/equipment/equipment';
 
 import styles from '~/components/characters.module.css';
 
@@ -20,21 +23,12 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const pClass = formData.get('pClass');
   const packName = formData.get('pack');
-  const items = formData.getAll('items[]');
 
-  const choices = Array.from(Array(CLASS_EQUIPMENT[pClass].length), (_, i) =>
-    formData.get(`choices-${i}`)
-  ).filter(v => v);
-
-  const equipment = [...choices, ...items].reduce((items, inputValue) => {
-    const itemPairs = inputValue.split('|').map(pair => pair.split(','));
-    return [
-      ...items,
-      ...itemPairs.map(([itemName, itemAmount]) =>
-        pcItem(itemName, itemAmount)
-      ),
-    ];
-  }, []);
+  const equipment = getEquipmentComboData({
+    formData,
+    numberOfEquipmentOptions: CLASS_EQUIPMENT[pClass].length,
+    otherInputNames: ['items'],
+  });
 
   const pc = await getPc(name);
 

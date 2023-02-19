@@ -505,6 +505,17 @@ export const TOOLS = {
       ...props,
     };
   },
+  guildIntroductionLetter(props) {
+    return {
+      name: 'guildIntroductionLetter',
+      translation: 'Carta de presentación de tu gremio',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [50, 0, 0],
+      weight: 0.1,
+      ...props,
+    };
+  },
 };
 
 export function translateTool(tool) {

@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { translateGuild } from './backgrounds';
 import {
   getAttackBonus,
   getDamageBonus,
@@ -365,6 +366,16 @@ export function displayTrait(traitName, trait, pc) {
         <Fragment>
           <u>{trait}.</u> Recupera la mitad de tus espacios de conjuro tras un
           descarto corto una vez al día
+        </Fragment>
+      );
+
+    case 'guildMembership':
+      return (
+        <Fragment>
+          <u>{trait}.</u>
+          {!!pc.background?.guild
+            ? ` Gremio de ${translateGuild(pc.background.guild)}`
+            : ''}
         </Fragment>
       );
 

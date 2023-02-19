@@ -25,14 +25,6 @@ function BackgroundSelection(props) {
 
   return (
     <>
-      <input
-        readOnly
-        type="text"
-        name="background"
-        value={backgroundName}
-        hidden
-      />
-
       {!!BACKGROUNDS[backgroundName].skills && (
         <div>
           Eres competente en{' '}
@@ -77,6 +69,25 @@ function BackgroundSelection(props) {
         </div>
       )}
 
+      {!!BACKGROUNDS[backgroundName].proficientItems && (
+        <div>
+          Eres competente con:{' '}
+          <div className={styles.equipment}>
+            {BACKGROUNDS[backgroundName].proficientItems.map(
+              (combo, comboSection) => (
+                <div className={styles.equipmentOptions} key={comboSection}>
+                  <EquipmentCombo
+                    pc={pc}
+                    combo={combo}
+                    comboSection={`proficiency-${comboSection}`}
+                  />
+                </div>
+              )
+            )}
+          </div>
+        </div>
+      )}
+
       {!!BACKGROUNDS[backgroundName].equipment && (
         <div>
           Añades a tu equipo:{' '}
@@ -87,7 +98,7 @@ function BackgroundSelection(props) {
                   <EquipmentCombo
                     pc={pc}
                     combo={combo}
-                    comboSection={comboSection}
+                    comboSection={`equipment-${comboSection}`}
                   />
                 </div>
               )
@@ -107,6 +118,30 @@ function BackgroundSelection(props) {
           </div>
         </div>
       )}
+
+      {!!BACKGROUNDS[backgroundName].select &&
+        Object.entries(BACKGROUNDS[backgroundName].select).map(
+          ([topicToSelect, thingsToSelect]) => (
+            <div key={topicToSelect}>
+              Escoge uno:{' '}
+              {thingsToSelect.items.map(thing => (
+                <label
+                  htmlFor={thing}
+                  key={thing}
+                  className={styles.skillLabel}
+                >
+                  <input
+                    type="radio"
+                    name={topicToSelect}
+                    id={thing}
+                    value={thing}
+                  />
+                  {thingsToSelect.translate(thing)}
+                </label>
+              ))}
+            </div>
+          )
+        )}
 
       {!!BACKGROUNDS[backgroundName].traits && (
         <div>

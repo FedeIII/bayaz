@@ -22,7 +22,7 @@ import {
   getExtraPreparedSpells,
   getMaxPreparedSpells,
 } from '~/domain/spells/spells';
-import { BACKGROUNDS } from '~/domain/backgrounds';
+import { BACKGROUNDS, GUILDS } from '~/domain/backgrounds';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -153,6 +153,7 @@ const pcSchema = new mongoose.Schema({
   spellSlots: [Number],
   totalSpells: Number,
   money: [Number, Number, Number],
+  guild: { type: String, enum: GUILDS },
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);
