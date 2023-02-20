@@ -22,7 +22,16 @@ import {
   getExtraPreparedSpells,
   getMaxPreparedSpells,
 } from '~/domain/spells/spells';
-import { BACKGROUNDS, GUILDS } from '~/domain/backgrounds';
+import {
+  BACKGROUNDS,
+  ARTISAN_GUILDS,
+  ENTERTAINER_ROUTINES,
+  CHARLATAN_FAVORITE_SCHEMES,
+  CRIMINAL_SPECIALTY,
+  OUTLANDER_ORIGIN,
+  SAGE_SPECIALTY,
+  SOLDIER_SPECIALTY,
+} from '~/domain/backgrounds';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -65,6 +74,13 @@ const halfElfSchema = new mongoose.Schema({
 const backgroundSchema = mongoose.Schema({
   name: { type: String, enum: Object.keys(BACKGROUNDS) },
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  guild: { type: String, enum: ARTISAN_GUILDS },
+  routines: [{ type: String, enum: ENTERTAINER_ROUTINES }],
+  favoriteScheme: { type: String, enum: CHARLATAN_FAVORITE_SCHEMES },
+  criminalSpecialty: { type: String, enum: CRIMINAL_SPECIALTY },
+  outlanderOrigin: { type: String, enum: OUTLANDER_ORIGIN },
+  sageSpecialty: { type: String, enum: SAGE_SPECIALTY },
+  soldierSpecialty: { type: String, enum: SOLDIER_SPECIALTY },
 });
 
 const itemSchema = new mongoose.Schema({
@@ -153,7 +169,6 @@ const pcSchema = new mongoose.Schema({
   spellSlots: [Number],
   totalSpells: Number,
   money: [Number, Number, Number],
-  guild: { type: String, enum: GUILDS },
 });
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);

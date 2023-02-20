@@ -25,18 +25,28 @@ export const action = async ({ request }) => {
   const languages = formData.getAll('languages[]') || [];
   const proficiencies = getEquipmentComboData({
     formData,
-    numberOfEquipmentOptions: BACKGROUNDS[background].equipment?.length || 0,
-    comboSectionPrefix: 'proficiency',
+    numberOfEquipmentOptions:
+      BACKGROUNDS[background].proficientItems?.length || 0,
+    comboName: 'proficiency',
+    otherInputNames: ['items'],
   });
   const equipment = getEquipmentComboData({
     formData,
     numberOfEquipmentOptions: BACKGROUNDS[background].equipment?.length || 0,
-    comboSectionPrefix: 'equipment',
+    comboName: 'equipment',
     otherInputNames: ['items'],
   });
   const money = formData.get('money')?.split(',');
-  const thingsFromTopics = Object.keys(BACKGROUNDS[background].select).reduce(
-    (pcAttrs, topic) => ({ ...pcAttrs, [topic]: formData.get(topic) }),
+  const thingsFromTopics = Object.entries(
+    BACKGROUNDS[background]?.select || {}
+  ).reduce(
+    (pcAttrs, [topic, topicAttrs]) => ({
+      ...pcAttrs,
+      [topic]:
+        topicAttrs.amount > 1
+          ? formData.getAll(topic + '[]')
+          : formData.get(topic),
+    }),
     {}
   );
 
@@ -48,7 +58,7 @@ export const action = async ({ request }) => {
     languages: [...pc.languages, ...languages],
     proficientItems: [...pc.proficientItems, ...proficiencies],
     equipment: [...pc.equipment, ...equipment],
-    money: pc.money.map((coin, i) => coin + money[i]),
+    money: pc.money.map((coin, i) => coin + parseInt(money[i], 0)),
   });
 
   return redirect(`/characters/pc/new/${name}/equipment`);

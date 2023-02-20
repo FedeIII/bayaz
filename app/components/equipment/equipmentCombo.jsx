@@ -4,7 +4,7 @@ import { translateEquipment } from '~/domain/equipment/equipment';
 import styles from '~/components/characters.module.css';
 
 export function EquipmentCombo(props) {
-  const { pc, combo, logic, comboSection, depth = 0 } = props;
+  const { pc, comboName, combo, logic, comboSection, depth = 0 } = props;
 
   if (combo.or)
     return (
@@ -15,6 +15,7 @@ export function EquipmentCombo(props) {
           {combo.or.map((orItem, i) => (
             <EquipmentCombo
               pc={pc}
+              comboName={comboName}
               combo={orItem}
               logic="or"
               comboSection={comboSection}
@@ -36,7 +37,11 @@ export function EquipmentCombo(props) {
         >
           <input
             type="radio"
-            name={`choices-${comboSection}`}
+            name={
+              comboName
+                ? `${comboName}-choices-${comboSection}`
+                : `choices-${comboSection}`
+            }
             id={`${combo.name}-${comboSection}`}
             value={combo.and
               .map(item => `${item.name},${item.amount}`)
@@ -56,7 +61,11 @@ export function EquipmentCombo(props) {
             <input
               readOnly
               type="text"
-              name={`choices-${comboSection}`}
+              name={
+                comboName
+                  ? `${comboName}-choices-${comboSection}`
+                  : `choices-${comboSection}`
+              }
               id={combo.name}
               value={combo.and
                 .map(item => `${item.name},${item.amount}`)
@@ -66,6 +75,7 @@ export function EquipmentCombo(props) {
             {combo.and.map((andItem, i) => (
               <EquipmentCombo
                 pc={pc}
+                comboName={comboName}
                 combo={andItem}
                 logic="and"
                 comboSection={comboSection}
@@ -88,7 +98,11 @@ export function EquipmentCombo(props) {
         >
           <input
             type="radio"
-            name={`choices-${comboSection}`}
+            name={
+              comboName
+                ? `${comboName}-choices-${comboSection}`
+                : `choices-${comboSection}`
+            }
             id={`${combo.name}-${comboSection}`}
             value={combo
               .map(comboItem => `${comboItem.name},${comboItem.amount}`)
@@ -104,6 +118,7 @@ export function EquipmentCombo(props) {
         return (
           <EquipmentCombo
             pc={pc}
+            comboName={comboName}
             combo={combo.item}
             logic="or"
             comboSection={comboSection}
@@ -119,7 +134,11 @@ export function EquipmentCombo(props) {
         >
           <input
             type="radio"
-            name={`choices-${comboSection}`}
+            name={
+              comboName
+                ? `${comboName}-choices-${comboSection}`
+                : `choices-${comboSection}`
+            }
             id={`${combo.name}-${comboSection}`}
             value={[combo.name, combo.amount]}
           />{' '}
@@ -165,7 +184,7 @@ export function EquipmentCombo(props) {
           <input
             readOnly
             type="text"
-            name="items[]"
+            name={comboName ? `${comboName}-items[]` : 'items[]'}
             value={[combo.name, combo.amount]}
             hidden
           />

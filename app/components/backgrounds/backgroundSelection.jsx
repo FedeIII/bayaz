@@ -78,8 +78,9 @@ function BackgroundSelection(props) {
                 <div className={styles.equipmentOptions} key={comboSection}>
                   <EquipmentCombo
                     pc={pc}
+                    comboName="proficiency"
                     combo={combo}
-                    comboSection={`proficiency-${comboSection}`}
+                    comboSection={comboSection}
                   />
                 </div>
               )
@@ -97,8 +98,9 @@ function BackgroundSelection(props) {
                 <div className={styles.equipmentOptions} key={comboSection}>
                   <EquipmentCombo
                     pc={pc}
+                    comboName="equipment"
                     combo={combo}
-                    comboSection={`equipment-${comboSection}`}
+                    comboSection={comboSection}
                   />
                 </div>
               )
@@ -123,7 +125,7 @@ function BackgroundSelection(props) {
         Object.entries(BACKGROUNDS[backgroundName].select).map(
           ([topicToSelect, thingsToSelect]) => (
             <div key={topicToSelect}>
-              Escoge uno:{' '}
+              Escoge {thingsToSelect.amount || 1}:{' '}
               {thingsToSelect.items.map(thing => (
                 <label
                   htmlFor={thing}
@@ -131,8 +133,12 @@ function BackgroundSelection(props) {
                   className={styles.skillLabel}
                 >
                   <input
-                    type="radio"
-                    name={topicToSelect}
+                    type={thingsToSelect.amount > 1 ? 'checkbox' : 'radio'}
+                    name={
+                      thingsToSelect.amount > 1
+                        ? topicToSelect + '[]'
+                        : topicToSelect
+                    }
                     id={thing}
                     value={thing}
                   />

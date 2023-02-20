@@ -427,6 +427,272 @@ export const TOOLS = {
     };
   },
 
+  //BACKGROUNDS
+  guildIntroductionLetter(props) {
+    return {
+      name: 'guildIntroductionLetter',
+      translation: 'Carta de presentación de tu gremio',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [50, 0, 0],
+      weight: 0.1,
+      ...props,
+    };
+  },
+  admirerFavor(props) {
+    return {
+      name: 'admirerFavor',
+      translation: 'Favor de un admirador',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [1, 0, 0],
+      weight: 0.1,
+      ...props,
+    };
+  },
+  forgeryKit(props) {
+    return {
+      name: 'forgeryKit',
+      translation: 'Kit de falsificación',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [15, 0, 0],
+      weight: 2.5,
+      ...props,
+    };
+  },
+  conTools(props) {
+    return {
+      name: 'conTools',
+      translation: 'Herramientas de estafa',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [50, 0, 0],
+      weight: 1,
+      ...props,
+    };
+  },
+  gamingSet(props) {
+    return {
+      name: 'gamingSet',
+      translation: 'Set de juego',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 5, 0],
+      weight: 0.2,
+      ...props,
+    };
+  },
+  layLowClothes(props) {
+    return {
+      name: 'layLowClothes',
+      translation: 'Ropa oscura con capucha',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 5, 0],
+      weight: 0.2,
+      ...props,
+    };
+  },
+  scrollCase(props) {
+    return {
+      name: 'scrollCase',
+      translation: 'Rollo de pergamino con notas',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 1, 0],
+      weight: 0.1,
+      ...props,
+    };
+  },
+  winterBlanket(props) {
+    return {
+      name: 'winterBlanket',
+      translation: 'Manta de invierno',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 5, 0],
+      weight: 1.5,
+      ...props,
+    };
+  },
+  huntingTrap(props) {
+    return {
+      name: 'huntingTrap',
+      translation: 'Trampa de caza',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [5, 0, 0],
+      weight: 12,
+      ...props,
+    };
+  },
+  animalTrophy(props) {
+    return {
+      name: 'animalTrophy',
+      translation: 'Trofeo de caza',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [1, 0, 0],
+      weight: 1,
+      ...props,
+    };
+  },
+  shovel(props) {
+    return {
+      name: 'shovel',
+      translation: 'Pala',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [2, 0, 0],
+      weight: 2.5,
+      ...props,
+    };
+  },
+  ironPot(props) {
+    return {
+      name: 'ironPot',
+      translation: 'Olla de hierro',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [2, 0, 0],
+      weight: 5,
+      ...props,
+    };
+  },
+  smallKnife(props) {
+    return {
+      name: 'smallKnife',
+      translation: 'Cuchillo pequeño',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 0, 0],
+      weight: 0,
+      ...props,
+    };
+  },
+  cityMap(props) {
+    return {
+      name: 'cityMap',
+      translation: 'Mapa de ciudad',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [1, 0, 0],
+      weight: 0,
+      ...props,
+    };
+  },
+  petMouse(props) {
+    return {
+      name: 'petMouse',
+      translation: 'Ratón mascota',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 0, 0],
+      weight: 0.1,
+      ...props,
+    };
+  },
+  parentsToken(props) {
+    return {
+      name: 'parentsToken',
+      translation: 'Símbolo para recordar a tus padres',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 0, 0],
+      weight: 0,
+      ...props,
+    };
+  },
+  navigatorsTools(props) {
+    return {
+      name: 'navigatorsTools',
+      translation: 'Herramientas de navegación',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [25, 0, 0],
+      weight: 1,
+      ...props,
+    };
+  },
+  silkRope(props) {
+    return {
+      name: 'silkRope',
+      translation: 'Cuerda de seda',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 7, 0],
+      weight: 0.1,
+      ...props,
+    };
+  },
+  luckyCharm(props) {
+    return {
+      name: 'luckyCharm',
+      translation: 'Amuleto de la suerte',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 1, 0],
+      weight: 0.2,
+      ...props,
+    };
+  },
+  signedRing(props) {
+    return {
+      name: 'signedRing',
+      translation: 'Anillo con sello',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [5, 0, 0],
+      weight: 0,
+      ...props,
+    };
+  },
+  pedigreeScroll(props) {
+    return {
+      name: 'pedigreeScroll',
+      translation: 'Pergamino con genealogía',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 1, 0],
+      weight: 0,
+      ...props,
+    };
+  },
+  personalLetter(props) {
+    return {
+      name: 'personalLetter',
+      translation: 'Carta personal',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [0, 0, 0],
+      weight: 0,
+      ...props,
+    };
+  },
+  rankInsignia(props) {
+    return {
+      name: 'rankInsignia',
+      translation: 'Insignia con rango',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [10, 0, 0],
+      weight: 0,
+      ...props,
+    };
+  },
+  enemyTrophy(props) {
+    return {
+      name: 'enemyTrophy',
+      translation: 'Trofeo de enemigo caído',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [1, 0, 0],
+      weight: 1,
+      ...props,
+    };
+  },
+
   //OTHERS
   componentPouch(props) {
     return {
@@ -502,17 +768,6 @@ export const TOOLS = {
       subtype: 'adventure',
       price: [0, 5, 0],
       weight: 0.5,
-      ...props,
-    };
-  },
-  guildIntroductionLetter(props) {
-    return {
-      name: 'guildIntroductionLetter',
-      translation: 'Carta de presentación de tu gremio',
-      type: 'tool',
-      subtype: 'adventure',
-      price: [50, 0, 0],
-      weight: 0.1,
       ...props,
     };
   },
