@@ -16,7 +16,7 @@ import {
   RANGER_ARCHETYPES,
 } from '~/domain/ranger';
 import { DIVINE_DOMAINS } from '~/domain/cleric';
-import { unifyEquipment } from '~/domain/equipment/equipment';
+import { getItem } from '~/domain/equipment/equipment';
 import {
   ALL_SPELLS,
   getExtraPreparedSpells,
@@ -278,6 +278,22 @@ export async function deletePreparedSpell(name, spell) {
     { $pull: { preparedSpells: spell } },
     { new: true }
   ).exec();
+
+  return updatedPc;
+}
+
+export async function swapWeapons(name, oldWeaponName, newWeaponName) {
+  await Pc.findOneAndUpdate(
+    { name, 'items.weapons.name': oldWeaponName },
+    { $set: { 'items.weapons.$': getItem(newWeaponName) } },
+    { new: true }
+  );
+
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name, 'items.treasure.weapons.name': newWeaponName },
+    { $set: { 'items.treasure.weapons.$': getItem(oldWeaponName) } },
+    { new: true }
+  );
 
   return updatedPc;
 }

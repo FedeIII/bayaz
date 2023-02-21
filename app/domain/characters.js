@@ -1138,3 +1138,19 @@ export function distributeItems(pc, items) {
     }
   );
 }
+
+export function hasExtraWeapons(pc) {
+  const {
+    items: { treasure },
+  } = pc;
+
+  return treasure.weapons.length !== 0;
+}
+
+export function getExtraWeapons(pc) {
+  const {
+    items: { treasure },
+  } = pc;
+
+  return treasure.weapons;
+}

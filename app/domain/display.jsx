@@ -150,7 +150,7 @@ function displayDamage(pc, weapon) {
 
 function getAttackFromWeapon(pc, weapon, specialAttackIndex) {
   return {
-    name: weapon.translation,
+    weapon: getItem(weapon.name),
     specialAttackIndex,
     bonus: getAttackBonus(pc, weapon),
     damage: displayDamage(pc, weapon),

@@ -1,8 +1,13 @@
 import { json } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import {
+  Form,
+  useLoaderData,
+  useSubmit,
+  useTransition,
+} from '@remix-run/react';
 import { Fragment, useState } from 'react';
 
-import { getPc, updatePc } from '~/services/pc.server';
+import { getPc, swapWeapons, updatePc } from '~/services/pc.server';
 import {
   STATS,
   getStat,
@@ -25,6 +30,8 @@ import {
   getArmorClass,
   getExtraArmorClass,
   getTraits,
+  hasExtraWeapons,
+  getExtraWeapons,
 } from '~/domain/characters';
 import { getExpertSkills } from '~/domain/rogue';
 import {
@@ -53,7 +60,7 @@ import {
   increment,
   listItems,
 } from '~/domain/display';
-import { translateItem } from '~/domain/equipment/equipment';
+import { getItem, translateItem } from '~/domain/equipment/equipment';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { translateBackground } from '~/domain/backgrounds';
 
@@ -67,9 +74,15 @@ export const loader = async ({ params }) => {
   return json({ pc });
 };
 
-export const action = async ({ request }) => {
-  const formData = await request.formData();
+function swapWeaponsAction(formData) {
+  const oldWeaponName = formData.get('oldWeaponName');
+  const newWeaponName = formData.get('newWeaponName');
+  const name = formData.get('name');
 
+  swapWeapons(name, oldWeaponName, newWeaponName);
+}
+
+async function updateFreeTexts(formData) {
   const name = formData.get('name');
   const playerName = formData.get('playerName');
   const personality = formData.get('personality');
@@ -81,6 +94,18 @@ export const action = async ({ request }) => {
     name,
     freeText: { playerName, personality, ideals, bonds, flaws },
   });
+}
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+
+  const action = formData.get('action');
+
+  if (action === 'swapWeapons') {
+    await swapWeaponsAction(formData);
+  } else {
+    await updateFreeTexts(formData);
+  }
 
   return null;
 };
@@ -98,8 +123,7 @@ function PcSummary() {
     hitPoints,
     exp,
     languages,
-    items: { equipment },
-    pack,
+    items: { weapons, equipment },
     money,
     background = {},
     freeText: { playerName, personality, ideals, bonds, flaws } = {},
@@ -134,6 +158,22 @@ function PcSummary() {
       level: 2,
     },
   ]);
+
+  const submit = useSubmit();
+
+  function onWeaponChange(i) {
+    return e => {
+      submit(
+        {
+          action: 'swapWeapons',
+          name,
+          oldWeaponName: weapons[i].name,
+          newWeaponName: e.target.value,
+        },
+        { method: 'post' }
+      );
+    };
+  }
 
   return (
     <>
@@ -258,15 +298,28 @@ function PcSummary() {
 
         {/* ATTACKS */}
         {getAttacks(pc).map((attack, i) => (
-          <Fragment key={attack.name}>
-            <span className={`${styles.data} ${styles['attackName-' + i]}`}>
-              {attack.name}{' '}
+          <Fragment key={attack.weapon.name}>
+            <div className={`${styles.data} ${styles['attackName-' + i]}`}>
+              <select
+                className={styles.selectAttack}
+                disabled={!hasExtraWeapons(pc)}
+                onChange={onWeaponChange(i)}
+              >
+                <option value={attack.weapon.name}>
+                  {attack.weapon.translation}
+                </option>
+                {getExtraWeapons(pc).map(weapon => (
+                  <option value={weapon.name}>
+                    {translateItem(weapon.name)}
+                  </option>
+                ))}
+              </select>{' '}
               {!!attack.specialAttackIndex && (
                 <sup className={styles.superscript}>
                   {attack.specialAttackIndex}
                 </sup>
               )}
-            </span>
+            </div>
             <span className={`${styles.data} ${styles['attackBonus-' + i]}`}>
               {increment(attack.bonus)}
             </span>
