@@ -159,20 +159,21 @@ function getAttackFromWeapon(pc, weapon, specialAttackIndex) {
 }
 
 export function getAttacks(pc) {
-  const { equipment } = pc;
+  const {
+    items: { weapons },
+  } = pc;
 
   let specialAttackIndex = 0;
-  return equipment.reduce((attacks, pcItem) => {
-    const item = getItem(pcItem.name);
-    if (item.type === 'weapon' && attacks.length < 3) {
-      attacks.push(
-        getAttackFromWeapon(
-          pc,
-          item,
-          hasSpecialAttack(item) && ++specialAttackIndex
-        )
-      );
-    }
+  return weapons.reduce((attacks, pWeapon) => {
+    const weapon = getItem(pWeapon.name);
+
+    attacks.push(
+      getAttackFromWeapon(
+        pc,
+        weapon,
+        hasSpecialAttack(weapon) && ++specialAttackIndex
+      )
+    );
 
     return attacks;
   }, []);
@@ -267,13 +268,15 @@ function SpecialAttackFromWeapon(props) {
 }
 
 export function getSpecialAttacks(pc) {
-  const { equipment } = pc;
+  const {
+    items: { weapons },
+  } = pc;
 
-  return equipment.reduce((specialAttacks, pcItem) => {
-    const item = getItem(pcItem.name);
-    if (item.type === 'weapon' && hasSpecialAttack(item)) {
+  return weapons.reduce((specialAttacks, pWeapon) => {
+    const weapon = getItem(pWeapon.name);
+    if (hasSpecialAttack(weapon)) {
       specialAttacks.push(
-        <SpecialAttackFromWeapon pc={pc} weapon={item} key={item.name} />
+        <SpecialAttackFromWeapon pc={pc} weapon={weapon} key={weapon.name} />
       );
     }
 

@@ -7,6 +7,7 @@ import { getPc, updatePc } from '~/services/pc.server';
 import { BACKGROUNDS, translateBackground } from '~/domain/backgrounds';
 import BackgroundSelection from '~/components/backgrounds/backgroundSelection';
 import { getEquipmentComboData } from '~/components/equipment/getEquipmentComboData';
+import { distributeItems } from '~/domain/characters';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -57,7 +58,7 @@ export const action = async ({ request }) => {
     background: { name: background, skills, ...thingsFromTopics },
     languages: [...pc.languages, ...languages],
     proficientItems: [...pc.proficientItems, ...proficiencies],
-    equipment: [...pc.equipment, ...equipment],
+    items: distributeItems(pc, equipment),
     money: pc.money.map((coin, i) => coin + parseInt(money[i], 0)),
   });
 

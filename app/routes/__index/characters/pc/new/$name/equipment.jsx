@@ -2,13 +2,12 @@ import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import {
-  EquipmentCombo,
-} from '~/components/equipment/equipmentCombo';
-import { getEquipmentComboData } from "~/components/equipment/getEquipmentComboData";
+import { EquipmentCombo } from '~/components/equipment/equipmentCombo';
+import { getEquipmentComboData } from '~/components/equipment/getEquipmentComboData';
 import { CLASS_EQUIPMENT } from '~/domain/equipment/equipment';
 
 import styles from '~/components/characters.module.css';
+import { distributeItems } from '~/domain/characters';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -34,7 +33,7 @@ export const action = async ({ request }) => {
 
   await updatePc({
     name,
-    equipment: [...pc.equipment, ...equipment],
+    items: distributeItems(pc, equipment),
     pack: packName,
   });
 

@@ -33,7 +33,13 @@ export function translateEquipment(type) {
 
 export function getItem(itemName) {
   const allItems = getAllItems();
-  return allItems.find(item => item().name === itemName)();
+  const itemBuilder = allItems.find(item => item().name === itemName);
+
+  if (!itemBuilder) {
+    throw new Error('Item ' + itemName + ' not found');
+  }
+
+  return itemBuilder();
 }
 
 export function translateItem(itemName) {
@@ -57,6 +63,11 @@ export function getAllItems() {
 
 export function pcItem(itemName, itemAmount) {
   const itemBuilder = getAllItems().find(item => item().name === itemName);
+
+  if (!itemBuilder) {
+    throw new Error('Item ' + itemName + ' not found');
+  }
+
   const item = itemBuilder();
 
   return { name: item.name, amount: parseInt(itemAmount, 10) || 1 };
@@ -66,13 +77,23 @@ export function translatePack(packName) {
   return PACKS.find(pack => pack.packName === packName).translation;
 }
 
-export function unifyEquipment(pcEquipment) {
-  return pcEquipment.reduce((unifiedEquipment, item) => {
+export function unifyEquipment(pcItems) {
+  return pcItems.reduce((unifiedEquipment, item) => {
     const itemIndex = unifiedEquipment.findIndex(i => i.name === item.name);
     if (itemIndex >= 0) unifiedEquipment[itemIndex].amount += item.amount;
     else unifiedEquipment.push({ ...item });
     return unifiedEquipment;
   }, []);
+}
+
+export function canBeAlwaysEquipped(item) {
+  const { subtype } = item;
+  return (
+    subtype === 'clothes' ||
+    subtype === 'arcaneFocus' ||
+    subtype === 'druidicFocus' ||
+    subtype === 'equipment'
+  );
 }
 
 export const CLASS_EQUIPMENT = {

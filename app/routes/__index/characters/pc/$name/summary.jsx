@@ -53,8 +53,7 @@ import {
   increment,
   listItems,
 } from '~/domain/display';
-import { translateItem, translatePack } from '~/domain/equipment/equipment';
-import { getPackItems } from '~/domain/equipment/packs';
+import { translateItem } from '~/domain/equipment/equipment';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { translateBackground } from '~/domain/backgrounds';
 
@@ -99,7 +98,7 @@ function PcSummary() {
     hitPoints,
     exp,
     languages,
-    equipment,
+    items: { equipment },
     pack,
     money,
     background = {},
@@ -287,15 +286,35 @@ function PcSummary() {
         </ul>
 
         {/* EQUIPMENT */}
-        <div className={`${styles.data} ${styles.equipment}`}>
-          <div>{listItems(equipment)}</div>
-          {pack && (
+        <ul className={`${styles.data} ${styles.equipment}`}>
+          {equipment.armor && (
+            <li>
+              <u>Armadura:</u>{' '}
+              <strong>{translateItem(equipment.armor.name)}</strong>
+            </li>
+          )}
+          {equipment.shield && (
+            <li>
+              <u>Escudo:</u>{' '}
+              <strong>{translateItem(equipment.shield.name)}</strong>
+            </li>
+          )}
+          {equipment.ammunition?.length && (
+            <li>
+              <u>Proyectiles:</u>{' '}
+              <strong>{listItems(equipment.ammunition)}</strong>
+            </li>
+          )}
+          {equipment.others?.length && <li>{listItems(equipment.others)}</li>}
+        </ul>
+
+        {/* {pack && (
             <div>
               <u>{translatePack(pack) + ':'}</u>
               {' ' + listItems(getPackItems(pack))}
             </div>
-          )}
-        </div>
+          )} */}
+
         <div className={`${styles.data} ${styles.copper}`}>
           {displayMoneyAmount(money[2])}
         </div>

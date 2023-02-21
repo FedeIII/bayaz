@@ -168,7 +168,23 @@ const pcSchema = new mongoose.Schema({
   extraStats: statsSchema,
   languages: [{ type: String, enum: [...LANGUAGES, ...EXOTIC_LANGUAGES] }],
   background: backgroundSchema,
-  equipment: [itemSchema],
+  items: {
+    weapons: {
+      type: [itemSchema],
+      validate: [weaponLimit, '{PATH} exceeds the limit of 3'],
+    },
+    equipment: {
+      armor: itemSchema,
+      shield: itemSchema,
+      ammunition: [itemSchema],
+      others: [itemSchema],
+    },
+    treasure: {
+      weapons: [itemSchema],
+      armors: [itemSchema],
+      others: [itemSchema],
+    },
+  },
   pack: String,
   proficientItems: [itemSchema],
   freeText: freeTextSchema,
@@ -178,6 +194,10 @@ const pcSchema = new mongoose.Schema({
   totalSpells: Number,
   money: [Number, Number, Number],
 });
+
+function weaponLimit(val) {
+  return val.length <= 3;
+}
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);
 
@@ -198,17 +218,29 @@ export async function createPc(pc) {
     ...pc,
     size: RACES[race][subrace].size,
     speed: RACES[race][subrace].speed,
+    items: {
+      weapons: [],
+      equipment: {
+        armor: null,
+        shield: null,
+        ammunition: [],
+        others: [],
+      },
+      treasure: {
+        weapons: [],
+        armors: [],
+        others: [],
+      },
+    },
   });
 
   return newPc;
 }
 
-export async function updatePc(pc) {
-  if (pc.equipment) pc.equipment = unifyEquipment(pc.equipment);
-
+export async function updatePc(pcAttrs) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pc.name },
-    { $set: pc },
+    { name: pcAttrs.name },
+    { $set: pcAttrs },
     { new: true }
   ).exec();
 

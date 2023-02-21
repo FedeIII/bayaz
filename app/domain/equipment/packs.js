@@ -100,6 +100,7 @@ export const DIPLOMATS_PACK = {
         name: 'fineClothes',
         translation: 'Conjunto de ropa fina',
         type: 'adventure',
+        subtype: 'clothes',
         ...props,
       };
     },
@@ -233,6 +234,7 @@ export const ENTERTAINERS_PACK = {
         name: 'disguiseKit',
         translation: 'Kit de disfraz',
         type: 'adventure',
+        subtype: 'clothes',
         ...props,
       };
     },
@@ -485,10 +487,10 @@ export const BURGLARS_PACK = {
         ...props,
       };
     },
-    hilo(props) {
+    string(props) {
       return {
-        name: 'hilo',
-        translation: 'Cuerda',
+        name: 'string',
+        translation: 'hilo',
         type: 'adventure',
         amount: 3,
         ...props,

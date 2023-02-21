@@ -661,8 +661,10 @@
   font-size: 14px;
   line-height: 1.54;
   hyphens: auto;
-  width: 106%;
-  margin: -19px 0 0 -4px;
+  width: 104%;
+  margin: 2px 0px 0 -4px;
+  padding: 0 0px 0 0px;
+  list-style: none;
 }
 
 .copper {

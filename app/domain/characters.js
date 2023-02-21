@@ -9,7 +9,11 @@ import {
   getAllLightArmors,
   getAllMediumArmors,
 } from './equipment/armors';
-import { getItem } from './equipment/equipment';
+import {
+  canBeAlwaysEquipped,
+  getItem,
+  unifyEquipment,
+} from './equipment/equipment';
 import {
   getAllMartialMelee,
   getAllMartialRanged,
@@ -978,11 +982,14 @@ export function getItemProficiencies(pc) {
 }
 
 export function getArmorClass(pc) {
-  const { equipment, pClass } = pc;
-  const armor = equipment.find(item => getItem(item.name)?.properties?.AC);
-  const shield = equipment.find(
-    item => getItem(item.name).subtype === 'shield'
-  );
+  const {
+    items: {
+      equipment: { armor: pArmor = {}, shield: pShield = {} },
+    },
+    pClass,
+  } = pc;
+  const armor = getItem(pArmor.name);
+  const shield = getItem(pShield.name);
 
   if (pClass === 'barbarian' && !armor) {
     return 10 + getStatMod(getStat(pc, 'dex')) + getStatMod(getStat(pc, 'con'));
@@ -997,10 +1004,8 @@ export function getArmorClass(pc) {
 }
 
 export function getExtraArmorClass(pc) {
-  const shield = pc.equipment.find(
-    item => getItem(item.name).subtype === 'shield'
-  );
-  if (shield) return getItem(shield.name).properties.AC(getStats(pc));
+  const shield = getItem(pc.items.equipment.shield?.name);
+  if (shield) return shield.properties.AC(getStats(pc));
   else return 0;
 }
 
@@ -1077,4 +1082,59 @@ export function translateMoney(money) {
     })
     .filter(v => v)
     .join(', ');
+}
+
+export function distributeItems(pc, items) {
+  const unifiedItems = unifyEquipment(items);
+  const {
+    items: { weapons: pWeapons, equipment: pEquipment, treasure: pTreasure },
+  } = pc;
+
+  return unifiedItems.reduce(
+    (distributedItems, pItem) => {
+      const item = getItem(pItem.name);
+
+      if (item.type === 'weapon') {
+        if (distributedItems.weapons.length < 3) {
+          distributedItems.weapons.push(item);
+        } else {
+          distributedItems.treasure.weapons.push(item);
+        }
+      } else if (item.subtype === 'shield') {
+        if (!distributedItems.equipment.shield) {
+          distributedItems.equipment.shield = item;
+        } else {
+          distributedItems.treasure.armors.push(item);
+        }
+      } else if (item.type === 'armor') {
+        if (!distributedItems.equipment.armor) {
+          distributedItems.equipment.armor = item;
+        } else {
+          distributedItems.treasure.armors.push(item);
+        }
+      } else if (item.subtype === 'ammunition') {
+        distributedItems.equipment.ammunition.push(item);
+      } else if (canBeAlwaysEquipped(item)) {
+        distributedItems.equipment.others.push(item);
+      } else {
+        distributedItems.treasure.others.push(item);
+      }
+
+      return distributedItems;
+    },
+    {
+      weapons: [...pWeapons],
+      equipment: {
+        armor: pEquipment.armor,
+        shield: pEquipment.shield,
+        ammunition: [...pEquipment.ammunition],
+        others: [...pEquipment.others],
+      },
+      treasure: {
+        weapons: [...pTreasure.weapons],
+        armors: [...pTreasure.armors],
+        others: [...pTreasure.others],
+      },
+    }
+  );
 }
