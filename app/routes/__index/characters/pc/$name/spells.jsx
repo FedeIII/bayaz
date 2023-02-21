@@ -10,8 +10,6 @@ import {
 import { translateClass } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
-
-import styles from '~/components/spells.module.css';
 import {
   divideSpells,
   getMaxPreparedSpells,
@@ -22,6 +20,8 @@ import {
   hasToPrepareSpells,
   isPreparedSpell,
 } from '~/domain/spells/spells';
+
+import styles from '~/components/spells.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -55,7 +55,7 @@ export const action = async ({ request }) => {
   return null;
 };
 
-function PcSummary() {
+function PcSpells() {
   const { pc } = useLoaderData();
   const { pClass, name, preparedSpells } = pc;
 
@@ -71,9 +71,14 @@ function PcSummary() {
   useAddMenuItems('/characters', [
     { name, url: `/characters/pc/${name}/summary`, level: 1 },
     {
+      name: 'Biografía',
+      url: `/characters/pc/${name}/bio`,
+      level: 2,
+    },
+    {
       name: 'Conjuros',
       url: `/characters/pc/${name}/spells`,
-      level: 1,
+      level: 2,
     },
   ]);
 
@@ -183,4 +188,4 @@ function PcSummary() {
   );
 }
 
-export default PcSummary;
+export default PcSpells;

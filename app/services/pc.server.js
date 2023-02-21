@@ -89,10 +89,18 @@ const itemSchema = new mongoose.Schema({
 });
 
 const freeTextSchema = new mongoose.Schema({
+  playerName: String,
   personality: String,
   ideals: String,
   bonds: String,
   flaws: String,
+  eyes: String,
+  skin: String,
+  hair: String,
+  allies: String,
+  backstory: String,
+  extraTraits1: String,
+  extraTraits2: String,
 });
 
 const spellSchema = new mongoose.Schema({

@@ -45,6 +45,7 @@ import {
 import { translateDivineDomain, getDivineDomain } from '~/domain/cleric';
 import { getPrimalPath, translatePrimalPath } from '~/domain/barbarian';
 import {
+  displayMoneyAmount,
   displayTrait,
   getAttacks,
   getItemDisplayList,
@@ -55,6 +56,7 @@ import {
 import { translateItem, translatePack } from '~/domain/equipment/equipment';
 import { getPackItems } from '~/domain/equipment/packs';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
+import { translateBackground } from '~/domain/backgrounds';
 
 import styles from '~/components/sheet.module.css';
 
@@ -70,6 +72,7 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
+  const playerName = formData.get('playerName');
   const personality = formData.get('personality');
   const ideals = formData.get('ideals');
   const bonds = formData.get('bonds');
@@ -77,7 +80,7 @@ export const action = async ({ request }) => {
 
   await updatePc({
     name,
-    freeText: { personality, ideals, bonds, flaws },
+    freeText: { playerName, personality, ideals, bonds, flaws },
   });
 
   return null;
@@ -98,7 +101,9 @@ function PcSummary() {
     languages,
     equipment,
     pack,
-    freeText: { personality, ideals, bonds, flaws } = {},
+    money,
+    background = {},
+    freeText: { playerName, personality, ideals, bonds, flaws } = {},
   } = pc;
 
   const transition = useTransition();
@@ -119,6 +124,11 @@ function PcSummary() {
 
   useAddMenuItems('/characters', [
     { name, url: `/characters/pc/${name}/summary`, level: 1 },
+    {
+      name: 'Biografía',
+      url: `/characters/pc/${name}/bio`,
+      level: 2,
+    },
     {
       name: 'Conjuros',
       url: `/characters/pc/${name}/spells`,
@@ -148,6 +158,16 @@ function PcSummary() {
         <span className={`${styles.data} ${styles.pClass}`}>
           {translateClass(pClass)} lvl {level}
         </span>
+        <span className={`${styles.data} ${styles.background}`}>
+          {translateBackground(background.name)}
+        </span>
+        <input
+          type="text"
+          className={`${styles.data} ${styles.playerName}`}
+          name="playerName"
+          defaultValue={playerName}
+          onChange={onFreeTextChange}
+        />
         <span className={`${styles.data} ${styles.race}`}>
           {translateRace(race)}
           {subrace !== 'subrace' && ' ' + translateRace(subrace)}
@@ -275,6 +295,15 @@ function PcSummary() {
               {' ' + listItems(getPackItems(pack))}
             </div>
           )}
+        </div>
+        <div className={`${styles.data} ${styles.copper}`}>
+          {displayMoneyAmount(money[2])}
+        </div>
+        <div className={`${styles.data} ${styles.silver}`}>
+          {displayMoneyAmount(money[1])}
+        </div>
+        <div className={`${styles.data} ${styles.gold}`}>
+          {displayMoneyAmount(money[0])}
         </div>
 
         {/* FREETEXT */}

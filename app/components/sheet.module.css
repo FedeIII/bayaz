@@ -12,7 +12,7 @@
     /*******  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12  13  14  15  16  17 */
     /* 01 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .' /* 01 */
     /* 02 */ '.   .   .   .   .   .   .   pCl pCl pCl pCl .   .   .   pNa .   .' /* 02 */
-    /* 03 */ '.   .   .   .   .   .   .   pCl pCl pCl pCl .   .   .   pNa .   .' /* 03 */
+    /* 03 */ '.   .   .   .   .   .   .   pCl pCl pCl pCl .   bgd .   pNa .   .' /* 03 */
     /* 04 */ '.   .   nam nam nam .   .   .   .   .   .   .   .   .   .   .   .' /* 04 */
     /* 05 */ '.   .   nam nam nam .   .   rac rac rac rac .   .   .   exp .   .' /* 05 */
     /* 06 */ '.   .   .   .   .   .   .   rac rac rac rac .   .   .   exp .   .' /* 06 */
@@ -77,14 +77,14 @@
     /* 65 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 65 */
     /* 66 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 66 */
     /* 67 */ 'per .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT .' /* 67 */
-    /* 68 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 68 */
+    /* 68 */ '.   .   .   .   .   cpr .   equ equ equ equ equ .   FnT FnT FnT .' /* 68 */
     /* 69 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 69 */
     /* 70 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 70 */
-    /* 71 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 71 */
+    /* 71 */ '.   CnL CnL CnL CnL slv .   equ equ equ equ equ .   FnT FnT FnT .' /* 71 */
     /* 72 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 72 */
     /* 73 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 73 */
     /* 74 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 74 */
-    /* 75 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 75 */
+    /* 75 */ '.   CnL CnL CnL CnL gld .   equ equ equ equ equ .   FnT FnT FnT .' /* 75 */
     /* 76 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 76 */
     /* 77 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 77 */
     /* 78 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT .' /* 78 */
@@ -129,6 +129,20 @@
 
 .pClass {
   grid-area: pCl;
+}
+
+.background {
+  grid-area: bgd;
+}
+
+.playerName {
+  grid-area: pNa;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  margin: 12px 0px 0px 0px;
+  font-family: fantasy;
+  hyphens: auto;
 }
 
 .race {
@@ -645,10 +659,34 @@
   align-items: flex-start;
   text-align: left;
   font-size: 14px;
-  line-height: 1.3;
+  line-height: 1.54;
   hyphens: auto;
   width: 106%;
-  margin-left: -4px;
+  margin: -19px 0 0 -4px;
+}
+
+.copper {
+  grid-area: cpr;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 18px;
+  margin: 0 10px 0 0;
+}
+
+.silver {
+  grid-area: slv;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 18px;
+  margin: 0 10px 0 0;
+}
+
+.gold {
+  grid-area: gld;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 18px;
+  margin: 0 10px 0 0;
 }
 
 .featsAndTraits {
@@ -670,7 +708,7 @@
   margin: 4px 0px 0px 0px;
   font-family: fantasy;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.73;
   hyphens: auto;
 }
 
@@ -679,10 +717,10 @@
   resize: none;
   background-color: transparent;
   border: none;
-  margin: -11px 0px 0px 0px;
+  margin: -13px 0px 0px 0px;
   font-family: fantasy;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.73;
   hyphens: auto;
 }
 
@@ -694,7 +732,7 @@
   margin: 4px 0px 0px 0px;
   font-family: fantasy;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.73;
   hyphens: auto;
 }
 
@@ -706,7 +744,7 @@
   margin: -2px 0px -7px 0px;
   font-family: fantasy;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.73;
   hyphens: auto;
 }
 
@@ -716,8 +754,8 @@
   align-items: flex-start;
   flex-direction: column;
   line-height: 1.35;
-  padding: 14px 70px 0 0;
-  margin: 0;
+  padding: 0px 70px 0 0;
+  margin: -6px 0 0 0;
 }
 
 /*  */
