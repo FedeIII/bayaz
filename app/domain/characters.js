@@ -1096,28 +1096,28 @@ export function distributeItems(pc, items) {
 
       if (item.type === 'weapon') {
         if (distributedItems.weapons.length < 3) {
-          distributedItems.weapons.push(item);
+          distributedItems.weapons.push(pItem);
         } else {
-          distributedItems.treasure.weapons.push(item);
+          distributedItems.treasure.weapons.push(pItem);
         }
       } else if (item.subtype === 'shield') {
         if (!distributedItems.equipment.shield) {
-          distributedItems.equipment.shield = item;
+          distributedItems.equipment.shield = pItem;
         } else {
-          distributedItems.treasure.armors.push(item);
+          distributedItems.treasure.armors.push(pItem);
         }
       } else if (item.type === 'armor') {
         if (!distributedItems.equipment.armor) {
-          distributedItems.equipment.armor = item;
+          distributedItems.equipment.armor = pItem;
         } else {
-          distributedItems.treasure.armors.push(item);
+          distributedItems.treasure.armors.push(pItem);
         }
       } else if (item.subtype === 'ammunition') {
-        distributedItems.equipment.ammunition.push(item);
+        distributedItems.equipment.ammunition.push(pItem);
       } else if (canBeAlwaysEquipped(item)) {
-        distributedItems.equipment.others.push(item);
+        distributedItems.equipment.others.push(pItem);
       } else {
-        distributedItems.treasure.others.push(item);
+        distributedItems.treasure.others.push(pItem);
       }
 
       return distributedItems;

@@ -425,13 +425,14 @@
   margin-bottom: -8px;
 }
 
-.attackHandle {
+.attackHandler {
   height: 100%;
   display: flex;
   align-items: flex-end;
 }
 
-.attackHandleCharacter {
+.attackHandlerCharacter {
+  color: #0000d44d;
   cursor: pointer;
   font-size: 16px;
   position: absolute;

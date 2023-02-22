@@ -346,13 +346,13 @@ function PcSummary() {
             <Fragment key={attack.weapon.name}>
               <div className={`${styles.data} ${styles['attackName-' + i]}`}>
                 <label
-                  className={styles.attackHandle}
+                  className={styles.attackHandler}
                   ref={el => {
                     drag(el);
                     drop(el);
                   }}
                 >
-                  <span className={styles.attackHandleCharacter}>░</span>
+                  <span className={styles.attackHandlerCharacter}>░</span>
                   <select
                     className={styles.selectAttack}
                     disabled={!hasExtraWeapons(pc)}
