@@ -10,22 +10,22 @@
   /* prettier-ignore */
   grid-template-areas:
     /*******  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12 */
-    /* 01 */ '.   .   .   .   .   .   .   .   .   .   .   .  ' /* 01 */
-    /* 02 */ '.   .   .   .   .   .   age hei hei hei wei .  ' /* 02 */
-    /* 03 */ '.   .   nam nam nam .   .   .   .   .   .   .  ' /* 03 */
-    /* 04 */ '.   .   nam nam nam .   eye ski ski ski hai .  ' /* 04 */
-    /* 05 */ '.   .   .   .   .   .   eye ski ski ski hai .  ' /* 05 */
-    /* 06 */ '.   .   .   .   suS .   .   .   .   .   .   .  ' /* 06 */
-    /* 07 */ '.   .   .   .   ali ali ali ali .   .   .   .  ' /* 07 */
-    /* 08 */ '.   .   .   .   ali ali ali ali .   .   .   .  ' /* 08 */
-    /* 09 */ '.   .   .   .   ali ali ali ali .   .   .   .  ' /* 09 */
-    /* 10 */ '.   .   .   .   ali ali ali ali .   .   .   .  ' /* 10 */
-    /* 11 */ '.   .   .   .   .   .   suA .   .   .   .   .  ' /* 11 */
-    /* 12 */ '.   .   .   .   eT1 eT1 eT1 eT1 eT2 eT2 eT2 eT2' /* 12 */
-    /* 13 */ '.   bst bst .   eT1 eT1 eT1 eT1 eT2 eT2 eT2 eT2' /* 13 */
-    /* 14 */ '.   bst bst .   .   .   suT .   .   .   .   .  ' /* 14 */
-    /* 15 */ '.   bst bst .   .   .   .   .   .   .   .   .  ' /* 15 */
-    /* 16 */ '.   .   .   suL .   .   .   .   .   .   .   .  '; /* 16 */
+    /* 01 */ '.   .   .   .   .   .   .   .   .   .   .   .   ' /* 01 */
+    /* 02 */ '.   .   .   .   .   .   age hei hei hei wei .   ' /* 02 */
+    /* 03 */ '.   .   nam nam nam .   .   .   .   .   .   .   ' /* 03 */
+    /* 04 */ '.   .   nam nam nam .   eye ski ski ski hai .   ' /* 04 */
+    /* 05 */ '.   .   .   .   .   .   eye ski ski ski hai .   ' /* 05 */
+    /* 06 */ '.   .   .   .   suS .   .   .   .   .   .   .   ' /* 06 */
+    /* 07 */ '.   .   .   .   ali ali ali ali .   .   .   .   ' /* 07 */
+    /* 08 */ '.   .   .   .   ali ali ali ali .   .   .   .   ' /* 08 */
+    /* 09 */ '.   .   .   .   ali ali ali ali .   .   .   .   ' /* 09 */
+    /* 10 */ '.   .   .   .   ali ali ali ali .   .   .   .   ' /* 10 */
+    /* 11 */ '.   .   .   .   .   .   suA .   .   .   .   .   ' /* 11 */
+    /* 12 */ '.   .   .   .   eT1 eT1 eT1 eT1 eT2 eT2 eT2 eT2 ' /* 12 */
+    /* 13 */ '.   bst bst .   eT1 eT1 eT1 eT1 eT2 eT2 eT2 eT2 ' /* 13 */
+    /* 14 */ '.   bst bst .   .   .   suT .   .   .   .   .   ' /* 14 */
+    /* 15 */ '.   bst bst .   tre tre tre tre tre tre tre tre ' /* 15 */
+    /* 16 */ '.   .   .   suL .   .   .   .   .   .   .   .   '; /* 16 */
   /*********  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12 */
 }
 
@@ -199,6 +199,26 @@
   font-size: 14px;
   line-height: 1.54;
   hyphens: auto;
+}
+
+.treasure {
+  grid-area: tre;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  column-gap: 23px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.36;
+  hyphens: auto;
+  margin: 6px 0px 0 0px;
+  padding: 0 22px 0 12px;
+  list-style: circle;
+}
+
+.treasureItem {
+  max-width: 49%;
+  margin: 0px 0 0 8px;
 }
 
 /*  */

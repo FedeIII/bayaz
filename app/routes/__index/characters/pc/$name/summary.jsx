@@ -417,13 +417,6 @@ function PcSummary() {
           {equipment.others?.length && <li>{listItems(equipment.others)}</li>}
         </ul>
 
-        {/* {pack && (
-            <div>
-              <u>{translatePack(pack) + ':'}</u>
-              {' ' + listItems(getPackItems(pack))}
-            </div>
-          )} */}
-
         <div className={`${styles.data} ${styles.copper}`}>
           {displayMoneyAmount(money[2])}
         </div>

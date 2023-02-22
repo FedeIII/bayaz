@@ -6,6 +6,9 @@ import { getPc, updatePc } from '~/services/pc.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
 import styles from '~/components/bio.module.css';
+import { listItems } from '~/domain/display';
+import { getPackItems } from '~/domain/equipment/packs';
+import { translatePack } from '~/domain/equipment/equipment';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -50,6 +53,8 @@ function PcBio() {
     age,
     height,
     weight,
+    items: { treasure },
+    pack,
     freeText: {
       eyes,
       skin,
@@ -198,6 +203,31 @@ function PcBio() {
             Actualizar
           </button>
         )}
+
+        {/* TREASURE */}
+        <ul className={`${styles.data} ${styles.treasure}`}>
+          {!!treasure.weapons.length && (
+            <li className={styles.treasureItem}>
+              <u>Armas:</u> <strong>{listItems(treasure.weapons)}</strong>
+            </li>
+          )}
+          {!!treasure.armors.length && (
+            <li className={styles.treasureItem}>
+              <u>Armaduras:</u> <strong>{listItems(treasure.armors)}</strong>
+            </li>
+          )}
+          {!!treasure.others.length && (
+            <li className={styles.treasureItem}>
+              {listItems(treasure.others)}
+            </li>
+          )}
+          {pack && (
+            <li className={styles.treasureItem}>
+              <u>{translatePack(pack) + ':'}</u>
+              {' ' + listItems(getPackItems(pack))}
+            </li>
+          )}
+        </ul>
       </Form>
     </>
   );
