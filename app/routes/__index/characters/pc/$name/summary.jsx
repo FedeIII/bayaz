@@ -6,8 +6,14 @@ import {
   useTransition,
 } from '@remix-run/react';
 import { Fragment, useState } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 
-import { getPc, swapWeapons, updatePc } from '~/services/pc.server';
+import {
+  getPc,
+  equipWeapons,
+  updatePc,
+  switchWeapons,
+} from '~/services/pc.server';
 import {
   STATS,
   getStat,
@@ -60,7 +66,7 @@ import {
   increment,
   listItems,
 } from '~/domain/display';
-import { getItem, translateItem } from '~/domain/equipment/equipment';
+import { translateItem } from '~/domain/equipment/equipment';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { translateBackground } from '~/domain/backgrounds';
 
@@ -74,12 +80,20 @@ export const loader = async ({ params }) => {
   return json({ pc });
 };
 
-function swapWeaponsAction(formData) {
+function equipWeaponsAction(formData) {
   const oldWeaponName = formData.get('oldWeaponName');
   const newWeaponName = formData.get('newWeaponName');
   const name = formData.get('name');
 
-  swapWeapons(name, oldWeaponName, newWeaponName);
+  equipWeapons(name, oldWeaponName, newWeaponName);
+}
+
+function switchWeaponsAction(formData) {
+  const name = formData.get('name');
+  const weaponName = formData.get('weaponName');
+  const weaponSlot = formData.get('weaponSlot');
+
+  switchWeapons(name, weaponName, weaponSlot);
 }
 
 async function updateFreeTexts(formData) {
@@ -101,8 +115,10 @@ export const action = async ({ request }) => {
 
   const action = formData.get('action');
 
-  if (action === 'swapWeapons') {
-    await swapWeaponsAction(formData);
+  if (action === 'equipWeapons') {
+    await equipWeaponsAction(formData);
+  } else if (action === 'switchWeapons') {
+    await switchWeaponsAction(formData);
   } else {
     await updateFreeTexts(formData);
   }
@@ -165,7 +181,7 @@ function PcSummary() {
     return e => {
       submit(
         {
-          action: 'swapWeapons',
+          action: 'equipWeapons',
           name,
           oldWeaponName: weapons[i].name,
           newWeaponName: e.target.value,
@@ -173,6 +189,18 @@ function PcSummary() {
         { method: 'post' }
       );
     };
+  }
+
+  function onWeaponDrop(weaponName, weaponSlot) {
+    submit(
+      {
+        action: 'switchWeapons',
+        name,
+        weaponName,
+        weaponSlot,
+      },
+      { method: 'post' }
+    );
   }
 
   return (
@@ -297,39 +325,67 @@ function PcSummary() {
         </span>
 
         {/* ATTACKS */}
-        {getAttacks(pc).map((attack, i) => (
-          <Fragment key={attack.weapon.name}>
-            <div className={`${styles.data} ${styles['attackName-' + i]}`}>
-              <select
-                className={styles.selectAttack}
-                disabled={!hasExtraWeapons(pc)}
-                onChange={onWeaponChange(i)}
-              >
-                <option value={attack.weapon.name}>
-                  {attack.weapon.translation}
-                </option>
-                {getExtraWeapons(pc).map(weapon => (
-                  <option value={weapon.name}>
-                    {translateItem(weapon.name)}
-                  </option>
-                ))}
-              </select>{' '}
-              {!!attack.specialAttackIndex && (
-                <sup className={styles.superscript}>
-                  {attack.specialAttackIndex}
-                </sup>
-              )}
-            </div>
-            <span className={`${styles.data} ${styles['attackBonus-' + i]}`}>
-              {increment(attack.bonus)}
-            </span>
-            <span className={`${styles.data} ${styles['attackType-' + i]}`}>
-              {attack.damage}
-              <br />
-              {attack.type}
-            </span>
-          </Fragment>
-        ))}
+        {getAttacks(pc).map((attack, i) => {
+          const [_1, drag] = useDrag(
+            () => ({
+              type: 'WEAPON',
+              item: { value: attack.weapon.name },
+            }),
+            [attack.weapon.name]
+          );
+
+          const [_2, drop] = useDrop(
+            () => ({
+              accept: 'WEAPON',
+              drop: item => onWeaponDrop(item.value, i),
+            }),
+            []
+          );
+
+          return (
+            <Fragment key={attack.weapon.name}>
+              <div className={`${styles.data} ${styles['attackName-' + i]}`}>
+                <label
+                  className={styles.attackHandle}
+                  ref={el => {
+                    drag(el);
+                    drop(el);
+                  }}
+                >
+                  <span className={styles.attackHandleCharacter}>░</span>
+                  <select
+                    className={styles.selectAttack}
+                    disabled={!hasExtraWeapons(pc)}
+                    onChange={onWeaponChange(i)}
+                  >
+                    <option value={attack.weapon.name}>
+                      {attack.weapon.translation}
+                    </option>
+                    {getExtraWeapons(pc).map(weapon => (
+                      <option value={weapon.name}>
+                        {translateItem(weapon.name)}
+                      </option>
+                    ))}
+                  </select>{' '}
+                </label>
+
+                {!!attack.specialAttackIndex && (
+                  <sup className={styles.superscript}>
+                    {attack.specialAttackIndex}
+                  </sup>
+                )}
+              </div>
+              <span className={`${styles.data} ${styles['attackBonus-' + i]}`}>
+                {increment(attack.bonus)}
+              </span>
+              <span className={`${styles.data} ${styles['attackType-' + i]}`}>
+                {attack.damage}
+                <br />
+                {attack.type}
+              </span>
+            </Fragment>
+          );
+        })}
         <ul className={`${styles.data} ${styles.specialAttacks}`}>
           {getSpecialAttacks(pc).map((specialAttack, i) => (
             <li className={styles.specialAttack} key={i}>

@@ -282,7 +282,7 @@ export async function deletePreparedSpell(name, spell) {
   return updatedPc;
 }
 
-export async function swapWeapons(name, oldWeaponName, newWeaponName) {
+export async function equipWeapons(name, oldWeaponName, newWeaponName) {
   await Pc.findOneAndUpdate(
     { name, 'items.weapons.name': oldWeaponName },
     { $set: { 'items.weapons.$': getItem(newWeaponName) } },
@@ -296,4 +296,24 @@ export async function swapWeapons(name, oldWeaponName, newWeaponName) {
   );
 
   return updatedPc;
+}
+
+export async function switchWeapons(name, weaponName, destinationSlot) {
+  const pc = await getPc(name);
+  const weapons = pc.items.weapons.slice();
+
+  const originSlot = weapons.findIndex(weapon => weapon.name === weaponName);
+  const selectedWeapon = getItem(weaponName);
+  const replacedWeapon = weapons[destinationSlot];
+
+  weapons[originSlot] = replacedWeapon;
+  weapons[destinationSlot] = selectedWeapon;
+
+  return updatePc({
+    name,
+    items: {
+      ...pc.items,
+      weapons,
+    },
+  });
 }
