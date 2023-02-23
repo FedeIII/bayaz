@@ -80,20 +80,20 @@ export const loader = async ({ params }) => {
   return json({ pc });
 };
 
-function equipWeaponsAction(formData) {
+async function equipWeaponsAction(formData) {
   const oldWeaponName = formData.get('oldWeaponName');
   const newWeaponName = formData.get('newWeaponName');
   const name = formData.get('name');
 
-  equipWeapons(name, oldWeaponName, newWeaponName);
+  await equipWeapons(name, oldWeaponName, newWeaponName);
 }
 
-function switchWeaponsAction(formData) {
+async function switchWeaponsAction(formData) {
   const name = formData.get('name');
   const weaponName = formData.get('weaponName');
   const weaponSlot = formData.get('weaponSlot');
 
-  switchWeapons(name, weaponName, weaponSlot);
+  await switchWeapons(name, weaponName, weaponSlot);
 }
 
 async function updateFreeTexts(formData) {

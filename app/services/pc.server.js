@@ -298,6 +298,34 @@ export async function equipWeapons(name, oldWeaponName, newWeaponName) {
   return updatedPc;
 }
 
+export async function equipWeaponInSlot(name, weaponName, slot) {
+  const pc = await getPc(name);
+  const {
+    items: { weapons },
+  } = pc;
+  const weaponInSlot = weapons[slot];
+
+  await Pc.findOneAndUpdate(
+    { name },
+    { $set: { [`items.weapons.${slot}`]: getItem(weaponName) } },
+    { new: true }
+  );
+
+  if (weaponInSlot) {
+    await Pc.findOneAndUpdate(
+      { name },
+      { $push: { 'items.treasure.weapons': getItem(weaponInSlot.name) } },
+      { new: true }
+    );
+
+    await Pc.findOneAndUpdate(
+      { name },
+      { $pull: { 'items.treasure.weapons': { name: weaponName } } },
+      { new: true }
+    );
+  }
+}
+
 export async function switchWeapons(name, weaponName, destinationSlot) {
   const pc = await getPc(name);
   const weapons = pc.items.weapons.slice();

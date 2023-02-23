@@ -1,14 +1,25 @@
 import { json } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
-import { useState } from 'react';
+import {
+  Form,
+  useLoaderData,
+  useSubmit,
+  useTransition,
+} from '@remix-run/react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { getPc, updatePc } from '~/services/pc.server';
+import { equipWeaponInSlot, getPc, updatePc } from '~/services/pc.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
 import styles from '~/components/bio.module.css';
-import { listItems } from '~/domain/display';
+import { displayDamage, itemWithAmount, listItems } from '~/domain/display';
 import { getPackItems } from '~/domain/equipment/packs';
-import { translatePack } from '~/domain/equipment/equipment';
+import {
+  getItem,
+  translateItem,
+  translatePack,
+} from '~/domain/equipment/equipment';
+import OutsideAlerter from '~/components/HOCs/outsideAlerter';
+import { translateMoney } from '~/domain/characters';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -18,9 +29,15 @@ export const loader = async ({ params }) => {
   return json({ pc });
 };
 
-export const action = async ({ request }) => {
-  const formData = await request.formData();
+async function equipWeaponAction(formData) {
+  const name = formData.get('name');
+  const weaponName = formData.get('weaponName');
+  const weaponSlot = formData.get('weaponSlot');
 
+  await equipWeaponInSlot(name, weaponName, weaponSlot);
+}
+
+async function updateFreeTextsAction(formData) {
   const name = formData.get('name');
   const eyes = formData.get('eyes');
   const skin = formData.get('skin');
@@ -42,9 +59,155 @@ export const action = async ({ request }) => {
       extraTraits2,
     },
   });
+}
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+
+  const action = formData.get('action');
+
+  if (action === 'equipWeapon') {
+    await equipWeaponAction(formData);
+  } else {
+    await updateFreeTextsAction(formData);
+  }
 
   return null;
 };
+
+function ActionModal(props) {
+  const { children, elRef, formRef, closeModal } = props;
+
+  const ref = useRef(null);
+  const [selfPosition, setSelfPosition] = useState(null);
+  const elPos = elRef?.current.getBoundingClientRect();
+  const formPos = formRef?.current.getBoundingClientRect();
+
+  useEffect(() => {
+    setSelfPosition(ref?.current.getBoundingClientRect());
+  }, [setSelfPosition, ref?.current]);
+
+  return (
+    <div
+      className={styles.actionModal}
+      style={{
+        top: elPos.y - formPos.y - (selfPosition?.height || 0) + 'px',
+        left: elPos.x - formPos.x + 'px',
+      }}
+      ref={ref}
+    >
+      <OutsideAlerter onClickOutside={closeModal} enabled>
+        {!!selfPosition && children(props)}
+      </OutsideAlerter>
+    </div>
+  );
+}
+
+function ItemModal(props) {
+  const { children, elRef, formRef, closeModal } = props;
+
+  const ref = useRef(null);
+  const [selfPosition, setSelfPosition] = useState(null);
+  const elPos = elRef?.current.getBoundingClientRect();
+  const formPos = formRef?.current.getBoundingClientRect();
+
+  useEffect(() => {
+    setSelfPosition(ref?.current.getBoundingClientRect());
+  }, [setSelfPosition, ref?.current]);
+
+  return (
+    <div
+      className={styles.actionModal}
+      style={{
+        top: elPos.y - formPos.y - (selfPosition?.height || 0) + 'px',
+        left: elPos.x - formPos.x + 'px',
+      }}
+      onMouseLeave={closeModal}
+      ref={ref}
+    >
+      {selfPosition && (
+        <OutsideAlerter onClickOutside={closeModal} enabled>
+          {children(props)}
+        </OutsideAlerter>
+      )}
+    </div>
+  );
+}
+
+const TreasureWeapon = forwardRef(function TreasureWeapon(props, ref) {
+  const { pWeapon, isLast, onWeaponClick, onItemHover, closeModal } = props;
+  const weapon = getItem(pWeapon.name);
+
+  return (
+    <>
+      <strong
+        ref={ref}
+        className={styles.weapon}
+        onClick={() => onWeaponClick(pWeapon.name)}
+        onMouseOver={() => onItemHover(pWeapon.name)}
+        onMouseOut={closeModal}
+      >
+        {itemWithAmount(weapon.translation, pWeapon.amount)}
+      </strong>
+      {!isLast && ','}
+    </>
+  );
+});
+
+function WeaponModalContent(props) {
+  const { pc, weapon, equipWeapon, closeModal } = props;
+  const {
+    items: { weapons },
+  } = pc;
+
+  function onEquipClick(e) {
+    const slot = e.target.value;
+    equipWeapon(weapon.name, slot);
+    closeModal();
+  }
+
+  return (
+    <>
+      <h3 className={styles.modalTitle}>{weapon.translation}</h3>
+      <span className={styles.modalClose} onClick={closeModal}>
+        ⨉
+      </span>
+      <div className={styles.modalContent}>
+        <ul className={styles.modalOptions}>
+          <li>
+            <div>Equipar en </div>
+            <select className={styles.weaponSelect} onChange={onEquipClick}>
+              <option value="">Escoge hueco</option>
+              {Array.from(Array(3), (_, i) => (
+                <option value={i} key={i}>
+                  {i}: {getItem(weapons[i]?.name)?.translation || '-'}
+                </option>
+              ))}
+            </select>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+}
+
+function ItemModalContent(props) {
+  const { pc, weapon } = props;
+
+  return (
+    <>
+      <h3 className={styles.modalTitle}>{weapon.translation}</h3>
+      <div className={styles.modalContent}>
+        <ul className={styles.modalOptions}>
+          <li>{translateItem(weapon.subtype)}</li>
+          <li>{translateMoney(weapon.price)}</li>
+          <li>{displayDamage(pc, weapon)}</li>
+          <li>{weapon.weight} kg</li>
+        </ul>
+      </div>
+    </>
+  );
+}
 
 function PcBio() {
   const { pc } = useLoaderData();
@@ -94,6 +257,19 @@ function PcBio() {
     setIsSubmitBackstoryShown(false);
   }
 
+  const submit = useSubmit();
+  function equipWeapon(weaponName, weaponSlot) {
+    submit(
+      {
+        action: 'equipWeapon',
+        name,
+        weaponName,
+        weaponSlot,
+      },
+      { method: 'post' }
+    );
+  }
+
   useAddMenuItems('/characters', [
     { name, url: `/characters/pc/${name}/summary`, level: 1 },
     {
@@ -108,11 +284,66 @@ function PcBio() {
     },
   ]);
 
+  const [actionModalContent, setActionModalContent] = useState(null);
+  const [itemModalContent, setItemModalContent] = useState(null);
+
+  const weaponRef = useRef(null);
+  const formRef = useRef(null);
+
+  function onWeaponClick(weaponName) {
+    const weapon = getItem(weaponName);
+
+    setActionModalContent(() => props => (
+      <WeaponModalContent
+        pc={pc}
+        weapon={weapon}
+        equipWeapon={equipWeapon}
+        closeModal={() => setActionModalContent(null)}
+      />
+    ));
+  }
+
+  function onItemHover(weaponName) {
+    const weapon = getItem(weaponName);
+
+    if (!actionModalContent) {
+      setItemModalContent(() => props => (
+        <ItemModalContent pc={pc} weapon={weapon} />
+      ));
+    }
+  }
+
   return (
     <>
       <img src="/images/sheet2.jpg" className={styles.sheetBackground} />
-      <Form method="post" className={styles.summary} onSubmit={onFormSubmit}>
+      <Form
+        method="post"
+        className={styles.summary}
+        onSubmit={onFormSubmit}
+        ref={formRef}
+      >
         <input readOnly type="text" name="name" value={name} hidden />
+
+        {/* MODALS */}
+        {actionModalContent && (
+          <ActionModal
+            elRef={weaponRef}
+            formRef={formRef}
+            closeModal={() => setActionModalContent(null)}
+          >
+            {actionModalContent}
+          </ActionModal>
+        )}
+
+        {itemModalContent && (
+          <ItemModal
+            elRef={weaponRef}
+            formRef={formRef}
+            closeModal={() => setItemModalContent(null)}
+          >
+            {itemModalContent}
+          </ItemModal>
+        )}
 
         {/* BASIC ATTRS */}
         <span className={`${styles.data} ${styles.name}`}>{name}</span>
@@ -208,7 +439,16 @@ function PcBio() {
         <ul className={`${styles.data} ${styles.treasure}`}>
           {!!treasure.weapons.length && (
             <li className={styles.treasureItem}>
-              <u>Armas:</u> <strong>{listItems(treasure.weapons)}</strong>
+              <u>Armas:</u>{' '}
+              <TreasureWeapon
+                ref={weaponRef}
+                pWeapon={treasure.weapons[0]}
+                isLast={true}
+                onWeaponClick={onWeaponClick}
+                onItemHover={onItemHover}
+                closeModal={() => setItemModalContent(null)}
+                key={treasure.weapons[0].name}
+              />
             </li>
           )}
           {!!treasure.armors.length && (

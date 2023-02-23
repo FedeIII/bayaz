@@ -44,7 +44,11 @@ export function getItem(itemName) {
 
 export function translateItem(itemName) {
   if (itemName === 'simpleWeapons') return 'Armas simples';
+  if (itemName === 'simpleMelee') return 'Arma simple c/c';
+  if (itemName === 'simpleRanged') return 'Arma simple a distancia';
   if (itemName === 'martialWeapons') return 'Armas marciales';
+  if (itemName === 'martialMelee') return 'Arma marcial c/c';
+  if (itemName === 'martialRanged') return 'Arma marcial a distancia';
   if (itemName === 'lightArmors') return 'Armaduras ligeras';
   if (itemName === 'mediumArmors') return 'Armaduras medias';
   if (itemName === 'heavyArmors') return 'Armaduras pesadas';

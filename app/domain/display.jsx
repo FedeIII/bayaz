@@ -137,7 +137,7 @@ export function getItemDisplayList(itemNames) {
   return list;
 }
 
-function displayDamage(pc, weapon) {
+export function displayDamage(pc, weapon) {
   const { properties: { versatile } = {} } = weapon;
   const damageBonus = getDamageBonus(pc, weapon);
   if (versatile)
