@@ -7,7 +7,12 @@ import {
 } from '@remix-run/react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { equipWeaponInSlot, getPc, updatePc } from '~/services/pc.server';
+import {
+  equipWeaponInSlot,
+  getPc,
+  updatePc,
+  switchArmor,
+} from '~/services/pc.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
 import styles from '~/components/bio.module.css';
@@ -19,7 +24,7 @@ import {
   translatePack,
 } from '~/domain/equipment/equipment';
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
-import { translateMoney } from '~/domain/characters';
+import { getItemArmorClass, translateMoney } from '~/domain/characters';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -35,6 +40,13 @@ async function equipWeaponAction(formData) {
   const weaponSlot = formData.get('weaponSlot');
 
   await equipWeaponInSlot(name, weaponName, weaponSlot);
+}
+
+async function equipArmorAction(formData) {
+  const name = formData.get('name');
+  const armorName = formData.get('armorName');
+
+  await switchArmor(name, armorName);
 }
 
 async function updateFreeTextsAction(formData) {
@@ -68,6 +80,8 @@ export const action = async ({ request }) => {
 
   if (action === 'equipWeapon') {
     await equipWeaponAction(formData);
+  } else if (action === 'equipArmor') {
+    await equipArmorAction(formData);
   } else {
     await updateFreeTextsAction(formData);
   }
@@ -91,8 +105,12 @@ function ActionModal(props) {
     <div
       className={styles.actionModal}
       style={{
-        top: elPos.y - formPos.y - (selfPosition?.height || 0) + 'px',
-        left: elPos.x - formPos.x + 'px',
+        top:
+          (elPos?.y || 0) -
+          (formPos?.y || 0) -
+          (selfPosition?.height || 0) +
+          'px',
+        left: (elPos?.x || 0) - (formPos?.x || 0) + 'px',
       }}
       ref={ref}
     >
@@ -119,8 +137,12 @@ function ItemModal(props) {
     <div
       className={styles.actionModal}
       style={{
-        top: elPos.y - formPos.y - (selfPosition?.height || 0) + 'px',
-        left: elPos.x - formPos.x + 'px',
+        top:
+          (elPos?.y || 0) -
+          (formPos?.y || 0) -
+          (selfPosition?.height || 0) +
+          'px',
+        left: (elPos?.x || 0) - (formPos?.x || 0) + 'px',
       }}
       onMouseLeave={closeModal}
       ref={ref}
@@ -148,7 +170,7 @@ function WeaponModalContent(props) {
 
   return (
     <>
-      <h3 className={styles.modalTitle}>{weapon.translation}</h3>
+      <h3 className={styles.actionModalTitle}>{weapon.translation}</h3>
       <span className={styles.modalClose} onClick={closeModal}>
         ⨉
       </span>
@@ -171,11 +193,59 @@ function WeaponModalContent(props) {
   );
 }
 
+function ArmorModalContent(props) {
+  const { pc, armor, equipArmor, closeModal } = props;
+  const {
+    items: {
+      equipment: { armor: pArmor },
+    },
+  } = pc;
+
+  function onEquipClick() {
+    equipArmor(armor.name);
+    closeModal();
+  }
+
+  return (
+    <>
+      <h3 className={styles.actionModalTitle}>{armor.translation}</h3>
+      <span className={styles.modalClose} onClick={closeModal}>
+        ⨉
+      </span>
+      <div className={styles.modalContent}>
+        <ul className={styles.modalOptions}>
+          <li>
+            {!!pArmor && (
+              <button
+                type="button"
+                className={styles.equipArmor}
+                onClick={onEquipClick}
+              >
+                Equipar en lugar de {getItem(pArmor.name).translation}
+              </button>
+            )}
+            {!pArmor && (
+              <button
+                type="button"
+                className={styles.equipArmor}
+                onClick={onEquipClick}
+              >
+                Equipar
+              </button>
+            )}
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+}
+
 function ItemModalContent(props) {
   const { pc, item } = props;
 
   const subtypeTranslation = translateItem(item.subtype);
   const isWeapon = item.type === 'weapon';
+  const isArmor = item.type === 'armor';
 
   return (
     <>
@@ -195,6 +265,14 @@ function ItemModalContent(props) {
               <span className={styles.modalRowTitle}>Daño:</span>{' '}
               <strong className={styles.modalRowValue}>
                 {displayDamage(pc, item)}
+              </strong>
+            </li>
+          )}
+          {isArmor && (
+            <li className={styles.modalItem}>
+              <span className={styles.modalRowTitle}>AC:</span>{' '}
+              <strong className={styles.modalRowValue}>
+                {getItemArmorClass(pc, item.name)}
               </strong>
             </li>
           )}
@@ -229,7 +307,7 @@ const TreasureItem = forwardRef(function TreasureItem(props, ref) {
       >
         {itemWithAmount(item.translation, pItem.amount)}
       </strong>
-      {!isLast && ','}
+      {!isLast && ', '}
     </>
   );
 });
@@ -295,6 +373,17 @@ function PcBio() {
     );
   }
 
+  function equipArmor(armorName) {
+    submit(
+      {
+        action: 'equipArmor',
+        name,
+        armorName,
+      },
+      { method: 'post' }
+    );
+  }
+
   useAddMenuItems('/characters', [
     { name, url: `/characters/pc/${name}/summary`, level: 1 },
     {
@@ -311,7 +400,6 @@ function PcBio() {
 
   const [actionModalContent, setActionModalContent] = useState(null);
   const [itemModalContent, setItemModalContent] = useState(null);
-  const closeItemModal = () => setItemModalContent(null);
 
   const [itemRefs, setItemRefs] = useState({
     weapons: treasure.weapons.map(() => useRef()),
@@ -320,22 +408,36 @@ function PcBio() {
     pack: getPackItems(pack).map(() => useRef()),
   });
   const [selectedItemRef, setSelectedItemRef] = useState(null);
+  const closeItemModal = () => setItemModalContent(null);
   const formRef = useRef(null);
 
-  function onWeaponClick(weaponIndex) {
-    return weaponName => {
-      const weapon = getItem(weaponName);
+  function onItemClick(itemType, itemIndex) {
+    return itemName => {
+      const item = getItem(itemName);
 
-      setSelectedItemRef(itemRefs.weapons[weaponIndex]);
+      setSelectedItemRef(itemRefs[itemType][itemIndex]);
 
-      setActionModalContent(() => props => (
-        <WeaponModalContent
-          pc={pc}
-          weapon={weapon}
-          equipWeapon={equipWeapon}
-          closeModal={() => setActionModalContent(null)}
-        />
-      ));
+      let content;
+      if (item.type === 'weapon')
+        content = props => (
+          <WeaponModalContent
+            pc={pc}
+            weapon={item}
+            equipWeapon={equipWeapon}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
+      if (item.type === 'armor')
+        content = props => (
+          <ArmorModalContent
+            pc={pc}
+            armor={item}
+            equipArmor={equipArmor}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
+
+      setTimeout(() => setActionModalContent(() => content), 0);
     };
   }
 
@@ -346,9 +448,13 @@ function PcBio() {
       if (!actionModalContent) {
         setSelectedItemRef(itemRefs[sectionName][itemIndex]);
 
-        setItemModalContent(() => props => (
-          <ItemModalContent pc={pc} item={item} />
-        ));
+        setTimeout(
+          () =>
+            setItemModalContent(() => props => (
+              <ItemModalContent pc={pc} item={item} />
+            )),
+          0
+        );
       }
     };
   }
@@ -485,7 +591,7 @@ function PcBio() {
                   ref={itemRefs.weapons[i]}
                   pItem={treasureWeapon}
                   isLast={i === treasure.weapons.length - 1}
-                  onItemClick={onWeaponClick(i)}
+                  onItemClick={onItemClick('weapons', i)}
                   openModal={openItemModal('weapons', i)}
                   closeModal={closeItemModal}
                   key={treasureWeapon.name}
@@ -495,7 +601,18 @@ function PcBio() {
           )}
           {!!treasure.armors.length && (
             <li className={styles.treasureItem}>
-              <u>Armaduras:</u> <strong>{listItems(treasure.armors)}</strong>
+              <u>Armaduras:</u>{' '}
+              {treasure.armors.map((treasureArmor, i) => (
+                <TreasureItem
+                  ref={itemRefs.armors[i]}
+                  pItem={treasureArmor}
+                  isLast={i === treasure.armors.length - 1}
+                  onItemClick={onItemClick('armors', i)}
+                  openModal={openItemModal('armors', i)}
+                  closeModal={closeItemModal}
+                  key={treasureArmor.name}
+                />
+              ))}
             </li>
           )}
           {!!treasure.others.length && (

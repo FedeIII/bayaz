@@ -362,7 +362,7 @@ function PcSummary() {
                       {attack.weapon.translation}
                     </option>
                     {getExtraWeapons(pc).map(weapon => (
-                      <option value={weapon.name}>
+                      <option value={weapon.name} key={weapon.name}>
                         {translateItem(weapon.name)}
                       </option>
                     ))}

@@ -223,8 +223,6 @@
 
 .item {
   cursor: pointer;
-  height: 16px;
-  display: inline-block;
 }
 
 .weapon:hover {
@@ -274,7 +272,21 @@
   position: relative;
   top: 0px;
   margin: -18px 0 0 0;
-  padding: 4px 8px 0 8px;
+  padding: 4px 0 0 8px;
+  line-height: 1.3;
+  background-color: #dadad8;
+  border-color: black;
+  border-radius: 10px;
+  border-block-style: groove;
+  background-color: #dadad8;
+  z-index: 1;
+}
+
+.actionModalTitle {
+  position: relative;
+  top: 0px;
+  margin: -18px 0 0 0;
+  padding: 4px 28px 0 8px;
   line-height: 1.3;
   background-color: #dadad8;
   border-color: black;
@@ -321,7 +333,7 @@
 
 .modalOptionsLeft {
   padding: 0 0 0 0px;
-  margin: 8px 0 0 0;
+  margin: 8px auto 0;
   text-align: left;
   font-size: 16px;
   display: table;
@@ -352,4 +364,22 @@
 
 .weaponSelect:focus-visible {
   outline: none;
+}
+
+.equipArmor {
+  max-width: 160px;
+  font-family: fantasy;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: white;
+  border-width: 1px;
+  border-style: groove;
+  border-end-start-radius: 10px;
+  border-end-end-radius: 10px;
+  margin: 4px 0 0 0;
+  padding: 4px 0 0 0;
+}
+
+.equipArmor:hover {
+  background-color: #dadad8;
 }

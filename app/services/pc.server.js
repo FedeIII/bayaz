@@ -16,7 +16,7 @@ import {
   RANGER_ARCHETYPES,
 } from '~/domain/ranger';
 import { DIVINE_DOMAINS } from '~/domain/cleric';
-import { getItem } from '~/domain/equipment/equipment';
+import { getItem, pcItem } from '~/domain/equipment/equipment';
 import {
   ALL_SPELLS,
   getExtraPreparedSpells,
@@ -342,6 +342,33 @@ export async function switchWeapons(name, weaponName, destinationSlot) {
     items: {
       ...pc.items,
       weapons,
+    },
+  });
+}
+
+export async function switchArmor(name, armorName) {
+  const pc = await getPc(name);
+
+  const { armor: pArmor } = pc.items.equipment;
+  const equipment = {
+    ...pc.items.equipment,
+    armor: pcItem(armorName),
+  };
+  const treasureArmors = pc.items.treasure.armors.slice();
+  const armorIndex = treasureArmors.findIndex(
+    armor => armor.name === armorName
+  );
+  if (armorIndex >= 0) treasureArmors[armorIndex] = pArmor;
+
+  return updatePc({
+    name,
+    items: {
+      ...pc.items,
+      equipment,
+      treasure: {
+        ...pc.items.treasure,
+        armors: treasureArmors,
+      },
     },
   });
 }

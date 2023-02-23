@@ -981,6 +981,10 @@ export function getItemProficiencies(pc) {
   ];
 }
 
+export function getItemArmorClass(pc, itemName) {
+  return getItem(itemName).properties.AC(getStats(pc));
+}
+
 export function getArmorClass(pc) {
   const {
     items: {
@@ -999,7 +1003,7 @@ export function getArmorClass(pc) {
     return 10 + getStatMod(getStat(pc, 'dex')) + getStatMod(getStat(pc, 'wis'));
   }
 
-  if (armor) return getItem(armor.name).properties.AC(getStats(pc));
+  if (armor) return getItemArmorClass(pc, armor.name);
   else return 10 + getStatMod(getStat(pc, 'dex'));
 }
 
