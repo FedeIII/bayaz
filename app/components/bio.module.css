@@ -221,7 +221,7 @@
   margin: 0px 0 0 8px;
 }
 
-.weapon {
+.item {
   cursor: pointer;
   height: 16px;
   display: inline-block;
@@ -274,7 +274,7 @@
   position: relative;
   top: 0px;
   margin: -18px 0 0 0;
-  padding: 4px 0 0 0;
+  padding: 4px 8px 0 8px;
   line-height: 1.3;
   background-color: #dadad8;
   border-color: black;
@@ -317,6 +317,29 @@
   list-style: none;
   padding: 0;
   margin: 8px 0 0 0;
+}
+
+.modalOptionsLeft {
+  padding: 0 0 0 0px;
+  margin: 8px 0 0 0;
+  text-align: left;
+  font-size: 16px;
+  display: table;
+  border-collapse: separate;
+  border-spacing: 8px 0px;
+}
+
+.modalItem {
+  display: table-row;
+}
+
+.modalRowTitle {
+  font-size: 12px;
+  display: table-cell;
+}
+
+.modalRowValue {
+  display: table-cell;
 }
 
 .weaponSelect {

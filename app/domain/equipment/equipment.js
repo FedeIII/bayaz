@@ -53,7 +53,11 @@ export function translateItem(itemName) {
   if (itemName === 'mediumArmors') return 'Armaduras medias';
   if (itemName === 'heavyArmors') return 'Armaduras pesadas';
 
-  return getItem(itemName).translation;
+  try {
+    return getItem(itemName).translation;
+  } catch {
+    return null;
+  }
 }
 
 export function getAllItems() {

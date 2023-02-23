@@ -134,26 +134,6 @@ function ItemModal(props) {
   );
 }
 
-const TreasureWeapon = forwardRef(function TreasureWeapon(props, ref) {
-  const { pWeapon, isLast, onWeaponClick, onItemHover, closeModal } = props;
-  const weapon = getItem(pWeapon.name);
-
-  return (
-    <>
-      <strong
-        ref={ref}
-        className={styles.weapon}
-        onClick={() => onWeaponClick(pWeapon.name)}
-        onMouseOver={() => onItemHover(pWeapon.name)}
-        onMouseOut={closeModal}
-      >
-        {itemWithAmount(weapon.translation, pWeapon.amount)}
-      </strong>
-      {!isLast && ','}
-    </>
-  );
-});
-
 function WeaponModalContent(props) {
   const { pc, weapon, equipWeapon, closeModal } = props;
   const {
@@ -192,22 +172,67 @@ function WeaponModalContent(props) {
 }
 
 function ItemModalContent(props) {
-  const { pc, weapon } = props;
+  const { pc, item } = props;
+
+  const subtypeTranslation = translateItem(item.subtype);
+  const isWeapon = item.type === 'weapon';
 
   return (
     <>
-      <h3 className={styles.modalTitle}>{weapon.translation}</h3>
+      <h3 className={styles.modalTitle}>{item.translation}</h3>
       <div className={styles.modalContent}>
-        <ul className={styles.modalOptions}>
-          <li>{translateItem(weapon.subtype)}</li>
-          <li>{translateMoney(weapon.price)}</li>
-          <li>{displayDamage(pc, weapon)}</li>
-          <li>{weapon.weight} kg</li>
+        <ul className={styles.modalOptionsLeft}>
+          {subtypeTranslation && (
+            <li className={styles.modalItem}>
+              <span className={styles.modalRowTitle}>Tipo:</span>{' '}
+              <strong className={styles.modalRowValue}>
+                {subtypeTranslation}
+              </strong>
+            </li>
+          )}
+          {isWeapon && (
+            <li className={styles.modalItem}>
+              <span className={styles.modalRowTitle}>Daño:</span>{' '}
+              <strong className={styles.modalRowValue}>
+                {displayDamage(pc, item)}
+              </strong>
+            </li>
+          )}
+          <li className={styles.modalItem}>
+            <span className={styles.modalRowTitle}>Coste:</span>{' '}
+            <strong className={styles.modalRowValue}>
+              {translateMoney(item.price)}
+            </strong>
+          </li>
+          <li className={styles.modalItem}>
+            <span className={styles.modalRowTitle}>Peso:</span>{' '}
+            <strong className={styles.modalRowValue}>{item.weight} kg</strong>
+          </li>
         </ul>
       </div>
     </>
   );
 }
+
+const TreasureItem = forwardRef(function TreasureItem(props, ref) {
+  const { pItem, isLast, onItemClick, openModal, closeModal } = props;
+  const item = getItem(pItem.name);
+
+  return (
+    <>
+      <strong
+        ref={ref}
+        className={styles.item}
+        onClick={() => onItemClick?.(pItem.name)}
+        onMouseOver={() => openModal(pItem.name)}
+        onMouseOut={closeModal}
+      >
+        {itemWithAmount(item.translation, pItem.amount)}
+      </strong>
+      {!isLast && ','}
+    </>
+  );
+});
 
 function PcBio() {
   const { pc } = useLoaderData();
@@ -286,31 +311,46 @@ function PcBio() {
 
   const [actionModalContent, setActionModalContent] = useState(null);
   const [itemModalContent, setItemModalContent] = useState(null);
+  const closeItemModal = () => setItemModalContent(null);
 
-  const weaponRef = useRef(null);
+  const [itemRefs, setItemRefs] = useState({
+    weapons: treasure.weapons.map(() => useRef()),
+    armors: treasure.armors.map(() => useRef()),
+    others: treasure.others.map(() => useRef()),
+    pack: getPackItems(pack).map(() => useRef()),
+  });
+  const [selectedItemRef, setSelectedItemRef] = useState(null);
   const formRef = useRef(null);
 
-  function onWeaponClick(weaponName) {
-    const weapon = getItem(weaponName);
+  function onWeaponClick(weaponIndex) {
+    return weaponName => {
+      const weapon = getItem(weaponName);
 
-    setActionModalContent(() => props => (
-      <WeaponModalContent
-        pc={pc}
-        weapon={weapon}
-        equipWeapon={equipWeapon}
-        closeModal={() => setActionModalContent(null)}
-      />
-    ));
+      setSelectedItemRef(itemRefs.weapons[weaponIndex]);
+
+      setActionModalContent(() => props => (
+        <WeaponModalContent
+          pc={pc}
+          weapon={weapon}
+          equipWeapon={equipWeapon}
+          closeModal={() => setActionModalContent(null)}
+        />
+      ));
+    };
   }
 
-  function onItemHover(weaponName) {
-    const weapon = getItem(weaponName);
+  function openItemModal(sectionName, itemIndex) {
+    return itemName => {
+      const item = getItem(itemName);
 
-    if (!actionModalContent) {
-      setItemModalContent(() => props => (
-        <ItemModalContent pc={pc} weapon={weapon} />
-      ));
-    }
+      if (!actionModalContent) {
+        setSelectedItemRef(itemRefs[sectionName][itemIndex]);
+
+        setItemModalContent(() => props => (
+          <ItemModalContent pc={pc} item={item} />
+        ));
+      }
+    };
   }
 
   return (
@@ -327,7 +367,7 @@ function PcBio() {
         {/* MODALS */}
         {actionModalContent && (
           <ActionModal
-            elRef={weaponRef}
+            elRef={selectedItemRef}
             formRef={formRef}
             closeModal={() => setActionModalContent(null)}
           >
@@ -337,9 +377,9 @@ function PcBio() {
 
         {itemModalContent && (
           <ItemModal
-            elRef={weaponRef}
+            elRef={selectedItemRef}
             formRef={formRef}
-            closeModal={() => setItemModalContent(null)}
+            closeModal={closeItemModal}
           >
             {itemModalContent}
           </ItemModal>
@@ -440,15 +480,17 @@ function PcBio() {
           {!!treasure.weapons.length && (
             <li className={styles.treasureItem}>
               <u>Armas:</u>{' '}
-              <TreasureWeapon
-                ref={weaponRef}
-                pWeapon={treasure.weapons[0]}
-                isLast={true}
-                onWeaponClick={onWeaponClick}
-                onItemHover={onItemHover}
-                closeModal={() => setItemModalContent(null)}
-                key={treasure.weapons[0].name}
-              />
+              {treasure.weapons.map((treasureWeapon, i) => (
+                <TreasureItem
+                  ref={itemRefs.weapons[i]}
+                  pItem={treasureWeapon}
+                  isLast={i === treasure.weapons.length - 1}
+                  onItemClick={onWeaponClick(i)}
+                  openModal={openItemModal('weapons', i)}
+                  closeModal={closeItemModal}
+                  key={treasureWeapon.name}
+                />
+              ))}
             </li>
           )}
           {!!treasure.armors.length && (
@@ -458,7 +500,16 @@ function PcBio() {
           )}
           {!!treasure.others.length && (
             <li className={styles.treasureItem}>
-              {listItems(treasure.others)}
+              {treasure.others.map((treasureItem, i) => (
+                <TreasureItem
+                  ref={itemRefs.others[i]}
+                  pItem={treasureItem}
+                  isLast={i === treasure.others.length - 1}
+                  openModal={openItemModal('others', i)}
+                  closeModal={closeItemModal}
+                  key={treasureItem.name}
+                />
+              ))}
             </li>
           )}
           {pack && (
