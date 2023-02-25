@@ -8,7 +8,7 @@ export function useInventoryItems(pc, itemRefs, otherModalContent) {
   const [selectedItemRef, setSelectedItemRef] = useState(null);
   const closeItemModal = () => setItemModalContent(null);
 
-  function openItemModal(sectionName, itemIndex) {
+  function openItemModal(sectionName, itemIndex = 0) {
     return itemName => {
       const item = getItem(itemName);
 

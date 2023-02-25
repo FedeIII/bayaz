@@ -13,6 +13,7 @@ import {
   equipWeapons,
   updatePc,
   switchWeapons,
+  switchArmor,
 } from '~/services/pc.server';
 import {
   STATS,
@@ -100,6 +101,13 @@ async function switchWeaponsAction(formData) {
   await switchWeapons(name, weaponName, weaponSlot);
 }
 
+async function switchArmorAction(formData) {
+  const name = formData.get('name');
+  const newArmorName = formData.get('newArmorName');
+
+  await switchArmor(name, newArmorName);
+}
+
 async function updateFreeTexts(formData) {
   const name = formData.get('name');
   const playerName = formData.get('playerName');
@@ -123,6 +131,8 @@ export const action = async ({ request }) => {
     await equipWeaponsAction(formData);
   } else if (action === 'switchWeapons') {
     await switchWeaponsAction(formData);
+  } else if (action === 'equipArmor') {
+    await switchArmorAction(formData);
   } else {
     await updateFreeTexts(formData);
   }
@@ -160,7 +170,46 @@ function WeaponModalContent(props) {
                   {translateItem(extraWeapon.name)}
                 </option>
               ))}
-            </select>{' '}
+            </select>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+}
+
+function ArmorModalContent(props) {
+  const { pc, armor, onArmorChange, closeModal } = props;
+  const {
+    items: {
+      treasure: { armors },
+    },
+  } = pc;
+
+  function onEquipClick(e) {
+    const newArmorName = e.target.value;
+    onArmorChange(newArmorName);
+    closeModal();
+  }
+
+  return (
+    <>
+      <h3 className={itemStyles.actionModalTitle}>{armor.translation}</h3>
+      <span className={itemStyles.modalClose} onClick={closeModal}>
+        ⨉
+      </span>
+      <div className={itemStyles.modalContent}>
+        <ul className={itemStyles.modalOptions}>
+          <li>
+            Cambiar por:{' '}
+            <select className={styles.selectAttack} onChange={onEquipClick}>
+              <option value={armor.name}>{armor.translation}</option>
+              {armors.map(extraArmor => (
+                <option value={extraArmor.name} key={extraArmor.name}>
+                  {translateItem(extraArmor.name)}
+                </option>
+              ))}
+            </select>
           </li>
         </ul>
       </div>
@@ -181,7 +230,7 @@ function PcSummary() {
     hitPoints,
     exp,
     languages,
-    items: { weapons, equipment },
+    items: { weapons, equipment, treasure },
     money,
     background = {},
     freeText: { playerName, personality, ideals, bonds, flaws } = {},
@@ -233,6 +282,17 @@ function PcSummary() {
     };
   }
 
+  function onArmorChange(newArmorName) {
+    submit(
+      {
+        action: 'equipArmor',
+        name,
+        newArmorName,
+      },
+      { method: 'post' }
+    );
+  }
+
   function onWeaponDrop(weaponName, weaponSlot) {
     submit(
       {
@@ -249,6 +309,7 @@ function PcSummary() {
 
   const [itemRefs, setItemRefs] = useState({
     weapons: [useRef(), useRef(), useRef()],
+    armor: [useRef()],
   });
 
   const [
@@ -261,7 +322,7 @@ function PcSummary() {
 
   const formRef = useRef(null);
 
-  function onItemClick(itemType, itemIndex) {
+  function onItemClick(itemType, itemIndex = 0) {
     return itemName => {
       const item = getItem(itemName);
 
@@ -277,15 +338,15 @@ function PcSummary() {
             closeModal={() => setActionModalContent(null)}
           />
         );
-      // if (item.type === 'armor')
-      //   content = props => (
-      //     <ArmorModalContent
-      //       pc={pc}
-      //       armor={item}
-      //       equipArmor={equipArmor}
-      //       closeModal={() => setActionModalContent(null)}
-      //     />
-      //   );
+      if (item.type === 'armor')
+        content = props => (
+          <ArmorModalContent
+            pc={pc}
+            armor={item}
+            onArmorChange={onArmorChange}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
 
       setTimeout(() => setActionModalContent(() => content), 0);
     };
@@ -509,7 +570,16 @@ function PcSummary() {
           {!!equipment.armor && (
             <li>
               <u>Armadura:</u>{' '}
-              <strong>{translateItem(equipment.armor.name)}</strong>
+              <InventoryItem
+                ref={itemRefs.armor[0]}
+                pItem={equipment.armor}
+                isLast
+                onItemClick={!!treasure.armors.length && onItemClick('armor')}
+                openModal={openItemModal('armor')}
+                closeModal={closeItemModal}
+                key={equipment.armor.name}
+              />
+              {/* <strong>{translateItem(equipment.armor.name)}</strong> */}
             </li>
           )}
           {!!equipment.shield && (
