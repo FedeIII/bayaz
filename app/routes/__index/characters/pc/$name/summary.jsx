@@ -396,25 +396,25 @@ function PcSummary() {
 
         {/* EQUIPMENT */}
         <ul className={`${styles.data} ${styles.equipment}`}>
-          {equipment.armor && (
+          {!!equipment.armor && (
             <li>
               <u>Armadura:</u>{' '}
               <strong>{translateItem(equipment.armor.name)}</strong>
             </li>
           )}
-          {equipment.shield && (
+          {!!equipment.shield && (
             <li>
               <u>Escudo:</u>{' '}
               <strong>{translateItem(equipment.shield.name)}</strong>
             </li>
           )}
-          {equipment.ammunition?.length && (
+          {!!equipment.ammunition?.length && (
             <li>
               <u>Proyectiles:</u>{' '}
               <strong>{listItems(equipment.ammunition)}</strong>
             </li>
           )}
-          {equipment.others?.length && <li>{listItems(equipment.others)}</li>}
+          {!!equipment.others?.length && <li>{listItems(equipment.others)}</li>}
         </ul>
 
         <div className={`${styles.data} ${styles.copper}`}>

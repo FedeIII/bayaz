@@ -128,7 +128,7 @@ function PcSpells() {
               <span
                 className={`${styles.data} ${styles[`totalSpaces-${level}`]}`}
               >
-                {spellSlots[level]}
+                {spellSlots[level] || 0}
               </span>
             )}
             {level > 0 && (

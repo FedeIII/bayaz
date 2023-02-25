@@ -173,9 +173,11 @@ export function divideSpells(pc) {
 
   return spells.reduce((spellsByLevel, pSpell) => {
     const spell = getSpell(pSpell.name, pSpell.type);
-    spellsByLevel[spell.level] = [...spellsByLevel[spell.level], spell];
+    if (typeof spell?.level === 'number') {
+      spellsByLevel[spell.level] = [...spellsByLevel[spell.level], spell];
+    }
     return spellsByLevel;
-  }, Array(9).fill([]));
+  }, Array(10).fill([]));
 }
 
 export function isPreparedSpell(pc, spellName) {

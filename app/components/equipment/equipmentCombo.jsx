@@ -149,13 +149,13 @@ export function EquipmentCombo(props) {
       return (
         <>
           <label
-            htmlFor={`${combo.name}-${comboSection}`}
+            htmlFor={`${combo.packName}-${comboSection}`}
             className={styles.equipmentItem}
           >
             <input
               type="radio"
               name="pack"
-              id={`${combo.name}-${comboSection}`}
+              id={`${combo.packName}-${comboSection}`}
               value={combo.packName}
             />{' '}
             {combo.translation}
