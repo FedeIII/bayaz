@@ -5,7 +5,7 @@ import {
   useSubmit,
   useTransition,
 } from '@remix-run/react';
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import {
   equipWeaponInSlot,
@@ -14,24 +14,20 @@ import {
   switchArmor,
 } from '~/services/pc.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
-
-import styles from '~/components/bio.module.css';
-import { displayDamage, itemWithAmount, listItems } from '~/domain/display';
 import { getPackItems } from '~/domain/equipment/packs';
-import {
-  getItem,
-  translateItem,
-  translatePack,
-} from '~/domain/equipment/equipment';
-import OutsideAlerter from '~/components/HOCs/outsideAlerter';
+import { getItem, translatePack } from '~/domain/equipment/equipment';
 import {
   getLightEncumbrance,
   getHeavyEncumbrance,
   getEquipmentWeight,
-  getItemArmorClass,
-  translateMoney,
 } from '~/domain/characters';
 import random from '~/domain/random';
+import { ItemModal } from '~/components/item/itemModal';
+import { InventoryItem } from '~/components/item/inventoryItem';
+import { useInventoryItems } from '~/components/item/useInventoryItems';
+
+import styles from '~/components/bio.module.css';
+import itemStyles from '~/components/item/inventoryItem.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -96,73 +92,6 @@ export const action = async ({ request }) => {
   return null;
 };
 
-function ActionModal(props) {
-  const { children, elRef, formRef, closeModal } = props;
-
-  const ref = useRef(null);
-  const [selfPosition, setSelfPosition] = useState(null);
-  const elPos = elRef?.current.getBoundingClientRect();
-  const formPos = formRef?.current.getBoundingClientRect();
-
-  useEffect(() => {
-    setSelfPosition(ref?.current.getBoundingClientRect());
-  }, [setSelfPosition, ref?.current]);
-
-  return (
-    <div
-      className={styles.actionModal}
-      style={{
-        top:
-          (elPos?.y || 0) -
-          (formPos?.y || 0) -
-          (selfPosition?.height || 0) +
-          'px',
-        left: (elPos?.x || 0) - (formPos?.x || 0) + 'px',
-      }}
-      ref={ref}
-    >
-      <OutsideAlerter onClickOutside={closeModal} enabled>
-        {!!selfPosition && children(props)}
-      </OutsideAlerter>
-    </div>
-  );
-}
-
-function ItemModal(props) {
-  const { children, elRef, formRef, closeModal } = props;
-
-  const ref = useRef(null);
-  const [selfPosition, setSelfPosition] = useState(null);
-  const elPos = elRef?.current.getBoundingClientRect();
-  const formPos = formRef?.current.getBoundingClientRect();
-
-  useEffect(() => {
-    setSelfPosition(ref?.current.getBoundingClientRect());
-  }, [setSelfPosition, ref?.current]);
-
-  return (
-    <div
-      className={styles.actionModal}
-      style={{
-        top:
-          (elPos?.y || 0) -
-          (formPos?.y || 0) -
-          (selfPosition?.height || 0) +
-          'px',
-        left: (elPos?.x || 0) - (formPos?.x || 0) + 'px',
-      }}
-      onMouseLeave={closeModal}
-      ref={ref}
-    >
-      {selfPosition && (
-        <OutsideAlerter onClickOutside={closeModal} enabled>
-          {children(props)}
-        </OutsideAlerter>
-      )}
-    </div>
-  );
-}
-
 function WeaponModalContent(props) {
   const { pc, weapon, equipWeapon, closeModal } = props;
   const {
@@ -177,12 +106,12 @@ function WeaponModalContent(props) {
 
   return (
     <>
-      <h3 className={styles.actionModalTitle}>{weapon.translation}</h3>
-      <span className={styles.modalClose} onClick={closeModal}>
+      <h3 className={itemStyles.actionModalTitle}>{weapon.translation}</h3>
+      <span className={itemStyles.modalClose} onClick={closeModal}>
         ⨉
       </span>
-      <div className={styles.modalContent}>
-        <ul className={styles.modalOptions}>
+      <div className={itemStyles.modalContent}>
+        <ul className={itemStyles.modalOptions}>
           <li>
             <div>Equipar en </div>
             <select className={styles.weaponSelect} onChange={onEquipClick}>
@@ -215,12 +144,12 @@ function ArmorModalContent(props) {
 
   return (
     <>
-      <h3 className={styles.actionModalTitle}>{armor.translation}</h3>
-      <span className={styles.modalClose} onClick={closeModal}>
+      <h3 className={itemStyles.actionModalTitle}>{armor.translation}</h3>
+      <span className={itemStyles.modalClose} onClick={closeModal}>
         ⨉
       </span>
-      <div className={styles.modalContent}>
-        <ul className={styles.modalOptions}>
+      <div className={itemStyles.modalContent}>
+        <ul className={itemStyles.modalOptions}>
           <li>
             {!!pArmor && (
               <button
@@ -246,80 +175,6 @@ function ArmorModalContent(props) {
     </>
   );
 }
-
-function ItemModalContent(props) {
-  const { pc, item } = props;
-
-  const subtypeTranslation = item.subtype && translateItem(item.subtype);
-  const isWeapon = item.type === 'weapon';
-  const isArmor = item.type === 'armor';
-
-  return (
-    <>
-      <h3 className={styles.modalTitle}>{item.translation}</h3>
-      <div className={styles.modalContent}>
-        <ul className={styles.modalOptionsLeft}>
-          {subtypeTranslation && (
-            <li className={styles.modalItem}>
-              <span className={styles.modalRowTitle}>Tipo:</span>{' '}
-              <strong className={styles.modalRowValue}>
-                {subtypeTranslation}
-              </strong>
-            </li>
-          )}
-          {isWeapon && (
-            <li className={styles.modalItem}>
-              <span className={styles.modalRowTitle}>Daño:</span>{' '}
-              <strong className={styles.modalRowValue}>
-                {displayDamage(pc, item)}
-              </strong>
-            </li>
-          )}
-          {isArmor && (
-            <li className={styles.modalItem}>
-              <span className={styles.modalRowTitle}>AC:</span>{' '}
-              <strong className={styles.modalRowValue}>
-                {getItemArmorClass(pc, item.name)}
-              </strong>
-            </li>
-          )}
-          <li className={styles.modalItem}>
-            <span className={styles.modalRowTitle}>Coste:</span>{' '}
-            <strong className={styles.modalRowValue}>
-              {translateMoney(item.price)}
-            </strong>
-          </li>
-          <li className={styles.modalItem}>
-            <span className={styles.modalRowTitle}>Peso:</span>{' '}
-            <strong className={styles.modalRowValue}>
-              {item.weight ? item.weight + ' kg' : '-'}
-            </strong>
-          </li>
-        </ul>
-      </div>
-    </>
-  );
-}
-
-const TreasureItem = forwardRef(function TreasureItem(props, ref) {
-  const { pItem, isLast, onItemClick, openModal, closeModal } = props;
-  const item = getItem(pItem.name);
-
-  return (
-    <>
-      <strong
-        ref={ref}
-        className={styles.item}
-        onClick={() => onItemClick?.(pItem.name)}
-        onMouseOver={() => openModal(pItem.name)}
-        onMouseOut={closeModal}
-      >
-        {itemWithAmount(item.translation, pItem.amount)}
-      </strong>
-      {!isLast && ', '}
-    </>
-  );
-});
 
 function PcBio() {
   const { pc } = useLoaderData();
@@ -408,7 +263,6 @@ function PcBio() {
   ]);
 
   const [actionModalContent, setActionModalContent] = useState(null);
-  const [itemModalContent, setItemModalContent] = useState(null);
 
   const [itemRefs, setItemRefs] = useState({
     weapons: treasure.weapons.map(() => useRef()),
@@ -416,8 +270,15 @@ function PcBio() {
     others: treasure.others.map(() => useRef()),
     pack: getPackItems(pack).map(() => useRef()),
   });
-  const [selectedItemRef, setSelectedItemRef] = useState(null);
-  const closeItemModal = () => setItemModalContent(null);
+
+  const [
+    itemModalContent,
+    closeItemModal,
+    openItemModal,
+    selectedItemRef,
+    setSelectedItemRef,
+  ] = useInventoryItems(pc, itemRefs, actionModalContent);
+
   const formRef = useRef(null);
 
   function onItemClick(itemType, itemIndex) {
@@ -447,24 +308,6 @@ function PcBio() {
         );
 
       setTimeout(() => setActionModalContent(() => content), 0);
-    };
-  }
-
-  function openItemModal(sectionName, itemIndex) {
-    return itemName => {
-      const item = getItem(itemName);
-
-      if (!actionModalContent) {
-        setSelectedItemRef(itemRefs[sectionName][itemIndex]);
-
-        setTimeout(
-          () =>
-            setItemModalContent(() => props => (
-              <ItemModalContent pc={pc} item={item} />
-            )),
-          0
-        );
-      }
     };
   }
 
@@ -527,13 +370,13 @@ function PcBio() {
 
         {/* MODALS */}
         {actionModalContent && (
-          <ActionModal
+          <ItemModal
             elRef={selectedItemRef}
             formRef={formRef}
             closeModal={() => setActionModalContent(null)}
           >
             {actionModalContent}
-          </ActionModal>
+          </ItemModal>
         )}
 
         {itemModalContent && (
@@ -541,6 +384,7 @@ function PcBio() {
             elRef={selectedItemRef}
             formRef={formRef}
             closeModal={closeItemModal}
+            closeOnLeave
           >
             {itemModalContent}
           </ItemModal>
@@ -642,7 +486,7 @@ function PcBio() {
             <li className={styles.treasureItem}>
               <u>Armas:</u>{' '}
               {treasure.weapons.map((treasureWeapon, i) => (
-                <TreasureItem
+                <InventoryItem
                   ref={itemRefs.weapons[i]}
                   pItem={treasureWeapon}
                   isLast={i === treasure.weapons.length - 1}
@@ -658,7 +502,7 @@ function PcBio() {
             <li className={styles.treasureItem}>
               <u>Armaduras:</u>{' '}
               {treasure.armors.map((treasureArmor, i) => (
-                <TreasureItem
+                <InventoryItem
                   ref={itemRefs.armors[i]}
                   pItem={treasureArmor}
                   isLast={i === treasure.armors.length - 1}
@@ -673,7 +517,7 @@ function PcBio() {
           {!!treasure.others.length && (
             <li className={styles.treasureItem}>
               {treasure.others.map((treasureItem, i) => (
-                <TreasureItem
+                <InventoryItem
                   ref={itemRefs.others[i]}
                   pItem={treasureItem}
                   isLast={i === treasure.others.length - 1}
@@ -688,7 +532,7 @@ function PcBio() {
             <li className={styles.treasureItem}>
               <u>{translatePack(pack) + ':'}</u>{' '}
               {getPackItems(pack).map((packItem, i, packItems) => (
-                <TreasureItem
+                <InventoryItem
                   ref={itemRefs.pack[i]}
                   pItem={packItem}
                   isLast={i === packItems.length - 1}

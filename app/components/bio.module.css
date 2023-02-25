@@ -221,14 +221,6 @@
   margin: 0px 0 0 8px;
 }
 
-.item {
-  cursor: pointer;
-}
-
-.item:hover {
-  color: #7171d8;
-}
-
 .totalTreasure {
   list-style: none;
   position: absolute;
@@ -333,107 +325,6 @@
   font-weight: bolder;
   font-size: 16px;
   margin-left: 32px;
-}
-
-.actionModal {
-  color: black;
-  position: absolute;
-  padding: 8px 4px 0px 4px;
-  background-color: #dadad8;
-  border-color: black;
-  border-style: groove;
-  border-inline-width: 3px;
-  z-index: 2;
-  border-start-start-radius: 5px;
-  border-start-end-radius: 5px;
-  border-end-end-radius: 10px;
-  border-end-start-radius: 10px;
-}
-
-.modalTitle {
-  position: relative;
-  top: 0px;
-  margin: -18px 0 0 0;
-  padding: 4px 0 0 8px;
-  line-height: 1.3;
-  background-color: #dadad8;
-  border-color: black;
-  border-radius: 10px;
-  border-block-style: groove;
-  background-color: #dadad8;
-  z-index: 1;
-}
-
-.actionModalTitle {
-  position: relative;
-  top: 0px;
-  margin: -18px 0 0 0;
-  padding: 4px 28px 0 8px;
-  line-height: 1.3;
-  background-color: #dadad8;
-  border-color: black;
-  border-radius: 10px;
-  border-block-style: groove;
-  background-color: #dadad8;
-  z-index: 1;
-}
-
-.modalClose {
-  position: absolute;
-  top: -4px;
-  right: 10px;
-  width: 18px;
-  height: 18px;
-  font-size: 14px;
-  color: black;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.modalClose:hover {
-  color: rgb(97, 97, 97);
-}
-
-.modalContent {
-  position: relative;
-  border-color: black;
-  border-inline-style: groove;
-  border-start-start-radius: 5px;
-  border-start-end-radius: 5px;
-  border-end-end-radius: 10px;
-  border-end-start-radius: 10px;
-  margin: -23px 0 0 0;
-  padding: 20px 8px 8px 8px;
-  background-color: white;
-}
-
-.modalOptions {
-  list-style: none;
-  padding: 0;
-  margin: 8px 0 0 0;
-}
-
-.modalOptionsLeft {
-  padding: 0 0 0 0px;
-  margin: 8px auto 0;
-  text-align: left;
-  font-size: 16px;
-  display: table;
-  border-collapse: separate;
-  border-spacing: 8px 0px;
-}
-
-.modalItem {
-  display: table-row;
-}
-
-.modalRowTitle {
-  font-size: 12px;
-  display: table-cell;
-}
-
-.modalRowValue {
-  display: table-cell;
 }
 
 .weaponSelect {

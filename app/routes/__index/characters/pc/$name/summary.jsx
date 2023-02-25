@@ -5,7 +5,7 @@ import {
   useSubmit,
   useTransition,
 } from '@remix-run/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import {
@@ -66,11 +66,15 @@ import {
   increment,
   listItems,
 } from '~/domain/display';
-import { translateItem } from '~/domain/equipment/equipment';
+import { getItem, translateItem } from '~/domain/equipment/equipment';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { translateBackground } from '~/domain/backgrounds';
+import { InventoryItem } from '~/components/item/inventoryItem';
+import { useInventoryItems } from '~/components/item/useInventoryItems';
+import { ItemModal } from '~/components/item/itemModal';
 
 import styles from '~/components/sheet.module.css';
+import itemStyles from '~/components/item/inventoryItem.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -126,6 +130,44 @@ export const action = async ({ request }) => {
   return null;
 };
 
+function WeaponModalContent(props) {
+  const { pc, weapon, onWeaponChange, closeModal } = props;
+
+  function onEquipClick(e) {
+    const newWeaponName = e.target.value;
+    onWeaponChange(newWeaponName);
+    closeModal();
+  }
+
+  return (
+    <>
+      <h3 className={itemStyles.actionModalTitle}>{weapon.translation}</h3>
+      <span className={itemStyles.modalClose} onClick={closeModal}>
+        ⨉
+      </span>
+      <div className={itemStyles.modalContent}>
+        <ul className={itemStyles.modalOptions}>
+          <li>
+            Cambiar por:{' '}
+            <select
+              className={styles.selectAttack}
+              disabled={!hasExtraWeapons(pc)}
+              onChange={onEquipClick}
+            >
+              <option value={weapon.name}>{weapon.translation}</option>
+              {getExtraWeapons(pc).map(extraWeapon => (
+                <option value={extraWeapon.name} key={extraWeapon.name}>
+                  {translateItem(extraWeapon.name)}
+                </option>
+              ))}
+            </select>{' '}
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+}
+
 function PcSummary() {
   const { pc } = useLoaderData();
   const {
@@ -178,13 +220,13 @@ function PcSummary() {
   const submit = useSubmit();
 
   function onWeaponChange(i) {
-    return e => {
+    return newWeaponName => {
       submit(
         {
           action: 'equipWeapons',
           name,
           oldWeaponName: weapons[i].name,
-          newWeaponName: e.target.value,
+          newWeaponName,
         },
         { method: 'post' }
       );
@@ -203,11 +245,84 @@ function PcSummary() {
     );
   }
 
+  const [actionModalContent, setActionModalContent] = useState(null);
+
+  const [itemRefs, setItemRefs] = useState({
+    weapons: [useRef(), useRef(), useRef()],
+  });
+
+  const [
+    itemModalContent,
+    closeItemModal,
+    openItemModal,
+    selectedItemRef,
+    setSelectedItemRef,
+  ] = useInventoryItems(pc, itemRefs, actionModalContent);
+
+  const formRef = useRef(null);
+
+  function onItemClick(itemType, itemIndex) {
+    return itemName => {
+      const item = getItem(itemName);
+
+      setSelectedItemRef(itemRefs[itemType][itemIndex]);
+
+      let content;
+      if (item.type === 'weapon')
+        content = props => (
+          <WeaponModalContent
+            pc={pc}
+            weapon={item}
+            onWeaponChange={onWeaponChange(itemIndex)}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
+      // if (item.type === 'armor')
+      //   content = props => (
+      //     <ArmorModalContent
+      //       pc={pc}
+      //       armor={item}
+      //       equipArmor={equipArmor}
+      //       closeModal={() => setActionModalContent(null)}
+      //     />
+      //   );
+
+      setTimeout(() => setActionModalContent(() => content), 0);
+    };
+  }
+
   return (
     <>
       <img src="/images/sheet1.jpg" className={styles.sheetBackground} />
-      <Form method="post" className={styles.summary} onSubmit={onFormSubmit}>
+      <Form
+        method="post"
+        className={styles.summary}
+        onSubmit={onFormSubmit}
+        ref={formRef}
+      >
         <input readOnly type="text" name="name" value={name} hidden />
+
+        {/* MODALS */}
+        {actionModalContent && (
+          <ItemModal
+            elRef={selectedItemRef}
+            formRef={formRef}
+            closeModal={() => setActionModalContent(null)}
+          >
+            {actionModalContent}
+          </ItemModal>
+        )}
+
+        {itemModalContent && (
+          <ItemModal
+            elRef={selectedItemRef}
+            formRef={formRef}
+            closeModal={closeItemModal}
+            closeOnLeave
+          >
+            {itemModalContent}
+          </ItemModal>
+        )}
 
         {/* FREE TEXT SUBMIT */}
         {isSubmitShown && (
@@ -353,20 +468,15 @@ function PcSummary() {
                   }}
                 >
                   <span className={styles.attackHandlerCharacter}>░</span>
-                  <select
-                    className={styles.selectAttack}
-                    disabled={!hasExtraWeapons(pc)}
-                    onChange={onWeaponChange(i)}
-                  >
-                    <option value={attack.weapon.name}>
-                      {attack.weapon.translation}
-                    </option>
-                    {getExtraWeapons(pc).map(weapon => (
-                      <option value={weapon.name} key={weapon.name}>
-                        {translateItem(weapon.name)}
-                      </option>
-                    ))}
-                  </select>{' '}
+                  <InventoryItem
+                    ref={itemRefs.weapons[i]}
+                    pItem={attack.weapon}
+                    isLast
+                    onItemClick={onItemClick('weapons', i)}
+                    openModal={openItemModal('weapons', i)}
+                    closeModal={closeItemModal}
+                    key={attack.weapon.name}
+                  />
                 </label>
 
                 {!!attack.specialAttackIndex && (
