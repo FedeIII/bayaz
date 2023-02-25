@@ -482,39 +482,7 @@ function PcBio() {
   const lightEncumbrancePos = (lightEncumbrance * 100) / maxWeightDisplayed;
   const heavyEncumbrancePos = (heavyEncumbrance * 100) / maxWeightDisplayed;
 
-  // const equipmentWeightRange = equipmentWeightPos;
-  // let heavyEncumbranceRange = 100 - heavyEncumbrancePos;
-  // const heavyOverlap = equipmentWeightPos - heavyEncumbrancePos;
-  // if (heavyOverlap > 0) heavyEncumbranceRange -= heavyOverlap;
-
-  // let lightEncumbranceRage = 100 - lightEncumbrancePos - heavyEncumbranceRange;
-  // const lightOverlap = equipmentWeightPos - lightEncumbrancePos;
-  // if (lightOverlap > 0) lightEncumbranceRage -= lightOverlap;
-  // lightEncumbranceRage = lightEncumbranceRage > 0 ? lightEncumbranceRage : 0;
-
-  // let emptyRange =
-  //   100 - equipmentWeightRange - lightEncumbranceRage - heavyEncumbranceRange;
-  // emptyRange = emptyRange > 0 ? emptyRange : 0;
-
   const segmentWidth = 2.7;
-
-  // const numberOfBlueSegments = Math.round(
-  //   Math.min(equipmentWeightRange, lightEncumbrancePos) / segmentWidth
-  // );
-
-  // let orangeRange = equipmentWeightRange - lightEncumbrancePos;
-  // orangeRange = orangeRange > 0 ? orangeRange : 0;
-  // const numberOfOrangeSegments = Math.round(orangeRange / segmentWidth);
-
-  // let redRange = equipmentWeightRange - heavyEncumbrancePos;
-  // redRange = redRange > 0 ? redRange : 0;
-  // const numberOfRedSegments = Math.round(redRange / segmentWidth);
-
-  // const numberOfEmptySegments = Math.round(emptyRange / segmentWidth);
-  // const numberOfLightSegments = Math.round(lightEncumbranceRage / segmentWidth);
-  // const numberOfHeavySegments = Math.round(
-  //   heavyEncumbranceRange / segmentWidth
-  // );
 
   let numberOfBlueSegments = 0;
   let numberOfOrangeSegments = 0;
