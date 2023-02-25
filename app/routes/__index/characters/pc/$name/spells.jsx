@@ -71,7 +71,7 @@ function PcSpells() {
   useAddMenuItems('/characters', [
     { name, url: `/characters/pc/${name}/summary`, level: 1 },
     {
-      name: 'Biografía',
+      name: 'Inventario',
       url: `/characters/pc/${name}/bio`,
       level: 2,
     },

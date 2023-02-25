@@ -1,10 +1,4 @@
-import {
-  STATS,
-  isStat,
-  getInitialHitPoints,
-  getCarryingCapacity,
-  getEncumbrance,
-} from '~/domain/characters';
+import { STATS, isStat, getInitialHitPoints } from '~/domain/characters';
 import { updatePc } from '~/services/pc.server';
 
 export async function setPcStats(pcParams) {

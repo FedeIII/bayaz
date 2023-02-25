@@ -36,7 +36,8 @@ export function getItem(itemName) {
   const itemBuilder = allItems.find(item => item().name === itemName);
 
   if (!itemBuilder) {
-    throw new Error('Item ' + itemName + ' not found');
+    console.error('Item ' + itemName + ' not found');
+    return null;
   }
 
   return itemBuilder();
@@ -52,12 +53,15 @@ export function translateItem(itemName) {
   if (itemName === 'lightArmors') return 'Armaduras ligeras';
   if (itemName === 'mediumArmors') return 'Armaduras medias';
   if (itemName === 'heavyArmors') return 'Armaduras pesadas';
+  if (itemName === 'light') return 'Armadura ligera';
+  if (itemName === 'medium') return 'Armadura media';
+  if (itemName === 'heavy') return 'Armadura pesada';
 
-  try {
-    return getItem(itemName).translation;
-  } catch {
-    return null;
-  }
+  const item = getItem(itemName);
+
+  if (item) return item.translation;
+
+  return null;
 }
 
 export function getAllItems() {

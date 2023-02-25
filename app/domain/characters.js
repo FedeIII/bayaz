@@ -955,12 +955,12 @@ export const ALIGNMENTS = {
   morals: ['G', 'Nm', 'E'],
 };
 
-export function getCarryingCapacity(pc) {
-  return getStat(pc, 'str') * 5;
+export function getLightEncumbrance(pc) {
+  return getStat(pc, 'str') * 10 * 0.45;
 }
 
-export function getEncumbrance(pc) {
-  return getStat(pc, 'str') * 10;
+export function getHeavyEncumbrance(pc) {
+  return getStat(pc, 'str') * 15 * 0.45;
 }
 
 export function getPassivePerception(pc) {
@@ -992,8 +992,8 @@ export function getArmorClass(pc) {
     },
     pClass,
   } = pc;
-  const armor = getItem(pArmor.name);
-  const shield = getItem(pShield.name);
+  const armor = pArmor && getItem(pArmor.name);
+  const shield = pShield && getItem(pShield.name);
 
   if (pClass === 'barbarian' && !armor) {
     return 10 + getStatMod(getStat(pc, 'dex')) + getStatMod(getStat(pc, 'con'));
@@ -1078,6 +1078,7 @@ export function getTraits(pc) {
 }
 
 export function translateMoney(money) {
+  if (!money) return '-';
   return money
     .map((coin, i) => {
       if (i === 0 && coin) return coin + ' Oro';
@@ -1157,4 +1158,26 @@ export function getExtraWeapons(pc) {
   } = pc;
 
   return treasure.weapons;
+}
+
+export function getEquipmentWeight(pc) {
+  return Object.values(pc.items).reduce((encumbrance, section) => {
+    return (
+      encumbrance +
+      Object.values(section).reduce((sectionEncumbrance, subsection) => {
+        return (
+          sectionEncumbrance +
+          (Array.isArray(subsection)
+            ? subsection.reduce((subsectionEncumbrance, item) => {
+                return (
+                  subsectionEncumbrance +
+                  (getItem(item?.name)?.weight || 0) * (item?.amount || 1)
+                );
+              }, 0)
+            : (getItem(subsection?.name)?.weight || 0) *
+              (subsection?.amount || 1))
+        );
+      }, 0)
+    );
+  }, 0);
 }

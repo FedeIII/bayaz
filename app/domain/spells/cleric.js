@@ -137,8 +137,8 @@ export const CLERIC_SPELLS = {
     type: 'cleric',
     level: 1,
   },
-  command: {
-    name: 'command',
+  commandKnowledge: {
+    name: 'commandKnowledge',
     translation: 'Orden imperiosa (Conocimiento)',
     type: 'cleric',
     subtype: 'knowledge',
@@ -158,8 +158,8 @@ export const CLERIC_SPELLS = {
     subtype: 'war',
     level: 1,
   },
-  shieldOfFaith: {
-    name: 'shieldOfFaith',
+  shieldOfFaithWar: {
+    name: 'shieldOfFaithWar',
     translation: 'Escudo de la fe (Guerra)',
     type: 'cleric',
     subtype: 'war',
@@ -221,15 +221,15 @@ export const CLERIC_SPELLS = {
     subtype: 'trickery',
     level: 1,
   },
-  bless: {
-    name: 'bless',
+  blessLife: {
+    name: 'blessLife',
     translation: 'Bendecir (Vida)',
     type: 'cleric',
     subtype: 'life',
     level: 1,
   },
-  cureWounds: {
-    name: 'cureWounds',
+  cureWoundsLife: {
+    name: 'cureWoundsLife',
     translation: 'Curar heridas (Vida)',
     type: 'cleric',
     subtype: 'life',

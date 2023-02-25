@@ -1,75 +1,135 @@
+function backpack(props) {
+  return {
+    name: 'backpack',
+    translation: 'Mochila',
+    type: 'adventure',
+    price: [2, 0, 0],
+    weight: 2.5,
+    ...props,
+  };
+}
+
+function bedroll(props) {
+  return {
+    name: 'bedroll',
+    translation: 'Saco',
+    type: 'adventure',
+    price: [1, 0, 0],
+    weight: 3.5,
+    ...props,
+  };
+}
+
+function tinderbox(props) {
+  return {
+    name: 'tinderbox',
+    translation: 'Yesquero',
+    type: 'adventure',
+    price: [0, 5, 0],
+    weight: 0.5,
+    ...props,
+  };
+}
+
+function torches(props) {
+  return {
+    name: 'torches',
+    translation: 'Antorchas',
+    type: 'adventure',
+    amount: 10,
+    weight: 0.5,
+    ...props,
+  };
+}
+
+function waterskin(props) {
+  return {
+    name: 'waterskin',
+    translation: 'Odre',
+    type: 'adventure',
+    price: [0, 2, 0],
+    weight: 2.5,
+    ...props,
+  };
+}
+
+function hempenRope(props) {
+  return {
+    name: 'hempenRope',
+    translation: 'Cuerda de cáñamo',
+    type: 'adventure',
+    amount: 15,
+    price: [0, 0, 5],
+    weight: 0.3,
+    ...props,
+  };
+}
+
+function crowbar(props) {
+  return {
+    name: 'crowbar',
+    translation: 'Palanca',
+    type: 'adventure',
+    price: [2, 0, 0],
+    weight: 2.5,
+    ...props,
+  };
+}
+
+function hammer(props) {
+  return {
+    name: 'hammer',
+    translation: 'Martillo',
+    type: 'adventure',
+    price: [1, 0, 0],
+    weight: 1.5,
+    ...props,
+  };
+}
+
+function pitons(props) {
+  return {
+    name: 'pitons',
+    translation: 'Pitones',
+    type: 'adventure',
+    amount: 10,
+    price: [0, 0, 5],
+    weight: 0.2,
+    ...props,
+  };
+}
+
 export const EXPLORERS_PACK = {
   price: [10, 0, 0],
   packName: 'explorers-pack',
   translation: 'Equipo de Explorador',
   items: {
-    backpack(props) {
-      return {
-        name: 'backpack',
-        translation: 'Mochila',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    bedroll(props) {
-      return {
-        name: 'bedroll',
-        translation: 'Saco',
-        type: 'adventure',
-        ...props,
-      };
-    },
+    backpack,
+    bedroll,
     messKit(props) {
       return {
         name: 'messKit',
         translation: 'Equipo de cocina',
         type: 'adventure',
+        weight: 0.5,
         ...props,
       };
     },
-    tinderbox(props) {
-      return {
-        name: 'tinderbox',
-        translation: 'Yesquero',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    torches(props) {
-      return {
-        name: 'torches',
-        translation: 'Antorchas',
-        type: 'adventure',
-        amount: 10,
-        ...props,
-      };
-    },
+    tinderbox,
+    torches,
     rations(props) {
       return {
         name: 'rations',
         translation: 'Raciones',
         type: 'adventure',
         amount: 10,
+        price: [0, 5, 0],
+        weight: 0.5,
         ...props,
       };
     },
-    waterskin(props) {
-      return {
-        name: 'waterskin',
-        translation: 'Odre',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    hempenRope(props) {
-      return {
-        name: 'hempenRope',
-        translation: 'Cuerda de cáñamo',
-        type: 'adventure',
-        amount: 50,
-        ...props,
-      };
-    },
+    waterskin,
+    hempenRope,
   },
 };
 
@@ -83,6 +143,8 @@ export const DIPLOMATS_PACK = {
         name: 'chest',
         translation: 'Cofre',
         type: 'adventure',
+        price: [5, 0, 0],
+        weight: 12,
         ...props,
       };
     },
@@ -92,6 +154,8 @@ export const DIPLOMATS_PACK = {
         translation: 'Estuches de mapas y pergaminos',
         type: 'adventure',
         amount: 2,
+        price: [1, 0, 0],
+        weight: 0.5,
         ...props,
       };
     },
@@ -101,6 +165,8 @@ export const DIPLOMATS_PACK = {
         translation: 'Conjunto de ropa fina',
         type: 'adventure',
         subtype: 'clothes',
+        price: [15, 0, 0],
+        weight: 3,
         ...props,
       };
     },
@@ -109,6 +175,7 @@ export const DIPLOMATS_PACK = {
         name: 'inkBottle',
         translation: 'Frasco de tinta',
         type: 'adventure',
+        price: [10, 0, 0],
         ...props,
       };
     },
@@ -117,6 +184,7 @@ export const DIPLOMATS_PACK = {
         name: 'inkPen',
         translation: 'Pluma',
         type: 'adventure',
+        price: [0, 0, 2],
         ...props,
       };
     },
@@ -125,6 +193,8 @@ export const DIPLOMATS_PACK = {
         name: 'lamp',
         translation: 'Lámpara',
         type: 'adventure',
+        price: [0, 5, 0],
+        weight: 0.5,
         ...props,
       };
     },
@@ -134,6 +204,8 @@ export const DIPLOMATS_PACK = {
         translation: 'Frascos de aceite',
         type: 'adventure',
         amount: 2,
+        price: [0, 1, 0],
+        weight: 0.5,
         ...props,
       };
     },
@@ -143,6 +215,7 @@ export const DIPLOMATS_PACK = {
         translation: 'Hojas de papel',
         type: 'adventure',
         amount: 5,
+        price: [0, 2, 0],
         ...props,
       };
     },
@@ -151,6 +224,7 @@ export const DIPLOMATS_PACK = {
         name: 'perfumeVial',
         translation: 'Frasco de perfume',
         type: 'adventure',
+        price: [5, 0, 0],
         ...props,
       };
     },
@@ -159,6 +233,7 @@ export const DIPLOMATS_PACK = {
         name: 'sealingWax',
         translation: 'Lacre',
         type: 'adventure',
+        price: [0, 5, 0],
         ...props,
       };
     },
@@ -167,6 +242,7 @@ export const DIPLOMATS_PACK = {
         name: 'soap',
         translation: 'Jabón',
         type: 'adventure',
+        price: [0, 0, 2],
         ...props,
       };
     },
@@ -178,28 +254,16 @@ export const ENTERTAINERS_PACK = {
   packName: 'entertainers-pack',
   translation: 'Equipo de Actor',
   items: {
-    backpack(props) {
-      return {
-        name: 'backpack',
-        translation: 'Mochila',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    bedroll(props) {
-      return {
-        name: 'bedroll',
-        translation: 'Saco',
-        type: 'adventure',
-        ...props,
-      };
-    },
+    backpack,
+    bedroll,
     costumes(props) {
       return {
         name: 'costumes',
         translation: 'Trajes',
         type: 'adventure',
         amount: 2,
+        price: [5, 0, 0],
+        weight: 2,
         ...props,
       };
     },
@@ -209,6 +273,7 @@ export const ENTERTAINERS_PACK = {
         translation: 'velas',
         type: 'adventure',
         amount: 5,
+        price: [0, 0, 1],
         ...props,
       };
     },
@@ -218,23 +283,20 @@ export const ENTERTAINERS_PACK = {
         translation: 'Raciones',
         type: 'adventure',
         amount: 5,
+        price: [0, 5, 0],
+        weight: 0.5,
         ...props,
       };
     },
-    waterskin(props) {
-      return {
-        name: 'waterskin',
-        translation: 'Odre',
-        type: 'adventure',
-        ...props,
-      };
-    },
+    waterskin,
     disguiseKit(props) {
       return {
         name: 'disguiseKit',
         translation: 'Kit de disfraz',
         type: 'adventure',
         subtype: 'clothes',
+        price: [25, 0, 0],
+        weight: 1.5,
         ...props,
       };
     },
@@ -246,19 +308,14 @@ export const SCHOLARS_PACK = {
   packName: 'scholars-pack',
   translation: 'Equipo de Erudito',
   items: {
-    backpack(props) {
-      return {
-        name: 'backpack',
-        translation: 'Mochila',
-        type: 'adventure',
-        ...props,
-      };
-    },
+    backpack,
     loreBook(props) {
       return {
         name: 'loreBook',
         translation: 'Libro de conocimiento',
         type: 'adventure',
+        price: [25, 0, 0],
+        weight: 2.5,
         ...props,
       };
     },
@@ -267,6 +324,7 @@ export const SCHOLARS_PACK = {
         name: 'inkBottle',
         translation: 'Frasco de tinta',
         type: 'adventure',
+        price: [10, 0, 0],
         ...props,
       };
     },
@@ -275,6 +333,7 @@ export const SCHOLARS_PACK = {
         name: 'inkPen',
         translation: 'Pluma',
         type: 'adventure',
+        price: [0, 0, 2],
         ...props,
       };
     },
@@ -284,6 +343,8 @@ export const SCHOLARS_PACK = {
         translation: 'Estuches de mapas y pergaminos',
         type: 'adventure',
         amount: 10,
+        price: [1, 0, 0],
+        weight: 0.5,
         ...props,
       };
     },
@@ -303,82 +364,25 @@ export const DUNGEONEERS_PACK = {
   packName: 'dungeoneers-pack',
   translation: 'Equipo para Dungeons',
   items: {
-    backpack(props) {
-      return {
-        name: 'backpack',
-        translation: 'Mochila',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    crowbar(props) {
-      return {
-        name: 'crowbar',
-        translation: 'Palanca',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    hammer(props) {
-      return {
-        name: 'hammer',
-        translation: 'Martillo',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    pitons(props) {
-      return {
-        name: 'pitons',
-        translation: 'Pitones',
-        type: 'adventure',
-        amount: 10,
-        ...props,
-      };
-    },
-    torches(props) {
-      return {
-        name: 'torches',
-        translation: 'Antorchas',
-        type: 'adventure',
-        amount: 10,
-        ...props,
-      };
-    },
-    tinderbox(props) {
-      return {
-        name: 'tinderbox',
-        translation: 'Yesquero',
-        type: 'adventure',
-        ...props,
-      };
-    },
+    backpack,
+    crowbar,
+    hammer,
+    pitons,
+    torches,
+    tinderbox,
     rations(props) {
       return {
         name: 'rations',
         translation: 'Raciones',
         type: 'adventure',
         amount: 10,
+        price: [0, 5, 0],
+        weight: 0.5,
         ...props,
       };
     },
-    waterskin(props) {
-      return {
-        name: 'waterskin',
-        translation: 'Odre',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    hempenRope(props) {
-      return {
-        name: 'hempenRope',
-        translation: 'Cuerda de cáñamo',
-        type: 'adventure',
-        amount: 50,
-        ...props,
-      };
-    },
+    waterskin,
+    hempenRope,
   },
 };
 
@@ -387,19 +391,14 @@ export const PRIESTS_PACK = {
   packName: 'priests-pack',
   translation: 'Equipo de Sacerdote',
   items: {
-    backpack(props) {
-      return {
-        name: 'backpack',
-        translation: 'Mochila',
-        type: 'adventure',
-        ...props,
-      };
-    },
+    backpack,
     blanket(props) {
       return {
         name: 'blanket',
         translation: 'Manta',
         type: 'adventure',
+        price: [0, 5, 0],
+        weight: 1.5,
         ...props,
       };
     },
@@ -409,17 +408,11 @@ export const PRIESTS_PACK = {
         translation: 'Velas',
         type: 'adventure',
         amount: 10,
+        price: [0, 0, 1],
         ...props,
       };
     },
-    tinderbox(props) {
-      return {
-        name: 'tinderbox',
-        translation: 'Yesquero',
-        type: 'adventure',
-        ...props,
-      };
-    },
+    tinderbox,
     incenseBlocks(props) {
       return {
         name: 'incenseBlocks',
@@ -451,17 +444,12 @@ export const PRIESTS_PACK = {
         translation: 'Raciones',
         type: 'adventure',
         amount: 2,
+        price: [0, 5, 0],
+        weight: 0.5,
         ...props,
       };
     },
-    waterskin(props) {
-      return {
-        name: 'waterskin',
-        translation: 'Odre',
-        type: 'adventure',
-        ...props,
-      };
-    },
+    waterskin,
   },
 };
 
@@ -470,20 +458,14 @@ export const BURGLARS_PACK = {
   packName: 'burglars-pack',
   translation: 'Equipo de Ladrón',
   items: {
-    backpack(props) {
-      return {
-        name: 'backpack',
-        translation: 'Mochila',
-        type: 'adventure',
-        ...props,
-      };
-    },
+    backpack,
     ballBearings(props) {
       return {
         name: 'ballBearings',
         translation: 'Bola de rodamientos',
         type: 'adventure',
         amount: 1000,
+        price: [0, 0, 1],
         ...props,
       };
     },
@@ -501,6 +483,7 @@ export const BURGLARS_PACK = {
         name: 'bell',
         translation: 'Campana',
         type: 'adventure',
+        price: [1, 0, 0],
         ...props,
       };
     },
@@ -510,39 +493,20 @@ export const BURGLARS_PACK = {
         translation: 'Velas',
         type: 'adventure',
         amount: 10,
+        price: [0, 0, 1],
         ...props,
       };
     },
-    crowbar(props) {
-      return {
-        name: 'crowbar',
-        translation: 'Palanca',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    hammer(props) {
-      return {
-        name: 'hammer',
-        translation: 'Martillo',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    pitons(props) {
-      return {
-        name: 'pitons',
-        translation: 'Pitones',
-        type: 'adventure',
-        amount: 10,
-        ...props,
-      };
-    },
+    crowbar,
+    hammer,
+    pitons,
     hoodedLantern(props) {
       return {
         name: 'hoodedLantern',
         translation: 'Linterna con capucha',
         type: 'adventure',
+        price: [5, 0, 0],
+        weight: 1,
         ...props,
       };
     },
@@ -552,6 +516,8 @@ export const BURGLARS_PACK = {
         translation: 'Frascos de aceite',
         type: 'adventure',
         amount: 10,
+        price: [0, 1, 0],
+        weight: 0.5,
         ...props,
       };
     },
@@ -561,35 +527,14 @@ export const BURGLARS_PACK = {
         translation: 'Raciones',
         type: 'adventure',
         amount: 5,
+        price: [0, 5, 0],
+        weight: 0.5,
         ...props,
       };
     },
-    tinderbox(props) {
-      return {
-        name: 'tinderbox',
-        translation: 'Yesquero',
-        type: 'adventure',
-        ...props,
-      };
-    },
-    waterskin(props) {
-      return {
-        name: 'waterskin',
-        translation: 'Odre',
-        type: 'adventure',
-        amount: 5,
-        ...props,
-      };
-    },
-    hempenRope(props) {
-      return {
-        name: 'hempenRope',
-        translation: 'Cuerda de cáñamo',
-        type: 'adventure',
-        amount: 15,
-        ...props,
-      };
-    },
+    tinderbox,
+    waterskin,
+    hempenRope,
   },
 };
 

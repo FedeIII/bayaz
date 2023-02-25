@@ -24,7 +24,14 @@ import {
   translatePack,
 } from '~/domain/equipment/equipment';
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
-import { getItemArmorClass, translateMoney } from '~/domain/characters';
+import {
+  getLightEncumbrance,
+  getHeavyEncumbrance,
+  getEquipmentWeight,
+  getItemArmorClass,
+  translateMoney,
+} from '~/domain/characters';
+import random from '~/domain/random';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -243,7 +250,7 @@ function ArmorModalContent(props) {
 function ItemModalContent(props) {
   const { pc, item } = props;
 
-  const subtypeTranslation = translateItem(item.subtype);
+  const subtypeTranslation = item.subtype && translateItem(item.subtype);
   const isWeapon = item.type === 'weapon';
   const isArmor = item.type === 'armor';
 
@@ -284,7 +291,9 @@ function ItemModalContent(props) {
           </li>
           <li className={styles.modalItem}>
             <span className={styles.modalRowTitle}>Peso:</span>{' '}
-            <strong className={styles.modalRowValue}>{item.weight} kg</strong>
+            <strong className={styles.modalRowValue}>
+              {item.weight ? item.weight + ' kg' : '-'}
+            </strong>
           </li>
         </ul>
       </div>
@@ -387,7 +396,7 @@ function PcBio() {
   useAddMenuItems('/characters', [
     { name, url: `/characters/pc/${name}/summary`, level: 1 },
     {
-      name: 'Biografía',
+      name: 'Inventario',
       url: `/characters/pc/${name}/bio`,
       level: 2,
     },
@@ -457,6 +466,84 @@ function PcBio() {
         );
       }
     };
+  }
+
+  // ████░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓
+  // ██████████████████████████▒▒▒▒▒▓▓▓▓▓▓
+  // ██████████████████████████████████▓▓▓
+
+  const equipmentWeight = random.roundTo(0.1, getEquipmentWeight(pc));
+  const lightEncumbrance = random.roundTo(0.1, getLightEncumbrance(pc));
+  const heavyEncumbrance = random.roundTo(0.1, getHeavyEncumbrance(pc));
+
+  const maxWeightDisplayed = heavyEncumbrance * 1.27;
+  let equipmentWeightPos = (equipmentWeight * 100) / maxWeightDisplayed;
+  equipmentWeightPos = equipmentWeightPos > 100 ? 100 : equipmentWeightPos;
+  const lightEncumbrancePos = (lightEncumbrance * 100) / maxWeightDisplayed;
+  const heavyEncumbrancePos = (heavyEncumbrance * 100) / maxWeightDisplayed;
+
+  // const equipmentWeightRange = equipmentWeightPos;
+  // let heavyEncumbranceRange = 100 - heavyEncumbrancePos;
+  // const heavyOverlap = equipmentWeightPos - heavyEncumbrancePos;
+  // if (heavyOverlap > 0) heavyEncumbranceRange -= heavyOverlap;
+
+  // let lightEncumbranceRage = 100 - lightEncumbrancePos - heavyEncumbranceRange;
+  // const lightOverlap = equipmentWeightPos - lightEncumbrancePos;
+  // if (lightOverlap > 0) lightEncumbranceRage -= lightOverlap;
+  // lightEncumbranceRage = lightEncumbranceRage > 0 ? lightEncumbranceRage : 0;
+
+  // let emptyRange =
+  //   100 - equipmentWeightRange - lightEncumbranceRage - heavyEncumbranceRange;
+  // emptyRange = emptyRange > 0 ? emptyRange : 0;
+
+  const segmentWidth = 2.7;
+
+  // const numberOfBlueSegments = Math.round(
+  //   Math.min(equipmentWeightRange, lightEncumbrancePos) / segmentWidth
+  // );
+
+  // let orangeRange = equipmentWeightRange - lightEncumbrancePos;
+  // orangeRange = orangeRange > 0 ? orangeRange : 0;
+  // const numberOfOrangeSegments = Math.round(orangeRange / segmentWidth);
+
+  // let redRange = equipmentWeightRange - heavyEncumbrancePos;
+  // redRange = redRange > 0 ? redRange : 0;
+  // const numberOfRedSegments = Math.round(redRange / segmentWidth);
+
+  // const numberOfEmptySegments = Math.round(emptyRange / segmentWidth);
+  // const numberOfLightSegments = Math.round(lightEncumbranceRage / segmentWidth);
+  // const numberOfHeavySegments = Math.round(
+  //   heavyEncumbranceRange / segmentWidth
+  // );
+
+  let numberOfBlueSegments = 0;
+  let numberOfOrangeSegments = 0;
+  let numberOfRedSegments = 0;
+  let numberOfFilledSegments = Math.round(equipmentWeightPos / segmentWidth);
+  let numberOfEmptySegments = Math.round(lightEncumbrancePos / segmentWidth);
+  let numberOfLightSegments = Math.round(
+    (heavyEncumbrancePos - lightEncumbrancePos) / segmentWidth
+  );
+  let numberOfHeavySegments = Math.round(
+    (100 - heavyEncumbrancePos) / segmentWidth
+  );
+
+  if (equipmentWeightPos < lightEncumbrancePos) {
+    numberOfEmptySegments -= numberOfFilledSegments;
+    numberOfBlueSegments = numberOfFilledSegments;
+  } else if (equipmentWeightPos < heavyEncumbrancePos) {
+    numberOfBlueSegments = numberOfEmptySegments;
+    numberOfOrangeSegments = numberOfFilledSegments - numberOfEmptySegments;
+    numberOfEmptySegments = 0;
+    numberOfLightSegments -= numberOfOrangeSegments;
+  } else {
+    numberOfBlueSegments = numberOfEmptySegments;
+    numberOfOrangeSegments = numberOfLightSegments;
+    numberOfRedSegments =
+      numberOfFilledSegments - numberOfEmptySegments - numberOfLightSegments;
+    numberOfEmptySegments = 0;
+    numberOfLightSegments = 0;
+    numberOfHeavySegments -= numberOfRedSegments;
   }
 
   return (
@@ -631,10 +718,76 @@ function PcBio() {
           )}
           {pack && (
             <li className={styles.treasureItem}>
-              <u>{translatePack(pack) + ':'}</u>
-              {' ' + listItems(getPackItems(pack))}
+              <u>{translatePack(pack) + ':'}</u>{' '}
+              {getPackItems(pack).map((packItem, i, packItems) => (
+                <TreasureItem
+                  ref={itemRefs.pack[i]}
+                  pItem={packItem}
+                  isLast={i === packItems.length - 1}
+                  openModal={openItemModal('pack', i)}
+                  closeModal={closeItemModal}
+                  key={packItem.name}
+                />
+              ))}
             </li>
           )}
+          <li className={styles.totalTreasure}>
+            Peso (kg):{' '}
+            <div className={styles.weightBar}>
+              <span className={styles.blueBar}>
+                {/* {Array(numberOfBlueSegments).fill('▓')} */}
+                {Array(numberOfBlueSegments).fill('▒')}
+                {/* {Array(numberOfBlueSegments).fill('█')} */}
+              </span>
+              <span className={styles.orangeBar}>
+                {/* {Array(numberOfOrangeSegments).fill('▓')} */}
+                {Array(numberOfOrangeSegments).fill('▒')}
+                {/* {Array(numberOfOrangeSegments).fill('█')} */}
+              </span>
+              <span className={styles.redBar}>
+                {/* {Array(numberOfRedSegments).fill('▓')} */}
+                {Array(numberOfRedSegments).fill('▒')}
+                {/* {Array(numberOfRedSegments).fill('█')} */}
+              </span>
+              <span className={styles.blueBar}>
+                {Array(numberOfEmptySegments).fill('░')}
+              </span>
+              <span className={styles.blueBar}>
+                {Array(numberOfLightSegments).fill('░')}
+                {/* {Array(numberOfLightSegments).fill('▒')} */}
+              </span>
+              <span className={styles.blueBar}>
+                {Array(numberOfHeavySegments).fill('░')}
+                {/* {Array(numberOfHeavySegments).fill('▓')} */}
+              </span>
+              <span
+                className={styles.equipmentWeight}
+                style={{
+                  left: `calc(${equipmentWeightPos}% - 4px)`,
+                  color:
+                    equipmentWeightPos > lightEncumbrancePos
+                      ? equipmentWeightPos > heavyEncumbrancePos
+                        ? 'red'
+                        : 'orange'
+                      : 'iniital',
+                }}
+              >
+                {equipmentWeight}
+              </span>
+              <span
+                className={styles.lightEncumbrance}
+                style={{ left: `calc(${lightEncumbrancePos}% - 4px)` }}
+              >
+                {lightEncumbrance}
+              </span>
+              <span
+                className={styles.heavyEncumbrance}
+                style={{ left: `calc(${heavyEncumbrancePos}% - 4px)` }}
+              >
+                {heavyEncumbrance}
+              </span>
+            </div>
+          </li>
         </ul>
       </Form>
     </>

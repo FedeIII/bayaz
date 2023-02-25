@@ -225,8 +225,90 @@
   cursor: pointer;
 }
 
-.weapon:hover {
+.item:hover {
   color: #7171d8;
+}
+
+.totalTreasure {
+  list-style: none;
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+}
+
+.weightBar {
+  font-family: monospace;
+  font-size: 12px;
+  border-bottom: 1px solid #0000d4;
+  position: relative;
+  display: inline-block;
+}
+
+.blueBar {
+  color: #0000d4;
+}
+
+.orangeBar {
+  color: #daa645;
+}
+
+.redBar {
+  color: #d84343;
+}
+
+.equipmentWeight {
+  position: absolute;
+  top: -16px;
+  font-family: fantasy;
+  font-size: 14px;
+  width: 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.equipmentWeight::after {
+  content: '|';
+  position: absolute;
+  top: 5px;
+  right: -5px;
+}
+
+.lightEncumbrance {
+  color: orange;
+  position: absolute;
+  top: 20px;
+  font-family: fantasy;
+  font-size: 14px;
+  width: 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lightEncumbrance::after {
+  color: #daa645;
+  content: '|';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.heavyEncumbrance {
+  color: red;
+  position: absolute;
+  top: 20px;
+  font-family: fantasy;
+  font-size: 14px;
+  width: 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.heavyEncumbrance::after {
+  color: #d84343;
+  content: '|';
+  position: absolute;
+  top: -5px;
+  right: -5px;
 }
 
 /*  */
