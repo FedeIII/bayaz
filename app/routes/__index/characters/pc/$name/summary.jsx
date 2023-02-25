@@ -310,6 +310,9 @@ function PcSummary() {
   const [itemRefs, setItemRefs] = useState({
     weapons: [useRef(), useRef(), useRef()],
     armor: [useRef()],
+    shield: [useRef()],
+    ammunition: equipment.ammunition.map(() => useRef()),
+    others: equipment.others.map(() => useRef()),
   });
 
   const [
@@ -585,16 +588,45 @@ function PcSummary() {
           {!!equipment.shield && (
             <li>
               <u>Escudo:</u>{' '}
-              <strong>{translateItem(equipment.shield.name)}</strong>
+              <InventoryItem
+                ref={itemRefs.shield[0]}
+                pItem={equipment.shield}
+                isLast
+                openModal={openItemModal('shield')}
+                closeModal={closeItemModal}
+                key={equipment.shield.name}
+              />
             </li>
           )}
           {!!equipment.ammunition?.length && (
             <li>
               <u>Proyectiles:</u>{' '}
-              <strong>{listItems(equipment.ammunition)}</strong>
+              {equipment.ammunition.map((ammo, i) => (
+                <InventoryItem
+                  ref={itemRefs.ammunition[i]}
+                  pItem={ammo}
+                  isLast={i === equipment.ammunition.length - 1}
+                  openModal={openItemModal('ammunition', i)}
+                  closeModal={closeItemModal}
+                  key={ammo.name}
+                />
+              ))}
             </li>
           )}
-          {!!equipment.others?.length && <li>{listItems(equipment.others)}</li>}
+          {!!equipment.others?.length && (
+            <li>
+              {equipment.others.map((otherItem, i) => (
+                <InventoryItem
+                  ref={itemRefs.others[i]}
+                  pItem={otherItem}
+                  isLast={i === equipment.others.length - 1}
+                  openModal={openItemModal('others', i)}
+                  closeModal={closeItemModal}
+                  key={otherItem.name}
+                />
+              ))}
+            </li>
+          )}
         </ul>
 
         <div className={`${styles.data} ${styles.copper}`}>

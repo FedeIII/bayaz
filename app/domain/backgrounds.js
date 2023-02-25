@@ -235,7 +235,7 @@ export const BACKGROUNDS = {
       },
     },
     traits: {
-      wanderer: 'Viajer',
+      wanderer: 'Viajero',
     },
   },
   folkHero: {
