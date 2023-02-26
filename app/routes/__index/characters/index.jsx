@@ -9,8 +9,8 @@ function CharactersMenu() {
       <Link to="pc/new" className={menuStyles.mainOption}>
         <span className={menuStyles.optionLabel}>Nuevo Jugador</span>
       </Link>
-      <Link to="" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>/</span>
+      <Link to="pc/all" className={menuStyles.mainOption}>
+        <span className={menuStyles.optionLabel}>Todos los Jugadores</span>
       </Link>
       <Link to="" className={menuStyles.mainOption}>
         <span className={menuStyles.optionLabel}>/</span>
