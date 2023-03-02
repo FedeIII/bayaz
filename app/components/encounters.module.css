@@ -1,0 +1,45 @@
+.encounters {
+  font-family: fantasy;
+}
+
+.encounterDifficulty {
+  text-decoration: none;
+  color: white;
+}
+
+.encounterDifficultyList {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.encounterDifficultyItem {
+  padding: 16px 32px;
+  background-color: #252937;
+  font-size: 22px;
+  border: 1px groove white;
+  border-radius: 10px;
+}
+
+.encounterDifficultyItem:hover {
+  background-color: #3d414f;
+}
+
+.encounterContainer {
+}
+
+.environmentButton {
+  background-color: #252937;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 16px 4px;
+  border-radius: 10px;
+  font-family: fantasy;
+  cursor: pointer;
+}
+
+.environmentButton:hover {
+  background-color: #3d414f;
+}

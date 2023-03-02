@@ -71,6 +71,30 @@ function invExp(xMin, xMax) {
   return roundTo(1, x);
 }
 
+function monsterDistribution() {
+  const rn = 100 * Math.random();
+  if (rn < 10) return 1;
+  if (rn < 20) return 2;
+  if (rn < 50) return 3;
+  if (rn < 70) return 4;
+  if (rn < 75) return 5;
+  if (rn < 80) return 6;
+  if (rn < 83) return 7;
+  if (rn < 85) return 8;
+  if (rn < 87) return 9;
+  if (rn < 89) return 10;
+  if (rn < 91) return 11;
+  if (rn < 92) return 12;
+  if (rn < 93) return 13;
+  if (rn < 94) return 14;
+  if (rn < 95) return 15;
+  if (rn < 96) return 16;
+  if (rn < 97) return 17;
+  if (rn < 98) return 18;
+  if (rn < 99) return 19;
+  return 20;
+}
+
 function roundTo(amoutToRoundTo, number) {
   return Math.floor(number * (1 / amoutToRoundTo)) / (1 / amoutToRoundTo);
 }
@@ -159,7 +183,7 @@ function getPickIndices(rolls, pick) {
     .slice()
     .sort((roll1, roll2) => roll2.value - roll1.value);
 
-  return sortedRolls.slice(0, pick).map((roll) => roll.i);
+  return sortedRolls.slice(0, pick).map(roll => roll.i);
 }
 
 function getRemoveIndices(rolls, remove) {
@@ -167,7 +191,7 @@ function getRemoveIndices(rolls, remove) {
     .slice()
     .sort((roll1, roll2) => roll1.value - roll2.value);
 
-  return sortedRolls.slice(remove).map((roll) => roll.i);
+  return sortedRolls.slice(remove).map(roll => roll.i);
 }
 
 function getUsedIndices(result) {
@@ -199,6 +223,7 @@ const API = {
   linearUniform,
   invExp,
   uniform,
+  monsterDistribution,
   roundTo,
   roll: {
     processCommand,

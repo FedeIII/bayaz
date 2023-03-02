@@ -2,10 +2,10 @@ import { json } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 
 import { getPcs } from '~/services/pc.server';
-
-import styles from '~/components/allPcs.module.css';
-import menuStyles from '~/components/menus.module.css';
 import { translateClass, translateRace } from '~/domain/characters';
+
+import styles from '~/components/party.module.css';
+import menuStyles from '~/components/menus.module.css';
 
 export const loader = async ({ params }) => {
   const pcs = await getPcs();
@@ -29,17 +29,17 @@ function AllPCs() {
           <li className={styles.character}>
             <Link
               to={`/characters/pc/${pc.name}/summary`}
-              className={styles.characterLink}
+              className={styles.partyLink}
             >
-            <div className={styles.characterName}>{pc.name}</div>
-            <div className={styles.characterData}>
-              {translateRace(pc.race)}
-              {pc.subrace !== 'subrace' && ` - ${translateRace(pc.subrace)}`}
-            </div>
-            <div className={styles.characterData}>
-              {translateClass(pc.pClass)}
-            </div>
-            <div className={styles.characterData}>Nivel {pc.level}</div>
+              <div className={styles.characterName}>{pc.name}</div>
+              <div className={styles.partyData}>
+                {translateRace(pc.race)}
+                {pc.subrace !== 'subrace' && ` - ${translateRace(pc.subrace)}`}
+              </div>
+              <div className={styles.partyData}>
+                {translateClass(pc.pClass)}
+              </div>
+              <div className={styles.partyData}>Nivel {pc.level}</div>
             </Link>
           </li>
         ))}

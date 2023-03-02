@@ -1,0 +1,115 @@
+.characterList {
+  font-family: fantasy;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 16px;
+  padding: 0 0 0 0;
+  width: 80%;
+  margin: 32px auto 32px auto;
+}
+
+.partyLink {
+  display: flex;
+  text-decoration: none;
+  color: white;
+  padding: 16px;
+  width: 100%;
+  background-color: #252937;
+  align-items: stretch;
+}
+
+.partyLink:hover {
+  background-color: #3d414f;
+}
+
+.characterCheck {
+}
+
+.character {
+  display: flex;
+  column-gap: 16px;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.selectCharacter {
+  display: flex;
+  column-gap: 16px;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+  background-color: #252937;
+  padding: 8px 8px 8px 16px;
+}
+
+.character:hover {
+  background-color: #3d414f;
+}
+
+.characterName {
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  flex-grow: 2;
+  flex-basis: 25%;
+  text-align: start;
+  padding: 0 0 0 32px;
+}
+
+.partyData {
+  color: white;
+  text-decoration: none;
+  flex-grow: 1;
+  flex-basis: 20%;
+  text-align: start;
+}
+
+.partySection {
+}
+
+.partyMembersList {
+}
+
+.partyList {
+  font-family: fantasy;
+  font-size: 20px;
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  column-gap: 16px;
+  row-gap: 16px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.party {
+  flex-basis: 20%;
+  display: flex;
+  align-items: stretch;
+  border-radius: 10px;
+  border: 1px groove white;
+}
+
+.partyMembers {
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  list-style: square;
+}
+
+.partyMember {
+  width: 100%;
+}

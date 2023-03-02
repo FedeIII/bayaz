@@ -15,6 +15,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import styles from '~/styles/global.css';
 import MenuContext from './components/contexts/menuContext';
 import { useEffect, useState } from 'react';
+import PartyContext from './components/contexts/partyContext';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -33,11 +34,13 @@ const mainLinks = [
   { name: 'Dados', url: '/dice', level: 0 },
   { name: 'Lugares', url: '/places', level: 0 },
   { name: 'Personajes', url: '/characters', level: 0 },
-  { name: 'Button 4', url: '/', level: 0 },
+  { name: 'Enemigos', url: '/enemies', level: 0 },
+  { name: 'Party', url: '/party', level: 0 },
 ];
 
 export default function App() {
   const [menuItems, setMenuItems] = useState(mainLinks);
+  const [partyId, setPartyId] = useState(mainLinks);
 
   useEffect(() => {
     setMenuItems(mainLinks);
@@ -52,11 +55,13 @@ export default function App() {
       <body>
         <DndProvider backend={HTML5Backend}>
           <MenuContext.Provider value={{ menuItems, setMenuItems }}>
-            <Outlet />
-            <ScrollRestoration />
-            <Scripts />
-            <LiveReload />
-            <Analytics />
+            <PartyContext.Provider value={{ partyId, setPartyId }}>
+              <Outlet />
+              <ScrollRestoration />
+              <Scripts />
+              <LiveReload />
+              <Analytics />
+            </PartyContext.Provider>
           </MenuContext.Provider>
         </DndProvider>
       </body>
