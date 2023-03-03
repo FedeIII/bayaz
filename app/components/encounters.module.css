@@ -43,3 +43,36 @@
 .environmentButton:hover {
   background-color: #3d414f;
 }
+
+.data {
+  color: #0000d4;
+  font-size: 18px;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  line-height: 1;
+  position: relative;
+}
+
+.submit {
+  margin: -28px 90px 14px -30px;
+  font-family: fantasy;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.encounterButton {
+  background-color: #252937;
+  padding: 8px 16px;
+  color: white;
+  text-decoration: none;
+  font-family: fantasy;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.encounterButton:hover {
+  background-color: #3d414f;
+}

@@ -1,11 +1,13 @@
+import { useContext, useEffect } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
 import { getParty, getPc } from '~/services/pc.server';
 import { translateClass, translateRace } from '~/domain/characters';
+import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
+import PartyContext from '~/components/contexts/partyContext';
 
 import styles from '~/components/party.module.css';
-import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -20,25 +22,6 @@ export const loader = async ({ params }) => {
 };
 
 export const action = async ({ request }) => {
-  // const formData = await request.formData();
-  // const name = formData.get('name');
-  // const pClass = formData.get('pClass');
-  // const packName = formData.get('pack');
-
-  // const equipment = getEquipmentComboData({
-  //   formData,
-  //   numberOfEquipmentOptions: CLASS_EQUIPMENT[pClass].length,
-  //   otherInputNames: ['items'],
-  // });
-
-  // const pc = await getPc(name);
-
-  // await updatePc({
-  //   name,
-  //   items: distributeItems(pc, equipment),
-  //   pack: packName,
-  // });
-
   return redirect(`/characters/pc/${name}/summary`);
 };
 
@@ -47,8 +30,14 @@ function PartyInfo() {
   const { id } = party;
 
   useAddMenuItems('/party', [
-    { name: 'Encuentros', url: `/party/${id}/encounters`, level: 1 },
+    { name: id, url: `/party/${id}`, level: 1 },
+    { name: 'Encuentros', url: `/party/${id}/encounters`, level: 2 },
   ]);
+
+  const partyContext = useContext(PartyContext);
+  useEffect(() => {
+    partyContext.setPartyId(id);
+  }, [id]);
 
   return (
     <Form method="post">

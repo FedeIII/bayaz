@@ -22,7 +22,7 @@ export default function Index() {
                   ? styles.secondaryButton
                   : styles.tertiaryButton
               }`}
-              key={button.name}
+              key={button.url}
             >
               {button.name}
             </Link>

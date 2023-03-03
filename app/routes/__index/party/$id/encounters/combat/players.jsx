@@ -1,12 +1,14 @@
 import { json, redirect } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
+import { useLoaderData } from '@remix-run/react';
 
 import { getParty, getPc } from '~/services/pc.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
-import styles from '~/components/party.module.css';
+import styles from '~/components/encounters.module.css';
 import menuStyles from '~/components/menus.module.css';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import EncounterContext from '~/components/contexts/encounterContext';
+import { groupMonsters } from '~/domain/encounters/encounters';
 import PartyContext from '~/components/contexts/partyContext';
 
 export const loader = async ({ params }) => {
@@ -25,13 +27,14 @@ export const action = async ({ request }) => {
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function PartyEncounters() {
+function PartyCombatForPlayers() {
   const { party, pcs } = useLoaderData();
   const { id } = party;
 
   useAddMenuItems('/party', [
     { name: id, url: `/party/${id}`, level: 1 },
     { name: 'Encuentros', url: `/party/${id}/encounters`, level: 2 },
+    { name: 'Combate', url: `/party/${id}/encounters/combat`, level: 2 },
   ]);
 
   const partyContext = useContext(PartyContext);
@@ -39,19 +42,26 @@ function PartyEncounters() {
     partyContext.setPartyId(id);
   }, [id]);
 
+  const encounterContext = useContext(EncounterContext);
+
+  const store = typeof window !== 'undefined' ? window.localStorage : null;
+
+  useEffect(() => {
+    const handler = () => setTest(store?.getItem('test'));
+    window.addEventListener('storage', handler);
+
+    return () => window.removeEventListener('test', handler);
+  }, []);
+
+  const [test, setTest] = useState(store?.getItem('test'));
+
   return (
-    <>
-      <Link to="random" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Encuentro aleatorio</span>
-      </Link>
-      <Link to="" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>/</span>
-      </Link>
-      <Link to="" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>/</span>
-      </Link>
-    </>
+    <div className={styles.encounterContainer}>
+      <h2>Combate</h2>
+      <p>{groupMonsters(encounterContext.monsters)}</p>
+      <p>Test for players: {test}</p>
+    </div>
   );
 }
 
-export default PartyEncounters;
+export default PartyCombatForPlayers;

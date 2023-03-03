@@ -12,7 +12,8 @@ import {
 } from '~/domain/encounters/encounters';
 
 import styles from '~/components/encounters.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import EncounterContext from '~/components/contexts/encounterContext';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -27,26 +28,10 @@ export const loader = async ({ params }) => {
 };
 
 export const action = async ({ request }) => {
-  // const formData = await request.formData();
-  // const name = formData.get('name');
-  // const pClass = formData.get('pClass');
-  // const packName = formData.get('pack');
+  const formData = await request.formData();
+  const partyId = formData.get('partyId');
 
-  // const equipment = getEquipmentComboData({
-  //   formData,
-  //   numberOfEquipmentOptions: CLASS_EQUIPMENT[pClass].length,
-  //   otherInputNames: ['items'],
-  // });
-
-  // const pc = await getPc(name);
-
-  // await updatePc({
-  //   name,
-  //   items: distributeItems(pc, equipment),
-  //   pack: packName,
-  // });
-
-  return redirect(`/characters/pc/${name}/summary`);
+  return redirect(`/party/${partyId}/encounters/combat`);
 };
 
 function PartyInfo() {
@@ -54,38 +39,54 @@ function PartyInfo() {
   const { id } = party;
 
   useAddMenuItems('/party', [
-    { name: 'Encuentros', url: `/party/${id}/encounters`, level: 1 },
+    { name: id, url: `/party/${id}`, level: 1 },
+    { name: 'Encuentros', url: `/party/${id}/encounters`, level: 2 },
   ]);
 
   const [monsters, setMonsters] = useState(null);
 
   function selectEnvironment(env) {
     return () => {
-      setMonsters(groupMonsters(getRandomEncounter(pcs, difficulty, env)));
+      const monsterList = getRandomEncounter(pcs, difficulty, env);
+      setMonsters(monsterList);
     };
   }
 
+  const encounterContext = useContext(EncounterContext) || {};
+
+  function onSubmit() {
+    encounterContext.setMonsters(monsters);
+  }
+
   return (
-    <div className={styles.encounterContainer}>
-      <h2>Encuentro {translateDifficulty(difficulty)}</h2>
-      <div>
-        <h3>Entorno:</h3>
-        <ul className={styles.encounterDifficultyList}>
-          {ENVIRONMENTS.map(env => (
-            <li className={styles.environment} key={env}>
-              <button
-                className={styles.environmentButton}
-                type="button"
-                onClick={selectEnvironment(env)}
-              >
-                {translateEnvironments(env)}
-              </button>
-            </li>
-          ))}
-        </ul>
+    <Form method="post" onSubmit={onSubmit}>
+      <input readOnly type="text" name="partyId" value={id} hidden />
+      <div className={styles.encounterContainer}>
+        <h2>Encuentro {translateDifficulty(difficulty)}</h2>
+        <div>
+          <h3>Entorno:</h3>
+          <ul className={styles.encounterDifficultyList}>
+            {ENVIRONMENTS.map(env => (
+              <li className={styles.environment} key={env}>
+                <button
+                  className={styles.environmentButton}
+                  type="button"
+                  onClick={selectEnvironment(env)}
+                >
+                  {translateEnvironments(env)}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {!!monsters && <div>{groupMonsters(monsters)}</div>}
+        {!!monsters && (
+          <div>
+            <button type="submit">Empezar encuentro</button>
+          </div>
+        )}
       </div>
-      {!!monsters && <div>{monsters}</div>}
-    </div>
+    </Form>
   );
 }
 

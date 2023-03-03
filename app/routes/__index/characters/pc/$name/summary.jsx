@@ -5,7 +5,7 @@ import {
   useSubmit,
   useTransition,
 } from '@remix-run/react';
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import {
@@ -65,7 +65,6 @@ import {
   getItemDisplayList,
   getSpecialAttacks,
   increment,
-  listItems,
 } from '~/domain/display';
 import { getItem, translateItem } from '~/domain/equipment/equipment';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
@@ -236,6 +235,11 @@ function PcSummary() {
     freeText: { playerName, personality, ideals, bonds, flaws } = {},
   } = pc;
 
+  const [pcName, setPcName] = useState(name);
+  useEffect(() => {
+    setPcName(name);
+  }, [name]);
+
   const transition = useTransition();
   const isCreating = Boolean(transition.submission);
 
@@ -253,15 +257,15 @@ function PcSummary() {
   }
 
   useAddMenuItems('/characters', [
-    { name, url: `/characters/pc/${name}/summary`, level: 1 },
+    { name: pcName, url: `/characters/pc/${pcName}/summary`, level: 1 },
     {
       name: 'Inventario',
-      url: `/characters/pc/${name}/bio`,
+      url: `/characters/pc/${pcName}/bio`,
       level: 2,
     },
     {
       name: 'Conjuros',
-      url: `/characters/pc/${name}/spells`,
+      url: `/characters/pc/${pcName}/spells`,
       level: 2,
     },
   ]);
@@ -273,7 +277,7 @@ function PcSummary() {
       submit(
         {
           action: 'equipWeapons',
-          name,
+          name: pcName,
           oldWeaponName: weapons[i].name,
           newWeaponName,
         },
@@ -286,7 +290,7 @@ function PcSummary() {
     submit(
       {
         action: 'equipArmor',
-        name,
+        name: pcName,
         newArmorName,
       },
       { method: 'post' }
@@ -297,7 +301,7 @@ function PcSummary() {
     submit(
       {
         action: 'switchWeapons',
-        name,
+        name: pcName,
         weaponName,
         weaponSlot,
       },
@@ -364,7 +368,7 @@ function PcSummary() {
         onSubmit={onFormSubmit}
         ref={formRef}
       >
-        <input readOnly type="text" name="name" value={name} hidden />
+        <input readOnly type="text" name="name" value={pcName} hidden />
 
         {/* MODALS */}
         {actionModalContent && (
@@ -400,7 +404,7 @@ function PcSummary() {
         )}
 
         {/* BASIC ATTRS */}
-        <span className={`${styles.data} ${styles.name}`}>{name}</span>
+        <span className={`${styles.data} ${styles.name}`}>{pcName}</span>
         <span className={`${styles.data} ${styles.pClass}`}>
           {translateClass(pClass)} lvl {level}
         </span>

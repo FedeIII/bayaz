@@ -197,7 +197,7 @@ export const MONSTER_TRANSLATIONS = {
   'dire wolf': 'Lobo terrible',
   dryad: 'Dríade',
   duergar: 'Duergar',
-  'faerie dragon (young)': 'Dragon feérico',
+  'young faerie dragon': 'Dragon feéric joven',
   'fire snake': 'Serpiente de fuego',
   ghoul: 'Gul',
   'giant eagle': 'Águila gigante',

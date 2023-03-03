@@ -26,7 +26,7 @@ function AllPCs() {
 
       <ul className={styles.characterList}>
         {pcs.map(pc => (
-          <li className={styles.character}>
+          <li className={styles.character} key={pc.name}>
             <Link
               to={`/characters/pc/${pc.name}/summary`}
               className={styles.partyLink}
