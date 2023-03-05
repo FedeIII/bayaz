@@ -1,0 +1,13 @@
+.cards {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
+.card {
+  border: 1px solid white;
+  background-color: #252937;
+  border-radius: 10px;
+  padding: 16px;
+  flex-grow: 1;
+}

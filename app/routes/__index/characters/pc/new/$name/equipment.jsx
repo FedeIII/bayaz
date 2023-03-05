@@ -5,9 +5,10 @@ import { getPc, updatePc } from '~/services/pc.server';
 import { EquipmentCombo } from '~/components/equipment/equipmentCombo';
 import { getEquipmentComboData } from '~/components/equipment/getEquipmentComboData';
 import { CLASS_EQUIPMENT } from '~/domain/equipment/equipment';
+import { distributeItems } from '~/domain/characters';
 
 import styles from '~/components/characters.module.css';
-import { distributeItems } from '~/domain/characters';
+import cardStyles from '~/components/cards.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -54,9 +55,9 @@ function PcEquipment() {
       <input readOnly type="text" name="pClass" value={pClass} hidden />
 
       <div className={styles.equipmentContainer}>
-        <div className={styles.equipment}>
+        <div className={cardStyles.cards}>
           {(CLASS_EQUIPMENT[pClass] || []).map((combo, comboSection) => (
-            <div className={styles.equipmentOptions} key={comboSection}>
+            <div className={cardStyles.card} key={comboSection}>
               <EquipmentCombo
                 pc={pc}
                 combo={combo}

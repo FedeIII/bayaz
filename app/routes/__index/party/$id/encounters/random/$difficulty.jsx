@@ -12,8 +12,8 @@ import {
 } from '~/domain/encounters/encounters';
 
 import styles from '~/components/encounters.module.css';
-import { useContext, useState } from 'react';
-import EncounterContext from '~/components/contexts/encounterContext';
+import { useState } from 'react';
+import { writeIntoStore } from '~/components/hooks/useStore';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -52,10 +52,11 @@ function PartyInfo() {
     };
   }
 
-  const encounterContext = useContext(EncounterContext) || {};
-
   function onSubmit() {
-    encounterContext.setMonsters(monsters);
+    writeIntoStore(
+      'monsters',
+      monsters.map(monster => monster?.name).join('|')
+    );
   }
 
   return (

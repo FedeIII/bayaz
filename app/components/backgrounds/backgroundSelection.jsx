@@ -6,10 +6,11 @@ import {
   translateMoney,
   translateSkill,
 } from '~/domain/characters';
-
-import styles from '~/components/characters.module.css';
 import { displayTrait } from '~/domain/display';
 import { EquipmentCombo } from '../equipment/equipmentCombo';
+
+import styles from '~/components/characters.module.css';
+import cardStyles from '~/components/cards.module.css';
 
 function BackgroundSelection(props) {
   const { pc, backgroundName, setCanContinue } = props;
@@ -72,10 +73,10 @@ function BackgroundSelection(props) {
       {!!BACKGROUNDS[backgroundName].proficientItems && (
         <div>
           Eres competente con:{' '}
-          <div className={styles.equipment}>
+          <div className={cardStyles.cards}>
             {BACKGROUNDS[backgroundName].proficientItems.map(
               (combo, comboSection) => (
-                <div className={styles.equipmentOptions} key={comboSection}>
+                <div className={cardStyles.card} key={comboSection}>
                   <EquipmentCombo
                     pc={pc}
                     comboName="proficiency"
@@ -92,10 +93,10 @@ function BackgroundSelection(props) {
       {!!BACKGROUNDS[backgroundName].equipment && (
         <div>
           Añades a tu equipo:{' '}
-          <div className={styles.equipment}>
+          <div className={cardStyles.cards}>
             {BACKGROUNDS[backgroundName].equipment.map(
               (combo, comboSection) => (
-                <div className={styles.equipmentOptions} key={comboSection}>
+                <div className={cardStyles.card} key={comboSection}>
                   <EquipmentCombo
                     pc={pc}
                     comboName="equipment"
@@ -106,7 +107,7 @@ function BackgroundSelection(props) {
               )
             )}
             {!!BACKGROUNDS[backgroundName].money && (
-              <div className={styles.equipmentOptions}>
+              <div className={cardStyles.card}>
                 <li>{translateMoney(BACKGROUNDS[backgroundName].money)}</li>
                 <input
                   readOnly

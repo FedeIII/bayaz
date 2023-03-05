@@ -16,9 +16,8 @@ import styles from '~/styles/global.css';
 import MenuContext from './components/contexts/menuContext';
 import { useEffect, useState } from 'react';
 import PartyContext from './components/contexts/partyContext';
-import EncounterContext from './components/contexts/encounterContext';
 import { useAddMenuItems } from './components/hooks/useAddMenuItems';
-import { MONSTERS } from './domain/encounters/monsterList';
+import { getFromStore, writeIntoStore } from './components/hooks/useStore';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -44,33 +43,15 @@ const mainLinks = [
 export default function App() {
   const [menuItems, setMenuItems] = useState(mainLinks);
   const [partyId, setPartyId] = useState(null);
-  const [monsters, setMonsters] = useState([]);
 
   useEffect(() => {
     setMenuItems(mainLinks);
-    setPartyId(window.localStorage.getItem('partyId'));
-    const monsterNames = window.localStorage.getItem('monsters');
-    setMonsters(
-      monsterNames
-        ? monsterNames.split('|').map(monsterName => MONSTERS[monsterName])
-        : []
-    );
+    setPartyId(getFromStore('partyId'));
   }, []);
 
   useEffect(() => {
-    if (partyId) {
-      window.localStorage.setItem('partyId', partyId);
-    }
+    if (partyId) writeIntoStore('partyId', partyId);
   }, [partyId]);
-
-  useEffect(() => {
-    if (monsters?.length) {
-      window.localStorage.setItem(
-        'monsters',
-        monsters.map(monster => monster?.name).join('|')
-      );
-    }
-  }, [monsters]);
 
   const extraMenuItems = [];
   if (partyId) {
@@ -84,7 +65,7 @@ export default function App() {
     );
   }
 
-  if (partyId && monsters?.length) {
+  if (partyId && getFromStore('monsters')) {
     extraMenuItems.push({
       name: 'Combate',
       url: `/party/${partyId}/encounters/combat`,
@@ -104,13 +85,11 @@ export default function App() {
         <DndProvider backend={HTML5Backend}>
           <MenuContext.Provider value={{ menuItems, setMenuItems }}>
             <PartyContext.Provider value={{ partyId, setPartyId }}>
-              <EncounterContext.Provider value={{ monsters, setMonsters }}>
-                <Outlet />
-                <ScrollRestoration />
-                <Scripts />
-                <LiveReload />
-                <Analytics />
-              </EncounterContext.Provider>
+              <Outlet />
+              <ScrollRestoration />
+              <Scripts />
+              <LiveReload />
+              <Analytics />
             </PartyContext.Provider>
           </MenuContext.Provider>
         </DndProvider>
