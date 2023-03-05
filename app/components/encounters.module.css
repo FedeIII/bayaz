@@ -28,6 +28,8 @@
 }
 
 .encounterContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 .environmentButton {
@@ -60,6 +62,13 @@
   font-family: fantasy;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.encounterButtons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 80%;
+  margin: 16px auto;
 }
 
 .encounterButton {

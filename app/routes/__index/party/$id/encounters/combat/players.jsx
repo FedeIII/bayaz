@@ -6,10 +6,14 @@ import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
 import styles from '~/components/encounters.module.css';
 import menuStyles from '~/components/menus.module.css';
-import { useContext, useEffect, useRef, useState } from 'react';
-import EncounterContext from '~/components/contexts/encounterContext';
+import { useContext, useEffect, useState } from 'react';
 import { groupMonsters } from '~/domain/encounters/encounters';
 import PartyContext from '~/components/contexts/partyContext';
+import { MONSTERS } from '~/domain/encounters/monsterList';
+import {
+  getMonsters,
+  getMonstersFromStore,
+} from '~/domain/encounters/monsters';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -42,24 +46,19 @@ function PartyCombatForPlayers() {
     partyContext.setPartyId(id);
   }, [id]);
 
-  const encounterContext = useContext(EncounterContext);
-
-  const store = typeof window !== 'undefined' ? window.localStorage : null;
-
   useEffect(() => {
-    const handler = () => setTest(store?.getItem('test'));
+    const handler = () => setMonsters(getMonstersFromStore());
     window.addEventListener('storage', handler);
 
-    return () => window.removeEventListener('test', handler);
+    return () => window.removeEventListener('monsters', handler);
   }, []);
 
-  const [test, setTest] = useState(store?.getItem('test'));
+  const [monsters, setMonsters] = useState(getMonstersFromStore());
 
   return (
     <div className={styles.encounterContainer}>
       <h2>Combate</h2>
-      <p>{groupMonsters(encounterContext.monsters)}</p>
-      <p>Test for players: {test}</p>
+      <p>{groupMonsters(monsters)}</p>
     </div>
   );
 }

@@ -6,10 +6,10 @@ import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 
 import styles from '~/components/encounters.module.css';
 import menuStyles from '~/components/menus.module.css';
-import { useContext, useEffect, useRef, useState } from 'react';
-import EncounterContext from '~/components/contexts/encounterContext';
+import { useContext, useEffect, useState } from 'react';
 import { groupMonsters } from '~/domain/encounters/encounters';
 import PartyContext from '~/components/contexts/partyContext';
+import { getMonstersFromStore } from '~/domain/encounters/monsters';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -42,24 +42,20 @@ function PartyCombat() {
     partyContext.setPartyId(id);
   }, [id]);
 
-  const encounterContext = useContext(EncounterContext);
+  useEffect(() => {
+    const handler = () => setMonsters(getMonstersFromStore());
+    window.addEventListener('storage', handler);
 
-  const store = typeof window !== 'undefined' ? window.localStorage : null;
+    return () => window.removeEventListener('monsters', handler);
+  }, []);
 
-  function onChangeValue() {
-    const newTest = Math.floor(Math.random() * 100);
-    store?.setItem('test', newTest);
-    setTest(newTest);
-  }
-
-  const [test, setTest] = useState(store?.getItem('test'));
+  const [monsters, setMonsters] = useState(getMonstersFromStore());
 
   return (
     <div className={styles.encounterContainer}>
       <h2>Combate</h2>
-      <p>{groupMonsters(encounterContext.monsters)}</p>
-      <p>Test: {test}</p>
-      <p>
+      <p>{groupMonsters(monsters)}</p>
+      <p className={styles.encounterButtons}>
         <Link
           to={`/party/${id}/encounters/combat/players`}
           className={styles.encounterButton}
@@ -67,9 +63,6 @@ function PartyCombat() {
         >
           Mostrar Combate
         </Link>
-        <button type="button" onClick={onChangeValue}>
-          Change value
-        </button>
       </p>
     </div>
   );

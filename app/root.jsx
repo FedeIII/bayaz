@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react';
 import PartyContext from './components/contexts/partyContext';
 import EncounterContext from './components/contexts/encounterContext';
 import { useAddMenuItems } from './components/hooks/useAddMenuItems';
-import { MONSTERS } from './domain/encounters/monsters';
+import { MONSTERS } from './domain/encounters/monsterList';
 
 export const meta = () => ({
   charset: 'utf-8',

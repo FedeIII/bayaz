@@ -1,5 +1,5 @@
 import random from '~/domain/random';
-import { MONSTERS } from './monsters';
+import { MONSTERS } from './monsterList';
 import { translateMonster } from './monsterTranslations';
 
 export const CHARACTER_XP_THRESHOLDS = [
@@ -229,7 +229,7 @@ export function getRandomEncounter(pcs, difficulty, env) {
   }
 }
 
-export function groupMonsters(monsterList) {
+export function groupMonsters(monsterList = []) {
   return Object.entries(
     monsterList.reduce(
       (groupedMonsters, monster) => ({
