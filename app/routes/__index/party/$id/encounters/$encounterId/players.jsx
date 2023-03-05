@@ -1,16 +1,16 @@
 import { json, redirect } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
+import { useLoaderData } from '@remix-run/react';
 import { useContext, useEffect } from 'react';
 
-import { getParty, getPc } from '~/services/pc.server';
+import { getPc } from '~/services/pc.server';
+import { getParty } from '~/services/party.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
+import { groupMonsters } from '~/domain/encounters/encounters';
 import PartyContext from '~/components/contexts/partyContext';
 import { getMonsters } from '~/domain/encounters/monsters';
-import { translateMonster } from '~/domain/encounters/monsterTranslations';
 import { useValueFromStore } from '~/components/hooks/useStore';
 
 import styles from '~/components/encounters.module.css';
-import cardStyles from '~/components/cards.module.css';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -28,7 +28,7 @@ export const action = async ({ request }) => {
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function PartyCombat() {
+function PartyCombatForPlayers() {
   const { party, pcs } = useLoaderData();
   const { id } = party;
 
@@ -48,24 +48,9 @@ function PartyCombat() {
   return (
     <div className={styles.encounterContainer}>
       <h2>Combate</h2>
-      <div className={cardStyles.cards}>
-        {monsters?.map((monster, i) => (
-          <div className={cardStyles.card} key={monster.name + '-' + i}>
-            <h3>{translateMonster(monster.name)}</h3>
-          </div>
-        ))}
-      </div>
-      <p className={styles.encounterButtons}>
-        <Link
-          to={`/party/${id}/encounters/combat/players`}
-          className={styles.encounterButton}
-          target="_blank"
-        >
-          Mostrar Combate
-        </Link>
-      </p>
+      <p>{groupMonsters(monsters)}</p>
     </div>
   );
 }
 
-export default PartyCombat;
+export default PartyCombatForPlayers;

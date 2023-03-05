@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { json, redirect } from '@remix-run/node';
-import { Form, Link, Outlet, useLoaderData } from '@remix-run/react';
+import { Form, useLoaderData } from '@remix-run/react';
 
-import { getParty, getPc } from '~/services/pc.server';
+import { getPc } from '~/services/pc.server';
+import { getParty } from '~/services/party.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import {
   ENVIRONMENTS,
@@ -10,10 +12,12 @@ import {
   translateDifficulty,
   translateEnvironments,
 } from '~/domain/encounters/encounters';
+import { writeIntoStore } from '~/components/hooks/useStore';
+import { createEncounter } from '~/services/encounter.server';
+import { getMonsterHitPoints, getMonsters } from '~/domain/encounters/monsters';
+import { rollDice } from '~/domain/random';
 
 import styles from '~/components/encounters.module.css';
-import { useState } from 'react';
-import { writeIntoStore } from '~/components/hooks/useStore';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -30,8 +34,16 @@ export const loader = async ({ params }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const partyId = formData.get('partyId');
+  const monstersNames = formData.get('monsters');
 
-  return redirect(`/party/${partyId}/encounters/combat`);
+  const monsters = getMonsters(monstersNames).map(monster => ({
+    name: monster.name,
+    hp: rollDice(getMonsterHitPoints(monster)),
+  }));
+
+  const encounter = await createEncounter(partyId, monsters);
+
+  return redirect(`/party/${partyId}/encounters/${encounter.id}`);
 };
 
 function PartyInfo() {
@@ -81,6 +93,15 @@ function PartyInfo() {
           </ul>
         </div>
         {!!monsters && <div>{groupMonsters(monsters)}</div>}
+        {!!monsters && (
+          <input
+            readOnly
+            type="text"
+            name="monsters"
+            value={monsters.map(monster => monster?.name).join('|')}
+            hidden
+          />
+        )}
         {!!monsters && (
           <div>
             <button type="submit">Empezar encuentro</button>

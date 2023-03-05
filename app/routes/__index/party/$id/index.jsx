@@ -2,7 +2,8 @@ import { useContext, useEffect } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
-import { getParty, getPc } from '~/services/pc.server';
+import { getPc } from '~/services/pc.server';
+import { getParty } from '~/services/party.server';
 import { translateClass, translateRace } from '~/domain/characters';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import PartyContext from '~/components/contexts/partyContext';

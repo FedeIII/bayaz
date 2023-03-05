@@ -8,7 +8,7 @@ import { CLASS_EQUIPMENT } from '~/domain/equipment/equipment';
 import { distributeItems } from '~/domain/characters';
 
 import styles from '~/components/characters.module.css';
-import cardStyles from '~/components/cards.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);

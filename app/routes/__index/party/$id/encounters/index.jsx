@@ -1,13 +1,13 @@
+import { useContext, useEffect } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 
-import { getParty, getPc } from '~/services/pc.server';
+import { getPc } from '~/services/pc.server';
+import { getParty } from '~/services/party.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
-
-import styles from '~/components/party.module.css';
-import menuStyles from '~/components/menus.module.css';
-import { useContext, useEffect } from 'react';
 import PartyContext from '~/components/contexts/partyContext';
+
+import menuStyles from '~/components/menus.module.css';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);

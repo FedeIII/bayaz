@@ -10,7 +10,7 @@ import { displayTrait } from '~/domain/display';
 import { EquipmentCombo } from '../equipment/equipmentCombo';
 
 import styles from '~/components/characters.module.css';
-import cardStyles from '~/components/cards.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 function BackgroundSelection(props) {
   const { pc, backgroundName, setCanContinue } = props;

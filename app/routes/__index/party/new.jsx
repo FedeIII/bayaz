@@ -1,7 +1,8 @@
 import { Form, Link, useLoaderData } from '@remix-run/react';
 import { json, redirect } from '@remix-run/node';
 
-import { createParty, getPcs } from '~/services/pc.server';
+import { getPcs } from '~/services/pc.server';
+import { createParty } from '~/services/party.server';
 import { translateClass, translateRace } from '~/domain/characters';
 
 import styles from '~/components/party.module.css';
@@ -38,7 +39,11 @@ function NewParty() {
         Escoge personajes:
         <div className={styles.characterList}>
           {pcs.map(pc => (
-            <label htmlFor={pc.name} className={styles.selectCharacter} key={pc.name}>
+            <label
+              htmlFor={pc.name}
+              className={styles.selectCharacter}
+              key={pc.name}
+            >
               <input
                 type="checkbox"
                 name="pcs[]"

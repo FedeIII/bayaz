@@ -218,6 +218,11 @@ function calculateResult(result) {
   );
 }
 
+export function rollDice(command) {
+  const result = processCommand(command);
+  return calculateResult(result);
+}
+
 const API = {
   split,
   linearUniform,

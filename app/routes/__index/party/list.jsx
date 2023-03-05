@@ -1,7 +1,7 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
-import { getParties } from '~/services/pc.server';
+import { getParties } from '~/services/party.server';
 
 import styles from '~/components/party.module.css';
 
@@ -15,25 +15,6 @@ export const loader = async ({ params }) => {
 };
 
 export const action = async ({ request }) => {
-  // const formData = await request.formData();
-  // const name = formData.get('name');
-  // const pClass = formData.get('pClass');
-  // const packName = formData.get('pack');
-
-  // const equipment = getEquipmentComboData({
-  //   formData,
-  //   numberOfEquipmentOptions: CLASS_EQUIPMENT[pClass].length,
-  //   otherInputNames: ['items'],
-  // });
-
-  // const pc = await getPc(name);
-
-  // await updatePc({
-  //   name,
-  //   items: distributeItems(pc, equipment),
-  //   pack: packName,
-  // });
-
   return redirect(`/characters/pc/${name}/summary`);
 };
 
