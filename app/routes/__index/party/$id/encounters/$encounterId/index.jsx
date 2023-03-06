@@ -6,7 +6,12 @@ import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import PartyContext from '~/components/contexts/partyContext';
-import { getMonsters } from '~/domain/encounters/monsters';
+import {
+  badlyHurtHP,
+  getMonsters,
+  health,
+  hurtHP,
+} from '~/domain/encounters/monsters';
 import { translateMonster } from '~/domain/encounters/monsterTranslations';
 import { Card } from '~/components/cards/card';
 import { damageMonster, getEncounter } from '~/services/encounter.server';
@@ -14,6 +19,7 @@ import { ShrinkBar } from '~/components/indicators/shrinkBar';
 
 import styles from '~/components/encounters.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
+import { writeIntoStore } from '~/components/hooks/useStore';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -67,6 +73,15 @@ function PartyCombat() {
     },
   ]);
 
+  useEffect(() => {
+    writeIntoStore(
+      'monsters',
+      JSON.stringify(
+        monstersStats.map(m => ({ name: m.name, health: health(m) }))
+      )
+    );
+  }, [monstersStats]);
+
   const partyContext = useContext(PartyContext);
   useEffect(() => {
     partyContext.setPartyId(partyId);
@@ -102,8 +117,8 @@ function PartyCombat() {
                   <ShrinkBar
                     cursorPos={hp}
                     maxValue={maxHp}
-                    midValue={maxHp / 2}
-                    lowValue={maxHp / 5}
+                    midValue={hurtHP(monstersStats[i])}
+                    lowValue={badlyHurtHP(monstersStats[i])}
                   />
                 </div>
               )}
@@ -117,7 +132,11 @@ function PartyCombat() {
                   <button name="damage" value={monsterId}>
                     Daño
                   </button>
-                  <input type="text" name={`damage-${monsterId}`} className={styles.damageInput} />
+                  <input
+                    type="text"
+                    name={`damage-${monsterId}`}
+                    className={styles.damageInput}
+                  />
                 </div>
               )}
             </Card>

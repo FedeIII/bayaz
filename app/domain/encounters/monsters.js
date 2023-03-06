@@ -31,3 +31,30 @@ export function getMonsterHitPoints(monster) {
 
   return monster.details['Hit Points'].match(/\((.+)\)/)[1];
 }
+
+export function hurtHP(monsterStats) {
+  return monsterStats.maxHp / 2;
+}
+
+export function isHurt(monsterStats) {
+  return monsterStats.hp < hurtHP(monsterStats);
+}
+
+export function badlyHurtHP(monsterStats) {
+  return monsterStats.maxHp / 5;
+}
+
+export function isBadlyHurt(monsterStats) {
+  return monsterStats.hp < badlyHurtHP(monsterStats);
+}
+
+export function isDead(monsterStats) {
+  return monsterStats.hp <= 0;
+}
+
+export function health(monsterStats) {
+  if (isDead(monsterStats)) return 'dead';
+  if (isBadlyHurt(monsterStats)) return 'badlyHurt';
+  if (isHurt(monsterStats)) return 'hurt';
+  return 'alive';
+}

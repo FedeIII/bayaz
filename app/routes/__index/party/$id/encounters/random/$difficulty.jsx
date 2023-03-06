@@ -12,7 +12,6 @@ import {
   translateDifficulty,
   translateEnvironments,
 } from '~/domain/encounters/encounters';
-import { writeIntoStore } from '~/components/hooks/useStore';
 import { createEncounter } from '~/services/encounter.server';
 import { getMonsterHitPoints, getMonsters } from '~/domain/encounters/monsters';
 import { rollDice } from '~/domain/random';
@@ -68,15 +67,8 @@ function PartyInfo() {
     };
   }
 
-  function onSubmit() {
-    writeIntoStore(
-      'monsters',
-      monsters.map(monster => monster?.name).join('|')
-    );
-  }
-
   return (
-    <Form method="post" onSubmit={onSubmit}>
+    <Form method="post">
       <input readOnly type="text" name="partyId" value={id} hidden />
       <div className={styles.encounterContainer}>
         <h2>Encuentro {translateDifficulty(difficulty)}</h2>

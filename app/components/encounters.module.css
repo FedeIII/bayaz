@@ -104,3 +104,29 @@
 .damageInput {
   width: 24px;
 }
+
+.monstersList {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+}
+
+.monstersItem {
+}
+
+.dead {
+  color: #d84343;
+  text-decoration: line-through;
+}
+
+.badlyHurt {
+  color: #d84343;
+}
+
+.hurt {
+  color: #daa645;
+}
+
+.alive {
+  color: white;
+}
