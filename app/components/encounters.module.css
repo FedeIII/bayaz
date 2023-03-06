@@ -85,3 +85,22 @@
 .encounterButton:hover {
   background-color: #3d414f;
 }
+
+.death {
+  font-size: 20px;
+  color: #d94243;
+}
+
+.deathIcon {
+  font-size: 40px;
+  vertical-align: sub;
+}
+
+.damage {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.damageInput {
+  width: 24px;
+}

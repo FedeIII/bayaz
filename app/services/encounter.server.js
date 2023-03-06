@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { mongoose } from '~/services/db.server';
 
 const monsterSchema = new mongoose.Schema({
+  id: String,
   name: String,
   maxHp: Number,
   hp: Number,
@@ -21,7 +22,7 @@ export async function createEncounter(partyId, monsters) {
   const newEncounter = await Encounter.create({
     id: uuid(),
     partyId,
-    monsters,
+    monsters: monsters.map(m => ({ ...m, id: uuid() })),
   });
 
   return newEncounter;
@@ -35,4 +36,14 @@ export async function getEncounters(partyId) {
 export async function getEncounter(id) {
   const encounter = await Encounter.findOne({ id }).exec();
   return encounter;
+}
+
+export async function damageMonster(encounterId, monsterId, damage) {
+  const updatedEncounter = await Encounter.findOneAndUpdate(
+    { id: encounterId, 'monsters.id': monsterId },
+    { $inc: { 'monsters.$.hp': -damage } },
+    { new: true }
+  );
+
+  return updatedEncounter;
 }
