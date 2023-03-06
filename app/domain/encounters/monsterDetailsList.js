@@ -2168,6 +2168,9 @@ export const MONSTER_DETAILS_LIST = {
       cha: '7',
     },
     notes: 'Medium humanoid (gnoll), chaotic evil',
+    prompts: {
+      image: ''
+    },
   },
   'Gray Ooze': {
     actions: {
