@@ -28,6 +28,7 @@ import { useInventoryItems } from '~/components/item/useInventoryItems';
 
 import styles from '~/components/bio.module.css';
 import itemStyles from '~/components/item/inventoryItem.module.css';
+import { Bar } from '~/components/indicators/bar';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -311,10 +312,6 @@ function PcBio() {
     };
   }
 
-  // ████░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓
-  // ██████████████████████████▒▒▒▒▒▓▓▓▓▓▓
-  // ██████████████████████████████████▓▓▓
-
   const equipmentWeight = random.roundTo(0.1, getEquipmentWeight(pc));
   const lightEncumbrance = random.roundTo(0.1, getLightEncumbrance(pc));
   const heavyEncumbrance = random.roundTo(0.1, getHeavyEncumbrance(pc));
@@ -324,38 +321,6 @@ function PcBio() {
   equipmentWeightPos = equipmentWeightPos > 100 ? 100 : equipmentWeightPos;
   const lightEncumbrancePos = (lightEncumbrance * 100) / maxWeightDisplayed;
   const heavyEncumbrancePos = (heavyEncumbrance * 100) / maxWeightDisplayed;
-
-  const segmentWidth = 2.7;
-
-  let numberOfBlueSegments = 0;
-  let numberOfOrangeSegments = 0;
-  let numberOfRedSegments = 0;
-  let numberOfFilledSegments = Math.round(equipmentWeightPos / segmentWidth);
-  let numberOfEmptySegments = Math.round(lightEncumbrancePos / segmentWidth);
-  let numberOfLightSegments = Math.round(
-    (heavyEncumbrancePos - lightEncumbrancePos) / segmentWidth
-  );
-  let numberOfHeavySegments = Math.round(
-    (100 - heavyEncumbrancePos) / segmentWidth
-  );
-
-  if (equipmentWeightPos < lightEncumbrancePos) {
-    numberOfEmptySegments -= numberOfFilledSegments;
-    numberOfBlueSegments = numberOfFilledSegments;
-  } else if (equipmentWeightPos < heavyEncumbrancePos) {
-    numberOfBlueSegments = numberOfEmptySegments;
-    numberOfOrangeSegments = numberOfFilledSegments - numberOfEmptySegments;
-    numberOfEmptySegments = 0;
-    numberOfLightSegments -= numberOfOrangeSegments;
-  } else {
-    numberOfBlueSegments = numberOfEmptySegments;
-    numberOfOrangeSegments = numberOfLightSegments;
-    numberOfRedSegments =
-      numberOfFilledSegments - numberOfEmptySegments - numberOfLightSegments;
-    numberOfEmptySegments = 0;
-    numberOfLightSegments = 0;
-    numberOfHeavySegments -= numberOfRedSegments;
-  }
 
   return (
     <>
@@ -545,60 +510,14 @@ function PcBio() {
           )}
           <li className={styles.totalTreasure}>
             Peso (kg):{' '}
-            <div className={styles.weightBar}>
-              <span className={styles.blueBar}>
-                {/* {Array(numberOfBlueSegments).fill('▓')} */}
-                {Array(numberOfBlueSegments).fill('▒')}
-                {/* {Array(numberOfBlueSegments).fill('█')} */}
-              </span>
-              <span className={styles.orangeBar}>
-                {/* {Array(numberOfOrangeSegments).fill('▓')} */}
-                {Array(numberOfOrangeSegments).fill('▒')}
-                {/* {Array(numberOfOrangeSegments).fill('█')} */}
-              </span>
-              <span className={styles.redBar}>
-                {/* {Array(numberOfRedSegments).fill('▓')} */}
-                {Array(numberOfRedSegments).fill('▒')}
-                {/* {Array(numberOfRedSegments).fill('█')} */}
-              </span>
-              <span className={styles.blueBar}>
-                {Array(numberOfEmptySegments).fill('░')}
-              </span>
-              <span className={styles.blueBar}>
-                {Array(numberOfLightSegments).fill('░')}
-                {/* {Array(numberOfLightSegments).fill('▒')} */}
-              </span>
-              <span className={styles.blueBar}>
-                {Array(numberOfHeavySegments).fill('░')}
-                {/* {Array(numberOfHeavySegments).fill('▓')} */}
-              </span>
-              <span
-                className={styles.equipmentWeight}
-                style={{
-                  left: `calc(${equipmentWeightPos}% - 4px)`,
-                  color:
-                    equipmentWeightPos > lightEncumbrancePos
-                      ? equipmentWeightPos > heavyEncumbrancePos
-                        ? 'red'
-                        : 'orange'
-                      : 'iniital',
-                }}
-              >
-                {equipmentWeight}
-              </span>
-              <span
-                className={styles.lightEncumbrance}
-                style={{ left: `calc(${lightEncumbrancePos}% - 4px)` }}
-              >
-                {lightEncumbrance}
-              </span>
-              <span
-                className={styles.heavyEncumbrance}
-                style={{ left: `calc(${heavyEncumbrancePos}% - 4px)` }}
-              >
-                {heavyEncumbrance}
-              </span>
-            </div>
+            <Bar
+              cursorPos={equipmentWeightPos}
+              cursorValue={equipmentWeight}
+              softLimit={lightEncumbrancePos}
+              softValue={lightEncumbrance}
+              hardLimit={heavyEncumbrancePos}
+              hardValue={heavyEncumbrance}
+            />
           </li>
         </ul>
       </Form>

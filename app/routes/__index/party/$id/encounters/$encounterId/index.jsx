@@ -1,16 +1,14 @@
 import { json, redirect } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import PartyContext from '~/components/contexts/partyContext';
-import { getMonsterHitPoints, getMonsters } from '~/domain/encounters/monsters';
+import { getMonsters } from '~/domain/encounters/monsters';
 import { translateMonster } from '~/domain/encounters/monsterTranslations';
-import { useValueFromStore } from '~/components/hooks/useStore';
 import { Card } from '~/components/cards/card';
-import { rollDice } from '~/domain/random';
 import { getEncounter } from '~/services/encounter.server';
 
 import styles from '~/components/encounters.module.css';

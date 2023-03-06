@@ -1,0 +1,74 @@
+.bar {
+  font-family: monospace;
+  font-size: 12px;
+  border-bottom: 1px solid #0000d4;
+  position: relative;
+  display: inline-block;
+}
+
+.blueBar {
+  color: #0000d4;
+}
+
+.orangeBar {
+  color: #daa645;
+}
+
+.redBar {
+  color: #d84343;
+}
+
+.cursorValue {
+  position: absolute;
+  top: -16px;
+  font-family: fantasy;
+  font-size: 14px;
+  width: 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cursorValue::after {
+  content: '|';
+  position: absolute;
+  top: 5px;
+  right: -5px;
+}
+
+.softLimit {
+  color: orange;
+  position: absolute;
+  top: 20px;
+  font-family: fantasy;
+  font-size: 14px;
+  width: 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.softLimit::after {
+  color: #daa645;
+  content: '|';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.hardLimit {
+  color: red;
+  position: absolute;
+  top: 20px;
+  font-family: fantasy;
+  font-size: 14px;
+  width: 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hardLimit::after {
+  color: #d84343;
+  content: '|';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
