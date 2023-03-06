@@ -7,9 +7,10 @@ import { getParty } from '~/services/party.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import PartyContext from '~/components/contexts/partyContext';
 import { useValueFromStore } from '~/components/hooks/useStore';
+import { getEncounter } from '~/services/encounter.server';
+import { getMonsterImage } from '~/domain/encounters/monsters';
 
 import styles from '~/components/encounters.module.css';
-import { getEncounter } from '~/services/encounter.server';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -32,7 +33,7 @@ export const loader = async ({ params }) => {
 };
 
 export const action = async ({ request }) => {
-  return redirect(`/characters/pc/${name}/summary`);
+  return null;
 };
 
 function PartyCombatForPlayers() {
@@ -62,11 +63,15 @@ function PartyCombatForPlayers() {
     <div className={styles.encounterContainer}>
       <h2>Combate</h2>
       <ul className={styles.monstersList}>
-        {monsters.map(monster => (
-          <li className={`${styles.monstersItem} ${styles[monster.health]}`}>
-            {monster.name}
-          </li>
-        ))}
+        {monsters.map(monster => {
+          const imgUrl = getMonsterImage(monster.name);
+          return (
+            <li className={`${styles.monstersItem} ${styles[monster.health]}`}>
+              <span>{monster.name}</span>
+              {imgUrl && <img src={imgUrl} className={styles.monsterImage} />}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

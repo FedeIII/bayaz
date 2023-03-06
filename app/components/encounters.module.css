@@ -130,3 +130,7 @@
 .alive {
   color: white;
 }
+
+.monsterImage {
+  width: 100%;
+}

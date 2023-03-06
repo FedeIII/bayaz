@@ -1,4 +1,5 @@
 import { MONSTER_DETAILS_LIST } from './monsterDetailsList';
+import { MONSTER_IMAGES } from './monsterImages';
 import { MONSTERS } from './monsterList';
 
 function isString(value) {
@@ -57,4 +58,8 @@ export function health(monsterStats) {
   if (isBadlyHurt(monsterStats)) return 'badlyHurt';
   if (isHurt(monsterStats)) return 'hurt';
   return 'alive';
+}
+
+export function getMonsterImage(monsterName) {
+  return MONSTER_IMAGES[monsterName] || null;
 }
