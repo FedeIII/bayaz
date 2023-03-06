@@ -38,6 +38,11 @@ export async function getEncounter(id) {
   return encounter;
 }
 
+export async function deleteEncounter(id) {
+  const { deletedCount } = await Encounter.deleteOne({ id });
+  return deletedCount;
+}
+
 export async function damageMonster(encounterId, monsterId, damage) {
   const updatedEncounter = await Encounter.findOneAndUpdate(
     { id: encounterId, 'monsters.id': monsterId },

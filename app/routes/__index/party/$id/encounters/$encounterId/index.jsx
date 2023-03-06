@@ -7,6 +7,7 @@ import { getParty } from '~/services/party.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import PartyContext from '~/components/contexts/partyContext';
 import {
+  areAllDead,
   badlyHurtHP,
   getMonsters,
   health,
@@ -14,7 +15,11 @@ import {
 } from '~/domain/encounters/monsters';
 import { translateMonster } from '~/domain/encounters/monsterTranslations';
 import { Card } from '~/components/cards/card';
-import { damageMonster, getEncounter } from '~/services/encounter.server';
+import {
+  damageMonster,
+  deleteEncounter,
+  getEncounter,
+} from '~/services/encounter.server';
 import { ShrinkBar } from '~/components/indicators/shrinkBar';
 
 import styles from '~/components/encounters.module.css';
@@ -44,8 +49,15 @@ export const loader = async ({ params }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
-  const partyId = formData.get('partyId');
+  const endCombat = formData.get('endCombat');
   const encounterId = formData.get('encounterId');
+  const partyId = formData.get('partyId');
+
+  if (endCombat) {
+    await deleteEncounter(encounterId);
+    return redirect(`/party/${partyId}/encounters`);
+  }
+
   const damagedMonsterId = formData.get('damage');
   const damage = formData.get(`damage-${damagedMonsterId}`);
 
@@ -129,7 +141,7 @@ function PartyCombat() {
                 </div>
               )}
               {isAlive && (
-                <div className={styles.damage}>
+                <div className={styles.buttonContainer}>
                   <button name="damage" value={monsterId}>
                     Daño
                   </button>
@@ -144,14 +156,23 @@ function PartyCombat() {
           );
         })}
       </div>
-      <p className={styles.encounterButtons}>
+      <p className={styles.buttonsRow}>
         <Link
           to={`/party/${partyId}/encounters/${encounterId}/players`}
-          className={styles.encounterButton}
+          className={cardStyles.buttonCard}
           target="_blank"
         >
           Mostrar Combate
         </Link>
+        {areAllDead(monstersStats) && (
+          <button
+            name="endCombat"
+            value="true"
+            className={cardStyles.buttonCard}
+          >
+            Terminar Combate
+          </button>
+        )}
       </p>
     </Form>
   );

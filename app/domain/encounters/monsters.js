@@ -53,6 +53,10 @@ export function isDead(monsterStats) {
   return monsterStats.hp <= 0;
 }
 
+export function areAllDead(monstersStats) {
+  return monstersStats.filter(m => m.hp > 0).length === 0;
+}
+
 export function health(monsterStats) {
   if (isDead(monsterStats)) return 'dead';
   if (isBadlyHurt(monsterStats)) return 'badlyHurt';
