@@ -4,6 +4,7 @@ import { mongoose } from '~/services/db.server';
 
 const monsterSchema = new mongoose.Schema({
   name: String,
+  maxHp: Number,
   hp: Number,
 });
 

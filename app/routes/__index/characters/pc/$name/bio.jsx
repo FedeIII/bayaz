@@ -28,7 +28,7 @@ import { useInventoryItems } from '~/components/item/useInventoryItems';
 
 import styles from '~/components/bio.module.css';
 import itemStyles from '~/components/item/inventoryItem.module.css';
-import { Bar } from '~/components/indicators/bar';
+import { GrowBar } from '~/components/indicators/growBar';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -510,7 +510,7 @@ function PcBio() {
           )}
           <li className={styles.totalTreasure}>
             Peso (kg):{' '}
-            <Bar
+            <GrowBar
               cursorPos={equipmentWeightPos}
               cursorValue={equipmentWeight}
               softLimit={lightEncumbrancePos}

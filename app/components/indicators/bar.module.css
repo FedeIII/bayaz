@@ -6,6 +6,10 @@
   display: inline-block;
 }
 
+.greenBar {
+  color: #2b8c47;
+}
+
 .blueBar {
   color: #0000d4;
 }
@@ -71,4 +75,12 @@
   position: absolute;
   top: -5px;
   right: -5px;
+}
+
+.cursorOverlay {
+  position: absolute;
+  top: -100%;
+  left: 80%;
+  color: white;
+  font-weight: bold;
 }

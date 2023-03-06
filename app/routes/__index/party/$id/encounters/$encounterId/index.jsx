@@ -13,6 +13,7 @@ import { getEncounter } from '~/services/encounter.server';
 
 import styles from '~/components/encounters.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
+import { ShrinkBar } from '~/components/indicators/shrinkBar';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -64,14 +65,25 @@ function PartyCombat() {
     <div className={styles.encounterContainer}>
       <h2>Combate</h2>
       <div className={cardStyles.cards}>
-        {monsters?.map((monster, i) => (
-          <Card
-            title={translateMonster(monster.name)}
-            key={monster.name + '-' + i}
-          >
-            <div>HP: {monstersStats[i]?.hp}</div>
-          </Card>
-        ))}
+        {monsters?.map((monster, i) => {
+          const { hp, maxHp } = monstersStats[i] || {};
+          return (
+            <Card
+              title={translateMonster(monster.name)}
+              key={monster.name + '-' + i}
+            >
+              <div>
+                HP:{' '}
+                <ShrinkBar
+                  cursorPos={hp}
+                  maxValue={maxHp}
+                  midValue={maxHp / 2}
+                  lowValue={maxHp / 5}
+                />
+              </div>
+            </Card>
+          );
+        })}
       </div>
       <p className={styles.encounterButtons}>
         <Link

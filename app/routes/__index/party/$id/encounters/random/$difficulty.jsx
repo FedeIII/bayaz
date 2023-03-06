@@ -36,10 +36,14 @@ export const action = async ({ request }) => {
   const partyId = formData.get('partyId');
   const monstersNames = formData.get('monsters');
 
-  const monsters = getMonsters(monstersNames).map(monster => ({
-    name: monster.name,
-    hp: rollDice(getMonsterHitPoints(monster)),
-  }));
+  const monsters = getMonsters(monstersNames).map(monster => {
+    const maxHp = rollDice(getMonsterHitPoints(monster));
+    return {
+      name: monster.name,
+      maxHp,
+      hp: maxHp,
+    };
+  });
 
   const encounter = await createEncounter(partyId, monsters);
 

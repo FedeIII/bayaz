@@ -4,7 +4,7 @@ import styles from './bar.module.css';
 // ██████████████████████████▒▒▒▒▒▓▓▓▓▓▓
 // ██████████████████████████████████▓▓▓
 
-export function Bar(props) {
+export function GrowBar(props) {
   const { cursorPos, cursorValue, softLimit, softValue, hardLimit, hardValue } =
     props;
 
