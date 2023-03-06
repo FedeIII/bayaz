@@ -42,9 +42,11 @@ const mainLinks = [
 
 export default function App() {
   const [menuItems, setMenuItems] = useState(mainLinks);
+  const [hasMenu, setHasMenu] = useState(true);
   const [partyId, setPartyId] = useState(null);
 
   useEffect(() => {
+    setHasMenu(true);
     setMenuItems(mainLinks);
     setPartyId(getFromStore('partyId'));
   }, []);
@@ -83,7 +85,9 @@ export default function App() {
       </head>
       <body>
         <DndProvider backend={HTML5Backend}>
-          <MenuContext.Provider value={{ menuItems, setMenuItems }}>
+          <MenuContext.Provider
+            value={{ menuItems, setMenuItems, hasMenu, setHasMenu }}
+          >
             <PartyContext.Provider value={{ partyId, setPartyId }}>
               <Outlet />
               <ScrollRestoration />

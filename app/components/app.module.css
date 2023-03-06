@@ -19,7 +19,16 @@
 .body {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   height: 92vh;
+}
+
+.bodyFullScreen {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .sidebar {
@@ -39,6 +48,14 @@
   width: 90vw;
   color: white;
   overflow-y: scroll;
+}
+
+.contentFullScreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  color: white;
 }
 
 .mainButton {
@@ -81,4 +98,19 @@
   text-decoration: none;
   color: black;
   overflow: hidden;
+}
+
+.container {
+  width: 95%;
+  height: fit-content;
+  padding: 8px 0;
+  margin: auto;
+  position: relative;
+}
+
+.containerFullScreen {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: relative;
 }

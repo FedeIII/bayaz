@@ -4,13 +4,14 @@ import { useContext, useEffect } from 'react';
 
 import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
-import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import PartyContext from '~/components/contexts/partyContext';
 import { useValueFromStore } from '~/components/hooks/useStore';
 import { getEncounter } from '~/services/encounter.server';
 import { getMonsterImage } from '~/domain/encounters/monsters';
+import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
 
 import styles from '~/components/encounters.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -41,15 +42,7 @@ function PartyCombatForPlayers() {
   const { id: partyId } = party;
   const { id: encounterId } = encounter;
 
-  useAddMenuItems('/party', [
-    { name: partyId, url: `/party/${partyId}`, level: 1 },
-    { name: 'Encuentros', url: `/party/${partyId}/encounters`, level: 2 },
-    {
-      name: 'Combate',
-      url: `/party/${partyId}/encounters/${encounterId}`,
-      level: 2,
-    },
-  ]);
+  useRemoveMenu();
 
   const partyContext = useContext(PartyContext);
   useEffect(() => {
@@ -60,15 +53,32 @@ function PartyCombatForPlayers() {
   const monsters = JSON.parse(storeMonsters);
 
   return (
-    <div className={styles.encounterContainer}>
-      <h2>Combate</h2>
+    <div className={styles.encounterContainerFullScreen}>
+      <h2 className={cardStyles.singleCard}>Combate</h2>
       <ul className={styles.monstersList}>
-        {monsters.map(monster => {
+        {monsters.map((monster, i) => {
           const imgUrl = getMonsterImage(monster.name);
           return (
-            <li className={`${styles.monstersItem} ${styles[monster.health]}`}>
-              <span>{monster.name}</span>
-              {imgUrl && <img src={imgUrl} className={styles.monsterImage} />}
+            <li
+              className={styles.monstersItem}
+              style={{
+                order: i === 0 ? 2 : i % 2 ? 1 : 3,
+                ...(i === 0 && { flexShrink: 1 }),
+              }}
+            >
+              <span
+                className={`${cardStyles.singleCard} ${styles[monster.health]}`}
+              >
+                {monster.name}
+              </span>
+              {imgUrl && (
+                <img
+                  src={imgUrl}
+                  className={`${styles.monsterImage} ${
+                    styles[monster.health + 'Image']
+                  }`}
+                />
+              )}
             </li>
           );
         })}

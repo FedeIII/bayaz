@@ -32,6 +32,18 @@
   flex-direction: column;
 }
 
+.encounterContainerFullScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: url(http://localhost:3000/images/forest01.png) 0% 70% no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: calc(100vh - 36px);
+  padding: 36px 0 0 0;
+}
+
 .environmentButton {
   background-color: #252937;
   color: white;
@@ -109,14 +121,28 @@
   display: flex;
   justify-content: space-evenly;
   list-style: none;
+  column-gap: 16px;
+  margin: 0;
+  padding: 0 32px;
 }
 
 .monstersItem {
+  display: block;
+  flex-basis: 100%;
+  flex-shrink: 1.1;
+  height: 350px;
+  background-position: top left;
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
 .dead {
   color: #d84343;
   text-decoration: line-through;
+}
+
+.deadImage {
+  mix-blend-mode: soft-light;
 }
 
 .badlyHurt {
@@ -133,4 +159,5 @@
 
 .monsterImage {
   width: 100%;
+  margin: 16px 0 0 0;
 }

@@ -110,6 +110,7 @@ function PartyCombat() {
             <Card
               title={translateMonster(monster.name)}
               key={monster.name + '-' + i}
+              style={{ order: i === 0 ? 2 : i % 2 ? 1 : 3 }}
             >
               {isAlive && (
                 <div>
