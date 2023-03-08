@@ -134,6 +134,7 @@
   background-position: top left;
   background-size: 100%;
   background-repeat: no-repeat;
+  max-width: 30%;
 }
 
 .dead {

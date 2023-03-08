@@ -25,12 +25,16 @@ export function getMonsters(monsterNames) {
   }
 }
 
-export function getMonsterHitPoints(monster) {
+export function getMonsterDetails(monster) {
   if (isString(monster)) {
     monster = getMonster(monster);
   }
 
-  return monster.details['Hit Points'].match(/\((.+)\)/)[1];
+  return monster.details;
+}
+
+export function getMonsterHitPoints(monster) {
+  return getMonsterDetails(monster)['Hit Points'].match(/\((.+)\)/)[1];
 }
 
 export function hurtHP(monsterStats) {

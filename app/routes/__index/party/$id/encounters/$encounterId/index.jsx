@@ -24,7 +24,7 @@ import { ShrinkBar } from '~/components/indicators/shrinkBar';
 
 import styles from '~/components/encounters.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
-import { writeIntoStore } from '~/components/hooks/useStore';
+import { deleteFromStore, writeIntoStore } from '~/components/hooks/useStore';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -78,11 +78,6 @@ function PartyCombat() {
   useAddMenuItems('/party', [
     { name: partyId, url: `/party/${partyId}`, level: 1 },
     { name: 'Encuentros', url: `/party/${partyId}/encounters`, level: 2 },
-    {
-      name: 'Combate',
-      url: `/party/${partyId}/encounters/${encounterId}`,
-      level: 2,
-    },
   ]);
 
   useEffect(() => {
@@ -101,8 +96,18 @@ function PartyCombat() {
 
   const monsters = getMonsters(monstersStats.map(m => m.name));
 
+  function onSubmit(data) {
+    if ([].slice.call(data.target).find(node => node.name === 'endCombat')) {
+      deleteFromStore('monsters');
+    }
+  }
+
   return (
-    <Form method="post" className={styles.encounterContainer}>
+    <Form
+      method="post"
+      className={styles.encounterContainer}
+      onSubmit={onSubmit}
+    >
       <input
         readOnly
         type="text"
@@ -164,15 +169,9 @@ function PartyCombat() {
         >
           Mostrar Combate
         </Link>
-        {areAllDead(monstersStats) && (
-          <button
-            name="endCombat"
-            value="true"
-            className={cardStyles.buttonCard}
-          >
-            Terminar Combate
-          </button>
-        )}
+        <button name="endCombat" value="true" className={cardStyles.buttonCard}>
+          Terminar Combate
+        </button>
       </p>
     </Form>
   );

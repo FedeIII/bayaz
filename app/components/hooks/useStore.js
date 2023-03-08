@@ -22,3 +22,7 @@ export function useValueFromStore(value) {
 export function writeIntoStore(key, value) {
   store?.setItem(key, value);
 }
+
+export function deleteFromStore(key) {
+  store?.removeItem(key);
+}

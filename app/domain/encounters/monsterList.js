@@ -6892,7 +6892,7 @@ export const MONSTERS = {
       Forest: 'yes',
     },
   },
-  'Half-ogre': {
+  'Half-Ogre': {
     xp: '200',
     environment: {
       Arctic: 'yes',
@@ -6907,7 +6907,7 @@ export const MONSTERS = {
     page: 'mm 238',
     size: 'Large',
     challenge: '1',
-    name: 'Half-ogre',
+    name: 'Half-Ogre',
     type: 'Giant',
   },
   'Xvart Warlock of Raxivort': {

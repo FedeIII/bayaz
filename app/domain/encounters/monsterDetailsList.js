@@ -165,11 +165,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Tiny beast, unaligned',
   },
-  Commoner: {
-    noData: true,
-    values:
-      '<div><h2>Commoner</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 344</p></div>',
-  },
   Crab: {
     actions: {
       Claw: '<em>Melee Weapon Attack</em>: +0 to hit, reach 5 ft., one target. <em>Hit</em>: 1 bludgeoning damage.',
@@ -192,11 +187,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '2',
     },
     notes: 'Tiny beast, unaligned',
-  },
-  'Crawling Claw': {
-    noData: true,
-    values:
-      '<div><h2>Crawling Claw</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 44</p></div>',
   },
   Deer: {
     actions: {
@@ -442,11 +432,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '3',
     },
     notes: 'Tiny beast, unaligned',
-  },
-  'Myconid Sprout': {
-    noData: true,
-    values:
-      '<div><h2>Myconid Sprout</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 230</p></div>',
   },
   Octopus: {
     actions: {
@@ -701,11 +686,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Tiny beast, unaligned',
   },
-  Bandit: {
-    noData: true,
-    values:
-      '<div><h2>Bandit</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 343</p></div>',
-  },
   'Blood Hawk': {
     actions: {
       Beak: '<em>Melee Weapon Attack</em>: +4 to hit, reach 5 ft., one target. <em>Hit</em>: 4 (1d4 + 2) piercing damage.',
@@ -754,16 +734,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '5',
     },
     notes: 'Large beast, unaligned',
-  },
-  Cultist: {
-    noData: true,
-    values:
-      '<div><h2>Cultist</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 345</p></div>',
-  },
-  Flumph: {
-    noData: true,
-    values:
-      '<div><h2>Flumph</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 135</p></div>',
   },
   'Flying Snake': {
     actions: {
@@ -862,11 +832,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium beast, unaligned',
   },
-  Guard: {
-    noData: true,
-    values:
-      '<div><h2>Guard</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 347</p></div>',
-  },
   Kobold: {
     actions: {
       Dagger:
@@ -894,11 +859,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '8',
     },
     notes: 'Small humanoid (kobold), lawful evil',
-  },
-  Manes: {
-    noData: true,
-    values:
-      '<div><h2>Manes</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 60</p></div>',
   },
   Mastiff: {
     actions: {
@@ -948,11 +908,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium humanoid (merfolk), neutral',
   },
-  Monodrone: {
-    noData: true,
-    values:
-      '<div><h2>Monodrone</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 224</p></div>',
-  },
   Mule: {
     actions: {
       Hooves:
@@ -978,11 +933,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '5',
     },
     notes: 'Medium beast, unaligned',
-  },
-  Noble: {
-    noData: true,
-    values:
-      '<div><h2>Noble</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 348</p></div>',
   },
   'Poisonous Snake': {
     actions: {
@@ -1027,11 +977,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium beast, unaligned',
   },
-  'Slaad Tadpole': {
-    noData: true,
-    values:
-      '<div><h2>Slaad Tadpole</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 276</p></div>',
-  },
   Stirge: {
     actions: {
       'Blood Drain':
@@ -1053,26 +998,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '6',
     },
     notes: 'Tiny beast, unaligned',
-  },
-  'Tribal Warrior': {
-    noData: true,
-    values:
-      '<div><h2>Tribal Warrior</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 350</p></div>',
-  },
-  'Twig Blight': {
-    noData: true,
-    values:
-      '<div><h2>Twig Blight</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 32</p></div>',
-  },
-  Aarakocra: {
-    noData: true,
-    values:
-      '<div><h2>Aarakocra</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 12</p></div>',
-  },
-  Acolyte: {
-    noData: true,
-    values:
-      '<div><h2>Acolyte</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 342</p></div>',
   },
   'Axe Beak': {
     actions: {
@@ -1150,11 +1075,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium beast, unaligned',
   },
-  Bullywug: {
-    noData: true,
-    values:
-      '<div><h2>Bullywug</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 35</p></div>',
-  },
   'Constrictor Snake': {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +4 to hit, reach 5 ft., one creature. <em>Hit</em>: 5 (1d6 + 2) piercing damage.',
@@ -1231,16 +1151,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Small fiend (demon), chaotic evil',
   },
-  Drow: {
-    noData: true,
-    values:
-      '<div><h2>Drow</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 128</p></div>',
-  },
-  Duodrone: {
-    noData: true,
-    values:
-      '<div><h2>Duodrone</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 225</p></div>',
-  },
   Elk: {
     actions: {
       Ram: '<em>Melee Weapon Attack</em>: +5 to hit, reach 5 ft., one target. <em>Hit</em>: 6 (1d6 + 3) bludgeoning damage.',
@@ -1265,11 +1175,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '6',
     },
     notes: 'Large beast, unaligned',
-  },
-  'Flying Sword': {
-    noData: true,
-    values:
-      '<div><h2>Flying Sword</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 20</p></div>',
   },
   'Giant Badger': {
     actions: {
@@ -1530,26 +1435,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium humanoid (grimlock), neutral evil',
   },
-  Kenku: {
-    noData: true,
-    values:
-      '<div><h2>Kenku</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 194</p></div>',
-  },
-  'Kuo-toa': {
-    noData: true,
-    values:
-      '<div><h2>Kuo-toa</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 199</p></div>',
-  },
-  'Mud Mephit': {
-    noData: true,
-    values:
-      '<div><h2>Mud Mephit</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 216</p></div>',
-  },
-  'Needle Blight': {
-    noData: true,
-    values:
-      '<div><h2>Needle Blight</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 32</p></div>',
-  },
   Panther: {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +4 to hit, reach 5 ft., one target. <em>Hit</em>: 5 (1d6 + 2) piercing damage.',
@@ -1576,11 +1461,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '7',
     },
     notes: 'Medium beast, unaligned',
-  },
-  Pixie: {
-    noData: true,
-    values:
-      '<div><h2>Pixie</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 253</p></div>',
   },
   Pseudodragon: {
     actions: {
@@ -1611,11 +1491,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '10',
     },
     notes: 'Tiny dragon, neutral good',
-  },
-  Pteranodon: {
-    noData: true,
-    values:
-      '<div><h2>Pteranodon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 80</p></div>',
   },
   'Riding Horse': {
     actions: {
@@ -1665,11 +1540,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '5',
     },
     notes: 'Medium undead, lawful evil',
-  },
-  'Smoke Mephit': {
-    noData: true,
-    values:
-      '<div><h2>Smoke Mephit</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 217</p></div>',
   },
   Sprite: {
     actions: {
@@ -1817,11 +1687,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium swarm of Tiny beasts, unaligned',
   },
-  Troglodyte: {
-    noData: true,
-    values:
-      '<div><h2>Troglodyte</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 290</p></div>',
-  },
   'Violet Fungus': {
     actions: {
       Multiattack: 'The fungus makes 1d4 Rotting Touch attacks.',
@@ -1849,11 +1714,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '1',
     },
     notes: 'Medium plant, unaligned',
-  },
-  'Winged Kobold': {
-    noData: true,
-    values:
-      '<div><h2>Winged Kobold</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 195</p></div>',
   },
   Wolf: {
     actions: {
@@ -2064,11 +1924,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Small elemental, neutral evil',
   },
-  'Gas Spore': {
-    noData: true,
-    values:
-      '<div><h2>Gas Spore</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 138</p></div>',
-  },
   'Giant Goat': {
     actions: {
       Ram: '<em>Melee Weapon Attack</em>: +5 to hit, reach 5 ft., one target. <em>Hit</em>: 8 (2d4 + 3) bludgeoning damage.',
@@ -2262,11 +2117,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Small elemental, neutral evil',
   },
-  Jackalwere: {
-    noData: true,
-    values:
-      '<div><h2>Jackalwere</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 193</p></div>',
-  },
   Lizardfolk: {
     actions: {
       Multiattack:
@@ -2361,11 +2211,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Small elemental, chaotic neutral',
   },
-  'Myconid Adult': {
-    noData: true,
-    values:
-      '<div><h2>Myconid Adult</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 232</p></div>',
-  },
   Orc: {
     actions: {
       Greataxe:
@@ -2392,11 +2237,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '10',
     },
     notes: 'Medium humanoid (orc), chaotic evil',
-  },
-  Piercer: {
-    noData: true,
-    values:
-      '<div><h2>Piercer</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 252</p></div>',
   },
   'Reef Shark': {
     actions: {
@@ -2514,11 +2354,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium fey, chaotic neutral',
   },
-  Scout: {
-    noData: true,
-    values:
-      '<div><h2>Scout</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 349</p></div>',
-  },
   Shadow: {
     actions: {
       'Strength Drain':
@@ -2554,11 +2389,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium undead, chaotic evil',
   },
-  Svirfneblin: {
-    noData: true,
-    values:
-      '<div><h2>Svirfneblin</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 164</p></div>',
-  },
   'Swarm of Insects': {
     actions: {
       Bites:
@@ -2585,21 +2415,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '1',
     },
     notes: 'Medium swarm of Tiny beasts, unaligned',
-  },
-  Thug: {
-    noData: true,
-    values:
-      '<div><h2>Thug</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 350</p></div>',
-  },
-  Tridrone: {
-    noData: true,
-    values:
-      '<div><h2>Tridrone</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 225</p></div>',
-  },
-  'Vine Blight': {
-    noData: true,
-    values:
-      '<div><h2>Vine Blight</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 32</p></div>',
   },
   Warhorse: {
     actions: {
@@ -2674,11 +2489,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '8',
     },
     notes: 'Large monstrosity, neutral evil',
-  },
-  'Animated Armor': {
-    noData: true,
-    values:
-      '<div><h2>Animated Armor</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 19</p></div>',
   },
   'Brass Dragon Wyrmling': {
     actions: {
@@ -2919,11 +2729,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium humanoid (dwarf), lawful evil',
   },
-  'Fire Snake': {
-    noData: true,
-    values:
-      '<div><h2>Fire Snake</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 265</p></div>',
-  },
   Ghoul: {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +2 to hit, reach 5 ft., one creature. <em>Hit</em>: 9 (2d6 + 2) piercing damage.',
@@ -3123,16 +2928,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large beast, neutral evil',
   },
-  'Goblin Boss': {
-    noData: true,
-    values:
-      '<div><h2>Goblin Boss</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 166</p></div>',
-  },
-  'Half-ogre': {
-    noData: true,
-    values:
-      '<div><h2>Half-ogre</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 238</p></div>',
-  },
   Harpy: {
     actions: {
       Multiattack:
@@ -3222,11 +3017,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Tiny fiend (devil, shapechanger), lawful evil',
   },
-  'Kuo-toa Whip': {
-    noData: true,
-    values:
-      '<div><h2>Kuo-toa Whip</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 200</p></div>',
-  },
   Lion: {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +5 to hit, reach 5 ft., one target. <em>Hit</em>: 7 (1d8 + 3) piercing damage.',
@@ -3257,16 +3047,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '8',
     },
     notes: 'Large beast, unaligned',
-  },
-  Quadrone: {
-    noData: true,
-    values:
-      '<div><h2>Quadrone</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 226</p></div>',
-  },
-  'Quaggoth Spore Servant': {
-    noData: true,
-    values:
-      '<div><h2>Quaggoth Spore Servant</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 230</p></div>',
   },
   Quasit: {
     actions: {
@@ -3303,11 +3083,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Tiny fiend (demon, shapechanger), chaotic evil',
   },
-  Scarecrow: {
-    noData: true,
-    values:
-      '<div><h2>Scarecrow</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 268</p></div>',
-  },
   Specter: {
     actions: {
       'Life Drain':
@@ -3339,11 +3114,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium undead, chaotic evil',
   },
-  Spy: {
-    noData: true,
-    values:
-      '<div><h2>Spy</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 349</p></div>',
-  },
   'Swarm of Quippers': {
     actions: {
       Bites:
@@ -3374,11 +3144,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium swarm of Tiny beasts, unaligned',
   },
-  'Thri-kreen': {
-    noData: true,
-    values:
-      '<div><h2>Thri-kreen</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 288</p></div>',
-  },
   Tiger: {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +5 to hit, reach 5 ft., one target. <em>Hit</em>: 8 (1d10 + 3) piercing damage.',
@@ -3405,26 +3170,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '8',
     },
     notes: 'Large beast, unaligned',
-  },
-  'Young Faerie Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Faerie Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 133</p></div>',
-  },
-  'Yuan-ti Pureblood': {
-    noData: true,
-    values:
-      '<div><h2>Yuan-ti Pureblood</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 310</p></div>',
-  },
-  'Adult Faerie Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Faerie Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 133</p></div>',
-  },
-  Allosaurus: {
-    noData: true,
-    values:
-      '<div><h2>Allosaurus</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 79</p></div>',
   },
   Ankheg: {
     actions: {
@@ -3507,16 +3252,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium elemental, lawful neutral',
   },
-  'Bandit Captain': {
-    noData: true,
-    values:
-      '<div><h2>Bandit Captain</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 344</p></div>',
-  },
-  Berserker: {
-    noData: true,
-    values:
-      '<div><h2>Berserker</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 344</p></div>',
-  },
   'Black Dragon Wyrmling': {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +4 to hit, reach 5 ft., one target. <em>Hit</em>: 7 (1d10 + 2) piercing damage plus 2 (1d4) acid damage.',
@@ -3575,16 +3310,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium dragon, lawful good',
   },
-  'Carrion Crawler': {
-    noData: true,
-    values:
-      '<div><h2>Carrion Crawler</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 37</p></div>',
-  },
-  'Cave Bear': {
-    noData: true,
-    values:
-      '<div><h2>Cave Bear</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 334</p></div>',
-  },
   Centaur: {
     actions: {
       Multiattack:
@@ -3614,16 +3339,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '11',
     },
     notes: 'Large monstrosity, neutral good',
-  },
-  'Cult Fanatic': {
-    noData: true,
-    values:
-      '<div><h2>Cult Fanatic</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 345</p></div>',
-  },
-  Druid: {
-    noData: true,
-    values:
-      '<div><h2>Druid</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 346</p></div>',
   },
   Ettercap: {
     actions: {
@@ -3862,16 +3577,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium aberration, neutral',
   },
-  'Githzerai Monk': {
-    noData: true,
-    values:
-      '<div><h2>Githzerai Monk</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 161</p></div>',
-  },
-  'Gnoll Pack Lord': {
-    noData: true,
-    values:
-      '<div><h2>Gnoll Pack Lord</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 163</p></div>',
-  },
   'Green Dragon Wyrmling': {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +4 to hit, reach 5 ft., one target. <em>Hit</em>: 7 (1d10 + 2) piercing damage plus 3 (1d6) poison damage.',
@@ -3984,16 +3689,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large beast, unaligned',
   },
-  'Intellect Devourer': {
-    noData: true,
-    values:
-      '<div><h2>Intellect Devourer</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 191</p></div>',
-  },
-  'Lizardfolk Shaman': {
-    noData: true,
-    values:
-      '<div><h2>Lizardfolk Shaman</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 205</p></div>',
-  },
   Merrow: {
     actions: {
       Multiattack:
@@ -4083,11 +3778,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '5',
     },
     notes: 'Large undead, lawful evil',
-  },
-  'Myconid Sovereign': {
-    noData: true,
-    values:
-      '<div><h2>Myconid Sovereign</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 232</p></div>',
   },
   Nothic: {
     actions: {},
@@ -4193,16 +3883,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large undead, neutral evil',
   },
-  'Orc Eye of Gruumsh': {
-    noData: true,
-    values:
-      '<div><h2>Orc Eye of Gruumsh</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 247</p></div>',
-  },
-  Orog: {
-    noData: true,
-    values:
-      '<div><h2>Orog</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 247</p></div>',
-  },
   Pegasus: {
     actions: {
       Hooves:
@@ -4227,16 +3907,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '13',
     },
     notes: 'Large celestial, chaotic good',
-  },
-  Pentadrone: {
-    noData: true,
-    values:
-      '<div><h2>Pentadrone</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 226</p></div>',
-  },
-  Peryton: {
-    noData: true,
-    values:
-      '<div><h2>Peryton</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 251</p></div>',
   },
   Plesiosaurus: {
     actions: {
@@ -4289,16 +3959,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large beast, unaligned',
   },
-  Priest: {
-    noData: true,
-    values:
-      '<div><h2>Priest</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 348</p></div>',
-  },
-  Quaggoth: {
-    noData: true,
-    values:
-      '<div><h2>Quaggoth</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 256</p></div>',
-  },
   Rhinoceros: {
     actions: {
       Gore: '<em>Melee Weapon Attack</em>: +7 to hit, reach 5 ft., one target. <em>Hit</em>: 14 (2d8 + 5) bludgeoning damage.',
@@ -4321,21 +3981,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '6',
     },
     notes: 'Large beast, unaligned',
-  },
-  'Rug of Smothering': {
-    noData: true,
-    values:
-      '<div><h2>Rug of Smothering</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 20</p></div>',
-  },
-  'Saber-toothed Tiger': {
-    noData: true,
-    values:
-      '<div><h2>Saber-toothed Tiger</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 336</p></div>',
-  },
-  'Sahuagin Priestess': {
-    noData: true,
-    values:
-      '<div><h2>Sahuagin Priestess</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 264</p></div>',
   },
   'Sea Hag': {
     actions: {
@@ -4395,16 +4040,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '15',
     },
     notes: 'Medium dragon, lawful good',
-  },
-  'Specter (poltergeist)': {
-    noData: true,
-    values:
-      '<div><h2>Specter (poltergeist)</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 279</p></div>',
-  },
-  'Spined Devil': {
-    noData: true,
-    values:
-      '<div><h2>Spined Devil</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 78</p></div>',
   },
   'Swarm of Poisonous Snakes': {
     actions: {
@@ -4494,16 +4129,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium dragon, chaotic evil',
   },
-  'Will-o-wisp': {
-    noData: true,
-    values:
-      '<div><h2>Will-o-wisp</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 301</p></div>',
-  },
-  Ankylosaurus: {
-    noData: true,
-    values:
-      '<div><h2>Ankylosaurus</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 79</p></div>',
-  },
   Basilisk: {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +5 to hit, reach 5 ft., one target. <em>Hit</em>: 10 (2d6 + 3) piercing damage plus 7 (2d6) poison damage.',
@@ -4589,16 +4214,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium dragon, lawful evil',
   },
-  'Bugbear Chief': {
-    noData: true,
-    values:
-      '<div><h2>Bugbear Chief</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 33</p></div>',
-  },
-  'Displacer Beast': {
-    noData: true,
-    values:
-      '<div><h2>Displacer Beast</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 81</p></div>',
-  },
   Doppelganger: {
     actions: {
       Multiattack: 'The doppelganger makes two melee attacks.',
@@ -4655,11 +4270,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '3',
     },
     notes: 'Large beast, unaligned',
-  },
-  'Githyanki Warrior': {
-    noData: true,
-    values:
-      '<div><h2>Githyanki Warrior</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 160</p></div>',
   },
   'Gold Dragon Wyrmling': {
     actions: {
@@ -4724,11 +4334,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium fey, neutral evil',
   },
-  Grell: {
-    noData: true,
-    values:
-      '<div><h2>Grell</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 172</p></div>',
-  },
   'Hell Hound': {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +5 to hit, reach 5 ft., one target.',
@@ -4758,16 +4363,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium fiend, lawful evil',
   },
-  'Hobgoblin Captain': {
-    noData: true,
-    values:
-      '<div><h2>Hobgoblin Captain</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 186</p></div>',
-  },
-  'Hook Horror': {
-    noData: true,
-    values:
-      '<div><h2>Hook Horror</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 189</p></div>',
-  },
   'Killer Whale': {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +6 to hit, reach 5 ft., one target. <em>Hit</em>: 21 (5d6 + 4) piercing damage.',
@@ -4793,11 +4388,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '7',
     },
     notes: 'Huge beast, unaligned',
-  },
-  Knight: {
-    noData: true,
-    values:
-      '<div><h2>Knight</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 347</p></div>',
   },
   Manticore: {
     actions: {
@@ -4976,26 +4566,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large monstrosity, unaligned',
   },
-  'Quaggoth Thonot': {
-    noData: true,
-    values:
-      '<div><h2>Quaggoth Thonot</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 256</p></div>',
-  },
-  Spectator: {
-    noData: true,
-    values:
-      '<div><h2>Spectator</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 30</p></div>',
-  },
-  Veteran: {
-    noData: true,
-    values:
-      '<div><h2>Veteran</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 350</p></div>',
-  },
-  'Water Weird': {
-    noData: true,
-    values:
-      '<div><h2>Water Weird</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 299</p></div>',
-  },
   Werewolf: {
     actions: {
       'Multiattack (Humanoid or Hybrid Form Only)':
@@ -5100,21 +4670,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large monstrosity, neutral evil',
   },
-  Yeti: {
-    noData: true,
-    values:
-      '<div><h2>Yeti</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 305</p></div>',
-  },
-  'Yuan-ti Malison': {
-    noData: true,
-    values:
-      '<div><h2>Yuan-ti Malison</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 309</p></div>',
-  },
-  Banshee: {
-    noData: true,
-    values:
-      '<div><h2>Banshee</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 23</p></div>',
-  },
   'Black Pudding': {
     actions: {
       Pseudopod:
@@ -5148,11 +4703,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '1',
     },
     notes: 'Large ooze, unaligned',
-  },
-  'Bone Naga': {
-    noData: true,
-    values:
-      '<div><h2>Bone Naga</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 233</p></div>',
   },
   Chuul: {
     actions: {
@@ -5282,11 +4832,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large giant, chaotic evil',
   },
-  Flameskull: {
-    noData: true,
-    values:
-      '<div><h2>Flameskull</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 134</p></div>',
-  },
   Ghost: {
     actions: {
       'Withering Touch':
@@ -5324,21 +4869,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium undead, any alignment',
   },
-  'Gnoll Fang of Yeenoghu': {
-    noData: true,
-    values:
-      '<div><h2>Gnoll Fang of Yeenoghu</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 163</p></div>',
-  },
-  'Helmed Horror': {
-    noData: true,
-    values:
-      '<div><h2>Helmed Horror</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 183</p></div>',
-  },
-  Incubus: {
-    noData: true,
-    values:
-      '<div><h2>Incubus</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 285</p></div>',
-  },
   Lamia: {
     actions: {
       Multiattack:
@@ -5375,16 +4905,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large monstrosity, chaotic evil',
   },
-  'Lizard King/Queen': {
-    noData: true,
-    values:
-      '<div><h2>Lizard King/Queen</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 205</p></div>',
-  },
-  'Orc War Chief': {
-    noData: true,
-    values:
-      '<div><h2>Orc War Chief</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 246</p></div>',
-  },
   'Red Dragon Wyrmling': {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +6 to hit, reach 5 ft., one target. <em>Hit</em>: 9 (1d10 + 4) piercing damage plus 3 (1d6) fire damage.',
@@ -5410,16 +4930,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '15',
     },
     notes: 'Medium dragon, chaotic evil',
-  },
-  'Shadow Demon': {
-    noData: true,
-    values:
-      '<div><h2>Shadow Demon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 64</p></div>',
-  },
-  Succubus: {
-    noData: true,
-    values:
-      '<div><h2>Succubus</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 285</p></div>',
   },
   Wereboar: {
     actions: {
@@ -5564,16 +5074,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium fiend (devil), lawful evil',
   },
-  Barlgura: {
-    noData: true,
-    values:
-      '<div><h2>Barlgura</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 56</p></div>',
-  },
-  'Beholder Zombie': {
-    noData: true,
-    values:
-      '<div><h2>Beholder Zombie</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 316</p></div>',
-  },
   Bulette: {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +7 to hit, reach 5 ft., one target. <em>Hit</em>: 30 (4d12 + 4) piercing damage.',
@@ -5590,16 +5090,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '5',
     },
     notes: 'Large monstrosity, unaligned',
-  },
-  Cambion: {
-    noData: true,
-    values:
-      '<div><h2>Cambion</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 36</p></div>',
-  },
-  'Drow Elite Warrior': {
-    noData: true,
-    values:
-      '<div><h2>Drow Elite Warrior</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 128</p></div>',
   },
   'Earth Elemental': {
     actions: {
@@ -5757,11 +5247,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Huge beast, unaligned',
   },
-  Gladiator: {
-    noData: true,
-    values:
-      '<div><h2>Gladiator</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 346</p></div>',
-  },
   Gorgon: {
     actions: {
       Gore: '<em>Melee Weapon Attack</em>: +8 to hit, reach 5 ft., one target. <em>Hit</em>: 18 (2d12 + 5) piercing damage.',
@@ -5848,11 +5333,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Huge giant, chaotic evil',
   },
-  Mezzoloth: {
-    noData: true,
-    values:
-      '<div><h2>Mezzoloth</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 313</p></div>',
-  },
   'Night Hag': {
     actions: {
       'Claws (Hag Form Only)':
@@ -5922,16 +5402,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large aberration, neutral',
   },
-  'Red Slaad': {
-    noData: true,
-    values:
-      '<div><h2>Red Slaad</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 276</p></div>',
-  },
-  Revenant: {
-    noData: true,
-    values:
-      '<div><h2>Revenant</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 259</p></div>',
-  },
   Roper: {
     actions: {
       Multiattack:
@@ -5964,11 +5434,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '6',
     },
     notes: 'Large monstrosity, neutral evil',
-  },
-  'Sahuagin Baron': {
-    noData: true,
-    values:
-      '<div><h2>Sahuagin Baron</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 264</p></div>',
   },
   Salamander: {
     actions: {
@@ -6089,11 +5554,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '7',
     },
     notes: 'Large giant, chaotic evil',
-  },
-  'Umber Hulk': {
-    noData: true,
-    values:
-      '<div><h2>Umber Hulk</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 292</p></div>',
   },
   Unicorn: {
     actions: {
@@ -6314,16 +5774,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium elemental, neutral',
   },
-  'Young Remorhaz': {
-    noData: true,
-    values:
-      '<div><h2>Young Remorhaz</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 258</p></div>',
-  },
-  Chasme: {
-    noData: true,
-    values:
-      '<div><h2>Chasme</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 57</p></div>',
-  },
   Chimera: {
     actions: {
       Multiattack:
@@ -6353,11 +5803,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '10',
     },
     notes: 'Large monstrosity, chaotic evil',
-  },
-  Cyclops: {
-    noData: true,
-    values:
-      '<div><h2>Cyclops</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 45</p></div>',
   },
   Drider: {
     actions: {
@@ -6398,21 +5843,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large monstrosity, chaotic evil',
   },
-  'Galeb Duhr': {
-    noData: true,
-    values:
-      '<div><h2>Galeb Duhr</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 139</p></div>',
-  },
-  'Githzerai Zerth': {
-    noData: true,
-    values:
-      '<div><h2>Githzerai Zerth</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 161</p></div>',
-  },
-  'Hobgoblin Warlord': {
-    noData: true,
-    values:
-      '<div><h2>Hobgoblin Warlord</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 187</p></div>',
-  },
   'Invisible Stalker': {
     actions: {
       Multiattack: 'The stalker makes two slam attacks.',
@@ -6443,16 +5873,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '11',
     },
     notes: 'Medium elemental, neutral',
-  },
-  'Kuo-toa Archpriest': {
-    noData: true,
-    values:
-      '<div><h2>Kuo-toa Archpriest</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 200</p></div>',
-  },
-  Mage: {
-    noData: true,
-    values:
-      '<div><h2>Mage</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 347</p></div>',
   },
   Mammoth: {
     actions: {
@@ -6576,26 +5996,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large dragon, unaligned',
   },
-  'Young Brass Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Brass Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 105</p></div>',
-  },
-  'Young White Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young White Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 101</p></div>',
-  },
-  'Blue Slaad': {
-    noData: true,
-    values:
-      '<div><h2>Blue Slaad</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 276</p></div>',
-  },
-  'Drow Mage': {
-    noData: true,
-    values:
-      '<div><h2>Drow Mage</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 129</p></div>',
-  },
   'Giant Ape': {
     actions: {
       Multiattack: 'The ape makes two fist attacks.',
@@ -6619,16 +6019,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '7',
     },
     notes: 'Huge beast, unaligned',
-  },
-  'Grick Alpha': {
-    noData: true,
-    values:
-      '<div><h2>Grick Alpha</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 173</p></div>',
-  },
-  'Mind Flayer': {
-    noData: true,
-    values:
-      '<div><h2>Mind Flayer</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 222</p></div>',
   },
   Oni: {
     actions: {
@@ -6731,26 +6121,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Huge giant, neutral',
   },
-  'Young Black Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Black Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 88</p></div>',
-  },
-  'Young Copper Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Copper Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 111</p></div>',
-  },
-  'Yuan-ti Abomination': {
-    noData: true,
-    values:
-      '<div><h2>Yuan-ti Abomination</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 308</p></div>',
-  },
-  Assassin: {
-    noData: true,
-    values:
-      '<div><h2>Assassin</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 343</p></div>',
-  },
   'Chain Devil': {
     actions: {
       Multiattack: 'The devil makes two attacks with its chains.',
@@ -6820,16 +6190,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large aberration, chaotic neutral',
   },
-  'Drow Priestess of Lolth': {
-    noData: true,
-    values:
-      '<div><h2>Drow Priestess of Lolth</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 129</p></div>',
-  },
-  Fomorian: {
-    noData: true,
-    values:
-      '<div><h2>Fomorian</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 136</p></div>',
-  },
   'Frost Giant': {
     actions: {
       Multiattack: 'The giant makes two greataxe attacks.',
@@ -6856,16 +6216,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '12',
     },
     notes: 'Huge giant, neutral evil',
-  },
-  'Githyanki Knight': {
-    noData: true,
-    values:
-      '<div><h2>Githyanki Knight</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 160</p></div>',
-  },
-  'Green Slaad': {
-    noData: true,
-    values:
-      '<div><h2>Green Slaad</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 277</p></div>',
   },
   Hezrou: {
     actions: {
@@ -6929,11 +6279,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Huge monstrosity, unaligned',
   },
-  'Mind Flayer Arcanist': {
-    noData: true,
-    values:
-      '<div><h2>Mind Flayer Arcanist</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 222</p></div>',
-  },
   'Spirit Naga': {
     actions: {
       Bite: '<em>Melee Weapon Attack</em>: +7 to hit, reach 10 ft., one creature. <em>Hit</em>: 7 (1d6 + 4) piercing damage, and the target must make a DC 13 Constitution saving throw, taking 31 (7d8) poison damage on a failed save, or half as much damage on a successful one.',
@@ -6994,21 +6339,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '9',
     },
     notes: 'Huge beast, unaligned',
-  },
-  'Young Bronze Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Bronze Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 108</p></div>',
-  },
-  'Young Green Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Green Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 94</p></div>',
-  },
-  'Abominable Yeti': {
-    noData: true,
-    values:
-      '<div><h2>Abominable Yeti</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 306</p></div>',
   },
   'Bone Devil': {
     actions: {
@@ -7179,16 +6509,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large fiend (demon), chaotic evil',
   },
-  'Gray Slaad': {
-    noData: true,
-    values:
-      '<div><h2>Gray Slaad</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 277</p></div>',
-  },
-  Nycaloth: {
-    noData: true,
-    values:
-      '<div><h2>Nycaloth</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 314</p></div>',
-  },
   Treant: {
     actions: {
       Multiattack: 'The treant makes two slam attacks.',
@@ -7219,16 +6539,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '12',
     },
     notes: 'Huge plant, chaotic good',
-  },
-  'Young Blue Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Blue Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 91</p></div>',
-  },
-  'Young Silver Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Silver Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 118</p></div>',
   },
   Aboleth: {
     actions: {
@@ -7269,11 +6579,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '18',
     },
     notes: 'Large aberration, lawful evil',
-  },
-  'Death Slaad': {
-    noData: true,
-    values:
-      '<div><h2>Death Slaad</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 278</p></div>',
   },
   Deva: {
     actions: {
@@ -7387,21 +6692,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large construct, unaligned',
   },
-  Yochlol: {
-    noData: true,
-    values:
-      '<div><h2>Yochlol</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 65</p></div>',
-  },
-  'Young Gold Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Gold Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 115</p></div>',
-  },
-  'Young Red Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Red Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 98</p></div>',
-  },
   Behir: {
     actions: {
       Multiattack:
@@ -7432,11 +6722,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '12',
     },
     notes: 'Huge monstrosity, neutral evil',
-  },
-  Dao: {
-    noData: true,
-    values:
-      '<div><h2>Dao</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 143</p></div>',
   },
   Djinni: {
     actions: {
@@ -7595,11 +6880,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large fiend (devil), lawful evil',
   },
-  Marid: {
-    noData: true,
-    values:
-      '<div><h2>Marid</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 146</p></div>',
-  },
   Remorhaz: {
     actions: {
       Bite: "<em>Melee Weapon Attack</em>: +11 to hit, reach 10 ft., one target. <em>Hit</em>: 40 (6d10 + 7) piercing damage plus 10 (3d6) fire damage. If the target is a creature, it is <em>grappled</em> (escape DC 17). Until this grapple ends, the target is <em>restrained</em>, and the remorhaz can't bite another target.",
@@ -7655,16 +6935,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Gargantuan monstrosity, unaligned',
   },
-  Arcanaloth: {
-    noData: true,
-    values:
-      '<div><h2>Arcanaloth</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 313</p></div>',
-  },
-  Archmage: {
-    noData: true,
-    values:
-      '<div><h2>Archmage</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 342</p></div>',
-  },
   Erinyes: {
     actions: {
       Multiattack: 'The erinyes makes three attacks.',
@@ -7700,21 +6970,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '18',
     },
     notes: 'Medium fiend (devil), lawful evil',
-  },
-  'Adult Brass Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Brass Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 105</p></div>',
-  },
-  'Adult White Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult White Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 101</p></div>',
-  },
-  Beholder: {
-    noData: true,
-    values:
-      '<div><h2>Beholder</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 28</p></div>',
   },
   Nalfeshnee: {
     actions: {
@@ -7824,11 +7079,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Huge giant, chaotic good',
   },
-  Ultroloth: {
-    noData: true,
-    values:
-      '<div><h2>Ultroloth</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 314</p></div>',
-  },
   Vampire: {
     actions: {
       'Multiattack (Vampire Form Only)':
@@ -7880,31 +7130,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium undead (shapechanger), lawful evil',
   },
-  'Young Red Shadow Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Young Red Shadow Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 85</p></div>',
-  },
-  'Adult Black Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Black Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 88</p></div>',
-  },
-  'Adult Copper Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Copper Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 111</p></div>',
-  },
-  'Beholder (in lair)': {
-    noData: true,
-    values:
-      '<div><h2>Beholder</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 28</p></div>',
-  },
-  'Death Tyrant': {
-    noData: true,
-    values:
-      '<div><h2>Death Tyrant</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 29</p></div>',
-  },
   'Ice Devil': {
     actions: {
       Multiattack:
@@ -7940,21 +7165,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '18',
     },
     notes: 'Large fiend (devil), lawful evil',
-  },
-  'Adult Bronze Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Bronze Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 108</p></div>',
-  },
-  'Adult Green Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Green Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 94</p></div>',
-  },
-  'Death Tyrant (in lair)': {
-    noData: true,
-    values:
-      '<div><h2>Death Tyrant</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 29</p></div>',
   },
   'Mummy Lord': {
     actions: {
@@ -8045,26 +7255,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Gargantuan monstrosity, unaligned',
   },
-  'Vampire (spellcaster)': {
-    noData: true,
-    values:
-      '<div><h2>Vampire (spellcaster)</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 297</p></div>',
-  },
-  'Vampire (warrior)': {
-    noData: true,
-    values:
-      '<div><h2>Vampire (warrior)</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 297</p></div>',
-  },
-  'Adult Blue Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Blue Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 91</p></div>',
-  },
-  'Adult Silver Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Silver Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 117</p></div>',
-  },
   'Iron Golem': {
     actions: {
       Multiattack: 'The golem makes two melee attacks.',
@@ -8140,11 +7330,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large fiend (demon), chaotic evil',
   },
-  'Mummy Lord (in lair)': {
-    noData: true,
-    values:
-      '<div><h2>Mummy Lord</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 229</p></div>',
-  },
   Planetar: {
     actions: {
       Multiattack: 'The planetar makes two melee attacks.',
@@ -8188,21 +7373,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '25',
     },
     notes: 'Large celestial, lawful good',
-  },
-  'Adult Blue Dracolich': {
-    noData: true,
-    values:
-      '<div><h2>Adult Blue Dracolich</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 84</p></div>',
-  },
-  'Adult Gold Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Gold Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 114</p></div>',
-  },
-  'Adult Red Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Adult Red Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 98</p></div>',
   },
   Androsphinx: {
     actions: {
@@ -8263,11 +7433,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large monstrosity, lawful neutral',
   },
-  'Death Knight': {
-    noData: true,
-    values:
-      '<div><h2>Death Knight</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 47</p></div>',
-  },
   'Dragon Turtle': {
     actions: {
       Multiattack:
@@ -8297,16 +7462,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '12',
     },
     notes: 'Gargantuan dragon, neutral',
-  },
-  Goristro: {
-    noData: true,
-    values:
-      '<div><h2>Goristro</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 59</p></div>',
-  },
-  Demilich: {
-    noData: true,
-    values:
-      '<div><h2>Demilich</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 48</p></div>',
   },
   Balor: {
     actions: {
@@ -8347,21 +7502,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Huge fiend (demon), chaotic evil',
   },
-  'Demilich (in lair)': {
-    noData: true,
-    values:
-      '<div><h2>Demilich</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 48</p></div>',
-  },
-  'Ancient Brass Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient Brass Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 104</p></div>',
-  },
-  'Ancient White Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient White Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 100</p></div>',
-  },
   'Pit Fiend': {
     actions: {
       Multiattack:
@@ -8401,16 +7541,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '24',
     },
     notes: 'Large fiend (devil), lawful evil',
-  },
-  'Ancient Black Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient Black Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 87</p></div>',
-  },
-  'Ancient Copper Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient Copper Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 110</p></div>',
   },
   Lich: {
     actions: {
@@ -8531,36 +7661,6 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Large celestial, lawful good',
   },
-  'Ancient Bronze Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient Bronze Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 107</p></div>',
-  },
-  'Ancient Green Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient Green Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 93</p></div>',
-  },
-  'Lich (in lair)': {
-    noData: true,
-    values:
-      '<div><h2>Lich</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 202</p></div>',
-  },
-  'Ancient Blue Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient Blue Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 90</p></div>',
-  },
-  'Ancient Silver Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient Silver Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 116</p></div>',
-  },
-  Empyrean: {
-    noData: true,
-    values:
-      '<div><h2>Empyrean</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 130</p></div>',
-  },
   Kraken: {
     actions: {
       Multiattack:
@@ -8607,16 +7707,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '20',
     },
     notes: 'Gargantuan monstrosity (titan), chaotic evil',
-  },
-  'Ancient Gold Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient Gold Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 113</p></div>',
-  },
-  'Ancient Red Dragon': {
-    noData: true,
-    values:
-      '<div><h2>Ancient Red Dragon</h2>\n<p>Not in the SRD, no description available.</p>\n<p class="source">mm 97</p></div>',
   },
   Tarrasque: {
     actions: {
@@ -8668,5 +7758,3466 @@ export const MONSTER_DETAILS_LIST = {
       cha: '11',
     },
     notes: 'Gargantuan monstrosity (titan), unaligned',
+  },
+  Commoner: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '10',
+      dex: '10',
+      con: '10',
+      int: '10',
+      wis: '10',
+      cha: '10',
+    },
+    'Armor Class': '10',
+    'Hit Points': '4 (1d8)',
+    Speed: '30 ft.',
+    Senses: 'passive Perception 10',
+    Languages: 'any one language (usually Common)',
+    Challenge: '0 (10 XP)',
+  },
+  'Crawling Claw': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Tiny undead, neutral evil',
+    stats: {
+      str: '13',
+      dex: '14',
+      con: '11',
+      int: '5',
+      wis: '10',
+      cha: '4',
+    },
+    'Armor Class': '12',
+    'Hit Points': '2 (1d4)',
+    Speed: '20 ft., climb 20 ft.',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'charmed, exhaustion, poisoned',
+    Senses:
+      'blindsight 30 ft. (blind beyond this radius), passive Perception 10',
+    Languages: "understands Common but can't speak",
+    Challenge: '0 (10 XP)',
+  },
+  'Myconid Sprout': {
+    actions: {
+      'Fist.': '',
+      'Rapport Spores (3/Day).': '',
+    },
+    legendaryActions: {},
+    notes: 'Small plant, lawful neutral',
+    stats: {
+      str: '8',
+      dex: '10',
+      con: '10',
+      int: '8',
+      wis: '11',
+      cha: '5',
+    },
+    'Armor Class': '10',
+    'Hit Points': '7 (2d6)',
+    Speed: '10 ft.',
+    Senses: 'darkvision 120 ft., passive Perception 10',
+    Languages: '—',
+    Challenge: '0 (10 XP)',
+    'Distress Spores.': '',
+    'Sun Sickness.': '',
+  },
+  Bandit: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any non-lawful alignment',
+    stats: {
+      str: '11',
+      dex: '12',
+      con: '12',
+      int: '10',
+      wis: '10',
+      cha: '10',
+    },
+    'Armor Class': '12 (leather armor)',
+    'Hit Points': '11 (2d8 + 2)',
+    Speed: '30 ft.',
+    Senses: 'passive Perception 10',
+    Languages: 'any one language (usually Common)',
+    Challenge: '1/8 (25 XP)',
+  },
+  Cultist: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any non-good alignment',
+    stats: {
+      str: '11',
+      dex: '12',
+      con: '10',
+      int: '10',
+      wis: '11',
+      cha: '10',
+    },
+    'Armor Class': '12 (leather armor)',
+    'Hit Points': '9 (2d8)',
+    Speed: '30 ft.',
+    Skills: 'Deception +2, Religion +2',
+    Senses: 'passive Perception 10',
+    Languages: 'any one language (usually Common)',
+    Challenge: '1/8 (25 XP)',
+  },
+  Flumph: {
+    actions: {
+      'Tendrils.': '',
+      'Stench Spray (1/Day).': '',
+    },
+    legendaryActions: {},
+    notes: 'Small aberration, lawful good',
+    stats: {
+      str: '6',
+      dex: '15',
+      con: '10',
+      int: '14',
+      wis: '14',
+      cha: '11',
+    },
+    'Armor Class': '12',
+    'Hit Points': '7 (2d6)',
+    Speed: '5 ft., fly 30 ft.',
+    Skills: 'Arcana +4, History +4, Religion +4',
+    'Damage Vulnerabilities': 'psychic',
+    Senses: 'darkvision 60 ft., passive Perception 12',
+    Languages: "understands Undercommon but can't speak, telepathy 60 ft.",
+    Challenge: '1/8 (25 XP)',
+    'Advanced Telepathy.': '',
+    'Prone Deficiency.': '',
+    'Telepathic Shroud.': '',
+  },
+  Guard: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '13',
+      dex: '12',
+      con: '12',
+      int: '10',
+      wis: '11',
+      cha: '10',
+    },
+    'Armor Class': '16 (chain shirt, shield)',
+    'Hit Points': '11 (2d8 + 2)',
+    Speed: '30 ft.',
+    Skills: 'Perception +2',
+    Senses: 'passive Perception 12',
+    Languages: 'any one language (usually Common)',
+    Challenge: '1/8 (25 XP)',
+  },
+  Manes: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Small fiend (demon), chaotic evil',
+    stats: {
+      str: '10',
+      dex: '9',
+      con: '13',
+      int: '3',
+      wis: '8',
+      cha: '4',
+    },
+    'Armor Class': '9',
+    'Hit Points': '9 (2d6 + 2)',
+    Speed: '20 ft.',
+    'Damage Resistances': 'cold, fire, lightning',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'charmed, frightened, poisoned',
+    Senses: 'darkvision 60 ft., passive Perception 9',
+    Languages: "understands Abyssal but can't speak",
+    Challenge: '1/8 (25 XP)',
+  },
+  Monodrone: {
+    actions: {
+      'Dagger.': '',
+      'Javelin.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium construct, lawful neutral',
+    stats: {
+      str: '10',
+      dex: '13',
+      con: '12',
+      int: '4',
+      wis: '10',
+      cha: '5',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '5 (1d8 + 1)',
+    Speed: '30 ft., fly 30 ft.',
+    Senses: 'truesight 120 ft., passive Perception 10',
+    Languages: 'Modron',
+    Challenge: '1/8 (25 XP)',
+    'Axiomatic Mind.': '',
+    'Disintegration.': '',
+  },
+  Noble: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '11',
+      dex: '12',
+      con: '11',
+      int: '12',
+      wis: '14',
+      cha: '16',
+    },
+    'Armor Class': '15 (breastplate)',
+    'Hit Points': '9 (2d8)',
+    Speed: '30 ft.',
+    Skills: 'Deception +5, Insight +4, Persuasion +5',
+    Senses: 'passive Perception 12',
+    Languages: 'any two languages',
+    Challenge: '1/8 (25 XP)',
+  },
+  'Slaad Tadpole': {
+    actions: {
+      'Bite.': '',
+    },
+    legendaryActions: {},
+    notes: 'Tiny aberration, chaotic neutral',
+    stats: {
+      str: '7',
+      dex: '15',
+      con: '10',
+      int: '3',
+      wis: '5',
+      cha: '3',
+    },
+    'Armor Class': '12',
+    'Hit Points': '10 (4d4)',
+    Speed: '30 ft.',
+    Skills: 'Stealth +4',
+    'Damage Resistances': 'acid, cold, fire, lightning, thunder',
+    Senses: 'darkvision 60 ft., passive Perception 7',
+    Languages: "understands Slaad but can't speak",
+    Challenge: '1/8 (25 XP)',
+    'Magic Resistance.': '',
+  },
+  'Tribal Warrior': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '13',
+      dex: '11',
+      con: '12',
+      int: '8',
+      wis: '11',
+      cha: '8',
+    },
+    'Armor Class': '12 (hide armor)',
+    'Hit Points': '11 (2d8 + 2)',
+    Speed: '30 ft.',
+    Senses: 'passive Perception 10',
+    Languages: 'any one language',
+    Challenge: '1/8 (25 XP)',
+  },
+  'Twig Blight': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Small plant, neutral evil',
+    stats: {
+      str: '6',
+      dex: '13',
+      con: '12',
+      int: '4',
+      wis: '8',
+      cha: '3',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '4 (1d6 + 1)',
+    Speed: '20 ft.',
+    Skills: 'Stealth +3',
+    'Damage Vulnerabilities': 'fire',
+    'Condition Immunities': 'blinded, deafened',
+    Senses:
+      'blindsight 60 ft. (blind beyond this radius), passive Perception 9',
+    Languages: "understands Common but can't speak",
+    Challenge: '1/8 (25 XP)',
+  },
+  Aarakocra: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (aarakocra), neutral good',
+    stats: {
+      str: '10',
+      dex: '14',
+      con: '10',
+      int: '11',
+      wis: '12',
+      cha: '11',
+    },
+    'Armor Class': '12',
+    'Hit Points': '13 (3d8)',
+    Speed: '20 ft., fly 50 ft.',
+    Skills: 'Perception +5',
+    Senses: 'passive Perception 15',
+    Languages: 'Auran, Aarakocra',
+    Challenge: '1/4 (50 XP)',
+  },
+  Acolyte: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '10',
+      dex: '10',
+      con: '10',
+      int: '10',
+      wis: '14',
+      cha: '11',
+    },
+    'Armor Class': '10',
+    'Hit Points': '9 (2d8)',
+    Speed: '30 ft.',
+    Skills: 'Medicine +4, Religion +2',
+    Senses: 'passive Perception 12',
+    Languages: 'any one language (usually Common)',
+    Challenge: '1/4 (50 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (3 slots): ': '',
+  },
+  Bullywug: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (bullywug), neutral evil',
+    stats: {
+      str: '12',
+      dex: '12',
+      con: '13',
+      int: '7',
+      wis: '10',
+      cha: '7',
+    },
+    'Armor Class': '15 (hide armor, shield)',
+    'Hit Points': '11 (2d8 + 2)',
+    Speed: '20 ft., swim 40 ft.',
+    Skills: 'Stealth +3',
+    Senses: 'passive Perception 10',
+    Languages: 'Bullywug',
+    Challenge: '1/4 (50 XP)',
+  },
+  Drow: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (elf), neutral evil',
+    stats: {
+      str: '10',
+      dex: '14',
+      con: '10',
+      int: '11',
+      wis: '11',
+      cha: '12',
+    },
+    'Armor Class': '15 (chain shirt)',
+    'Hit Points': '13 (3d8)',
+    Speed: '30 ft.',
+    Skills: 'Perception +2, Stealth +4',
+    Senses: 'darkvision 120 ft., passive Perception 12',
+    Languages: 'Elvish, Undercommon',
+    Challenge: '1/4 (50 XP)',
+    'At will: ': '',
+    '1/day each: ': '',
+  },
+  Duodrone: {
+    actions: {
+      'Multiattack.': '',
+      'Fist.': '',
+      'Javelin.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium construct, lawful neutral',
+    stats: {
+      str: '11',
+      dex: '13',
+      con: '12',
+      int: '6',
+      wis: '10',
+      cha: '7',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '11 (2d8 + 2)',
+    Speed: '30 ft.',
+    Senses: 'truesight 120 ft., passive Perception 10',
+    Languages: 'Modron',
+    Challenge: '1/4 (50 XP)',
+    'Axiomatic Mind.': '',
+    'Disintegration.': '',
+  },
+  'Flying Sword': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Small construct, unaligned',
+    stats: {
+      str: '12',
+      dex: '15',
+      con: '11',
+      int: '1',
+      wis: '5',
+      cha: '1',
+    },
+    'Armor Class': '17 (natural armor)',
+    'Hit Points': '17 (5d6)',
+    Speed: '0 ft., fly 50 ft. (hover)',
+    'Saving Throws': 'Dex +4',
+    'Damage Immunities': 'poison, psychic',
+    'Condition Immunities':
+      'blinded, charmed, deafened, frightened, paralyzed, petrified, poisoned',
+    Senses:
+      'blindsight 60 ft. (blind beyond this radius), passive Perception 7',
+    Languages: '—',
+    Challenge: '1/4 (50 XP)',
+  },
+  Kenku: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (kenku), chaotic neutral',
+    stats: {
+      str: '10',
+      dex: '16',
+      con: '10',
+      int: '11',
+      wis: '10',
+      cha: '10',
+    },
+    'Armor Class': '13',
+    'Hit Points': '13 (3d8)',
+    Speed: '30 ft.',
+    Skills: 'Deception +4, Perception +2, Stealth +5',
+    Senses: 'passive Perception 12',
+    Languages:
+      'understands Auran and Common but speaks only through the use of its Mimicry trait',
+    Challenge: '1/4 (50 XP)',
+  },
+  'Kuo-toa': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (kuo-toa), neutral evil',
+    stats: {
+      str: '13',
+      dex: '10',
+      con: '11',
+      int: '11',
+      wis: '10',
+      cha: '8',
+    },
+    'Armor Class': '13 (natural armor, shield)',
+    'Hit Points': '18 (4d8)',
+    Speed: '30 ft., swim 30 ft.',
+    Skills: 'Perception +4',
+    Senses: 'darkvision 120 ft., passive Perception 14',
+    Languages: 'Undercommon',
+    Challenge: '1/4 (50 XP)',
+  },
+  'Mud Mephit': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Small elemental, neutral evil',
+    stats: {
+      str: '8',
+      dex: '12',
+      con: '12',
+      int: '9',
+      wis: '11',
+      cha: '7',
+    },
+    'Armor Class': '11',
+    'Hit Points': '27 (6d6 + 6)',
+    Speed: '20 ft., fly 20 ft., swim 20 ft.',
+    Skills: 'Stealth +3',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: 'Aquan, Terran',
+    Challenge: '1/4 (50 XP)',
+  },
+  'Needle Blight': {
+    actions: {
+      'Claws.': '',
+      'Needles.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium plant, neutral evil',
+    stats: {
+      str: '12',
+      dex: '12',
+      con: '13',
+      int: '4',
+      wis: '8',
+      cha: '3',
+    },
+    'Armor Class': '12 (natural armor)',
+    'Hit Points': '11 (2d8 + 2)',
+    Speed: '30 ft.',
+    'Condition Immunities': 'blinded, deafened',
+    Senses:
+      'blindsight 60 ft. (blind beyond this radius), passive Perception 9',
+    Languages: "understands Common but can't speak",
+    Challenge: '1/4 (50 XP)',
+  },
+  Pixie: {
+    actions: {
+      'Superior Invisibility.': '',
+    },
+    legendaryActions: {},
+    notes: 'Tiny fey, neutral good',
+    stats: {
+      str: '2',
+      dex: '20',
+      con: '8',
+      int: '10',
+      wis: '14',
+      cha: '15',
+    },
+    'Armor Class': '15',
+    'Hit Points': '1 (1d4 - 1)',
+    Speed: '10 ft., fly 30 ft.',
+    Skills: 'Perception +4, Stealth +7',
+    Senses: 'passive Perception 14',
+    Languages: 'Sylvan',
+    Challenge: '1/4 (50 XP)',
+    'Innate Spellcasting.': '',
+    'Magic Resistance.': '',
+  },
+  Pteranodon: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium beast, unaligned',
+    stats: {
+      str: '12',
+      dex: '15',
+      con: '10',
+      int: '2',
+      wis: '9',
+      cha: '5',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '13 (3d8)',
+    Speed: '10 ft., fly 60 ft.',
+    Skills: 'Perception +1',
+    Senses: 'passive Perception 11',
+    Languages: '—',
+    Challenge: '1/4 (50 XP)',
+  },
+  'Smoke Mephit': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Small elemental, neutral evil',
+    stats: {
+      str: '6',
+      dex: '14',
+      con: '12',
+      int: '10',
+      wis: '10',
+      cha: '11',
+    },
+    'Armor Class': '12',
+    'Hit Points': '22 (5d6 + 5)',
+    Speed: '30 ft., fly 30 ft.',
+    Skills: 'Perception +2, Stealth +4',
+    'Damage Immunities': 'fire, poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 60 ft., passive Perception 12',
+    Languages: 'Auran, Ignan',
+    Challenge: '1/4 (50 XP)',
+  },
+  Troglodyte: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (troglodyte), chaotic evil',
+    stats: {
+      str: '14',
+      dex: '10',
+      con: '14',
+      int: '6',
+      wis: '10',
+      cha: '6',
+    },
+    'Armor Class': '11 (natural armor)',
+    'Hit Points': '13 (2d8 + 4)',
+    Speed: '30 ft.',
+    Skills: 'Stealth +2',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: 'Troglodyte',
+    Challenge: '1/4 (50 XP)',
+  },
+  'Winged Kobold': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Small humanoid (kobold), lawful evil',
+    stats: {
+      str: '7',
+      dex: '16',
+      con: '9',
+      int: '8',
+      wis: '7',
+      cha: '8',
+    },
+    'Armor Class': '13',
+    'Hit Points': '7 (3d6 - 3)',
+    Speed: '30 ft., fly 30 ft.',
+    Senses: 'darkvision 60 ft., passive Perception 8',
+    Languages: 'Common, Draconic',
+    Challenge: '1/4 (50 XP)',
+  },
+  'Gas Spore': {
+    actions: {
+      'Touch.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large plant, unaligned',
+    stats: {
+      str: '5',
+      dex: '1',
+      con: '3',
+      int: '1',
+      wis: '1',
+      cha: '1',
+    },
+    'Armor Class': '5',
+    'Hit Points': '1 (1d10 - 4)',
+    Speed: '0 ft., fly 10 ft. (hover)',
+    'Damage Immunities': 'poison',
+    'Condition Immunities':
+      'blinded, deafened, frightened, paralyzed, poisoned, prone',
+    Senses:
+      'blindsight 30 ft. (blind beyond this radius), passive Perception 5',
+    Languages: '—',
+    Challenge: '1/2 (100 XP)',
+    'Death Burst.': '',
+    'Eerie Resemblance.': '',
+  },
+  Jackalwere: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (shapechanger), chaotic evil',
+    stats: {
+      str: '11',
+      dex: '15',
+      con: '11',
+      int: '13',
+      wis: '11',
+      cha: '10',
+    },
+    'Armor Class': '12',
+    'Hit Points': '18 (4d8)',
+    Speed: '40 ft.',
+    Skills: 'Deception +4, Perception +2, Stealth +4',
+    Senses: 'passive Perception 12',
+    Languages: "Common (can't speak in jackal form)",
+    Challenge: '1/2 (100 XP)',
+  },
+  'Myconid Adult': {
+    actions: {
+      'Fist.': '',
+      'Pacifying Spores (3/Day).': '',
+      'Rapport Spores.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium plant, lawful neutral',
+    stats: {
+      str: '10',
+      dex: '10',
+      con: '12',
+      int: '10',
+      wis: '13',
+      cha: '7',
+    },
+    'Armor Class': '12 (natural armor)',
+    'Hit Points': '22 (4d8 + 4)',
+    Speed: '20 ft.',
+    Senses: 'darkvision 120 ft., passive Perception 11',
+    Languages: '—',
+    Challenge: '1/2 (100 XP)',
+    'Distress Spores.': '',
+    'Sun Sickness.': '',
+  },
+  Piercer: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium monstrosity, unaligned',
+    stats: {
+      str: '10',
+      dex: '13',
+      con: '16',
+      int: '1',
+      wis: '7',
+      cha: '3',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '22 (3d8 + 9)',
+    Speed: '5 ft., climb 5 ft.',
+    Skills: 'Stealth +5',
+    Senses: 'blindsight 30 ft., darkvision 60 ft., passive Perception 8',
+    Languages: '—',
+    Challenge: '1/2 (100 XP)',
+  },
+  Scout: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '11',
+      dex: '14',
+      con: '12',
+      int: '11',
+      wis: '13',
+      cha: '11',
+    },
+    'Armor Class': '13 (leather armor)',
+    'Hit Points': '16 (3d8 + 3)',
+    Speed: '30 ft.',
+    Skills: 'Nature +4, Perception +5, Stealth +6, Survival +5',
+    Senses: 'passive Perception 15',
+    Languages: 'any one language (usually Common)',
+    Challenge: '1/2 (100 XP)',
+  },
+  Thug: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any non-good alignment',
+    stats: {
+      str: '15',
+      dex: '11',
+      con: '14',
+      int: '10',
+      wis: '10',
+      cha: '11',
+    },
+    'Armor Class': '11 (leather armor)',
+    'Hit Points': '32 (5d8 + 10)',
+    Speed: '30 ft.',
+    Skills: 'Intimidation +2',
+    Senses: 'passive Perception 10',
+    Languages: 'any one language (usually Common)',
+    Challenge: '1/2 (100 XP)',
+  },
+  Tridrone: {
+    actions: {
+      'Multiattack.': '',
+      'Fist.': '',
+      'Javelin.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium construct, lawful neutral',
+    stats: {
+      str: '12',
+      dex: '13',
+      con: '12',
+      int: '9',
+      wis: '10',
+      cha: '9',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '16 (3d8 + 3)',
+    Speed: '30 ft.',
+    Senses: 'truesight 120 ft., passive Perception 10',
+    Languages: 'Modron',
+    Challenge: '1/2 (100 XP)',
+    'Axiomatic Mind.': '',
+    'Disintegration.': '',
+  },
+  'Vine Blight': {
+    actions: {
+      'Constrict.': '',
+      'Entangling Plants (Recharge 5–6).': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium plant, neutral evil',
+    stats: {
+      str: '15',
+      dex: '8',
+      con: '14',
+      int: '5',
+      wis: '10',
+      cha: '3',
+    },
+    'Armor Class': '12 (natural armor)',
+    'Hit Points': '26 (4d8 + 8)',
+    Speed: '10 ft.',
+    Skills: 'Stealth + 1',
+    'Condition Immunities': 'blinded, deafened',
+    Senses:
+      'blindsight 60 ft. (blind beyond this radius), passive Perception 10',
+    Languages: 'Common',
+    Challenge: '1/2 (100 XP)',
+    'False Appearance.': '',
+  },
+  'Animated Armor': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium construct, unaligned',
+    stats: {
+      str: '14',
+      dex: '11',
+      con: '13',
+      int: '1',
+      wis: '3',
+      cha: '1',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '33 (6d8 + 6)',
+    Speed: '25 ft.',
+    'Damage Immunities': 'poison, psychic',
+    'Condition Immunities':
+      'blinded, charmed, deafened, exhaustion, frightened, paralyzed, petrified, poisoned',
+    Senses:
+      'blindsight 60 ft. (blind beyond this radius), passive Perception 6',
+    Languages: '—',
+    Challenge: '1 (200 XP)',
+  },
+  'Fire Snake': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium elemental, neutral evil',
+    stats: {
+      str: '12',
+      dex: '14',
+      con: '11',
+      int: '7',
+      wis: '10',
+      cha: '8',
+    },
+    'Armor Class': '14 (natural armor)',
+    'Hit Points': '22 (5d8)',
+    Speed: '30 ft.',
+    'Damage Vulnerabilities': 'cold',
+    'Damage Resistances':
+      'bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'fire',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: "understands Ignan but can't speak",
+    Challenge: '1 (200 XP)',
+  },
+  'Goblin Boss': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Small humanoid (goblinoid), neutral evil',
+    stats: {
+      str: '10',
+      dex: '14',
+      con: '10',
+      int: '10',
+      wis: '8',
+      cha: '10',
+    },
+    'Armor Class': '17 (chain shirt, shield)',
+    'Hit Points': '21 (6d6)',
+    Speed: '30 ft.',
+    Skills: 'Stealth +6',
+    Senses: 'darkvision 60 ft., passive Perception 9',
+    Languages: 'Common, Goblin',
+    Challenge: '1 (200 XP)',
+  },
+  'Half-Ogre': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large giant, any chaotic alignment',
+    stats: {
+      str: '17',
+      dex: '10',
+      con: '14',
+      int: '7',
+      wis: '9',
+      cha: '10',
+    },
+    'Armor Class': '12 (hide armor)',
+    'Hit Points': '30 (4d10 + 8)',
+    Speed: '30 ft.',
+    Senses: 'darkvision 60 ft., passive Perception 9',
+    Languages: 'Common, Giant',
+    Challenge: '1 (200 XP)',
+  },
+  'Kuo-toa Whip': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (kuo-toa), neutral evil',
+    stats: {
+      str: '14',
+      dex: '10',
+      con: '14',
+      int: '12',
+      wis: '14',
+      cha: '11',
+    },
+    'Armor Class': '11 (natural armor)',
+    'Hit Points': '65 (10d8 + 20)',
+    Speed: '30 ft., swim 30 ft.',
+    Skills: 'Perception +6, Religion +4',
+    Senses: 'darkvision 120 ft., passive Perception 16',
+    Languages: 'Undercommon',
+    Challenge: '1 (200 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (3 slots): ': '',
+  },
+  Quadrone: {
+    actions: {
+      'Multiattack.': '',
+      'Poing.': '',
+      'Shortbow.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium construct, lawful neutral',
+    stats: {
+      str: '12',
+      dex: '14',
+      con: '12',
+      int: '10',
+      wis: '10',
+      cha: '11',
+    },
+    'Armor Class': '16 (natural armor)',
+    'Hit Points': '22 (4d8 + 4)',
+    Speed: '30 ft., fly 30 ft.',
+    Skills: 'Perception +2',
+    Senses: 'truesight 120 ft., passive Perception 12',
+    Languages: 'Madron',
+    Challenge: '1 (200 XP)',
+    'Axiomatic Mind.': '',
+    'Disintegration.': '',
+  },
+  'Quaggoth Spore Servant': {
+    actions: {
+      'Multiattack.': '',
+      'Claw.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium plant, unaligned',
+    stats: {
+      str: '17',
+      dex: '12',
+      con: '16',
+      int: '2',
+      wis: '6',
+      cha: '1',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '45 (6d8 + 18)',
+    Speed: '20 ft., climb 20 ft.',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'blinded, charmed, frightened, paralyzed, poisoned',
+    Senses:
+      'blindsight 30 ft. (blind beyond this radius), passive Perception 8',
+    Languages: '—',
+    Challenge: '1 (200 XP)',
+  },
+  Scarecrow: {
+    actions: {
+      'Multiattack.': '',
+      'Claw.': '',
+      'Terrifying Glare.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium construct, chaotic evil',
+    stats: {
+      str: '11',
+      dex: '13',
+      con: '11',
+      int: '10',
+      wis: '10',
+      cha: '13',
+    },
+    'Armor Class': '11',
+    'Hit Points': '36 (8d8)',
+    Speed: '30 ft.',
+    'Damage Vulnerabilities': 'fire',
+    'Damage Resistances':
+      'bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'poison',
+    'Condition Immunities':
+      'charmed, exhaustion, frightened, paralyzed, poisoned, unconscious',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: "understands the languages of its creator but can't speak",
+    Challenge: '1 (200 XP)',
+    'False Appearance.': '',
+  },
+  Spy: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '10',
+      dex: '15',
+      con: '10',
+      int: '12',
+      wis: '14',
+      cha: '16',
+    },
+    'Armor Class': '12',
+    'Hit Points': '27 (6d8)',
+    Speed: '30 ft.',
+    Skills:
+      'Deception +5, Insight +4, Investigation +5, Perception +6, Persuasion +5, Sleight of Hand +4, Stealth +4',
+    Senses: 'passive Perception 16',
+    Languages: 'any two languages',
+    Challenge: '1 (200 XP)',
+  },
+  'Thri-kreen': {
+    actions: {
+      'Multiattack.': '',
+      'Bite.': '',
+      'Claws.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (thri-kreen), chaotic neutral',
+    stats: {
+      str: '12',
+      dex: '15',
+      con: '13',
+      int: '8',
+      wis: '12',
+      cha: '7',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '33 (6d8 + 6)',
+    Speed: '40 ft.',
+    Skills: 'Perception +3, Stealth +4, Survival +3',
+    Senses: 'darkvision 60 ft., passive Perception 13',
+    Languages: 'Thri-kreen',
+    Challenge: '1 (200 XP)',
+    'Chameleon Carapace.': '',
+    'Standing Leap.': '',
+  },
+  'Young Faerie Dragon': {
+    actions: {
+      'Bite.Euphoria Breath (Recharge 5–6).': '',
+    },
+    legendaryActions: {},
+    notes: 'Tiny dragon, chaotic good',
+    stats: {
+      str: '3',
+      dex: '20',
+      con: '13',
+      int: '14',
+      wis: '12',
+      cha: '16',
+    },
+    'Armor Class': '15',
+    'Hit Points': '14 (4d4 + 4)',
+    Speed: '10 ft., fly 60 ft.',
+    Skills: 'Arcana +4, Perception +3, Stealth +7',
+    Senses: 'darkvision 60 ft., passive Perception 13',
+    Languages: 'Draconic, Sylvan',
+    Challenge: '1 (200 XP)',
+    'Innate Spellcasting.': '',
+    'Limited Telepathy.': '',
+    'Magic Resistance.': '',
+    'Superior Invisibility.': '',
+  },
+  'Yuan-ti Pureblood': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (yuan-ti), neutral evil',
+    stats: {
+      str: '11',
+      dex: '12',
+      con: '11',
+      int: '13',
+      wis: '12',
+      cha: '14',
+    },
+    'Armor Class': '11',
+    'Hit Points': '40 (9d8)',
+    Speed: '30 ft.',
+    Skills: 'Deception +6, Perception +3, Stealth +3',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 60 ft., passive Perception 13',
+    Languages: 'Abyssal, Common, Draconic',
+    Challenge: '1 (200 XP)',
+    'At will: ': '',
+    ' (snakes only)': '',
+    '3/day each: ': '',
+  },
+  'Adult Faerie Dragon': {
+    actions: {
+      'Bite.Euphoria Breath (Recharge 5–6).': '',
+    },
+    legendaryActions: {},
+    notes: 'Tiny dragon, chaotic good',
+    stats: {
+      str: '3',
+      dex: '20',
+      con: '13',
+      int: '14',
+      wis: '12',
+      cha: '16',
+    },
+    'Armor Class': '15',
+    'Hit Points': '14 (4d4 + 4)',
+    Speed: '10 ft., fly 60 ft.',
+    Skills: 'Arcana +4, Perception +3, Stealth +7',
+    Senses: 'darkvision 60 ft., passive Perception 13',
+    Languages: 'Draconic, Sylvan',
+    Challenge: '1 (200 XP)',
+    'Innate Spellcasting.': '',
+    'Limited Telepathy.': '',
+    'Magic Resistance.': '',
+    'Superior Invisibility.': '',
+  },
+  Allosaurus: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large beast, unaligned',
+    stats: {
+      str: '19',
+      dex: '13',
+      con: '17',
+      int: '2',
+      wis: '12',
+      cha: '5',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '51 (6d10 + 18)',
+    Speed: '60 ft.',
+    Skills: 'Perception +5',
+    Senses: 'passive Perception 15',
+    Languages: '—',
+    Challenge: '2 (450 XP)',
+  },
+  'Bandit Captain': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any non-lawful alignment',
+    stats: {
+      str: '15',
+      dex: '16',
+      con: '14',
+      int: '14',
+      wis: '11',
+      cha: '14',
+    },
+    'Armor Class': '15 (studded leather)',
+    'Hit Points': '65 (10d8 + 20)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Str +4, Dex +5, Wis +2',
+    Skills: 'Athletics +4, Deception +4',
+    Senses: 'passive Perception 10',
+    Languages: 'any two languages',
+    Challenge: '2 (450 XP)',
+  },
+  Berserker: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any chaotic alignment',
+    stats: {
+      str: '16',
+      dex: '12',
+      con: '17',
+      int: '9',
+      wis: '11',
+      cha: '9',
+    },
+    'Armor Class': '13 (hide armor)',
+    'Hit Points': '67 (9d8 + 27)',
+    Speed: '30 ft.',
+    Senses: 'passive Perception 10',
+    Languages: 'any one language (usually Common)',
+    Challenge: '2 (450 XP)',
+  },
+  'Carrion Crawler': {
+    actions: {
+      'Multiattack.': '',
+      'Tentacles.': '',
+      'Bite.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large monstrosity, unaligned',
+    stats: {
+      str: '14',
+      dex: '13',
+      con: '16',
+      int: '1',
+      wis: '12',
+      cha: '5',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '51 (6d10 + 18)',
+    Speed: '30 ft., climb 30 ft.',
+    Skills: 'Perception +3',
+    Senses: 'darkvision 60 ft., passive Perception 13',
+    Languages: '—',
+    Challenge: '2 (450 XP)',
+    'Keen Smell.': '',
+    'Spider Climb.': '',
+  },
+  'Cult Fanatic': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any non-good alignment',
+    stats: {
+      str: '11',
+      dex: '14',
+      con: '12',
+      int: '10',
+      wis: '13',
+      cha: '14',
+    },
+    'Armor Class': '13 (leather armor)',
+    'Hit Points': '33 (6d8 + 6)',
+    Speed: '30 ft.',
+    Skills: 'Deception +4, Persuasion +4, Religion +2',
+    Senses: 'passive Perception 11',
+    Languages: 'any one language (usually Common)',
+    Challenge: '2 (450 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+  },
+  Druid: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '10',
+      dex: '12',
+      con: '13',
+      int: '12',
+      wis: '15',
+      cha: '11',
+    },
+    'Armor Class': '11 (16 with ',
+    'Hit Points': '27 (5d8 + 5)',
+    Speed: '30 ft.',
+    Skills: 'Medicine +4, Nature +3, Perception +4',
+    Senses: 'passive Perception 14',
+    Languages: 'Druidic plus any two languages',
+    Challenge: '2 (450 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+  },
+  'Githzerai Monk': {
+    actions: {
+      'Multiattack.': '',
+      'Unarmed Strike.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (gith), lawful neutral',
+    stats: {
+      str: '12',
+      dex: '15',
+      con: '12',
+      int: '13',
+      wis: '14',
+      cha: '10',
+    },
+    'Armor Class': '14',
+    'Hit Points': '38 (7d8 + 7)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Str +3, Dex +4, Int +3, Wis +4',
+    Skills: 'Insight +4, Perception +4',
+    Senses: 'passive Perception 14',
+    Languages: 'Gith',
+    Challenge: '2 (450 XP)',
+    'Innate Spellcasting (Psionics).': '',
+    'Psychic Defense.': '',
+  },
+  'Gnoll Pack Lord': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (gnoll), chaotic evil',
+    stats: {
+      str: '16',
+      dex: '14',
+      con: '13',
+      int: '8',
+      wis: '11',
+      cha: '9',
+    },
+    'Armor Class': '15 (chain shirt)',
+    'Hit Points': '49 (9d8 + 9)',
+    Speed: '30 ft.',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: 'Gnoll',
+    Challenge: '2 (450 XP)',
+  },
+  'Intellect Devourer': {
+    actions: {
+      'Multiattack.': '',
+      'Claws.': '',
+      'Devour Intellect.': '',
+      'Body Thief.': '',
+    },
+    legendaryActions: {},
+    notes: 'Tiny aberration, lawful evil',
+    stats: {
+      str: '6',
+      dex: '14',
+      con: '13',
+      int: '12',
+      wis: '11',
+      cha: '10',
+    },
+    'Armor Class': '12',
+    'Hit Points': '21 (6d4 + 6)',
+    Speed: '40 ft.',
+    Skills: 'Perception +2, Stealth +4',
+    'Damage Resistances':
+      'bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Condition Immunities': 'blinded',
+    Senses:
+      'blindsight 60 ft. (blind beyond this radius), passive Perception 12',
+    Languages: "understands Deep Speech but can 't speak, telepathy 60 ft.",
+    Challenge: '2 (450 XP)',
+    'Detect Sentience.': '',
+  },
+  'Lizardfolk Shaman': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (lizardfolk), neutral',
+    stats: {
+      str: '15',
+      dex: '10',
+      con: '13',
+      int: '10',
+      wis: '15',
+      cha: '8',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '27 (5d8 + 5)',
+    Speed: '30 ft., swim 30 ft.',
+    Skills: 'Perception +4, Stealth +4, Survival +6',
+    Senses: 'passive Perception 14',
+    Languages: 'Draconic',
+    Challenge: '2 (450 XP)',
+    'Cantrips (at will): ': '',
+    '1st Level (4 slots): ': '',
+    '2nd Level (3 slots): ': '',
+    '3rd Level (2 slots): ': '',
+    ' (reptiles only), ': '',
+  },
+  'Myconid Sovereign': {
+    actions: {
+      'Multiattack.': '',
+      'Fist.': '',
+      'Animating Spores (3/Day).': '',
+      'Hallucination Spores.': '',
+      'Pacifying Spores.': '',
+      'Rapport Spores.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large plant, lawful neutral',
+    stats: {
+      str: '12',
+      dex: '10',
+      con: '14',
+      int: '13',
+      wis: '15',
+      cha: '10',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '60 (8d10 + 16)',
+    Speed: '30 ft.',
+    Senses: 'darkvision 120 ft., passive Perception 12',
+    Languages: '—',
+    Challenge: '2 (450 XP)',
+    'Distress Spores.': '',
+    'Sun Sickness.': '',
+  },
+  'Orc Eye of Gruumsh': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (orc), chaotic evil',
+    stats: {
+      str: '16',
+      dex: '12',
+      con: '16',
+      int: '9',
+      wis: '13',
+      cha: '12',
+    },
+    'Armor Class': '16 (ring mail, shield)',
+    'Hit Points': '45 (6d8 + 18)',
+    Speed: '30 ft.',
+    Skills: 'Intimidation +3, Religion +1',
+    Senses: 'darkvision 60 ft., passive Perception 11',
+    Languages: 'Common, Orc',
+    Challenge: '2 (450 XP)',
+    'Cantrips (at-will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (2 slots): ': '',
+    ' (spear)': '',
+  },
+  Orog: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (orc), chaotic evil',
+    stats: {
+      str: '18',
+      dex: '12',
+      con: '18',
+      int: '12',
+      wis: '11',
+      cha: '12',
+    },
+    'Armor Class': '18 (plate)',
+    'Hit Points': '42 (5d8 + 20)',
+    Speed: '30 ft.',
+    Skills: 'Intimidation +5, Survival +2',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: 'Common, Orc',
+    Challenge: '2 (450 XP)',
+  },
+  Pentadrone: {
+    actions: {
+      'Multiattack.': '',
+      'Arm.': '',
+      'Paralysis Gas (Recharge 5–6).': '',
+    },
+    legendaryActions: {},
+    notes: 'Large construct, lawful neutral',
+    stats: {
+      str: '15',
+      dex: '14',
+      con: '12',
+      int: '10',
+      wis: '10',
+      cha: '13',
+    },
+    'Armor Class': '16 (natural armor)',
+    'Hit Points': '32 (5d10 + 5)',
+    Speed: '40 ft.',
+    Skills: 'Perception +4',
+    Senses: 'truesight 120 ft., passive Perception 14',
+    Languages: 'Madron',
+    Challenge: '2 (450 XP)',
+    'Axiomatic Mind.': '',
+    'Disintegration.': '',
+  },
+  Peryton: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium monstrosity, chaotic evil',
+    stats: {
+      str: '16',
+      dex: '12',
+      con: '13',
+      int: '9',
+      wis: '12',
+      cha: '10',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '33 (6d8 + 6)',
+    Speed: '20 ft., fly 60 ft.',
+    Skills: 'Perception +5',
+    'Damage Resistances':
+      'bludgeoning, piercing, and slashing from nonmagical attacks',
+    Senses: 'passive Perception 15',
+    Languages: "understands Common and Elvish but can't speak",
+    Challenge: '2 (450 XP)',
+  },
+  Priest: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '10',
+      dex: '10',
+      con: '12',
+      int: '13',
+      wis: '16',
+      cha: '13',
+    },
+    'Armor Class': '13 (chain shirt)',
+    'Hit Points': '27 (5d8 + 5)',
+    Speed: '30 ft.',
+    Skills: 'Medicine +7, Persuasion +3, Religion +5',
+    Senses: 'passive Perception 13',
+    Languages: 'any two languages',
+    Challenge: '2 (450 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+    '3rd level (2 slots): ': '',
+  },
+  Quaggoth: {
+    actions: {
+      'Multiattack.': '',
+      'Claw.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (quaggoth), chaotic neutral',
+    stats: {
+      str: '17',
+      dex: '12',
+      con: '16',
+      int: '6',
+      wis: '12',
+      cha: '7',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '45 (6d8 + 18)',
+    Speed: '30 ft., climb 30 ft.',
+    Skills: 'Athletics +5',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 120 ft., passive Perception 10',
+    Languages: 'Undercommon',
+    Challenge: '2 (450 XP)',
+    'Wounded Fury.': '',
+  },
+  'Rug of Smothering': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large construct, unaligned',
+    stats: {
+      str: '17',
+      dex: '14',
+      con: '10',
+      int: '1',
+      wis: '3',
+      cha: '1',
+    },
+    'Armor Class': '12',
+    'Hit Points': '33 (6d10)',
+    Speed: '10 ft.',
+    'Damage Immunities': 'poison, psychic',
+    'Condition Immunities':
+      'blinded, charmed, deafened, frightened, paralyzed, petrified, poisoned',
+    Senses:
+      'blindsight 60 ft. (blind beyond this radius), passive Perception 6',
+    Languages: '—',
+    Challenge: '2 (450 XP)',
+  },
+  'Saber-toothed Tiger': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large beast, unaligned',
+    stats: {
+      str: '18',
+      dex: '14',
+      con: '15',
+      int: '3',
+      wis: '12',
+      cha: '8',
+    },
+    'Armor Class': '12',
+    'Hit Points': '52 (7d10 + 14)',
+    Speed: '40 ft.',
+    Skills: 'Perception +3, Stealth +6',
+    Senses: 'passive Perception 13',
+    Languages: '—',
+    Challenge: '2 (450 XP)',
+  },
+  'Sahuagin Priestess': {
+    actions: {
+      'Multiattack.': '',
+      'Bite.': '',
+      'Claws.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (sahuagin), lawful evil',
+    stats: {
+      str: '13',
+      dex: '11',
+      con: '12',
+      int: '12',
+      wis: '14',
+      cha: '13',
+    },
+    'Armor Class': '12 (natural armor)',
+    'Hit Points': '33 (6d8 + 6)',
+    Speed: '30 ft., swim 40 ft.',
+    Skills: 'Perception +6, Religion +3',
+    Senses: 'darkvision 120 ft., passive Perception 16',
+    Languages: 'Sahuagin',
+    Challenge: '2 (450 XP)',
+    'Blood Frenzy.': '',
+    'Limited Amphibiousness.': '',
+    'Shark Telepathy.': '',
+    'Spellcasting.': '',
+  },
+  'Spined Devil': {
+    actions: {
+      'Multiattack.': '',
+      'Bite.': '',
+      'Fork.': '',
+      'Tail Spine.': '',
+    },
+    legendaryActions: {},
+    notes: 'Small fiend (devil), lawful evil',
+    stats: {
+      str: '10',
+      dex: '15',
+      con: '12',
+      int: '11',
+      wis: '14',
+      cha: '8',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '22 (5d6 + 5)',
+    Speed: '20 ft., fly 40 ft.',
+    'Damage Resistances':
+      "cold; bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered",
+    'Damage Immunities': 'fire, poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 120 ft., passive Perception 12',
+    Languages: 'Infernal, telepathy 120 ft.',
+    Challenge: '2 (450 XP)',
+    "Devil's Sight.": '',
+    'Flyby.': '',
+    'Limited Spines.': '',
+    'Magic Resistance.': '',
+  },
+  Ankylosaurus: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Huge beast, unaligned',
+    stats: {
+      str: '19',
+      dex: '11',
+      con: '15',
+      int: '2',
+      wis: '12',
+      cha: '5',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '68 (8d12 + 16)',
+    Speed: '30 ft.',
+    Senses: 'passive Perception 11',
+    Languages: '—',
+    Challenge: '3 (700 XP)',
+  },
+  'Bugbear Chief': {
+    actions: {
+      'Multiattack.': '',
+      'Morningstar.': '',
+      'Javelin.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (goblinoid), chaotic evil',
+    stats: {
+      str: '17',
+      dex: '14',
+      con: '14',
+      int: '11',
+      wis: '12',
+      cha: '11',
+    },
+    'Armor Class': '17 (chain shirt, shield)',
+    'Hit Points': '65 (10d8 + 20)',
+    Speed: '30 ft.',
+    Skills: 'Intimidation +2, Stealth +6, Survival +3',
+    Senses: 'darkvision 60 ft., passive Perception 11',
+    Languages: 'Common, Goblin',
+    Challenge: '3 (700 XP)',
+    'Brute.': '',
+    'Heart of Hruggek.': '',
+    'Surprise Attack.': '',
+  },
+  'Displacer Beast': {
+    actions: {
+      'Multiattack.': '',
+      'Tentacle.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large monstrosity, lawful evil',
+    stats: {
+      str: '18',
+      dex: '15',
+      con: '16',
+      int: '6',
+      wis: '12',
+      cha: '8',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '85 (10d10 + 30)',
+    Speed: '40 ft.',
+    Senses: 'darkvision 60 ft., passive Perception 11',
+    Languages: '—',
+    Challenge: '3 (700 XP)',
+    'Avoidance.': '',
+    'Displacement.': '',
+  },
+  'Githyanki Warrior': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (gith), lawful evil',
+    stats: {
+      str: '15',
+      dex: '14',
+      con: '12',
+      int: '13',
+      wis: '13',
+      cha: '10',
+    },
+    'Armor Class': '17 (half plate)',
+    'Hit Points': '49 (9d8 + 9)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Con +3, Int +3, Wis +3',
+    Senses: 'passive Perception 11',
+    Languages: 'Gith',
+    Challenge: '3 (700 XP)',
+    'At will: ': '',
+    ' (the hand is invisible)': '',
+    '3/day each: ': '',
+    ' (self only)': '',
+  },
+  Grell: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium aberration, neutral evil',
+    stats: {
+      str: '15',
+      dex: '14',
+      con: '13',
+      int: '12',
+      wis: '11',
+      cha: '9',
+    },
+    'Armor Class': '12',
+    'Hit Points': '55 (10d8 + 10)',
+    Speed: '10 ft., fly 30 ft. (hover)',
+    Skills: 'Perception +4, Stealth +6',
+    'Damage Immunities': 'lightning',
+    'Condition Immunities': 'blinded, prone',
+    Senses:
+      'blindsight 60 ft. (blind beyond this radius), passive Perception 14',
+    Languages: 'Grell',
+    Challenge: '3 (700 XP)',
+  },
+  'Hobgoblin Captain': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (goblinoid), lawful evil',
+    stats: {
+      str: '15',
+      dex: '14',
+      con: '14',
+      int: '12',
+      wis: '10',
+      cha: '13',
+    },
+    'Armor Class': '17 (half plate)',
+    'Hit Points': '39 (6d8 + 12)',
+    Speed: '30 ft.',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: 'Common, Goblin',
+    Challenge: '3 (700 XP)',
+  },
+  'Hook Horror': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large monstrosity, neutral',
+    stats: {
+      str: '18',
+      dex: '10',
+      con: '15',
+      int: '6',
+      wis: '12',
+      cha: '7',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '75 (10d10 + 20)',
+    Speed: '30 ft., climb 30 ft.',
+    Skills: 'Perception +3',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 13',
+    Languages: 'Hook Horror',
+    Challenge: '3 (700 XP)',
+  },
+  Knight: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '16',
+      dex: '11',
+      con: '14',
+      int: '11',
+      wis: '11',
+      cha: '15',
+    },
+    'Armor Class': '18 (plate)',
+    'Hit Points': '52 (8d8 + 16)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Con +4, Wis +2',
+    Senses: 'passive Perception 10',
+    Languages: 'any one language (usually Common)',
+    Challenge: '3 (700 XP)',
+  },
+  Spectator: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium aberration, lawful neutral',
+    stats: {
+      str: '8',
+      dex: '14',
+      con: '14',
+      int: '13',
+      wis: '14',
+      cha: '11',
+    },
+    'Armor Class': '14 (natural armor)',
+    'Hit Points': '39 (6d8 + 12)',
+    Speed: '0 ft., fly 30 ft. (hover)',
+    Skills: 'Perception +6',
+    'Condition Immunities': 'prone',
+    Senses: 'darkvision 120 ft., passive Perception 16',
+    Languages: 'Deep Speech, Undercommon, telepathy 120 ft.',
+    Challenge: '3 (700 XP)',
+  },
+  Veteran: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '16',
+      dex: '13',
+      con: '14',
+      int: '10',
+      wis: '11',
+      cha: '10',
+    },
+    'Armor Class': '17 (splint)',
+    'Hit Points': '58 (9d8 + 18)',
+    Speed: '30 ft.',
+    Skills: 'Athletics +5, Perception +2',
+    Senses: 'passive Perception 12',
+    Languages: 'any one language (usually Common)',
+    Challenge: '3 (700 XP)',
+  },
+  'Water Weird': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large elemental, neutral',
+    stats: {
+      str: '17',
+      dex: '16',
+      con: '13',
+      int: '11',
+      wis: '10',
+      cha: '10',
+    },
+    'Armor Class': '13',
+    'Hit Points': '58 (9d10 + 9)',
+    Speed: '0 ft., swim 60 ft.',
+    'Damage Resistances':
+      'fire; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'poison',
+    'Condition Immunities':
+      'exhaustion, grappled, paralyzed, poisoned, restrained, prone, unconscious',
+    Senses: 'blindsight 30 ft., passive Perception 10',
+    Languages: "understands Aquan but doesn't speak",
+    Challenge: '3 (700 XP)',
+  },
+  Yeti: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large monstrosity, chaotic evil',
+    stats: {
+      str: '18',
+      dex: '13',
+      con: '16',
+      int: '8',
+      wis: '12',
+      cha: '7',
+    },
+    'Armor Class': '12 (natural armor)',
+    'Hit Points': '51 (6d10 + 18)',
+    Speed: '40 ft., climb 40 ft.',
+    Skills: 'Perception +3, Stealth +3',
+    'Damage Immunities': 'cold',
+    Senses: 'darkvision 60 ft., passive Perception 13',
+    Languages: 'Yeti',
+    Challenge: '3 (700 XP)',
+  },
+  'Yuan-ti Malison': {
+    actions: {
+      'For Type 1': '',
+      'For Type 2': '',
+      'For Type 3': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium monstrosity (shapechanger, yuan-ti), neutral evil',
+    stats: {
+      str: '16',
+      dex: '14',
+      con: '13',
+      int: '14',
+      wis: '12',
+      cha: '16',
+    },
+    'Armor Class': '12',
+    'Hit Points': '66 (12d8 + 12)',
+    Speed: '30 ft.',
+    Skills: 'Deception +5, Stealth +4',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 60 ft., passive Perception 11',
+    Languages: 'Abyssal, Common, Draconic',
+    Challenge: '3 (700 XP)',
+    'At will: ': '',
+    ' (snakes only)': '',
+    '3/day: ': '',
+    'Type 1: Human body with snake head': '',
+    'Type 2: Human head and body with snakes for arms': '',
+    'Type 3: Human head and upper body with a serpentine lower body instead of legs':
+      '',
+  },
+  Banshee: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium undead, chaotic evil',
+    stats: {
+      str: '1',
+      dex: '14',
+      con: '10',
+      int: '12',
+      wis: '11',
+      cha: '17',
+    },
+    'Armor Class': '12',
+    'Hit Points': '58 (13d8)',
+    Speed: '0 ft., fly 40 ft. (hover)',
+    'Saving Throws': 'Wis +2, Cha +5',
+    'Damage Resistances':
+      'acid, fire, lightning, thunder; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'cold, necrotic, poison',
+    'Condition Immunities':
+      'charmed, exhaustion, frightened, grappled, paralyzed, petrified, poisoned, prone, restrained',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: 'Common, Elvish',
+    Challenge: '4 (1100 XP)',
+  },
+  'Bone Naga': {
+    actions: {
+      'Bite.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large undead, lawful evil',
+    stats: {
+      str: '15',
+      dex: '16',
+      con: '12',
+      int: '15',
+      wis: '15',
+      cha: '16',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '58 (9d10 + 9)',
+    Speed: '30 ft.',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'charmed, exhaustion, paralyzed, poisoned',
+    Senses: 'darkvision 60 ft., passive Perception 12',
+    Languages: 'Common plus one other language',
+    Challenge: '4 (1100 XP)',
+    'Spellcasting.': '',
+  },
+  Flameskull: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Tiny undead, neutral evil',
+    stats: {
+      str: '1',
+      dex: '17',
+      con: '14',
+      int: '16',
+      wis: '10',
+      cha: '11',
+    },
+    'Armor Class': '13',
+    'Hit Points': '40 (9d4 + 18)',
+    Speed: '0 ft., fly 40 ft. (hover)',
+    Skills: 'Arcana +5, Perception +2',
+    'Damage Resistances': 'lightning, necrotic, piercing',
+    'Damage Immunities': 'cold, fire, poison',
+    'Condition Immunities': 'charmed, frightened, paralyzed, poisoned, prone',
+    Senses: 'darkvision 60 ft., passive Perception 12',
+    Languages: 'Common',
+    Challenge: '4 (1100 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (3 slots): ': '',
+    '2nd level (2 slots): ': '',
+    '3rd level (1 slot): ': '',
+  },
+  'Gnoll Fang of Yeenoghu': {
+    actions: {
+      'Multiattack.': '',
+      'Bite.': '',
+      'Claw.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium fiend (gnoll), chaotic evil',
+    stats: {
+      str: '17',
+      dex: '15',
+      con: '15',
+      int: '10',
+      wis: '11',
+      cha: '13',
+    },
+    'Armor Class': '14 (hide armor)',
+    'Hit Points': '65 (10d8 + 20)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Con +4, Wis +2, Cha +3',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: 'Abyssal, Gnoll',
+    Challenge: '4 (1100 XP)',
+    'Rampage.': '',
+  },
+  'Helmed Horror': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium construct, neutral',
+    stats: {
+      str: '18',
+      dex: '13',
+      con: '16',
+      int: '10',
+      wis: '10',
+      cha: '10',
+    },
+    'Armor Class': '20 (plate, shield)',
+    'Hit Points': '60 (8d8 + 24)',
+    Speed: '30 ft., fly 30 ft.',
+    Skills: 'Perception +4',
+    'Damage Resistances':
+      "bludgeoning, piercing, and slashing from nonmagical attacks that aren't adamantine",
+    'Damage Immunities': 'force, necrotic, poison',
+    'Condition Immunities':
+      'blinded, charmed, deafened, frightened, paralyzed, petrified, poisoned, stunned',
+    Senses:
+      'blindsight 60 ft. (blind beyond this radius), passive Perception 14',
+    Languages: "understands the languages of its creator but can't speak",
+    Challenge: '4 (1100 XP)',
+  },
+  'Orc War Chief': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (orc), chaotic evil',
+    stats: {
+      str: '18',
+      dex: '12',
+      con: '18',
+      int: '11',
+      wis: '11',
+      cha: '16',
+    },
+    'Armor Class': '16 (chain mail)',
+    'Hit Points': '93 (11d8 + 44)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Str +6, Con +6, Wis +2',
+    Skills: 'Intimidation +5',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: 'Common, Orc',
+    Challenge: '4 (1100 XP)',
+  },
+  'Shadow Demon': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium fiend (demon), chaotic evil',
+    stats: {
+      str: '1',
+      dex: '17',
+      con: '12',
+      int: '14',
+      wis: '13',
+      cha: '14',
+    },
+    'Armor Class': '13',
+    'Hit Points': '66 (12d8 + 12)',
+    Speed: '30 ft., fly 30 ft.',
+    'Saving Throws': 'Dex +5, Cha +4',
+    Skills: 'Stealth +7',
+    'Damage Vulnerabilities': 'radiant',
+    'Damage Resistances':
+      'acid, fire, necrotic, thunder; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'cold, lightning, poison',
+    'Condition Immunities':
+      'exhaustion, grappled, paralyzed, petrified, poisoned, prone, restrained',
+    Senses: 'darkvision 120 ft., passive Perception 11',
+    Languages: 'Abyssal, telepathy 120 ft.',
+    Challenge: '4 (1100 XP)',
+  },
+  Succubus: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium fiend (shapechanger), neutral evil',
+    stats: {
+      str: '8',
+      dex: '17',
+      con: '13',
+      int: '15',
+      wis: '12',
+      cha: '20',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '66 (12d8 + 12)',
+    Speed: '30 ft., fly 60 ft.',
+    Skills:
+      'Deception +9, Insight +5, Perception +5, Persuasion +9, Stealth +7',
+    'Damage Resistances':
+      'cold, fire, lightning, poison; bludgeoning, piercing, and slashing from nonmagical attacks',
+    Senses: 'darkvision 60 ft., passive Perception 15',
+    Languages: 'Abyssal, Common, Infernal, telepathy 60 ft.',
+    Challenge: '4 (1100 XP)',
+  },
+  Barlgura: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large fiend (demon), chaotic evil',
+    stats: {
+      str: '18',
+      dex: '15',
+      con: '16',
+      int: '7',
+      wis: '14',
+      cha: '9',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '68 (8d10 + 24)',
+    Speed: '40 ft., climb 40 ft.',
+    'Saving Throws': 'Dex +5, Con +6',
+    Skills: 'Perception +5, Stealth +5',
+    'Damage Resistances': 'cold, fire, lightning',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 15',
+    Languages: 'Abyssal, telepathy 120 ft.',
+    Challenge: '5 (1800 XP)',
+    '1/day each: ': '',
+    '2/day each: ': '',
+    ' (self only)': '',
+  },
+  'Beholder Zombie': {
+    actions: {
+      'Bite.': '',
+      'Eye Ray.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large undead, neutral evil',
+    stats: {
+      str: '10',
+      dex: '8',
+      con: '16',
+      int: '3',
+      wis: '8',
+      cha: '5',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '93 (11d10 + 33)',
+    Speed: '0 ft., fly 20 ft. (hover)',
+    'Saving Throws': 'Wis +2',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 60 ft., passive Perception 9',
+    Languages: "understands Deep Speech and Undercommon but can't speak",
+    Challenge: '5 (1800 XP)',
+    'Undead Fortitude.': '',
+  },
+  Cambion: {
+    actions: {
+      'Multiattack.': '',
+      'Spear.': '',
+      'Fire Ray.': '',
+      'Fiendish Charm.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium fiend, any evil alignment',
+    stats: {
+      str: '18',
+      dex: '18',
+      con: '16',
+      int: '14',
+      wis: '12',
+      cha: '16',
+    },
+    'Armor Class': '19 (scale mail)',
+    'Hit Points': '82 (11d8 + 33)',
+    Speed: '30 ft., fly 60 ft.',
+    'Saving Throws': 'Str +7, Con +6, Int +5, Cha +6',
+    Skills: 'Deception +6, Intimidation +6, Perception +4, Stealth +7',
+    'Damage Resistances':
+      'cold, fire, lightning, poison; bludgeoning, piercing, and slashing from nonmagical attacks',
+    Senses: 'darkvision 60 ft., passive Perception 14',
+    Languages: 'Abyssal, Common, Infernal',
+    Challenge: '5 (1800 XP)',
+    'Fiendish Blessing.': '',
+    'Innate Spellcasting.': '',
+  },
+  'Drow Elite Warrior': {
+    actions: {
+      'Multiattack.': '',
+      'Shortsword.': '',
+      'Hand Crossbow.': '',
+      'Parry.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (elf), neutral evil',
+    stats: {
+      str: '13',
+      dex: '18',
+      con: '14',
+      int: '11',
+      wis: '13',
+      cha: '12',
+    },
+    'Armor Class': '18 (studded leather, shield)',
+    'Hit Points': '71 (11d8 + 22)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Dex +7, Con +5, Wis +4',
+    Skills: 'Perception +4, Stealth +10',
+    Senses: 'darkvision 120 ft., passive Perception 14',
+    Languages: 'Elvish, Undercommon',
+    Challenge: '5 (1800 XP)',
+    'Fey Ancestry.': '',
+    'Innate Spellcasting.': '',
+    'Sunlight Sensitivity.': '',
+  },
+  Gladiator: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '18',
+      dex: '15',
+      con: '16',
+      int: '10',
+      wis: '12',
+      cha: '15',
+    },
+    'Armor Class': '16 (studded leather, shield)',
+    'Hit Points': '112 (15d8 + 45)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Str +7, Dex +5, Con +6',
+    Skills: 'Athletics +10, Intimidation +5',
+    Senses: 'passive Perception 11',
+    Languages: 'any one language (usually Common)',
+    Challenge: '5 (1800 XP)',
+  },
+  Mezzoloth: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium fiend (yugoloth), neutral evil',
+    stats: {
+      str: '18',
+      dex: '11',
+      con: '16',
+      int: '7',
+      wis: '10',
+      cha: '11',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '75 (10d8 + 30)',
+    Speed: '40 ft.',
+    Skills: 'Perception +3',
+    'Damage Resistances':
+      'cold, fire, lightning; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'acid, poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'blindsight 60 ft., darkvision 60 ft., passive Perception 13',
+    Languages: 'Abyssal, Infernal, telepathy 60 ft.',
+    Challenge: '5 (1800 XP)',
+    '2/day each: ': '',
+    '1/day: ': '',
+  },
+  'Red Slaad': {
+    actions: {
+      'Multiattack.': '',
+      'Bite.': '',
+      'Claw.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large aberration, chaotic neutral',
+    stats: {
+      str: '16',
+      dex: '12',
+      con: '16',
+      int: '6',
+      wis: '6',
+      cha: '7',
+    },
+    'Armor Class': '14 (natural armor)',
+    'Hit Points': '93 (11d10 + 33)',
+    Speed: '30 ft.',
+    Skills: 'Perception + 1',
+    'Damage Resistances': 'acid, cold, fire, lightning, thunder',
+    Senses: 'darkvision 60 ft., passive Perception 11',
+    Languages: 'Slaad, telepathy 60 ft.',
+    Challenge: '5 (1800 XP)',
+    'Magic Resistance.': '',
+    'Regeneration.': '',
+  },
+  Revenant: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium undead, neutral',
+    stats: {
+      str: '18',
+      dex: '14',
+      con: '18',
+      int: '13',
+      wis: '16',
+      cha: '18',
+    },
+    'Armor Class': '13 (leather armor)',
+    'Hit Points': '136 (16d8 + 64)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Str +7, Con +7, Wis +6, Cha +7',
+    'Damage Resistances': 'necrotic, psychic',
+    'Damage Immunities': 'poison',
+    'Condition Immunities':
+      'charmed, exhaustion, frightened, paralyzed, poisoned, stunned',
+    Senses: 'darkvision 60 ft., passive Perception 13',
+    Languages: 'the languages it knew in life',
+    Challenge: '5 (1800 XP)',
+  },
+  'Sahuagin Baron': {
+    actions: {
+      'Multiattack.': '',
+      'Bite.': '',
+      'Claws.': '',
+      'Trident.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large humanoid (sahuagin), lawful evil',
+    stats: {
+      str: '19',
+      dex: '15',
+      con: '16',
+      int: '14',
+      wis: '13',
+      cha: '17',
+    },
+    'Armor Class': '16 (breastplate)',
+    'Hit Points': '76 (9d10 + 27)',
+    Speed: '30 ft., swim 50 ft.',
+    'Saving Throws': 'Dex +5, Con +6, Int +5, Wis +4',
+    Skills: 'Perception +7',
+    Senses: 'darkvision 120 ft., passive Perception 17',
+    Languages: 'Sahuagin',
+    Challenge: '5 (1800 XP)',
+    'Blood Frenzy.': '',
+    'Limited Amphibiousness.': '',
+    'Shark Telepathy.': '',
+  },
+  'Umber Hulk': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large monstrosity, chaotic evil',
+    stats: {
+      str: '20',
+      dex: '13',
+      con: '16',
+      int: '9',
+      wis: '10',
+      cha: '10',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '93 (11d10 + 33)',
+    Speed: '30 ft., burrow 20 ft.',
+    Senses: 'darkvision 120 ft., tremorsense 60 ft., passive Perception 10',
+    Languages: 'Umber Hulk',
+    Challenge: '5 (1800 XP)',
+  },
+  'Young Remorhaz': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Huge monstrosity, unaligned',
+    stats: {
+      str: '24',
+      dex: '13',
+      con: '21',
+      int: '4',
+      wis: '10',
+      cha: '5',
+    },
+    'Armor Class': '17 (natural armor)',
+    'Hit Points': '195 (17d12 + 85)',
+    Speed: '30 ft., burrow 20 ft.',
+    'Damage Immunities': 'cold, fire',
+    Senses: 'darkvision 60 ft., tremorsense 60 ft., passive Perception 10',
+    Languages: '—',
+    Challenge: '11 (7200 XP)',
+  },
+  Chasme: {
+    actions: {
+      'Proboscis.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large fiend (demon), chaotic evil',
+    stats: {
+      str: '15',
+      dex: '15',
+      con: '12',
+      int: '11',
+      wis: '14',
+      cha: '10',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '84 (13d10 + 13)',
+    Speed: '20 ft., fly 60 ft.',
+    'Saving Throws': 'Dex +5, Wis +5',
+    Skills: 'Perception +5',
+    'Damage Resistances': 'cold, fire, lightning',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'blindsight 10 ft., darkvision 120 ft., passive Perception 15',
+    Languages: 'Abyssal, telepathy 120 ft.',
+    Challenge: '6 (2300 XP)',
+    'Drone.': '',
+    'Magic Resistance.': '',
+    'Spider Climb.': '',
+  },
+  Cyclops: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Huge giant, chaotic neutral',
+    stats: {
+      str: '22',
+      dex: '11',
+      con: '20',
+      int: '8',
+      wis: '6',
+      cha: '10',
+    },
+    'Armor Class': '14 (natural armor)',
+    'Hit Points': '138 (12d12 + 60)',
+    Speed: '30 ft.',
+    Senses: 'passive Perception 8',
+    Languages: 'Giant',
+    Challenge: '6 (2300 XP)',
+  },
+  'Galeb Duhr': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium elemental, neutral',
+    stats: {
+      str: '20',
+      dex: '14',
+      con: '20',
+      int: '11',
+      wis: '12',
+      cha: '11',
+    },
+    'Armor Class': '16 (natural armor)',
+    'Hit Points': '85 (9d8 + 45)',
+    Speed: '15 ft. (30 ft. when rolling, 60 ft. rolling downhill)',
+    'Damage Resistances':
+      'bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'exhaustion, paralyzed, poisoned, petrified',
+    Senses: 'darkvision 60 ft., tremorsense 60 ft., passive Perception 11',
+    Languages: 'Terran',
+    Challenge: '6 (2300 XP)',
+  },
+  'Githzerai Zerth': {
+    actions: {
+      'Multiattack.': '',
+      'Unarmed Strike.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (gith), lawful neutral',
+    stats: {
+      str: '13',
+      dex: '18',
+      con: '15',
+      int: '16',
+      wis: '17',
+      cha: '12',
+    },
+    'Armor Class': '17',
+    'Hit Points': '84 (13d8 + 26)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Str +4, Dex +7, Int +6, Wis +6',
+    Senses: 'passive Perception 16',
+    Languages: 'Gith',
+    Challenge: '6 (2300 XP)',
+    'Innate Spellcasting (Psionics).': '',
+    'Psychic Defense.': '',
+  },
+  'Hobgoblin Warlord': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (goblinoid), lawful evil',
+    stats: {
+      str: '16',
+      dex: '14',
+      con: '16',
+      int: '14',
+      wis: '11',
+      cha: '15',
+    },
+    'Armor Class': '20 (plate, shield)',
+    'Hit Points': '97 (13d8 + 39)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Int +5, Wis +3, Cha +5',
+    Senses: 'darkvision 60 ft., passive Perception 10',
+    Languages: 'Common, Goblin',
+    Challenge: '6 (2300 XP)',
+  },
+  'Kuo-toa Archpriest': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (kuo-toa), neutral evil',
+    stats: {
+      str: '16',
+      dex: '14',
+      con: '16',
+      int: '13',
+      wis: '16',
+      cha: '14',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '97 (13d8 + 39)',
+    Speed: '30 ft., swim 30 ft.',
+    Skills: 'Perception +9, Religion +6',
+    Senses: 'darkvision 120 ft., passive Perception 19',
+    Languages: 'Undercommon',
+    Challenge: '6 (2300 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+    '3rd level (3 slots): ': '',
+    '4th level (3 slots): ': '',
+    '5th level (2 slots): ': '',
+  },
+  Mage: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '9',
+      dex: '14',
+      con: '11',
+      int: '17',
+      wis: '12',
+      cha: '11',
+    },
+    'Armor Class': '12 (15 with ',
+    'Hit Points': '40 (9d8)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Int +6, Wis +4',
+    Skills: 'Arcana +6, History +6',
+    Senses: 'passive Perception 11',
+    Languages: 'any four languages',
+    Challenge: '6 (2300 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+    '3rd level (3 slots): ': '',
+    '4th level (3 slots): ': '',
+    '5th level (1 slot): ': '',
+  },
+  'Blue Slaad': {
+    actions: {
+      'Multiattack.': '',
+      'Bite.': '',
+      'Claw.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large aberration, chaotic neutral',
+    stats: {
+      str: '20',
+      dex: '15',
+      con: '18',
+      int: '7',
+      wis: '7',
+      cha: '9',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '123 (13d10 + 52)',
+    Speed: '30 ft.',
+    Skills: 'Perception + 1',
+    'Damage Resistances': 'acid, cold, fire, lightning, thunder',
+    Senses: 'darkvision 60 ft., passive Perception 11',
+    Languages: 'Slaad, telepathy 60 ft.',
+    Challenge: '7 (2900 XP)',
+    'Magic Resistance.': '',
+    'Regeneration.': '',
+  },
+  'Drow Mage': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (elf), neutral evil',
+    stats: {
+      str: '9',
+      dex: '14',
+      con: '10',
+      int: '17',
+      wis: '13',
+      cha: '12',
+    },
+    'Armor Class': '12 (15 with ',
+    'Hit Points': '45 (10d8)',
+    Speed: '30 ft.',
+    Skills: 'Arcana +6, Deception +5, Perception +4, Stealth +5',
+    Senses: 'darkvision 120 ft., passive Perception 14',
+    Languages: 'Elvish, Undercommon',
+    Challenge: '7 (2900 XP)',
+    'At will: ': '',
+    '1/day each: ': '',
+    ' (self only)': '',
+    'Cantrips (at will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+    '3rd level (3 slots): ': '',
+    '4th level (3 slots): ': '',
+    '5th level (2 slots): ': '',
+  },
+  'Grick Alpha': {
+    actions: {
+      'Multiattack.': '',
+      'Tail.': '',
+      'Tentacles.': '',
+      'Beak.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large monstrosity, neutral',
+    stats: {
+      str: '18',
+      dex: '16',
+      con: '15',
+      int: '4',
+      wis: '14',
+      cha: '9',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '75 (10d10 + 20)',
+    Speed: '30 ft., climb 30 ft.',
+    'Damage Resistances':
+      'bludgeoning, piercing, and slashing damage from nonmagical attacks',
+    Senses: 'darkvision 60 ft., passive Perception 12',
+    Languages: '—',
+    Challenge: '7 (2900 XP)',
+    'Stone Camouflage.': '',
+  },
+  'Mind Flayer': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium aberration, lawful evil',
+    stats: {
+      str: '11',
+      dex: '12',
+      con: '12',
+      int: '19',
+      wis: '17',
+      cha: '17',
+    },
+    'Armor Class': '15 (breastplate)',
+    'Hit Points': '71 (13d8 + 13)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Int +7, Wis +6, Cha +6',
+    Skills:
+      'Arcana +7, Deception +6, Insight +6, Perception +6, Persuasion +6, Stealth +4',
+    Senses: 'darkvision 120 ft., passive Perception 16',
+    Languages: 'Deep Speech, Undercommon, telepathy 120 ft.',
+    Challenge: '7 (2900 XP)',
+    'At will: ': '',
+    '1/day each: ': '',
+    ' (self only)': '',
+  },
+  'Yuan-ti Abomination': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large monstrosity (shapechanger, yuan-ti), neutral evil',
+    stats: {
+      str: '19',
+      dex: '16',
+      con: '17',
+      int: '17',
+      wis: '15',
+      cha: '18',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '127 (15d10 + 45)',
+    Speed: '40 ft.',
+    Skills: 'Perception +5, Stealth +6',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 60 ft., passive Perception 15',
+    Languages: 'Abyssal, Common, Draconic',
+    Challenge: '7 (2900 XP)',
+    'At will: ': '',
+    ' (snakes only)': '',
+    '3/day: ': '',
+    '1/day: ': '',
+  },
+  Assassin: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any non-good alignment',
+    stats: {
+      str: '11',
+      dex: '16',
+      con: '14',
+      int: '13',
+      wis: '11',
+      cha: '10',
+    },
+    'Armor Class': '15 (studded leather)',
+    'Hit Points': '78 (12d8 + 24)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Dex +6, Int +4',
+    Skills: 'Acrobatics +6, Deception +3, Perception +3, Stealth +9',
+    'Damage Resistances': 'poison',
+    Senses: 'passive Perception 13',
+    Languages: "Thieves' cant plus any two languages",
+    Challenge: '8 (3900 XP)',
+  },
+  'Drow Priestess of Lolth': {
+    actions: {
+      'Multiattack.': '',
+      'Scourge.': '',
+      'Summon Demon (1/Day).': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (elf), neutral evil',
+    stats: {
+      str: '10',
+      dex: '14',
+      con: '12',
+      int: '13',
+      wis: '17',
+      cha: '18',
+    },
+    'Armor Class': '16 (scale mail)',
+    'Hit Points': '71 (13d8 + 13)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Con +4, Wis +6, Cha +7',
+    Skills: 'Insight +6, Perception +6, Religion +4, Stealth +5',
+    Senses: 'darkvision 120 ft., passive Perception 16',
+    Languages: 'Elvish, Undercommon',
+    Challenge: '8 (3900 XP)',
+    'Fey Ancestry.': '',
+    'Innate Spellcasting.': '',
+    'Sunlight Sensitivity.': '',
+  },
+  Fomorian: {
+    actions: {
+      'Multiattack.': '',
+      'Greatclub.': '',
+      'Evil Eye.': '',
+      'Curse of the Evil Eye (Recharges after a Short or Long Rest).': '',
+    },
+    legendaryActions: {},
+    notes: 'Huge giant, chaotic evil',
+    stats: {
+      str: '23',
+      dex: '10',
+      con: '20',
+      int: '9',
+      wis: '14',
+      cha: '6',
+    },
+    'Armor Class': '14 (natural armor)',
+    'Hit Points': '149 (13d12 + 65)',
+    Speed: '30 ft.',
+    Skills: 'Perception +8, Stealth +3',
+    Senses: 'darkvision 120 ft., passive Perception 18',
+    Languages: 'Giant, Undercommon',
+    Challenge: '8 (3900 XP)',
+  },
+  'Githyanki Knight': {
+    actions: {
+      'Multiattack.': '',
+      'Silver Greatsword.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (gith), lawful evil',
+    stats: {
+      str: '16',
+      dex: '14',
+      con: '15',
+      int: '14',
+      wis: '14',
+      cha: '15',
+    },
+    'Armor Class': '18 (plate)',
+    'Hit Points': '91 (14d8 + 28)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Con +5, Int +5, Wis +5',
+    Senses: 'passive Perception 12',
+    Languages: 'Gith',
+    Challenge: '8 (3900 XP)',
+    'Innate Spellcasting (Psionics).': '',
+  },
+  'Green Slaad': {
+    actions: {
+      'Multiattack.': '',
+      'Bite (Slaad Form Only).': '',
+      'Claw (Slaad Form Only).': '',
+      'Staff.': '',
+      'Hurl Flame.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large aberration (shapechanger), chaotic neutral',
+    stats: {
+      str: '18',
+      dex: '15',
+      con: '16',
+      int: '11',
+      wis: '8',
+      cha: '12',
+    },
+    'Armor Class': '16 (natural armor)',
+    'Hit Points': '127 (15d10 + 45)',
+    Speed: '30 ft.',
+    Skills: 'Arcana +3, Perception +2',
+    'Damage Resistances': 'acid, cold, fire, lightning, thunder',
+    Senses: 'blindsight 30 ft., darkvision 60 ft., passive Perception 12',
+    Languages: 'Slaad, telepathy 60 ft.',
+    Challenge: '8 (3900 XP)',
+    'Shapechanger.': '',
+    'Innate Spellcasting.': '',
+    'Magic Resistance.': '',
+    'Regeneration.': '',
+  },
+  'Abominable Yeti': {
+    actions: {
+      'Multiattack.': '',
+      'Claw.': '',
+      'Chilling Gaze.': '',
+      'Cold Breath (Recharge 6).': '',
+    },
+    legendaryActions: {},
+    notes: 'Huge monstrosity, chaotic evil',
+    stats: {
+      str: '24',
+      dex: '10',
+      con: '22',
+      int: '9',
+      wis: '13',
+      cha: '9',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '137 (11d12 + 66)',
+    Speed: '40 ft., climb 40 ft.',
+    Skills: 'Perception +5, Stealth +4',
+    'Damage Immunities': 'cold',
+    Senses: 'darkvision 60 ft., passive Perception 15',
+    Languages: 'Yeti',
+    Challenge: '9 (5000 XP)',
+    'Fear of Fire.': '',
+    'Keen Smell.': '',
+    'Snow Camouflage.': '',
+  },
+  'Gray Slaad': {
+    actions: {
+      'Multiattack.': '',
+      'Bite (Slaad Form Only).': '',
+      'Claws (Slaad Form Only).': '',
+      'Greatsword.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium aberration (shapechanger), chaotic neutral',
+    stats: {
+      str: '17',
+      dex: '17',
+      con: '16',
+      int: '13',
+      wis: '8',
+      cha: '14',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '127 (17d8 +51)',
+    Speed: '30 ft.',
+    Skills: 'Arcana +5, Perception +7',
+    'Damage Resistances': 'acid, cold, fire, lightning, thunder',
+    Senses: 'blindsight 60 ft., darkvision 60 ft., passive Perception 17',
+    Languages: 'Slaad, telepathy 60 ft.',
+    Challenge: '9 (5000 XP)',
+    'Shapechanger.': '',
+    'Innate Spellcasting.': '',
+    'Magic Resistance.': '',
+    'Magic Weapons.': '',
+    'Regeneration.': '',
+  },
+  Nycaloth: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large fiend (yugoloth), neutral evil',
+    stats: {
+      str: '20',
+      dex: '11',
+      con: '19',
+      int: '12',
+      wis: '10',
+      cha: '15',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '123 (13d10 + 52)',
+    Speed: '40 ft., fly 60 ft.',
+    Skills: 'Intimidation +6, Perception +4, Stealth +4',
+    'Damage Resistances':
+      'cold, fire, lightning; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'acid, poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'blindsight 60 ft., darkvision 60 ft., passive Perception 14',
+    Languages: 'Abyssal, Infernal, telepathy 60 ft.',
+    Challenge: '9 (5000 XP)',
+    'At will: ': '',
+    ' (self only), ': '',
+  },
+  'Death Slaad': {
+    actions: {
+      'Multiattack.': '',
+      'Bite (Slaad Form Only).': '',
+      'Claws (Slaad Form Only).': '',
+      'Greatsword.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium aberration (shapechanger), chaotic evil',
+    stats: {
+      str: '20',
+      dex: '15',
+      con: '19',
+      int: '15',
+      wis: '10',
+      cha: '16',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '170 (20d8 + 80)',
+    Speed: '30 ft.',
+    Skills: 'Arcana +6, Perception +8',
+    'Damage Resistances': 'acid, cold, fire, lightning, thunder',
+    Senses: 'blindsight 60 ft., darkvision 60 ft., passive Perception 18',
+    Languages: 'Slaad, telepathy 60 ft.',
+    Challenge: '10 (5900 XP)',
+    'Shapechanger.': '',
+    'Innate Spellcasting.': '',
+    'Magic Resistance.': '',
+    'Magic Weapons.': '',
+    'Regeneration.': '',
+  },
+  Yochlol: {
+    actions: {
+      'Multiattack.': '',
+      'Slam (Bite in Spider Form).': '',
+      'Mist Form.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium fiend (demon, shapechanger), chaotic evil',
+    stats: {
+      str: '15',
+      dex: '14',
+      con: '18',
+      int: '13',
+      wis: '15',
+      cha: '15',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '136 (16d8 + 64)',
+    Speed: '30 ft., climb 30 ft.',
+    'Saving Throws': 'Dex +6, Int +5, Wis +6, Cha +6',
+    Skills: 'Deception +10, Insight +6',
+    'Damage Resistances':
+      'cold, fire, lightning; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 120 ft., passive Perception 12',
+    Languages: 'Abyssal, Elvish, Undercommon',
+    Challenge: '10 (5900 XP)',
+    'Shapechanger.': '',
+    'Innate Spellcasting.': '',
+    'Magic Resistance.': '',
+    'Spider Climb.': '',
+    'Web Walker.': '',
+  },
+  Dao: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Large elemental, neutral evil',
+    stats: {
+      str: '23',
+      dex: '12',
+      con: '24',
+      int: '12',
+      wis: '13',
+      cha: '14',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '187 (15d10 + 105)',
+    Speed: '30 ft., burrow 30 ft., fly 30 ft.',
+    'Saving Throws': 'Int +5, Wis +5, Cha +6',
+    'Condition Immunities': 'petrified',
+    Senses: 'darkvision 120 ft., passive Perception 11',
+    Languages: 'Terran',
+    Challenge: '11 (7200 XP)',
+    'At will: ': '',
+    '3/day each: ': '',
+    '1/day each: ': '',
+    ' (earth elemental only), ': '',
+  },
+  Marid: {
+    actions: {
+      'Multiattack.': '',
+      'Trident.': '',
+      'Water Jet.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large elemental, chaotic neutral',
+    stats: {
+      str: '22',
+      dex: '12',
+      con: '26',
+      int: '18',
+      wis: '17',
+      cha: '18',
+    },
+    'Armor Class': '17 (natural armor)',
+    'Hit Points': '229 (17d10 + 136)',
+    Speed: '30 ft., fly 60 ft., swim 90 ft.',
+    'Saving Throws': 'Dex +5, Wis +7, Cha +8',
+    'Damage Resistances': 'acid, cold, lightning',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 13',
+    Languages: 'Aquan',
+    Challenge: '11 (7200 XP)',
+    'Amphibious.': '',
+    'Elemental Demise.': '',
+    'Innate Spellcasting.': '',
+  },
+  Arcanaloth: {
+    actions: {
+      'Claws.': '',
+      'Teleport.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium fiend (yugoloth), neutral evil',
+    stats: {
+      str: '17',
+      dex: '12',
+      con: '14',
+      int: '20',
+      wis: '16',
+      cha: '17',
+    },
+    'Armor Class': '17 (natural armor)',
+    'Hit Points': '104 (16d8 + 32)',
+    Speed: '30 ft., fly 30 ft.',
+    'Saving Throws': 'Dex +5, Int +9, Wis +7, Cha +7',
+    Skills: 'Arcana +13, Deception +9, Insight +9, Perception +7',
+    'Damage Resistances':
+      'cold, fire, lightning; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'acid, poison',
+    'Condition Immunities': 'charmed, poisoned',
+    Senses: 'truesight 120 ft., passive Perception 17',
+    Languages: 'all, telepathy 120 ft.',
+    Challenge: '12 (8400 XP)',
+    'Innate Spellcasting.': '',
+    'Magic Resistance.': '',
+    'Magic Weapons.': '',
+    'Spellcasting.': '',
+  },
+  Archmage: {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '10',
+      dex: '14',
+      con: '12',
+      int: '20',
+      wis: '15',
+      cha: '16',
+    },
+    'Armor Class': '12 (15 with ',
+    'Hit Points': '99 (18d8 + 18)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Int +9, Wis +6',
+    Skills: 'Arcana +13, History +13',
+    'Damage Resistances':
+      'damage from spells; nonmagical bludgeoning, piercing, and slashing (from ',
+    Senses: 'passive Perception 12',
+    Languages: 'any six languages',
+    Challenge: '12 (8400 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+    '3rd level (3 slots): ': '',
+    '4th level (3 slots): ': '',
+    '5th level (3 slots): ': '',
+    '6th level (1 slot): ': '',
+    '7th level (1 slot): ': '',
+    '8th level (1 slot): ': '',
+    '*': '',
+    '9th level (1 slot): ': '',
+    '* The archmage casts these spells on itself before combat.': '',
+  },
+  Beholder: {
+    actions: {
+      'Bite.': '',
+      'Eye Rays.': '',
+      'Eye Ray.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large aberration, lawful evil',
+    stats: {
+      str: '10',
+      dex: '14',
+      con: '18',
+      int: '17',
+      wis: '15',
+      cha: '17',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '180 (19d10 + 76)',
+    Speed: '0 ft., fly 20 ft. (hover)',
+    'Saving Throws': 'Int +8, Wis +7, Cha +8',
+    Skills: 'Perception +12',
+    'Condition Immunities': 'prone',
+    Senses: 'darkvision 120 ft., passive Perception 22',
+    Languages: 'Deep Speech, Undercommon',
+    Challenge: '13 (10000 XP)',
+    'Antimagic Cone.': '',
+  },
+  Ultroloth: {
+    actions: {
+      'Multiattack.': '',
+      'Longsword.': '',
+      'Hypnotic Gaze.': '',
+      'Teleport.': '',
+    },
+    legendaryActions: {},
+    notes: 'Medium fiend (yugoloth), neutral evil',
+    stats: {
+      str: '16',
+      dex: '16',
+      con: '18',
+      int: '18',
+      wis: '15',
+      cha: '19',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '153 (18d8 + 72)',
+    Speed: '30 ft., fly 60 ft.',
+    Skills: 'Intimidation +9, Perception +7, Stealth +8',
+    'Damage Resistances':
+      'cold, fire, lightning; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'acid, poison',
+    'Condition Immunities': 'charmed, frightened, poisoned',
+    Senses: 'truesight 120 ft., passive Perception 17',
+    Languages: 'Abyssal, Infernal, telepathy 120 ft.',
+    Challenge: '13 (10000 XP)',
+    'Innate Spellcasting.': '',
+    'Magic Resistance.': '',
+    'Magic Weapons.': '',
+  },
+  'Beholder (in lair)': {
+    actions: {
+      'Bite.': '',
+      'Eye Rays.': '',
+      'Eye Ray.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large aberration, lawful evil',
+    stats: {
+      str: '10',
+      dex: '14',
+      con: '18',
+      int: '17',
+      wis: '15',
+      cha: '17',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '180 (19d10 + 76)',
+    Speed: '0 ft., fly 20 ft. (hover)',
+    'Saving Throws': 'Int +8, Wis +7, Cha +8',
+    Skills: 'Perception +12',
+    'Condition Immunities': 'prone',
+    Senses: 'darkvision 120 ft., passive Perception 22',
+    Languages: 'Deep Speech, Undercommon',
+    Challenge: '13 (10000 XP)',
+    'Antimagic Cone.': '',
+  },
+  'Death Tyrant': {
+    actions: {
+      'Bite.': '',
+      'Eye Rays.': '',
+      'Eye Ray.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large undead, lawful evil',
+    stats: {
+      str: '10',
+      dex: '14',
+      con: '14',
+      int: '19',
+      wis: '15',
+      cha: '19',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '187 (25d10 + 50)',
+    Speed: '0 ft., fly 20 ft. (hover)',
+    'Saving Throws': 'Str +5, Con +7, Int +9, Wis +7, Cha +9',
+    Skills: 'Perception +12',
+    'Damage Immunities': 'poison',
+    'Condition Immunities':
+      'charmed, exhaustion, paralyzed, petrified, poisoned, prone',
+    Senses: 'darkvision 120 ft., passive Perception 22',
+    Languages: 'Deep Speech, Undercommon',
+    Challenge: '14 (11500 XP)',
+    'Negative Energy Cone.': '',
+  },
+  'Death Tyrant (in lair)': {
+    actions: {
+      'Bite.': '',
+      'Eye Rays.': '',
+      'Eye Ray.': '',
+    },
+    legendaryActions: {},
+    notes: 'Large undead, lawful evil',
+    stats: {
+      str: '10',
+      dex: '14',
+      con: '14',
+      int: '19',
+      wis: '15',
+      cha: '19',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '187 (25d10 + 50)',
+    Speed: '0 ft., fly 20 ft. (hover)',
+    'Saving Throws': 'Str +5, Con +7, Int +9, Wis +7, Cha +9',
+    Skills: 'Perception +12',
+    'Damage Immunities': 'poison',
+    'Condition Immunities':
+      'charmed, exhaustion, paralyzed, petrified, poisoned, prone',
+    Senses: 'darkvision 120 ft., passive Perception 22',
+    Languages: 'Deep Speech, Undercommon',
+    Challenge: '14 (11500 XP)',
+    'Negative Energy Cone.': '',
+  },
+  'Mummy Lord (in lair)': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium undead, lawful evil',
+    stats: {
+      str: '18',
+      dex: '10',
+      con: '17',
+      int: '11',
+      wis: '18',
+      cha: '16',
+    },
+    'Armor Class': '17 (natural armor)',
+    'Hit Points': '97 (13d8 + 39)',
+    Speed: '20 ft.',
+    'Saving Throws': 'Con +8, Int +5, Wis +9, Cha +8',
+    Skills: 'History +5, Religion +5',
+    'Damage Vulnerabilities': 'fire',
+    'Damage Immunities':
+      'necrotic, poison; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Condition Immunities':
+      'charmed, exhaustion, frightened, paralyzed, poisoned',
+    Senses: 'darkvision 60 ft., passive Perception 14',
+    Languages: 'the languages it knew in life',
+    Challenge: '15 (13000 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+    '3rd level (3 slots): ': '',
+    '4th level (3 slots): ': '',
+    '5th level (2 slots): ': '',
+    '6th level (1 slot): ': '',
+  },
+  'Death Knight': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium undead, chaotic evil',
+    stats: {
+      str: '20',
+      dex: '11',
+      con: '20',
+      int: '12',
+      wis: '16',
+      cha: '18',
+    },
+    'Armor Class': '20 (plate, shield)',
+    'Hit Points': '180 (19d8 + 95)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Dex +6, Wis +9, Cha +10',
+    'Damage Immunities': 'necrotic, poison',
+    'Condition Immunities': 'exhaustion, frightened, poisoned',
+    Senses: 'darkvision 120 ft., passive Perception 13',
+    Languages: 'Abyssal, Common',
+    Challenge: '17 (18000 XP)',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+    '3rd level (3 slots): ': '',
+    '4th level (3 slots): ': '',
+    '5th level (2 slots): ': '',
+    ' (necrotic)': '',
+  },
+  Goristro: {
+    actions: {
+      'Multiattack.': '',
+      'Fist.': '',
+      'Hoof.': '',
+      'Gore.': '',
+    },
+    legendaryActions: {},
+    notes: 'Huge fiend (demon), chaotic evil',
+    stats: {
+      str: '25',
+      dex: '11',
+      con: '25',
+      int: '6',
+      wis: '13',
+      cha: '14',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '310 (23d12 + 161)',
+    Speed: '40 ft.',
+    'Saving Throws': 'Str +13, Dex +6, Con +13, Wis +7',
+    Skills: 'Perception +7',
+    'Damage Resistances':
+      'cold, fire, lightning; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'darkvision 120 ft., passive Perception 17',
+    Languages: 'Abyssal',
+    Challenge: '17 (18000 XP)',
+    'Charge.': '',
+    'Labyrinthine Recall.': '',
+    'Magic Resistance.': '',
+    'Siege Monster.': '',
+  },
+  Demilich: {
+    actions: {
+      'Howl (Recharge 5–6).': '',
+      'Life Drain.': '',
+      'Cloud of Dust.': '',
+      'Energy Drain (Costs 2 Actions).': '',
+      'Vile Curse (Costs 3 Actions).': '',
+    },
+    legendaryActions: {},
+    notes: 'Tiny undead, neutral evil',
+    stats: {
+      str: '1',
+      dex: '20',
+      con: '10',
+      int: '20',
+      wis: '17',
+      cha: '20',
+    },
+    'Armor Class': '20 (natural armor)',
+    'Hit Points': '80 (32d4)',
+    Speed: '0 ft., fly 30 ft. (hover)',
+    'Saving Throws': 'Con +6, Int +11, Wis +9, Cha +11',
+    'Damage Resistances':
+      'bludgeoning, piercing, and slashing from magic weapons',
+    'Damage Immunities':
+      'necrotic, poison, psychic; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Condition Immunities':
+      'charmed, deafened, exhaustion, frightened, paralyzed, petrified, poisoned, prone, stunned',
+    Senses: 'truesight 120 ft., passive Perception 13',
+    Languages: '—',
+    Challenge: '18 (20000 XP)',
+    'Avoidance.': '',
+    'Legendary Resistance (3/Day).': '',
+    'Turn Immunity.': '',
+  },
+  'Demilich (in lair)': {
+    actions: {
+      'Howl (Recharge 5–6).': '',
+      'Life Drain.': '',
+      'Cloud of Dust.': '',
+      'Energy Drain (Costs 2 Actions).': '',
+      'Vile Curse (Costs 3 Actions).': '',
+    },
+    legendaryActions: {},
+    notes: 'Tiny undead, neutral evil',
+    stats: {
+      str: '1',
+      dex: '20',
+      con: '10',
+      int: '20',
+      wis: '17',
+      cha: '20',
+    },
+    'Armor Class': '20 (natural armor)',
+    'Hit Points': '80 (32d4)',
+    Speed: '0 ft., fly 30 ft. (hover)',
+    'Saving Throws': 'Con +6, Int +11, Wis +9, Cha +11',
+    'Damage Resistances':
+      'bludgeoning, piercing, and slashing from magic weapons',
+    'Damage Immunities':
+      'necrotic, poison, psychic; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Condition Immunities':
+      'charmed, deafened, exhaustion, frightened, paralyzed, petrified, poisoned, prone, stunned',
+    Senses: 'truesight 120 ft., passive Perception 13',
+    Languages: '—',
+    Challenge: '18 (20000 XP)',
+    'Avoidance.': '',
+    'Legendary Resistance (3/Day).': '',
+    'Turn Immunity.': '',
+  },
+  'Lich (in lair)': {
+    actions: {},
+    legendaryActions: {},
+    notes: 'Medium undead, any evil alignment',
+    stats: {
+      str: '11',
+      dex: '16',
+      con: '16',
+      int: '20',
+      wis: '14',
+      cha: '16',
+    },
+    'Armor Class': '17 (natural armor)',
+    'Hit Points': '135 (18d8 + 54)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Con +10, Int +12, Wis +9',
+    Skills: 'Arcana +19, History +12, Insight +9, Perception +9',
+    'Damage Resistances': 'cold, lightning, necrotic',
+    'Damage Immunities':
+      'poison; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Condition Immunities':
+      'charmed, exhaustion, frightened, paralyzed, poisoned',
+    Senses: 'truesight 120 ft., passive Perception 19',
+    Languages: 'Common plus up to five other languages',
+    Challenge: '21 (33000 XP)',
+    'Cantrips (at will): ': '',
+    '1st level (4 slots): ': '',
+    '2nd level (3 slots): ': '',
+    '3rd level (3 slots): ': '',
+    '4th level (3 slots): ': '',
+    '5th level (3 slots): ': '',
+    '6th level (1 slot): ': '',
+    '7th level (1 slot): ': '',
+    '8th level (1 slot): ': '',
+    '9th level (1 slot): ': '',
+  },
+  Empyrean: {
+    actions: {
+      'Maul.': '',
+      'Bolt.': '',
+      'Attack.': '',
+      'Bolster.': '',
+      'Trembling Strike (Costs 2 Actions).': '',
+    },
+    legendaryActions: {},
+    notes: 'Huge celestial (titan), chaotic good (75 %) or neutral evil (25 %)',
+    stats: {
+      str: '30',
+      dex: '21',
+      con: '30',
+      int: '21',
+      wis: '22',
+      cha: '27',
+    },
+    'Armor Class': '22 (natural armor)',
+    'Hit Points': '313 (19d12 + 190)',
+    Speed: '50 ft., fly 50 ft., swim 50 ft.',
+    'Saving Throws': 'Str +17, Int +12, Wis +13, Cha +15',
+    Skills: 'Insight +13, Persuasion +15',
+    'Damage Immunities':
+      'bludgeoning, piercing, and slashing from nonmagical attacks',
+    Senses: 'truesight 120 ft., passive Perception 16',
+    Languages: 'all',
+    Challenge: '23 (50000 XP)',
+    'Innate Spellcasting.': '',
+    'Legendary Resistance (3/Day).': '',
+    'Magic Resistance.': '',
+    'Magic Weapons.': '',
   },
 };

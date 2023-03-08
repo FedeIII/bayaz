@@ -12,6 +12,7 @@ import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
 
 import styles from '~/components/encounters.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
+import { translateMonster } from '~/domain/encounters/monsterTranslations';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -69,7 +70,7 @@ function PartyCombatForPlayers() {
               <span
                 className={`${cardStyles.singleCard} ${styles[monster.health]}`}
               >
-                {monster.name}
+                {translateMonster(monster.name)}
               </span>
               {imgUrl && (
                 <img
