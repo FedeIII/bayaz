@@ -3,15 +3,12 @@ import { Link, Outlet, useLoaderData } from '@remix-run/react';
 
 import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
-import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import {
   getCharacterXpThreshold,
   translateDifficulty,
 } from '~/domain/encounters/encounters';
 
 import styles from '~/components/encounters.module.css';
-import { useContext, useEffect } from 'react';
-import PartyContext from '~/components/contexts/partyContext';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -31,17 +28,6 @@ export const action = async ({ request }) => {
 
 function PartyInfo() {
   const { party, pcs } = useLoaderData();
-  const { id } = party;
-
-  useAddMenuItems('/party', [
-    { name: id, url: `/party/${id}`, level: 1 },
-    { name: 'Encuentros', url: `/party/${id}/encounters`, level: 2 },
-  ]);
-
-  const partyContext = useContext(PartyContext);
-  useEffect(() => {
-    partyContext.setPartyId(id);
-  }, [id]);
 
   return (
     <div className={styles.encounters}>

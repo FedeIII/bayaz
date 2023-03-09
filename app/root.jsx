@@ -16,8 +16,12 @@ import styles from '~/styles/global.css';
 import MenuContext from './components/contexts/menuContext';
 import { useEffect, useState } from 'react';
 import PartyContext from './components/contexts/partyContext';
-import { useAddMenuItems } from './components/hooks/useAddMenuItems';
-import { getFromStore, writeIntoStore } from './components/hooks/useStore';
+import {
+  deleteFromStore,
+  useValueFromStore,
+  writeIntoStore,
+} from './components/hooks/useStore';
+import MonstersContext from './components/contexts/monstersContext';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -32,50 +36,34 @@ export const links = () => {
   ];
 };
 
-const mainLinks = [
-  { name: 'Dados', url: '/dice', level: 0 },
-  { name: 'Lugares', url: '/places', level: 0 },
-  { name: 'Personajes', url: '/characters', level: 0 },
-  { name: 'Enemigos', url: '/enemies', level: 0 },
-  { name: 'Party', url: '/party', level: 0 },
-];
+function useStateValue(key) {
+  const [stateValue, setStateValue] = useValueFromStore(key);
+
+  function setValue(value) {
+    setStateValue(value);
+    writeIntoStore(key, JSON.stringify(value));
+  }
+
+  function deleteValue() {
+    setStateValue(null);
+    deleteFromStore(key);
+  }
+
+  return [stateValue, setValue, deleteValue];
+}
 
 export default function App() {
-  const [menuItems, setMenuItems] = useState(mainLinks);
   const [hasMenu, setHasMenu] = useState(true);
-  const [partyId, setPartyId] = useState(null);
+  const [partyIdState, setPartyIdState, deletePartyIdState] =
+    useStateValue('partyId');
+  const [monstersState, setMonstersState, deleteMonstersState] =
+    useStateValue('monsters');
+  const [encounterIdState, setEncounterIdState, deleteEncounterIdState] =
+    useStateValue('encounterId');
 
   useEffect(() => {
     setHasMenu(true);
-    setMenuItems(mainLinks);
-    setPartyId(getFromStore('partyId'));
   }, []);
-
-  useEffect(() => {
-    if (partyId) writeIntoStore('partyId', partyId);
-  }, [partyId]);
-
-  const extraMenuItems = [];
-  if (partyId) {
-    extraMenuItems.push(
-      { name: partyId, url: `/party/${partyId}`, level: 1 },
-      {
-        name: 'Encuentros',
-        url: `/party/${partyId}/encounters`,
-        level: 2,
-      }
-    );
-  }
-
-  if (partyId && getFromStore('monsters')) {
-    extraMenuItems.push({
-      name: 'Combate',
-      url: `/party/${partyId}/encounters/combat`,
-      level: 2,
-    });
-  }
-
-  useAddMenuItems('/party', extraMenuItems, menuItems, setMenuItems);
 
   return (
     <html lang="es-ES">
@@ -85,15 +73,26 @@ export default function App() {
       </head>
       <body>
         <DndProvider backend={HTML5Backend}>
-          <MenuContext.Provider
-            value={{ menuItems, setMenuItems, hasMenu, setHasMenu }}
-          >
-            <PartyContext.Provider value={{ partyId, setPartyId }}>
-              <Outlet />
-              <ScrollRestoration />
-              <Scripts />
-              <LiveReload />
-              <Analytics />
+          <MenuContext.Provider value={{ hasMenu, setHasMenu }}>
+            <PartyContext.Provider
+              value={{ partyIdState, setPartyIdState, deletePartyIdState }}
+            >
+              <MonstersContext.Provider
+                value={{
+                  monstersState,
+                  setMonstersState,
+                  deleteMonstersState,
+                  encounterIdState,
+                  setEncounterIdState,
+                  deleteEncounterIdState,
+                }}
+              >
+                <Outlet />
+                <ScrollRestoration />
+                <Scripts />
+                <LiveReload />
+                <Analytics />
+              </MonstersContext.Provider>
             </PartyContext.Provider>
           </MenuContext.Provider>
         </DndProvider>

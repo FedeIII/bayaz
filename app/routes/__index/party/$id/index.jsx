@@ -5,7 +5,6 @@ import { Form, Link, useLoaderData } from '@remix-run/react';
 import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
 import { translateClass, translateRace } from '~/domain/characters';
-import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import PartyContext from '~/components/contexts/partyContext';
 
 import styles from '~/components/party.module.css';
@@ -30,14 +29,10 @@ function PartyInfo() {
   const { party, pcs } = useLoaderData();
   const { id } = party;
 
-  useAddMenuItems('/party', [
-    { name: id, url: `/party/${id}`, level: 1 },
-    { name: 'Encuentros', url: `/party/${id}/encounters`, level: 2 },
-  ]);
-
-  const partyContext = useContext(PartyContext);
+  const partyContext = useContext(PartyContext) || {};
+  const { setPartyIdState } = partyContext;
   useEffect(() => {
-    partyContext.setPartyId(id);
+    setPartyIdState(id);
   }, [id]);
 
   return (

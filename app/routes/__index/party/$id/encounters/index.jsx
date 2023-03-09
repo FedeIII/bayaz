@@ -1,11 +1,8 @@
-import { useContext, useEffect } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 
 import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
-import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
-import PartyContext from '~/components/contexts/partyContext';
 
 import menuStyles from '~/components/menus.module.css';
 
@@ -27,17 +24,6 @@ export const action = async ({ request }) => {
 
 function PartyEncounters() {
   const { party, pcs } = useLoaderData();
-  const { id } = party;
-
-  useAddMenuItems('/party', [
-    { name: id, url: `/party/${id}`, level: 1 },
-    { name: 'Encuentros', url: `/party/${id}/encounters`, level: 2 },
-  ]);
-
-  const partyContext = useContext(PartyContext);
-  useEffect(() => {
-    partyContext.setPartyId(id);
-  }, [id]);
 
   return (
     <>

@@ -4,10 +4,7 @@ import { useContext, useEffect } from 'react';
 
 import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
-import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
-import PartyContext from '~/components/contexts/partyContext';
 import {
-  areAllDead,
   badlyHurtHP,
   getMonsters,
   health,
@@ -24,7 +21,7 @@ import { ShrinkBar } from '~/components/indicators/shrinkBar';
 
 import styles from '~/components/encounters.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
-import { deleteFromStore, writeIntoStore } from '~/components/hooks/useStore';
+import MonstersContext from '~/components/contexts/monstersContext';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -75,30 +72,27 @@ function PartyCombat() {
   const { id: partyId } = party;
   const { monsters: monstersStats, id: encounterId } = encounter;
 
-  useAddMenuItems('/party', [
-    { name: partyId, url: `/party/${partyId}`, level: 1 },
-    { name: 'Encuentros', url: `/party/${partyId}/encounters`, level: 2 },
-  ]);
+  const monsterContext = useContext(MonstersContext) || {};
+  const {
+    setMonstersState,
+    deleteMonstersState,
+    setEncounterIdState,
+    deleteEncounterIdState,
+  } = monsterContext;
 
   useEffect(() => {
-    writeIntoStore(
-      'monsters',
-      JSON.stringify(
-        monstersStats.map(m => ({ name: m.name, health: health(m) }))
-      )
+    setEncounterIdState(encounterId);
+    setMonstersState(
+      monstersStats.map(m => ({ name: m.name, health: health(m) }))
     );
-  }, [monstersStats]);
-
-  const partyContext = useContext(PartyContext);
-  useEffect(() => {
-    partyContext.setPartyId(partyId);
-  }, [partyId]);
+  }, [encounterId, monstersStats]);
 
   const monsters = getMonsters(monstersStats.map(m => m.name));
 
   function onSubmit(data) {
     if ([].slice.call(data.target).find(node => node.name === 'endCombat')) {
-      deleteFromStore('monsters');
+      deleteMonstersState();
+      deleteEncounterIdState();
     }
   }
 
