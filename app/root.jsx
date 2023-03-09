@@ -41,7 +41,9 @@ function useStateValue(key) {
 
   function setValue(value) {
     setStateValue(value);
-    writeIntoStore(key, JSON.stringify(value));
+    const parsedValue =
+      typeof value === 'object' ? JSON.stringify(value) : value;
+    writeIntoStore(key, parsedValue);
   }
 
   function deleteValue() {

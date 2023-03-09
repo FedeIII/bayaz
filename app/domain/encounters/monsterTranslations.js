@@ -1,5 +1,6 @@
 export const MONSTER_TRANSLATIONS = {
   orc: 'Orco',
+  roc: 'Roc',
   'awakened shrub': 'Arbusto despertado',
   baboon: 'Babuino',
   badger: 'Tejón',

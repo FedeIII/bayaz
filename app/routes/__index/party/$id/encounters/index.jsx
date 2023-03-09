@@ -30,8 +30,8 @@ function PartyEncounters() {
       <Link to="random" className={menuStyles.mainOption}>
         <span className={menuStyles.optionLabel}>Encuentro aleatorio</span>
       </Link>
-      <Link to="" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>/</span>
+      <Link to="new" className={menuStyles.mainOption}>
+        <span className={menuStyles.optionLabel}>Crear encuentro</span>
       </Link>
       <Link to="" className={menuStyles.mainOption}>
         <span className={menuStyles.optionLabel}>/</span>

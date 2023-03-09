@@ -1,6 +1,7 @@
 import { MONSTER_DETAILS_LIST } from './monsterDetailsList';
 import { MONSTER_IMAGES } from './monsterImages';
 import { MONSTERS } from './monsterList';
+import { translateMonster } from './monsterTranslations';
 
 function isString(value) {
   return typeof value === 'string' || value instanceof String;
@@ -70,4 +71,34 @@ export function health(monsterStats) {
 
 export function getMonsterImage(monsterName) {
   return MONSTER_IMAGES[monsterName] || null;
+}
+
+export function getMonstersFromEnvironment(env) {
+  return Object.values(MONSTERS).filter(
+    m => m.environment?.[env] === 'yes' && m.page.includes('mm')
+  );
+}
+
+export function isMonsterSuitable(monster, xpThreshold = 0, partyMaxLevel) {
+  return (
+    parseInt(monster.xp, 10) <= xpThreshold &&
+    parseInt(monster.challenge, 10) <= partyMaxLevel
+  );
+}
+
+function getMonsterChallenge(monster) {
+  if (monster.challenge.includes('/')) {
+    const values = monster.challenge.split('/');
+    return values[0] / values[1];
+  }
+
+  return parseInt(monster.challenge, 10);
+}
+
+export function Monster(monster) {
+  return {
+    xp: parseInt(monster.xp, 10),
+    challenge: getMonsterChallenge(monster),
+    translation: translateMonster(monster.name),
+  };
 }

@@ -678,7 +678,7 @@ export const MONSTERS = {
   'Crawling Claw': {
     type: 'Undead',
     size: 'Tiny',
-    challenge: 0,
+    challenge: '0',
     name: 'Crawling Claw',
     alignment: 'NE',
     page: 'mm 44',
@@ -726,14 +726,14 @@ export const MONSTERS = {
     alignment: 'LE',
     page: 'mm 76',
     size: 'Medium',
-    challenge: 0,
+    challenge: '0',
     name: 'Lemure',
     type: 'Fiend',
     tags: 'devil',
   },
   Badger: {
     size: 'Tiny',
-    challenge: 0,
+    challenge: '0',
     name: 'Badger',
     type: 'Beast',
     xp: '10',
@@ -827,7 +827,7 @@ export const MONSTERS = {
     type: 'Beast',
     name: 'Bat',
     size: 'Tiny',
-    challenge: 0,
+    challenge: '0',
   },
   'Air Elemental Myrmidon': {
     environment: {},
@@ -900,7 +900,7 @@ export const MONSTERS = {
   },
   'Cranium Rat': {
     name: 'Cranium Rat',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
     type: 'Beast',
     environment: {
@@ -1079,7 +1079,7 @@ export const MONSTERS = {
   Baboon: {
     name: 'Baboon',
     size: 'Small',
-    challenge: 0,
+    challenge: '0',
     type: 'Beast',
     xp: '10',
     environment: {
@@ -1129,7 +1129,7 @@ export const MONSTERS = {
   },
   Raven: {
     type: 'Beast',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
     name: 'Raven',
     alignment: 'Unaligned',
@@ -1566,7 +1566,7 @@ export const MONSTERS = {
     alignment: 'Unaligned',
     name: 'Hyena',
     size: 'Medium',
-    challenge: 0,
+    challenge: '0',
     type: 'Beast',
   },
   Quasit: {
@@ -1706,7 +1706,7 @@ export const MONSTERS = {
   Jackal: {
     type: 'Beast',
     size: 'Small',
-    challenge: 0,
+    challenge: '0',
     name: 'Jackal',
     alignment: 'Unaligned',
     page: 'mm 331',
@@ -2136,7 +2136,7 @@ export const MONSTERS = {
     type: 'Beast',
     name: 'Vulture',
     size: 'Medium',
-    challenge: 0,
+    challenge: '0',
     page: 'mm 339',
     alignment: 'Unaligned',
     xp: '10',
@@ -2760,7 +2760,7 @@ export const MONSTERS = {
     type: 'Beast',
     name: 'Rat',
     size: 'Tiny',
-    challenge: 0,
+    challenge: '0',
     page: 'mm 335',
     alignment: 'Unaligned',
     xp: '10',
@@ -3064,7 +3064,7 @@ export const MONSTERS = {
     alignment: 'Unaligned',
     page: 'mm 333',
     size: 'Small',
-    challenge: 0,
+    challenge: '0',
     name: 'Octopus',
     type: 'Beast',
   },
@@ -3096,7 +3096,7 @@ export const MONSTERS = {
   },
   Eagle: {
     size: 'Small',
-    challenge: 0,
+    challenge: '0',
     name: 'Eagle',
     type: 'Beast',
     xp: '10',
@@ -3117,7 +3117,7 @@ export const MONSTERS = {
     xp: '10',
     alignment: 'Unaligned',
     page: 'mm 333',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
     name: 'Owl',
     type: 'Beast',
@@ -3189,7 +3189,7 @@ export const MONSTERS = {
   'Giant Fire Beetle': {
     name: 'Giant Fire Beetle',
     size: 'Small',
-    challenge: 0,
+    challenge: '0',
     type: 'Beast',
     xp: '10',
     environment: {
@@ -3448,7 +3448,7 @@ export const MONSTERS = {
     },
     type: 'Plant',
     size: 'Small',
-    challenge: 0,
+    challenge: '0',
     name: 'Myconid Sprout',
   },
   'Draft Horse': {
@@ -3475,7 +3475,7 @@ export const MONSTERS = {
     xp: '10',
     type: 'Beast',
     name: 'Cat',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
   },
   Velociraptor: {
@@ -3791,7 +3791,7 @@ export const MONSTERS = {
   },
   'Sea Horse': {
     type: 'Beast',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
     name: 'Sea Horse',
     alignment: 'Unaligned',
@@ -3885,7 +3885,7 @@ export const MONSTERS = {
     xp: 0,
     type: 'Beast',
     name: 'Frog',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
   },
   'Star Spawn Seer': {
@@ -4217,7 +4217,7 @@ export const MONSTERS = {
     xp: '10',
     type: 'Beast',
     name: 'Hawk',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
   },
   'Awakened Shrub': {
@@ -4229,7 +4229,7 @@ export const MONSTERS = {
     alignment: 'Unaligned',
     name: 'Awakened Shrub',
     size: 'Small',
-    challenge: 0,
+    challenge: '0',
     type: 'Plant',
   },
   'Red Slaad': {
@@ -5355,7 +5355,7 @@ export const MONSTERS = {
   Scorpion: {
     type: 'Beast',
     size: 'Tiny',
-    challenge: 0,
+    challenge: '0',
     name: 'Scorpion',
     alignment: 'Unaligned',
     page: 'mm 337',
@@ -5542,7 +5542,7 @@ export const MONSTERS = {
     },
     xp: '10',
     type: 'Beast',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
     name: 'Crab',
   },
@@ -5624,7 +5624,7 @@ export const MONSTERS = {
     },
     type: 'Beast',
     size: 'Tiny',
-    challenge: 0,
+    challenge: '0',
     name: 'Spider',
   },
   'Orc War Chief': {
@@ -5752,7 +5752,7 @@ export const MONSTERS = {
     xp: '10',
     type: 'Beast',
     name: 'Quipper',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
   },
   'Young Remorhaz': {
@@ -6177,7 +6177,7 @@ export const MONSTERS = {
     page: 'mm 330',
     alignment: 'Unaligned',
     name: 'Goat',
-    challenge: 0,
+    challenge: '0',
     size: 'Medium',
     type: 'Beast',
   },
@@ -6699,7 +6699,7 @@ export const MONSTERS = {
   Deer: {
     name: 'Deer',
     size: 'Medium',
-    challenge: 0,
+    challenge: '0',
     type: 'Beast',
     xp: '10',
     environment: {
@@ -6930,7 +6930,7 @@ export const MONSTERS = {
     page: 'mm 188',
     alignment: 'N',
     name: 'Homunculus',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
     type: 'Construct',
   },
@@ -7733,7 +7733,7 @@ export const MONSTERS = {
     alignment: 'Unaligned',
     name: 'Lizard',
     size: 'Tiny',
-    challenge: 0,
+    challenge: '0',
     type: 'Beast',
   },
   Darkmantle: {
@@ -8301,7 +8301,7 @@ export const MONSTERS = {
     environment: {},
     xp: '10',
     type: 'Beast',
-    challenge: 0,
+    challenge: '0',
     size: 'Tiny',
     name: 'Weasel',
   },
@@ -8456,7 +8456,7 @@ export const MONSTERS = {
     alignment: 'Unaligned',
     page: 'mm 138',
     size: 'Medium',
-    challenge: 0,
+    challenge: '0',
     name: 'Shrieker',
     type: 'Plant',
   },

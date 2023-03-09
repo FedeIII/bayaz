@@ -1,5 +1,6 @@
 import random from '~/domain/random';
 import { MONSTERS } from './monsterList';
+import { Monster } from './monsters';
 import { translateMonster } from './monsterTranslations';
 
 export const CHARACTER_XP_THRESHOLDS = [
@@ -76,7 +77,7 @@ export function getXpMultiplierForMonsters(numberOfMonsters, numberOfPcs) {
   }
 }
 
-function getPartyXpThreshold(pcs, difficulty) {
+export function getPartyXpThreshold(pcs, difficulty) {
   return pcs.reduce(
     (xp, pc) => xp + getCharacterXpThreshold(pc, difficulty),
     0
@@ -86,11 +87,11 @@ function getPartyXpThreshold(pcs, difficulty) {
 function getRandomMonster(xpMultiplier, xpPerMonster, env, maxLevel) {
   const monsterList = Object.values(MONSTERS).filter(
     m =>
-      parseInt(m.xp, 10) * xpMultiplier <= xpPerMonster * 1.1 &&
-      parseInt(m.xp, 10) * xpMultiplier >= xpPerMonster * 0.75 &&
+      Monster(m).xp * xpMultiplier <= xpPerMonster * 1.1 &&
+      Monster(m).xp * xpMultiplier >= xpPerMonster * 0.75 &&
       m.environment?.[env] === 'yes' &&
       m.page.includes('mm') &&
-      parseInt(m.challenge, 10) <= maxLevel
+      Monster(m).challenge <= maxLevel
   );
 
   return monsterList[Math.floor(Math.random() * monsterList.length)];
@@ -115,8 +116,8 @@ function getRandomEncounterSameMonsters(
 
   if (
     !monster ||
-    parseInt(monster.xp, 10) === 0 ||
-    parseInt(monster.challenge, 10) === 0
+    Monster(monster).xp === 0 ||
+    Monster(monster).challenge === 0
   ) {
     return getRandomEncounter(pcs, difficulty, env);
   }
@@ -150,14 +151,14 @@ function getRandomEncounterLeadMonster(
 
   if (
     !leadMonster ||
-    parseInt(leadMonster.xp, 10) === 0 ||
-    parseInt(leadMonster.challenge, 10) === 0
+    Monster(leadMonster).xp === 0 ||
+    Monster(leadMonster).challenge === 0
   ) {
     return getRandomEncounter(pcs, difficulty, env);
   }
 
   const remainingPartyXpThreshold =
-    partyXpThreshold - parseInt(leadMonster.xp, 10) * xpMultiplier;
+    partyXpThreshold - Monster(leadMonster).xp * xpMultiplier;
 
   const xpPerMob = remainingPartyXpThreshold / (numberOfMonsters - 1);
 
@@ -168,7 +169,7 @@ function getRandomEncounterLeadMonster(
     Math.max(...pcs.map(pc => pc.level))
   );
 
-  if (!mob || parseInt(mob.xp, 10) === 0 || parseInt(mob.challenge, 10) === 0) {
+  if (!mob || Monster(mob).xp === 0 || Monster(mob).challenge === 0) {
     if (numberOfMonsters === 1) {
       return getRandomEncounterSameMonsters(
         pcs,
@@ -197,8 +198,8 @@ function getRandomEncounterLeadMonster(
     `total: ${leadMonster.xp} * ${xpMultiplier} + ${
       mob.xp
     } * ${xpMultiplier} * ${numberOfMonsters - 1} = ${
-      parseInt(leadMonster.xp, 10) * xpMultiplier +
-      parseInt(mob.xp, 10) * xpMultiplier * (numberOfMonsters - 1)
+      Monster(leadMonster).xp * xpMultiplier +
+      Monster(mob).xp * xpMultiplier * (numberOfMonsters - 1)
     }`
   );
 
@@ -294,4 +295,13 @@ export function translateEnvironments(environment) {
     default:
       break;
   }
+}
+
+export function getEncounterXp(monsters) {
+  return monsters.reduce((xp, monster) => xp + Monster(monster).xp, 0);
+}
+
+export function getEncounterChallenge(monsters) {
+  if (!monsters.length) return 0;
+  return Math.max(...monsters.map(monster => Monster(monster).challenge));
 }

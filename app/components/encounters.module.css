@@ -58,6 +58,18 @@
   background-color: #3d414f;
 }
 
+.environmentButton[data-suitable='false'] {
+  background-color: #875757;
+}
+
+.environmentButton[data-suitable='false']:hover {
+  background-color: #9f7373;
+}
+
+.environmentButton[data-selected='true'] {
+  background-color: #3d414f;
+}
+
 .data {
   color: #0000d4;
   font-size: 18px;
@@ -161,4 +173,15 @@
 .monsterImage {
   width: 100%;
   margin: 16px 0 0 0;
+}
+
+.encounterMetric {
+}
+
+.encounterMetricFit {
+  color: #2b8c47;
+}
+
+.encounterMetricWarning {
+  color: #d84343;
 }

@@ -9,7 +9,6 @@ const mainLinks = [
   { name: 'Dados', url: '/dice', level: 0 },
   { name: 'Lugares', url: '/places', level: 0 },
   { name: 'Personajes', url: '/characters', level: 0 },
-  { name: 'Enemigos', url: '/enemies', level: 0 },
   { name: 'Party', url: '/party', level: 0 },
 ];
 function getMenuItems(partyContext = {}, monsterContext = {}) {
