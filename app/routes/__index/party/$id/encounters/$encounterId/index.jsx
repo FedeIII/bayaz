@@ -18,10 +18,10 @@ import {
   getEncounter,
 } from '~/services/encounter.server';
 import { ShrinkBar } from '~/components/indicators/shrinkBar';
-
-import styles from '~/components/encounters.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
 import MonstersContext from '~/components/contexts/monstersContext';
+
+import styles from '~/components/randomEncounter.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([

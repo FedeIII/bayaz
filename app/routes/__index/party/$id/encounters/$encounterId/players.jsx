@@ -7,11 +7,11 @@ import { getParty } from '~/services/party.server';
 import { getEncounter } from '~/services/encounter.server';
 import { getMonsterImage } from '~/domain/encounters/monsters';
 import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
-
-import styles from '~/components/encounters.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
 import { translateMonster } from '~/domain/encounters/monsterTranslations';
 import MonstersContext from '~/components/contexts/monstersContext';
+
+import styles from '~/components/randomEncounter.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([

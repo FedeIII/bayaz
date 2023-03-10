@@ -8,7 +8,7 @@ import {
   translateDifficulty,
 } from '~/domain/encounters/encounters';
 
-import styles from '~/components/encounters.module.css';
+import styles from '~/components/randomEncounter.module.css';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);

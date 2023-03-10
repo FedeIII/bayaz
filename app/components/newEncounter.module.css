@@ -1,0 +1,127 @@
+.newEncounter {
+  display: flex;
+  flex-direction: row;
+}
+
+.encounterSidebar {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
+  row-gap: 16px;
+  background-color: #232d40;
+  padding: 16px;
+  flex-basis: 30%;
+}
+
+.filter {
+  padding: 0;
+  margin: 0 0 16px;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.filterVertical {
+  padding: 0;
+  margin: 0 0 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  column-gap: 16px;
+}
+
+.filterLabel {
+  display: block;
+  text-align: center;
+  margin: 0 0 8px 0;
+}
+
+.filterLabelInline {
+  display: inline-block;
+  text-align: start;
+  flex-basis: 70px;
+}
+
+.filterOptions {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.filterGroup {
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterItem {
+  flex-basis: 45%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterInput {
+  width: 50%;
+}
+
+.encounterBody {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 8px 16px;
+}
+
+.monsters {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.crGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.crTitle {
+}
+
+.crMonsters {
+  list-style: circle;
+  column-count: 2;
+}
+
+.monsterName {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.monsterStats {
+}
+
+.monsterButton {
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  margin: 0 32px 0 0;
+}
+
+.monsterButton:hover {
+  background-color: #232d40;
+}

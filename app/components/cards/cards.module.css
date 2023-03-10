@@ -41,3 +41,12 @@
 .buttonCard:hover {
   background-color: #3d414f;
 }
+
+.buttonCard[data-selected='true'] {
+  background-color: #3d414f;
+}
+
+.buttonCardBig {
+  font-size: 18px;
+  padding: 8px 8px 4px 8px;
+}

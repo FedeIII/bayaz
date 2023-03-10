@@ -3,6 +3,14 @@ import { MONSTER_IMAGES } from './monsterImages';
 import { MONSTERS } from './monsterList';
 import { translateMonster } from './monsterTranslations';
 
+export function Monster(monster) {
+  return {
+    xp: parseInt(monster.xp, 10),
+    challenge: getMonsterChallenge(monster),
+    translation: translateMonster(monster.name),
+  };
+}
+
 function isString(value) {
   return typeof value === 'string' || value instanceof String;
 }
@@ -95,10 +103,12 @@ function getMonsterChallenge(monster) {
   return parseInt(monster.challenge, 10);
 }
 
-export function Monster(monster) {
-  return {
-    xp: parseInt(monster.xp, 10),
-    challenge: getMonsterChallenge(monster),
-    translation: translateMonster(monster.name),
-  };
+export function groupByCR(monsterList) {
+  return monsterList.reduce((groupedMonsters, monster) => {
+    let crIndex = Monster(monster).challenge;
+    crIndex = crIndex < 1 ? 0 : crIndex;
+    groupedMonsters[crIndex] = groupedMonsters[crIndex] || [];
+    groupedMonsters[crIndex].push(monster);
+    return groupedMonsters;
+  }, []);
 }

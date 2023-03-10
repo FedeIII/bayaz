@@ -56,6 +56,7 @@ function useStateValue(key) {
 
 export default function App() {
   const [hasMenu, setHasMenu] = useState(true);
+  const [menuTitle, setMenuTitle] = useState('Bayaz');
   const [partyIdState, setPartyIdState, deletePartyIdState] =
     useStateValue('partyId');
   const [monstersState, setMonstersState, deleteMonstersState] =
@@ -75,7 +76,9 @@ export default function App() {
       </head>
       <body>
         <DndProvider backend={HTML5Backend}>
-          <MenuContext.Provider value={{ hasMenu, setHasMenu }}>
+          <MenuContext.Provider
+            value={{ hasMenu, setHasMenu, menuTitle, setMenuTitle }}
+          >
             <PartyContext.Provider
               value={{ partyIdState, setPartyIdState, deletePartyIdState }}
             >

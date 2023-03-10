@@ -2,11 +2,6 @@
   font-family: fantasy;
 }
 
-.encounterDifficulty {
-  text-decoration: none;
-  color: white;
-}
-
 .encounterDifficultyList {
   list-style: none;
   display: flex;
@@ -16,14 +11,22 @@
 }
 
 .encounterDifficultyItem {
+  font-family: fantasy;
   padding: 16px 32px;
   background-color: #252937;
   font-size: 22px;
   border: 1px groove white;
   border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
 }
 
 .encounterDifficultyItem:hover {
+  background-color: #3d414f;
+}
+
+.encounterDifficultyItem[data-selected='true'] {
   background-color: #3d414f;
 }
 
@@ -184,4 +187,10 @@
 
 .encounterMetricWarning {
   color: #d84343;
+}
+
+.encounterSidebar {
+}
+
+.encounterBody {
 }

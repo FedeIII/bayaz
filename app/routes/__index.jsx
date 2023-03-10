@@ -7,11 +7,11 @@ import { SideBar } from '~/components/sideBar';
 
 export default function Index() {
   const menuContext = useContext(MenuContext) || {};
-  const { hasMenu } = menuContext;
+  const { hasMenu, menuTitle } = menuContext;
 
   return (
     <div className={styles.app}>
-      {hasMenu && <header className={styles.header}>Bayaz</header>}
+      {hasMenu && <header className={styles.header}>{menuTitle}</header>}
       <div className={hasMenu ? styles.body : styles.bodyFullScreen}>
         <SideBar />
         <div className={hasMenu ? styles.content : styles.contentFullScreen}>

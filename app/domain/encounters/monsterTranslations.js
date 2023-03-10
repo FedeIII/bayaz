@@ -1,5 +1,6 @@
 export const MONSTER_TRANSLATIONS = {
   orc: 'Orco',
+  'orc eye of gruumsh': 'Orco ojo de Gruumsh',
   roc: 'Roc',
   'awakened shrub': 'Arbusto despertado',
   baboon: 'Babuino',
@@ -284,7 +285,7 @@ export const MONSTER_TRANSLATIONS = {
   'barbed devil': 'Diablo punzante',
   barlgura: 'Barlgura',
   'beholder zombie': 'Contemplador zombi',
-  'bu lette': 'Bulette',
+  bulette: 'Bulette',
   cambion: 'Cambion',
   'drow elite warrior': 'Guerrero de elite drow',
   'earth elemental': 'Elemental de tierra',
@@ -441,6 +442,7 @@ export const MONSTER_TRANSLATIONS = {
   'ancient gold dragan': 'Dragón de oro anciano',
   'ancient red dragon': 'Dragón rojo anciano',
   tarrasque: 'Tarasca',
+  'ancient white dragon': 'Dragón blanco anciano',
 };
 
 export function translateMonster(monsterName) {

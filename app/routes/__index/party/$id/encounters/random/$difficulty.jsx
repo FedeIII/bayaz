@@ -15,7 +15,7 @@ import { createEncounter } from '~/services/encounter.server';
 import { getMonsterHitPoints, getMonsters } from '~/domain/encounters/monsters';
 import { rollDice } from '~/domain/random';
 
-import styles from '~/components/encounters.module.css';
+import styles from '~/components/randomEncounter.module.css';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
