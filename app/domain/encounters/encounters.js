@@ -297,11 +297,21 @@ export function translateEnvironments(environment) {
   }
 }
 
-export function getEncounterXp(monsters) {
-  return monsters.reduce((xp, monster) => xp + Monster(monster).xp, 0);
+export function getEncounterXp(monsters, pcs) {
+  const xpMultiplier = getXpMultiplierForMonsters(monsters.length, pcs.length);
+  return (
+    monsters.reduce((xp, monster) => xp + Monster(monster).xp, 0) * xpMultiplier
+  );
 }
 
 export function getEncounterChallenge(monsters) {
   if (!monsters.length) return 0;
   return Math.max(...monsters.map(monster => Monster(monster).challenge));
+}
+
+export function getMonsterPositionStyle(i) {
+  return {
+    order: i === 0 ? 2 : i % 2 ? 1 : 3,
+    ...(i === 0 && { flexShrink: 1 }),
+  };
 }

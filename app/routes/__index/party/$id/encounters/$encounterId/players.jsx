@@ -12,6 +12,7 @@ import MonstersContext from '~/components/contexts/monstersContext';
 
 import styles from '~/components/randomEncounter.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
+import { getMonsterPositionStyle } from '~/domain/encounters/encounters';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -56,10 +57,7 @@ function PartyCombatForPlayers() {
           return (
             <li
               className={styles.monstersItem}
-              style={{
-                order: i === 0 ? 2 : i % 2 ? 1 : 3,
-                ...(i === 0 && { flexShrink: 1 }),
-              }}
+              style={getMonsterPositionStyle(i)}
             >
               <span
                 className={`${cardStyles.singleCard} ${styles[monster.health]}`}

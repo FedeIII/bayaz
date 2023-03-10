@@ -1,6 +1,11 @@
 .newEncounter {
   display: flex;
   flex-direction: row;
+  --header-padding-top: 8px;
+  --header-height: 62px;
+  --header-padding-bottom: 16px;
+  --header-border-height: 1px;
+  --card-height: 42.5px;
 }
 
 .encounterSidebar {
@@ -9,7 +14,6 @@
 }
 
 .sidebarContent {
-  background-color: #232d40;
   position: sticky;
   top: 8px;
   display: flex;
@@ -17,9 +21,14 @@
   justify-content: flex-start;
   align-items: flex-start;
   row-gap: 16px;
-  padding: 16px;
   flex-basis: 30%;
   margin: 8px 0 0 0;
+}
+
+.sidebarSection {
+  background-color: #232d40;
+  padding: 16px;
+  width: calc(100% - 32px);
 }
 
 .filter {
@@ -115,10 +124,21 @@
   width: 100%;
   text-align: left;
   position: sticky;
-  top: 86px;
+  top: calc(
+    var(--header-padding-top) + var(--header-height) +
+      var(--header-padding-bottom) + var(--header-border-height)
+  );
   background-color: #13151c;
-  padding: 0 0 8px 0;
+  padding: 8px 0 8px 0;
   margin: 48px 0 0 0;
+}
+
+.crHeaderDown {
+  top: calc(
+    var(--header-padding-top) + var(--header-height) +
+      var(--header-padding-bottom) + var(--header-border-height) +
+      var(--card-height)
+  );
 }
 
 .crGroup:first-child .crHeader {
@@ -136,7 +156,7 @@
   display: flex;
   justify-content: space-between;
   column-gap: 16px;
-  top: 0;
+  top: 16px;
   width: 100%;
 }
 
@@ -205,13 +225,35 @@
   position: sticky;
   top: 0;
   background-color: #13151c;
-  padding: 0;
+  padding: var(--header-padding-top) 16px var(--header-padding-bottom);
   margin: 0;
   z-index: 1;
+  border-bottom: var(--header-border-height) solid white;
 }
 
 .selectedMonstersTitle {
-  margin: 0 0 8px 16px;
-  padding: 24px 0px;
+  margin: 0 0 16px 16px;
+  padding: 8px 0px;
   border-bottom: 1px solid white;
+}
+
+.encounterStats {
+  display: inline-block;
+}
+
+.encounterMetric {
+}
+
+.encounterMetricFit {
+  color: #2b8c47;
+}
+
+.encounterMetricWarning {
+  color: #d84343;
+}
+
+.encounterMonsters {
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 15px;
 }

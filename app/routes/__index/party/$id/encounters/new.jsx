@@ -8,8 +8,8 @@ import {
   ENVIRONMENTS,
   getEncounterChallenge,
   getEncounterXp,
+  getMonsterPositionStyle,
   getPartyXpThreshold,
-  groupMonsters,
   translateDifficulty,
   translateEnvironments,
 } from '~/domain/encounters/encounters';
@@ -75,7 +75,7 @@ function PartyInfo() {
     setFilteredMonsterList(monsters);
   }
 
-  const encounterXp = getEncounterXp(encounterMonsters);
+  const encounterXp = getEncounterXp(encounterMonsters, pcs);
   const encounterChallenge = getEncounterChallenge(encounterMonsters);
   const groupedFilteredMonsterList = groupByCR(filteredMonsterList);
 
@@ -85,78 +85,94 @@ function PartyInfo() {
       <div className={styles.newEncounter}>
         <div className={styles.encounterSidebar}>
           <div className={styles.sidebarContent}>
-            <div className={styles.filterVertical}>
-              <span className={styles.filterLabel}>Dificultad:</span>{' '}
-              <div className={styles.filterOptions}>
-                {difficulties.map(difficulty => {
-                  const difficultyXp = getPartyXpThreshold(pcs, difficulty);
-                  return (
-                    <button
-                      type="button"
-                      className={`${cardStyles.buttonCard}`}
-                      onClick={() => setXpThreshold(difficultyXp)}
-                      key={difficulty}
-                      data-selected={xpThreshold === difficultyXp}
-                    >
-                      <span>{translateDifficulty(difficulty)}</span>
+            <div className={styles.sidebarSection}>
+              <div className={styles.filterVertical}>
+                <span className={styles.filterLabel}>Party:</span>{' '}
+                <div className={styles.filterOptions}>
+                  {pcs.map(pc => (
+                    <span className={`${cardStyles.buttonCard}`}>
+                      {pc.name}
                       <br />
-                      <span>({difficultyXp} XP)</span>
-                    </button>
-                  );
-                })}
+                      Nivel {pc.level}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className={styles.filter}>
-              <span className={styles.filterLabelInline}>Entorno:</span>{' '}
-              <select
-                className={`${cardStyles.buttonCard} ${cardStyles.buttonCardBig}`}
-                onChange={e => selectEnvironment(e.target.value)}
-                defaultValue="-"
-              >
-                <option value="-" disabled>
-                  -
-                </option>
-                {ENVIRONMENTS.map(env => (
-                  <option
-                    className={styles.environmentButton}
-                    value={env}
-                    key={env}
-                  >
-                    {translateEnvironments(env)}
+            <div className={styles.sidebarSection}>
+              <div className={styles.filterVertical}>
+                <span className={styles.filterLabel}>Dificultad:</span>{' '}
+                <div className={styles.filterOptions}>
+                  {difficulties.map(difficulty => {
+                    const difficultyXp = getPartyXpThreshold(pcs, difficulty);
+                    return (
+                      <button
+                        type="button"
+                        className={`${cardStyles.buttonCard}`}
+                        onClick={() => setXpThreshold(difficultyXp)}
+                        key={difficulty}
+                        data-selected={xpThreshold === difficultyXp}
+                      >
+                        <span>{translateDifficulty(difficulty)}</span>
+                        <br />
+                        <span>({difficultyXp} XP)</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className={styles.filter}>
+                <span className={styles.filterLabelInline}>Entorno:</span>{' '}
+                <select
+                  className={`${cardStyles.buttonCard} ${cardStyles.buttonCardBig}`}
+                  onChange={e => selectEnvironment(e.target.value)}
+                  defaultValue="-"
+                >
+                  <option value="-" disabled>
+                    -
                   </option>
-                ))}
-              </select>
-            </div>
-            <div className={styles.filterGroup}>
-              <span className={styles.filterLabel}>Filtros</span>
-              <div className={styles.filters}>
-                <label htmlFor="name" className={styles.filterItem}>
-                  <span className={styles.filterName}>Nombre: </span>
-                  <input
-                    type="text"
-                    name="name"
-                    value={filters.name}
-                    className={`${styles.filterInput} ${cardStyles.buttonCard}`}
-                    onChange={e =>
-                      setFilters(f => ({ ...f, name: e.target.value }))
-                    }
-                  />
-                </label>
-                <label htmlFor="name" className={styles.filterItem}>
-                  <span className={styles.filterName}>XP {'<='} </span>
-                  <input
-                    type="number"
-                    name="name"
-                    value={filters.xp}
-                    className={`${styles.filterInput} ${cardStyles.buttonCard}`}
-                    onChange={e =>
-                      setFilters(f => ({
-                        ...f,
-                        xp: parseInt(e.target.value, 10),
-                      }))
-                    }
-                  />
-                </label>
+                  {ENVIRONMENTS.map(env => (
+                    <option
+                      className={styles.environmentButton}
+                      value={env}
+                      key={env}
+                    >
+                      {translateEnvironments(env)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className={styles.filterGroup}>
+                <span className={styles.filterLabel}>Filtros</span>
+                <div className={styles.filters}>
+                  <label htmlFor="name" className={styles.filterItem}>
+                    <span className={styles.filterName}>Nombre: </span>
+                    <input
+                      type="text"
+                      name="name"
+                      value={filters.name}
+                      className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                      onChange={e =>
+                        setFilters(f => ({ ...f, name: e.target.value }))
+                      }
+                    />
+                  </label>
+                  <label htmlFor="name" className={styles.filterItem}>
+                    <span className={styles.filterName}>XP {'<='} </span>
+                    <input
+                      type="number"
+                      name="name"
+                      value={filters.xp}
+                      className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                      onChange={e =>
+                        setFilters(f => ({
+                          ...f,
+                          xp: parseInt(e.target.value, 10),
+                        }))
+                      }
+                    />
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -164,40 +180,53 @@ function PartyInfo() {
         <div className={styles.encounterBody}>
           <div className={styles.selectedMonsters}>
             <h3 className={styles.selectedMonstersTitle}>
-              Monstruos seleccionados
-            </h3>{' '}
+              Monstruos seleccionados{' '}
+              <div className={styles.encounterStats}>
+                (
+                <span
+                  className={
+                    encounterXp > xpThreshold
+                      ? styles.encounterMetricWarning
+                      : encounterXp === xpThreshold
+                      ? styles.encounterMetricFit
+                      : styles.encounterMetric
+                  }
+                >
+                  {encounterXp} XP
+                </span>
+                ,{' '}
+                <span
+                  className={
+                    encounterChallenge > partyMaxLevel
+                      ? styles.encounterMetricWarning
+                      : encounterChallenge === partyMaxLevel
+                      ? styles.encounterMetricFit
+                      : styles.encounterMetric
+                  }
+                >
+                  CR {encounterChallenge}
+                </span>
+                )
+              </div>
+            </h3>
             {!!encounterMonsters.length && (
-              <div className={cardStyles.cards}>
-                <div className={cardStyles.card}>
-                  {groupMonsters(encounterMonsters)}
-                </div>
-                <div className={cardStyles.card}>
-                  (
-                  <span
-                    className={
-                      encounterXp > xpThreshold
-                        ? styles.encounterMetricWarning
-                        : encounterXp === xpThreshold
-                        ? styles.encounterMetricFit
-                        : styles.encounterMetric
+              <div
+                className={`${cardStyles.cards} ${styles.encounterMonsters}`}
+              >
+                {sortByXp(encounterMonsters).map((m, i) => (
+                  <div
+                    className={cardStyles.buttonCard}
+                    style={getMonsterPositionStyle(i)}
+                    onClick={() =>
+                      setEncounterMonsters(list => [
+                        ...list.slice(0, i),
+                        ...list.slice(i + 1),
+                      ])
                     }
                   >
-                    {encounterXp} XP
-                  </span>
-                  ,{' '}
-                  <span
-                    className={
-                      encounterChallenge > partyMaxLevel
-                        ? styles.encounterMetricWarning
-                        : encounterChallenge === partyMaxLevel
-                        ? styles.encounterMetricFit
-                        : styles.encounterMetric
-                    }
-                  >
-                    CR {encounterChallenge}
-                  </span>
-                  )
-                </div>
+                    {Monster(m).translation}
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -205,7 +234,13 @@ function PartyInfo() {
             <div className={styles.monsters}>
               {groupedFilteredMonsterList.map((monstersByCr, crIndex) => (
                 <div className={styles.crGroup} key={crIndex}>
-                  <div className={styles.crHeader}>
+                  <div
+                    className={
+                      !!encounterMonsters.length
+                        ? `${styles.crHeader} ${styles.crHeaderDown}`
+                        : styles.crHeader
+                    }
+                  >
                     <span className={styles.crTitle}>CR {crIndex}</span>
                     <div className={styles.crColumnHeaders}>
                       {Array.from(
