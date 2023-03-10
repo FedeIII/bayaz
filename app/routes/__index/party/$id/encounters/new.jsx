@@ -20,6 +20,7 @@ import {
   groupByCR,
   isMonsterSuitable,
   Monster,
+  sortByXp,
 } from '~/domain/encounters/monsters';
 
 import styles from '~/components/newEncounter.module.css';
@@ -63,7 +64,7 @@ function PartyInfo() {
       monsterList.filter(
         m =>
           Monster(m).translation.includes(filters.name) &&
-          (!filters.xp || Monster(m).xp < filters.xp)
+          (!filters.xp || Monster(m).xp <= filters.xp)
       )
     );
   }, [filters.name, filters.xp]);
@@ -83,118 +84,145 @@ function PartyInfo() {
       <input readOnly type="text" name="partyId" value={party.id} hidden />
       <div className={styles.newEncounter}>
         <div className={styles.encounterSidebar}>
-          <div className={styles.filterVertical}>
-            <span className={styles.filterLabel}>Dificultad:</span>{' '}
-            <div className={styles.filterOptions}>
-              {difficulties.map(difficulty => {
-                const difficultyXp = getPartyXpThreshold(pcs, difficulty);
-                return (
-                  <button
-                    type="button"
-                    className={`${cardStyles.buttonCard}`}
-                    onClick={() => setXpThreshold(difficultyXp)}
-                    key={difficulty}
-                    data-selected={xpThreshold === difficultyXp}
-                  >
-                    <span>{translateDifficulty(difficulty)}</span>
-                    <br />
-                    <span>({difficultyXp} XP)</span>
-                  </button>
-                );
-              })}
+          <div className={styles.sidebarContent}>
+            <div className={styles.filterVertical}>
+              <span className={styles.filterLabel}>Dificultad:</span>{' '}
+              <div className={styles.filterOptions}>
+                {difficulties.map(difficulty => {
+                  const difficultyXp = getPartyXpThreshold(pcs, difficulty);
+                  return (
+                    <button
+                      type="button"
+                      className={`${cardStyles.buttonCard}`}
+                      onClick={() => setXpThreshold(difficultyXp)}
+                      key={difficulty}
+                      data-selected={xpThreshold === difficultyXp}
+                    >
+                      <span>{translateDifficulty(difficulty)}</span>
+                      <br />
+                      <span>({difficultyXp} XP)</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-          <div className={styles.filter}>
-            <span className={styles.filterLabelInline}>Entorno:</span>{' '}
-            <select
-              className={`${cardStyles.buttonCard} ${cardStyles.buttonCardBig}`}
-              onChange={e => selectEnvironment(e.target.value)}
-              defaultValue="-"
-            >
-              <option value="-" disabled>
-                -
-              </option>
-              {ENVIRONMENTS.map(env => (
-                <option
-                  className={styles.environmentButton}
-                  value={env}
-                  key={env}
-                >
-                  {translateEnvironments(env)}
+            <div className={styles.filter}>
+              <span className={styles.filterLabelInline}>Entorno:</span>{' '}
+              <select
+                className={`${cardStyles.buttonCard} ${cardStyles.buttonCardBig}`}
+                onChange={e => selectEnvironment(e.target.value)}
+                defaultValue="-"
+              >
+                <option value="-" disabled>
+                  -
                 </option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.filterGroup}>
-            <span className={styles.filterLabel}>Filtros</span>
-            <div className={styles.filters}>
-              <label htmlFor="name" className={styles.filterItem}>
-                <span>Nombre: </span>
-                <input
-                  type="text"
-                  name="name"
-                  value={filters.name}
-                  className={`${styles.filterInput} ${cardStyles.buttonCard}`}
-                  onChange={e =>
-                    setFilters(f => ({ ...f, name: e.target.value }))
-                  }
-                />
-              </label>
-              <label htmlFor="name" className={styles.filterItem}>
-                <span>XP {'<'} </span>
-                <input
-                  type="number"
-                  name="name"
-                  value={filters.xp}
-                  className={`${styles.filterInput} ${cardStyles.buttonCard}`}
-                  onChange={e =>
-                    setFilters(f => ({
-                      ...f,
-                      xp: parseInt(e.target.value, 10),
-                    }))
-                  }
-                />
-              </label>
+                {ENVIRONMENTS.map(env => (
+                  <option
+                    className={styles.environmentButton}
+                    value={env}
+                    key={env}
+                  >
+                    {translateEnvironments(env)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.filterGroup}>
+              <span className={styles.filterLabel}>Filtros</span>
+              <div className={styles.filters}>
+                <label htmlFor="name" className={styles.filterItem}>
+                  <span className={styles.filterName}>Nombre: </span>
+                  <input
+                    type="text"
+                    name="name"
+                    value={filters.name}
+                    className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                    onChange={e =>
+                      setFilters(f => ({ ...f, name: e.target.value }))
+                    }
+                  />
+                </label>
+                <label htmlFor="name" className={styles.filterItem}>
+                  <span className={styles.filterName}>XP {'<='} </span>
+                  <input
+                    type="number"
+                    name="name"
+                    value={filters.xp}
+                    className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                    onChange={e =>
+                      setFilters(f => ({
+                        ...f,
+                        xp: parseInt(e.target.value, 10),
+                      }))
+                    }
+                  />
+                </label>
+              </div>
             </div>
           </div>
         </div>
         <div className={styles.encounterBody}>
-          <ul>
-            <span>Monstruos seleccionados</span> (
-            <span
-              className={
-                encounterXp > xpThreshold
-                  ? styles.encounterMetricWarning
-                  : encounterXp === xpThreshold
-                  ? styles.encounterMetricFit
-                  : styles.encounterMetric
-              }
-            >
-              {encounterXp} XP
-            </span>
-            ,{' '}
-            <span
-              className={
-                encounterChallenge > partyMaxLevel
-                  ? styles.encounterMetricWarning
-                  : encounterChallenge === partyMaxLevel
-                  ? styles.encounterMetricFit
-                  : styles.encounterMetric
-              }
-            >
-              CR {encounterChallenge}
-            </span>
-            )
-            <br />
-            {groupMonsters(encounterMonsters)}
-          </ul>
+          <div className={styles.selectedMonsters}>
+            <h3 className={styles.selectedMonstersTitle}>
+              Monstruos seleccionados
+            </h3>{' '}
+            {!!encounterMonsters.length && (
+              <div className={cardStyles.cards}>
+                <div className={cardStyles.card}>
+                  {groupMonsters(encounterMonsters)}
+                </div>
+                <div className={cardStyles.card}>
+                  (
+                  <span
+                    className={
+                      encounterXp > xpThreshold
+                        ? styles.encounterMetricWarning
+                        : encounterXp === xpThreshold
+                        ? styles.encounterMetricFit
+                        : styles.encounterMetric
+                    }
+                  >
+                    {encounterXp} XP
+                  </span>
+                  ,{' '}
+                  <span
+                    className={
+                      encounterChallenge > partyMaxLevel
+                        ? styles.encounterMetricWarning
+                        : encounterChallenge === partyMaxLevel
+                        ? styles.encounterMetricFit
+                        : styles.encounterMetric
+                    }
+                  >
+                    CR {encounterChallenge}
+                  </span>
+                  )
+                </div>
+              </div>
+            )}
+          </div>
           {!!filteredMonsterList.length && (
             <div className={styles.monsters}>
               {groupedFilteredMonsterList.map((monstersByCr, crIndex) => (
                 <div className={styles.crGroup} key={crIndex}>
-                  <span className={styles.crTitle}>CR {crIndex}</span>
+                  <div className={styles.crHeader}>
+                    <span className={styles.crTitle}>CR {crIndex}</span>
+                    <div className={styles.crColumnHeaders}>
+                      {Array.from(
+                        Array(monstersByCr.length > 1 ? 2 : 1),
+                        () => (
+                          <div className={styles.crXpCr}>
+                            <span className={styles.crXp}>XP</span>
+                            {crIndex === 0 && (
+                              <span className={styles.crCr}>CR</span>
+                            )}
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
                   <ul className={styles.crMonsters}>
-                    {monstersByCr.map(monster => (
+                    {sortByXp(monstersByCr).map(monster => (
                       <li
                         className={`${styles.monsterButton}`}
                         data-suitable={isMonsterSuitable(
@@ -207,13 +235,21 @@ function PartyInfo() {
                         }
                         key={monster.name}
                       >
-                        <span className={styles.monsterName}>
-                          {Monster(monster).translation}
-                        </span>{' '}
-                        <span className={styles.monsterStats}>
-                          ({Monster(monster).xp} XP, CR{' '}
-                          {Monster(monster).challenge})
-                        </span>
+                        <div className={styles.monsterInfo}>
+                          <span className={styles.monsterName}>
+                            {Monster(monster).translation}
+                          </span>{' '}
+                          <div className={styles.monsterStats}>
+                            <span className={styles.monsterXp}>
+                              {Monster(monster).xp}
+                            </span>
+                            {crIndex === 0 && (
+                              <span className={styles.monsterCr}>
+                                {Monster(monster).challenge}
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </li>
                     ))}
                   </ul>

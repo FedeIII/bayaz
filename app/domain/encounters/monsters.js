@@ -112,3 +112,7 @@ export function groupByCR(monsterList) {
     return groupedMonsters;
   }, []);
 }
+
+export function sortByXp(monsterList) {
+  return monsterList.sort((mA, mB) => Monster(mB).xp - Monster(mA).xp);
+}
