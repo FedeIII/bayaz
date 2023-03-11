@@ -11220,4 +11220,1385 @@ export const MONSTER_DETAILS_LIST = {
     'Magic Resistance.': '',
     'Magic Weapons.': '',
   },
+  'Adult Black Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Acid Breath (Recharge 5-6)':
+        'The dragon exhales acid in a 60-foot line that is 5 feet wide. Each creature in that line must make a DC 18 Dexterity saving throw, taking 54 (12d8) acid damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.',
+    },
+    notes: 'Huge dragon (chromatic), chaotic evil',
+    stats: {
+      str: '23',
+      dex: '14',
+      con: '21',
+      int: '14',
+      wis: '13',
+      cha: '17',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '195 (17d12 + 85)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +7, Con +10, Wis +6, Cha +8',
+    Skills: 'Perception +11, Stealth +7',
+    'Damage Immunities': 'acid',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 21',
+    Languages: 'Common, Draconic',
+    Challenge: '14 (11500 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Adult Blue Dracolich': {
+    actions: {
+      Multiattack:
+        'The dracolich can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dracolich's choice that is within 120 feet of the dracolich and aware of it must succeed on a DC 18 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dracolich's Frightful Presence for the next 24 hours.",
+      'Lightning Breath (Recharge 5–6)':
+        'The dracolich exhales lightning in a 90-foot line that is 5 feet wide. Each creature in that line must make a DC 20 Dexterity saving throw, taking 66 (12d10) lightning damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      " The dracolich can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dracolich regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dracolich makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dracolich makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dracolich beats its tattered wings. Each creature within 10 ft. of the dracolich must succeed on a DC 21 Dexterity saving throw or take 14 (2d6 + 7) bludgeoning damage and be knocked prone. After beating its wings this way, the dracolich can fly up to half its flying speed.',
+    },
+    notes: 'Huge undead, lawful evil',
+    stats: {
+      str: '25',
+      dex: '10',
+      con: '23',
+      int: '16',
+      wis: '15',
+      cha: '19',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '225 (18d12 + 108)',
+    Speed: '40 ft., burrow 30 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +6, Con +12, Wis +8, Cha +10',
+    Skills: 'Perception +14, Stealth +6',
+    'Damage Resistances': 'necrotic',
+    'Damage Immunities': 'lightning, poison',
+    'Condition Immunities':
+      'charmed, exhaustion, frightened, paralyzed, poisoned',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 24',
+    Languages: 'Common, Draconic',
+    Challenge: '17 (18000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dracolich fails a saving throw, it can choose to succeed instead.',
+    'Magic Resistance':
+      'The dracolich has advantage on saving throws against spells and other magical effects.',
+  },
+  'Adult Blue Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 17 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Lightning Breath (Recharge 5-6)':
+        'The dragon exhales lightning in a 90-foot line that is 5 feet wide. Each creature in that line must make a DC 19 Dexterity saving throw, taking 66 (12d10) lightning damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 20 Dexterity saving throw or take 14 (2d6 + 7) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.',
+    },
+    notes: 'Huge dragon (chromatic), lawful evil',
+    stats: {
+      str: '25',
+      dex: '10',
+      con: '23',
+      int: '16',
+      wis: '15',
+      cha: '19',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '225 (18d12 + 108)',
+    Speed: '40 ft., burrow 30 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +5, Con +11, Wis +7, Cha +9',
+    Skills: 'Perception +12, Stealth +5',
+    'Damage Immunities': 'lightning',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 22',
+    Languages: 'Common, Draconic',
+    Challenge: '16 (15000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Adult Brass Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Fire Breath':
+        'The dragon exhales fire in an 60-foot line that is 5 feet wide. Each creature in that line must make a DC 18 Dexterity saving throw, taking 45 (13d6) fire damage on a failed save, or half as much damage on a successful one.',
+      'Sleep Breath':
+        'The dragon exhales sleep gas in a 60-foot cone. Each creature in that area must succeed on a DC 18 Constitution saving throw or fall unconscious for 10 minutes. This effect ends for a creature if the creature takes damage or someone uses an action to wake it.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Huge dragon (metallic), chaotic good',
+    stats: {
+      str: '23',
+      dex: '10',
+      con: '21',
+      int: '14',
+      wis: '13',
+      cha: '17',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '172 (15d12 + 75)',
+    Speed: '40 ft., burrow 30 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +5, Con +10, Wis +6, Cha +8',
+    Skills: 'History +7, Perception +11, Persuasion +8, Stealth +5',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 21',
+    Languages: 'Common, Draconic',
+    Challenge: '13 (10000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Adult Bronze Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 17 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Lightning Breath':
+        'The dragon exhales lightning in a 90-foot line that is 5 feet wide. Each creature in that line must make a DC 19 Dexterity saving throw, taking 66 (12d10) lightning damage on a failed save, or half as much damage on a successful one.',
+      'Repulsion Breath':
+        'The dragon exhales repulsion energy in a 30-foot cone. Each creature in that area must succeed on a DC 19 Strength saving throw. On a failed save, the creature is pushed 60 feet away from the dragon.',
+      'Change Shape':
+        "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice). In a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 20 Dexterity saving throw or take 14 (2d6 + 7) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.',
+    },
+    notes: 'Huge dragon (metallic), lawful good',
+    stats: {
+      str: '25',
+      dex: '10',
+      con: '23',
+      int: '16',
+      wis: '15',
+      cha: '19',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '212 (17d12 + 102)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +5, Con +11, Wis +7, Cha +9',
+    Skills: 'Insight +7, Perception +12, Stealth +5',
+    'Damage Immunities': 'lightning',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 22',
+    Languages: 'Common, Draconic',
+    Challenge: '15 (13000 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Adult Copper Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Acid Breath':
+        'The dragon exhales acid in an 60-foot line that is 5 feet wide. Each creature in that line must make a DC 18 Dexterity saving throw, taking 54 (12d8) acid damage on a failed save, or half as much damage on a successful one.',
+      'Slowing Breath':
+        "The dragon exhales gas in a 60-foot cone. Each creature in that area must succeed on a DC 18 Constitution saving throw. On a failed save, the creature can't use reactions, its speed is halved, and it can't make more than one attack on its turn. In addition, the creature can use either an action or a bonus action on its turn, but not both. These effects last for 1 minute. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself with a successful save.",
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Huge dragon (metallic), chaotic good',
+    stats: {
+      str: '23',
+      dex: '12',
+      con: '21',
+      int: '18',
+      wis: '15',
+      cha: '17',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '184 (16d12 + 80)',
+    Speed: '40 ft., climb 40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +6, Con +10, Wis +7, Cha +8',
+    Skills: 'Deception +8, Perception +12, Stealth +6',
+    'Damage Immunities': 'acid',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 22',
+    Languages: 'Common, Draconic',
+    Challenge: '14 (11500 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Adult Gold Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Fire Breath':
+        'The dragon exhales fire in a 60-foot cone. Each creature in that area must make a DC 21 Dexterity saving throw, taking 66 (12d10) fire damage on a failed save, or half as much damage on a successful one.',
+      'Weakening Breath':
+        'The dragon exhales gas in a 60-foot cone. Each creature in that area must succeed on a DC 21 Strength saving throw or have disadvantage on Strength-based attack rolls, Strength checks, and Strength saving throws for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.',
+      'Change Shape':
+        "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice). In a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 22 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Huge dragon (metallic), lawful good',
+    stats: {
+      str: '27',
+      dex: '14',
+      con: '25',
+      int: '16',
+      wis: '15',
+      cha: '24',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '256 (19d12 + 133)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +8, Con +13, Wis +8, Cha +13',
+    Skills: 'Insight +8, Perception +14, Persuasion +13, Stealth +8',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 24',
+    Languages: 'Common, Draconic',
+    Challenge: '17 (18000 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Adult Green Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Poison Breath (Recharge 5-6)':
+        'The dragon exhales poisonous gas in a 60-foot cone. Each creature in that area must make a DC 18 Constitution saving throw, taking 56 (16d6) poison damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.',
+    },
+    notes: 'Huge dragon (chromatic), lawful evil',
+    stats: {
+      str: '23',
+      dex: '12',
+      con: '21',
+      int: '18',
+      wis: '15',
+      cha: '17',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '207 (18d12 + 90)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +6, Con +10, Wis +7, Cha +8',
+    Skills:
+      'Deception +8, Insight +7, Perception +12, Persuasion +8, Stealth +6',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 22',
+    Languages: 'Common, Draconic',
+    Challenge: '15 (13000 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Adult Red Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 19 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Fire Breath (Recharge 5-6)':
+        'The dragon exhales fire in a 60-foot cone. Each creature in that area must make a DC 21 Dexterity saving throw, taking 63 (18d6) fire damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 22 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.',
+    },
+    notes: 'Huge dragon (chromatic), chaotic evil',
+    stats: {
+      str: '27',
+      dex: '10',
+      con: '25',
+      int: '16',
+      wis: '13',
+      cha: '21',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '256 (19d12 + 133)',
+    Speed: '40 ft., climb 40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +6, Con +13, Wis +7, Cha +11',
+    Skills: 'Perception +13, Stealth +6',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 23',
+    Languages: 'Common, Draconic',
+    Challenge: '17 (18000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Adult Silver Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 18 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Cold Breath':
+        'The dragon exhales an icy blast in a 60-foot cone. Each creature in that area must make a DC 20 Constitution saving throw, taking 58 (13d8) cold damage on a failed save, or half as much damage on a successful one.',
+      'Paralyzing Breath':
+        'The dragon exhales paralyzing gas in a 60-foot cone. Each creature in that area must succeed on a DC 20 Constitution saving throw or be paralyzed for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.',
+      'Change Shape':
+        "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice). In a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 21 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Huge dragon (metallic), lawful good',
+    stats: {
+      str: '27',
+      dex: '10',
+      con: '25',
+      int: '16',
+      wis: '13',
+      cha: '21',
+    },
+    'Armor Class': '19 (natural armor)',
+    'Hit Points': '243 (18d12 + 126)',
+    Speed: '40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +5, Con +12, Wis +6, Cha +10',
+    Skills: 'Arcana +8, History +8, Perception +11, Stealth +5',
+    'Damage Immunities': 'cold',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 21',
+    Languages: 'Common, Draconic',
+    Challenge: '16 (15000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Adult White Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 14 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Cold Breath (Recharge 5-6)':
+        'The dragon exhales an icy blast in a 60-foot cone. Each creature in that area must make a DC 19 Constitution saving throw, taking 54 (12d8) cold damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 10 feet of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.',
+    },
+    notes: 'Huge dragon (chromatic), chaotic evil',
+    stats: {
+      str: '22',
+      dex: '10',
+      con: '22',
+      int: '8',
+      wis: '12',
+      cha: '12',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '200 (16d12 + 96)',
+    Speed: '40 ft., burrow 30 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +5, Con +11, Wis +6, Cha +6',
+    Skills: 'Perception +11, Stealth +5',
+    'Damage Immunities': 'cold',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 21',
+    Languages: 'Common, Draconic',
+    Challenge: '13 (10000 XP)',
+    'Ice Walk':
+      "The dragon can move across and climb icy surfaces without needing to make an ability check. Additionally, difficult terrain composed of ice or snow doesn't cost it extra moment.",
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient Black Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 19 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Acid Breath (Recharge 5-6)':
+        'The dragon exhales acid in a 90-foot line that is 10 feet wide. Each creature in that line must make a DC 22 Dexterity saving throw, taking 67 (15d8) acid damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 23 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Gargantuan dragon (chromatic), chaotic evil',
+    stats: {
+      str: '27',
+      dex: '14',
+      con: '25',
+      int: '16',
+      wis: '15',
+      cha: '19',
+    },
+    'Armor Class': '22 (natural armor)',
+    'Hit Points': '367 (21d20 + 147)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +9, Con +14, Wis +9, Cha +11',
+    Skills: 'Perception +16, Stealth +9',
+    'Damage Immunities': 'acid',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 26',
+    Languages: 'Common, Draconic',
+    Challenge: '21 (33000 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient Blue Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 20 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Lightning Breath (Recharge 5-6)':
+        'The dragon exhales lightning in a 120-foot line that is 10 feet wide. Each creature in that line must make a DC 23 Dexterity saving throw, taking 88 (16d10) lightning damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 24 Dexterity saving throw or take 16 (2d6 + 9) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Gargantuan dragon (chromatic), lawful evil',
+    stats: {
+      str: '29',
+      dex: '10',
+      con: '27',
+      int: '18',
+      wis: '17',
+      cha: '21',
+    },
+    'Armor Class': '22 (natural armor)',
+    'Hit Points': '481 (26d20 + 208)',
+    Speed: '40 ft., burrow 40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +7, Con +15, Wis +10, Cha +12',
+    Skills: 'Perception +17, Stealth +7',
+    'Damage Immunities': 'lightning',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 27',
+    Languages: 'Common, Draconic',
+    Challenge: '23 (50000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient Brass Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 18 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons:',
+      'Fire Breath':
+        'The dragon exhales fire in an 90-foot line that is 10 feet wide. Each creature in that line must make a DC 21 Dexterity saving throw, taking 56 (16d6) fire damage on a failed save, or half as much damage on a successful one.',
+      'Sleep Breath':
+        'The dragon exhales sleep gas in a 90-foot cone. Each creature in that area must succeed on a DC 21 Constitution saving throw or fall unconscious for 10 minutes. This effect ends for a creature if the creature takes damage or someone uses an action to wake it.',
+      'Change Shape':
+        "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice). In a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 22 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Gargantuan dragon (metallic), chaotic good',
+    stats: {
+      str: '27',
+      dex: '10',
+      con: '25',
+      int: '16',
+      wis: '15',
+      cha: '19',
+    },
+    'Armor Class': '20 (natural armor)',
+    'Hit Points': '297 (17d20 + 119)',
+    Speed: '40 ft., burrow 40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +6, Con +13, Wis +8, Cha +10',
+    Skills: 'History +9, Perception +14, Persuasion +10, Stealth +6',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 24',
+    Languages: 'Common, Draconic',
+    Challenge: '20 (25000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient Bronze Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 20 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Lightning Breath':
+        'The dragon exhales lightning in a 120-foot line that is 10 feet wide. Each creature in that line must make a DC 23 Dexterity saving throw, taking 88 (16d10) lightning damage on a failed save, or half as much damage on a successful one.',
+      'Repulsion Breath':
+        'The dragon exhales repulsion energy in a 30-foot cone. Each creature in that area must succeed on a DC 23 Strength saving throw. On a failed save, the creature is pushed 60 feet away from the dragon.',
+      'Change Shape':
+        "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice). In a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 24 Dexterity saving throw or take 16 (2d6 + 9) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Gargantuan dragon (metallic), lawful good',
+    stats: {
+      str: '29',
+      dex: '10',
+      con: '27',
+      int: '18',
+      wis: '17',
+      cha: '21',
+    },
+    'Armor Class': '22 (natural armor)',
+    'Hit Points': '444 (24d20 + 192)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +7, Con +15, Wis +10, Cha +12',
+    Skills: 'Insight +10, Perception +17, Stealth +7',
+    'Damage Immunities': 'lightning',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 27',
+    Languages: 'Common, Draconic',
+    Challenge: '22 (41000 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient Copper Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 19 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Acid Breath':
+        'The dragon exhales acid in an 90-foot line that is 10 feet wide. Each creature in that line must make a DC 22 Dexterity saving throw, taking 63 (14d8) acid damage on a failed save, or half as much damage on a successful one.',
+      'Slowing Breath':
+        "The dragon exhales gas in a 90-foot cone. Each creature in that area must succeed on a DC 22 Constitution saving throw. On a failed save, the creature can't use reactions, its speed is halved, and it can't make more than one attack on its turn. In addition, the creature can use either an action or a bonus action on its turn, but not both. These effects last for 1 minute. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself with a successful save.",
+      'Change Shape':
+        "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice). In a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 23 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Gargantuan dragon (metallic), chaotic good',
+    stats: {
+      str: '27',
+      dex: '12',
+      con: '25',
+      int: '20',
+      wis: '17',
+      cha: '19',
+    },
+    'Armor Class': '21 (natural armor)',
+    'Hit Points': '350 (20d20 + 140)',
+    Speed: '40 ft., climb 40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +8, Con +14, Wis +10, Cha +11',
+    Skills: 'Deception +11, Perception +17, Stealth +8',
+    'Damage Immunities': 'acid',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 27',
+    Languages: 'Common, Draconic',
+    Challenge: '21 (33000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient Gold Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 24 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Fire Breath':
+        'The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 71 (13d10) fire damage on a failed save, or half as much damage on a successful one.',
+      'Weakening Breath':
+        'The dragon exhales gas in a 90-foot cone. Each creature in that area must succeed on a DC 24 Strength saving throw or have disadvantage on Strength-based attack rolls, Strength checks, and Strength saving throws for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.',
+      'Change Shape':
+        "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice). In a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Gargantuan dragon (metallic), lawful good',
+    stats: {
+      str: '30',
+      dex: '14',
+      con: '29',
+      int: '18',
+      wis: '17',
+      cha: '28',
+    },
+    'Armor Class': '22 (natural armor)',
+    'Hit Points': '546 (28d20 + 252)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +9, Con +16, Wis +10, Cha +16',
+    Skills: 'Insight +10, Perception +17, Persuasion +16, Stealth +9',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 27',
+    Languages: 'Common, Draconic',
+    Challenge: '24 (62000 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient Green Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 19 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Poison Breath (Recharge 5-6)':
+        'The dragon exhales poisonous gas in a 90-foot cone. Each creature in that area must make a DC 22 Constitution saving throw, taking 77 (22d6) poison damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 23 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Gargantuan dragon (chromatic), lawful evil',
+    stats: {
+      str: '27',
+      dex: '12',
+      con: '25',
+      int: '20',
+      wis: '17',
+      cha: '19',
+    },
+    'Armor Class': '21 (natural armor)',
+    'Hit Points': '385 (22d20 + 154)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +8, Con +14, Wis +10, Cha +11',
+    Skills:
+      'Deception +11, Insight +10, Perception +17, Persuasion +11, Stealth +8',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 27',
+    Languages: 'Common, Draconic',
+    Challenge: '22 (41000 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient Red Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: 'Melee Weopon Attack: +17 to hit, reach 15 ft., one target. ',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Fire Breath (Recharge 5-6)':
+        'The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 91 (26d6) fire damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.',
+    },
+    notes: 'Gargantuan dragon (chromatic), chaotic evil',
+    stats: {
+      str: '30',
+      dex: '10',
+      con: '29',
+      int: '18',
+      wis: '15',
+      cha: '23',
+    },
+    'Armor Class': '22 (natural armor)',
+    'Hit Points': '546 (28d20 + 252)',
+    Speed: '40 ft., climb 40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +7, Con +16, Wis +9, Cha +13',
+    Skills: 'Perception +16, Stealth +7',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 26',
+    Languages: 'Common, Draconic',
+    Challenge: '24 (62000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient Silver Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Cold Breath':
+        'The dragon exhales an icy blast in a 90-foot cone. Each creature in that area must make a DC 24 Constitution saving throw, taking 67 (15d8) cold damage on a failed save, or half as much damage on a successful one.',
+      'Paralyzing Breath':
+        'The dragon exhales paralyzing gas in a 90-foot cone. Each creature in that area must succeed on a DC 24 Constitution saving throw or be paralyzed for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.',
+      'Change Shape':
+        "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice). In a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Gargantuan dragon (metallic), lawful good',
+    stats: {
+      str: '30',
+      dex: '10',
+      con: '29',
+      int: '18',
+      wis: '15',
+      cha: '23',
+    },
+    'Armor Class': '22 (natural armor)',
+    'Hit Points': '487 (25d20 + 225)',
+    Speed: '40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +7, Con +16, Wis +9, Cha +13',
+    Skills: 'Arcana +11, History +11, Perception +16, Stealth +7',
+    'Damage Immunities': 'cold',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 26',
+    Languages: 'Common, Draconic',
+    Challenge: '23 (50000 XP)',
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Ancient White Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      Tail: '',
+      'Frightful Presence':
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+      'Cold Breath (Recharge 5-6)':
+        'The dragon exhales an icy blast in a 90-foot cone. Each creature in that area must make a DC 22 Constitution saving throw, taking 72 (16d8) cold damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {
+      "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.":
+        '',
+      Detect: 'The dragon makes a Wisdom (Perception) check.',
+      'Tail Attack': 'The dragon makes a tail attack.',
+      'Wing Attack (Costs 2 Actions)':
+        'The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 22 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying Speed.',
+    },
+    notes: 'Gargantuan dragon (chromatic), chaotic evil',
+    stats: {
+      str: '26',
+      dex: '10',
+      con: '26',
+      int: '10',
+      wis: '13',
+      cha: '14',
+    },
+    'Armor Class': '20 (natural armor)',
+    'Hit Points': '333 (18d20 + 144)',
+    Speed: '40 ft., burrow 40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +6, Con +14, Wis +7, Cha +8',
+    Skills: 'Perception +13, Stealth +6',
+    'Damage Immunities': 'cold',
+    Senses: 'blindsight 60 ft., darkvision 120 ft., passive Perception 23',
+    Languages: 'Common, Draconic',
+    Challenge: '20 (25000 XP)',
+    'Ice Walk':
+      "The dragon can move across and climb icy surfaces without needing to make an ability check. Additionally, difficult terrain composed of ice or snow doesn't cost it extra moment.",
+    'Legendary Resistance (3/Day)':
+      'If the dragon fails a saving throw, it can choose to succeed instead.',
+  },
+  'Lizard King/Queen': {
+    actions: {
+      Multiattack:
+        'The lizardfolk makes two attacks: one with its bite and one with its claws or trident or two melee attacks with its trident.',
+      Bite: '',
+      Claws: '',
+      Trident: '',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (lizardfolk), chaotic evil',
+    stats: {
+      str: '17',
+      dex: '12',
+      con: '15',
+      int: '11',
+      wis: '11',
+      cha: '15',
+    },
+    'Armor Class': '15 (natural armor)',
+    'Hit Points': '78 (12d8 + 24)',
+    Speed: '30 ft., swim 30 ft.',
+    'Saving Throws': 'Con +4, Wis +2',
+    Skills: 'Perception +4, Stealth +5, Survival +4',
+    'Condition Immunities': 'frightened',
+    Senses: 'darkvision 60 ft., passive Perception 14',
+    Languages: 'Abyssal, Draconic',
+    Challenge: '4 (1100 XP)',
+    'Hold Breath': 'The lizardfolk can hold its breath for 15 minutes.',
+    Skewer:
+      'Once per turn, when the lizardfolk makes a melee attack with its trident and hits, the target takes an extra 10 (3d6) damage, and the lizardfolk gains temporary hit points equal to the extra damage dealt.',
+  },
+  'Young Black Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Acid Breath (Recharge 5-6)':
+        'The dragon exhales acid in a 30-foot line that is 5 feet wide. Each creature in that line must make a DC 14 Dexterity saving throw, taking 49 (11d8) acid damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (chromatic), chaotic evil',
+    stats: {
+      str: '19',
+      dex: '14',
+      con: '17',
+      int: '12',
+      wis: '11',
+      cha: '15',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '127 (15d10 + 45)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +5, Con +6, Wis +3, Cha +5',
+    Skills: 'Perception +6, Stealth +5',
+    'Damage Immunities': 'acid',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 16',
+    Languages: 'Common, Draconic',
+    Challenge: '7 (2900 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+  },
+  'Young Blue Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Lightning Breath (Recharge 5-6)':
+        'The dragon exhales lightning in an 60-foot line that is 5 feet wide. Each creature in that line must make a DC 16 Dexterity saving throw, taking 55 (10d10) lightning damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (chromatic), lawful evil',
+    stats: {
+      str: '21',
+      dex: '10',
+      con: '19',
+      int: '14',
+      wis: '13',
+      cha: '17',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '152 (16d10 + 64)',
+    Speed: '40 ft., burrow 20 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +4, Con +8, Wis +5, Cha +7',
+    Skills: 'Perception +9, Stealth +4',
+    'Damage Immunities': 'lightning',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 19',
+    Languages: 'Common, Draconic',
+    Challenge: '9 (5000 XP)',
+  },
+  'Young Brass Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Fire Breath':
+        'The dragon exhales fire in a 40-foot line that is 5 feet wide. Each creature in that line must make a DC 14 Dexterity saving throw, taking 42 (12d6) fire damage on a failed save, or half as much damage on a successful one.',
+      'Sleep Breath':
+        'The dragon exhales sleep gas in a 30-foot cone. Each creature in that area must succeed on a DC 14 Constitution saving throw or fall unconscious for 5 minutes. This effect ends for a creature if the creature takes damage or someone uses an action to wake it.',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (metallic), chaotic good',
+    stats: {
+      str: '19',
+      dex: '10',
+      con: '17',
+      int: '12',
+      wis: '11',
+      cha: '15',
+    },
+    'Armor Class': '17 (natural armor)',
+    'Hit Points': '110 (13d10 + 39)',
+    Speed: '40 ft., burrow 20 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +3, Con +6, Wis +3, Cha +5',
+    Skills: 'Perception +6, Persuasion +5, Stealth +3',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 16',
+    Languages: 'Common, Draconic',
+    Challenge: '6 (2300 XP)',
+  },
+  'Young Bronze Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Lightning Breath':
+        'The dragon exhales lightning in a 60-foot line that is 5 feet wide. Each creature in that line must make a DC 15 Dexterity saving throw, taking 55 (10d10) lightning damage on a failed save, or half as much damage on a successful one.',
+      'Repulsion Breath':
+        'The dragon exhales repulsion energy in a 30-foot cone. Each creature in that area must succeed on a DC 15 Strength saving throw. On a failed save, the creature is pushed 40 feet away from the dragon.',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (metallic), lawful good',
+    stats: {
+      str: '21',
+      dex: '10',
+      con: '19',
+      int: '14',
+      wis: '13',
+      cha: '17',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '142 (15d10 + 60)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +3, Con +7, Wis +4, Cha +6',
+    Skills: 'Insight +4, Perception +7, Stealth +3',
+    'Damage Immunities': 'lightning',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 17',
+    Languages: 'Common, Draconic',
+    Challenge: '8 (3900 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+  },
+  'Young Copper Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Acid Breath':
+        'The dragon exhales acid in an 40-foot line that is 5 feet wide. Each creature in that line must make a DC 14 Dexterity saving throw, taking 40 (9d8) acid damage on a failed save, or half as much damage on a successful one.',
+      'Slowing Breath':
+        "The dragon exhales gas in a 30-foot cone. Each creature in that area must succeed on a DC 14 Constitution saving throw. On a failed save, the creature can't use reactions, its speed is halved, and it can't make more than one attack on its turn. In addition, the creature can use either an action or a bonus action on its turn, but not both. These effects last for 1 minute. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself with a successful save.",
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (metallic), chaotic good',
+    stats: {
+      str: '19',
+      dex: '12',
+      con: '17',
+      int: '16',
+      wis: '13',
+      cha: '15',
+    },
+    'Armor Class': '17 (natural armor)',
+    'Hit Points': '119 (14d10 + 42)',
+    Speed: '40 ft., climb 40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +4, Con +6, Wis +4, Cha +5',
+    Skills: 'Deception +5, Perception +7, Stealth +4',
+    'Damage Immunities': 'acid',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 17',
+    Languages: 'Common, Draconic',
+    Challenge: '7 (2900 XP)',
+  },
+  'Young Gold Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Fire Breath':
+        'The dragon exhales fire in a 30-foot cone. Each creature in that area must make a DC 17 Dexterity saving throw, taking 55 (10d10) fire damage on a failed save, or half as much damage on a successful one.',
+      'Weakening Breath':
+        'The dragon exhales gas in a 30-foot cone. Each creature in that area must succeed on a DC 17 Strength saving throw or have disadvantage on Strength-based attack rolls, Strength checks, and Strength saving throws for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (metallic), lawful good',
+    stats: {
+      str: '23',
+      dex: '14',
+      con: '21',
+      int: '16',
+      wis: '13',
+      cha: '20',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '178 (17d10 + 85)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +6, Con +9, Wis +5, Cha +9',
+    Skills: 'Insight +5, Perception +9, Persuasion +9, Stealth +6',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 19',
+    Languages: 'Common, Draconic',
+    Challenge: '10 (5900 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+  },
+  'Young Green Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Poison Breath (Recharge 5-6)':
+        'The dragon exhales poisonous gas in a 30-foot cone. Each creature in that area must make a DC 14 Constitution saving throw, taking 42 (12d6) poison damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (chromatic), lawful evil',
+    stats: {
+      str: '19',
+      dex: '12',
+      con: '17',
+      int: '16',
+      wis: '13',
+      cha: '15',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '136 (16d10 + 48)',
+    Speed: '40 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +4, Con +6, Wis +4, Cha +5',
+    Skills: 'Deception +5, Perception +7, Stealth +4',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 17',
+    Languages: 'Common, Draconic',
+    Challenge: '8 (3900 XP)',
+    Amphibious: 'The dragon can breathe air and water.',
+  },
+  'Young Red Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Fire Breath (Recharge 5-6)':
+        'The dragon exhales fire in a 30-foot cone. Each creature in that area must make a DC 17 Dexterity saving throw, taking 56 (16d6) fire damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (chromatic), chaotic evil',
+    stats: {
+      str: '23',
+      dex: '10',
+      con: '21',
+      int: '14',
+      wis: '11',
+      cha: '19',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '178 (17d10 + 85)',
+    Speed: '40 ft., climb 40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +4, Con +9, Wis +4, Cha +8',
+    Skills: 'Perception +8, Stealth +4',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 18',
+    Languages: 'Common, Draconic',
+    Challenge: '10 (5900 XP)',
+  },
+  'Young Red Shadow Dragon': {
+    actions: {
+      'Multiattack.': '',
+      'Bite.': '',
+      'Claw.': '',
+      'Shadow Breath (Recharge 5–6).': '',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon, chaotic evil',
+    stats: {
+      str: '23',
+      dex: '10',
+      con: '21',
+      int: '14',
+      wis: '11',
+      cha: '19',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '178 (17d10 + 85)',
+    Speed: '40 ft., climb 40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +4, Con +9, Wis +4, Cha +8',
+    Skills: 'Perception +8, Stealth +8',
+    'Damage Resistances': 'necrotic',
+    'Damage Immunities': 'fire',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 18',
+    Languages: 'Common, Draconic',
+    Challenge: '13 (10000 XP)',
+    'Living Shadow.': '',
+    'Shadow Stealth.': '',
+    'Sunlight Sensitivity.': '',
+  },
+  'Young Silver Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Breath Weapons (Recharge 5-6)':
+        'The dragon uses one of the following breath weapons.',
+      'Cold Breath':
+        'The dragon exhales an icy blast in a 30-foot cone. Each creature in that area must make a DC 17 Constitution saving throw, taking 54 (12d8) cold damage on a failed save, or half as much damage on a successful one.',
+      'Paralyzing Breath':
+        'The dragon exhales paralyzing gas in a 30-foot cone. Each creature in that area must succeed on a DC 17 Constitution saving throw or be paralyzed for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (metallic), lawful good',
+    stats: {
+      str: '23',
+      dex: '10',
+      con: '21',
+      int: '14',
+      wis: '11',
+      cha: '19',
+    },
+    'Armor Class': '18 (natural armor)',
+    'Hit Points': '168 (16d10 + 80)',
+    Speed: '40 ft., fly 80 ft.',
+    'Saving Throws': 'Dex +4, Con +9, Wis +4, Cha +8',
+    Skills: 'Arcana +6, History +6, Perception +8, Stealth +4',
+    'Damage Immunities': 'cold',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 18',
+    Languages: 'Common, Draconic',
+    Challenge: '9 (5000 XP)',
+  },
+  'Young White Dragon': {
+    actions: {
+      Multiattack:
+        'The dragon makes three attacks: one with its bite and two with its claws.',
+      Bite: '',
+      Claw: '',
+      'Cold Breath (Recharge 5-6)':
+        'The dragon exhales an icy blast in a 30-foot cone. Each creature in that area must make a DC 15 Constitution saving throw, taking 45 (10d8) cold damage on a failed save, or half as much damage on a successful one.',
+    },
+    legendaryActions: {},
+    notes: 'Large dragon (chromatic), chaotic evil',
+    stats: {
+      str: '18',
+      dex: '10',
+      con: '18',
+      int: '6',
+      wis: '11',
+      cha: '12',
+    },
+    'Armor Class': '17 (natural armor)',
+    'Hit Points': '133 (14d10 + 56)',
+    Speed: '40 ft., burrow 20 ft., fly 80 ft., swim 40 ft.',
+    'Saving Throws': 'Dex +3, Con +7, Wis +3, Cha +4',
+    Skills: 'Perception +6, Stealth +3',
+    'Damage Immunities': 'cold',
+    Senses: 'blindsight 30 ft., darkvision 120 ft., passive Perception 16',
+    Languages: 'Common, Draconic',
+    Challenge: '6 (2300 XP)',
+    'Ice Walk':
+      "The dragon can move across and climb icy surfaces without needing to make an ability check. Additionally, difficult terrain composed of ice or snow doesn't cost it extra moment.",
+  },
+  "Will-o'-Wisp": {
+    actions: {
+      Shock: '',
+      Invisibility:
+        "The will-o'-wisp and its light magically become invisible until it attacks or uses its Consume Life, or until its concentration ends (as if concentrating on a spell).",
+    },
+    legendaryActions: {},
+    notes: 'Tiny undead, chaotic evil',
+    stats: {
+      str: '1',
+      dex: '28',
+      con: '10',
+      int: '13',
+      wis: '14',
+      cha: '11',
+    },
+    'Armor Class': '19',
+    'Hit Points': '22 (9d4)',
+    Speed: '0 ft., fly 50 ft. (hover)',
+    'Damage Immunities': 'lightning, poison',
+    'Damage Resistances':
+      'acid, cold, fire, necrotic, thunder; bludgeoning, piercing, and slashing from nonmagical attacks',
+    'Condition Immunities':
+      'exhaustion, grappled, paralyzed, poisoned, prone, restrained, unconscious',
+    Senses: 'darkvision 120 ft., passive Perception 12',
+    Languages: 'the languages it knew in life',
+    Challenge: '2 (450 XP)',
+    'Consume Life':
+      "As a bonus action, the will-o'-wisp can target one creature it can see within 5 feet of it that has 0 hit points and is still alive. The target must succeed on a DC 10 Constitution saving throw against this magic or die. If the target dies, the will-o'-wisp regains 10 (3d6) hit points.",
+    Ephemeral: "The will-o'-wisp can't wear or carry anything.",
+    'Incorporeal Movement':
+      "The will-o'-wisp can move through other creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage if it ends its turn inside an object.",
+    'Variable Illumination':
+      "The will-o'-wisp sheds bright light in a 5-to 20-foot radius and dim light for an additional number of feet equal to the chosen radius. The will-o'-wisp can alter the radius as a bonus action.",
+  },
+  'Deep Gnome (Svirfneblin)': {
+    actions: {
+      'War Pick': '',
+      'Poisoned Dart': '',
+    },
+    legendaryActions: {},
+    notes: 'Small humanoid (gnome), neutral good',
+    stats: {
+      str: '15',
+      dex: '14',
+      con: '14',
+      int: '12',
+      wis: '10',
+      cha: '9',
+    },
+    'Armor Class': '15 (chain shirt)',
+    'Hit Points': '16 (3d6 + 6)',
+    Speed: '20 ft.',
+    Skills: 'Investigation +3, Perception +2, Stealth +4',
+    Senses: 'darkvision 120 ft., passive Perception 12',
+    Languages: 'Gnomish, Terran, Undercommon',
+    Challenge: '1/2 (100 XP)',
+    'Stone Camouflage':
+      'The gnome has advantage on Dexterity (Stealth) checks made to hide in rocky terrain.',
+    'Gnome Cunning':
+      'The gnome has advantage on Intelligence, Wisdom, and Charisma saving throws against magic.',
+    'Innate Spellcasting':
+      "The gnome's innate spellcasting ability is Intelligence (spell save DC 11). It can innately cast the following spells, requiring no material components:",
+  },
 };

@@ -53,5 +53,6 @@ npx prisma migrate dev
 
 ## TO DOs
 
+- no env monsters without details and/or translations
 - Some class skills can be piled up if you go back and forth in the browser navigation
 - Conditions for equiped items

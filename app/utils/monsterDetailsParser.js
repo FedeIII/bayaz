@@ -93,7 +93,6 @@
     'Flameskull',
     'Gnoll Fang of Yeenoghu',
     'Helmed Horror',
-    'Incubus',
     'Lizard King/Queen',
     'Orc War Chief',
     'Shadow Demon',

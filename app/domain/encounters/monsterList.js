@@ -462,10 +462,10 @@ export const MONSTERS = {
       Jungle: 'yes',
     },
   },
-  Svirfneblin: {
+  'Deep Gnome (Svirfneblin)': {
     tags: 'gnome',
     type: 'Humanoid',
-    name: 'Svirfneblin',
+    name: 'Deep Gnome (Svirfneblin)',
     challenge: '1/2',
     size: 'Small',
     page: 'mm 164',
@@ -7459,8 +7459,8 @@ export const MONSTERS = {
     size: 'Medium',
     challenge: '4',
   },
-  'Will-o-wisp': {
-    name: 'Will-o-wisp',
+  "Will-o'-wisp": {
+    name: "Will-o'-wisp",
     challenge: '2',
     size: 'Tiny',
     type: 'Undead',
@@ -7892,19 +7892,6 @@ export const MONSTERS = {
     xp: '2900',
     alignment: 'NE',
     page: 'mm 308',
-  },
-  Incubus: {
-    page: 'mm 285',
-    alignment: 'NE',
-    environment: {
-      Urban: 'yes',
-    },
-    xp: '1100',
-    tags: 'shapechanger',
-    type: 'Fiend',
-    name: 'Incubus',
-    challenge: '4',
-    size: 'Medium',
   },
   Flameskull: {
     page: 'mm 134',

@@ -4,10 +4,12 @@ import { MONSTERS } from './monsterList';
 import { translateMonster } from './monsterTranslations';
 
 export function Monster(monster) {
+  if (isString(monster)) monster = getMonster(monster);
   return {
     xp: parseInt(monster.xp, 10),
     challenge: getMonsterChallenge(monster),
     translation: translateMonster(monster.name),
+    size: monster.size,
   };
 }
 
@@ -82,6 +84,7 @@ export function getMonsterImage(monsterName) {
 }
 
 export function getMonstersFromEnvironment(env) {
+  if (!env) return Object.values(MONSTERS);
   return Object.values(MONSTERS).filter(
     m => m.environment?.[env] === 'yes' && m.page.includes('mm')
   );
@@ -115,4 +118,33 @@ export function groupByCR(monsterList) {
 
 export function sortByXp(monsterList) {
   return monsterList.sort((mA, mB) => Monster(mB).xp - Monster(mA).xp);
+}
+
+export const MONSTER_SIZES = [
+  'Tiny',
+  'Small',
+  'Medium',
+  'Large',
+  'Huge',
+  'Gargantuan',
+];
+
+export function translateSize(size) {
+  switch (size) {
+    case 'Tiny':
+      return 'Diminuto';
+    case 'Small':
+      return 'Pequeño';
+    case 'Medium':
+      return 'Mediano';
+    case 'Large':
+      return 'Grande';
+    case 'Huge':
+      return 'Enorme';
+    case 'Gargantuan':
+      return 'Gigantesco';
+
+    default:
+      'unknown size';
+  }
 }

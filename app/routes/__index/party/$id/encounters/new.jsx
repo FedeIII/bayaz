@@ -20,7 +20,9 @@ import {
   groupByCR,
   isMonsterSuitable,
   Monster,
+  MONSTER_SIZES,
   sortByXp,
+  translateSize,
 } from '~/domain/encounters/monsters';
 
 import styles from '~/components/newEncounter.module.css';
@@ -57,17 +59,21 @@ function PartyInfo() {
   const [monsterList, setMonsterList] = useState([]);
   const [filteredMonsterList, setFilteredMonsterList] = useState([]);
   const [encounterMonsters, setEncounterMonsters] = useState([]);
-  const [filters, setFilters] = useState({ name: '', xp: 0 });
+  const [filters, setFilters] = useState({ name: '', xp: 0, cr: 0, size: '' });
 
   useEffect(() => {
     setFilteredMonsterList(
       monsterList.filter(
         m =>
-          Monster(m).translation.includes(filters.name) &&
-          (!filters.xp || Monster(m).xp <= filters.xp)
+          Monster(m)
+            .translation.toLowerCase()
+            .includes(filters.name.toLowerCase()) &&
+          (!filters.xp || Monster(m).xp <= filters.xp) &&
+          (!filters.cr || Monster(m).challenge <= filters.cr) &&
+          (!filters.size || Monster(m).size === filters.size)
       )
     );
-  }, [filters.name, filters.xp]);
+  }, [filters.name, filters.xp, filters.cr, filters.size]);
 
   function selectEnvironment(env) {
     const monsters = getMonstersFromEnvironment(env);
@@ -128,9 +134,7 @@ function PartyInfo() {
                   onChange={e => selectEnvironment(e.target.value)}
                   defaultValue="-"
                 >
-                  <option value="-" disabled>
-                    -
-                  </option>
+                  <option value="">Todos</option>
                   {ENVIRONMENTS.map(env => (
                     <option
                       className={styles.environmentButton}
@@ -157,11 +161,11 @@ function PartyInfo() {
                       }
                     />
                   </label>
-                  <label htmlFor="name" className={styles.filterItem}>
+                  <label htmlFor="xp" className={styles.filterItem}>
                     <span className={styles.filterName}>XP {'<='} </span>
                     <input
                       type="number"
-                      name="name"
+                      name="xp"
                       value={filters.xp}
                       className={`${styles.filterInput} ${cardStyles.buttonCard}`}
                       onChange={e =>
@@ -171,6 +175,43 @@ function PartyInfo() {
                         }))
                       }
                     />
+                  </label>
+                  <label htmlFor="cr" className={styles.filterItem}>
+                    <span className={styles.filterName}>CR {'<='} </span>
+                    <input
+                      type="number"
+                      name="cr"
+                      value={filters.cr}
+                      className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                      onChange={e =>
+                        setFilters(f => ({
+                          ...f,
+                          cr: parseInt(e.target.value, 10),
+                        }))
+                      }
+                    />
+                  </label>
+                  <label htmlFor="size" className={styles.filterItem}>
+                    <span className={styles.filterName}>Tamaño</span>
+                    <select
+                      type="number"
+                      name="size"
+                      value={filters.size}
+                      className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                      onChange={e =>
+                        setFilters(f => ({
+                          ...f,
+                          size: e.target.value,
+                        }))
+                      }
+                    >
+                      <option value="">Todos</option>
+                      {MONSTER_SIZES.map(size => (
+                        <option value={size} key={size}>
+                          {translateSize(size)}
+                        </option>
+                      ))}
+                    </select>
                   </label>
                 </div>
               </div>

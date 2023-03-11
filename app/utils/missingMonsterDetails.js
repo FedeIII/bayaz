@@ -4,7 +4,6 @@ const MISSING_MONSTER_DETAILS = [
   "Specter (poltergeist)",
   "Will-o-wisp",
   "Quaggoth Thonot",
-  "Incubus",
   "Lizard King/Queen",
   "Young Brass Dragon",
   "Young White Dragon",
