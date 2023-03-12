@@ -33,8 +33,8 @@ function PartyEncounters() {
       <Link to="new" className={menuStyles.mainOption}>
         <span className={menuStyles.optionLabel}>Crear encuentro</span>
       </Link>
-      <Link to="" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>/</span>
+      <Link to="list" className={menuStyles.mainOption}>
+        <span className={menuStyles.optionLabel}>Lista de encuentros</span>
       </Link>
     </>
   );

@@ -1,3 +1,4 @@
+import { getXpMultiplierForMonsters } from './encounters';
 import { MONSTER_DETAILS_LIST } from './monsterDetailsList';
 import { MONSTER_IMAGES } from './monsterImages';
 import { MONSTERS } from './monsterList';
@@ -29,7 +30,10 @@ export function getMonster(monsterName) {
 
 export function getMonsters(monsterNames) {
   if (Array.isArray(monsterNames)) {
-    return monsterNames.map(monsterName => MONSTERS[monsterName]);
+    if (isString(monsterNames[0])) {
+      return monsterNames.map(monsterName => getMonster(monsterName));
+    }
+    return monsterNames.map(monster => getMonster(monster.name));
   }
 
   if (isString(monsterNames)) {
@@ -91,11 +95,27 @@ export function getMonstersFromEnvironment(env) {
     .map(m => getMonster(m.name));
 }
 
-export function isMonsterSuitable(monster, xpThreshold = 0, partyMaxLevel) {
-  return (
-    parseInt(monster.xp, 10) <= xpThreshold &&
-    parseInt(monster.challenge, 10) <= partyMaxLevel
+export function isMonsterSuitable(
+  monster,
+  numberOfMonsters,
+  numberOfPcs,
+  xpThreshold = 0,
+  encounterXp = 0,
+  partyMaxLevel
+) {
+  if (Monster(monster).challenge > partyMaxLevel) return false;
+
+  const previousMultiplier = getXpMultiplierForMonsters(
+    numberOfMonsters,
+    numberOfPcs
   );
+  const nextMultiplier = getXpMultiplierForMonsters(
+    numberOfMonsters + 1,
+    numberOfPcs
+  );
+  const xpRoom =
+    xpThreshold - (encounterXp * nextMultiplier) / previousMultiplier;
+  return xpRoom >= Monster(monster).xp * nextMultiplier;
 }
 
 function getMonsterChallenge(monster) {

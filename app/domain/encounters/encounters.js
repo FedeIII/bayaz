@@ -1,4 +1,5 @@
 import random from '~/domain/random';
+import { getPartyMaxLevel } from '../party/party';
 import { MONSTERS } from './monsterList';
 import { Monster } from './monsters';
 import { translateMonster } from './monsterTranslations';
@@ -26,6 +27,8 @@ export const CHARACTER_XP_THRESHOLDS = [
   { easy: 2800, medium: 5700, hard: 8500, deadly: 12700 },
 ];
 
+export const DIFFICULTIES = ['easy', 'medium', 'hard', 'deadly'];
+
 export function translateDifficulty(difficulty) {
   switch (difficulty) {
     case 'easy':
@@ -38,7 +41,7 @@ export function translateDifficulty(difficulty) {
       return 'Mortal';
 
     default:
-      break;
+      return 'Imposible';
   }
 }
 
@@ -111,7 +114,7 @@ function getRandomEncounterSameMonsters(
     xpMultiplier,
     xpPerMonster,
     env,
-    Math.max(...pcs.map(pc => pc.level))
+    getPartyMaxLevel(pcs)
   );
 
   if (
@@ -146,7 +149,7 @@ function getRandomEncounterLeadMonster(
     xpMultiplier,
     leadMonsterXp,
     env,
-    Math.max(...pcs.map(pc => pc.level))
+    getPartyMaxLevel(pcs)
   );
 
   if (
@@ -166,7 +169,7 @@ function getRandomEncounterLeadMonster(
     xpMultiplier,
     xpPerMob,
     env,
-    Math.max(...pcs.map(pc => pc.level))
+    getPartyMaxLevel(pcs)
   );
 
   if (!mob || Monster(mob).xp === 0 || Monster(mob).challenge === 0) {
@@ -309,9 +312,34 @@ export function getEncounterChallenge(monsters) {
   return Math.max(...monsters.map(monster => Monster(monster).challenge));
 }
 
-export function getMonsterPositionStyle(i) {
+export function getMonsterPositionStyle(i, total) {
+  const middle = Math.floor(total / 2);
+
   return {
-    order: i === 0 ? 2 : i % 2 ? 1 : 3,
+    order:
+      i === 0
+        ? middle
+        : i % 2 === 0
+        ? middle - i / 2
+        : middle + Math.floor(i / 2) + 1,
     ...(i === 0 && { flexShrink: 1 }),
   };
+}
+
+export function getEncounterDifficulty(monsters, pcs) {
+  const encounterXp = getEncounterXp(monsters, pcs);
+
+  if (encounterXp > getPartyXpThreshold(pcs, 'deadly')) {
+    return 'impossible';
+  }
+  if (encounterXp > getPartyXpThreshold(pcs, 'hard')) {
+    return 'deadly';
+  }
+  if (encounterXp > getPartyXpThreshold(pcs, 'medium')) {
+    return 'hard';
+  }
+  if (encounterXp > getPartyXpThreshold(pcs, 'easy')) {
+    return 'medium';
+  }
+  return 'easy';
 }

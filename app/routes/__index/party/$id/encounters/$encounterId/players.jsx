@@ -1,4 +1,4 @@
-import { json, redirect } from '@remix-run/node';
+import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { useContext } from 'react';
 
@@ -40,8 +40,6 @@ export const action = async ({ request }) => {
 
 function PartyCombatForPlayers() {
   const { party, pcs, encounter } = useLoaderData();
-  const { id: partyId } = party;
-  const { id: encounterId } = encounter;
 
   useRemoveMenu();
 
@@ -50,14 +48,14 @@ function PartyCombatForPlayers() {
 
   return (
     <div className={styles.encounterContainerFullScreen}>
-      <h2 className={cardStyles.singleCard}>Combate</h2>
+      <h2 className={`${cardStyles.singleCard} ${styles.title}`}>Combate</h2>
       <ul className={styles.monstersList}>
-        {monstersState?.map((monster, i) => {
+        {monstersState?.map((monster, i, all) => {
           const imgUrl = getMonsterImage(monster.name);
           return (
             <li
               className={styles.monstersItem}
-              style={getMonsterPositionStyle(i)}
+              style={getMonsterPositionStyle(i, all.length)}
             >
               <span
                 className={`${cardStyles.singleCard} ${styles[monster.health]}`}

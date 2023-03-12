@@ -1,4 +1,10 @@
 body {
   margin: 0;
   font-family: fantasy;
+
+  --color-green: #2b8c47;
+  --color-orange: #daa645;
+  --color-red: #d84343;
+  --color-red-light: #e47777;
+  --color-blue-ink: #0000d4;
 }

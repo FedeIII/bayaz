@@ -30,6 +30,11 @@
   background-color: #3d414f;
 }
 
+.encounterDifficulty {
+  color: white;
+  text-decoration: none;
+}
+
 .encounterContainer {
   display: flex;
   flex-direction: column;
@@ -43,8 +48,8 @@
   background: url(http://localhost:3000/images/forest01.png) 0% 70% no-repeat;
   background-size: cover;
   width: 100vw;
-  height: calc(100vh - 36px);
-  padding: 36px 0 0 0;
+  height: 100vh;
+  padding: 0 0 0 0;
 }
 
 .environmentButton {
@@ -80,6 +85,10 @@
   margin: 16px auto;
 }
 
+.monsterList {
+  flex-wrap: wrap;
+}
+
 .death {
   font-size: 20px;
   color: #d94243;
@@ -106,13 +115,14 @@
   column-gap: 16px;
   margin: 0;
   padding: 0 32px;
+  flex-wrap: wrap;
 }
 
 .monstersItem {
   display: block;
-  flex-basis: 100%;
-  flex-shrink: 1.1;
-  height: 350px;
+  flex-basis: 16%;
+  flex-shrink: 1.05;
+  min-height: 350px;
   background-position: top left;
   background-size: 100%;
   background-repeat: no-repeat;
@@ -120,7 +130,7 @@
 }
 
 .dead {
-  color: #d84343;
+  color: var(--color-red);
   text-decoration: line-through;
 }
 
@@ -129,11 +139,11 @@
 }
 
 .badlyHurt {
-  color: #d84343;
+  color: var(--color-red);
 }
 
 .hurt {
-  color: #daa645;
+  color: var(--color-orange);
 }
 
 .alive {
@@ -149,4 +159,8 @@
 }
 
 .encounterBody {
+}
+
+.title {
+  margin: 48px auto 16px;
 }

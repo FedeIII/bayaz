@@ -221,6 +221,10 @@
   margin: 0 32px 0 0;
 }
 
+.monsterButton[data-suitable='false'] {
+  color: var(--color-red);
+}
+
 .monsterButton:hover {
   background-color: #232d40;
 }

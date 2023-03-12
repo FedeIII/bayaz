@@ -9,6 +9,7 @@ import {
   getMonsters,
   health,
   hurtHP,
+  sortByXp,
 } from '~/domain/encounters/monsters';
 import { translateMonster } from '~/domain/encounters/monsterTranslations';
 import { Card } from '~/components/cards/card';
@@ -19,6 +20,7 @@ import {
 } from '~/services/encounter.server';
 import { ShrinkBar } from '~/components/indicators/shrinkBar';
 import MonstersContext from '~/components/contexts/monstersContext';
+import { getMonsterPositionStyle } from '~/domain/encounters/encounters';
 
 import styles from '~/components/randomEncounter.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
@@ -112,8 +114,8 @@ function PartyCombat() {
       <input readOnly type="text" name="partyId" value={partyId} hidden />
 
       <h2>Combate</h2>
-      <div className={cardStyles.cards}>
-        {monsters?.map((monster, i) => {
+      <div className={`${cardStyles.cards} ${styles.monsterList}`}>
+        {sortByXp(monsters)?.map((monster, i, all) => {
           const { hp, maxHp, id: monsterId } = monstersStats[i] || {};
           const isAlive = hp > 0;
 
@@ -121,7 +123,7 @@ function PartyCombat() {
             <Card
               title={translateMonster(monster.name)}
               key={monster.name + '-' + i}
-              style={{ order: i === 0 ? 2 : i % 2 ? 1 : 3 }}
+              style={getMonsterPositionStyle(i, all.length)}
             >
               {isAlive && (
                 <div>

@@ -451,7 +451,6 @@ export const MONSTER_TRANSLATIONS = {
   'ancient red dragon': 'Dragón rojo anciano',
   tarrasque: 'Tarasca',
   'ancient white dragon': 'Dragón blanco anciano',
-  'ancient blue dragon': 'Dragón blanco anciano',
   'ancient brass dragon': 'Dragón de bronce anciano',
   'deep gnome (svirfneblin)': 'Gnomo de las profundidades (Svirfneblin)',
 };

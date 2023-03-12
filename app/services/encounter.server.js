@@ -29,7 +29,9 @@ export async function createEncounter(partyId, monsters) {
 }
 
 export async function getEncounters(partyId) {
-  const encounters = await Encounter.find({ partyId });
+  const encounters = await Encounter.find({
+    $or: [{ partyId }, { partyId: null }],
+  });
   return encounters;
 }
 

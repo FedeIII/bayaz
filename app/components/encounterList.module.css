@@ -1,0 +1,78 @@
+.encounterList {
+  display: flex;
+  flex-direction: column;
+}
+
+.encounters {
+  flex-wrap: wrap;
+}
+
+.encounter {
+}
+
+.encounterMonster {
+  display: block;
+}
+
+.party {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 16px auto 32px;
+  column-gap: 24px;
+  padding: 0 64px 16px;
+  border-bottom: 1px solid white;
+}
+
+.partyLabel {
+}
+
+.partyMembers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  column-gap: 16px;
+}
+
+.encounterMonsters {
+  margin: 8px 0 0 0;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid white;
+}
+
+.encounterSection {
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 16px;
+}
+
+.easy {
+  color: var(--color-green);
+}
+
+.medium {
+  color: white;
+}
+
+.hard {
+  color: var(--color-orange);
+}
+
+.deadly {
+  color: var(--color-red);
+}
+
+.impossible {
+  animation: impossible_color 0.2s infinite alternate;
+}
+
+@keyframes impossible_color {
+  from {
+    color: var(--color-red);
+  }
+  to {
+    color: var(--color-red-light);
+  }
+}
