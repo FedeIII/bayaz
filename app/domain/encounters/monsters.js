@@ -6,6 +6,7 @@ import { translateMonster } from './monsterTranslations';
 export function Monster(monster) {
   if (isString(monster)) monster = getMonster(monster);
   return {
+    name: monster.name,
     xp: parseInt(monster.xp, 10),
     challenge: getMonsterChallenge(monster),
     translation: translateMonster(monster.name),
@@ -84,10 +85,10 @@ export function getMonsterImage(monsterName) {
 }
 
 export function getMonstersFromEnvironment(env) {
-  if (!env) return Object.values(MONSTERS);
-  return Object.values(MONSTERS).filter(
-    m => m.environment?.[env] === 'yes' && m.page.includes('mm')
-  );
+  if (!env) return Object.values(MONSTERS).map(m => getMonster(m.name));
+  return Object.values(MONSTERS)
+    .filter(m => m.environment?.[env] === 'yes' && m.page.includes('mm'))
+    .map(m => getMonster(m.name));
 }
 
 export function isMonsterSuitable(monster, xpThreshold = 0, partyMaxLevel) {

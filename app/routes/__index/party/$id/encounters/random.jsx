@@ -26,7 +26,7 @@ export const action = async ({ request }) => {
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function PartyInfo() {
+function RandomEncounter() {
   const { party, pcs } = useLoaderData();
 
   return (
@@ -80,4 +80,4 @@ function PartyInfo() {
   );
 }
 
-export default PartyInfo;
+export default RandomEncounter;

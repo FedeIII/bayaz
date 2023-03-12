@@ -16,6 +16,8 @@ import {
 import MenuContext from '~/components/contexts/menuContext';
 import { getPartyMaxLevel } from '~/domain/party/party';
 import {
+  getMonsterHitPoints,
+  getMonsters,
   getMonstersFromEnvironment,
   groupByCR,
   isMonsterSuitable,
@@ -24,6 +26,8 @@ import {
   sortByXp,
   translateSize,
 } from '~/domain/encounters/monsters';
+import { rollDice } from '~/domain/random';
+import { createEncounter } from '~/services/encounter.server';
 
 import styles from '~/components/newEncounter.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
@@ -41,10 +45,25 @@ export const loader = async ({ params }) => {
 };
 
 export const action = async ({ request }) => {
-  return redirect(`/characters/pc/${name}/summary`);
+  const formData = await request.formData();
+  const partyId = formData.get('partyId');
+  const monstersNames = formData.get('monsters');
+
+  const monsters = getMonsters(monstersNames).map(monster => {
+    const maxHp = rollDice(getMonsterHitPoints(monster));
+    return {
+      name: monster.name,
+      maxHp,
+      hp: maxHp,
+    };
+  });
+
+  const encounter = await createEncounter(partyId, monsters);
+
+  return redirect(`/party/${partyId}/encounters/${encounter.id}`);
 };
 
-function PartyInfo() {
+function NewEncounter() {
   const { party, pcs } = useLoaderData();
   const menuContext = useContext(MenuContext) || {};
 
@@ -56,7 +75,7 @@ function PartyInfo() {
   const partyMaxLevel = getPartyMaxLevel(pcs);
 
   const [xpThreshold, setXpThreshold] = useState(null);
-  const [monsterList, setMonsterList] = useState([]);
+  const [monsterList, setMonsterList] = useState(getMonstersFromEnvironment());
   const [filteredMonsterList, setFilteredMonsterList] = useState([]);
   const [encounterMonsters, setEncounterMonsters] = useState([]);
   const [filters, setFilters] = useState({ name: '', xp: 0, cr: 0, size: '' });
@@ -197,7 +216,7 @@ function PartyInfo() {
                       type="number"
                       name="size"
                       value={filters.size}
-                      className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                      className={`${styles.filterSelect} ${cardStyles.buttonCard}`}
                       onChange={e =>
                         setFilters(f => ({
                           ...f,
@@ -270,6 +289,22 @@ function PartyInfo() {
                 ))}
               </div>
             )}
+            {!!encounterMonsters.length && (
+              <input
+                readOnly
+                type="text"
+                name="monsters"
+                value={encounterMonsters.map(m => Monster(m).name).join('|')}
+                hidden
+              />
+            )}
+            {!!encounterMonsters.length && (
+              <div className={styles.submit}>
+                <button type="submit" className={cardStyles.buttonCard}>
+                  Crear
+                </button>
+              </div>
+            )}
           </div>
           {!!filteredMonsterList.length && (
             <div className={styles.monsters}>
@@ -339,4 +374,4 @@ function PartyInfo() {
   );
 }
 
-export default PartyInfo;
+export default NewEncounter;

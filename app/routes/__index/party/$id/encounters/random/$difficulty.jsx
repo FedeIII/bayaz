@@ -48,7 +48,7 @@ export const action = async ({ request }) => {
   return redirect(`/party/${partyId}/encounters/${encounter.id}`);
 };
 
-function PartyInfo() {
+function RandomEncounterDifficulty() {
   const { party, pcs, difficulty } = useLoaderData();
   const { id } = party;
 
@@ -102,4 +102,4 @@ function PartyInfo() {
   );
 }
 
-export default PartyInfo;
+export default RandomEncounterDifficulty;
