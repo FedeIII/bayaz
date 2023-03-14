@@ -68,7 +68,7 @@ function Session(props) {
     <Card title={title} key={session.id} className={styles.paleColor}>
       <div className={styles.sessionSection}>
         <h4 className={styles.sessionSectionTitle}>
-          <span>Experiencia por encuentros:</span>
+          <span>Combates</span>
           <span>
             {getEncounterXpForSession(session, pcs)} xp (
             {getEncounterXpForSession(session, pcs) / pcs.length} por PC)
@@ -91,7 +91,7 @@ function Session(props) {
       </div>
       <div className={styles.sessionSection}>
         <h4 className={styles.sessionSectionTitle}>
-          <span>Experiencia por eventos:</span>
+          <span>Eventos</span>
           <span>
             {getEventXpForSession(session)} xp (
             {getEventXpForSession(session) / pcs.length} por PC)

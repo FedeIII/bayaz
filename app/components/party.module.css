@@ -160,6 +160,7 @@
 .sessionItemXp {
   font-size: 14px;
   flex-basis: 10%;
+  min-width: 60px;
   flex-grow: 1;
   text-align: right;
   position: relative;
@@ -174,9 +175,10 @@
 }
 
 .sessionSectionItems {
+  padding: 0 0 0 20px;
   text-align: left;
   list-style: square;
-  width: 88%;
+  width: 90%;
 }
 
 .event {
