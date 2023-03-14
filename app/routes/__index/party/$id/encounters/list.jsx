@@ -12,6 +12,7 @@ import { getMonsters, Monster } from '~/domain/encounters/monsters';
 import {
   getEncounterChallenge,
   getEncounterDifficulty,
+  getEncounterXp,
   groupMonsters,
   translateDifficulty,
 } from '~/domain/encounters/encounters';
@@ -82,7 +83,8 @@ function EncounterList() {
               </div>
               <div className={styles.encounterSection}>
                 <span className={styles[difficulty]}>
-                  {translateDifficulty(difficulty)}
+                  {translateDifficulty(difficulty)} (
+                  {getEncounterXp(monsters, pcs)} XP)
                 </span>
                 <span
                   className={

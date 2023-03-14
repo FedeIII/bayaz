@@ -12,6 +12,7 @@
 
 .partyLink {
   display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: white;
   padding: 16px;
@@ -20,8 +21,22 @@
   align-items: stretch;
 }
 
+.partyLinkList {
+  flex-direction: row;
+}
+
 .partyLink:hover {
   background-color: #3d414f;
+}
+
+.partyLink[data-selected='true'] {
+  background-color: #3d414f;
+}
+
+.partySessionTitle {
+  min-height: 37px;
+  margin: 0;
+  border-bottom: 1px solid white;
 }
 
 .characterCheck {
@@ -72,6 +87,7 @@
 }
 
 .partySection {
+  margin: 32px auto;
 }
 
 .partyMembersList {
@@ -112,4 +128,14 @@
 
 .partyMember {
   width: 100%;
+}
+
+.sessionSection {
+  margin: 0 0 8px 0;
+  border-bottom: 1px solid white;
+}
+
+.sessionSectionItems {
+  text-align: left;
+  list-style: square;
 }

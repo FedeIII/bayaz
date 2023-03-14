@@ -3,7 +3,7 @@ import { Form, Link, useLoaderData } from '@remix-run/react';
 import { useContext, useEffect } from 'react';
 
 import { getPc } from '~/services/pc.server';
-import { getParty } from '~/services/party.server';
+import { addMonstersKilled, getParty } from '~/services/party.server';
 import {
   badlyHurtHP,
   getMonsters,
@@ -24,6 +24,7 @@ import { getMonsterPositionStyle } from '~/domain/encounters/encounters';
 
 import styles from '~/components/randomEncounter.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
+import { getActiveSession } from '~/domain/party/party';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -52,8 +53,22 @@ export const action = async ({ request }) => {
   const encounterId = formData.get('encounterId');
   const partyId = formData.get('partyId');
 
+  const [party, encounter] = await Promise.all([
+    getParty(partyId),
+    getEncounter(encounterId),
+  ]);
+
+  const activeSession = getActiveSession(party);
+
   if (endCombat) {
-    await deleteEncounter(encounterId);
+    await Promise.all([
+      addMonstersKilled(
+        partyId,
+        activeSession.id,
+        encounter.monsters.map(m => m.name)
+      ),
+      deleteEncounter(encounterId),
+    ]);
     return redirect(`/party/${partyId}/encounters`);
   }
 
