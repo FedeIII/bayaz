@@ -2,12 +2,17 @@ import { v4 as uuid } from 'uuid';
 
 import { mongoose } from '~/services/db.server';
 
+const eventSchema = new mongoose.Schema({
+  text: String,
+  xp: Number,
+});
+
 const sessionSchema = new mongoose.Schema(
   {
     id: String,
     finished: Boolean,
     monstersKilled: [[String]],
-    eventsCompleted: [String],
+    eventsCompleted: [eventSchema],
   },
   { timestamps: true }
 );
@@ -75,12 +80,17 @@ export async function addMonstersKilled(partyId, sessionId, monsterNames) {
   return updatedParty;
 }
 
-export async function addEventCompleted(partyId, sessionId, event) {
+export async function addEventCompleted(
+  partyId,
+  sessionId,
+  eventText,
+  eventXp
+) {
   const updatedParty = await Party.findOneAndUpdate(
     { id: partyId, 'sessions.id': sessionId },
     {
       $push: {
-        eventsCompleted: event,
+        'sessions.$.eventsCompleted': { text: eventText, xp: eventXp || 0 },
       },
     }
   );

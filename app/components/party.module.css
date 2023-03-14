@@ -90,6 +90,10 @@
   margin: 32px auto;
 }
 
+.partySectionSingleItem {
+  max-width: 50%;
+}
+
 .partyMembersList {
 }
 
@@ -131,11 +135,71 @@
 }
 
 .sessionSection {
+}
+
+.sessionSectionTitle {
   margin: 0 0 8px 0;
   border-bottom: 1px solid white;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 16px;
+  color: white;
+}
+
+.xpItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 16px;
+}
+
+.sessionItemText {
+  flex-basis: 85%;
+}
+
+.sessionItemXp {
+  font-size: 14px;
+  flex-basis: 10%;
+  flex-grow: 1;
+  text-align: right;
+  position: relative;
+}
+
+.sessionItemXpInput::after {
+  content: 'xp';
+  font-size: 14px;
+  position: absolute;
+  right: -4px;
+  top: 0;
 }
 
 .sessionSectionItems {
   text-align: left;
   list-style: square;
+  width: 88%;
+}
+
+.event {
+}
+
+.newSessionEvent {
+  width: 90%;
+  height: 16px;
+  font-family: fantasy;
+  font-size: 16px;
+  vertical-align: middle;
+  color: white;
+  background-color: var(--color-base);
+}
+
+.newSessionEventXp {
+  border: 1px solid gray;
+  text-align: right;
+  font-size: 14px;
+  padding-right: 20px;
+  width: calc(100% - 18px);
+}
+
+.paleColor {
+  color: var(--color-x-pale);
 }

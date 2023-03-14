@@ -3,19 +3,25 @@ import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
 import { getPc } from '~/services/pc.server';
-import { endSession, getParty, startSession } from '~/services/party.server';
+import {
+  addEventCompleted,
+  endSession,
+  getParty,
+  startSession,
+} from '~/services/party.server';
 import { translateClass, translateRace } from '~/domain/characters';
 import PartyContext from '~/components/contexts/partyContext';
 import {
   getActiveSession,
-  getAllMonstersKilled,
   getEncounterXpForSession,
+  getEventXpForSession,
 } from '~/domain/party/party';
-import { groupMonsters } from '~/domain/encounters/encounters';
+import { getEncounterXp, groupMonsters } from '~/domain/encounters/encounters';
 
 import styles from '~/components/party.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
 import { Card } from '~/components/cards/card';
+import { getMonster } from '~/domain/encounters/monsters';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -33,16 +39,141 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const partyId = formData.get('partyId');
   const sessionStart = formData.get('sessionStart');
-  const sessionId = formData.get('sessionEnd');
+  const endSessionId = formData.get('sessionEnd');
+  const newEvent = formData.get('newEvent');
+  const sessionId = formData.get('sessionId');
+  const sessionEventText = formData.get('sessionEventText');
+  const sessionEventXp = formData.get('sessionEventXp');
 
   if (sessionStart === 'start') {
     await startSession(partyId);
-  } else if (sessionId) {
-    await endSession(partyId, sessionId);
+  } else if (endSessionId) {
+    await endSession(partyId, endSessionId);
+  } else if (newEvent === 'newEvent') {
+    await addEventCompleted(
+      partyId,
+      sessionId,
+      sessionEventText,
+      parseInt(sessionEventXp, 10)
+    );
   }
 
   return redirect(`/party/${partyId}`);
 };
+
+function Session(props) {
+  const { title, session = {}, pcs, children } = props;
+
+  return (
+    <Card title={title} key={session.id} className={styles.paleColor}>
+      <div className={styles.sessionSection}>
+        <h4 className={styles.sessionSectionTitle}>
+          <span>Experiencia por encuentros:</span>
+          <span>
+            {getEncounterXpForSession(session, pcs)} xp (
+            {getEncounterXpForSession(session, pcs) / pcs.length} por PC)
+          </span>
+        </h4>
+        <ul className={styles.sessionSectionItems}>
+          {session.monstersKilled.map((monsters, i) => (
+            <li key={i}>
+              <div className={styles.xpItem}>
+                <span className={styles.sessionItemText}>
+                  {groupMonsters(monsters.map(getMonster))}
+                </span>
+                <span className={styles.sessionItemXp}>
+                  {getEncounterXp(monsters.map(getMonster), pcs)} xp
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={styles.sessionSection}>
+        <h4 className={styles.sessionSectionTitle}>
+          <span>Experiencia por eventos:</span>
+          <span>
+            {getEventXpForSession(session)} xp (
+            {getEventXpForSession(session) / pcs.length} por PC)
+          </span>
+        </h4>
+        <ul className={styles.sessionSectionItems}>
+          {session.eventsCompleted.map((event, i) => (
+            <li key={i}>
+              <div className={styles.xpItem}>
+                <span className={styles.sessionItemText}>{event.text}</span>
+                <span className={styles.sessionItemXp}>{event.xp} xp</span>
+              </div>
+            </li>
+          ))}
+          {children}
+        </ul>
+      </div>
+    </Card>
+  );
+}
+
+function CurrentSession(props) {
+  const { session, pcs } = props;
+
+  return (
+    <div className={`${styles.partySection} ${styles.partySectionSingleItem}`}>
+      <input readOnly type="text" name="sessionId" value={session.id} hidden />
+      <Session title="Sesión" session={session} pcs={pcs}>
+        <li>
+          <div className={styles.xpItem}>
+            <span className={styles.sessionItemText}>
+              <textarea
+                className={styles.newSessionEvent}
+                name="sessionEventText"
+              ></textarea>
+            </span>
+            <span
+              className={`${styles.sessionItemXp} ${styles.sessionItemXpInput}`}
+            >
+              <input
+                type="text"
+                name="sessionEventXp"
+                className={`${styles.newSessionEvent} ${styles.newSessionEventXp}`}
+              />
+            </span>
+          </div>
+        </li>
+
+        <button
+          type="submit"
+          name="newEvent"
+          value="newEvent"
+          className={cardStyles.buttonCard}
+        >
+          Enviar
+        </button>
+      </Session>
+    </div>
+  );
+}
+
+function PreviousSessions(props) {
+  const { sessions, pcs } = props;
+
+  return (
+    <div className={styles.partySection}>
+      <h3>Sesiones anteriores</h3>
+      <div className={cardStyles.cards}>
+        {sessions
+          .filter(s => s.finished)
+          .map((session, i) => (
+            <Session
+              title={`Sesión ${i + 1}`}
+              session={session}
+              pcs={pcs}
+              key={i}
+            />
+          ))}
+      </div>
+    </div>
+  );
+}
 
 function PartyInfo() {
   const { party, pcs } = useLoaderData();
@@ -50,21 +181,19 @@ function PartyInfo() {
 
   const partyContext = useContext(PartyContext) || {};
 
-  function startSession(data) {
-    if ([].slice.call(data.target).find(node => node.name === 'sessionStart')) {
-      partyContext.setPartyIdState?.(id);
-    } else if (
-      [].slice.call(data.target).find(node => node.name === 'sessionEnd')
-    ) {
-      partyContext.deletePartyIdState?.();
-    }
+  function onStartSessionClick() {
+    partyContext.setPartyIdState?.(id);
+  }
+
+  function onEndSessionClick() {
+    partyContext.deletePartyIdState?.();
   }
 
   const activeSession = getActiveSession(party);
   const isActiveSessionFromThisParty = id === partyContext.partyIdState;
 
   return (
-    <Form method="post" onSubmit={startSession}>
+    <Form method="post">
       <input readOnly type="text" name="partyId" value={id} hidden />
       <h2>Party</h2>
 
@@ -100,18 +229,20 @@ function PartyInfo() {
             name="sessionStart"
             value="start"
             className={cardStyles.buttonCard}
+            onClick={onStartSessionClick}
           >
             Empezar sesión
           </button>
         </div>
       )}
-      {isActiveSessionFromThisParty && !!activeSession && (
+      {!!activeSession && (
         <div className={styles.partySection}>
           <button
             type="submit"
             name="sessionEnd"
             value={activeSession.id}
             className={cardStyles.buttonCard}
+            onClick={onEndSessionClick}
           >
             Terminar sesión
           </button>
@@ -119,51 +250,12 @@ function PartyInfo() {
       )}
 
       {isActiveSessionFromThisParty && !!activeSession && (
-        <div className={styles.partySection}>
-          <h3>Sesión</h3>
-          {!!activeSession.monstersKilled?.length && (
-            <div>
-              Monstruos matados:{' '}
-              {groupMonsters(getAllMonstersKilled(activeSession))}
-            </div>
-          )}
-          {!!activeSession.eventsCompleted?.length && (
-            <div>
-              Eventos completados:
-              <ul>
-                {activeSession.eventsCompleted.map((event, i) => (
-                  <li key={i}>{event}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+        <CurrentSession session={activeSession} pcs={pcs} />
       )}
 
-      <div className={styles.partySection}>
-        <h3>Sesiones anteriores</h3>
-        <div className={cardStyles.cards}>
-          {party.sessions
-            .filter(s => s.finished)
-            .map((session, i) => (
-              <Card title={`Sesión ${i + 1}`} key={session.id}>
-                <div>
-                  <h4 className={styles.sessionSection}>
-                    Experiencia por encuentros:
-                  </h4>
-                  <ul className={styles.sessionSectionItems}>
-                    <li>
-                      {getEncounterXpForSession(session, pcs)} XP (
-                      {getEncounterXpForSession(session, pcs) / pcs.length} por
-                      PC)
-                    </li>
-                    <li>{groupMonsters(getAllMonstersKilled(session))}</li>
-                  </ul>
-                </div>
-              </Card>
-            ))}
-        </div>
-      </div>
+      {!!party.sessions?.length && (
+        <PreviousSessions sessions={party.sessions} pcs={pcs} />
+      )}
     </Form>
   );
 }

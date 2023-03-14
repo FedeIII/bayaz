@@ -107,7 +107,7 @@ function Sidebar(props) {
                   >
                     <span>{translateDifficulty(difficulty)}</span>
                     <br />
-                    <span>({difficultyXp} XP)</span>
+                    <span>({difficultyXp} xp)</span>
                   </button>
                 );
               })}
@@ -148,7 +148,7 @@ function Sidebar(props) {
                 />
               </label>
               <label htmlFor="xp" className={styles.filterItem}>
-                <span className={styles.filterName}>XP {'<='} </span>
+                <span className={styles.filterName}>xp {'<='} </span>
                 <input
                   type="number"
                   name="xp"
@@ -233,7 +233,7 @@ function SelectedMonsters(props) {
                 : styles.encounterMetric
             }
           >
-            {encounterXp} XP
+            {encounterXp} xp
           </span>
           ,{' '}
           <span
@@ -311,7 +311,7 @@ function MonsterCatalog(props) {
             <div className={styles.crColumnHeaders}>
               {Array.from(Array(monstersByCr.length > 1 ? 2 : 1), () => (
                 <div className={styles.crXpCr}>
-                  <span className={styles.crXp}>XP</span>
+                  <span className={styles.crXp}>xp</span>
                   {crIndex === 0 && <span className={styles.crCr}>CR</span>}
                 </div>
               ))}

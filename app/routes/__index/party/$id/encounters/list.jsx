@@ -84,7 +84,7 @@ function EncounterList() {
               <div className={styles.encounterSection}>
                 <span className={styles[difficulty]}>
                   {translateDifficulty(difficulty)} (
-                  {getEncounterXp(monsters, pcs)} XP)
+                  {getEncounterXp(monsters, pcs)} xp)
                 </span>
                 <span
                   className={

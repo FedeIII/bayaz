@@ -41,7 +41,7 @@ function RandomEncounter() {
               (xp, pc) => xp + getCharacterXpThreshold(pc, 'easy'),
               0
             )}{' '}
-            XP)
+            xp)
           </Link>
         </li>
         <li className={styles.encounterDifficultyItem}>
@@ -51,7 +51,7 @@ function RandomEncounter() {
               (xp, pc) => xp + getCharacterXpThreshold(pc, 'medium'),
               0
             )}{' '}
-            XP)
+            xp)
           </Link>
         </li>
         <li className={styles.encounterDifficultyItem}>
@@ -61,7 +61,7 @@ function RandomEncounter() {
               (xp, pc) => xp + getCharacterXpThreshold(pc, 'hard'),
               0
             )}{' '}
-            XP)
+            xp)
           </Link>
         </li>
         <li className={styles.encounterDifficultyItem}>
@@ -71,7 +71,7 @@ function RandomEncounter() {
               (xp, pc) => xp + getCharacterXpThreshold(pc, 'deadly'),
               0
             )}{' '}
-            XP)
+            xp)
           </Link>
         </li>
       </ul>

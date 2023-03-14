@@ -7,4 +7,13 @@ body {
   --color-red: #d84343;
   --color-red-light: #e47777;
   --color-blue-ink: #0000d4;
+
+  --color-dark: #13151c;
+  --color-base: #252937;
+  --color-light: #232d40;
+
+  --color-pale: #5c687e;
+  --color-x-pale: #a3b3d0;
+
+  --color-header: #282c34;
 }
