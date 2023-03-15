@@ -123,8 +123,6 @@ function ClassSkills(props) {
   const { pClass } = pc;
 
   switch (pClass) {
-    case 'barbarian':
-      return <BarbarianSkills {...props} />;
     case 'bard':
       return <BardSkills {...props} />;
     case 'warlock':

@@ -346,6 +346,15 @@ export const CLASSES = {
     ],
     traits: {
       rage: 'Furia',
+      unarmoredDefense: 'Defensa sin armadura',
+    },
+    leveling: {
+      2: {
+        traits: {
+          recklessAttack: 'Ataque temerario',
+          dangerSense: 'Sentido del peligro',
+        },
+      },
     },
   },
   bard: {
@@ -1077,6 +1086,18 @@ export function translateSavingThrowStatus(status) {
   return 'unknown saving throw status';
 }
 
+function getLevelingTraits(pc) {
+  const { pClass, level } = pc;
+
+  return Object.entries(CLASSES[pClass].leveling).reduce(
+    (levelingTraits, [traitLevel, levelSkills]) => ({
+      ...levelingTraits,
+      ...(parseInt(traitLevel, 10) <= level ? levelSkills.traits : {}),
+    }),
+    {}
+  );
+}
+
 export function getTraits(pc) {
   const {
     race,
@@ -1084,12 +1105,14 @@ export function getTraits(pc) {
     pClass,
     classAttrs: { patron, divineDomain } = {},
     background = {},
+    level,
   } = pc;
 
   return (
     {
       ...RACES[race][subrace].traits,
       ...CLASSES[pClass].traits,
+      ...getLevelingTraits(pc),
       ...(pClass === 'warlock' ? PATRONS[patron]?.traits || {} : {}),
       ...(pClass === 'cleric'
         ? DIVINE_DOMAINS[divineDomain]?.traits || {}

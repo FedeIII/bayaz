@@ -29,7 +29,7 @@ function AllPCs() {
           <li className={styles.character} key={pc.name}>
             <Link
               to={`/characters/pc/${pc.name}/summary`}
-              className={styles.partyLink}
+              className={styles.pcLink}
             >
               <div className={styles.characterName}>{pc.name}</div>
               <div className={styles.partyData}>

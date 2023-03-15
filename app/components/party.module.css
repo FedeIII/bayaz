@@ -10,6 +10,21 @@
   margin: 32px auto 32px auto;
 }
 
+.pcLink {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  color: white;
+  padding: 16px;
+  width: 100%;
+  background-color: var(--color-base);
+  align-items: stretch;
+}
+
+.pcLink:hover {
+  background-color: var(--color-light);
+}
+
 .partyLink {
   display: flex;
   flex-direction: column;
