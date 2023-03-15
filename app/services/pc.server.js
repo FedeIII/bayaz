@@ -6,6 +6,7 @@ import {
   LANGUAGES,
   EXOTIC_LANGUAGES,
   CLASSES,
+  getLevelByXp,
 } from '~/domain/characters';
 import { SORCERER_ORIGIN, DRAGON_ANCESTORS } from '~/domain/sorcerer';
 import { FIGHTING_STYLES } from '~/domain/fighter';
@@ -248,9 +249,15 @@ export async function updatePc(pcAttrs) {
 }
 
 export async function addXp(pcName, xp) {
-  const updatedPc = await Pc.findOneAndUpdate(
+  let updatedPc = await Pc.findOneAndUpdate(
     { name: pcName },
     { $inc: { exp: xp } },
+    { new: true }
+  ).exec();
+
+  updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    { level: getLevelByXp(updatedPc.exp) },
     { new: true }
   ).exec();
 
