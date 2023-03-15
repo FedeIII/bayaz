@@ -17,3 +17,9 @@ export function getCurrentBioPage() {
 export function getCurrentSpellsPage() {
   return doc?.location.pathname.match(/\/characters\/pc\/(.+)\/spells/)?.[1];
 }
+
+export function getCurrentPcPage() {
+  return (
+    getCurrentSummaryPage() || getCurrentBioPage() || getCurrentSpellsPage()
+  );
+}
