@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
-import { addXp, getPc, updatePc } from '~/services/pc.server';
+import { addXp, getPc } from '~/services/pc.server';
 import {
   addEventCompleted,
   endSession,
@@ -18,12 +18,12 @@ import {
   getXpForSessionPerPc,
 } from '~/domain/party/party';
 import { getEncounterXp, groupMonsters } from '~/domain/encounters/encounters';
-
-import styles from '~/components/party.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
 import { Card } from '~/components/cards/card';
 import { getMonster } from '~/domain/encounters/monsters';
 import { concurrentRequests } from '~/utils/concurrentRequests';
+
+import styles from '~/components/party.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -179,7 +179,7 @@ function PreviousSessions(props) {
   return (
     <div className={styles.partySection}>
       <h3>Sesiones anteriores</h3>
-      <div className={cardStyles.cards}>
+      <div className={`${cardStyles.cards} ${styles.previousSessions}`}>
         {sessions
           .filter(s => s.finished)
           .map((session, i) => (
@@ -203,10 +203,12 @@ function PartyInfo() {
 
   function onStartSessionClick() {
     partyContext.setPartyIdState?.(id);
+    partyContext.setPcNamesState?.(party.players);
   }
 
   function onEndSessionClick() {
     partyContext.deletePartyIdState?.();
+    partyContext.deletePcNamesState?.();
   }
 
   const activeSession = getActiveSession(party);

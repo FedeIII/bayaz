@@ -59,10 +59,12 @@ export default function App() {
   const [menuTitle, setMenuTitle] = useState('Bayaz');
   const [partyIdState, setPartyIdState, deletePartyIdState] =
     useStateValue('partyId');
-  const [monstersState, setMonstersState, deleteMonstersState] =
-    useStateValue('monsters');
+  const [pcNamesState, setPcNamesState, deletePcNamesState] =
+    useStateValue('pcNames');
   const [encounterIdState, setEncounterIdState, deleteEncounterIdState] =
     useStateValue('encounterId');
+  const [monstersState, setMonstersState, deleteMonstersState] =
+    useStateValue('monsters');
 
   useEffect(() => {
     setHasMenu(true);
@@ -80,7 +82,14 @@ export default function App() {
             value={{ hasMenu, setHasMenu, menuTitle, setMenuTitle }}
           >
             <PartyContext.Provider
-              value={{ partyIdState, setPartyIdState, deletePartyIdState }}
+              value={{
+                partyIdState,
+                setPartyIdState,
+                deletePartyIdState,
+                pcNamesState,
+                setPcNamesState,
+                deletePcNamesState,
+              }}
             >
               <MonstersContext.Provider
                 value={{

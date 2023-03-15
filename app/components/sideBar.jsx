@@ -4,6 +4,8 @@ import styles from '~/components/app.module.css';
 import MenuContext from '~/components/contexts/menuContext';
 import MonstersContext from '~/components/contexts/monstersContext';
 import PartyContext from '~/components/contexts/partyContext';
+import { insertAfter } from '~/utils/insert';
+import { PATHS } from '~/utils/paths';
 
 const mainLinks = [
   { name: 'Dados', url: '/dice', level: 0 },
@@ -11,10 +13,11 @@ const mainLinks = [
   { name: 'Personajes', url: '/characters', level: 0 },
   { name: 'Party', url: '/party', level: 0 },
 ];
+
 function getMenuItems(partyContext = {}, monsterContext = {}) {
-  const { partyIdState } = partyContext;
+  const { partyIdState, pcNamesState } = partyContext;
   const { encounterIdState } = monsterContext;
-  const items = [...mainLinks];
+  let items = [...mainLinks];
 
   if (partyIdState) {
     items.push(
@@ -35,6 +38,34 @@ function getMenuItems(partyContext = {}, monsterContext = {}) {
     });
   }
 
+  if (pcNamesState?.length) {
+    items = insertAfter(
+      item => item.name === 'Personajes',
+      items,
+      pcNamesState.reduce(
+        (newItems, pcName) => [
+          ...newItems,
+          {
+            name: pcName,
+            url: PATHS.summary(pcName),
+            level: 1,
+          },
+          {
+            name: 'Inventario',
+            url: PATHS.bio(pcName),
+            level: 2,
+          },
+          {
+            name: 'Conjuros',
+            url: PATHS.spells(pcName),
+            level: 2,
+          },
+        ],
+        []
+      )
+    );
+  }
+
   return items;
 }
 export function SideBar() {
@@ -45,19 +76,20 @@ export function SideBar() {
 
   const menuItems = getMenuItems(partyContext, monsterContext);
 
-  if (!hasMenu)
-    return null;
+  if (!hasMenu) return null;
 
   return (
     <div className={styles.sidebar}>
       {menuItems.map(button => (
         <Link
           to={button.url}
-          className={`${button.level === 0
+          className={`${
+            button.level === 0
               ? styles.mainButton
               : button.level === 1
-                ? styles.secondaryButton
-                : styles.tertiaryButton}`}
+              ? styles.secondaryButton
+              : styles.tertiaryButton
+          }`}
           key={button.url}
         >
           {button.name}
