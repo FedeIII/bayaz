@@ -598,6 +598,6 @@ export function getPackItems(packName) {
       return getBurglarsPackItems();
 
     default:
-      return 'unknown pack name';
+      return [];
   }
 }

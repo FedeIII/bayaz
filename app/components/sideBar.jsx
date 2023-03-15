@@ -5,7 +5,7 @@ import MenuContext from '~/components/contexts/menuContext';
 import MonstersContext from '~/components/contexts/monstersContext';
 import PartyContext from '~/components/contexts/partyContext';
 import { insertAfter } from '~/utils/insert';
-import { PATHS } from '~/utils/paths';
+import { getCurrentPcPage, PATHS } from '~/utils/paths';
 
 const mainLinks = [
   { name: 'Dados', url: '/dice', level: 0 },
@@ -64,6 +64,27 @@ function getMenuItems(partyContext = {}, monsterContext = {}) {
         []
       )
     );
+  } else {
+    const pcName = getCurrentPcPage();
+    if (pcName) {
+      items = insertAfter(item => item.name === 'Personajes', items, [
+        {
+          name: pcName,
+          url: PATHS.summary(pcName),
+          level: 1,
+        },
+        {
+          name: 'Inventario',
+          url: PATHS.bio(pcName),
+          level: 2,
+        },
+        {
+          name: 'Conjuros',
+          url: PATHS.spells(pcName),
+          level: 2,
+        },
+      ]);
+    }
   }
 
   return items;

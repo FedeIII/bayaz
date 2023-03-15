@@ -135,7 +135,8 @@
 }
 
 .previousSessions {
-  flex-wrap: wrap;
+  flex-direction: row-reverse !important;
+  flex-wrap: wrap-reverse;
 }
 
 .sessionSection {
