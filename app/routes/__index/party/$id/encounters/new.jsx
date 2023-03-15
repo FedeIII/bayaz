@@ -378,7 +378,7 @@ function NewEncounter() {
   useEffect(() => selectDifficulty('medium'), []);
 
   useEffect(() => {
-    setEncounterXp(getEncounterXp(encounterMonsters, pcs));
+    setEncounterXp(getEncounterXp(encounterMonsters, pcs.length));
   }, [encounterMonsters]);
 
   function addMonsterToEncounter(monster) {

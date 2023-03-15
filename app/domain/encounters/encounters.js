@@ -300,8 +300,8 @@ export function translateEnvironments(environment) {
   }
 }
 
-export function getEncounterXp(monsters, pcs) {
-  const xpMultiplier = getXpMultiplierForMonsters(monsters.length, pcs.length);
+export function getEncounterXp(monsters, numberOfPcs) {
+  const xpMultiplier = getXpMultiplierForMonsters(monsters.length, numberOfPcs);
   return (
     monsters.reduce((xp, monster) => xp + Monster(monster).xp, 0) * xpMultiplier
   );
@@ -327,7 +327,7 @@ export function getMonsterPositionStyle(i, total) {
 }
 
 export function getEncounterDifficulty(monsters, pcs) {
-  const encounterXp = getEncounterXp(monsters, pcs);
+  const encounterXp = getEncounterXp(monsters, pcs.length);
 
   if (encounterXp > getPartyXpThreshold(pcs, 'deadly')) {
     return 'impossible';

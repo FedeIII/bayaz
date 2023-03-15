@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
-import { getPc } from '~/services/pc.server';
+import { addXp, getPc, updatePc } from '~/services/pc.server';
 import {
   addEventCompleted,
   endSession,
@@ -15,6 +15,7 @@ import {
   getActiveSession,
   getEncounterXpForSession,
   getEventXpForSession,
+  getXpForSessionPerPc,
 } from '~/domain/party/party';
 import { getEncounterXp, groupMonsters } from '~/domain/encounters/encounters';
 
@@ -22,6 +23,7 @@ import styles from '~/components/party.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
 import { Card } from '~/components/cards/card';
 import { getMonster } from '~/domain/encounters/monsters';
+import { concurrentRequests } from '~/utils/concurrentRequests';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -29,11 +31,28 @@ export const loader = async ({ params }) => {
     throw new Error('Party not found');
   }
 
-  const pcs = party.players.map(playerName => getPc(playerName));
-  for ([index, pc] of pcs.entries()) pcs[index] = await pc;
+  const pcs = await concurrentRequests(party.players, playerName =>
+    getPc(playerName)
+  );
 
   return json({ party, pcs });
 };
+
+async function endSessionAction(formData) {
+  const partyId = formData.get('partyId');
+  const endSessionId = formData.get('sessionEnd');
+
+  const partyRequest = getParty(partyId);
+  const endSessionRequest = endSession(partyId, endSessionId);
+
+  const party = await partyRequest;
+  const currentSession = party.sessions.find(s => s.id === endSessionId);
+  const pcExp = getXpForSessionPerPc(currentSession, party.players.length);
+
+  await concurrentRequests(party.players, pcName => addXp(pcName, pcExp));
+
+  await endSessionRequest;
+}
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -48,7 +67,7 @@ export const action = async ({ request }) => {
   if (sessionStart === 'start') {
     await startSession(partyId);
   } else if (endSessionId) {
-    await endSession(partyId, endSessionId);
+    await endSessionAction(formData);
   } else if (newEvent === 'newEvent') {
     await addEventCompleted(
       partyId,
@@ -64,14 +83,15 @@ export const action = async ({ request }) => {
 function Session(props) {
   const { title, session = {}, pcs, children } = props;
 
+  const encounterXp = getEncounterXpForSession(session, pcs.length);
+
   return (
     <Card title={title} key={session.id} className={styles.paleColor}>
       <div className={styles.sessionSection}>
         <h4 className={styles.sessionSectionTitle}>
           <span>Combates</span>
           <span>
-            {getEncounterXpForSession(session, pcs)} xp (
-            {getEncounterXpForSession(session, pcs) / pcs.length} por PC)
+            {encounterXp} xp ({encounterXp / pcs.length} por PC)
           </span>
         </h4>
         <ul className={styles.sessionSectionItems}>
@@ -82,7 +102,7 @@ function Session(props) {
                   {groupMonsters(monsters.map(getMonster))}
                 </span>
                 <span className={styles.sessionItemXp}>
-                  {getEncounterXp(monsters.map(getMonster), pcs)} xp
+                  {getEncounterXp(monsters.map(getMonster), pcs.length)} xp
                 </span>
               </div>
             </li>

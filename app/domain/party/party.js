@@ -15,13 +15,21 @@ export function getActiveSession(party) {
   return lastSession;
 }
 
-export function getEncounterXpForSession(session, pcs) {
+export function getEncounterXpForSession(session, numberOfPcs) {
   return session.monstersKilled.reduce(
-    (xp, monsters) => xp + getEncounterXp(monsters, pcs),
+    (xp, monsters) => xp + getEncounterXp(monsters, numberOfPcs),
     0
   );
 }
 
 export function getEventXpForSession(session) {
   return session.eventsCompleted.reduce((xp, event) => xp + event.xp, 0);
+}
+
+export function getXpForSession(session, numberOfPcs) {
+  return getEncounterXpForSession(session, numberOfPcs) + getEventXpForSession(session);
+}
+
+export function getXpForSessionPerPc(session, numberOfPcs) {
+  return getXpForSession(session, numberOfPcs) / numberOfPcs;
 }

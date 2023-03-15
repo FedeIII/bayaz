@@ -247,6 +247,16 @@ export async function updatePc(pcAttrs) {
   return updatedPc;
 }
 
+export async function addXp(pcName, xp) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    { $inc: { exp: xp } },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
 export async function addPreparedSpell(name, spell) {
   const pc = await getPc(name);
   const maxPreparedSpells = getMaxPreparedSpells(pc);
