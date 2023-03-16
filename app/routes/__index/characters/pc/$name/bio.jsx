@@ -22,12 +22,12 @@ import {
   getEquipmentWeight,
 } from '~/domain/characters';
 import random from '~/domain/random';
-import { ItemModal } from '~/components/item/itemModal';
-import { InventoryItem } from '~/components/item/inventoryItem';
-import { useInventoryItems } from '~/components/item/useInventoryItems';
+import { ItemModal } from '~/components/modal/itemModal';
+import { InventoryItem } from '~/components/modal/inventoryItem';
+import { useInventoryItems } from '~/components/modal/useInventoryItems';
 
 import styles from '~/components/bio.module.css';
-import itemStyles from '~/components/item/inventoryItem.module.css';
+import itemStyles from '~/components/modal/inventoryItem.module.css';
 import { GrowBar } from '~/components/indicators/growBar';
 
 export const loader = async ({ params }) => {

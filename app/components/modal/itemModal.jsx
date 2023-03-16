@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
-import { displayDamage, displayTrait } from '~/domain/display';
+import { displayDamage } from '~/domain/display';
 import { translateItem } from '~/domain/equipment/equipment';
-import { getItemArmorClass, getSkillExplanation, translateMoney } from '~/domain/characters';
+import { getItemArmorClass, translateMoney } from '~/domain/characters';
 
 import styles from './inventoryItem.module.css';
 import { translateDamage } from '~/domain/equipment/weapons';
@@ -62,22 +62,16 @@ export function ItemModalContent(props) {
   );
 }
 
-export function SkillModalContent(props) {
-  const { pc, skillName, skill } = props;
-
-  const skillExplanation = getSkillExplanation(skillName, skill);
-  const skillTitle = displayTrait(skillName, skill, pc);
-
-  return (
-    <>
-      <h3 className={styles.modalTitle}>{skillTitle}</h3>
-      <div className={styles.modalContentText}>{skillExplanation}</div>
-    </>
-  );
-}
-
 export function ItemModal(props) {
-  const { children, elRef, formRef, closeModal, closeOnLeave } = props;
+  const {
+    children,
+    elRef,
+    formRef,
+    closeModal,
+    closeOnLeave,
+    center,
+    dropShadow,
+  } = props;
 
   const ref = useRef(null);
   const [selfPosition, setSelfPosition] = useState(null);
@@ -89,22 +83,29 @@ export function ItemModal(props) {
   }, [setSelfPosition, ref?.current]);
 
   return (
-    <div
-      className={styles.actionModal}
-      style={{
-        top:
-          (elPos?.y || 0) -
-          (formPos?.y || 0) -
-          (selfPosition?.height || 0) +
-          'px',
-        left: (elPos?.x || 0) - (formPos?.x || 0) + 'px',
-      }}
-      onMouseLeave={closeOnLeave && closeModal}
-      ref={ref}
-    >
-      <OutsideAlerter onClickOutside={closeModal} enabled>
-        {!!selfPosition && children(props)}
-      </OutsideAlerter>
-    </div>
+    <>
+      {dropShadow && <div className={styles.modalShadow} />}
+      <div
+        className={styles.actionModal}
+        style={{
+          top:
+            (elPos?.y || 0) -
+            (formPos?.y || 0) -
+            (selfPosition?.height || 0) +
+            'px',
+          left:
+            (elPos?.x || 0) -
+            (formPos?.x || 0) -
+            (center ? (selfPosition?.width || 0) / 2 : 0) +
+            'px',
+        }}
+        onMouseLeave={closeOnLeave && closeModal}
+        ref={ref}
+      >
+        <OutsideAlerter onClickOutside={closeModal} enabled>
+          {!!selfPosition && children(props)}
+        </OutsideAlerter>
+      </div>
+    </>
   );
 }

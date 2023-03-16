@@ -71,14 +71,16 @@ import {
 import { getItem, translateItem } from '~/domain/equipment/equipment';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { translateBackground } from '~/domain/backgrounds';
-import { InventoryItem } from '~/components/item/inventoryItem';
-import { useInventoryItems } from '~/components/item/useInventoryItems';
-import { ItemModal } from '~/components/item/itemModal';
+import { InventoryItem } from '~/components/modal/inventoryItem';
+import { useInventoryItems } from '~/components/modal/useInventoryItems';
+import { ItemModal } from '~/components/modal/itemModal';
+import { useSkillItems } from '~/components/modal/useSkillItems';
+import { SkillItem } from '~/components/modal/skillItem';
+import { SkillModal } from '~/components/modal/skillModal';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/sheet.module.css';
-import itemStyles from '~/components/item/inventoryItem.module.css';
-import { useSkillItems } from '~/components/item/useSkillItems';
-import { SkillItem } from '~/components/item/skillItem';
+import itemStyles from '~/components/modal/inventoryItem.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -247,6 +249,8 @@ function PcSummary() {
   const transition = useTransition();
   const isCreating = Boolean(transition.submission);
 
+  useTitle(pcName);
+
   const allSkills = getSkills(pc);
   const conditionalSkills = getConditionalSkills(pc);
 
@@ -394,6 +398,7 @@ function PcSummary() {
             elRef={selectedItemRef}
             formRef={formRef}
             closeModal={() => setActionModalContent(null)}
+            dropShadow
           >
             {actionModalContent}
           </ItemModal>
@@ -411,13 +416,13 @@ function PcSummary() {
         )}
 
         {skillModalContent && (
-          <ItemModal
+          <SkillModal
             elRef={selectedSkillRef}
             formRef={formRef}
             closeModal={closeSkillModal}
           >
             {skillModalContent}
-          </ItemModal>
+          </SkillModal>
         )}
 
         {/* FREE TEXT SUBMIT */}

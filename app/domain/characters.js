@@ -1090,7 +1090,7 @@ export function translateSavingThrowStatus(status) {
 function getLevelingTraits(pc) {
   const { pClass, level } = pc;
 
-  return Object.entries(CLASSES[pClass].leveling).reduce(
+  return Object.entries(CLASSES[pClass]?.leveling || {}).reduce(
     (levelingTraits, [traitLevel, levelSkills]) => ({
       ...levelingTraits,
       ...(parseInt(traitLevel, 10) <= level ? levelSkills.traits : {}),

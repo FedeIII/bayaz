@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { SkillModalContent } from './itemModal';
+import { SkillModalContent } from './skillModal';
 
 export function useSkillItems(pc, skillRefs) {
   const [skillModalContent, setSkillModalContent] = useState(null);
