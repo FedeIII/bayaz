@@ -49,6 +49,13 @@ const classAttrsSchema = new mongoose.Schema({
     type: String,
     enum: ['berserker', 'totem-warrior'],
   },
+  spiritTotem: {
+    totemType: {
+      type: String,
+      enum: ['bear', 'eagle', 'wolf'],
+    },
+    animal: String,
+  },
   divineDomain: {
     type: String,
     enum: Object.keys(DIVINE_DOMAINS),
@@ -262,6 +269,24 @@ export async function addXp(pcName, xp) {
   ).exec();
 
   return updatedPc;
+}
+
+export async function updateClassAttrs(pcName, classAttrs) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    {
+      $set: Object.entries(classAttrs).reduce(
+        (setAttrs, [classAttrName, classAttrValue]) => ({
+          ...setAttrs,
+          ['classAttrs.' + classAttrName]: classAttrValue,
+        }),
+        {}
+      ),
+    },
+    { new: true }
+  ).exec();
+
+  return updatePc;
 }
 
 export async function addPreparedSpell(name, spell) {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { redirect } from 'react-router';
 import { json } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, updatePc } from '~/services/pc.server';
+import { getPc, updateClassAttrs } from '~/services/pc.server';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
@@ -21,12 +21,12 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const primalPath = formData.get('primal-path');
 
-  await updatePc({ name, classAttrs: { primalPath } });
+  await updateClassAttrs(name, { primalPath });
 
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function BarbarianSkills() {
+function PrimalPath() {
   const { pc } = useLoaderData();
 
   const [path, setPath] = useState('');
@@ -97,4 +97,4 @@ function BarbarianSkills() {
   );
 }
 
-export default BarbarianSkills;
+export default PrimalPath;

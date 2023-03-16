@@ -394,6 +394,21 @@ export function displayTrait(traitName, trait, pc) {
         )
       );
 
+    case 'totemSpirit':
+      const { totemType, animal } = pc.classAttrs?.spiritTotem || {};
+      return (
+        <>
+          {trait}
+          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
+          {!!animal && (
+            <>
+              {': '}
+              <strong>{animal}</strong>
+            </>
+          )}
+        </>
+      );
+
     default:
       return trait;
   }

@@ -59,6 +59,7 @@ import {
 import { translateDivineDomain, getDivineDomain } from '~/domain/cleric';
 import {
   getPrimalPath,
+  getPrimalPathTraits,
   translatePrimalPath,
 } from '~/domain/barbarian/barbarian';
 import {
@@ -718,11 +719,23 @@ function PcSummary() {
 
           {!!getPrimalPath(pc) && (
             <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>Senda Primaria:</span>
               <strong className={styles.trait}>
-                {' '}
                 Senda del {translatePrimalPath(getPrimalPath(pc))}
               </strong>
+              <ul>
+                {getPrimalPathTraits(pc).map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.traits[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('traits', i)}
+                      key={traitName}
+                    />
+                  </li>
+                ))}
+              </ul>
             </li>
           )}
 

@@ -70,26 +70,102 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
     </p>
   ),
 
-  primalPath: (skill, pc) => {
+  primalPath: (skill, pc) => (
+    <>
+      <p>
+        En el nivel 3, eliges una senda que da forma a la naturaleza de tu
+        furia. Elige entre la Senda del Berserker o la Senda del Guerrero
+        Totémico, ambas detalladas al final de la descripción de la clase. Tu
+        elección te proporciona rasgos en el nivel 3 y nuevamente en el 6 y en
+        el 14.
+      </p>
+
+      <div className={styles.modalButtons}>
+        <Link
+          to={`/characters/pc/${pc.name}/leveling/barbarian/primalPath`}
+          className={styles.modalButton}
+        >
+          Escoge Senda Primaria
+        </Link>
+      </div>
+    </>
+  ),
+
+  frenzy: () => (
+    <p>
+      A partir del momento en el que eliges esta senda al nivel 3, puedes entrar
+      en frenesí cuando estás en furia. Si lo haces, mientras dure tu furia,
+      puedes hacer un único ataque cuerpo a cuerpo como acción adicional en cada
+      uno de tus turnos después de entrar en frenesí. Cuando tu furia termina,
+      sufres un nivel de fatiga (como se describe en el Apéndice A).
+    </p>
+  ),
+
+  spiritSeeker: () => (
+    <p>
+      Tuya es la senda que busca la sintonía con el mundo natural, dándote una
+      íntima relación con las bestias. Al nivel 3, cuando adoptas esta senda,
+      ganas la habilidad de lanzar los conjuros sentido animal y hablar con los
+      animales, pero sólo como rituales, como se describe en el Capítulo 10.
+    </p>
+  ),
+
+  totemSpirit: (skill, pc) => {
+    const { totemType, animal } = pc.classAttrs?.spiritTotem || {};
     return (
       <>
         <p>
-          En el nivel 3, eliges una senda que da forma a la naturaleza de tu
-          furia. Elige entre la Senda del Berserker o la Senda del Guerrero
-          Totémico, ambas detalladas al final de la descripción de la clase. Tu
-          elección te proporciona rasgos en el nivel 3 y nuevamente en el 6 y en
-          el 14.
+          Al nivel 3, cuando adoptas esta senda, eliges un tótem animal y
+          obtienes sus características. Debes hacer o adquirir un objeto como
+          tótem físico (un amuleto u otro adorno similar) que contenga pelo,
+          plumas, garras, dientes o huesos del animal tótem. A tu elección,
+          también ganas atributos físicos menores que recuerdan a tu espíritu
+          tótem. Por ejemplo, si tienes un espíritu tótem de oso, podrías ser
+          inusualmente peludo y de piel gruesa, o si tu tótem es el águila, tus
+          ojos se vuelven de un amarillo brillante.
         </p>
-
-        {!pc.classAttrs?.primalPath && (
+        {!totemType && (
           <div className={styles.modalButtons}>
             <Link
-              to={`/characters/pc/${pc.name}/leveling/primalPath`}
+              to={`/characters/pc/${pc.name}/leveling/barbarian/totemSpirit`}
               className={styles.modalButton}
             >
-              Escoge Senda Primaria
+              Escoge Tótem
             </Link>
           </div>
+        )}
+        {totemType === 'bear' && (
+          <>
+            <h4>{animal}</h4>
+            <p>
+              Mientras estás en furia, tienes resistencia a todos los daños
+              salvo el daño psíquico. El espíritu del oso te hace lo
+              suficientemente duro para resistir cualquier castigo.
+            </p>
+          </>
+        )}
+        {totemType === 'eagle' && (
+          <>
+            <h4>{animal}</h4>
+            <p>
+              Mientras estés en furia y no estés usando armadura pesada, las
+              demás criaturas tienen desventaja en los ataques de oportunidad
+              contra ti, y puedes usar la acción de Carrera como acción
+              adicional en tu turno. El espíritu del águila te convierte en un
+              depredador que puede moverse en combate con facilidad.
+            </p>
+          </>
+        )}
+        {totemType === 'wolf' && (
+          <>
+            <h4>{animal}</h4>
+            <p>
+              Mientras estés en furia, tus aliados tienen ventaja en las tiradas
+              de ataque cuerpo a cuerpo contra cualquier criatura a 5 pies (1,5
+              metros) de ti que sea hostil hacia ti. El espíritu del lobo te
+              convierte en un líder entre los cazadores.
+            </p>
+          </>
         )}
       </>
     );

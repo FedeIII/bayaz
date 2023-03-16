@@ -8,22 +8,51 @@ import {
 export const BARBARIAN_TRAITS = {
   traits: {
     rage: 'Furia',
-    unarmoredDefense: 'Defensa sin armadura',
+    unarmoredDefense: 'Defensa sin Armadura',
   },
   leveling: {
     2: {
       traits: {
-        recklessAttack: 'Ataque temerario',
-        dangerSense: 'Sentido del peligro',
+        recklessAttack: 'Ataque Temerario',
+        dangerSense: 'Sentido del Peligro',
       },
     },
     3: {
       traits: {
-        primalPath: 'Senda primaria',
+        primalPath: 'Senda Primaria',
+      },
+      primalPath: {
+        berserker: {
+          traits: {
+            frenzy: 'Frenesí',
+          },
+        },
+        'totem-warrior': {
+          traits: {
+            spiritSeeker: 'Buscador Espiritual',
+            totemSpirit: 'Espíritu Tótem',
+          },
+        },
       },
     },
   },
 };
+
+export function getPrimalPathTraits(pc) {
+  const { level, classAttrs: { primalPath } = {} } = pc;
+
+  return Object.entries(
+    Object.entries(BARBARIAN_TRAITS.leveling).reduce(
+      (levelingTraits, [traitLevel, levelSkills]) => ({
+        ...levelingTraits,
+        ...(parseInt(traitLevel, 10) <= level
+          ? levelSkills.primalPath?.[primalPath]?.traits || {}
+          : {}),
+      }),
+      {}
+    )
+  );
+}
 
 export const PRIMAL_PATHS = ['berserker', 'totem-warrior'];
 
