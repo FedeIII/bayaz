@@ -12,7 +12,7 @@ const MODAL_HORIZONTAL_OFFSET = 50;
 export function SkillModalContent(props) {
   const { pc, skillName, skill } = props;
 
-  const skillExplanation = getSkillExplanation(skillName, skill);
+  const skillExplanation = getSkillExplanation(skillName, skill, pc);
   const skillTitle = displayTrait(skillName, skill, pc);
 
   return (

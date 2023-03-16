@@ -1,10 +1,12 @@
 import { BACKGROUNDS } from './backgrounds';
+import { BARBARIAN_TRAITS } from './barbarian/barbarian';
 import { BARBARIAN_SKILLS_EXPLANATION } from './barbarian/barbarianSkillsExplanation';
 import {
   translateDivineDomain,
   getDivineDomain,
   DIVINE_DOMAINS,
 } from './cleric';
+import { displayTrait } from './display';
 import {
   getAllHeavyArmors,
   getAllLightArmors,
@@ -345,18 +347,7 @@ export const CLASSES = {
       'survival',
       'animal-handling',
     ],
-    traits: {
-      rage: 'Furia',
-      unarmoredDefense: 'Defensa sin armadura',
-    },
-    leveling: {
-      2: {
-        traits: {
-          recklessAttack: 'Ataque temerario',
-          dangerSense: 'Sentido del peligro',
-        },
-      },
-    },
+    ...BARBARIAN_TRAITS,
   },
   bard: {
     initialHitPoints: 8,
@@ -1109,18 +1100,14 @@ export function getTraits(pc) {
     level,
   } = pc;
 
-  return (
-    {
-      ...RACES[race][subrace].traits,
-      ...CLASSES[pClass].traits,
-      ...getLevelingTraits(pc),
-      ...(pClass === 'warlock' ? PATRONS[patron]?.traits || {} : {}),
-      ...(pClass === 'cleric'
-        ? DIVINE_DOMAINS[divineDomain]?.traits || {}
-        : {}),
-      ...(BACKGROUNDS[background.name]?.traits || {}),
-    } || {}
-  );
+  return Object.entries({
+    ...RACES[race][subrace].traits,
+    ...CLASSES[pClass].traits,
+    ...getLevelingTraits(pc),
+    ...(pClass === 'warlock' ? PATRONS[patron]?.traits || {} : {}),
+    ...(pClass === 'cleric' ? DIVINE_DOMAINS[divineDomain]?.traits || {} : {}),
+    ...(BACKGROUNDS[background.name]?.traits || {}),
+  }).filter(([traitName, trait]) => displayTrait(traitName, trait, pc));
 }
 
 export function translateMoney(money) {
@@ -1256,10 +1243,10 @@ export function getLevelByXp(exp) {
   return EXP_FOR_LEVEL.findIndex(xp => xp > exp);
 }
 
-export function getSkillExplanation(skillName, skill) {
+export function getSkillExplanation(skillName, skill, pc) {
   return (
     {
       ...BARBARIAN_SKILLS_EXPLANATION,
-    }[skillName] || skill
+    }[skillName]?.(skill, pc) || skill
   );
 }

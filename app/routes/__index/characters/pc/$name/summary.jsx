@@ -338,7 +338,7 @@ function PcSummary() {
   const traits = getTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
-    traits: Object.keys(traits).map(() => useRef()),
+    traits: traits.map(() => useRef()),
   });
 
   const [
@@ -703,7 +703,7 @@ function PcSummary() {
 
         {/* FEATS & TRAITS */}
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>
-          {Object.entries(traits).map(([traitName, trait], i) => (
+          {traits.map(([traitName, trait], i) => (
             <li className={styles.traitLabel} key={traitName}>
               <SkillItem
                 ref={skillRefs.traits[i]}

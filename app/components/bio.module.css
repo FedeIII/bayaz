@@ -279,5 +279,5 @@
 }
 
 .equipArmor:hover {
-  background-color: #dadad8;
+  background-color: var(--color-gray);
 }

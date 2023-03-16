@@ -11,7 +11,6 @@ import {
   SKILLS,
   getInitialHitPoints,
 } from '~/domain/characters';
-import BarbarianSkills from '~/components/classSkillsSelection/barbarianSkills';
 import BardSkills from '~/components/classSkillsSelection/bardSkills';
 import WarlockSkills from '~/components/classSkillsSelection/warlockSkills';
 import ClericSkills from '~/components/classSkillsSelection/clericSkills';
@@ -48,7 +47,6 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const classSkills = formData.getAll('class-skills[]');
   const items = formData.getAll('items[]');
-  const primalPath = formData.get('primal-path');
   const patron = formData.get('patron');
   const divineDomain = formData.get('divine-domain');
   const clericSkills = formData.getAll('cleric-skills[]');
@@ -71,7 +69,6 @@ export const action = async ({ request }) => {
       ...pc.proficientItems,
       ...items.map(itemName => pcItem(itemName)),
     ];
-  if (primalPath) pcAttrs.classAttrs.primalPath = primalPath;
   if (patron) pcAttrs.classAttrs.patron = patron;
   if (divineDomain) pcAttrs.classAttrs.divineDomain = divineDomain;
   if (clericSkills.length) pcAttrs.classAttrs.skills = clericSkills;

@@ -21,6 +21,8 @@ import {
   translateDamage,
 } from './equipment/weapons';
 
+import sheetStyles from '~/components/sheet.module.css';
+
 export function increment(num) {
   return num >= 0 ? '+' + num : num;
 }
@@ -380,6 +382,16 @@ export function displayTrait(traitName, trait, pc) {
             ? ` Gremio de ${translateGuild(pc.background.guild)}`
             : ''}
         </Fragment>
+      );
+
+    case 'primalPath':
+      return (
+        !pc.classAttrs?.primalPath && (
+          <>
+            <strong>{trait}</strong>
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          </>
+        )
       );
 
     default:

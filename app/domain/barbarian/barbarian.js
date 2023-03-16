@@ -5,6 +5,26 @@ import {
   WEAPONS,
 } from '../equipment/weapons';
 
+export const BARBARIAN_TRAITS = {
+  traits: {
+    rage: 'Furia',
+    unarmoredDefense: 'Defensa sin armadura',
+  },
+  leveling: {
+    2: {
+      traits: {
+        recklessAttack: 'Ataque temerario',
+        dangerSense: 'Sentido del peligro',
+      },
+    },
+    3: {
+      traits: {
+        primalPath: 'Senda primaria',
+      },
+    },
+  },
+};
+
 export const PRIMAL_PATHS = ['berserker', 'totem-warrior'];
 
 export function translatePrimalPath(primalPath) {

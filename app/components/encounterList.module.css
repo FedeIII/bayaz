@@ -73,6 +73,6 @@
     color: var(--color-red);
   }
   to {
-    color: var(--color-red-light);
+    color: var(--color-x-red);
   }
 }
