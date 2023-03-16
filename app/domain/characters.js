@@ -1,4 +1,5 @@
 import { BACKGROUNDS } from './backgrounds';
+import { BARBARIAN_SKILLS_EXPLANATION } from './barbarian/barbarianSkillsExplanation';
 import {
   translateDivineDomain,
   getDivineDomain,
@@ -1253,4 +1254,12 @@ const EXP_FOR_LEVEL = [
 
 export function getLevelByXp(exp) {
   return EXP_FOR_LEVEL.findIndex(xp => xp > exp);
+}
+
+export function getSkillExplanation(skillName, skill) {
+  return (
+    {
+      ...BARBARIAN_SKILLS_EXPLANATION,
+    }[skillName] || skill
+  );
 }

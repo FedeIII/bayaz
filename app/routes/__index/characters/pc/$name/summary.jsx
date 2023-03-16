@@ -57,10 +57,12 @@ import {
   translateRangerArchetype,
 } from '~/domain/ranger';
 import { translateDivineDomain, getDivineDomain } from '~/domain/cleric';
-import { getPrimalPath, translatePrimalPath } from '~/domain/barbarian';
+import {
+  getPrimalPath,
+  translatePrimalPath,
+} from '~/domain/barbarian/barbarian';
 import {
   displayMoneyAmount,
-  displayTrait,
   getAttacks,
   getItemDisplayList,
   getSpecialAttacks,
@@ -75,6 +77,8 @@ import { ItemModal } from '~/components/item/itemModal';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/item/inventoryItem.module.css';
+import { useSkillItems } from '~/components/item/useSkillItems';
+import { SkillItem } from '~/components/item/skillItem';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -327,6 +331,20 @@ function PcSummary() {
     setSelectedItemRef,
   ] = useInventoryItems(pc, itemRefs, actionModalContent);
 
+  const traits = getTraits(pc);
+
+  const [skillRefs, setSkillRefs] = useState({
+    traits: Object.keys(traits).map(() => useRef()),
+  });
+
+  const [
+    skillModalContent,
+    closeSkillModal,
+    openSkillModal,
+    selectedSkillRef,
+    setSelectedSkillRef,
+  ] = useSkillItems(pc, skillRefs);
+
   const formRef = useRef(null);
 
   function onItemClick(itemType, itemIndex = 0) {
@@ -389,6 +407,16 @@ function PcSummary() {
             closeOnLeave
           >
             {itemModalContent}
+          </ItemModal>
+        )}
+
+        {skillModalContent && (
+          <ItemModal
+            elRef={selectedSkillRef}
+            formRef={formRef}
+            closeModal={closeSkillModal}
+          >
+            {skillModalContent}
           </ItemModal>
         )}
 
@@ -586,7 +614,6 @@ function PcSummary() {
                 closeModal={closeItemModal}
                 key={equipment.armor.name}
               />
-              {/* <strong>{translateItem(equipment.armor.name)}</strong> */}
             </li>
           )}
           {!!equipment.shield && (
@@ -671,9 +698,16 @@ function PcSummary() {
 
         {/* FEATS & TRAITS */}
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>
-          {Object.entries(getTraits(pc)).map(([traitName, trait]) => (
+          {Object.entries(traits).map(([traitName, trait], i) => (
             <li className={styles.traitLabel} key={traitName}>
-              {displayTrait(traitName, trait, pc)}
+              <SkillItem
+                ref={skillRefs.traits[i]}
+                traitName={traitName}
+                trait={trait}
+                pc={pc}
+                openModal={openSkillModal('traits', i)}
+                key={traitName}
+              />
             </li>
           ))}
 

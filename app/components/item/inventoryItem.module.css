@@ -79,6 +79,20 @@
   background-color: white;
 }
 
+.modalContentText {
+  position: relative;
+  border-color: black;
+  border-inline-style: groove;
+  border-start-start-radius: 5px;
+  border-start-end-radius: 5px;
+  border-end-end-radius: 10px;
+  border-end-start-radius: 10px;
+  margin: -23px 0 0 0;
+  padding: 20px 12px 12px 12px;
+  background-color: white;
+  text-align: left;
+}
+
 .modalOptions {
   list-style: none;
   padding: 0;

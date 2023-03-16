@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
-import { displayDamage } from '~/domain/display';
+import { displayDamage, displayTrait } from '~/domain/display';
 import { translateItem } from '~/domain/equipment/equipment';
-import { getItemArmorClass, translateMoney } from '~/domain/characters';
+import { getItemArmorClass, getSkillExplanation, translateMoney } from '~/domain/characters';
 
 import styles from './inventoryItem.module.css';
 import { translateDamage } from '~/domain/equipment/weapons';
@@ -58,6 +58,20 @@ export function ItemModalContent(props) {
           </li>
         </ul>
       </div>
+    </>
+  );
+}
+
+export function SkillModalContent(props) {
+  const { pc, skillName, skill } = props;
+
+  const skillExplanation = getSkillExplanation(skillName, skill);
+  const skillTitle = displayTrait(skillName, skill, pc);
+
+  return (
+    <>
+      <h3 className={styles.modalTitle}>{skillTitle}</h3>
+      <div className={styles.modalContentText}>{skillExplanation}</div>
     </>
   );
 }

@@ -1,9 +1,9 @@
-import { EXPLORERS_PACK } from './equipment/packs';
+import { EXPLORERS_PACK } from '../equipment/packs';
 import {
   getAllMartialMelee,
   getAllSimpleMelee,
   WEAPONS,
-} from './equipment/weapons';
+} from '../equipment/weapons';
 
 export const PRIMAL_PATHS = ['berserker', 'totem-warrior'];
 
