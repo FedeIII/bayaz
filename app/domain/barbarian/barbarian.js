@@ -60,6 +60,11 @@ export const BARBARIAN_TRAITS = {
         },
       },
     },
+    7: {
+      traits: {
+        feralInstinct: 'Instinto Salvaje',
+      },
+    },
   },
 };
 

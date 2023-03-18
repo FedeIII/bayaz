@@ -249,4 +249,18 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
       </>
     );
   },
+
+  feralInstinct: () => (
+    <>
+      <p>
+        A partir del nivel 7, tus instintos son tan precisos que tienes ventaja
+        en las tiradas de iniciativa.
+      </p>
+      <p>
+        De forma adicional, si eres sorprendido al principio del combate y no
+        estás incapacitado, puedes actuar normalmente en tu primer turno, pero
+        sólo si entras en furia antes de hacer otra cosa en ese turno.
+      </p>
+    </>
+  ),
 };
