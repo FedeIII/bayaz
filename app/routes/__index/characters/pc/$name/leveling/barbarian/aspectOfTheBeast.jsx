@@ -6,19 +6,20 @@ import { getPc, updateClassAttrs } from '~/services/pc.server';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
+import { useTitle } from '~/components/hooks/useTitle';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
-    throw new Error('pc not found');
+    throw new Error('PC not found');
   }
 
-  if (pc.classAttrs?.spiritTotem?.totemType) {
-    throw new Error('Ya has escogido Espíritu Tótem');
+  if (pc.classAttrs?.aspectOfTheBeast?.totemType) {
+    throw new Error('Ya has escogido Aspecto de la Bestia');
   }
 
   if (pc.pClass !== 'barbarian') {
-    throw new Error('Solo los bárbaros puedes escoger Espíritu Tótem');
+    throw new Error('Solo los bárbaros puedes escoger Aspecto de la Bestia');
   }
 
   return json({ pc });
@@ -28,20 +29,20 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
-  const spiritTotem = formData.get('spirit-totem');
+  const aspectOfTheBeast = formData.get('aspect-beast');
   const animal = formData.get('animal');
 
   await updateClassAttrs(name, {
-    spiritTotem: { totemType: spiritTotem, animal },
+    aspectOfTheBeast: { totemType: aspectOfTheBeast, animal },
   });
 
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function TotemSpirit() {
+function AspectOfTheBeast() {
   const { pc } = useLoaderData();
 
-  useTitle('Bárbaro nivel 3');
+  useTitle('Bárbaro nivel 6');
 
   const [totem, setTotem] = useState('');
 
@@ -49,22 +50,17 @@ function TotemSpirit() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Espíritu Tótem</h2>
+      <h2 className={styles.paleText}>Aspecto de la Bestia</h2>
       <p className={styles.paragraph}>
-        Al nivel 3, cuando adoptas esta senda, eliges un tótem animal y obtienes
-        sus características. Debes hacer o adquirir un objeto como tótem físico
-        (un amuleto u otro adorno similar) que contenga pelo, plumas, garras,
-        dientes o huesos del animal tótem. A tu elección, también ganas
-        atributos físicos menores que recuerdan a tu espíritu tótem. Por
-        ejemplo, si tienes un espíritu tótem de oso, podrías ser inusualmente
-        peludo y de piel gruesa, o si tu tótem es el águila, tus ojos se vuelven
-        de un amarillo brillante.
+        En el nivel 6, ganas un beneficio mágico basado en el tótem animal de tu
+        elección. Puedes elegir el mismo animal que elegiste en nivel 3 o uno
+        distinto.
       </p>
       <p>
         <label>
           <span className={styles.paleText}>Escoge tipo de Tótem</span>{' '}
           <select
-            name="spirit-totem"
+            name="aspect-beast"
             defaultValue=""
             className={cardStyles.buttonCard}
             onChange={e => setTotem(e.target.value)}
@@ -81,9 +77,10 @@ function TotemSpirit() {
         <>
           <h3 className={styles.paleText}>Oso</h3>
           <p className={styles.paragraph}>
-            Mientras estás en furia, tienes resistencia a todos los daños salvo
-            el daño psíquico. El espíritu del oso te hace lo suficientemente
-            duro para resistir cualquier castigo.
+            Ganas la fuerza de un oso. Tu capacidad de carga (incluyendo tu
+            carga máxima y tu capacidad de levantar y arrastrar) se duplica, y
+            tienes ventaja en las pruebas de Fuerza realizadas para empujar,
+            levantar, tirar o romper objetos.
           </p>
         </>
       )}
@@ -92,11 +89,11 @@ function TotemSpirit() {
         <>
           <h3 className={styles.paleText}>Águila</h3>
           <p className={styles.paragraph}>
-            Mientras estés en furia y no estés usando armadura pesada, las demás
-            criaturas tienen desventaja en los ataques de oportunidad contra ti,
-            y puedes usar la acción de Carrera como acción adicional en tu
-            turno. El espíritu del águila te convierte en un depredador que
-            puede moverse en combate con facilidad.
+            Ganas la vista de un águila. Puedes ver a una distancia de hasta una
+            milla (aprox. 1.600 metros) sin dificultad, y discernir hasta los
+            más pequeños detalles de algo que no diste más de 100 pies (30
+            metros) de ti. Además, la luz tenue no te impone desventaja en tus
+            pruebas de Sabiduría (Percepción).
           </p>
         </>
       )}
@@ -105,10 +102,10 @@ function TotemSpirit() {
         <>
           <h3 className={styles.paleText}>Lobo</h3>
           <p className={styles.paragraph}>
-            Mientras estés en furia, tus aliados tienen ventaja en las tiradas
-            de ataque cuerpo a cuerpo contra cualquier criatura a 5 pies (1,5
-            metros) de ti que sea hostil hacia ti. El espíritu del lobo te
-            convierte en un líder entre los cazadores.
+            Ganas las capacidades de caza de un lobo. Puedes rastrear a otras
+            criaturas mientras viajas a ritmo rápido y puedes moverte
+            sigilosamente mientras viajas a ritmo normal (ver el Capítulo 8 para
+            las reglas de Ritmo de Viaje).
           </p>
         </>
       )}
@@ -144,7 +141,7 @@ export function ErrorBoundary({ error }) {
       <h2 className={appStyles.errorText}>{error.message}</h2>
 
       <p className={styles.paragraph}>
-      Al nivel 3, cuando adoptas esta senda, eliges un tótem animal y obtienes
+        Al nivel 3, cuando adoptas esta senda, eliges un tótem animal y obtienes
         sus características. Debes hacer o adquirir un objeto como tótem físico
         (un amuleto u otro adorno similar) que contenga pelo, plumas, garras,
         dientes o huesos del animal tótem. A tu elección, también ganas
@@ -159,4 +156,4 @@ export function ErrorBoundary({ error }) {
   );
 }
 
-export default TotemSpirit;
+export default AspectOfTheBeast;

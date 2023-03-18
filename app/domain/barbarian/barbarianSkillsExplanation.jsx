@@ -184,4 +184,69 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
       mientras no estés usando armadura pesada.
     </p>
   ),
+
+  mindlessRage: () => (
+    <p>
+      Empezando en el nivel 6, no puedes ser encantado o asustado mientras estés
+      en furia. Si estás encantado o asustado cuando entras en furia, el efecto
+      es suspendido durante la duración de esta.
+    </p>
+  ),
+
+  aspectOfTheBeast: (skill, pc) => {
+    const { totemType, animal } = pc.classAttrs?.aspectOfTheBeast || {};
+    return (
+      <>
+        <p>
+          En el nivel 6, ganas un beneficio mágico basado en el tótem animal de
+          tu elección. Puedes elegir el mismo animal que elegiste en nivel 3 o
+          uno distinto.
+        </p>
+        {!totemType && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/barbarian/aspectOfTheBeast`}
+              className={styles.modalButton}
+            >
+              Escoge Tótem
+            </Link>
+          </div>
+        )}
+        {totemType === 'bear' && (
+          <>
+            <h4>{animal}</h4>
+            <p>
+              Ganas la fuerza de un oso. Tu capacidad de carga (incluyendo tu
+              carga máxima y tu capacidad de levantar y arrastrar) se duplica, y
+              tienes ventaja en las pruebas de Fuerza realizadas para empujar,
+              levantar, tirar o romper objetos.
+            </p>
+          </>
+        )}
+        {totemType === 'eagle' && (
+          <>
+            <h4>{animal}</h4>
+            <p>
+              Ganas la vista de un águila. Puedes ver a una distancia de hasta
+              una milla (aprox. 1.600 metros) sin dificultad, y discernir hasta
+              los más pequeños detalles de algo que no diste más de 100 pies (30
+              metros) de ti. Además, la luz tenue no te impone desventaja en tus
+              pruebas de Sabiduría (Percepción).
+            </p>
+          </>
+        )}
+        {totemType === 'wolf' && (
+          <>
+            <h4>{animal}</h4>
+            <p>
+              Ganas las capacidades de caza de un lobo. Puedes rastrear a otras
+              criaturas mientras viajas a ritmo rápido y puedes moverte
+              sigilosamente mientras viajas a ritmo normal (ver el Capítulo 8
+              para las reglas de Ritmo de Viaje).
+            </p>
+          </>
+        )}
+      </>
+    );
+  },
 };

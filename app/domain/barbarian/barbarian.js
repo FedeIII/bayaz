@@ -46,6 +46,20 @@ export const BARBARIAN_TRAITS = {
         fastMovement: 'Movimiento Rápido',
       },
     },
+    6: {
+      primalPath: {
+        berserker: {
+          traits: {
+            mindlessRage: 'Furia Inconsciente',
+          },
+        },
+        'totem-warrior': {
+          traits: {
+            aspectOfTheBeast: 'Aspecto de la Bestia',
+          },
+        },
+      },
+    },
   },
 };
 
@@ -75,6 +89,10 @@ export function translatePrimalPath(primalPath) {
 
 export function getPrimalPath(pc) {
   return pc.classAttrs?.primalPath;
+}
+
+export function getAspectOfTheBeastTotem(pc) {
+  return pc.classAttrs?.aspectOfTheBeast?.totemType;
 }
 
 export const BARBARIAN_EQUIPMENT = [

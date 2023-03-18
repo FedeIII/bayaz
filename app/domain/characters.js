@@ -1,5 +1,8 @@
 import { BACKGROUNDS } from './backgrounds';
-import { BARBARIAN_TRAITS } from './barbarian/barbarian';
+import {
+  BARBARIAN_TRAITS,
+  getAspectOfTheBeastTotem,
+} from './barbarian/barbarian';
 import { BARBARIAN_SKILLS_EXPLANATION } from './barbarian/barbarianSkillsExplanation';
 import {
   translateDivineDomain,
@@ -992,10 +995,26 @@ export const ALIGNMENTS = {
 // 20 * 15 * 0.45 = 135
 
 export function getLightEncumbrance(pc) {
+  const { pClass } = pc;
+
+  if (pClass === 'barbarian') {
+    const aspectOfTheBeastTotem = getAspectOfTheBeastTotem(pc);
+    if (aspectOfTheBeastTotem === 'bear')
+      return getStat(pc, 'str') * 10 * 0.45 * 2;
+  }
+
   return getStat(pc, 'str') * 10 * 0.45;
 }
 
 export function getHeavyEncumbrance(pc) {
+  const { pClass } = pc;
+
+  if (pClass === 'barbarian') {
+    const aspectOfTheBeastTotem = getAspectOfTheBeastTotem(pc);
+    if (aspectOfTheBeastTotem === 'bear')
+      return getStat(pc, 'str') * 15 * 0.45 * 2;
+  }
+
   return getStat(pc, 'str') * 15 * 0.45;
 }
 

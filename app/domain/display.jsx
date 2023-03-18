@@ -395,7 +395,7 @@ export function displayTrait(traitName, trait, pc) {
         )
       );
 
-    case 'totemSpirit':
+    case 'totemSpirit': {
       const { totemType, animal } = pc.classAttrs?.spiritTotem || {};
       return (
         <>
@@ -409,6 +409,7 @@ export function displayTrait(traitName, trait, pc) {
           )}
         </>
       );
+    }
 
     case 'abilityScoreImprovement':
       if (!hasToImproveAbilityScore(pc)) {
@@ -420,6 +421,22 @@ export function displayTrait(traitName, trait, pc) {
           <span className={sheetStyles.pendingTrait}>(!)</span>
         </>
       );
+
+    case 'aspectOfTheBeast': {
+      const { totemType, animal } = pc.classAttrs?.aspectOfTheBeast || {};
+      return (
+        <>
+          <strong>{trait}</strong>
+          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
+          {!!animal && (
+            <>
+              {': '}
+              <strong>{animal}</strong>
+            </>
+          )}
+        </>
+      );
+    }
 
     default:
       return trait;
