@@ -1,0 +1,72 @@
+.stats {
+  display: table;
+  margin: auto;
+  border-collapse: separate;
+  border-spacing: 8px 16px;
+  margin: 32px auto;
+}
+
+.stat {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+  padding: 0;
+  font-size: 24px;
+}
+
+.leftCell {
+  text-align: right;
+  padding: 0 4px 0 0;
+}
+
+.rightCell {
+  text-align: left;
+}
+
+.statName {
+  padding: 0 12px;
+  font-size: 18px;
+}
+
+.statValue {
+  padding: 4px 8px 0px !important;
+  font-size: 24px;
+}
+
+.statInput {
+  padding: 4px 8px !important;
+  background-color: var(--color-base);
+  color: white;
+  font-family: fantasy;
+  width: 30px;
+  border: none;
+  font-size: 20px;
+}
+
+.statButton {
+  background-color: var(--color-light);
+  border: 1px solid white;
+  color: white;
+  border-radius: 50%;
+  font-size: 18px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin: 0 8px 0 0;
+  padding: 0 0 0 0;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.statButton:hover {
+  background-color: var(--color-pale);
+}
+
+.statButton[disabled] {
+  background-color: gray;
+  border-color: lightgray;
+  color: lightgray;
+  cursor: initial;
+}

@@ -201,6 +201,7 @@ const pcSchema = new mongoose.Schema({
   spellSlots: [Number],
   totalSpells: Number,
   money: [Number, Number, Number],
+  improvedStatsLevels: [Number],
 });
 
 function weaponLimit(val) {
@@ -286,7 +287,35 @@ export async function updateClassAttrs(pcName, classAttrs) {
     { new: true }
   ).exec();
 
-  return updatePc;
+  return updatedPc;
+}
+
+export async function increaseStats(pcName, statsIncrease) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    {
+      $inc: Object.entries(statsIncrease).reduce(
+        (update, [statName, statIncrease]) => ({
+          ...update,
+          [`stats.${statName}`]: statIncrease,
+        }),
+        {}
+      ),
+    },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function addImprovedStatsLevel(name, level) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: name },
+    { $push: { improvedStatsLevels: level } },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
 }
 
 export async function addPreparedSpell(name, spell) {

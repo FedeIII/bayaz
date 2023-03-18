@@ -6,12 +6,22 @@ import { getPc, updateClassAttrs } from '~/services/pc.server';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
+import { useTitle } from '~/components/hooks/useTitle';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
-    throw new Error('pc not found');
+    throw new Error('PC not found');
   }
+
+  if (pc.classAttrs?.primalPath) {
+    throw new Error('Ya has escogido Senda Primaria');
+  }
+
+  if (pc.pClass !== 'barbarian') {
+    throw new Error('Solo los bárbaros puedes escoger Senda Primaria');
+  }
+
   return json({ pc });
 };
 
@@ -28,6 +38,8 @@ export const action = async ({ request }) => {
 
 function PrimalPath() {
   const { pc } = useLoaderData();
+
+  useTitle('Bárbaro nivel 3');
 
   const [path, setPath] = useState('');
 
@@ -76,15 +88,15 @@ function PrimalPath() {
           <h3 className={styles.paleText}>Senda del Guerrero Totémico</h3>
           <p className={styles.paragraph}>
             La Senda del Guerrero Totémico es un camino espiritual; el bárbaro
-            acepta el espíritu animal como guía, protector e ins- piración. En
-            la batalla, el espíritu de tu tótem te inunda con un poder
+            acepta el espíritu animal como guía, protector e inspiración. En la
+            batalla, el espíritu de tu tótem te inunda con un poder
             sobrenatural, añadiendo fuerza mágica a tu furia de bárbaro.
           </p>
           <p className={styles.paragraph}>
-            La mayoría de las tribus bárbaras consideran que un tó- tem animal
-            se relaciona con un clan en particular. En esos casos, es inusual
-            que un individuo tenga más de un espíritu tótem animal, aunque
-            existen algunas excepciones.
+            La mayoría de las tribus bárbaras consideran que un tótem animal se
+            relaciona con un clan en particular. En esos casos, es inusual que
+            un individuo tenga más de un espíritu tótem animal, aunque existen
+            algunas excepciones.
           </p>
         </>
       )}
@@ -94,6 +106,27 @@ function PrimalPath() {
         </button>
       </p>
     </Form>
+  );
+}
+
+export function ErrorBoundary({ error }) {
+  useTitle('Error');
+
+  return (
+    <div>
+      <h2 className={appStyles.errorText}>{error.message}</h2>
+
+      <p className={styles.paragraph}>
+        La furia arde en el corazón de cada bárbaro como una fragua que forja su
+        destino hacia la grandeza. Aun así, diferentes bárbaros atribuyen su
+        furia a diversas fuentes. Para algunos, es una reserva interior donde el
+        dolor, la pena y la cólera son forjados en una furia tan dura como el
+        acero. Otros lo ven como una bendición espiritual, el don de un tótem
+        animal.
+      </p>
+
+      <p className={appStyles.errorStack}>{error.stack}</p>
+    </div>
   );
 }
 

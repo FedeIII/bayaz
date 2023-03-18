@@ -97,6 +97,8 @@ export const action = async ({ request }) => {
   pcAttrs.spellSlots = getSpellSlots(pc);
   pcAttrs.totalSpells = getTotalSpells(pc);
 
+  pcAttrs.improvedStatsLevels = [];
+
   const updatedPc = await updatePc(pcAttrs);
 
   let preparedSpells;

@@ -124,3 +124,20 @@
 .paleText {
   color: var(--color-x-pale);
 }
+
+.errorText {
+  color: var(--color-red);
+}
+
+.errorStack {
+  text-align: left;
+  color: var(--color-x-red);
+  width: 90%;
+  margin: 36px auto;
+  padding: 16px 32px;
+  background-color: var(--color-light);
+  border: 1px solid white;
+  font-family: monospace;
+  line-height: 1.5;
+  font-size: 15px;
+}

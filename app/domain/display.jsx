@@ -5,6 +5,7 @@ import {
   getDamageBonus,
   getStat,
   getStatMod,
+  isAbilityScoreImproved,
   translateSavingThrowStatus,
 } from './characters';
 import {
@@ -406,6 +407,17 @@ export function displayTrait(traitName, trait, pc) {
               <strong>{animal}</strong>
             </>
           )}
+        </>
+      );
+
+    case 'abilityScoreImprovement':
+      if (isAbilityScoreImproved(pc)) {
+        return null;
+      }
+      return (
+        <>
+          <strong>{trait}</strong>
+          <span className={sheetStyles.pendingTrait}>(!)</span>
         </>
       );
 

@@ -35,6 +35,11 @@ export const BARBARIAN_TRAITS = {
         },
       },
     },
+    4: {
+      traits: {
+        abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+      },
+    },
   },
 };
 

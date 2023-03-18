@@ -24,6 +24,7 @@ import {
   getAllSimpleRanged,
   getAllWeapons,
 } from './equipment/weapons';
+import { SKILLS_EXPLANATION } from './skillsExplanation';
 import { getSorcererOrigin, SORCERER_ORIGIN } from './sorcerer';
 import { PATRONS } from './warlock';
 
@@ -347,6 +348,7 @@ export const CLASSES = {
       'survival',
       'animal-handling',
     ],
+    statImprove: [4, 8, 12, 16, 19],
     ...BARBARIAN_TRAITS,
   },
   bard: {
@@ -384,6 +386,7 @@ export const CLASSES = {
       'shortsword',
     ],
     spellcastingAbility: 'cha',
+    statImprove: [4, 8, 12, 16, 19],
     traits: {
       bardicInspiration: '1d6',
     },
@@ -402,6 +405,7 @@ export const CLASSES = {
       ...getAllSimpleRanged().map(weapon => weapon.name),
     ],
     spellcastingAbility: 'wis',
+    statImprove: [4, 8, 12, 16, 19],
   },
   druid: {
     initialHitPoints: 8,
@@ -434,6 +438,7 @@ export const CLASSES = {
       'herbalismKit',
     ],
     spellcastingAbility: 'wis',
+    statImprove: [4, 8, 12, 16, 19],
   },
   fighter: {
     initialHitPoints: 10,
@@ -460,6 +465,7 @@ export const CLASSES = {
       ...getAllMartialMelee().map(weapon => weapon.name),
       ...getAllMartialRanged().map(weapon => weapon.name),
     ],
+    statImprove: [4, 6, 8, 12, 14, 16, 19],
     traits: {
       secondWind: 'Nuevas Energías',
     },
@@ -482,6 +488,7 @@ export const CLASSES = {
       ...getAllSimpleRanged().map(weapon => weapon.name),
       'shortsword',
     ],
+    statImprove: [4, 8, 12, 16, 19],
   },
   paladin: {
     initialHitPoints: 10,
@@ -514,6 +521,7 @@ export const CLASSES = {
       ...getAllMartialMelee().map(weapon => weapon.name),
       ...getAllMartialRanged().map(weapon => weapon.name),
     ],
+    statImprove: [4, 8, 12, 16, 19],
   },
   ranger: {
     initialHitPoints: 10,
@@ -539,6 +547,7 @@ export const CLASSES = {
       ...getAllMartialRanged().map(weapon => weapon.name),
     ],
     spellcastingAbility: 'wis',
+    statImprove: [4, 8, 12, 16, 19],
   },
   rogue: {
     initialHitPoints: 8,
@@ -571,6 +580,7 @@ export const CLASSES = {
       'shortsword',
       'thievesTools',
     ],
+    statImprove: [4, 8, 10, 12, 16, 19],
   },
   sorcerer: {
     initialHitPoints: 6,
@@ -593,6 +603,7 @@ export const CLASSES = {
       'lightCrossbow',
     ],
     spellcastingAbility: 'cha',
+    statImprove: [4, 8, 12, 16, 19],
   },
   warlock: {
     initialHitPoints: 8,
@@ -614,6 +625,7 @@ export const CLASSES = {
       ...getAllSimpleRanged().map(armor => armor.name),
     ],
     spellcastingAbility: 'cha',
+    statImprove: [4, 8, 12, 16, 19],
   },
   wizard: {
     initialHitPoints: 6,
@@ -636,6 +648,7 @@ export const CLASSES = {
       'sling',
     ],
     spellcastingAbility: 'int',
+    statImprove: [4, 8, 12, 16, 19],
     traits: {
       arcaneRecovery: 'Recuperación Arcana',
     },
@@ -1246,7 +1259,15 @@ export function getLevelByXp(exp) {
 export function getSkillExplanation(skillName, skill, pc) {
   return (
     {
+      ...SKILLS_EXPLANATION,
       ...BARBARIAN_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
+  );
+}
+
+export function isAbilityScoreImproved(pc) {
+  const { level, improvedStatsLevels = [], pClass } = pc;
+  return (
+    improvedStatsLevels.includes(level) && CLASSES[pClass].statImprove.includes(level)
   );
 }
