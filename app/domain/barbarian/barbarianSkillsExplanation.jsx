@@ -1,6 +1,7 @@
 import { Link } from '@remix-run/react';
 
 import styles from '~/components/modal/inventoryItem.module.css';
+import { getProficiencyBonus, getStat, getStatMod } from '../characters';
 
 export const BARBARIAN_SKILLS_EXPLANATION = {
   rage: () => (
@@ -267,12 +268,69 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
   brutalCritical: () => (
     <>
       <p>
-        Empezando en nivel 9, puedes tirar un dado de daño adicio- nal cuando
+        Empezando en nivel 9, puedes tirar un dado de daño adicional cuando
         determinas el daño de un golpe crítico con un ataque cuerpo a cuerpo.
       </p>
       <p>
         Esto se incrementa a dos dados adicionales en el nivel 13 y tres dados
         adicionales en el nivel 17.
+      </p>
+    </>
+  ),
+
+  intimidatingPresence: (skill, pc) => (
+    <>
+      <p>
+        Empezando en el nivel 10, puedes usar tu acción para asustar a alguien
+        con tu presencia amenazadora. Cuando lo haces, elige una criatura que
+        puedas ver y esté a 30 pies{' '}
+        <u>
+          <strong>(9 metros)</strong>
+        </u>{' '}
+        o menos de ti. Si la criatura puede verte u oírte, debe tener éxito en
+        una tirada de salvación de Sabiduría de{' '}
+        <u>
+          <strong>
+            CD{' '}
+            {8 + getProficiencyBonus(pc.level) + getStatMod(getStat(pc, 'cha'))}
+          </strong>
+        </u>{' '}
+        (CD 8 + tu bonificador de competencia + tu modificador de Carisma) o
+        quedar asustado hasta el final de su siguiente turno. En los turnos
+        subsiguientes, puedes usar tu acción para extender la duración de este
+        efecto en la criatura asustada hasta el final de tu próximo turno. Este
+        efecto termina si la criatura acaba su turno fuera de tu línea de visión
+        o a más de 60 pies (18 metros) de ti.
+      </p>
+      <p>
+        Si la criatura tiene éxito en su tirada de salvación, no puedes usar
+        este rasgo en esta criatura en las siguientes 24 horas.
+      </p>
+    </>
+  ),
+
+  spiritWalker: () => (
+    <p>
+      En el nivel 10, puedes lanzar el conjuro comunión con la naturaleza, pero
+      sólo como ritual. Cuando lo haces, una versión espiritual de uno de los
+      animales que elegiste para Espíritu Tótem o Aspecto de la Bestia se te
+      aparece para transmitirte la información que pediste.
+    </p>
+  ),
+
+  relentlessRage: () => (
+    <>
+      <p>
+        Empezando en el nivel 11, tu furia puede mantenerte luchando a pesar de
+        las graves heridas. Si tus Puntos de Golpe se reducen a cero mientras
+        estás en furia y no mueres en el momento, puedes hacer una tirada de
+        salvación de Constitución CD 10. Si tienes éxito, quedas reducido a 1
+        punto de golpe en su lugar.
+      </p>
+      <p>
+        Cada vez que usas este rasgo después de la primera vez, la CD se
+        incrementa en 5. Cuando terminas un descanso corto o prolongado, la CD
+        vuelve a ser 10
       </p>
     </>
   ),

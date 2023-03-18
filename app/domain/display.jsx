@@ -438,6 +438,13 @@ export function displayTrait(traitName, trait, pc) {
       );
     }
 
+    case 'brutalCritical': {
+      const { level } = pc;
+      return `${trait}: ${
+        level >= 17 ? '+3 Dados' : level >= 13 ? '+2 Dados' : '+1 Dado'
+      }`;
+    }
+
     default:
       return trait;
   }

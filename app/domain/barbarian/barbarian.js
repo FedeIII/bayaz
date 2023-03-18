@@ -70,6 +70,23 @@ export const BARBARIAN_TRAITS = {
         brutalCritical: 'Crítico Brutal',
       },
     },
+    10: {
+      primalPath: {
+        berserker: {
+          traits: {
+            intimidatingPresence: 'Presencia Intimidante',
+          },
+        },
+        'totem-warrior': {
+          traits: {
+            spiritWalker: 'Caminante Espiritual',
+          },
+        },
+      },
+    },
+    11: {
+      relentlessRage: 'Furia Implacable',
+    },
   },
 };
 
