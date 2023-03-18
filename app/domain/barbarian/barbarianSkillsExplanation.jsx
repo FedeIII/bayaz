@@ -334,4 +334,68 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
       </p>
     </>
   ),
+
+  retaliation: () => (
+    <p>
+      Empezando en el nivel 14, cuando recibas daño de una criatura que está a 5
+      pies (1,5 metros) de ti, puedes emplear tu reacción para realizar un
+      ataque cuerpo a cuerpo contra esa criatura.
+    </p>
+  ),
+
+  totemicAttunement: (skill, pc) => {
+    const { totemType, animal } = pc.classAttrs?.totemicAttunement || {};
+    return (
+      <>
+        <p>
+          En el nivel 14, ganas un beneficio mágico basado en el tótem animal de
+          tu elección. Puedes elegir el mismo animal que elegiste previamente o
+          uno distinto.
+        </p>
+        {!totemType && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/barbarian/totemicAttunement`}
+              className={styles.modalButton}
+            >
+              Escoge Tótem
+            </Link>
+          </div>
+        )}
+        {totemType === 'bear' && (
+          <>
+            <h4>{animal}</h4>
+            <p>
+              Mientras estás en furia, las criaturas a 5 pies (1,5 metros) de ti
+              que te sean hostiles tienen desventaja en las tiradas de ataque
+              contra cualquier otro que no seas tú u otro personaje con este
+              rasgo. Un enemigo es inmune a este efecto si no puede verte u
+              oírte, o si no puede ser asustado.
+            </p>
+          </>
+        )}
+        {totemType === 'eagle' && (
+          <>
+            <h4>{animal}</h4>
+            <p>
+              Mientras estás en furia, tienes una velocidad de vuelo igual a tu
+              velocidad de movimiento actual. Este beneficio sólo funciona en
+              breves intervalos de tiempo; caes si terminas tu turno en el aire
+              y nada más te mantiene en vuelo.
+            </p>
+          </>
+        )}
+        {totemType === 'wolf' && (
+          <>
+            <h4>{animal}</h4>
+            <p>
+              Mientras estás en furia, puedes usar una acción adicional en tu
+              turno para tumbar a una criatura Grande o más pequeña cuando
+              impactas con un ataque cuerpo a cuerpo.
+            </p>
+          </>
+        )}
+      </>
+    );
+  },
 };

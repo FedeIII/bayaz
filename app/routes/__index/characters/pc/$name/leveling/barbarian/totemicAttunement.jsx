@@ -14,12 +14,12 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (pc.classAttrs?.aspectOfTheBeast?.totemType) {
-    throw new Error('Ya has escogido Aspecto de la Bestia');
+  if (pc.classAttrs?.aspectOfTheBeast?.totemicAttunement) {
+    throw new Error('Ya has escogido Sintonía Totémica');
   }
 
   if (pc.pClass !== 'barbarian') {
-    throw new Error('Solo los bárbaros puedes escoger Aspecto de la Bestia');
+    throw new Error('Solo los bárbaros puedes escoger Sintonía Totémica');
   }
 
   return json({ pc });
@@ -29,20 +29,20 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get('name');
-  const aspectOfTheBeast = formData.get('aspect-beast');
+  const totemicAttunement = formData.get('totemic-attunement');
   const animal = formData.get('animal');
 
   await updateClassAttrs(name, {
-    aspectOfTheBeast: { totemType: aspectOfTheBeast, animal },
+    totemicAttunement: { totemType: totemicAttunement, animal },
   });
 
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function AspectOfTheBeast() {
+function TotemicAttunement() {
   const { pc } = useLoaderData();
 
-  useTitle('Bárbaro nivel 6');
+  useTitle('Bárbaro nivel 14');
 
   const [totem, setTotem] = useState('');
 
@@ -50,17 +50,17 @@ function AspectOfTheBeast() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Aspecto de la Bestia</h2>
+      <h2 className={styles.paleText}>Sintonía Totémica</h2>
       <p className={styles.paragraph}>
-        En el nivel 6, ganas un beneficio mágico basado en el tótem animal de tu
-        elección. Puedes elegir el mismo animal que elegiste en nivel 3 o uno
-        distinto.
+        En el nivel 14, ganas un beneficio mágico basado en el tótem animal de
+        tu elección. Puedes elegir el mismo animal que elegiste previamente o
+        uno distinto.
       </p>
       <p>
         <label>
           <span className={styles.paleText}>Escoge tipo de Tótem</span>{' '}
           <select
-            name="aspect-beast"
+            name="totemic-attunement"
             defaultValue=""
             className={cardStyles.buttonCard}
             onChange={e => setTotem(e.target.value)}
@@ -77,10 +77,11 @@ function AspectOfTheBeast() {
         <>
           <h3 className={styles.paleText}>Oso</h3>
           <p className={styles.paragraph}>
-            Ganas la fuerza de un oso. Tu capacidad de carga (incluyendo tu
-            carga máxima y tu capacidad de levantar y arrastrar) se duplica, y
-            tienes ventaja en las pruebas de Fuerza realizadas para empujar,
-            levantar, tirar o romper objetos.
+            Mientras estás en furia, las criaturas a 5 pies (1,5 metros) de ti
+            que te sean hostiles tienen desventaja en las tiradas de ataque
+            contra cualquier otro que no seas tú u otro personaje con este
+            rasgo. Un enemigo es inmune a este efecto si no puede verte u oírte,
+            o si no puede ser asustado.
           </p>
         </>
       )}
@@ -89,11 +90,10 @@ function AspectOfTheBeast() {
         <>
           <h3 className={styles.paleText}>Águila</h3>
           <p className={styles.paragraph}>
-            Ganas la vista de un águila. Puedes ver a una distancia de hasta una
-            milla (aprox. 1.600 metros) sin dificultad, y discernir hasta los
-            más pequeños detalles de algo que no diste más de 100 pies (30
-            metros) de ti. Además, la luz tenue no te impone desventaja en tus
-            pruebas de Sabiduría (Percepción).
+            Mientras estás en furia, tienes una velocidad de vuelo igual a tu
+            velocidad de movimiento actual. Este beneficio sólo funciona en
+            breves intervalos de tiempo; caes si terminas tu turno en el aire y
+            nada más te mantiene en vuelo.
           </p>
         </>
       )}
@@ -102,10 +102,9 @@ function AspectOfTheBeast() {
         <>
           <h3 className={styles.paleText}>Lobo</h3>
           <p className={styles.paragraph}>
-            Ganas las capacidades de caza de un lobo. Puedes rastrear a otras
-            criaturas mientras viajas a ritmo rápido y puedes moverte
-            sigilosamente mientras viajas a ritmo normal (ver el Capítulo 8 para
-            las reglas de Ritmo de Viaje).
+            Mientras estás en furia, puedes usar una acción adicional en tu
+            turno para tumbar a una criatura Grande o más pequeña cuando
+            impactas con un ataque cuerpo a cuerpo.
           </p>
         </>
       )}
@@ -141,9 +140,9 @@ export function ErrorBoundary({ error }) {
       <h2 className={appStyles.errorText}>{error.message}</h2>
 
       <p className={styles.paragraph}>
-        En el nivel 6, ganas un beneficio mágico basado en el tótem animal de tu
-        elección. Puedes elegir el mismo animal que elegiste en nivel 3 o uno
-        distinto.
+        En el nivel 14, ganas un beneficio mágico basado en el tótem animal de
+        tu elección. Puedes elegir el mismo animal que elegiste previamente o
+        uno distinto.
       </p>
 
       <p className={appStyles.errorStack}>{error.stack}</p>
@@ -151,4 +150,4 @@ export function ErrorBoundary({ error }) {
   );
 }
 
-export default AspectOfTheBeast;
+export default TotemicAttunement;

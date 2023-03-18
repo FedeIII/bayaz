@@ -445,6 +445,22 @@ export function displayTrait(traitName, trait, pc) {
       }`;
     }
 
+    case 'totemicAttunement': {
+      const { totemType, animal } = pc.classAttrs?.totemicAttunement || {};
+      return (
+        <>
+          <strong>{trait}</strong>
+          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
+          {!!animal && (
+            <>
+              {': '}
+              <strong>{animal}</strong>
+            </>
+          )}
+        </>
+      );
+    }
+
     default:
       return trait;
   }

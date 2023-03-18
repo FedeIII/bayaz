@@ -63,6 +63,13 @@ const classAttrsSchema = new mongoose.Schema({
     },
     animal: String,
   },
+  totemicAttunement: {
+    totemType: {
+      type: String,
+      enum: ['bear', 'eagle', 'wolf'],
+    },
+    animal: String,
+  },
   divineDomain: {
     type: String,
     enum: Object.keys(DIVINE_DOMAINS),

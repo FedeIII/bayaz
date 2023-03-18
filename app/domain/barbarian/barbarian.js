@@ -85,7 +85,23 @@ export const BARBARIAN_TRAITS = {
       },
     },
     11: {
-      relentlessRage: 'Furia Implacable',
+      traits: {
+        relentlessRage: 'Furia Implacable',
+      },
+    },
+    14: {
+      primalPath: {
+        berserker: {
+          traits: {
+            retaliation: 'Represalia',
+          },
+        },
+        'totem-warrior': {
+          traits: {
+            totemicAttunement: 'Sintonía Totémica',
+          },
+        },
+      },
     },
   },
 };

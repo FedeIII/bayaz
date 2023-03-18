@@ -1134,11 +1134,11 @@ export function getTraits(pc) {
 
   return Object.entries({
     ...RACES[race][subrace].traits,
+    ...(BACKGROUNDS[background.name]?.traits || {}),
     ...CLASSES[pClass].traits,
     ...getLevelingTraits(pc),
     ...(pClass === 'warlock' ? PATRONS[patron]?.traits || {} : {}),
     ...(pClass === 'cleric' ? DIVINE_DOMAINS[divineDomain]?.traits || {} : {}),
-    ...(BACKGROUNDS[background.name]?.traits || {}),
   }).filter(([traitName, trait]) => displayTrait(traitName, trait, pc));
 }
 
