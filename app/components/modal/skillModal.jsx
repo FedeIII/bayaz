@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
+import { displayTrait } from '~/domain/display';
 import { getSkillExplanation } from '~/domain/characters';
 
 import styles from './inventoryItem.module.css';
@@ -12,10 +13,11 @@ export function SkillModalContent(props) {
   const { pc, skillName, skill } = props;
 
   const skillExplanation = getSkillExplanation(skillName, skill, pc);
+  const skillTitle = displayTrait(skillName, skill, pc);
 
   return (
     <>
-      <h3 className={styles.modalTitle}>{skill}</h3>
+      <h3 className={styles.modalTitle}>{skillTitle}</h3>
       <div className={styles.modalContentText}>{skillExplanation}</div>
     </>
   );

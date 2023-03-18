@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { translateGuild } from './backgrounds';
+import { translateGuild } from './backgrounds/backgrounds';
 import {
   getAttackBonus,
   getDamageBonus,

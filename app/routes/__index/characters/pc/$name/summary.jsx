@@ -72,7 +72,7 @@ import {
 } from '~/domain/display';
 import { getItem, translateItem } from '~/domain/equipment/equipment';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
-import { translateBackground } from '~/domain/backgrounds';
+import { translateBackground } from '~/domain/backgrounds/backgrounds';
 import { InventoryItem } from '~/components/modal/inventoryItem';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import { ItemModal } from '~/components/modal/itemModal';

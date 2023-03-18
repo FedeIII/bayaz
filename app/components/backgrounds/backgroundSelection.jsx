@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BACKGROUNDS } from '~/domain/backgrounds';
+import { BACKGROUNDS } from '~/domain/backgrounds/backgrounds';
 import {
   LANGUAGES,
   translateLanguage,

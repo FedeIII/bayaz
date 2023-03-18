@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 
-import { BACKGROUNDS, translateBackground } from '~/domain/backgrounds';
+import { BACKGROUNDS, translateBackground } from '~/domain/backgrounds/backgrounds';
 import BackgroundSelection from '~/components/backgrounds/backgroundSelection';
 import { getEquipmentComboData } from '~/components/equipment/getEquipmentComboData';
 import { distributeItems } from '~/domain/characters';

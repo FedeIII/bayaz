@@ -1,4 +1,5 @@
-import { BACKGROUNDS } from './backgrounds';
+import { BACKGROUNDS } from './backgrounds/backgrounds';
+import { BACKGROUND_SKILLS_EXPLANATION } from './backgrounds/backgroundSkillsExplanation';
 import {
   BARBARIAN_TRAITS,
   getAspectOfTheBeastTotem,
@@ -1290,6 +1291,7 @@ export function getSkillExplanation(skillName, skill, pc) {
   return (
     {
       ...SKILLS_EXPLANATION,
+      ...BACKGROUND_SKILLS_EXPLANATION,
       ...BARBARIAN_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );

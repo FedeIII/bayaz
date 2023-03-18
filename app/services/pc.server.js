@@ -32,7 +32,7 @@ import {
   OUTLANDER_ORIGIN,
   SAGE_SPECIALTY,
   SOLDIER_SPECIALTY,
-} from '~/domain/backgrounds';
+} from '~/domain/backgrounds/backgrounds';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(

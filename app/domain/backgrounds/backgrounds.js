@@ -2,14 +2,14 @@ import {
   getAllArtisansTools,
   getAllMusicalInstruments,
   TOOLS,
-} from './equipment/tools';
+} from '../equipment/tools';
 import {
   PRIESTS_PACK,
   ENTERTAINERS_PACK,
   DIPLOMATS_PACK,
   DUNGEONEERS_PACK,
-} from './equipment/packs';
-import { WEAPONS } from './equipment/weapons';
+} from '../equipment/packs';
+import { WEAPONS } from '../equipment/weapons';
 
 export const ARTISAN_GUILDS = [
   'alchemists',
