@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { redirect } from 'react-router';
-import { json } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import {
   addImprovedStatsLevel,

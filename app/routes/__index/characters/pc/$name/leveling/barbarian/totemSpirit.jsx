@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { redirect } from 'react-router';
-import { json } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateClassAttrs } from '~/services/pc.server';
 
@@ -144,7 +143,7 @@ export function ErrorBoundary({ error }) {
       <h2 className={appStyles.errorText}>{error.message}</h2>
 
       <p className={styles.paragraph}>
-      Al nivel 3, cuando adoptas esta senda, eliges un tótem animal y obtienes
+        Al nivel 3, cuando adoptas esta senda, eliges un tótem animal y obtienes
         sus características. Debes hacer o adquirir un objeto como tótem físico
         (un amuleto u otro adorno similar) que contenga pelo, plumas, garras,
         dientes o huesos del animal tótem. A tu elección, también ganas
