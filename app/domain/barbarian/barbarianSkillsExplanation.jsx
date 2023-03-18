@@ -170,4 +170,18 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
       </>
     );
   },
+
+  extraAttack: () => (
+    <p>
+      A partir del nivel 5, puedes atacar dos veces, en lugar de una, siempre
+      que uses la acción de Atacar en tu turno.
+    </p>
+  ),
+
+  fastMovement: () => (
+    <p>
+      A partir del nivel 5, tu velocidad se incrementa en 10 pies (3 metros)
+      mientras no estés usando armadura pesada.
+    </p>
+  ),
 };

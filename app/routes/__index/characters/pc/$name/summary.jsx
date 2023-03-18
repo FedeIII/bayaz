@@ -39,6 +39,7 @@ import {
   getTraits,
   hasExtraWeapons,
   getExtraWeapons,
+  getSpeed,
 } from '~/domain/characters';
 import { getExpertSkills } from '~/domain/rogue';
 import {
@@ -230,7 +231,6 @@ function PcSummary() {
     name,
     race,
     subrace,
-    speed,
     level,
     maxHitPoints,
     hitPoints,
@@ -527,7 +527,9 @@ function PcSummary() {
               : null}
           </span>
         </div>
-        <span className={`${styles.data} ${styles.speed}`}>{speed}m</span>
+        <span className={`${styles.data} ${styles.speed}`}>
+          {getSpeed(pc)}m
+        </span>
         <span className={`${styles.data} ${styles.maxHitPoints}`}>
           {maxHitPoints}
         </span>

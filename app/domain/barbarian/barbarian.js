@@ -40,6 +40,12 @@ export const BARBARIAN_TRAITS = {
         abilityScoreImprovement: 'Mejora de Puntuación de Característica',
       },
     },
+    5: {
+      traits: {
+        extraAttack: 'Ataque Extra',
+        fastMovement: 'Movimiento Rápido',
+      },
+    },
   },
 };
 

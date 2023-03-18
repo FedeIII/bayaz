@@ -8,7 +8,7 @@ import {
   increaseStats,
 } from '~/services/pc.server';
 import {
-  isAbilityScoreImproved,
+  hasToImproveAbilityScore,
   STATS,
   translateClass,
   translateStat,
@@ -25,7 +25,7 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (isAbilityScoreImproved(pc)) {
+  if (!hasToImproveAbilityScore(pc)) {
     throw new Error(
       `Ya has escogido la Mejora de Puntuación de Característica del nivel ${pc.level}`
     );

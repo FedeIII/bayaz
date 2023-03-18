@@ -1265,9 +1265,19 @@ export function getSkillExplanation(skillName, skill, pc) {
   );
 }
 
-export function isAbilityScoreImproved(pc) {
+export function hasToImproveAbilityScore(pc) {
   const { level, improvedStatsLevels = [], pClass } = pc;
   return (
-    improvedStatsLevels.includes(level) && CLASSES[pClass].statImprove.includes(level)
+    !improvedStatsLevels.includes(level) &&
+    CLASSES[pClass].statImprove.includes(level)
   );
+}
+
+export function getSpeed(pc) {
+  const { speed, pClass, level, items } = pc;
+
+  if (pClass === 'barbarian' && level >= 5 && !items.equipment?.armor)
+    return speed + 3;
+
+  return speed;
 }

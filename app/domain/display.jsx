@@ -5,7 +5,7 @@ import {
   getDamageBonus,
   getStat,
   getStatMod,
-  isAbilityScoreImproved,
+  hasToImproveAbilityScore,
   translateSavingThrowStatus,
 } from './characters';
 import {
@@ -411,7 +411,7 @@ export function displayTrait(traitName, trait, pc) {
       );
 
     case 'abilityScoreImprovement':
-      if (isAbilityScoreImproved(pc)) {
+      if (!hasToImproveAbilityScore(pc)) {
         return null;
       }
       return (
