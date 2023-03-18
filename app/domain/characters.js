@@ -763,13 +763,24 @@ export function getStat(pc, statName) {
     stats = {},
     extraStats = {},
     halfElf: { extraStats: halfElfExtraStats = {} } = {},
+    level,
+    pClass,
   } = pc;
 
-  return (
+  let totalStat =
     (stats[statName] || 0) +
     (extraStats[statName] || 0) +
-    (halfElfExtraStats[statName] || 0)
-  );
+    (halfElfExtraStats[statName] || 0);
+
+  if (
+    level === 20 &&
+    pClass === 'barbarian' &&
+    (statName === 'str' || statName === 'con')
+  ) {
+    return totalStat + 4 > 24 ? 24 : totalStat + 4;
+  }
+
+  return totalStat > 20 ? 20 : totalStat;
 }
 
 export function getStats(pc) {

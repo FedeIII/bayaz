@@ -398,4 +398,27 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
       </>
     );
   },
+
+  persistentRage: () => (
+    <p>
+      Empezando en el nivel 15, tu furia es tan feroz que sólo termina
+      prematuramente si caes inconsciente o decides terminarla.
+    </p>
+  ),
+
+  indomitableMight: () => (
+    <p>
+      Empezando en el nivel 18, si tu puntuación total para una prueba de Fuerza
+      es menor a tu puntuación de Fuerza, puedes usarla en lugar de la
+      puntuación total de la tirada.
+    </p>
+  ),
+
+  primalChampion: () => (
+    <p>
+      En el nivel 20, encarnas el poder del salvajismo. Tus puntuaciones de
+      Fuerza y Constitución se incrementan en 4. El máximo para esas
+      puntuaciones es ahora 24.
+    </p>
+  ),
 };

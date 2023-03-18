@@ -103,6 +103,21 @@ export const BARBARIAN_TRAITS = {
         },
       },
     },
+    15: {
+      traits: {
+        persistentRage: 'Furia Persistente',
+      },
+    },
+    18: {
+      traits: {
+        indomitableMight: 'Furia Indómita',
+      },
+    },
+    20: {
+      traits: {
+        primalChampion: 'Campeón Primario',
+      },
+    },
   },
 };
 
