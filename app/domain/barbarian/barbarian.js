@@ -65,6 +65,11 @@ export const BARBARIAN_TRAITS = {
         feralInstinct: 'Instinto Salvaje',
       },
     },
+    9: {
+      traits: {
+        brutalCritical: 'Crítico Brutal',
+      },
+    },
   },
 };
 

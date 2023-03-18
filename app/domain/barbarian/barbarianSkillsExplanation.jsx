@@ -263,4 +263,17 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
       </p>
     </>
   ),
+
+  brutalCritical: () => (
+    <>
+      <p>
+        Empezando en nivel 9, puedes tirar un dado de daño adicio- nal cuando
+        determinas el daño de un golpe crítico con un ataque cuerpo a cuerpo.
+      </p>
+      <p>
+        Esto se incrementa a dos dados adicionales en el nivel 13 y tres dados
+        adicionales en el nivel 17.
+      </p>
+    </>
+  ),
 };
