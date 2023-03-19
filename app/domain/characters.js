@@ -1,10 +1,8 @@
 import { BACKGROUNDS } from './backgrounds/backgrounds';
 import { BACKGROUND_SKILLS_EXPLANATION } from './backgrounds/backgroundSkillsExplanation';
-import {
-  BARBARIAN_TRAITS,
-  getAspectOfTheBeastTotem,
-} from './barbarian/barbarian';
+import { getAspectOfTheBeastTotem } from './barbarian/barbarian';
 import { BARBARIAN_SKILLS_EXPLANATION } from './barbarian/barbarianSkillsExplanation';
+import { BARD_SKILLS_EXPLANATION } from './bard/bardSkillsExplanation';
 import {
   translateDivineDomain,
   getDivineDomain,
@@ -353,7 +351,119 @@ export const CLASSES = {
       'animal-handling',
     ],
     statImprove: [4, 8, 12, 16, 19],
-    ...BARBARIAN_TRAITS,
+    traits: {
+      rage: 'Furia',
+      unarmoredDefense: 'Defensa sin Armadura',
+    },
+    leveling: {
+      2: {
+        traits: {
+          recklessAttack: 'Ataque Temerario',
+          dangerSense: 'Sentido del Peligro',
+        },
+      },
+      3: {
+        traits: {
+          primalPath: 'Senda Primaria',
+        },
+        primalPath: {
+          berserker: {
+            traits: {
+              frenzy: 'Frenesí',
+            },
+          },
+          'totem-warrior': {
+            traits: {
+              spiritSeeker: 'Buscador Espiritual',
+              totemSpirit: 'Espíritu Tótem',
+            },
+          },
+        },
+      },
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      5: {
+        traits: {
+          extraAttack: 'Ataque Extra',
+          fastMovement: 'Movimiento Rápido',
+        },
+      },
+      6: {
+        primalPath: {
+          berserker: {
+            traits: {
+              mindlessRage: 'Furia Inconsciente',
+            },
+          },
+          'totem-warrior': {
+            traits: {
+              aspectOfTheBeast: 'Aspecto de la Bestia',
+            },
+          },
+        },
+      },
+      7: {
+        traits: {
+          feralInstinct: 'Instinto Salvaje',
+        },
+      },
+      9: {
+        traits: {
+          brutalCritical: 'Crítico Brutal',
+        },
+      },
+      10: {
+        primalPath: {
+          berserker: {
+            traits: {
+              intimidatingPresence: 'Presencia Intimidante',
+            },
+          },
+          'totem-warrior': {
+            traits: {
+              spiritWalker: 'Caminante Espiritual',
+            },
+          },
+        },
+      },
+      11: {
+        traits: {
+          relentlessRage: 'Furia Implacable',
+        },
+      },
+      14: {
+        primalPath: {
+          berserker: {
+            traits: {
+              retaliation: 'Represalia',
+            },
+          },
+          'totem-warrior': {
+            traits: {
+              totemicAttunement: 'Sintonía Totémica',
+            },
+          },
+        },
+      },
+      15: {
+        traits: {
+          persistentRage: 'Furia Persistente',
+        },
+      },
+      18: {
+        traits: {
+          indomitableMight: 'Furia Indómita',
+        },
+      },
+      20: {
+        traits: {
+          primalChampion: 'Campeón Primario',
+        },
+      },
+    },
   },
   bard: {
     initialHitPoints: 8,
@@ -392,7 +502,15 @@ export const CLASSES = {
     spellcastingAbility: 'cha',
     statImprove: [4, 8, 12, 16, 19],
     traits: {
-      bardicInspiration: '1d6',
+      bardicInspiration: 'Inspiración de Bardo',
+    },
+    leveling: {
+      2: {
+        traits: {
+          jackOfAllTrades: 'Polivalente',
+          songOfRest: 'Canción de Descanso',
+        },
+      },
     },
   },
   cleric: {
@@ -680,10 +798,8 @@ export function getExtraHitPoints(pc) {
 }
 
 export function statSavingThrow(stat, statValue, pClass, lvl) {
-  return (
-    getStatMod(statValue) +
-    (isProficientStat(stat, pClass) ? getProficiencyBonus(lvl) : 0)
-  );
+  const bonus = isProficientStat(stat, pClass) ? getProficiencyBonus(lvl) : 0;
+  return getStatMod(statValue) + bonus;
 }
 
 export function translateClass(race) {
@@ -896,11 +1012,17 @@ export function specialProficiencyBonus(pc) {
 }
 
 export function skillCheckBonus(pc, skillName) {
+  const { pClass, level } = pc;
+
   const statName = SKILLS.find(skill => skill.name === skillName).stat;
-  return (
-    getStatMod(getStat(pc, statName)) +
-    (isProficientSkill(pc, skillName) ? bonusForSkill(pc, skillName) : 0)
-  );
+
+  const bonus = isProficientSkill(pc, skillName)
+    ? bonusForSkill(pc, skillName)
+    : pClass === 'bard' && level >= 2
+    ? Math.floor(bonusForSkill(pc, skillName) / 2)
+    : 0;
+
+  return getStatMod(getStat(pc, statName)) + bonus;
 }
 
 export const LANGUAGES = [
@@ -1293,6 +1415,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...SKILLS_EXPLANATION,
       ...BACKGROUND_SKILLS_EXPLANATION,
       ...BARBARIAN_SKILLS_EXPLANATION,
+      ...BARD_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }

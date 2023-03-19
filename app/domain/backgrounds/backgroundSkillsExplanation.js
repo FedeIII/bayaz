@@ -67,8 +67,8 @@ export const BACKGROUND_SKILLS_EXPLANATION = {
   falseIdentity: () => (
     <>
       <p>
-        Te has creado una segunda identidad que incluye documen- tación,
-        contactos establecidos y disfraces que te permiten asumir ese personaje.
+        Te has creado una segunda identidad que incluye documentación, contactos
+        establecidos y disfraces que te permiten asumir ese personaje.
       </p>
       <p>
         Además, puedes falsificar documentos oficiales y cartas personales,
@@ -81,30 +81,30 @@ export const BACKGROUND_SKILLS_EXPLANATION = {
   criminalContact: () => (
     <p>
       Tienes un contacto de confianza que actúa como enlace con una red de
-      delincuentes. Sabes cómo hacerles llegar mensa- jes y te los envíen
-      mediante ese contacto, incluso a grandes distancias; específicamente,
-      conoces los mensajeros locales, conductores de caravana corruptos y
-      marineros de mala muerte que te pueden entregar mensajes.
+      delincuentes. Sabes cómo hacerles llegar mensajes y te los envíen mediante
+      ese contacto, incluso a grandes distancias; específicamente, conoces los
+      mensajeros locales, conductores de caravana corruptos y marineros de mala
+      muerte que te pueden entregar mensajes.
     </p>
   ),
 
   discovery: () => (
     <>
       <p>
-        La reclusión pacífica de tu extendido aislamiento te dio ac- ceso a un
-        único y poderoso descubrimiento. La exacta natu- raleza de esta
-        revelación depende de la naturaleza de tu re- clusión. Podría ser una
-        gran verdad acerca del cosmos, las deidades, los seres poderosos de
-        otros planos o las fuerzas de la naturaleza. Podría ser un sitio que
-        nadie más vio nunca. Podrías haber descubierto un hecho que fue olvidado
-        hace mucho, o desenterrado alguna reliquia del pasado que podría
-        reescribir la historia. Podría ser información potencialmente dañina
-        para la gente que te consignó al exilio, y he ahí la razón por la cual
-        regresas a la sociedad.
+        La reclusión pacífica de tu extendido aislamiento te dio acceso a un
+        único y poderoso descubrimiento. La exacta naturaleza de esta revelación
+        depende de la naturaleza de tu reclusión. Podría ser una gran verdad
+        acerca del cosmos, las deidades, los seres poderosos de otros planos o
+        las fuerzas de la naturaleza. Podría ser un sitio que nadie más vio
+        nunca. Podrías haber descubierto un hecho que fue olvidado hace mucho, o
+        desenterrado alguna reliquia del pasado que podría reescribir la
+        historia. Podría ser información potencialmente dañina para la gente que
+        te consignó al exilio, y he ahí la razón por la cual regresas a la
+        sociedad.
       </p>
       <p>
-        Trabaja con tu DM para determinar los detalles de tu des- cubrimiento y
-        su impacto en la campaña.
+        Trabaja con tu DM para determinar los detalles de tu descubrimiento y su
+        impacto en la campaña.
       </p>
     </>
   ),
@@ -123,20 +123,20 @@ export const BACKGROUND_SKILLS_EXPLANATION = {
   rusticHospitality: () => (
     <p>
       Dado que vienes de las filas de la gente común, encajas entre ellos con
-      facilidad. Puedes encontrar un lugar para escon- derte, descansar o
+      facilidad. Puedes encontrar un lugar para esconderte, descansar o
       recuperarte entre otros plebeyos, a menos que hayas demostrado ser un
-      peligro para ellos. Te protege- rán de la ley o de cualquier otra persona
-      que te busque, aun- que no arriesgarán sus vidas por ti.
+      peligro para ellos. Te protegerán de la ley o de cualquier otra persona
+      que te busque, aunque no arriesgarán sus vidas por ti.
     </p>
   ),
 
   citySecrets: () => (
     <p>
-      Conoces los patrones y flujos secretos de las ciudades, y pue- des
-      encontrar pasadizos a través de la masa urbana que otros pasarían por
-      alto. Cuando no estás en combate, puedes viajar (junto a los compañeros
-      que guíes) a través de dos puntos en la ciudad el doble de rápido de lo
-      que tu velocidad te permiti- ría normalmente.
+      Conoces los patrones y flujos secretos de las ciudades, y puedes encontrar
+      pasadizos a través de la masa urbana que otros pasarían por alto. Cuando
+      no estás en combate, puedes viajar (junto a los compañeros que guíes) a
+      través de dos puntos en la ciudad el doble de rápido de lo que tu
+      velocidad te permitiría normalmente.
     </p>
   ),
 
@@ -145,11 +145,11 @@ export const BACKGROUND_SKILLS_EXPLANATION = {
       Cuando lo necesites, puedes asegurar un pasaje gratis en un barco para ti
       y tus compañeros de aventuras. Podrías navegar en la nave en la que
       serviste, o en otra nave con la que tengas buenas relaciones (quizá en una
-      cuyo capitán fue tu compa- ñero de tripulación). Ya que estás pidiendo un
-      favor, no pue- des asegurar un calendario o una ruta que cumpla con todas
+      cuyo capitán fue tu compañero de tripulación). Ya que estás pidiendo un
+      favor, no puedes asegurar un calendario o una ruta que cumpla con todas
       tus necesidades. Tu Dungeon Master determinará cuánto toma el llegar a
-      donde necesites ir. A cambio de tu pasaje gra- tuito, se espera de ti y
-      tus compañeros que sirvan a la tripula- ción durante el viaje.
+      donde necesites ir. A cambio de tu pasaje gratuito, se espera de ti y tus
+      compañeros que sirvan a la tripulación durante el viaje.
     </p>
   ),
 
@@ -158,7 +158,7 @@ export const BACKGROUND_SKILLS_EXPLANATION = {
       Gracias a tu cuna noble, la gente tiende a pensar lo mejor de ti. Eres
       bienvenido en la alta sociedad y la gente asume que tienes el derecho de
       estar donde quiera que estés. La gente común hace todo lo posible para que
-      te sientas cómodo y evi- tar tu descontento, y otras personas de alta cuna
+      te sientas cómodo y evitar tu descontento, y otras personas de alta cuna
       te tratan como miembro de la misma esfera social. Puedes asegurar una
       audiencia con un noble local, si es necesario.
     </p>
@@ -166,12 +166,12 @@ export const BACKGROUND_SKILLS_EXPLANATION = {
 
   researcher: () => (
     <p>
-      Cuando intentas aprender o recordar un fragmento de infor- mación, si no
+      Cuando intentas aprender o recordar un fragmento de información, si no
       sabes nada sobre el tema, a menudo sí sabes a dónde o de quién puedes
-      obtenerlo. Por lo general, esta infor- mación viene de una biblioteca,
+      obtenerlo. Por lo general, esta información viene de una biblioteca,
       scriptorium, universidad o un sabio u otra persona o criatura culta. Tu DM
       podría decidir que el conocimiento que buscas está oculto en un lugar
-      lejano y casi inaccesible, o que simplemente no puede ser encon- trado.
+      lejano y casi inaccesible, o que simplemente no puede ser encontrado.
       Develar los secretos más profundos del multiverso puede requerir una
       aventura o incluso toda una campaña.
     </p>
@@ -180,11 +180,11 @@ export const BACKGROUND_SKILLS_EXPLANATION = {
   militaryRank: () => (
     <p>
       Tienes un rango militar de tu carrera como soldado. Aquellos leales a tu
-      antigua organización militar aún reconocen tu au- toridad e influencia, y
-      se dirigirán a ti con respeto si son de un rango inferior. Puedes invocar
-      tu rango para ejercer in- fluencia sobre los demás soldados y requisar
-      equipo simple o caballos para un uso temporal. Generalmente también pue-
-      des tener acceso a los campamentos y fortalezas amistosas en las que se
+      antigua organización militar aún reconocen tu autoridad e influencia, y se
+      dirigirán a ti con respeto si son de un rango inferior. Puedes invocar tu
+      rango para ejercer influencia sobre los demás soldados y requisar equipo
+      simple o caballos para un uso temporal. Generalmente también pue- des
+      tener acceso a los campamentos y fortalezas amistosas en las que se
       reconozca tu rango militar.
     </p>
   ),

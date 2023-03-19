@@ -3,7 +3,7 @@ import { WEAPONS } from './weapons';
 import { TOOLS } from './tools';
 import { ARMORS } from './armors';
 import { BARBARIAN_EQUIPMENT } from '../barbarian/barbarian';
-import { BARD_EQUIPMENT } from '../bard';
+import { BARD_EQUIPMENT } from '../bard/bard';
 import { WARLOCK_EQUIPMENT } from '../warlock';
 import { CLERIC_EQUIPMENT } from '../cleric';
 import { DRUID_EQUIPMENT } from '../druid';

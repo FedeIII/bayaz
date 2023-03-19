@@ -22,7 +22,8 @@ import {
   translateDamage,
 } from './equipment/weapons';
 
-import sheetStyles from '~/components/sheet.module.css';
+import { displayBarbarianTrait } from './barbarian/barbarian';
+import { displayBardTrait } from './bard/bard';
 
 export function increment(num) {
   return num >= 0 ? '+' + num : num;
@@ -312,14 +313,6 @@ export function displayTrait(traitName, trait, pc) {
     case 'trance':
       return 'Trance';
 
-    case 'bardicInspiration':
-      return (
-        <Fragment>
-          <u>Inspiración de Bardo:</u> {getStatMod(getStat(pc, 'cha'))} veces al
-          día. {trait}
-        </Fragment>
-      );
-
     case 'warCleric':
       times = getStatMod(getStat(pc, 'wis'));
       return (
@@ -385,85 +378,16 @@ export function displayTrait(traitName, trait, pc) {
         </Fragment>
       );
 
-    case 'primalPath':
-      return (
-        !pc.classAttrs?.primalPath && (
-          <>
-            <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
-          </>
-        )
-      );
-
-    case 'totemSpirit': {
-      const { totemType, animal } = pc.classAttrs?.spiritTotem || {};
-      return (
-        <>
-          {trait}
-          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
-          {!!animal && (
-            <>
-              {': '}
-              <strong>{animal}</strong>
-            </>
-          )}
-        </>
-      );
-    }
-
-    case 'abilityScoreImprovement':
-      if (!hasToImproveAbilityScore(pc)) {
-        return null;
-      }
-      return (
-        <>
-          <strong>{trait}</strong>
-          <span className={sheetStyles.pendingTrait}>(!)</span>
-        </>
-      );
-
-    case 'aspectOfTheBeast': {
-      const { totemType, animal } = pc.classAttrs?.aspectOfTheBeast || {};
-      return (
-        <>
-          <strong>{trait}</strong>
-          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
-          {!!animal && (
-            <>
-              {': '}
-              <strong>{animal}</strong>
-            </>
-          )}
-        </>
-      );
-    }
-
-    case 'brutalCritical': {
-      const { level } = pc;
-      return `${trait}: ${
-        level >= 17 ? '+3 Dados' : level >= 13 ? '+2 Dados' : '+1 Dado'
-      }`;
-    }
-
-    case 'totemicAttunement': {
-      const { totemType, animal } = pc.classAttrs?.totemicAttunement || {};
-      return (
-        <>
-          <strong>{trait}</strong>
-          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
-          {!!animal && (
-            <>
-              {': '}
-              <strong>{animal}</strong>
-            </>
-          )}
-        </>
-      );
-    }
-
     default:
-      return trait;
   }
+
+  const barbarianTrait = displayBarbarianTrait(traitName, trait, pc);
+  if (barbarianTrait) return barbarianTrait;
+
+  const bardDisplay = displayBardTrait(traitName, trait, pc);
+  if (bardDisplay) return bardDisplay;
+
+  return trait;
 }
 
 export function displayMoneyAmount(coins) {

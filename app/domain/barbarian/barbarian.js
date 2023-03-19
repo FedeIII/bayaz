@@ -4,128 +4,15 @@ import {
   getAllSimpleMelee,
   WEAPONS,
 } from '../equipment/weapons';
+import { CLASSES, hasToImproveAbilityScore } from '../characters';
 
-export const BARBARIAN_TRAITS = {
-  traits: {
-    rage: 'Furia',
-    unarmoredDefense: 'Defensa sin Armadura',
-  },
-  leveling: {
-    2: {
-      traits: {
-        recklessAttack: 'Ataque Temerario',
-        dangerSense: 'Sentido del Peligro',
-      },
-    },
-    3: {
-      traits: {
-        primalPath: 'Senda Primaria',
-      },
-      primalPath: {
-        berserker: {
-          traits: {
-            frenzy: 'Frenesí',
-          },
-        },
-        'totem-warrior': {
-          traits: {
-            spiritSeeker: 'Buscador Espiritual',
-            totemSpirit: 'Espíritu Tótem',
-          },
-        },
-      },
-    },
-    4: {
-      traits: {
-        abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-      },
-    },
-    5: {
-      traits: {
-        extraAttack: 'Ataque Extra',
-        fastMovement: 'Movimiento Rápido',
-      },
-    },
-    6: {
-      primalPath: {
-        berserker: {
-          traits: {
-            mindlessRage: 'Furia Inconsciente',
-          },
-        },
-        'totem-warrior': {
-          traits: {
-            aspectOfTheBeast: 'Aspecto de la Bestia',
-          },
-        },
-      },
-    },
-    7: {
-      traits: {
-        feralInstinct: 'Instinto Salvaje',
-      },
-    },
-    9: {
-      traits: {
-        brutalCritical: 'Crítico Brutal',
-      },
-    },
-    10: {
-      primalPath: {
-        berserker: {
-          traits: {
-            intimidatingPresence: 'Presencia Intimidante',
-          },
-        },
-        'totem-warrior': {
-          traits: {
-            spiritWalker: 'Caminante Espiritual',
-          },
-        },
-      },
-    },
-    11: {
-      traits: {
-        relentlessRage: 'Furia Implacable',
-      },
-    },
-    14: {
-      primalPath: {
-        berserker: {
-          traits: {
-            retaliation: 'Represalia',
-          },
-        },
-        'totem-warrior': {
-          traits: {
-            totemicAttunement: 'Sintonía Totémica',
-          },
-        },
-      },
-    },
-    15: {
-      traits: {
-        persistentRage: 'Furia Persistente',
-      },
-    },
-    18: {
-      traits: {
-        indomitableMight: 'Furia Indómita',
-      },
-    },
-    20: {
-      traits: {
-        primalChampion: 'Campeón Primario',
-      },
-    },
-  },
-};
+import sheetStyles from '~/components/sheet.module.css';
 
 export function getPrimalPathTraits(pc) {
   const { level, classAttrs: { primalPath } = {} } = pc;
 
   return Object.entries(
-    Object.entries(BARBARIAN_TRAITS.leveling).reduce(
+    Object.entries(CLASSES.barbarian.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level
@@ -161,3 +48,90 @@ export const BARBARIAN_EQUIPMENT = [
   EXPLORERS_PACK,
   WEAPONS.javelin({ amount: 4 }),
 ];
+
+export function displayBarbarianTrait(traitName, trait, pc) {
+  switch (traitName) {
+    case 'primalPath':
+      return (
+        !pc.classAttrs?.primalPath && (
+          <>
+            <strong>{trait}</strong>
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          </>
+        )
+      );
+
+    case 'totemSpirit': {
+      const { totemType, animal } = pc.classAttrs?.spiritTotem || {};
+      return (
+        <>
+          {trait}
+          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
+          {!!animal && (
+            <>
+              {': '}
+              <strong>{animal}</strong>
+            </>
+          )}
+        </>
+      );
+    }
+
+    case 'abilityScoreImprovement':
+      if (!hasToImproveAbilityScore(pc)) {
+        return null;
+      }
+      return (
+        <>
+          <strong>{trait}</strong>
+          <span className={sheetStyles.pendingTrait}>(!)</span>
+        </>
+      );
+
+    case 'aspectOfTheBeast': {
+      const { totemType, animal } = pc.classAttrs?.aspectOfTheBeast || {};
+      return (
+        <>
+          <strong>{trait}</strong>
+          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
+          {!!animal && (
+            <>
+              {': '}
+              <strong>{animal}</strong>
+            </>
+          )}
+        </>
+      );
+    }
+
+    case 'brutalCritical': {
+      const { level } = pc;
+      return (
+        <>
+          <u>{trait}:</u>{' '}
+          {level >= 17 ? '+3 Dados' : level >= 13 ? '+2 Dados' : '+1 Dado'}
+        </>
+      );
+    }
+
+    case 'totemicAttunement': {
+      const { totemType, animal } = pc.classAttrs?.totemicAttunement || {};
+      return (
+        <>
+          <strong>{trait}</strong>
+          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
+          {!!animal && (
+            <>
+              {': '}
+              <strong>{animal}</strong>
+            </>
+          )}
+        </>
+      );
+    }
+
+    default:
+  }
+
+  return null;
+}
