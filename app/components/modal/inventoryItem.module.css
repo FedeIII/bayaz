@@ -105,6 +105,10 @@
   max-height: 50vh;
 }
 
+.modalContentTextPadding {
+  padding: 30px 12px 12px 12px;
+}
+
 .modalOptions {
   list-style: none;
   padding: 0;

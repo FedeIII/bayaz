@@ -636,3 +636,62 @@ export const SPELL_TRANSLATIONS = {
   "tenser'sFloatingDisk": 'Disco flotante de Tenser',
   "tenser'sTransformation": 'Transformación de Tenser',
 };
+
+export function translateSchool(school) {
+  switch (school) {
+    case 'Conjuration':
+      return 'Conjuración';
+    case 'Abjuration':
+      return 'Abjuración';
+    case 'Transmutation':
+      return 'Transmitación';
+    case 'Enchantment':
+      return 'Encantamiento';
+    case 'Necromancy':
+      return 'Nigromancia';
+    case 'Divination':
+      return 'Adivinación';
+    case 'Evocation':
+      return 'Evocación';
+    case 'Illusion':
+      return 'Ilusión';
+
+    default:
+      break;
+  }
+}
+
+export function translateComponent(component) {
+  switch (component) {
+    case 'V':
+      return 'Verbal';
+    case 'S':
+      return 'Somático';
+    case 'M':
+      return 'Material';
+
+    default:
+      break;
+  }
+}
+
+export function translateRange(range) {
+  switch (range) {
+    case range.match(/(\d+) feet/) && range:
+      return `${parseInt(range.match(/(\d+) feet/)[1], 10) * 0.3} m`;
+    case range.match(/(\d+) miles?/) && range:
+      return `${parseInt(range.match(/(\d+) miles?/)[1], 10) * 1.6} km`;
+    case 'Self':
+      return 'Personal';
+    case 'Touch':
+      return 'Toque';
+    case 'Special':
+      return 'Especial';
+    case 'Sight':
+      return 'Visión';
+    case 'Unlimited':
+      return 'Ilimitado';
+    default:
+      break;
+  }
+}

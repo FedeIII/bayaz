@@ -1,6 +1,6 @@
 import { json } from '@remix-run/node';
 import { Form, useLoaderData, useSubmit } from '@remix-run/react';
-import { Fragment } from 'react';
+import { Fragment, useRef, useState } from 'react';
 
 import {
   addPreparedSpell,
@@ -19,10 +19,12 @@ import {
   getSpellSlots,
   hasToPrepareSpells,
   isPreparedSpell,
-  translateSpell,
 } from '~/domain/spells/spells';
 
 import styles from '~/components/spells.module.css';
+import { SkillModal } from '~/components/modal/skillModal';
+import { useSkillItems } from '~/components/modal/useSkillItems';
+import { SkillItem } from '~/components/modal/skillItem';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -103,10 +105,38 @@ function PcSpells() {
     };
   }
 
+  const [skillRefs, setSkillRefs] = useState(
+    spellsByLevel.map(spells => spells.map(() => useRef()))
+  );
+
+  const [
+    skillModalContent,
+    closeSkillModal,
+    openSkillModal,
+    selectedSkillRef,
+    setSelectedSkillRef,
+  ] = useSkillItems(pc, skillRefs);
+
+  const formRef = useRef(null);
+
   return (
     <>
       <img src="/images/spells.jpg" className={styles.sheetBackground} />
-      <Form method="post" className={styles.spells} onSubmit={onFormSubmit}>
+      <Form
+        method="post"
+        className={styles.spells}
+        onSubmit={onFormSubmit}
+        ref={formRef}
+      >
+        {skillModalContent && (
+          <SkillModal
+            elRef={selectedSkillRef}
+            formRef={formRef}
+            closeModal={closeSkillModal}
+          >
+            {skillModalContent}
+          </SkillModal>
+        )}
         <span className={`${styles.data} ${styles.name}`}>
           {name}
           {' ('}
@@ -179,7 +209,12 @@ function PcSpells() {
                       <span className={styles.hideNextBullet} />
                     </>
                   )}
-                  {translateSpell(spell.name)}
+                  <SkillItem
+                    ref={skillRefs[level][i]}
+                    traitName={spell.name}
+                    trait="spell"
+                    openModal={openSkillModal(level, i)}
+                  />
                 </li>
               ))}
             </ul>
