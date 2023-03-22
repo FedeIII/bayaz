@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, learnSpells } from '~/services/pc.server';
+import { getPc, learnSpells, prepareSpells } from '~/services/pc.server';
 import { translateClass } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
@@ -38,7 +38,10 @@ export const action = async ({ request }) => {
   const forget = formData.get('forget');
   const learn = formData.getAll('learn[]');
 
-  await learnSpells(name, pClass, learn, forget);
+  await Promise.all([
+    learnSpells(name, pClass, learn, forget),
+    prepareSpells(name, pClass, learn, forget),
+  ]);
 
   return redirect(`/characters/pc/${name}/summary`);
 };

@@ -19,6 +19,7 @@ import {
   getSpellSlots,
   hasToPrepareSpells,
   isPreparedSpell,
+  translateSpell,
 } from '~/domain/spells/spells';
 
 import styles from '~/components/spells.module.css';
@@ -150,35 +151,36 @@ function PcSpells() {
             )}
             <ul className={`${styles.data} ${styles[`spells-${level}`]}`}>
               {spells.map((spell, i) => (
-                <Fragment key={spell.name}>
-                  <li className={`${styles.data} ${styles.spell}`}>
-                    {!!(level > 0) && (
-                      <>
-                        <input
-                          type="checkbox"
-                          name="preparedSpells[]"
-                          id={spell.name}
-                          value={spell.name}
-                          className={`${styles.data} ${styles.preparedSpell}`}
-                          onChange={onPrepareSpellClick(spell)}
-                          checked={isPreparedSpell(pc, spell.name)}
-                        />
-                        <label
-                          htmlFor={spell.name}
-                          className={styles.preparedSpellNotChecked}
-                        />
-                        <label
-                          htmlFor={spell.name}
-                          className={styles.preparedSpellChecked}
-                        >
-                          ◍
-                        </label>
-                        <span className={styles.hideNextBullet} />
-                      </>
-                    )}
-                    {spell.translation}
-                  </li>
-                </Fragment>
+                <li
+                  className={`${styles.data} ${styles.spell}`}
+                  key={spell.name}
+                >
+                  {!!(level > 0) && (
+                    <>
+                      <input
+                        type="checkbox"
+                        name="preparedSpells[]"
+                        id={spell.name}
+                        value={spell.name}
+                        className={`${styles.data} ${styles.preparedSpell}`}
+                        onChange={onPrepareSpellClick(spell)}
+                        checked={isPreparedSpell(pc, spell.name)}
+                      />
+                      <label
+                        htmlFor={spell.name}
+                        className={styles.preparedSpellNotChecked}
+                      />
+                      <label
+                        htmlFor={spell.name}
+                        className={styles.preparedSpellChecked}
+                      >
+                        ◍
+                      </label>
+                      <span className={styles.hideNextBullet} />
+                    </>
+                  )}
+                  {translateSpell(spell.name)}
+                </li>
               ))}
             </ul>
           </Fragment>

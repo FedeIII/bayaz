@@ -347,6 +347,30 @@ export async function learnSpells(name, pClass, toLearn, toForget) {
   return updatedPc;
 }
 
+export async function prepareSpells(name, pClass, toPrepare, toForget) {
+  let updatedPc = await Pc.findOneAndUpdate(
+    { name: name },
+    {
+      $push: {
+        preparedSpells: toPrepare.map(sName => ({ name: sName, type: pClass })),
+      },
+    },
+    { new: true, upsert: true }
+  ).exec();
+
+  if (toForget) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name: name },
+      {
+        $pull: { preparedSpells: { name: toForget } },
+      },
+      { new: true, upsert: true }
+    ).exec();
+  }
+
+  return updatedPc;
+}
+
 export async function addPreparedSpell(name, spell) {
   const pc = await getPc(name);
   const maxPreparedSpells = getMaxPreparedSpells(pc);
