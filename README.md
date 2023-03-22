@@ -53,6 +53,8 @@ npx prisma migrate dev
 
 ## TO DOs
 
+- Spell list sheet
+- Spell modal
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
 - HP on leveling

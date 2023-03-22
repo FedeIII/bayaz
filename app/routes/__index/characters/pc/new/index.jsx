@@ -12,10 +12,9 @@ import {
   setLanguages,
 } from '~/domain/characters';
 import { createPc } from '~/services/pc.server';
-import { getSpell } from '~/domain/spells/spells';
+import { getSpell } from "~/domain/spells/getSpells";
 
 import styles from '~/components/characters.module.css';
-import menuStyles from '~/components/menus.module.css';
 
 const NUMBER_OF_AGE_MARKS = 5;
 

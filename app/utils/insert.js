@@ -11,3 +11,11 @@ export function insertAfter(findIndexCallback, array, newItems) {
     return array;
   }
 }
+
+export function replaceAt(index, array, newItem) {
+  return [
+    ...array.slice(0, index),
+    newItem,
+    ...array.slice(index + 1, array.length),
+  ];
+}

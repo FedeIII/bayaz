@@ -83,6 +83,7 @@ import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
+import { hasNewSpells } from '~/domain/spells/spells';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -339,6 +340,7 @@ function PcSummary() {
   const traits = getTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
+    spells: [useRef()],
     traits: traits.map(() => useRef()),
   });
 
@@ -706,6 +708,18 @@ function PcSummary() {
 
         {/* FEATS & TRAITS */}
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>
+          {!!hasNewSpells(pc) && (
+            <li className={styles.traitLabel}>
+              <SkillItem
+                ref={skillRefs.spells[0]}
+                traitName="newSpells"
+                trait="Escoge nuevos conjuros"
+                pc={pc}
+                openModal={openSkillModal('spells', 0)}
+              />
+            </li>
+          )}
+
           {traits.map(([traitName, trait], i) => (
             <li className={styles.traitLabel} key={traitName}>
               <SkillItem
@@ -714,7 +728,6 @@ function PcSummary() {
                 trait={trait}
                 pc={pc}
                 openModal={openSkillModal('traits', i)}
-                key={traitName}
               />
             </li>
           ))}
@@ -733,7 +746,6 @@ function PcSummary() {
                       trait={trait}
                       pc={pc}
                       openModal={openSkillModal('traits', i)}
-                      key={traitName}
                     />
                   </li>
                 ))}

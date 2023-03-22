@@ -19,7 +19,6 @@ import {
 import { DIVINE_DOMAINS } from '~/domain/cleric';
 import { getItem, pcItem } from '~/domain/equipment/equipment';
 import {
-  ALL_SPELLS,
   getExtraPreparedSpells,
   getMaxPreparedSpells,
 } from '~/domain/spells/spells';
@@ -126,11 +125,7 @@ const freeTextSchema = new mongoose.Schema({
 });
 
 const spellSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    enum: ALL_SPELLS.map(spell => spell.name),
-    required: true,
-  },
+  name: String,
   type: { type: String, enum: Object.keys(CLASSES) },
   subtype: String,
 });
@@ -212,8 +207,6 @@ const pcSchema = new mongoose.Schema({
   freeText: freeTextSchema,
   spells: [spellSchema],
   preparedSpells: [spellSchema],
-  spellSlots: [Number],
-  totalSpells: Number,
   money: [Number, Number, Number],
   improvedStatsLevels: [Number],
 });
@@ -328,6 +321,28 @@ export async function addImprovedStatsLevel(name, level) {
     { $push: { improvedStatsLevels: level } },
     { new: true, upsert: true }
   ).exec();
+
+  return updatedPc;
+}
+
+export async function learnSpells(name, pClass, toLearn, toForget) {
+  let updatedPc = await Pc.findOneAndUpdate(
+    { name: name },
+    {
+      $push: { spells: toLearn.map(sName => ({ name: sName, type: pClass })) },
+    },
+    { new: true, upsert: true }
+  ).exec();
+
+  if (toForget) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name: name },
+      {
+        $pull: { spells: { name: toForget } },
+      },
+      { new: true, upsert: true }
+    ).exec();
+  }
 
   return updatedPc;
 }

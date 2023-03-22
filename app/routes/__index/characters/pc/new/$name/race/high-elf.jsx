@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { getPc, updatePc } from '~/services/pc.server';
 import { LANGUAGES, RACES, translateLanguage } from '~/domain/characters';
 import { WIZARD_SPELLS } from '~/domain/spells/wizard';
-import { getSpell } from '~/domain/spells/spells';
+import { getSpell } from "~/domain/spells/getSpells";
 
 import styles from '~/components/characters.module.css';
 

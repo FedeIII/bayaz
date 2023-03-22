@@ -29,6 +29,10 @@ import {
   getBardCantripsNumber,
   getBardSpellSlots,
   getBardTotalSpells,
+  hasNewBardCantrips,
+  hasNewBardLevelSpells,
+  hasNewBardSpells,
+  maxBardSpellLevel,
 } from './bard';
 import {
   getSorcererCantripsNumber,
@@ -43,22 +47,21 @@ import {
   getWizardTotalSpells,
   WIZARD_SPELLS,
 } from './wizard';
+import { getKnownSpells, getSpell } from './getSpells';
+import { SPELL_TRANSLATIONS } from './spellTranslations';
 
-export const ALL_SPELLS = [
-  ...Object.values(BARD_SPELLS),
-  ...Object.values(WARLOCK_SPELLS),
-  ...Object.values(CLERIC_SPELLS),
-  ...Object.values(DRUID_SPELLS),
-  ...Object.values(SORCERER_SPELLS),
-  ...Object.values(WIZARD_SPELLS),
-];
+const zero = () => 0;
 
-export function getSpell(spellName, spellType) {
-  return (
-    ALL_SPELLS.find(
-      spell => spell.name === spellName && spell.type === spellType
-    ) || {}
-  );
+export function getClassSpells(pc) {
+  const { pClass } = pc;
+
+  if (pClass === 'bard') return BARD_SPELLS;
+
+  return [];
+}
+
+export function translateSpell(spellName) {
+  return SPELL_TRANSLATIONS[spellName] || `[[<--- ${spellName} --->]]`;
 }
 
 export function getCantripsNumber(pc) {
@@ -185,3 +188,50 @@ export function isPreparedSpell(pc, spellName) {
 
   return !!preparedSpells.find(spell => spell.name === spellName);
 }
+
+export function getNewSpellsAmount(pc) {
+  const newKnownSpellsNumber = getTotalSpells(pc);
+  const currentKnownSpellsNumber = getKnownSpells(pc).length;
+
+  return newKnownSpellsNumber - currentKnownSpellsNumber;
+}
+
+export function hasNewCantrips(pc) {
+  const { pClass } = pc;
+
+  return (
+    {
+      bard: hasNewBardCantrips,
+    }[pClass] || zero
+  )(pc);
+}
+
+export function hasNewLevelSpells(pc) {
+  const { pClass } = pc;
+
+  return (
+    {
+      bard: hasNewBardLevelSpells,
+    }[pClass] || zero
+  )(pc);
+}
+
+export function hasNewSpells(pc) {
+  const { pClass } = pc;
+
+  return (
+    {
+      bard: hasNewBardSpells,
+    }[pClass] || zero
+  )(pc);
+}
+
+export function maxSpellLevel(pc) {
+  const { pClass } = pc;
+
+  return (
+    {
+      bard: maxBardSpellLevel,
+    }[pClass] || zero
+  )(pc);
+} 

@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react';
 import { translateItem } from '~/domain/equipment/equipment';
 import { getAllMusicalInstruments } from '~/domain/equipment/tools';
 import {
-  BARD_SPELLS,
+  getBardSpells,
   getBardSpellSlots,
   getBardTotalSpells,
 } from '~/domain/spells/bard';
 
 import styles from '~/components/characters.module.css';
+import { translateSpell } from '~/domain/spells/spells';
 
 const MAX_INSTRUMENTS = 3;
 
@@ -67,7 +68,7 @@ function BardSkills(props) {
 
       <p>
         Conoces {spellSlots[0]} trucos de bardo:{' '}
-        {Object.values(BARD_SPELLS)
+        {getBardSpells()
           .filter(s => s.level === 0)
           .map((spell, i) => (
             <label
@@ -89,14 +90,14 @@ function BardSkills(props) {
                   })
                 }
               />
-              {spell.translation}
+              {translateSpell(spell.name)}
             </label>
           ))}
       </p>
 
       <p>
         Conoces {totalSpells} conjuros de nivel 1 de bardo:{' '}
-        {Object.values(BARD_SPELLS)
+        {getBardSpells()
           .filter(s => s.level === 1)
           .map((spell, i) => (
             <label
@@ -118,7 +119,7 @@ function BardSkills(props) {
                   })
                 }
               />
-              {spell.translation}
+              {translateSpell(spell.name)}
             </label>
           ))}
       </p>

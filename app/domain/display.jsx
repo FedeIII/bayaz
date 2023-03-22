@@ -5,7 +5,6 @@ import {
   getDamageBonus,
   getStat,
   getStatMod,
-  hasToImproveAbilityScore,
   translateSavingThrowStatus,
 } from './characters';
 import {
@@ -21,9 +20,10 @@ import {
   getAllSimpleRanged,
   translateDamage,
 } from './equipment/weapons';
-
-import { displayBarbarianTrait } from './barbarian/barbarian';
 import { displayBardTrait } from './bard/bard';
+import { displayBarbarianTrait } from './barbarian/barbarian';
+
+import sheetStyles from '~/components/sheet.module.css';
 
 export function increment(num) {
   return num >= 0 ? '+' + num : num;
@@ -376,6 +376,14 @@ export function displayTrait(traitName, trait, pc) {
             ? ` Gremio de ${translateGuild(pc.background.guild)}`
             : ''}
         </Fragment>
+      );
+
+    case 'newSpells':
+      return (
+        <>
+          <strong>{trait}</strong>
+          <span className={sheetStyles.pendingTrait}>(!)</span>
+        </>
       );
 
     default:

@@ -1,6 +1,7 @@
 .cards {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   gap: 32px;
 }
 
@@ -50,4 +51,10 @@
 .buttonCardBig {
   font-size: 18px;
   padding: 8px 8px 4px 8px;
+}
+
+.cardList {
+  padding: 0 0 0 20px;
+  text-align: left;
+  list-style: square;
 }

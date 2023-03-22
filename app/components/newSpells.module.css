@@ -1,0 +1,25 @@
+.knownSpell {
+  cursor: pointer;
+}
+
+.knownSpell:hover {
+  color: var(--color-x-pale);
+}
+
+.selectedKnownSpell {
+  text-decoration: line-through;
+}
+
+.newSpell {
+  cursor: pointer;
+  padding: 4px 8px 0px;
+}
+
+.newSpell:hover {
+  color: var(--color-x-pale);
+}
+
+.selectedNewSpell {
+  border: 1px solid white;
+  border-radius: 5px;
+}

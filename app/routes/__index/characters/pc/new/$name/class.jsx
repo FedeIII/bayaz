@@ -25,11 +25,9 @@ import { pcItem } from '~/domain/equipment/equipment';
 import {
   doesNotHaveToPrepareSpells,
   getExtraPreparedSpells,
-  getSpell,
-  getSpellSlots,
-  getTotalSpells,
   hasToPrepareSpells,
 } from '~/domain/spells/spells';
+import { getSpell } from '~/domain/spells/getSpells';
 
 import styles from '~/components/characters.module.css';
 
@@ -93,9 +91,6 @@ export const action = async ({ request }) => {
       }),
     ];
   }
-
-  pcAttrs.spellSlots = getSpellSlots(pc);
-  pcAttrs.totalSpells = getTotalSpells(pc);
 
   pcAttrs.improvedStatsLevels = [];
 
