@@ -62,6 +62,9 @@ function NewSpells() {
   );
 
   const knownSpells = pSpells.map(pSpell => getSpell(pSpell.name, pSpell.type));
+  const allCantrips = getClassSpells(pc)
+    .filter(spell => spell.level === 0)
+    .filter(spell => !knownSpells.includes(spell));
   const [cantripSlots, ...spellSlots] = getSpellSlots(pc);
   const kwnonSpellLevels = [
     ...new Set(knownSpells.filter(s => s.level > 0).map(s => s.level)),
@@ -116,6 +119,7 @@ function NewSpells() {
   }
 
   const [skillRefs, setSkillRefs] = useState({
+    cantrips: allCantrips.map(() => useRef()),
     known: knownSpells.map(() => useRef()),
     ...spellsByLevel.map(spells => spells.map(() => useRef())),
   });
@@ -150,7 +154,35 @@ function NewSpells() {
       {hasNewCantrips(pc) && (
         <>
           <h3>Aprendes un nuevo Truco</h3>
-          <p className={appStyles.paragraph}></p>
+          <p className={cardStyles.cards}>
+            <Card title="Trucos" singleCard>
+              <ul className={cardStyles.cardList}>
+                {allCantrips.map((spell, spellIndex) => (
+                  <li key={spell.name}>
+                    <label
+                      htmlFor={spell.name}
+                      className={`${styles.toSelect}`}
+                    >
+                      <input
+                        hidden
+                        type="radio"
+                        id={spell.name}
+                        name="learn[]"
+                        value={spell.name}
+                      />
+                      <SkillItem
+                        ref={skillRefs.cantrips[spellIndex]}
+                        traitName={spell.name}
+                        trait="spell"
+                        openModal={openSkillModal('cantrips', spellIndex)}
+                        openOnRightClick
+                      />
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          </p>
         </>
       )}
 

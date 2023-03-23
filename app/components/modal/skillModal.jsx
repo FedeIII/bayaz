@@ -44,7 +44,7 @@ export function SpellModalContent(props) {
       >
         <div>
           <strong>Nivel: </strong>
-          {spell.level}
+          {spell.level === 0 ? 'Truco' : spell.level}
         </div>
         <div>
           <strong>Escuela: </strong>

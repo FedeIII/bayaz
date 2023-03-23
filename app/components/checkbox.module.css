@@ -19,6 +19,11 @@
   color: var(--color-x-pale);
 }
 
+.toSelect:has(input[type='radio']:checked) {
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
 .selectedToSelect {
   border: 1px solid white;
   border-radius: 5px;

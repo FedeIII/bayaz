@@ -4,7 +4,7 @@ import {
   getAllSimpleMelee,
   WEAPONS,
 } from '../equipment/weapons';
-import { CLASSES, hasToImproveAbilityScore } from '../characters';
+import { CLASSES } from '../characters';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -76,17 +76,6 @@ export function displayBarbarianTrait(traitName, trait, pc) {
         </>
       );
     }
-
-    case 'abilityScoreImprovement':
-      if (!hasToImproveAbilityScore(pc)) {
-        return null;
-      }
-      return (
-        <>
-          <strong>{trait}</strong>
-          <span className={sheetStyles.pendingTrait}>(!)</span>
-        </>
-      );
 
     case 'aspectOfTheBeast': {
       const { totemType, animal } = pc.classAttrs?.aspectOfTheBeast || {};
