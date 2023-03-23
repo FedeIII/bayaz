@@ -1,0 +1,34 @@
+.toRemove {
+  cursor: pointer;
+}
+
+.toRemove:hover {
+  color: var(--color-x-pale);
+}
+
+.selectedToRemove {
+  text-decoration: line-through;
+}
+
+.toSelect {
+  cursor: pointer;
+  padding: 4px 8px 0px;
+}
+
+.toSelect:hover {
+  color: var(--color-x-pale);
+}
+
+.selectedToSelect {
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.disabledToSelect {
+  color: var(--color-pale);
+  cursor: initial;
+}
+
+.disabledToSelect:hover {
+  color: var(--color-pale);
+}

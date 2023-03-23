@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateClassAttrs } from '~/services/pc.server';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
-import { useTitle } from '~/components/hooks/useTitle';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -113,7 +113,7 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className={styles.errorText}>{error.message}</h2>
 
       <p className={styles.paragraph}>
         La furia arde en el corazón de cada bárbaro como una fragua que forja su
@@ -124,7 +124,7 @@ export function ErrorBoundary({ error }) {
         animal.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className={styles.errorStack}>{error.stack}</p>
     </div>
   );
 }

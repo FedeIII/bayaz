@@ -391,9 +391,11 @@ export function displayTrait(traitName, trait, pc) {
 
   const barbarianTrait = displayBarbarianTrait(traitName, trait, pc);
   if (barbarianTrait) return barbarianTrait;
+  else if (barbarianTrait === false) return null;
 
   const bardDisplay = displayBardTrait(traitName, trait, pc);
   if (bardDisplay) return bardDisplay;
+  else if (bardDisplay === false) return null;
 
   return trait;
 }

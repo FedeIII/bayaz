@@ -44,6 +44,7 @@ const statsSchema = new mongoose.Schema({
 });
 
 const classAttrsSchema = new mongoose.Schema({
+  // BARBARIAN
   primalPath: {
     type: String,
     enum: ['berserker', 'totem-warrior'],
@@ -69,6 +70,15 @@ const classAttrsSchema = new mongoose.Schema({
     },
     animal: String,
   },
+
+  // BARD
+  bardCollege: {
+    type: String,
+    enum: ['lore', 'valor'],
+  },
+  loreCollegeProficiencies: [{ type: String, enum: SKILLS.map(s => s.name) }],
+
+  // CLERIC
   divineDomain: {
     type: String,
     enum: Object.keys(DIVINE_DOMAINS),

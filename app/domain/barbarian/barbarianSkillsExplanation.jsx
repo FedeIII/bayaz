@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react';
+import { getProficiencyBonus, getStat, getStatMod } from '../characters';
 
 import styles from '~/components/modal/inventoryItem.module.css';
-import { getProficiencyBonus, getStat, getStatMod } from '../characters';
 
 export const BARBARIAN_SKILLS_EXPLANATION = {
   rage: () => (

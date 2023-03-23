@@ -80,10 +80,15 @@ import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useTitle } from '~/components/hooks/useTitle';
+import { hasNewSpells } from '~/domain/spells/spells';
+import {
+  getBardCollege,
+  getBardCollegeTraits,
+  translateBardCollege,
+} from '~/domain/bard/bard';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
-import { hasNewSpells } from '~/domain/spells/spells';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -739,6 +744,27 @@ function PcSummary() {
               </strong>
               <ul>
                 {getPrimalPathTraits(pc).map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.traits[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('traits', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {!!getBardCollege(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                Colegio del {translateBardCollege(getBardCollege(pc))}
+              </strong>
+              <ul>
+                {getBardCollegeTraits(pc).map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
                       ref={skillRefs.traits[i]}

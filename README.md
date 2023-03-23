@@ -53,10 +53,10 @@ npx prisma migrate dev
 
 ## TO DOs
 
-- Spell modal
+- HP on leveling
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
-- HP on leveling
+- Bardic Inspiration die
 - no env monsters without details and/or translations
 - Some class skills can be piled up if you go back and forth in the browser navigation
 - Conditions for equiped items

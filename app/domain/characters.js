@@ -2,6 +2,7 @@ import { BACKGROUNDS } from './backgrounds/backgrounds';
 import { BACKGROUND_SKILLS_EXPLANATION } from './backgrounds/backgroundSkillsExplanation';
 import { getAspectOfTheBeastTotem } from './barbarian/barbarian';
 import { BARBARIAN_SKILLS_EXPLANATION } from './barbarian/barbarianSkillsExplanation';
+import { BARD_COLLEGES, getBardCollege } from './bard/bard';
 import { BARD_SKILLS_EXPLANATION } from './bard/bardSkillsExplanation';
 import {
   translateDivineDomain,
@@ -511,6 +512,25 @@ export const CLASSES = {
           songOfRest: 'Canción de Descanso',
         },
       },
+      3: {
+        traits: {
+          bardCollege: 'Colegio de Bardo',
+        },
+        bardCollege: {
+          lore: {
+            traits: {
+              loreBonusProficiencies: 'Competencias Adicionales',
+              cuttingWords: 'Palabras Hirientes',
+            },
+          },
+          valor: {
+            traits: {
+              valorBonusProficiencies: 'Competencias Adicionales',
+              combatInspiration: 'Inspiración de Combate',
+            },
+          },
+        },
+      },
     },
   },
   cleric: {
@@ -981,7 +1001,8 @@ export function getSkills(pc) {
     ...(pc.skills || []),
     ...(pc.halfElf?.skills || []),
     ...(pc.classAttrs?.skills || []),
-    ...(pc.sbackground?.skills || []),
+    ...(pc.background?.skills || []),
+    ...(pc.classAttrs?.loreCollegeProficiencies || []),
   ];
 }
 
@@ -1157,9 +1178,10 @@ export function getPassivePerception(pc) {
 }
 
 export function getItemProficiencies(pc) {
-  const { race, subrace, pClass } = pc;
+  const { race, subrace, pClass, level } = pc;
 
   const divineDomain = getDivineDomain(pc);
+  const bardCollege = getBardCollege(pc);
 
   return [
     ...(RACES[race][subrace].proficientItems || []),
@@ -1167,6 +1189,7 @@ export function getItemProficiencies(pc) {
     ...(pc.proficientItems?.map(item => item.name) || []),
     ...((divineDomain ? DIVINE_DOMAINS[divineDomain].proficientItems : []) ||
       []),
+    ...((bardCollege ? BARD_COLLEGES[bardCollege].proficientItems : []) || []),
   ];
 }
 

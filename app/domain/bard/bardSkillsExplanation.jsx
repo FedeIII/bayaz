@@ -1,3 +1,8 @@
+import { Link } from '@remix-run/react';
+
+import styles from '~/components/modal/inventoryItem.module.css';
+import { translateSkill } from '../characters';
+
 export const BARD_SKILLS_EXPLANATION = {
   bardicInspiration: (skill, pc) => (
     <>
@@ -61,5 +66,95 @@ export const BARD_SKILLS_EXPLANATION = {
         17.
       </p>
     </>
+  ),
+
+  bardCollege: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 3 ahondas en las técnicas avanzadas de un Colegio de
+        Bardo de tu elección: El Colegio del Conocimiento o el Colegio del
+        Valor, ambos detallados a continuación. Tu elección te proporciona
+        rasgos en el nivel 3 y nuevamente en el nivel 6 y en el 14.
+      </p>
+
+      <div className={styles.modalButtons}>
+        <Link
+          to={`/characters/pc/${pc.name}/leveling/bard/bardCollege`}
+          className={styles.modalButton}
+        >
+          Escoge Colegio de Bardo
+        </Link>
+      </div>
+    </>
+  ),
+
+  loreBonusProficiencies: (skill, pc) => {
+    const { classAttrs: { loreCollegeProficiencies = [] } = {} } = pc;
+
+    return (
+      <>
+        <p>
+          Cuando te unes al Colegio del Conocimiento en el nivel 3, ganas
+          competencia con tres habilidades de tu elección.
+        </p>
+
+        {!loreCollegeProficiencies.length && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/bard/loreBonusProficiencies`}
+              className={styles.modalButton}
+            >
+              Escoge habilidades
+            </Link>
+          </div>
+        )}
+
+        {!!loreCollegeProficiencies.length && (
+          <p>
+            Competente con:{' '}
+            <ul>
+              {loreCollegeProficiencies.map(skill => (
+                <li>{translateSkill(skill)}</li>
+              ))}
+            </ul>
+          </p>
+        )}
+      </>
+    );
+  },
+
+  cuttingWords: () => (
+    <p>
+      En el nivel 3 también aprendes cómo usar tu ingenio para distraer,
+      confundir y minar la confianza y competencia de otros. Cuando una criatura
+      que puedes ver en un rango de 60 pies (18 metros) realiza una tirada de
+      ataque, una prueba de habilidad o una tirada de daño, puedes usar tu
+      reacción para gastar uno de tus usos de Inspiración de Bardo, tirando un
+      dado de Inspiración de Bardo y restando el resultado a la tirada de la
+      criatura. Puedes decidir usar este rasgo después de que la criatura haya
+      realizado su prueba o tirada, pero antes de que el DM determine si la
+      prueba de habilidad o la tirada de ataque tiene éxito o no, o antes de que
+      la criatura calcule el daño. La criatura es inmune si no puede oírte o si
+      es inmune al encantamiento.
+    </p>
+  ),
+
+  valorBonusProficiencies: () => (
+    <p>
+      Cuando te unes al Colegio del Valor en el nivel 3, ganas competencia con
+      armadura media, escudos y armas marciales.
+    </p>
+  ),
+
+  combatInspiration: () => (
+    <p>
+      En el nivel 3 también aprendes a inspirar a otros en la batalla. Una
+      criatura que tiene un dado de Inspiración de Bardo tuyo puede tirar ese
+      dado y agregarlo a una tirada de daño. Alternativamente, cuando se realiza
+      una tirada de ataque contra la criatura, esta puede usar su reacción para
+      tirar el dado de Inspiración de Bardo y agregar el resultado a su CA
+      contra el ataque, después de ver la tirada, pero antes de saber si esta
+      acertó o no.
+    </p>
   ),
 };
