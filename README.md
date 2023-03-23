@@ -54,6 +54,7 @@ npx prisma migrate dev
 ## TO DOs
 
 - HP on leveling
+- Use spells (consume slots)
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
 - Bardic Inspiration die
