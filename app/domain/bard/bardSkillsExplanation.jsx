@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react';
 
 import styles from '~/components/modal/inventoryItem.module.css';
-import { translateSkill } from '../characters';
+import { getExpertSkills, translateSkill } from '../characters';
 
 export const BARD_SKILLS_EXPLANATION = {
   bardicInspiration: (skill, pc) => (
@@ -156,5 +156,38 @@ export const BARD_SKILLS_EXPLANATION = {
       contra el ataque, después de ver la tirada, pero antes de saber si esta
       acertó o no.
     </p>
+  ),
+
+  expertise: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 3 eliges dos de tus habilidades en las que seas
+        competente. Tu bonificador de competencia para esas habilidades se
+        duplica para cualquier prueba de habilidad que realices con ellas.
+      </p>
+      <p>
+        Al nivel 10 eliges otras habilidades en las que seas competente que
+        ganarán este beneficio.
+      </p>
+
+      {!getExpertSkills(pc).length && (
+        <div className={styles.modalButtons}>
+          <Link
+            to={`/characters/pc/${pc.name}/leveling/bard/expertSkills`}
+            className={styles.modalButton}
+          >
+            Escoge habilidades
+          </Link>
+        </div>
+      )}
+
+      {!!getExpertSkills(pc).length && (
+        <ul>
+          {getExpertSkills(pc).map(skillName => (
+            <li>{translateSkill(skillName)}</li>
+          ))}
+        </ul>
+      )}
+    </>
   ),
 };

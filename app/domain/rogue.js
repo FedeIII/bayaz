@@ -7,10 +7,6 @@ import {
 import { TOOLS } from './equipment/tools';
 import { WEAPONS } from './equipment/weapons';
 
-export function getExpertSkills(pc) {
-  return pc.classAttrs?.expertSkills || [];
-}
-
 export const ROGUE_EQUIPMENT = [
   { or: [WEAPONS.rapier(), WEAPONS.shortsword()] },
   { or: [WEAPONS.rapier(), WEAPONS.shortsword()] },

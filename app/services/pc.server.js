@@ -91,6 +91,8 @@ const classAttrsSchema = new mongoose.Schema({
   fightingStyles: [{ type: String, enum: FIGHTING_STYLES }],
   sorcererOrigin: { type: String, enum: Object.keys(SORCERER_ORIGIN) },
   dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
+  
+  // ALL
   expertSkills: [
     { type: String, enum: [...SKILLS.map(s => s.name), 'thieves-tools'] },
   ],

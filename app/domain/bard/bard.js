@@ -7,7 +7,7 @@ import {
   getAllSimpleMelee,
   WEAPONS,
 } from '../equipment/weapons';
-import { CLASSES, getStat, getStatMod } from '../characters';
+import { CLASSES, getExpertSkills, getStat, getStatMod } from '../characters';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -109,6 +109,16 @@ export function displayBardTrait(traitName, trait, pc) {
         <>
           {trait}
           {!pc.classAttrs?.loreCollegeProficiencies?.length && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+        </>
+      );
+
+    case 'expertise':
+      return (
+        <>
+          {trait}
+          {!getExpertSkills(pc).length && (
             <span className={sheetStyles.pendingTrait}>(!)</span>
           )}
         </>

@@ -41,7 +41,6 @@ import {
   getExtraWeapons,
   getSpeed,
 } from '~/domain/characters';
-import { getExpertSkills } from '~/domain/rogue';
 import {
   getSorcererOrigin,
   translateSorcererOrigin,
@@ -879,19 +878,6 @@ function PcSummary() {
                 {' '}
                 {translateDragonAncestor(getDragonAncestor(pc))}
               </strong>
-            </li>
-          )}
-
-          {!!getExpertSkills(pc)?.length && (
-            <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>Experto en:</span>
-              <ul className={styles.traitLabel}>
-                {getExpertSkills(pc).map(skillName => (
-                  <li className={styles.traitItem} key={skillName}>
-                    {translateSkill(skillName)}
-                  </li>
-                ))}
-              </ul>
             </li>
           )}
         </ul>

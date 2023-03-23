@@ -515,6 +515,7 @@ export const CLASSES = {
       3: {
         traits: {
           bardCollege: 'Colegio de Bardo',
+          expertise: 'Experto',
         },
         bardCollege: {
           lore: {
@@ -998,11 +999,13 @@ export function translateSkill(skillName) {
 
 export function getSkills(pc) {
   return [
-    ...(pc.skills || []),
-    ...(pc.halfElf?.skills || []),
-    ...(pc.classAttrs?.skills || []),
-    ...(pc.background?.skills || []),
-    ...(pc.classAttrs?.loreCollegeProficiencies || []),
+    ...new Set([
+      ...(pc.skills || []),
+      ...(pc.halfElf?.skills || []),
+      ...(pc.classAttrs?.skills || []),
+      ...(pc.background?.skills || []),
+      ...(pc.classAttrs?.loreCollegeProficiencies || []),
+    ]),
   ];
 }
 
@@ -1020,10 +1023,14 @@ export function bonusForSkill(pc, skillName) {
       getProficiencyBonus(pc.level)
     );
 
-  if (pc.pClass === 'rogue' && pc.classAttrs?.expertSkills.includes(skillName))
+  if (getExpertSkills(pc).includes(skillName))
     return 2 * getProficiencyBonus(level);
 
   return getProficiencyBonus(level);
+}
+
+export function getExpertSkills(pc) {
+  return pc.classAttrs?.expertSkills || [];
 }
 
 export function specialProficiencyBonus(pc) {
