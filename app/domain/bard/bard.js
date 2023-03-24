@@ -130,8 +130,22 @@ export function displayBardTrait(traitName, trait, pc) {
     case 'fontOfInspiration':
       return null;
 
+    case 'additionalMagicalSecrets':
+      return (
+        <>
+          <strong>{trait}</strong>
+          {!getLoreSpells(pc).length && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+        </>
+      );
+
     default:
   }
 
   return null;
+}
+
+export function getLoreSpells(pc) {
+  return pc.classAttrs?.loreSpells || [];
 }

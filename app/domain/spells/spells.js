@@ -49,6 +49,8 @@ import {
 } from './wizard';
 import { getKnownSpells, getSpell } from './getSpells';
 import { SPELL_TRANSLATIONS } from './spellTranslations';
+import { SPELL_LIST } from './spellList';
+import { getLoreSpells } from '../bard/bard';
 
 const zero = () => 0;
 
@@ -58,6 +60,25 @@ export function getClassSpells(pc) {
   if (pClass === 'bard') return BARD_SPELLS;
 
   return [];
+}
+
+export function getAllClassesWithSpells() {
+  return [...new Set(SPELL_LIST.map(s => s.class).flat())].filter(
+    c => c !== 'ritual caster'
+  );
+}
+
+export function getAllSpellSchools() {
+  return [
+    'Conjuration',
+    'Abjuration',
+    'Transmutation',
+    'Enchantment',
+    'Necromancy',
+    'Divination',
+    'Evocation',
+    'Illusion',
+  ];
 }
 
 export function translateSpell(spellName) {
@@ -174,7 +195,9 @@ export function getSpellSavingThrow(pc, spellType) {
 export function divideSpells(pc) {
   const { spells } = pc;
 
-  return spells.reduce((spellsByLevel, pSpell) => {
+  const loreSpells = getLoreSpells(pc);
+
+  return [...spells, ...loreSpells].reduce((spellsByLevel, pSpell) => {
     const spell = getSpell(pSpell.name, pSpell.type);
     if (typeof spell?.level === 'number') {
       spellsByLevel[spell.level] = [...spellsByLevel[spell.level], spell];
@@ -234,4 +257,4 @@ export function maxSpellLevel(pc) {
       bard: maxBardSpellLevel,
     }[pClass] || zero
   )(pc);
-} 
+}

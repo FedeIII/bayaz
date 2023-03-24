@@ -161,3 +161,8 @@
 .buttonBig {
   font-size: 18px;
 }
+
+.filter {
+  display: inline-block;
+  margin: 16px 16px;
+}

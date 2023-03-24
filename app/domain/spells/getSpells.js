@@ -3,7 +3,9 @@ import { SPELL_LIST } from './spellList';
 export function getSpell(spellName, spellClass) {
   return (
     SPELL_LIST.find(
-      spell => spell.name === spellName && spell.class.includes(spellClass)
+      spell =>
+        spell.name === spellName &&
+        (!spellClass || spell.class.includes(spellClass))
     ) || {}
   );
 }

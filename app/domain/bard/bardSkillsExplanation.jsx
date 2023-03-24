@@ -2,6 +2,8 @@ import { Link } from '@remix-run/react';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 import { CLASSES, getExpertSkills, translateSkill } from '../characters';
+import { translateSpell } from '../spells/spells';
+import { getLoreSpells } from './bard';
 
 export const BARD_SKILLS_EXPLANATION = {
   bardicInspiration: (skill, pc) => (
@@ -200,4 +202,61 @@ export const BARD_SKILLS_EXPLANATION = {
 
   fontOfInspiration: () =>
     'A partir del nivel 5 recuperas todos tus usos de Inspiración de Bardo cuando terminas un descanso corto o prolongado.',
+
+  countercharm: () => (
+    <p>
+      A partir del nivel 6 ganas la habilidad de usar notas musicales o palabras
+      de poder para interrumpir efectos que afectan a la mente. Como una acción,
+      puedes comenzar una interpretación que dura hasta el final de tu siguiente
+      turno. Durante ese tiempo, tú y cualquier criatura amistosa en un rango de
+      30 pies (9 metros) tienen ventaja en las tiradas de salvación para evitar
+      ser asustados o encantados. Una criatura debe ser capaz de escucharte para
+      ganar este beneficio. La interpretación finaliza de forma anticipada si
+      eres incapacitado, silenciado, o si la terminas voluntariamente (no
+      requiere una acción).
+    </p>
+  ),
+
+  additionalMagicalSecrets: (skill, pc) => {
+    const loreSpells = getLoreSpells(pc);
+    return (
+      <>
+        <p>
+          A partir del nivel 6 aprendes dos conjuros de cualquier clase.
+          Cualquier conjuro que elijas debe ser de un nivel que puedas lanzar,
+          como se muestra en la tabla Bardo, o un truco.
+        </p>
+        <p>
+          Los conjuros elegidos cuentan como conjuros de bardo para ti, pero no
+          cuentan para el total de Conjuros Conocidos de Bardo.
+        </p>
+
+        {!loreSpells.length && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/bard/loreSpells`}
+              className={styles.modalButton}
+            >
+              Escoge Conjuros
+            </Link>
+          </div>
+        )}
+
+        {!!loreSpells.length && (
+          <ul>
+            {loreSpells.map(spell => (
+              <li>{translateSpell(spell.name)}</li>
+            ))}
+          </ul>
+        )}
+      </>
+    );
+  },
+
+  extraAttack: () => (
+    <p>
+      Empezando en el nivel 6, puedes atacar dos veces en lugar de una cuando
+      realizas la acción de ataque en tu turno.
+    </p>
+  ),
 };

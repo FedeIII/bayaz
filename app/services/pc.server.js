@@ -43,6 +43,12 @@ const statsSchema = new mongoose.Schema({
   ),
 });
 
+const spellSchema = new mongoose.Schema({
+  name: String,
+  type: { type: String, enum: Object.keys(CLASSES) },
+  subtype: String,
+});
+
 const classAttrsSchema = new mongoose.Schema({
   // BARBARIAN
   primalPath: {
@@ -77,6 +83,7 @@ const classAttrsSchema = new mongoose.Schema({
     enum: ['lore', 'valor'],
   },
   loreCollegeProficiencies: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  loreSpells: [spellSchema],
 
   // CLERIC
   divineDomain: {
@@ -134,12 +141,6 @@ const freeTextSchema = new mongoose.Schema({
   backstory: String,
   extraTraits1: String,
   extraTraits2: String,
-});
-
-const spellSchema = new mongoose.Schema({
-  name: String,
-  type: { type: String, enum: Object.keys(CLASSES) },
-  subtype: String,
 });
 
 const pcSchema = new mongoose.Schema({
@@ -381,6 +382,20 @@ export async function prepareSpells(name, pClass, toPrepare, toForget) {
       { new: true, upsert: true }
     ).exec();
   }
+
+  return updatedPc;
+}
+
+export async function learnBardLoreSpells(name, spells) {
+  let updatedPc = await Pc.findOneAndUpdate(
+    { name: name },
+    {
+      $push: {
+        'classAttrs.loreSpells': spells.map(sName => ({ name: sName })),
+      },
+    },
+    { new: true, upsert: true }
+  ).exec();
 
   return updatedPc;
 }

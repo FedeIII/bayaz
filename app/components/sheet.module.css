@@ -346,7 +346,6 @@
   font-size: 44px;
 }
 
-
 .extraHitPoints {
   position: absolute;
   left: calc(50% + 22px);
@@ -859,16 +858,9 @@
     color: var(--color-green);
     transition: margin ease-out;
   }
-  16.5% {
-    color: var(--color-green);
-  }
   33% {
     margin-top: -3px;
-    color: var(--color-orange);
     transition: margin ease-in;
-  }
-  49.5% {
-    color: var(--color-green);
   }
   66% {
     margin-top: 2px;

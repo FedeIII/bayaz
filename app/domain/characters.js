@@ -543,6 +543,21 @@ export const CLASSES = {
           fontOfInspiration: 'Fuente de inspiración',
         },
       },
+      6: {
+        countercharm: 'Contraoda',
+        bardCollege: {
+          lore: {
+            traits: {
+              additionalMagicalSecrets: 'Secretos Mágicos Adicionales',
+            },
+          },
+          valor: {
+            traits: {
+              extraAttack: 'Ataque Adicional',
+            },
+          },
+        },
+      },
     },
   },
   cleric: {
@@ -809,6 +824,10 @@ export const CLASSES = {
   },
 };
 
+export function getAllClasses() {
+  return Object.keys(CLASSES);
+}
+
 export function getInitialHitPoints(pc) {
   const { pClass } = pc;
   return CLASSES[pClass].initialHitPoints + getExtraHitPoints(pc);
@@ -874,7 +893,6 @@ export function translateClass(race) {
       return 'Clérigo';
     case 'druid':
       return 'Druida';
-    default:
     case 'fighter':
       return 'Guerrero';
     case 'monk':
@@ -891,6 +909,9 @@ export function translateClass(race) {
       return 'Brujo';
     case 'wizard':
       return 'Mago';
+
+    default:
+      return 'unknown class';
   }
 }
 
