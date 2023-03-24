@@ -3,6 +3,7 @@ import { translateGuild } from './backgrounds/backgrounds';
 import {
   getAttackBonus,
   getDamageBonus,
+  getMaxHitPoints,
   getStat,
   getStatMod,
   hasToImproveAbilityScore,
@@ -406,6 +407,9 @@ export function displayTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'maxHitPoints':
+      return getMaxHitPoints(pc);
+
     default:
   }
 
@@ -427,10 +431,15 @@ export function displayMoneyAmount(coins) {
 
 export function displayTotalHitPointsRolls(pc) {
   const { totalHitPoints } = pc;
-  const [lastRoll, oneToLastRoll, twoToLastRoll, ...restRolls] = totalHitPoints
-    .slice()
-    .reverse();
+  const [
+    lastRoll,
+    oneToLastRoll,
+    twoToLastRoll,
+    threeToLastRoll,
+    ...restRolls
+  ] = totalHitPoints.slice().reverse();
   let rolls = restRolls.length ? '... + ' : '';
+  if (threeToLastRoll) rolls += `${threeToLastRoll} + `;
   if (twoToLastRoll) rolls += `${twoToLastRoll} + `;
   if (oneToLastRoll) rolls += `${oneToLastRoll} + `;
   if (lastRoll) rolls += lastRoll;

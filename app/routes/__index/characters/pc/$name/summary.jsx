@@ -41,7 +41,6 @@ import {
   getHitDice,
   getRemainingHitDice,
   hasLeveledUp,
-  getMaxHitPoints,
 } from '~/domain/characters';
 import {
   getSorcererOrigin,
@@ -66,7 +65,6 @@ import {
 } from '~/domain/barbarian/barbarian';
 import {
   displayMoneyAmount,
-  displayTotalHitPointsRolls,
   getAttacks,
   getItemDisplayList,
   getSpecialAttacks,
@@ -349,6 +347,7 @@ function PcSummary() {
     levelUp: [useRef()],
     spells: [useRef()],
     traits: traits.map(() => useRef()),
+    hp: [useRef()],
   });
 
   const [
@@ -567,10 +566,13 @@ function PcSummary() {
           {getSpeed(pc)}m
         </span>
         <span className={`${styles.data} ${styles.maxHitPoints}`}>
-          <sub className={styles.hitPointRolls}>
-            {displayTotalHitPointsRolls(pc)} =
-          </sub>{' '}
-          {getMaxHitPoints(pc)}
+          <SkillItem
+            ref={skillRefs.hp[0]}
+            traitName="maxHitPoints"
+            trait="Puntos de Golpe máximos"
+            pc={pc}
+            openModal={openSkillModal('hp', 0)}
+          />
         </span>
         <span className={`${styles.data} ${styles.hitPoints}`}>
           {hitPointsState}

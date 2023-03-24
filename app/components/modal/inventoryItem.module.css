@@ -155,3 +155,33 @@
 .modalButton:hover {
   background-color: var(--color-x-gray);
 }
+
+.hpContainer {
+  margin: 16px 8px 0 8px;
+}
+
+.hpTable {
+  border-collapse: collapse;
+}
+
+.hpTableHead {
+  border-bottom: 1px solid black;
+  color: gray;
+}
+
+.hpCell {
+  text-align: right;
+  padding: 4px 8px 4px 8px;
+}
+
+.hpCellLevel {
+  text-align: center;
+  padding: 4px 8px 4px 8px;
+  border-left: 1px solid lightgray;
+}
+
+.hpCellExtra {
+  text-align: center;
+  padding: 4px 8px 4px 8px;
+  border-left: 1px solid black;
+}

@@ -1,14 +1,22 @@
 import { Link } from '@remix-run/react';
+import {
+  CLASSES,
+  getExtraHitPoints,
+  getStat,
+  getStatMod,
+  translateClass,
+} from './characters';
+import { increment } from './display';
+
 import styles from '~/components/modal/inventoryItem.module.css';
-import { CLASSES, translateClass } from './characters';
 
 export const SKILLS_EXPLANATION = {
   levelUp: (skill, pc) => {
     return (
       <>
         <p>
-          Cada vez que ganas un nivel, ganas 1 Dado de Golpe adicional. Lanza
-          el Dado de Golpe, añade tu modificador de Constitución a la tirada y
+          Cada vez que ganas un nivel, ganas 1 Dado de Golpe adicional. Lanza el
+          Dado de Golpe, añade tu modificador de Constitución a la tirada y
           añade el total a tu máximo de Puntos de Golpe. Opcionalmente, puedes
           utilizar el valor fijo que se muestra en la entrada de la clase, que
           es el resultado medio de la tirada de tu Dado de Golpe (redondeando
@@ -67,4 +75,40 @@ export const SKILLS_EXPLANATION = {
       </div>
     </>
   ),
+
+  maxHitPoints: (skill, pc) => {
+    const { totalHitPoints, level } = pc;
+    const extraHitPoints = getExtraHitPoints(pc);
+    const conHp = getStatMod(getStat(pc, 'con'));
+    const extraHp = extraHitPoints - conHp * level;
+
+    return (
+      <div className={styles.hpContainer}>
+        <table className={styles.hpTable}>
+          <thead className={styles.hpTableHead}>
+            <tr>
+              <th className={styles.hpCell}>Nivel</th>
+              {totalHitPoints.map((roll, i) => (
+                <th className={styles.hpCellLevel}>{i + 1}</th>
+              ))}
+              <th className={styles.hpCellExtra}>Con</th>
+              {!!extraHp && <th className={styles.hpCellExtra}>Extra HP</th>}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className={styles.hpCell}>HP</td>
+              {totalHitPoints.map(roll => (
+                <td className={styles.hpCellLevel}>{increment(roll)}</td>
+              ))}
+              <td className={styles.hpCellExtra}>
+                {increment(conHp)} x {level}
+              </td>
+              {!!extraHp && <td className={styles.hpCellExtra}>{extraHp}</td>}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  },
 };
