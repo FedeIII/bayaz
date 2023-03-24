@@ -1,3 +1,4 @@
+import { getLoreSpells } from '../bard/bard';
 import { getKnownCantrips, getKnownSpells } from './getSpells';
 import { SPELL_LIST } from './spellList';
 
@@ -69,7 +70,9 @@ export function hasNewBardCantrips(pc) {
 
 export function hasNewBardLevelSpells(pc) {
   const knownSpellsNumber = getBardTotalSpells(pc);
-  if (knownSpellsNumber > getKnownSpells(pc).length) return true;
+  const loreSpells = getLoreSpells(pc);
+  if (knownSpellsNumber > getKnownSpells(pc).length - loreSpells.length)
+    return true;
 
   return false;
 }

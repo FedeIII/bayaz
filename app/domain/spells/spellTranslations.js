@@ -30,7 +30,7 @@ export const SPELL_TRANSLATIONS = {
   astralProjection: 'Proyección astral',
   atonement: 'Expiación',
   augury: 'Augurio',
-  auraOfVitality: 'Aura of vitality',
+  auraOfVitality: 'Aura de vitalidad',
   awaken: 'Dotar de consciencia',
   balefulPolymorph: 'Polimorfar funesto',
   bane: 'Perdición',

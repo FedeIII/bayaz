@@ -1,3 +1,4 @@
+import { getLoreSpells } from '../bard/bard';
 import { SPELL_LIST } from './spellList';
 
 export function getSpell(spellName, spellClass) {
@@ -23,8 +24,10 @@ export function getKnownCantrips(pc) {
 export function getKnownSpells(pc) {
   const { spells = [] } = pc;
 
+  const loreSpells = getLoreSpells(pc);
+
   return (
-    spells
+    [...spells, ...loreSpells]
       .map(pSpell => getSpell(pSpell.name, pSpell.type))
       .filter(spell => spell.level > 0) || []
   );
