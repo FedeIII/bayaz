@@ -3,6 +3,30 @@ import styles from '~/components/modal/inventoryItem.module.css';
 import { CLASSES, translateClass } from './characters';
 
 export const SKILLS_EXPLANATION = {
+  levelUp: (skill, pc) => {
+    return (
+      <>
+        <p>
+          Cada vez que ganas un nivel, ganas 1 Dado de Golpe adicional. Lanza
+          el Dado de Golpe, añade tu modificador de Constitución a la tirada y
+          añade el total a tu máximo de Puntos de Golpe. Opcionalmente, puedes
+          utilizar el valor fijo que se muestra en la entrada de la clase, que
+          es el resultado medio de la tirada de tu Dado de Golpe (redondeando
+          hacia arriba).
+        </p>
+
+        <div className={styles.modalButtons}>
+          <Link
+            to={`/characters/pc/${pc.name}/leveling/levelUp`}
+            className={styles.modalButton}
+          >
+            Gana Puntos de Golpe
+          </Link>
+        </div>
+      </>
+    );
+  },
+
   abilityScoreImprovement: (skill, pc) => {
     const {
       statImprove: [firstLevel, ...restLevels],

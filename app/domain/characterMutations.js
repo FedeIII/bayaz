@@ -60,7 +60,7 @@ export async function setPcStats(pcParams) {
 
   await updatePc({
     name,
-    maxHitPoints: getInitialHitPoints(updatedPc),
+    totalHitPoints: getInitialHitPoints(updatedPc),
     hitPoints: getInitialHitPoints(updatedPc),
   });
 }

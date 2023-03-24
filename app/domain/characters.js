@@ -30,6 +30,7 @@ import {
 import { SKILLS_EXPLANATION } from './skillsExplanation';
 import { getSorcererOrigin, SORCERER_ORIGIN } from './sorcerer';
 import { PATRONS } from './warlock';
+import random from '~/domain/random';
 
 export const RACES = {
   dwarf: {
@@ -813,14 +814,44 @@ export function isProficientStat(stat, pClass) {
 }
 
 export function getExtraHitPoints(pc) {
-  const { race, subrace, pClass } = pc;
+  const { race, subrace, pClass, level } = pc;
   return (
     (RACES[race][subrace].extraHitPoints || 0) +
-    getStatMod(getStat(pc, 'con')) +
+    getStatMod(getStat(pc, 'con')) * level +
     (pClass === 'sorcerer' && getSorcererOrigin(pc)
       ? SORCERER_ORIGIN[getSorcererOrigin(pc)]?.extraHitPoints(pc) || 0
       : 0)
   );
+}
+
+export function getMaxHitPoints(pc) {
+  const { totalHitPoints } = pc;
+  return totalHitPoints.reduce(
+    (total, hpPerLevel) => total + hpPerLevel,
+    getExtraHitPoints(pc)
+  );
+}
+
+export function getHitDice(pc) {
+  const { pClass, hitDice } = pc;
+  return CLASSES[pClass].hitDice.replace('1', hitDice);
+}
+
+export function getRemainingHitDice(pc) {
+  const { pClass, remainingHitDice } = pc;
+  return CLASSES[pClass].hitDice.replace('1', remainingHitDice);
+}
+
+export function getFixedHealthForLevelUp(pc) {
+  const { pClass } = pc;
+
+  return parseInt(CLASSES[pClass].hitDice.match(/1d(\d+)/)?.[1], 10) / 2 + 1;
+}
+
+export function getRandomLevelUpHitPoints(pc) {
+  const { pClass } = pc;
+  const result = random.roll.processCommand(CLASSES[pClass].hitDice);
+  return random.roll.calculateResult(result);
 }
 
 export function statSavingThrow(stat, statValue, pClass, lvl) {
@@ -1470,4 +1501,9 @@ export function getSpeed(pc) {
     return speed + 3;
 
   return speed;
+}
+
+export function hasLeveledUp(pc) {
+  const { level, hitDice } = pc;
+  return level !== hitDice;
 }

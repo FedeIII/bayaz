@@ -24,7 +24,7 @@
     /* 12 */ '.   str .   pro .   .   .   .   .   .   .   .   .   ity ity ity .  ' /* 12 */
     /* 13 */ '.   .   .   pro .   .   .   .   .   .   .   .   .   ity ity ity .  ' /* 13 */
     /* 14 */ '.   stM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 14 */
-    /* 15 */ '.   .   .   .   .   .   .   .   .   .   mhp .   .   .   .   .   .  ' /* 15 */
+    /* 15 */ '.   .   .   .   .   .   .   .   mhp mhp mhp .   .   .   .   .   .  ' /* 15 */
     /* 16 */ '.   .   .   stP stS .   .   .   .   .   .   .   .   .   .   .   .  ' /* 16 */
     /* 17 */ '.   .   .   .   .   hps hps hps hps hps hps .   .   ide ide ide .  ' /* 17 */
     /* 18 */ '.   dex .   deP deS hps hps hps hps hps hps .   .   ide ide ide .  ' /* 18 */
@@ -336,6 +336,7 @@
   justify-content: flex-end;
   align-items: flex-start;
   margin-right: 8px;
+  padding: 0 0 0 42px;
 }
 
 .hitPoints {
@@ -343,6 +344,29 @@
   justify-content: center;
   align-items: center;
   font-size: 44px;
+}
+
+.hitPointRolls {
+  margin: 2px 12px 0 0;
+  font-size: 13px;
+}
+
+.extraHitPoints {
+  position: absolute;
+  left: calc(50% + 22px);
+  font-size: 44px;
+  animation: extra_hit_points 5s cubic-bezier(0.005, 0.7, 0.25, 1);
+}
+
+@keyframes extra_hit_points {
+  0% {
+    margin-top: 32px;
+    color: var(--color-blue-ink);
+  }
+  100% {
+    margin-top: -32px;
+    color: var(--color-green);
+  }
 }
 
 .hitDice {
@@ -589,7 +613,7 @@
 .medicineProf {
   grid-area: sP0;
   transform: rotate(45deg);
-  margin: 0px 0px -6px 3px;
+  margin: 0px 0px -4px 1px;
   line-height: 1;
 }
 
@@ -666,7 +690,7 @@
 .survivalProf {
   grid-area: sPG;
   transform: rotate(45deg);
-  margin: 0px 0px -6px 3px;
+  margin: 0px 0px -1px 0px;
   line-height: 1;
 }
 

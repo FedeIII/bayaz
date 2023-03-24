@@ -25,12 +25,10 @@ import {
   statSavingThrow,
   isProficientStat,
   CLASSES,
-  getExtraHitPoints,
   SKILLS,
   skillCheckBonus,
   getConditionalSkills,
   getSkills,
-  translateSkill,
   translateLanguage,
   getPassivePerception,
   getItemProficiencies,
@@ -40,6 +38,10 @@ import {
   hasExtraWeapons,
   getExtraWeapons,
   getSpeed,
+  getHitDice,
+  getRemainingHitDice,
+  hasLeveledUp,
+  getMaxHitPoints,
 } from '~/domain/characters';
 import {
   getSorcererOrigin,
@@ -64,6 +66,7 @@ import {
 } from '~/domain/barbarian/barbarian';
 import {
   displayMoneyAmount,
+  displayTotalHitPointsRolls,
   getAttacks,
   getItemDisplayList,
   getSpecialAttacks,
@@ -237,7 +240,6 @@ function PcSummary() {
     race,
     subrace,
     level,
-    maxHitPoints,
     hitPoints,
     exp,
     languages,
@@ -344,6 +346,7 @@ function PcSummary() {
   const traits = getTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
+    levelUp: [useRef()],
     spells: [useRef()],
     traits: traits.map(() => useRef()),
   });
@@ -387,6 +390,33 @@ function PcSummary() {
       setTimeout(() => setActionModalContent(() => content), 0);
     };
   }
+
+  const [extraHitPoints, setExtraHitPoints] = useState(null);
+  const [hitPointsState, setHitPointsState] = useState(hitPoints);
+
+  function animateHitPoints(addExtraHitPoints, i) {
+    setTimeout(() => {
+      setHitPointsState(hitPoints - addExtraHitPoints + i);
+    }, (1000 / addExtraHitPoints) * i + 1000);
+
+    if (addExtraHitPoints === i) return;
+    else animateHitPoints(addExtraHitPoints, i + 1);
+  }
+
+  useEffect(() => {
+    if (window) {
+      const url = new URL(window?.location.href);
+      const addExtraHitPoints = url.searchParams.get('addExtraHitPoints');
+      if (addExtraHitPoints) {
+        setTimeout(() => {
+          setExtraHitPoints(null);
+        }, 5000);
+        setHitPointsState(hitPoints - addExtraHitPoints);
+        setExtraHitPoints(addExtraHitPoints);
+        animateHitPoints(parseInt(addExtraHitPoints, 10), 0);
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -537,16 +567,24 @@ function PcSummary() {
           {getSpeed(pc)}m
         </span>
         <span className={`${styles.data} ${styles.maxHitPoints}`}>
-          {maxHitPoints}
+          <sub className={styles.hitPointRolls}>
+            {displayTotalHitPointsRolls(pc)} =
+          </sub>{' '}
+          {getMaxHitPoints(pc)}
         </span>
         <span className={`${styles.data} ${styles.hitPoints}`}>
-          {hitPoints}
+          {hitPointsState}
+          {!!extraHitPoints && (
+            <span className={`${styles.data} ${styles.extraHitPoints}`}>
+              {increment(extraHitPoints)}
+            </span>
+          )}
         </span>
         <span className={`${styles.data} ${styles.hitDice}`}>
-          {CLASSES[pClass].hitDice} {increment(getExtraHitPoints(pc))}
+          {getHitDice(pc)} {increment(getStatMod(getStat(pc, 'con')))}
         </span>
         <span className={`${styles.data} ${styles.remainingHitDice}`}>
-          {CLASSES[pClass].hitDice}
+          {getRemainingHitDice(pc)}
         </span>
 
         {/* ATTACKS */}
@@ -712,6 +750,18 @@ function PcSummary() {
 
         {/* FEATS & TRAITS */}
         <ul className={`${styles.data} ${styles.featsAndTraits}`}>
+          {hasLeveledUp(pc) && (
+            <li className={styles.traitLabel}>
+              <SkillItem
+                ref={skillRefs.levelUp[0]}
+                traitName="levelUp"
+                trait="+Puntos de Golpe"
+                pc={pc}
+                openModal={openSkillModal('levelUp', 0)}
+              />
+            </li>
+          )}
+
           {!!hasNewSpells(pc) && (
             <li className={styles.traitLabel}>
               <SkillItem

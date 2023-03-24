@@ -53,7 +53,8 @@ npx prisma migrate dev
 
 ## TO DOs
 
-- HP on leveling
+- lose HP on combats
+- recover HP after rest
 - Use spells (consume slots)
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws

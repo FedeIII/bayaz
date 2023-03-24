@@ -104,8 +104,9 @@ export const action = async ({ request }) => {
 
   await updatePc({
     name,
-    maxHitPoints: getInitialHitPoints(updatedPc),
+    totalHitPoints: [CLASSES[pc.pClass].initialHitPoints],
     hitPoints: getInitialHitPoints(updatedPc),
+    remainingHitDice: 1,
     preparedSpells,
   });
 

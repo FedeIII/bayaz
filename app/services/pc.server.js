@@ -91,7 +91,7 @@ const classAttrsSchema = new mongoose.Schema({
   fightingStyles: [{ type: String, enum: FIGHTING_STYLES }],
   sorcererOrigin: { type: String, enum: Object.keys(SORCERER_ORIGIN) },
   dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
-  
+
   // ALL
   expertSkills: [
     { type: String, enum: [...SKILLS.map(s => s.name), 'thieves-tools'] },
@@ -188,8 +188,10 @@ const pcSchema = new mongoose.Schema({
   },
   level: Number,
   exp: Number,
-  maxHitPoints: Number,
+  totalHitPoints: [Number],
   hitPoints: Number,
+  hitDice: Number,
+  remainingHitDice: Number,
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
   halfElf: halfElfSchema,
   classAttrs: classAttrsSchema,
@@ -507,4 +509,17 @@ export async function switchArmor(name, armorName) {
       },
     },
   });
+}
+
+export async function addLevelHitPoints(name, extraHitPoints) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: name },
+    {
+      $push: { totalHitPoints: extraHitPoints },
+      $inc: { hitPoints: extraHitPoints, hitDice: 1, remainingHitDice: 1 },
+    },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
 }

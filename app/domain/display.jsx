@@ -398,6 +398,14 @@ export function displayTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'levelUp':
+      return (
+        <>
+          <strong>{trait}</strong>
+          <span className={sheetStyles.pendingTrait}>(!)</span>
+        </>
+      );
+
     default:
   }
 
@@ -415,4 +423,16 @@ export function displayTrait(traitName, trait, pc) {
 export function displayMoneyAmount(coins) {
   if (coins < 1000) return coins;
   else return `${Math.floor(coins / 1000)}.${Math.floor(coins % 1000)}`;
+}
+
+export function displayTotalHitPointsRolls(pc) {
+  const { totalHitPoints } = pc;
+  const [lastRoll, oneToLastRoll, twoToLastRoll, ...restRolls] = totalHitPoints
+    .slice()
+    .reverse();
+  let rolls = restRolls.length ? '... + ' : '';
+  if (twoToLastRoll) rolls += `${twoToLastRoll} + `;
+  if (oneToLastRoll) rolls += `${oneToLastRoll} + `;
+  if (lastRoll) rolls += lastRoll;
+  return rolls;
 }
