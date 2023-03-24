@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react';
 
 import styles from '~/components/modal/inventoryItem.module.css';
-import { getExpertSkills, translateSkill } from '../characters';
+import { CLASSES, getExpertSkills, translateSkill } from '../characters';
 
 export const BARD_SKILLS_EXPLANATION = {
   bardicInspiration: (skill, pc) => (
@@ -40,6 +40,13 @@ export const BARD_SKILLS_EXPLANATION = {
         niveles. El dado se convierte en 1d8 al nivel 5, en 1d10 al nivel 10 y
         en 1d12 al nivel 15.
       </p>
+
+      {pc.level >= 5 && (
+        <>
+          <h3>{CLASSES.bard.leveling[5].traits.fontOfInspiration}</h3>
+          <p>{BARD_SKILLS_EXPLANATION.fontOfInspiration()}</p>
+        </>
+      )}
     </>
   ),
 
@@ -190,4 +197,7 @@ export const BARD_SKILLS_EXPLANATION = {
       )}
     </>
   ),
+
+  fontOfInspiration: () =>
+    'A partir del nivel 5 recuperas todos tus usos de Inspiración de Bardo cuando terminas un descanso corto o prolongado.',
 };

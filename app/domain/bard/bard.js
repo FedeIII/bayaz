@@ -73,8 +73,11 @@ export function displayBardTrait(traitName, trait, pc) {
           : '1d6';
       return (
         <>
-          <u>Inspiración de Bardo:</u> {getStatMod(getStat(pc, 'cha'))} veces al
-          día. {die}
+          <u>Inspiración de Bardo:</u> {getStatMod(getStat(pc, 'cha'))} veces{' '}
+          {level >= 5 ? 'entre descansos' : 'al día'}. {die}.{' '}
+          {level >= 5 && (
+            <u>{CLASSES.bard.leveling[5].traits.fontOfInspiration}</u>
+          )}
         </>
       );
     }
@@ -123,6 +126,9 @@ export function displayBardTrait(traitName, trait, pc) {
           )}
         </>
       );
+
+    case 'fontOfInspiration':
+      return null;
 
     default:
   }

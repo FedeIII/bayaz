@@ -538,6 +538,11 @@ export const CLASSES = {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
         },
       },
+      5: {
+        traits: {
+          fontOfInspiration: 'Fuente de inspiración',
+        },
+      },
     },
   },
   cleric: {
