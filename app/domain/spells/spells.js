@@ -50,7 +50,7 @@ import {
 import { getKnownSpells, getSpell } from './getSpells';
 import { SPELL_TRANSLATIONS } from './spellTranslations';
 import { SPELL_LIST } from './spellList';
-import { getLoreSpells } from '../bard/bard';
+import { getLoreSpells, getMagicalSecretsSpells } from '../bard/bard';
 
 const zero = () => 0;
 
@@ -196,14 +196,18 @@ export function divideSpells(pc) {
   const { spells } = pc;
 
   const loreSpells = getLoreSpells(pc);
+  const magicalSecretsSpells = getMagicalSecretsSpells(pc);
 
-  return [...spells, ...loreSpells].reduce((spellsByLevel, pSpell) => {
-    const spell = getSpell(pSpell.name, pSpell.type);
-    if (typeof spell?.level === 'number') {
-      spellsByLevel[spell.level] = [...spellsByLevel[spell.level], spell];
-    }
-    return spellsByLevel;
-  }, Array(10).fill([]));
+  return [...spells, ...loreSpells, ...magicalSecretsSpells].reduce(
+    (spellsByLevel, pSpell) => {
+      const spell = getSpell(pSpell.name, pSpell.type);
+      if (typeof spell?.level === 'number') {
+        spellsByLevel[spell.level] = [...spellsByLevel[spell.level], spell];
+      }
+      return spellsByLevel;
+    },
+    Array(10).fill([])
+  );
 }
 
 export function isPreparedSpell(pc, spellName) {

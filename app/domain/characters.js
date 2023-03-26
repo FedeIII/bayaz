@@ -544,7 +544,9 @@ export const CLASSES = {
         },
       },
       6: {
-        countercharm: 'Contraoda',
+        traits: {
+          countercharm: 'Contraoda',
+        },
         bardCollege: {
           lore: {
             traits: {
@@ -556,6 +558,11 @@ export const CLASSES = {
               extraAttack: 'Ataque Adicional',
             },
           },
+        },
+      },
+      10: {
+        traits: {
+          magicalSecrets: 'Secretos Mágicos',
         },
       },
     },
@@ -1093,6 +1100,30 @@ export function bonusForSkill(pc, skillName) {
 
 export function getExpertSkills(pc) {
   return pc.classAttrs?.expertSkills || [];
+}
+
+export function hasToSelectExpertSkills(pc) {
+  const { pClass, level } = pc;
+
+  if (pClass === 'bard')
+    return (
+      (level >= 10 && getExpertSkills(pc).length < 4) ||
+      (level >= 3 && getExpertSkills(pc).length < 2)
+    );
+
+  return false;
+}
+
+export function getMaxExpertSkills(pc) {
+  const { pClass, level } = pc;
+
+  if (pClass === 'bard') {
+    if (level >= 10) return 4;
+    if (level >= 3) return 2;
+    return 0;
+  }
+
+  return 0;
 }
 
 export function specialProficiencyBonus(pc) {

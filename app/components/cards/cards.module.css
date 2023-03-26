@@ -58,3 +58,13 @@
   text-align: left;
   list-style: square;
 }
+
+.scrollList {
+  flex-wrap: nowrap;
+  overflow: scroll;
+  padding-left: 270px;
+}
+
+.scrollCard {
+  min-width: 24%;
+}

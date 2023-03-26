@@ -84,6 +84,7 @@ const classAttrsSchema = new mongoose.Schema({
   },
   loreCollegeProficiencies: [{ type: String, enum: SKILLS.map(s => s.name) }],
   loreSpells: [spellSchema],
+  magicalSecretsSpells: [spellSchema],
 
   // CLERIC
   divineDomain: {
@@ -344,7 +345,11 @@ export async function learnSpells(name, pClass, toLearn, toForget) {
   let updatedPc = await Pc.findOneAndUpdate(
     { name: name },
     {
-      $push: { spells: toLearn.map(sName => ({ name: sName, type: pClass })) },
+      $push: {
+        spells: {
+          $each: toLearn.map(sName => ({ name: sName, type: pClass })),
+        },
+      },
     },
     { new: true, upsert: true }
   ).exec();
@@ -367,7 +372,9 @@ export async function prepareSpells(name, pClass, toPrepare, toForget) {
     { name: name },
     {
       $push: {
-        preparedSpells: toPrepare.map(sName => ({ name: sName, type: pClass })),
+        preparedSpells: {
+          $each: toPrepare.map(sName => ({ name: sName, type: pClass })),
+        },
       },
     },
     { new: true, upsert: true }
@@ -391,7 +398,27 @@ export async function learnBardLoreSpells(name, spells) {
     { name: name },
     {
       $push: {
-        'classAttrs.loreSpells': spells.map(sName => ({ name: sName })),
+        'classAttrs.loreSpells': {
+          $each: spells.map(sName => ({ name: sName })),
+        },
+      },
+    },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function learnBardMagicalSecretsSpells(name, spells) {
+  let updatedPc = await Pc.findOneAndUpdate(
+    { name: name },
+    {
+      $push: {
+        'classAttrs.magicalSecretsSpells': {
+          $each: spells.map(sName => ({
+            name: sName,
+          })),
+        },
       },
     },
     { new: true, upsert: true }

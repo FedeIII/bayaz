@@ -7,7 +7,12 @@ import {
   getAllSimpleMelee,
   WEAPONS,
 } from '../equipment/weapons';
-import { CLASSES, getExpertSkills, getStat, getStatMod } from '../characters';
+import {
+  CLASSES,
+  getStat,
+  getStatMod,
+  hasToSelectExpertSkills,
+} from '../characters';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -121,20 +126,30 @@ export function displayBardTrait(traitName, trait, pc) {
       return (
         <>
           {trait}
-          {!getExpertSkills(pc).length && (
+          {hasToSelectExpertSkills(pc) && (
             <span className={sheetStyles.pendingTrait}>(!)</span>
           )}
         </>
       );
 
     case 'fontOfInspiration':
-      return null;
+      return false;
 
     case 'additionalMagicalSecrets':
       return (
         <>
           <strong>{trait}</strong>
           {!getLoreSpells(pc).length && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+        </>
+      );
+
+    case 'magicalSecrets':
+      return (
+        <>
+          <strong>{trait}</strong>
+          {hasToLearnMagicalSecretsSpells(pc) && (
             <span className={sheetStyles.pendingTrait}>(!)</span>
           )}
         </>
@@ -148,4 +163,23 @@ export function displayBardTrait(traitName, trait, pc) {
 
 export function getLoreSpells(pc) {
   return pc.classAttrs?.loreSpells || [];
+}
+
+export function getMagicalSecretsSpells(pc) {
+  return pc.classAttrs?.magicalSecretsSpells || [];
+}
+
+export function maxMagicalSecretsSpells(pc) {
+  const { level } = pc;
+
+  if (level >= 18) return 6;
+  if (level >= 14) return 4;
+  if (level >= 10) return 2;
+  return 0;
+}
+
+export function hasToLearnMagicalSecretsSpells(pc) {
+  const magicalSecretsSpells = getMagicalSecretsSpells(pc);
+
+  return maxMagicalSecretsSpells(pc) > magicalSecretsSpells;
 }

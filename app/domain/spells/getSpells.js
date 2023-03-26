@@ -1,4 +1,4 @@
-import { getLoreSpells } from '../bard/bard';
+import { getLoreSpells, getMagicalSecretsSpells } from '../bard/bard';
 import { SPELL_LIST } from './spellList';
 
 export function getSpell(spellName, spellClass) {
@@ -24,19 +24,24 @@ export function getKnownCantrips(pc) {
 export function getKnownSpells(pc) {
   const { spells = [] } = pc;
 
-  const loreSpells = getLoreSpells(pc);
+  const magicalSecretsSpells = getMagicalSecretsSpells(pc);
 
   return (
-    [...spells, ...loreSpells]
-      .map(pSpell => getSpell(pSpell.name, pSpell.type))
+    [...spells, ...magicalSecretsSpells]
+      .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level > 0) || []
   );
 }
 
-export function getKnownSpellsLevel(pc, spellLevel) {
-  const { spells } = pc;
+export function getAllPcSpells(pc) {
+  const { spells = [] } = pc;
 
-  return spells
-    .map(pSpell => getSpell(pSpell.name, pSpell.type))
-    .filter(spell => spell.level === spellLevel);
+  const loreSpells = getLoreSpells(pc);
+  const magicalSecretsSpells = getMagicalSecretsSpells(pc);
+
+  return (
+    [...spells, ...loreSpells, ...magicalSecretsSpells]
+      .map(pSpell => getSpell(pSpell.name, pSpell.type))
+      .filter(spell => spell.level > 0) || []
+  );
 }

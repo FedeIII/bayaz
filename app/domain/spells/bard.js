@@ -1,4 +1,3 @@
-import { getLoreSpells } from '../bard/bard';
 import { getKnownCantrips, getKnownSpells } from './getSpells';
 import { SPELL_LIST } from './spellList';
 
@@ -70,18 +69,19 @@ export function hasNewBardCantrips(pc) {
 
 export function hasNewBardLevelSpells(pc) {
   const knownSpellsNumber = getBardTotalSpells(pc);
-  const loreSpells = getLoreSpells(pc);
-  if (knownSpellsNumber > getKnownSpells(pc).length - loreSpells.length)
-    return true;
+
+  if (knownSpellsNumber > getKnownSpells(pc).length) return true;
 
   return false;
 }
 
 export function hasNewBardSpells(pc) {
+  const { level } = pc;
+
   const newCantrips = hasNewBardCantrips(pc);
   const newSpells = hasNewBardLevelSpells(pc);
 
-  return newCantrips || newSpells;
+  return ![10, 14, 18].includes(level) && (newCantrips || newSpells);
 }
 
 export function maxBardSpellLevel(pc) {

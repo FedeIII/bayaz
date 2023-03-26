@@ -5,8 +5,10 @@ import { getPc, updateClassAttrs } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
   getExpertSkills,
+  getMaxExpertSkills,
   getProficiencyBonus,
   getSkills,
+  hasToSelectExpertSkills,
   skillCheckBonus,
   translateSkill,
 } from '~/domain/characters';
@@ -24,10 +26,7 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (
-    (getExpertSkills(pc).length === 2 && pc.level < 10) ||
-    getExpertSkills(pc).length === 4
-  ) {
+  if (!hasToSelectExpertSkills(pc)) {
     throw new Error(
       'Ya has escogido habilidades en las que ser Experto en tu nivel'
     );
@@ -56,13 +55,14 @@ function ExpertSkills() {
   const { pc } = useLoaderData();
   const proficientSkills = getSkills(pc);
   const expertSkills = getExpertSkills(pc);
+  const maxExpertSkills = getMaxExpertSkills(pc);
 
   useTitle('Bardo nivel 3');
 
   const [skills, setSkills] = useState([]);
 
   function addSkill(skillName) {
-    if (skills.length < 2) setSkills(s => [...s, skillName]);
+    if (skills.length < maxExpertSkills) setSkills(s => [...s, skillName]);
   }
 
   function removeSkill(skillName) {
@@ -87,8 +87,8 @@ function ExpertSkills() {
         duplica para cualquier prueba de habilidad que realices con ellas.
       </p>
       <p className={appStyles.paragraph}>
-        Al nivel 10 eliges otras habilidades en las que seas com- petente que
-        ganarán este beneficio.
+        Al nivel 10 eliges otras dos habilidades en las que seas com- petente
+        que ganarán este beneficio.
       </p>
       <p>
         <h3 className={appStyles.paleText}>
@@ -164,8 +164,8 @@ export function ErrorBoundary({ error }) {
         duplica para cualquier prueba de habilidad que realices con ellas.
       </p>
       <p className={appStyles.paragraph}>
-        Al nivel 10 eliges otras habilidades en las que seas com- petente que
-        ganarán este beneficio.
+        Al nivel 10 eliges otras dos habilidades en las que seas com- petente
+        que ganarán este beneficio.
       </p>
 
       <p className={appStyles.errorStack}>{error.stack}</p>

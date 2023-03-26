@@ -13,7 +13,7 @@ import {
   hasNewLevelSpells,
   maxSpellLevel,
 } from '~/domain/spells/spells';
-import { getSpell } from '~/domain/spells/getSpells';
+import { getAllPcSpells } from '~/domain/spells/getSpells';
 import { Card } from '~/components/cards/card';
 import { replaceAt } from '~/utils/insert';
 import { SkillModal } from '~/components/modal/skillModal';
@@ -61,7 +61,7 @@ function NewSpells() {
     getNewSpellsAmount(pc)
   );
 
-  const knownSpells = pSpells.map(pSpell => getSpell(pSpell.name, pSpell.type));
+  const knownSpells = getAllPcSpells(pc);
   const allCantrips = getClassSpells(pc)
     .filter(spell => spell.level === 0)
     .filter(spell => !knownSpells.includes(spell));

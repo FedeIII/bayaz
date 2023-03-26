@@ -1,9 +1,18 @@
 import { Link } from '@remix-run/react';
 
 import styles from '~/components/modal/inventoryItem.module.css';
-import { CLASSES, getExpertSkills, translateSkill } from '../characters';
+import {
+  CLASSES,
+  getExpertSkills,
+  hasToSelectExpertSkills,
+  translateSkill,
+} from '../characters';
 import { translateSpell } from '../spells/spells';
-import { getLoreSpells } from './bard';
+import {
+  getLoreSpells,
+  getMagicalSecretsSpells,
+  hasToLearnMagicalSecretsSpells,
+} from './bard';
 
 export const BARD_SKILLS_EXPLANATION = {
   bardicInspiration: (skill, pc) => (
@@ -175,11 +184,11 @@ export const BARD_SKILLS_EXPLANATION = {
         duplica para cualquier prueba de habilidad que realices con ellas.
       </p>
       <p>
-        Al nivel 10 eliges otras habilidades en las que seas competente que
+        Al nivel 10 eliges otras dos habilidades en las que seas competente que
         ganarán este beneficio.
       </p>
 
-      {!getExpertSkills(pc).length && (
+      {hasToSelectExpertSkills(pc) && (
         <div className={styles.modalButtons}>
           <Link
             to={`/characters/pc/${pc.name}/leveling/bard/expertSkills`}
@@ -190,7 +199,7 @@ export const BARD_SKILLS_EXPLANATION = {
         </div>
       )}
 
-      {!!getExpertSkills(pc).length && (
+      {!hasToSelectExpertSkills(pc) && (
         <ul>
           {getExpertSkills(pc).map(skillName => (
             <li>{translateSkill(skillName)}</li>
@@ -259,4 +268,46 @@ export const BARD_SKILLS_EXPLANATION = {
       realizas la acción de ataque en tu turno.
     </p>
   ),
+
+  magicalSecrets: (skill, pc) => {
+    const magicalSecretsSpells = getMagicalSecretsSpells(pc);
+    return (
+      <>
+        <p>
+          Para cuando alcanzas el nivel 10 has obtenido conocimiento mágico de
+          un amplio espectro de disciplinas. Elige dos conjuros de cualquier
+          clase, incluyendo la clase bardo. Cualquier conjuro que elijas debe
+          ser de un nivel que puedas lanzar, como se muestra en la tabla Bardo,
+          o un truco.
+        </p>
+        <p>
+          Los conjuros elegidos cuentan como conjuros de bardo para ti y cuenta
+          para el total de Conjuros Conocidos de Bardo.
+        </p>
+        <p>
+          Aprendes dos conjuros adicionales de cualquier clase al nivel 14 y de
+          nuevo en el 18.
+        </p>
+
+        {hasToLearnMagicalSecretsSpells(pc) && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/bard/magicalSecrets`}
+              className={styles.modalButton}
+            >
+              Escoge Conjuros
+            </Link>
+          </div>
+        )}
+
+        {!hasToLearnMagicalSecretsSpells(pc) && (
+          <ul>
+            {magicalSecretsSpells.map(spell => (
+              <li>{translateSpell(spell.name)}</li>
+            ))}
+          </ul>
+        )}
+      </>
+    );
+  },
 };
