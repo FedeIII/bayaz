@@ -175,17 +175,8 @@ export function displayBardTrait(traitName, trait, pc) {
   return null;
 }
 
-export function maxMagicalSecretsSpells(pc) {
-  const { level } = pc;
-
-  if (level >= 18) return 6;
-  if (level >= 14) return 4;
-  if (level >= 10) return 2;
-  return 0;
-}
-
 export function hasToLearnMagicalSecretsSpells(pc) {
   const magicalSecretsSpells = getMagicalSecretsSpells(pc);
 
-  return maxMagicalSecretsSpells(pc) > magicalSecretsSpells;
+  return magicalSecretsSpells.length < 2;
 }

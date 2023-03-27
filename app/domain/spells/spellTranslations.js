@@ -383,7 +383,7 @@ export const SPELL_TRANSLATIONS = {
   minorIllusion: 'Ilusión menor',
   minorImage: 'Imagen menor',
   miracle: 'Milagro',
-  mirageArcana: 'Espejismo arcano',
+  mirageArcane: 'Espejismo arcano',
   mirrorImage: 'Imagen múltiple',
   misdirection: 'Desorientar',
   mislead: 'Doble engañoso',

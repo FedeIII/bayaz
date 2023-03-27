@@ -569,6 +569,23 @@ export const CLASSES = {
           magicalSecrets: 'Secretos Mágicos',
         },
       },
+      14: {
+        traits: {
+          magicalSecrets: 'Secretos Mágicos',
+        },
+        bardCollege: {
+          lore: {
+            traits: {
+              peerlessSkill: 'Habilidad Incomparable',
+            },
+          },
+          valor: {
+            traits: {
+              battleMagic: 'Magia de Batalla',
+            },
+          },
+        },
+      },
     },
   },
   cleric: {

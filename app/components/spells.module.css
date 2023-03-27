@@ -268,7 +268,7 @@
   flex-wrap: wrap;
   align-items: flex-start;
   padding: 0 0 0 2px;
-  margin: 18px 0 -20px -1px;
+  margin: -10px 0 -20px -1px;
 }
 
 .totalSpaces-7 {
@@ -294,7 +294,7 @@
   flex-wrap: wrap;
   align-items: flex-start;
   padding: 0 0 0 2px;
-  margin: 12px 0 -20px 0;
+  margin: -10px 0 -20px -1px;
 }
 
 .totalSpaces-8 {

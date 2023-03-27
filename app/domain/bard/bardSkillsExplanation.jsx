@@ -311,4 +311,24 @@ export const BARD_SKILLS_EXPLANATION = {
       </>
     );
   },
+
+  peerlessSkill: () => (
+    <p>
+      Empezando en el nivel 14, cuando haces una prueba de habilidad, puedes
+      gastar un uso de Inspiración de Bardo. Tira un dado de Inspiración de
+      Bardo y agrega el resultado a tu prueba de habilidad. Puedes esperar a ver
+      el resultado de la tirada antes de decidir usar el dado de Inspiración de
+      Bardo, pero debes hacerlo antes de que el DM diga si la prueba tuvo éxito
+      o no.
+    </p>
+  ),
+
+  battleMagic: () => (
+    <p>
+      A partir del nivel 14 has dominado el arte de entretejer el lanzamiento de
+      conjuros y el uso de las armas en un solo y armonioso acto. Cuando usas tu
+      acción para lanzar un conjuro de bardo, puedes hacer un ataque con un arma
+      como acción adicional.
+    </p>
+  ),
 };
