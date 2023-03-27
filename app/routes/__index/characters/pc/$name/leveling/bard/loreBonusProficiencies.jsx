@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, updateClassAttrs } from '~/services/pc.server';
+import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
+import { getSkills, SKILLS, translateSkill } from '~/domain/characters';
+import { removeItem } from '~/utils/insert';
+import { Card } from '~/components/cards/card';
+import { BARD_COLLEGES, getLoreCollegeProficiencies } from '~/domain/bard/bard';
 
 import styles from '~/components/checkbox.module.css';
 import appStyles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
-import { getSkills, SKILLS, translateSkill } from '~/domain/characters';
-import { removeItem } from '~/utils/insert';
-import { Card } from '~/components/cards/card';
-import { BARD_COLLEGES } from '~/domain/bard/bard';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -18,7 +18,7 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (pc.classAttrs?.loreCollegeProficiencies?.length) {
+  if (getLoreCollegeProficiencies(pc).length) {
     throw new Error(
       'Ya has escogido Competencias Adicionales del Colegio del Conocimiento'
     );
@@ -37,7 +37,9 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get('name');
   const skills = formData.getAll('skills[]');
-  await updateClassAttrs(name, { loreCollegeProficiencies: skills });
+
+  await updateAttrsForClass(name, 'bard', { loreCollegeProficiencies: skills });
+
   return redirect(`/characters/pc/${name}/summary`);
 };
 

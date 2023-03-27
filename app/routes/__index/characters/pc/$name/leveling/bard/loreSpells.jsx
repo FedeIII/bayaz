@@ -11,9 +11,11 @@ import { useTitle } from '~/components/hooks/useTitle';
 import {
   getAllClassesWithSpells,
   getAllSpellSchools,
+  getSpellSlots,
+  getTotalSpells,
   maxSpellLevel,
 } from '~/domain/spells/spells';
-import { getSpell } from '~/domain/spells/getSpells';
+import { getAllPcSpells, getSpell } from '~/domain/spells/getSpells';
 import { Card } from '~/components/cards/card';
 import { replaceAt } from '~/utils/insert';
 import { SkillModal } from '~/components/modal/skillModal';
@@ -66,7 +68,7 @@ function LoreSpells() {
 
   useTitle('Bardo nivel 6');
 
-  const knownSpells = pSpells.map(pSpell => getSpell(pSpell.name, pSpell.type));
+  const knownSpells = getAllPcSpells(pc);
   const newSpellsMaxLevel = maxSpellLevel(pc);
   const newSpellLevels = Array.from(Array(newSpellsMaxLevel), (_, i) => i + 1);
   const spellsByLevel = newSpellLevels.map(spellLevel =>
@@ -90,9 +92,12 @@ function LoreSpells() {
     });
   }
 
-  const [skillRefs, setSkillRefs] = useState(
-    spellsByLevel.map(spells => spells.map(() => useRef()))
-  );
+  const [skillRefs, setSkillRefs] = useState({
+    // Known Spells
+    known: knownSpells.map(() => useRef()),
+    // Known Spells
+    ...spellsByLevel.map(spells => spells.map(() => useRef())),
+  });
 
   const [
     skillModalContent,
@@ -106,6 +111,14 @@ function LoreSpells() {
 
   const [fClass, setFClass] = useState('all');
   const [fSchool, setFSchool] = useState('all');
+
+  // Known spells
+  const totalSpellsNumber = getTotalSpells(pc);
+  const [cantripSlots, ...spellSlots] = getSpellSlots(pc);
+  const kwnonSpellLevels = [
+    ...new Set(knownSpells.filter(s => s.level > 0).map(s => s.level)),
+  ];
+  // Known spells
 
   return (
     <Form method="post" ref={formRef}>
@@ -123,6 +136,42 @@ function LoreSpells() {
           {skillModalContent}
         </SkillModal>
       )}
+
+      {/* // Known Spells */}
+      <h3>{totalSpellsNumber} conjuros conocidos</h3>
+      <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
+        {spellSlots.map((slots, spellLevelIndex) => {
+          const spellLevel = spellLevelIndex + 1;
+          return (
+            <Card
+              title={`Conjuros nivel ${spellLevel}`}
+              className={cardStyles.scrollCard}
+              singleCard={kwnonSpellLevels.length === 1}
+              key={spellLevel}
+            >
+              <h4>({slots} Huecos)</h4>
+              <ul className={cardStyles.cardList}>
+                {knownSpells.map((spell, spellIndex) => {
+                  if (spell.level !== spellLevel) return null;
+                  return (
+                    <li key={spell.name}>
+                      <label htmlFor={spell.name} className={styles.toRemove}>
+                        <SkillItem
+                          ref={skillRefs.known[spellIndex]}
+                          traitName={spell.name}
+                          trait="spell"
+                          openModal={openSkillModal('known', spellIndex)}
+                        />
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Card>
+          );
+        })}
+      </div>
+      {/* // Known Spells */}
 
       <h3>
         Aprendes 2 nuevos Conjuros de hasta nivel {newSpellsMaxLevel} de
@@ -154,7 +203,9 @@ function LoreSpells() {
             >
               <option value="all">Todas</option>
               {getAllSpellSchools().map(c => (
-                <option value={c}>{translateSchool(c)}</option>
+                <option value={c} key={c}>
+                  {translateSchool(c)}
+                </option>
               ))}
             </select>
           </span>

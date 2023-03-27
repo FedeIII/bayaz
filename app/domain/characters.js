@@ -2,7 +2,11 @@ import { BACKGROUNDS } from './backgrounds/backgrounds';
 import { BACKGROUND_SKILLS_EXPLANATION } from './backgrounds/backgroundSkillsExplanation';
 import { getAspectOfTheBeastTotem } from './barbarian/barbarian';
 import { BARBARIAN_SKILLS_EXPLANATION } from './barbarian/barbarianSkillsExplanation';
-import { BARD_COLLEGES, getBardCollege } from './bard/bard';
+import {
+  BARD_COLLEGES,
+  getBardCollege,
+  getLoreCollegeProficiencies,
+} from './bard/bard';
 import { BARD_SKILLS_EXPLANATION } from './bard/bardSkillsExplanation';
 import {
   translateDivineDomain,
@@ -1073,7 +1077,7 @@ export function getSkills(pc) {
       ...(pc.halfElf?.skills || []),
       ...(pc.classAttrs?.skills || []),
       ...(pc.background?.skills || []),
-      ...(pc.classAttrs?.loreCollegeProficiencies || []),
+      ...getLoreCollegeProficiencies(pc),
     ]),
   ];
 }

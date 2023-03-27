@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, updateClassAttrs } from '~/services/pc.server';
+import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
+import { getBardCollege } from '~/domain/bard/bard';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
@@ -13,7 +14,7 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (pc.classAttrs?.bardCollege) {
+  if (getBardCollege(pc)) {
     throw new Error('Ya has escogido Colegio de Bardo');
   }
 
@@ -28,7 +29,9 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get('name');
   const bardCollege = formData.get('bard-college');
-  await updateClassAttrs(name, { bardCollege });
+
+  await updateAttrsForClass(name, 'bard', { bardCollege });
+
   return redirect(`/characters/pc/${name}/summary`);
 };
 

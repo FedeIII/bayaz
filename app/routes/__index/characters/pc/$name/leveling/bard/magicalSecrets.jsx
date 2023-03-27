@@ -15,7 +15,7 @@ import {
   getTotalSpells,
   maxSpellLevel,
 } from '~/domain/spells/spells';
-import { getAllPcSpells, getKnownSpells } from '~/domain/spells/getSpells';
+import { getAllPcSpells } from '~/domain/spells/getSpells';
 import { Card } from '~/components/cards/card';
 import { replaceAt } from '~/utils/insert';
 import { SkillModal } from '~/components/modal/skillModal';
@@ -91,7 +91,9 @@ function MagicalSecretsSpells() {
   }
 
   const [skillRefs, setSkillRefs] = useState({
+    // Known Spells
     known: knownSpells.map(() => useRef()),
+    // Known Spells
     ...spellsByLevel.map(spells => spells.map(() => useRef())),
   });
 
@@ -108,11 +110,13 @@ function MagicalSecretsSpells() {
   const [fClass, setFClass] = useState('all');
   const [fSchool, setFSchool] = useState('all');
 
+  // Known Spells
   const totalSpellsNumber = getTotalSpells(pc);
   const [cantripSlots, ...spellSlots] = getSpellSlots(pc);
   const kwnonSpellLevels = [
     ...new Set(knownSpells.filter(s => s.level > 0).map(s => s.level)),
   ];
+  // Known Spells
 
   return (
     <Form method="post" ref={formRef}>
@@ -131,13 +135,15 @@ function MagicalSecretsSpells() {
         </SkillModal>
       )}
 
+      {/* // Known Spells */}
       <h3>{totalSpellsNumber} conjuros conocidos</h3>
-      <div className={cardStyles.cards}>
+      <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
         {spellSlots.map((slots, spellLevelIndex) => {
           const spellLevel = spellLevelIndex + 1;
           return (
             <Card
               title={`Conjuros nivel ${spellLevel}`}
+              className={cardStyles.scrollCard}
               singleCard={kwnonSpellLevels.length === 1}
               key={spellLevel}
             >
@@ -163,6 +169,7 @@ function MagicalSecretsSpells() {
           );
         })}
       </div>
+      {/* // Known Spells */}
 
       <h3>
         Aprendes 2 nuevos Conjuros de hasta nivel {newSpellsMaxLevel} de

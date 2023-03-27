@@ -575,7 +575,7 @@
 .intimidationProf {
   grid-area: sP7;
   transform: rotate(45deg);
-  margin: 0px 0px -6px 3px;
+  margin: 0px 0px -2px 2px;
   line-height: 0.6;
 }
 
@@ -641,7 +641,7 @@
 .insightProf {
   grid-area: sPC;
   transform: rotate(45deg);
-  margin: 0px 0px -6px 3px;
+  margin: 0px 0px -3px 0px;
   line-height: 1;
 }
 
@@ -652,7 +652,7 @@
 .persuasionProf {
   grid-area: sPD;
   transform: rotate(45deg);
-  margin: 0px 0px -6px 3px;
+  margin: 0px 0px -4px 0px;
   line-height: 1;
 }
 

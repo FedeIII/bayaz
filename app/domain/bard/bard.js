@@ -25,7 +25,19 @@ export const BARD_EQUIPMENT = [
 ];
 
 export function getBardCollege(pc) {
-  return pc.classAttrs?.bardCollege;
+  return pc.classAttrs?.bard?.bardCollege;
+}
+
+export function getLoreCollegeProficiencies(pc) {
+  return pc.classAttrs?.bard?.loreCollegeProficiencies || [];
+}
+
+export function getLoreSpells(pc) {
+  return pc.classAttrs?.bard?.loreSpells || [];
+}
+
+export function getMagicalSecretsSpells(pc) {
+  return pc.classAttrs?.bard?.magicalSecretsSpells || [];
 }
 
 export const BARD_COLLEGES = {
@@ -43,7 +55,9 @@ export const BARD_COLLEGES = {
 };
 
 export function getBardCollegeTraits(pc) {
-  const { level, classAttrs: { bardCollege } = {} } = pc;
+  const { level } = pc;
+
+  const bardCollege = getBardCollege(pc);
 
   return Object.entries(
     Object.entries(CLASSES.bard.leveling).reduce(
@@ -104,7 +118,7 @@ export function displayBardTrait(traitName, trait, pc) {
 
     case 'bardCollege':
       return (
-        !pc.classAttrs?.bardCollege && (
+        !getBardCollege(pc) && (
           <>
             <strong>{trait}</strong>
             <span className={sheetStyles.pendingTrait}>(!)</span>
@@ -116,7 +130,7 @@ export function displayBardTrait(traitName, trait, pc) {
       return (
         <>
           {trait}
-          {!pc.classAttrs?.loreCollegeProficiencies?.length && (
+          {!getLoreCollegeProficiencies(pc).length && (
             <span className={sheetStyles.pendingTrait}>(!)</span>
           )}
         </>
@@ -159,14 +173,6 @@ export function displayBardTrait(traitName, trait, pc) {
   }
 
   return null;
-}
-
-export function getLoreSpells(pc) {
-  return pc.classAttrs?.loreSpells || [];
-}
-
-export function getMagicalSecretsSpells(pc) {
-  return pc.classAttrs?.magicalSecretsSpells || [];
 }
 
 export function maxMagicalSecretsSpells(pc) {

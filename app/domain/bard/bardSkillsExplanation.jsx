@@ -9,6 +9,7 @@ import {
 } from '../characters';
 import { translateSpell } from '../spells/spells';
 import {
+  getLoreCollegeProficiencies,
   getLoreSpells,
   getMagicalSecretsSpells,
   hasToLearnMagicalSecretsSpells,
@@ -107,7 +108,7 @@ export const BARD_SKILLS_EXPLANATION = {
   ),
 
   loreBonusProficiencies: (skill, pc) => {
-    const { classAttrs: { loreCollegeProficiencies = [] } = {} } = pc;
+    const loreCollegeProficiencies = getLoreCollegeProficiencies(pc);
 
     return (
       <>

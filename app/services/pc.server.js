@@ -49,8 +49,7 @@ const spellSchema = new mongoose.Schema({
   subtype: String,
 });
 
-const classAttrsSchema = new mongoose.Schema({
-  // BARBARIAN
+const barbarianSchema = new mongoose.Schema({
   primalPath: {
     type: String,
     enum: ['berserker', 'totem-warrior'],
@@ -76,8 +75,9 @@ const classAttrsSchema = new mongoose.Schema({
     },
     animal: String,
   },
+});
 
-  // BARD
+const bardSchema = new mongoose.Schema({
   bardCollege: {
     type: String,
     enum: ['lore', 'valor'],
@@ -85,7 +85,11 @@ const classAttrsSchema = new mongoose.Schema({
   loreCollegeProficiencies: [{ type: String, enum: SKILLS.map(s => s.name) }],
   loreSpells: [spellSchema],
   magicalSecretsSpells: [spellSchema],
+});
 
+const classAttrsSchema = new mongoose.Schema({
+  barbarian: barbarianSchema,
+  bard: bardSchema,
   // CLERIC
   divineDomain: {
     type: String,
@@ -313,6 +317,24 @@ export async function updateClassAttrs(pcName, classAttrs) {
   return updatedPc;
 }
 
+export async function updateAttrsForClass(pcName, pClass, classAttrs) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    {
+      $set: Object.entries(classAttrs).reduce(
+        (setAttrs, [classAttrName, classAttrValue]) => ({
+          ...setAttrs,
+          [`classAttrs.${pClass}.${classAttrName}`]: classAttrValue,
+        }),
+        {}
+      ),
+    },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
 export async function increaseStats(pcName, statsIncrease) {
   const updatedPc = await Pc.findOneAndUpdate(
     { name: pcName },
@@ -358,7 +380,11 @@ export async function learnSpells(name, pClass, toLearn, toForget) {
     updatedPc = await Pc.findOneAndUpdate(
       { name: name },
       {
-        $pull: { spells: { name: toForget } },
+        $pull: {
+          spells: { name: toForget },
+          'classAttrs.bard.loreSpells': { name: toForget },
+          'classAttrs.bard.magicalSecretsSpells': { name: toForget },
+        },
       },
       { new: true, upsert: true }
     ).exec();
@@ -398,7 +424,7 @@ export async function learnBardLoreSpells(name, spells) {
     { name: name },
     {
       $push: {
-        'classAttrs.loreSpells': {
+        'classAttrs.bard.loreSpells': {
           $each: spells.map(sName => ({ name: sName })),
         },
       },
@@ -414,7 +440,7 @@ export async function learnBardMagicalSecretsSpells(name, spells) {
     { name: name },
     {
       $push: {
-        'classAttrs.magicalSecretsSpells': {
+        'classAttrs.bard.magicalSecretsSpells': {
           $each: spells.map(sName => ({
             name: sName,
           })),

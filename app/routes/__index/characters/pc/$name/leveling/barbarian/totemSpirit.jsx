@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, updateClassAttrs } from '~/services/pc.server';
+import { getPc, updateAttrsForClass } from '~/services/pc.server';
+import { getSpiritTotem } from '~/domain/barbarian/barbarian';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
@@ -12,7 +13,7 @@ export const loader = async ({ params }) => {
     throw new Error('pc not found');
   }
 
-  if (pc.classAttrs?.spiritTotem?.totemType) {
+  if (getSpiritTotem(pc).totemType) {
     throw new Error('Ya has escogido Espíritu Tótem');
   }
 
@@ -30,7 +31,7 @@ export const action = async ({ request }) => {
   const spiritTotem = formData.get('spirit-totem');
   const animal = formData.get('animal');
 
-  await updateClassAttrs(name, {
+  await updateAttrsForClass(name, 'barbarian', {
     spiritTotem: { totemType: spiritTotem, animal },
   });
 

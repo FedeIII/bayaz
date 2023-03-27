@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, updateClassAttrs } from '~/services/pc.server';
+import { getPc, updateAttrsForClass } from '~/services/pc.server';
+import { useTitle } from '~/components/hooks/useTitle';
+import { getAspectOfTheBeastTotem } from '~/domain/barbarian/barbarian';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
-import { useTitle } from '~/components/hooks/useTitle';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -13,7 +14,7 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (pc.classAttrs?.aspectOfTheBeast?.totemType) {
+  if (getAspectOfTheBeastTotem(pc)) {
     throw new Error('Ya has escogido Aspecto de la Bestia');
   }
 
@@ -31,7 +32,7 @@ export const action = async ({ request }) => {
   const aspectOfTheBeast = formData.get('aspect-beast');
   const animal = formData.get('animal');
 
-  await updateClassAttrs(name, {
+  await updateAttrsForClass(name, 'barbarian', {
     aspectOfTheBeast: { totemType: aspectOfTheBeast, animal },
   });
 

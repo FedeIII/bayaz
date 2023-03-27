@@ -8,8 +8,29 @@ import { CLASSES } from '../characters';
 
 import sheetStyles from '~/components/sheet.module.css';
 
+export function getPrimalPath(pc) {
+  return pc.classAttrs?.barbarian?.primalPath;
+}
+
+export function getSpiritTotem(pc) {
+  return pc.classAttrs?.barbarian?.spiritTotem || {};
+}
+
+export function getAspectOfTheBeast(pc) {
+  return pc.classAttrs?.barbarian?.aspectOfTheBeast || {};
+}
+
+export function getAspectOfTheBeastTotem(pc) {
+  return getAspectOfTheBeast(pc).totemType;
+}
+
+export function getTotemicAttunement(pc) {
+  return pc.classAttrs?.barbarian?.totemicAttunement || {};
+}
+
 export function getPrimalPathTraits(pc) {
-  const { level, classAttrs: { primalPath } = {} } = pc;
+  const { level } = pc;
+  const primalPath = getPrimalPath(pc);
 
   return Object.entries(
     Object.entries(CLASSES.barbarian.leveling).reduce(
@@ -32,14 +53,6 @@ export function translatePrimalPath(primalPath) {
   return 'unknown primal path';
 }
 
-export function getPrimalPath(pc) {
-  return pc.classAttrs?.primalPath;
-}
-
-export function getAspectOfTheBeastTotem(pc) {
-  return pc.classAttrs?.aspectOfTheBeast?.totemType;
-}
-
 export const BARBARIAN_EQUIPMENT = [
   { or: getAllMartialMelee() },
   {
@@ -53,7 +66,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
   switch (traitName) {
     case 'primalPath':
       return (
-        !pc.classAttrs?.primalPath && (
+        !getPrimalPath(pc) && (
           <>
             <strong>{trait}</strong>
             <span className={sheetStyles.pendingTrait}>(!)</span>
@@ -62,7 +75,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
       );
 
     case 'totemSpirit': {
-      const { totemType, animal } = pc.classAttrs?.spiritTotem || {};
+      const { totemType, animal } = getSpiritTotem(pc);
       return (
         <>
           {trait}
@@ -78,7 +91,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
     }
 
     case 'aspectOfTheBeast': {
-      const { totemType, animal } = pc.classAttrs?.aspectOfTheBeast || {};
+      const { totemType, animal } = getAspectOfTheBeast(pc);
       return (
         <>
           <strong>{trait}</strong>
@@ -104,7 +117,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
     }
 
     case 'totemicAttunement': {
-      const { totemType, animal } = pc.classAttrs?.totemicAttunement || {};
+      const { totemType, animal } = getTotemicAttunement(pc);
       return (
         <>
           <strong>{trait}</strong>

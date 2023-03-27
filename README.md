@@ -56,9 +56,12 @@ npx prisma migrate dev
 - lose HP on combats
 - recover HP after rest
 - Use spells (consume slots)
+- put hit dice roll on level up in the modal
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
+- dediplicate items in item proficiencies and in treasure inventory
 - Bardic Inspiration die
+- Gain extra HP (con and others) on level up
 - no env monsters without details and/or translations
 - Some class skills can be piled up if you go back and forth in the browser navigation
 - Conditions for equiped items

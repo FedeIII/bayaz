@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, updateClassAttrs } from '~/services/pc.server';
+import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
+import { getPrimalPath } from '~/domain/barbarian/barbarian';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
@@ -13,7 +14,7 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (pc.classAttrs?.primalPath) {
+  if (getPrimalPath(pc)) {
     throw new Error('Ya has escogido Senda Primaria');
   }
 
@@ -30,7 +31,7 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const primalPath = formData.get('primal-path');
 
-  await updateClassAttrs(name, { primalPath });
+  await updateAttrsForClass(name, 'barbarian', { primalPath });
 
   return redirect(`/characters/pc/${name}/summary`);
 };

@@ -51,7 +51,7 @@ export const action = async ({ request }) => {
 
 function NewSpells() {
   const { pc } = useLoaderData();
-  const { name, pClass, level, spells: pSpells } = pc;
+  const { name, pClass, level } = pc;
 
   useTitle(`${translateClass(pClass)} nivel ${level}`);
 
@@ -192,12 +192,13 @@ function NewSpells() {
         conoces y reemplazarlo por otro de la lista de conjuros del{' '}
         {translateClass(pClass)} de hasta nivel {newSpellsMaxLevel}
       </p>
-      <div className={cardStyles.cards}>
+      <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
         {spellSlots.map((slots, spellLevelIndex) => {
           const spellLevel = spellLevelIndex + 1;
           return (
             <Card
               title={`Conjuros nivel ${spellLevel}`}
+              className={cardStyles.scrollCard}
               singleCard={kwnonSpellLevels.length === 1}
               key={spellLevel}
             >

@@ -1,5 +1,10 @@
 import { Link } from '@remix-run/react';
 import { getProficiencyBonus, getStat, getStatMod } from '../characters';
+import {
+  getAspectOfTheBeast,
+  getSpiritTotem,
+  getTotemicAttunement,
+} from './barbarian';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -112,7 +117,7 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
   ),
 
   totemSpirit: (skill, pc) => {
-    const { totemType, animal } = pc.classAttrs?.spiritTotem || {};
+    const { totemType, animal } = getSpiritTotem(pc);
     return (
       <>
         <p>
@@ -195,7 +200,7 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
   ),
 
   aspectOfTheBeast: (skill, pc) => {
-    const { totemType, animal } = pc.classAttrs?.aspectOfTheBeast || {};
+    const { totemType, animal } = getAspectOfTheBeast(pc);
     return (
       <>
         <p>
@@ -344,7 +349,7 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
   ),
 
   totemicAttunement: (skill, pc) => {
-    const { totemType, animal } = pc.classAttrs?.totemicAttunement || {};
+    const { totemType, animal } = getTotemicAttunement(pc);
     return (
       <>
         <p>

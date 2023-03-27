@@ -106,6 +106,7 @@ export const action = async ({ request }) => {
     name,
     totalHitPoints: [CLASSES[pc.pClass].initialHitPoints],
     hitPoints: getInitialHitPoints(updatedPc),
+    hitDice: 1,
     remainingHitDice: 1,
     preparedSpells,
   });
