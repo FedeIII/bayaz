@@ -223,7 +223,9 @@ function LoreSpells() {
             >
               <ul className={cardStyles.cardList}>
                 {spellsOfLevel
-                  .filter(spell => !knownSpells.includes(spell))
+                  .filter(
+                    spell => !knownSpells.map(s => s.name).includes(spell.name)
+                  )
                   .filter(s => fClass === 'all' || s.class.includes(fClass))
                   .filter(s => fSchool === 'all' || s.school === fSchool)
                   .map((spell, spellIndex) => (

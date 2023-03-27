@@ -16,7 +16,7 @@ export function getKnownCantrips(pc) {
 
   return (
     spells
-      .map(pSpell => getSpell(pSpell.name, pSpell.type))
+      .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level === 0) || []
   );
 }

@@ -13,7 +13,7 @@ import {
   hasNewLevelSpells,
   maxSpellLevel,
 } from '~/domain/spells/spells';
-import { getAllPcSpells } from '~/domain/spells/getSpells';
+import { getAllPcSpells, getKnownCantrips } from '~/domain/spells/getSpells';
 import { Card } from '~/components/cards/card';
 import { replaceAt } from '~/utils/insert';
 import { SkillModal } from '~/components/modal/skillModal';
@@ -64,7 +64,12 @@ function NewSpells() {
   const knownSpells = getAllPcSpells(pc);
   const allCantrips = getClassSpells(pc)
     .filter(spell => spell.level === 0)
-    .filter(spell => !knownSpells.includes(spell));
+    .filter(
+      spell =>
+        !getKnownCantrips(pc)
+          .map(s => s.name)
+          .includes(spell.name)
+    );
   const [cantripSlots, ...spellSlots] = getSpellSlots(pc);
   const kwnonSpellLevels = [
     ...new Set(knownSpells.filter(s => s.level > 0).map(s => s.level)),
@@ -253,18 +258,22 @@ function NewSpells() {
             Conjuro{newSpellsNumber > 1 ? 's' : ''} de hasta nivel{' '}
             {newSpellsMaxLevel}
           </h3>
-          <div className={cardStyles.cards}>
+          <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
             {spellsByLevel.map((spellsOfLevel, i) => {
               const spellLevel = i + 1;
               return (
                 <Card
                   title={`Conjuros nivel ${spellLevel}`}
+                  className={cardStyles.scrollCard}
                   singleCard={spellsByLevel.length === 1}
                   key={spellLevel}
                 >
                   <ul className={cardStyles.cardList}>
                     {spellsOfLevel
-                      .filter(spell => !knownSpells.includes(spell))
+                      .filter(
+                        spell =>
+                          !knownSpells.map(s => s.name).includes(spell.name)
+                      )
                       .map((spell, spellIndex) => (
                         <li key={spell.name}>
                           <label
