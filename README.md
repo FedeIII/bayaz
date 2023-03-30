@@ -57,6 +57,9 @@ npx prisma migrate dev
 - recover HP after rest
 - Use spells (consume slots)
 - put hit dice roll on level up in the modal
+- show all extra stat points in the improve stat screen
+- Bard:
+  - track usages of bardic inspiration
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
 - dediplicate items in item proficiencies and in treasure inventory

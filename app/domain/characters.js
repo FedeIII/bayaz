@@ -586,6 +586,16 @@ export const CLASSES = {
           },
         },
       },
+      18: {
+        traits: {
+          magicalSecrets: 'Secretos Mágicos',
+        },
+      },
+      20: {
+        traits: {
+          superiorInspiration: 'Inspiración Superior'
+        }
+      }
     },
   },
   cleric: {
@@ -1583,5 +1593,5 @@ export function getSpeed(pc) {
 
 export function hasLeveledUp(pc) {
   const { level, hitDice } = pc;
-  return level !== hitDice;
+  return level > hitDice;
 }

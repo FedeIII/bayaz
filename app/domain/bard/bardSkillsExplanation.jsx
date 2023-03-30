@@ -9,9 +9,9 @@ import {
 } from '../characters';
 import { translateSpell } from '../spells/spells';
 import {
+  getAllLoreSpellsLearned,
+  getAllMagicalSecretsSpellsLearned,
   getLoreCollegeProficiencies,
-  getLoreSpells,
-  getMagicalSecretsSpells,
   hasToLearnMagicalSecretsSpells,
 } from './bard';
 
@@ -228,7 +228,7 @@ export const BARD_SKILLS_EXPLANATION = {
   ),
 
   additionalMagicalSecrets: (skill, pc) => {
-    const loreSpells = getLoreSpells(pc);
+    const loreSpells = getAllLoreSpellsLearned(pc);
     return (
       <>
         <p>
@@ -255,7 +255,13 @@ export const BARD_SKILLS_EXPLANATION = {
         {!!loreSpells.length && (
           <ul>
             {loreSpells.map(spell => (
-              <li>{translateSpell(spell.name)}</li>
+              <li>
+                {spell.forgotten ? (
+                  <s>{translateSpell(spell.name)}</s>
+                ) : (
+                  translateSpell(spell.name)
+                )}
+              </li>
             ))}
           </ul>
         )}
@@ -271,7 +277,7 @@ export const BARD_SKILLS_EXPLANATION = {
   ),
 
   magicalSecrets: (skill, pc) => {
-    const magicalSecretsSpells = getMagicalSecretsSpells(pc);
+    const magicalSecretsSpells = getAllMagicalSecretsSpellsLearned(pc);
     return (
       <>
         <p>
@@ -304,7 +310,13 @@ export const BARD_SKILLS_EXPLANATION = {
         {!hasToLearnMagicalSecretsSpells(pc) && (
           <ul>
             {magicalSecretsSpells.map(spell => (
-              <li>{translateSpell(spell.name)}</li>
+              <li>
+                {spell.forgotten ? (
+                  <s>{translateSpell(spell.name)}</s>
+                ) : (
+                  translateSpell(spell.name)
+                )}
+              </li>
             ))}
           </ul>
         )}
@@ -329,6 +341,13 @@ export const BARD_SKILLS_EXPLANATION = {
       conjuros y el uso de las armas en un solo y armonioso acto. Cuando usas tu
       acción para lanzar un conjuro de bardo, puedes hacer un ataque con un arma
       como acción adicional.
+    </p>
+  ),
+
+  superiorInspiration: () => (
+    <p>
+      A partir del nivel 20, cuando tiras iniciativa y no te quedan usos de
+      Inspiración de Bardo, recuperas un uso.
     </p>
   ),
 };

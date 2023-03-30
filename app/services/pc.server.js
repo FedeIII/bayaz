@@ -49,6 +49,11 @@ const spellSchema = new mongoose.Schema({
   subtype: String,
 });
 
+const forgettableSpellSchema = new mongoose.Schema({
+  name: String,
+  forgotten: Boolean,
+});
+
 const barbarianSchema = new mongoose.Schema({
   primalPath: {
     type: String,
@@ -83,8 +88,8 @@ const bardSchema = new mongoose.Schema({
     enum: ['lore', 'valor'],
   },
   loreCollegeProficiencies: [{ type: String, enum: SKILLS.map(s => s.name) }],
-  loreSpells: [spellSchema],
-  magicalSecretsSpells: [spellSchema],
+  loreSpells: [forgettableSpellSchema],
+  magicalSecretsSpells: [forgettableSpellSchema],
 });
 
 const classAttrsSchema = new mongoose.Schema({
@@ -225,6 +230,9 @@ const pcSchema = new mongoose.Schema({
   pack: String,
   proficientItems: [itemSchema],
   freeText: freeTextSchema,
+  magic: {
+    hasLearnedSpells: [Boolean],
+  },
   spells: [spellSchema],
   preparedSpells: [spellSchema],
   money: [Number, Number, Number],
@@ -363,105 +371,246 @@ export async function addImprovedStatsLevel(name, level) {
   return updatedPc;
 }
 
-export async function learnSpells(name, pClass, toLearn, toForget) {
-  let updatedPc = await Pc.findOneAndUpdate(
-    { name: name },
+export async function learnSpells(pcName, toLearn) {
+  const hasBardLoreSpell = await Promise.all(
+    toLearn.map(spellName =>
+      Pc.countDocuments({
+        name: pcName,
+        'classAttrs.bard.loreSpells.name': spellName,
+      })
+    )
+  );
+
+  const hasBardMagicalSecretSpell = await Promise.all(
+    toLearn.map(spellName =>
+      Pc.countDocuments({
+        name: pcName,
+        'classAttrs.bard.magicalSecretsSpells.name': spellName,
+      })
+    )
+  );
+
+  const spellsByOrigin = toLearn.reduce(
+    (spells, spellName, i) => {
+      if (hasBardLoreSpell[i])
+        return { ...spells, bardLore: [...spells.bardLore, spellName] };
+      if (hasBardMagicalSecretSpell[i])
+        return {
+          ...spells,
+          bardMagicalSecrets: [...spells.bardMagicalSecrets, spellName],
+        };
+
+      return { ...spells, regular: [...spells.regular, spellName] };
+    },
+    {
+      regular: [],
+      bardLore: [],
+      bardMagicalSecrets: [],
+    }
+  );
+
+  const updatedPc = await Promise.all([
+    learnRegularSpells(pcName, spellsByOrigin.regular),
+    learnBardLoreSpells(pcName, spellsByOrigin.bardLore),
+    learnBardMagicalSecretsSpells(pcName, spellsByOrigin.bardMagicalSecrets),
+  ]);
+
+  return updatedPc;
+}
+
+export async function learnRegularSpells(pcName, toLearn) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
     {
       $push: {
         spells: {
-          $each: toLearn.map(sName => ({ name: sName, type: pClass })),
+          $each: toLearn.map(sName => ({ name: sName })),
         },
+        'magic.hasLearnedSpells': true,
       },
     },
     { new: true, upsert: true }
   ).exec();
 
-  if (toForget) {
-    updatedPc = await Pc.findOneAndUpdate(
-      { name: name },
-      {
-        $pull: {
-          spells: { name: toForget },
-          'classAttrs.bard.loreSpells': { name: toForget },
-          'classAttrs.bard.magicalSecretsSpells': { name: toForget },
-        },
-      },
-      { new: true, upsert: true }
-    ).exec();
+  return updatedPc;
+}
+
+export async function forgetSpell(pcName, spellName) {
+  const pc = await getPc(pcName);
+
+  if (pc.spells.map(s => s.name).includes(spellName)) {
+    return forgetRegularSpell(pcName, spellName);
   }
+
+  if (pc.classAttrs.bard.loreSpells.map(s => s.name).includes(spellName)) {
+    return forgetBardLoreSpell(pcName, spellName);
+  }
+
+  if (
+    pc.classAttrs.bard.magicalSecretsSpells.map(s => s.name).includes(spellName)
+  ) {
+    return forgetBardMagicalSecretsSpell(pcName, spellName);
+  }
+}
+
+export async function forgetRegularSpell(pcName, spellName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    {
+      $pull: {
+        spells: { name: spellName },
+        preparedSpells: { name: spellName },
+      },
+    },
+    { new: true }
+  ).exec();
 
   return updatedPc;
 }
 
-export async function prepareSpells(name, pClass, toPrepare, toForget) {
+export async function prepareSpells(pcName, toPrepare) {
   let updatedPc = await Pc.findOneAndUpdate(
-    { name: name },
+    { name: pcName },
     {
       $push: {
         preparedSpells: {
-          $each: toPrepare.map(sName => ({ name: sName, type: pClass })),
+          $each: toPrepare.map(sName => ({ name: sName })),
         },
       },
     },
     { new: true, upsert: true }
   ).exec();
 
-  if (toForget) {
-    updatedPc = await Pc.findOneAndUpdate(
-      { name: name },
+  return updatedPc;
+}
+
+export async function learnBardLoreSpells(pcName, spells) {
+  const hasSpell = await Promise.all(
+    spells.map(spellName =>
+      Pc.countDocuments({
+        name: pcName,
+        'classAttrs.bard.loreSpells.name': spellName,
+      })
+    )
+  );
+
+  return await Promise.all(
+    hasSpell.map((has, i) =>
+      Pc.findOneAndUpdate(
+        {
+          name: pcName,
+          ...(has ? { 'classAttrs.bard.loreSpells.name': spells[i] } : {}),
+        },
+        has
+          ? {
+              $set: {
+                'classAttrs.bard.loreSpells.$.forgotten': false,
+              },
+              $push: { 'magic.hasLearnedSpells': true },
+            }
+          : {
+              $push: {
+                'classAttrs.bard.loreSpells': { name: spells[i] },
+                'magic.hasLearnedSpells': true,
+              },
+            },
+        { new: true, upsert: true }
+      ).exec()
+    )
+  );
+}
+
+export async function forgetBardLoreSpell(pcName, spellName) {
+  await Promise.all([
+    Pc.findOneAndUpdate(
       {
-        $pull: { preparedSpells: { name: toForget } },
+        name: pcName,
+        'classAttrs.bard.loreSpells.name': spellName,
       },
-      { new: true, upsert: true }
-    ).exec();
-  }
-
-  return updatedPc;
+      {
+        $set: { 'classAttrs.bard.loreSpells.$.forgotten': true },
+      },
+      { new: true }
+    ).exec(),
+    Pc.findOneAndUpdate(
+      { name: pcName },
+      {
+        $pull: { preparedSpells: { name: spellName } },
+      },
+      { new: true }
+    ).exec(),
+  ]);
 }
 
-export async function learnBardLoreSpells(name, spells) {
-  let updatedPc = await Pc.findOneAndUpdate(
-    { name: name },
-    {
-      $push: {
-        'classAttrs.bard.loreSpells': {
-          $each: spells.map(sName => ({ name: sName })),
+export async function learnBardMagicalSecretsSpells(pcName, spells) {
+  const hasSpell = await Promise.all(
+    spells.map(spellName =>
+      Pc.countDocuments({
+        name: pcName,
+        'classAttrs.bard.magicalSecretsSpells.name': spellName,
+      })
+    )
+  );
+
+  return await Promise.all(
+    hasSpell.map((has, i) =>
+      Pc.findOneAndUpdate(
+        {
+          name: pcName,
+          ...(has
+            ? { 'classAttrs.bard.magicalSecretsSpells.name': spells[i] }
+            : {}),
         },
-      },
-    },
-    { new: true, upsert: true }
-  ).exec();
-
-  return updatedPc;
+        has
+          ? {
+              $set: {
+                'classAttrs.bard.magicalSecretsSpells.$.forgotten': false,
+              },
+              $push: { 'magic.hasLearnedSpells': true },
+            }
+          : {
+              $push: {
+                'classAttrs.bard.magicalSecretsSpells': { name: spells[i] },
+                'magic.hasLearnedSpells': true,
+              },
+            },
+        { new: true, upsert: true }
+      ).exec()
+    )
+  );
 }
 
-export async function learnBardMagicalSecretsSpells(name, spells) {
-  let updatedPc = await Pc.findOneAndUpdate(
-    { name: name },
-    {
-      $push: {
-        'classAttrs.bard.magicalSecretsSpells': {
-          $each: spells.map(sName => ({
-            name: sName,
-          })),
-        },
+export async function forgetBardMagicalSecretsSpell(pcName, spellName) {
+  await Promise.all([
+    Pc.findOneAndUpdate(
+      {
+        name: pcName,
+        'classAttrs.bard.magicalSecretsSpells.name': spellName,
       },
-    },
-    { new: true, upsert: true }
-  ).exec();
-
-  return updatedPc;
+      {
+        $set: { 'classAttrs.bard.magicalSecretsSpells.$.forgotten': true },
+      },
+      { new: true }
+    ).exec(),
+    Pc.findOneAndUpdate(
+      { name: pcName },
+      {
+        $pull: { preparedSpells: { name: spellName } },
+      },
+      { new: true }
+    ).exec(),
+  ]);
 }
 
-export async function addPreparedSpell(name, spell) {
-  const pc = await getPc(name);
+export async function addPreparedSpell(pcName, spell) {
+  const pc = await getPc(pcName);
   const maxPreparedSpells = getMaxPreparedSpells(pc);
   if (pc.preparedSpells.length >= maxPreparedSpells) {
     return pc;
   }
 
   const updatedPc = await Pc.updateOne(
-    { name },
+    { name: pcName },
     {
       $push: {
         preparedSpells: spell,
@@ -472,15 +621,15 @@ export async function addPreparedSpell(name, spell) {
   return updatedPc;
 }
 
-export async function deletePreparedSpell(name, spell) {
-  const pc = await getPc(name);
+export async function deletePreparedSpell(pcName, spell) {
+  const pc = await getPc(pcName);
   const extraPreparedSpells = getExtraPreparedSpells(pc);
   if (extraPreparedSpells.map(s => s.name).includes(spell.name)) {
     return pc;
   }
 
   const updatedPc = await Pc.findOneAndUpdate(
-    { name },
+    { name: pcName },
     { $pull: { preparedSpells: spell } },
     { new: true }
   ).exec();

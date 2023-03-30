@@ -1,7 +1,12 @@
 import { useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, learnSpells, prepareSpells } from '~/services/pc.server';
+import {
+  forgetSpell,
+  getPc,
+  learnSpells,
+  prepareSpells,
+} from '~/services/pc.server';
 import { translateClass } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
@@ -36,14 +41,14 @@ export const loader = async ({ params }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get('name');
-  const pClass = formData.get('pClass');
 
   const forget = formData.get('forget');
   const learn = formData.getAll('learn[]');
 
   await Promise.all([
-    learnSpells(name, pClass, learn, forget),
-    prepareSpells(name, pClass, learn, forget),
+    learnSpells(name, learn),
+    prepareSpells(name, learn),
+    forget && forgetSpell(name, forget),
   ]);
 
   return redirect(`/characters/pc/${name}/summary`);
@@ -142,7 +147,6 @@ function NewSpells() {
   return (
     <Form method="post" ref={formRef}>
       <input readOnly type="text" name="name" value={name} hidden />
-      <input readOnly type="text" name="pClass" value={pClass} hidden />
 
       <h2 className={appStyles.paleText}>Escoge nuevos Conjuros</h2>
 
@@ -216,7 +220,7 @@ function NewSpells() {
                       <label
                         htmlFor={spell.name}
                         className={`${styles.toRemove} ${
-                          toForget[spellLevel - 1][spellIndex] &&
+                          toForget[spellLevel - 1]?.[spellIndex] &&
                           styles.selectedToRemove
                         }`}
                       >
@@ -226,7 +230,7 @@ function NewSpells() {
                           id={spell.name}
                           name="forget"
                           value={spell.name}
-                          checked={toForget[spellLevel - 1][spellIndex]}
+                          checked={toForget[spellLevel - 1]?.[spellIndex]}
                           onChange={e =>
                             setSpellToForget(
                               spellLevel - 1,
@@ -251,7 +255,7 @@ function NewSpells() {
         })}
       </div>
 
-      {hasNewLevelSpells(pc) && (
+      {(hasNewLevelSpells(pc) || toForget.flat().some(v => v)) && (
         <>
           <h3>
             Aprendes {newSpellsNumber} nuevo{newSpellsNumber > 1 ? 's' : ''}{' '}
@@ -333,10 +337,8 @@ export function ErrorBoundary({ error }) {
       <h2 className={appStyles.errorText}>{error.message}</h2>
 
       <p className={appStyles.paragraph}>
-        Incrementa una puntuación de característica de tu elección en 2 puntos,
-        o dos puntuaciones de característica de tu elección en 1 punto. Como es
-        habitual, no puedes incrementar una puntuación de característica por
-        encima de 20 usando este procedimiento.
+        Puedes elegir uno de los conjuros que conoces y reemplazarlo por otro de
+        la lista de conjuros de tu clase
       </p>
 
       <p className={appStyles.errorStack}>{error.stack}</p>

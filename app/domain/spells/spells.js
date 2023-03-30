@@ -50,14 +50,24 @@ import {
 import { getKnownSpells, getSpell } from './getSpells';
 import { SPELL_TRANSLATIONS } from './spellTranslations';
 import { SPELL_LIST } from './spellList';
-import { getLoreSpells, getMagicalSecretsSpells } from '../bard/bard';
+import {
+  getForgottenLoreSpells,
+  getForgottenMagicalSecretsSpells,
+  getLoreSpells,
+  getMagicalSecretsSpells,
+} from '../bard/bard';
 
 const zero = () => 0;
 
 export function getClassSpells(pc) {
   const { pClass } = pc;
 
-  if (pClass === 'bard') return BARD_SPELLS;
+  if (pClass === 'bard')
+    return [
+      ...BARD_SPELLS,
+      ...getForgottenLoreSpells(pc).map(s => getSpell(s.name)),
+      ...getForgottenMagicalSecretsSpells(pc).map(s => getSpell(s.name)),
+    ];
 
   return [];
 }
@@ -261,4 +271,13 @@ export function maxSpellLevel(pc) {
       bard: maxBardSpellLevel,
     }[pClass] || zero
   )(pc);
+}
+
+export function hasLearnedSpellsForCurrentLevel(pc) {
+  const {
+    magic: { hasLearnedSpells },
+    level,
+  } = pc;
+
+  return !!hasLearnedSpells[level - 1]
 }

@@ -12,7 +12,7 @@ export function insertAfter(findIndexCallback, array, newItems) {
   }
 }
 
-export function replaceAt(index, array, newItem) {
+export function replaceAt(index, array = [], newItem) {
   return [
     ...array.slice(0, index),
     newItem,

@@ -32,12 +32,28 @@ export function getLoreCollegeProficiencies(pc) {
   return pc.classAttrs?.bard?.loreCollegeProficiencies || [];
 }
 
-export function getLoreSpells(pc) {
+export function getAllLoreSpellsLearned(pc) {
   return pc.classAttrs?.bard?.loreSpells || [];
 }
 
-export function getMagicalSecretsSpells(pc) {
+export function getLoreSpells(pc) {
+  return getAllLoreSpellsLearned(pc).filter(s => !s.forgotten) || [];
+}
+
+export function getForgottenLoreSpells(pc) {
+  return getAllLoreSpellsLearned(pc).filter(s => s.forgotten) || [];
+}
+
+export function getAllMagicalSecretsSpellsLearned(pc) {
   return pc.classAttrs?.bard?.magicalSecretsSpells || [];
+}
+
+export function getMagicalSecretsSpells(pc) {
+  return getAllMagicalSecretsSpellsLearned(pc).filter(s => !s.forgotten) || [];
+}
+
+export function getForgottenMagicalSecretsSpells(pc) {
+  return getAllMagicalSecretsSpellsLearned(pc).filter(s => s.forgotten) || [];
 }
 
 export const BARD_COLLEGES = {
@@ -175,8 +191,17 @@ export function displayBardTrait(traitName, trait, pc) {
   return null;
 }
 
-export function hasToLearnMagicalSecretsSpells(pc) {
-  const magicalSecretsSpells = getMagicalSecretsSpells(pc);
+export function maxMagicalSecretsSpells(pc) {
+  const { level } = pc;
 
-  return magicalSecretsSpells.length < 2;
+  if (level >= 18) return 6;
+  if (level >= 14) return 4;
+  if (level >= 10) return 2;
+  return 0;
+}
+
+export function hasToLearnMagicalSecretsSpells(pc) {
+  const magicalSecretsSpells = getAllMagicalSecretsSpellsLearned(pc);
+
+  return maxMagicalSecretsSpells(pc) > magicalSecretsSpells.length;
 }

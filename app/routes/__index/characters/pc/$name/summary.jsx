@@ -80,7 +80,7 @@ import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useTitle } from '~/components/hooks/useTitle';
-import { hasNewSpells } from '~/domain/spells/spells';
+import { hasLearnedSpellsForCurrentLevel } from '~/domain/spells/spells';
 import {
   getBardCollege,
   getBardCollegeTraits,
@@ -764,7 +764,7 @@ function PcSummary() {
             </li>
           )}
 
-          {!!hasNewSpells(pc) && (
+          {!hasLearnedSpellsForCurrentLevel(pc) && (
             <li className={styles.traitLabel}>
               <SkillItem
                 ref={skillRefs.spells[0]}

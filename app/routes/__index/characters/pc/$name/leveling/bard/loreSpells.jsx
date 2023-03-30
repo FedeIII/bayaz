@@ -56,7 +56,7 @@ export const action = async ({ request }) => {
 
   await Promise.all([
     learnBardLoreSpells(name, learn),
-    prepareSpells(name, null, learn),
+    prepareSpells(name, learn),
   ]);
 
   return redirect(`/characters/pc/${name}/summary`);

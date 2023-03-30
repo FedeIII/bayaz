@@ -54,7 +54,7 @@ export const action = async ({ request }) => {
 
   await Promise.all([
     learnBardMagicalSecretsSpells(name, learn),
-    prepareSpells(name, null, learn),
+    prepareSpells(name, learn),
   ]);
 
   return redirect(`/characters/pc/${name}/summary`);
@@ -201,7 +201,9 @@ function MagicalSecretsSpells() {
             >
               <option value="all">Todas</option>
               {getAllSpellSchools().map(c => (
-                <option value={c}>{translateSchool(c)}</option>
+                <option value={c} key={c}>
+                  {translateSchool(c)}
+                </option>
               ))}
             </select>
           </span>

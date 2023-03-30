@@ -92,6 +92,10 @@ export const action = async ({ request }) => {
     ];
   }
 
+  pcAttrs.magic = {
+    hasLearnedSpells: [true],
+  };
+
   pcAttrs.improvedStatsLevels = [];
 
   const updatedPc = await updatePc(pcAttrs);
