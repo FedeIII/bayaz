@@ -1,5 +1,5 @@
 import { Link } from '@remix-run/react';
-import { getProficiencyBonus, getStat, getStatMod } from '../characters';
+import { getProficiencyBonus, getStat, getStatMod } from '../../characters';
 import {
   getAspectOfTheBeast,
   getSpiritTotem,

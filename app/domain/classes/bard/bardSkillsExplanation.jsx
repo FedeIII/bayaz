@@ -6,8 +6,8 @@ import {
   getExpertSkills,
   hasToSelectExpertSkills,
   translateSkill,
-} from '../characters';
-import { translateSpell } from '../spells/spells';
+} from '../../characters';
+import { translateSpell } from '../../spells/spells';
 import {
   getAllLoreSpellsLearned,
   getAllMagicalSecretsSpellsLearned,

@@ -1,4 +1,4 @@
-import { getLoreSpells, getMagicalSecretsSpells } from '../bard/bard';
+import { getLoreSpells, getMagicalSecretsSpells } from '../classes/bard/bard';
 import { SPELL_LIST } from './spellList';
 
 export function getSpell(spellName, spellClass) {

@@ -62,7 +62,7 @@ import {
   getPrimalPath,
   getPrimalPathTraits,
   translatePrimalPath,
-} from '~/domain/barbarian/barbarian';
+} from '~/domain/classes/barbarian/barbarian';
 import {
   displayMoneyAmount,
   getAttacks,
@@ -85,7 +85,7 @@ import {
   getBardCollege,
   getBardCollegeTraits,
   translateBardCollege,
-} from '~/domain/bard/bard';
+} from '~/domain/classes/bard/bard';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';

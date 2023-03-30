@@ -1,13 +1,13 @@
 import { BACKGROUNDS } from './backgrounds/backgrounds';
 import { BACKGROUND_SKILLS_EXPLANATION } from './backgrounds/backgroundSkillsExplanation';
-import { getAspectOfTheBeastTotem } from './barbarian/barbarian';
-import { BARBARIAN_SKILLS_EXPLANATION } from './barbarian/barbarianSkillsExplanation';
+import { getAspectOfTheBeastTotem } from './classes/barbarian/barbarian';
+import { BARBARIAN_SKILLS_EXPLANATION } from './classes/barbarian/barbarianSkillsExplanation';
 import {
   BARD_COLLEGES,
   getBardCollege,
   getLoreCollegeProficiencies,
-} from './bard/bard';
-import { BARD_SKILLS_EXPLANATION } from './bard/bardSkillsExplanation';
+} from './classes/bard/bard';
+import { BARD_SKILLS_EXPLANATION } from './classes/bard/bardSkillsExplanation';
 import {
   translateDivineDomain,
   getDivineDomain,
@@ -593,9 +593,9 @@ export const CLASSES = {
       },
       20: {
         traits: {
-          superiorInspiration: 'Inspiración Superior'
-        }
-      }
+          superiorInspiration: 'Inspiración Superior',
+        },
+      },
     },
   },
   cleric: {
@@ -833,6 +833,9 @@ export const CLASSES = {
     ],
     spellcastingAbility: 'cha',
     statImprove: [4, 8, 12, 16, 19],
+    leveling: {
+      2: {},
+    },
   },
   wizard: {
     initialHitPoints: 6,

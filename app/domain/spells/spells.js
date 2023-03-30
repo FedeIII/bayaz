@@ -55,7 +55,7 @@ import {
   getForgottenMagicalSecretsSpells,
   getLoreSpells,
   getMagicalSecretsSpells,
-} from '../bard/bard';
+} from '../classes/bard/bard';
 
 const zero = () => 0;
 

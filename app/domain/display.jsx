@@ -22,8 +22,8 @@ import {
   getAllSimpleRanged,
   translateDamage,
 } from './equipment/weapons';
-import { displayBardTrait } from './bard/bard';
-import { displayBarbarianTrait } from './barbarian/barbarian';
+import { displayBardTrait } from './classes/bard/bard';
+import { displayBarbarianTrait } from './classes/barbarian/barbarian';
 
 import sheetStyles from '~/components/sheet.module.css';
 

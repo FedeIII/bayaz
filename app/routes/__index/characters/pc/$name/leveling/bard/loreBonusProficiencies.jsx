@@ -6,7 +6,7 @@ import { useTitle } from '~/components/hooks/useTitle';
 import { getSkills, SKILLS, translateSkill } from '~/domain/characters';
 import { removeItem } from '~/utils/insert';
 import { Card } from '~/components/cards/card';
-import { BARD_COLLEGES, getLoreCollegeProficiencies } from '~/domain/bard/bard';
+import { BARD_COLLEGES, getLoreCollegeProficiencies } from '~/domain/classes/bard/bard';
 
 import styles from '~/components/checkbox.module.css';
 import appStyles from '~/components/app.module.css';

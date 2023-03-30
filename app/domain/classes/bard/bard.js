@@ -1,18 +1,18 @@
-import { DIPLOMATS_PACK, ENTERTAINERS_PACK } from '../equipment/packs';
-import { ARMORS, getAllMediumArmors } from '../equipment/armors';
-import { getAllMusicalInstruments } from '../equipment/tools';
+import { DIPLOMATS_PACK, ENTERTAINERS_PACK } from '../../equipment/packs';
+import { ARMORS, getAllMediumArmors } from '../../equipment/armors';
+import { getAllMusicalInstruments } from '../../equipment/tools';
 import {
   getAllMartialMelee,
   getAllMartialRanged,
   getAllSimpleMelee,
   WEAPONS,
-} from '../equipment/weapons';
+} from '../../equipment/weapons';
 import {
   CLASSES,
   getStat,
   getStatMod,
   hasToSelectExpertSkills,
-} from '../characters';
+} from '../../characters';
 
 import sheetStyles from '~/components/sheet.module.css';
 

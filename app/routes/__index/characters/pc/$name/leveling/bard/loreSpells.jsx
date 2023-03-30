@@ -21,7 +21,7 @@ import { replaceAt } from '~/utils/insert';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
-import { getLoreSpells } from '~/domain/bard/bard';
+import { getLoreSpells } from '~/domain/classes/bard/bard';
 import { SPELL_LIST } from '~/domain/spells/spellList';
 import { translateSchool } from '~/domain/spells/spellTranslations';
 

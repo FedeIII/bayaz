@@ -3,7 +3,7 @@ import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
-import { getBardCollege } from '~/domain/bard/bard';
+import { getBardCollege } from '~/domain/classes/bard/bard';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';

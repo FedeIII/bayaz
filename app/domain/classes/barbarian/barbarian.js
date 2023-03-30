@@ -1,10 +1,10 @@
-import { EXPLORERS_PACK } from '../equipment/packs';
+import { EXPLORERS_PACK } from '../../equipment/packs';
 import {
   getAllMartialMelee,
   getAllSimpleMelee,
   WEAPONS,
-} from '../equipment/weapons';
-import { CLASSES } from '../characters';
+} from '../../equipment/weapons';
+import { CLASSES } from '../../characters';
 
 import sheetStyles from '~/components/sheet.module.css';
 
