@@ -21,7 +21,11 @@ import {
 import {
   getWarlockCantripsNumber,
   getWarlockSpellSlots,
+  getWarlockSpellSlotsLevel,
   getWarlockTotalSpells,
+  hasNewWarlockCantrips,
+  hasNewWarlockLevelSpells,
+  hasNewWarlockSpells,
   WARLOCK_SPELLS,
 } from './warlock';
 import {
@@ -68,6 +72,8 @@ export function getClassSpells(pc) {
       ...getForgottenLoreSpells(pc).map(s => getSpell(s.name)),
       ...getForgottenMagicalSecretsSpells(pc).map(s => getSpell(s.name)),
     ];
+
+  if (pClass == 'warlock') return WARLOCK_SPELLS;
 
   return [];
 }
@@ -239,6 +245,7 @@ export function hasNewCantrips(pc) {
   return (
     {
       bard: hasNewBardCantrips,
+      warlock: hasNewWarlockCantrips,
     }[pClass] || zero
   )(pc);
 }
@@ -249,6 +256,7 @@ export function hasNewLevelSpells(pc) {
   return (
     {
       bard: hasNewBardLevelSpells,
+      warlock: hasNewWarlockLevelSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -259,6 +267,7 @@ export function hasNewSpells(pc) {
   return (
     {
       bard: hasNewBardSpells,
+      warlock: hasNewWarlockSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -269,6 +278,7 @@ export function maxSpellLevel(pc) {
   return (
     {
       bard: maxBardSpellLevel,
+      warlock: getWarlockSpellSlotsLevel,
     }[pClass] || zero
   )(pc);
 }
@@ -279,5 +289,5 @@ export function hasLearnedSpellsForCurrentLevel(pc) {
     level,
   } = pc;
 
-  return !!hasLearnedSpells[level - 1]
+  return !!hasLearnedSpells[level - 1];
 }

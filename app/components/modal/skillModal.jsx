@@ -101,16 +101,16 @@ export function SpellModalContent(props) {
             {spell.oaths}
           </div>
         )}
-        {spell.patrons && (
+        {!!spell.archetype?.warlock && (
           <div>
             <strong>Patrón: </strong>
-            {spell.patrons}
+            {spell.archetype.warlock}
           </div>
         )}
         {spell.archetype && (
           <div>
             <strong>Arquetipo: </strong>
-            {spell.archetype}
+            {Object.entries(spell.archetype).join(' | ')}
           </div>
         )}
         <div dangerouslySetInnerHTML={{ __html: spell.desc }} />

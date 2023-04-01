@@ -92,9 +92,17 @@ const bardSchema = new mongoose.Schema({
   magicalSecretsSpells: [forgettableSpellSchema],
 });
 
+const warlockSchema = new mongoose.Schema({
+  patron: {
+    type: String,
+    enum: ['archfey', 'fiend', 'greatOldOne'],
+  },
+});
+
 const classAttrsSchema = new mongoose.Schema({
   barbarian: barbarianSchema,
   bard: bardSchema,
+  warlock: warlockSchema,
   // CLERIC
   divineDomain: {
     type: String,

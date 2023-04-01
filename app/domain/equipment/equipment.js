@@ -4,7 +4,7 @@ import { TOOLS } from './tools';
 import { ARMORS } from './armors';
 import { BARBARIAN_EQUIPMENT } from '../classes/barbarian/barbarian';
 import { BARD_EQUIPMENT } from '../classes/bard/bard';
-import { WARLOCK_EQUIPMENT } from '../warlock';
+import { WARLOCK_EQUIPMENT } from '../classes/warlock/warlock';
 import { CLERIC_EQUIPMENT } from '../cleric';
 import { DRUID_EQUIPMENT } from '../druid';
 import { RANGER_EQUIPMENT } from '../ranger';

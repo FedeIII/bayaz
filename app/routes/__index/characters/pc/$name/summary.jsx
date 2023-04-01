@@ -86,6 +86,11 @@ import {
   getBardCollegeTraits,
   translateBardCollege,
 } from '~/domain/classes/bard/bard';
+import {
+  getWarlockPatron,
+  getWarlockPatronTraits,
+  translatePatron,
+} from '~/domain/classes/warlock/warlock';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -816,6 +821,27 @@ function PcSummary() {
               </strong>
               <ul>
                 {getBardCollegeTraits(pc).map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.traits[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('traits', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {!!getWarlockPatron(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                Colegio del {translatePatron(getWarlockPatron(pc))}
+              </strong>
+              <ul>
+                {getWarlockPatronTraits(pc).map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
                       ref={skillRefs.traits[i]}

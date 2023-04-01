@@ -75,7 +75,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Enchantment',
     class: ['bard', 'cleric', 'druid', 'ranger'],
-    archetype: 'Cleric: Nature',
+    archetype: {
+      cleric: ['nature'],
+    },
     domains: 'Nature',
   },
   {
@@ -201,7 +203,9 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Divination',
     class: ['cleric', 'wizard'],
-    archetype: 'Cleric: Knowledge',
+    archetype: {
+      cleric: ['knowledge'],
+    },
     domains: 'Knowledge',
   },
   {
@@ -372,7 +376,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Enchantment',
     class: ['bard', 'cleric', 'paladin'],
-    archetype: 'Paladin: Vengeance',
+    archetype: {
+      paladin: ['vengeance'],
+    },
     oaths: 'Vengeance',
   },
   {
@@ -421,7 +427,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Transmutation',
     class: ['cleric', 'druid', 'ranger'],
-    archetype: 'Cleric: Nature',
+    archetype: {
+      cleric: ['nature'],
+    },
     domains: 'Nature',
     circles: 'Forest',
   },
@@ -438,7 +446,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Abjuration',
     class: ['cleric', 'paladin'],
-    archetype: 'Paladin: Devotion',
+    archetype: {
+      paladin: ['devotion'],
+    },
     domains: 'Life',
     oaths: 'Devotion',
   },
@@ -581,7 +591,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Necromancy',
     class: ['bard', 'cleric', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Warlock: Fiend',
+    archetype: {
+      warlock: ['fiend'],
+    },
     patrons: 'Fiend',
   },
   {
@@ -597,7 +609,10 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Transmutation',
     class: ['cleric', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Trickery<br/> Warlock: Archfey',
+    archetype: {
+      cleric: ['trickery'],
+      warlock: ['archfey'],
+    },
     domains: 'Trickery',
     patrons: 'Archfey',
   },
@@ -614,7 +629,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Illusion',
     class: ['druid', 'sorcerer', 'wizard'],
-    archetype: 'Druid: Desert',
+    archetype: {
+      druid: ['desert'],
+    },
     circles: 'Desert',
   },
   {
@@ -648,7 +665,10 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Evocation',
     class: ['cleric', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Light<br/> Warlock: Fiend',
+    archetype: {
+      cleric: ['light'],
+      warlock: ['fiend'],
+    },
     domains: 'Light',
     patrons: 'Fiend',
   },
@@ -667,7 +687,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Conjuration',
     class: ['cleric', 'druid'],
-    archetype: 'Cleric: Tempest',
+    archetype: {
+      cleric: ['tempest'],
+    },
     domains: 'Tempest',
     circles: 'Forest',
   },
@@ -684,7 +706,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Enchantment',
     class: ['bard', 'cleric', 'warlock'],
-    archetype: 'Warlock: Archfey',
+    archetype: {
+      warlock: ['archfey'],
+    },
     patrons: 'Archfey',
   },
   {
@@ -720,7 +744,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Enchantment',
     class: ['bard', 'cleric', 'druid', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Trickery',
+    archetype: {
+      cleric: ['trickery'],
+    },
     domains: 'Trickery',
   },
   {
@@ -800,7 +826,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Divination',
     class: ['bard', 'cleric', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Warlock: Great Old One',
+    archetype: {
+      warlock: ['greatOldOne'],
+    },
     patrons: 'Great Old One',
   },
   {
@@ -851,7 +879,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Conjuration',
     class: ['druid', 'sorcerer', 'wizard'],
-    archetype: 'Druid: Underdark',
+    archetype: {
+      druid: ['underdark'],
+    },
     circles: 'Underdark',
   },
   {
@@ -887,7 +917,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Enchantment',
     class: ['cleric', 'paladin', 'warlock'],
-    archetype: 'Warlock: Fiend',
+    archetype: {
+      warlock: ['fiend'],
+    },
     domains: 'Knowledge',
     patrons: 'Fiend',
   },
@@ -905,7 +937,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Divination',
     class: ['cleric', 'paladin', 'ritual caster'],
-    archetype: 'Paladin: Devotion',
+    archetype: {
+      paladin: ['devotion'],
+    },
     oaths: 'Devotion',
   },
   {
@@ -921,7 +955,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Divination',
     class: ['druid', 'paladin', 'ranger', 'ritual caster'],
-    archetype: 'Paladin: Ancients',
+    archetype: {
+      paladin: ['ancients'],
+    },
     circles: 'Arctic, Forest',
     oaths: 'Ancients',
   },
@@ -984,7 +1020,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Evocation',
     class: ['druid', 'sorcerer', 'wizard'],
-    archetype: 'Druid: Arctic',
+    archetype: {
+      druid: ['arctic'],
+    },
     circles: 'Arctic',
   },
   {
@@ -1003,7 +1041,9 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Enchantment',
     class: ['bard', 'cleric', 'druid', 'sorcerer', 'wizard'],
-    archetype: 'Cleric: Knowledge',
+    archetype: {
+      cleric: ['knowledge'],
+    },
     domains: 'Knowledge',
   },
   {
@@ -1273,7 +1313,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Conjuration',
     class: ['cleric', 'druid', 'paladin'],
-    archetype: 'Druid: Desert',
+    archetype: {
+      druid: ['desert'],
+    },
     circles: 'Desert',
   },
   {
@@ -1357,7 +1399,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Evocation',
     class: ['cleric', 'paladin'],
-    archetype: 'Cleric: War',
+    archetype: {
+      cleric: ['war'],
+    },
     domains: 'War',
   },
   {
@@ -1406,7 +1450,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Evocation',
     class: ['druid', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Druid: Swamp',
+    archetype: {
+      druid: ['swamp'],
+    },
     circles: 'Swamp',
   },
   {
@@ -1499,7 +1545,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Evocation',
     class: ['cleric', 'paladin'],
-    archetype: 'Cleric: Tempest',
+    archetype: {
+      cleric: ['tempest'],
+    },
     domains: 'Tempest',
   },
   {
@@ -1568,7 +1616,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Divination',
     class: ['bard', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Warlock: Great Old One',
+    archetype: {
+      warlock: ['greatOldOne'],
+    },
     patrons: 'Great Old One',
   },
   {
@@ -1584,7 +1634,10 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Conjuration',
     class: ['bard', 'cleric', 'paladin', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Trickery<br/> Paladin: Vengeance',
+    archetype: {
+      cleric: ['trickery'],
+      paladin: ['vengeance'],
+    },
     domains: 'Trickery',
     oaths: 'Vengeance',
   },
@@ -1601,7 +1654,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Illusion',
     class: ['bard', 'cleric', 'sorcerer', 'wizard'],
-    archetype: 'Cleric: Trickery',
+    archetype: {
+      cleric: ['trickery'],
+    },
     domains: 'Trickery',
   },
   {
@@ -1659,7 +1714,9 @@ export const SPELL_LIST = [
       'warlock',
       'wizard',
     ],
-    archetype: 'Cleric: Trickery',
+    archetype: {
+      cleric: ['trickery'],
+    },
     domains: 'Trickery',
     oaths: 'Devotion',
   },
@@ -1678,7 +1735,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Enchantment',
     class: ['bard', 'warlock'],
-    archetype: 'Warlock: Great Old One',
+    archetype: {
+      warlock: ['greatOldOne'],
+    },
     patrons: 'Great Old One',
   },
   {
@@ -1696,7 +1755,9 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Divination',
     class: ['cleric', 'druid', 'ritual caster'],
-    archetype: 'Druid: Forest, Grassland',
+    archetype: {
+      druid: ['forest', 'grassland'],
+    },
     circles: 'Forest, Grassland',
   },
   {
@@ -1712,7 +1773,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Evocation',
     class: ['cleric', 'paladin'],
-    archetype: 'Cleric: War',
+    archetype: {
+      cleric: ['war'],
+    },
     domains: 'War',
   },
   {
@@ -1744,7 +1807,10 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Enchantment',
     class: ['cleric', 'druid', 'sorcerer', 'warlock'],
-    archetype: 'Cleric: Nature<br/> Warlock: Archfey, Great Old One',
+    archetype: {
+      cleric: ['nature'],
+      warlock: ['archfey', 'greatOldOne'],
+    },
     domains: 'Nature',
     patrons: 'Archfey, Great Old One',
   },
@@ -1794,7 +1860,10 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Enchantment',
     class: ['bard', 'cleric', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Trickery<br/> Warlock: Archfey, Great Old One',
+    archetype: {
+      cleric: ['trickery'],
+      warlock: ['archfey', 'greatOldOne'],
+    },
     domains: 'Trickery',
     patrons: 'Archfey, Great Old One',
   },
@@ -1813,7 +1882,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Illusion',
     class: ['bard', 'druid', 'warlock', 'wizard'],
-    archetype: 'Druid: Grassland',
+    archetype: {
+      druid: ['grassland'],
+    },
     circles: 'Grassland',
   },
   {
@@ -1922,7 +1993,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Conjuration',
     class: ['paladin', 'ranger'],
-    archetype: 'Paladin: Ancients',
+    archetype: {
+      paladin: ['ancients'],
+    },
     oaths: 'Ancients',
   },
   {
@@ -1983,7 +2056,9 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Conjuration',
     class: ['warlock', 'wizard'],
-    archetype: 'Warlock: Great Old One',
+    archetype: {
+      warlock: ['greatOldOne'],
+    },
     patrons: 'Great Old One',
   },
   {
@@ -2041,7 +2116,10 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Evocation',
     class: ['bard', 'cleric', 'druid', 'warlock'],
-    archetype: 'Cleric: Light<br/> Warlock: Archfey',
+    archetype: {
+      cleric: ['light'],
+      warlock: ['archfey'],
+    },
     domains: 'Light',
     patrons: 'Archfey',
   },
@@ -2212,7 +2290,10 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Evocation',
     class: ['cleric', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Light<br/> Warlock: Fiend',
+    archetype: {
+      cleric: ['light'],
+      warlock: ['fiend'],
+    },
     domains: 'Light',
     patrons: 'Fiend',
   },
@@ -2244,7 +2325,9 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Evocation',
     class: ['warlock', 'wizard'],
-    archetype: 'Warlock: Fiend',
+    archetype: {
+      warlock: ['fiend'],
+    },
     patrons: 'Fiend',
   },
   {
@@ -2294,7 +2377,10 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Evocation',
     class: ['cleric', 'paladin', 'warlock'],
-    archetype: 'Paladin: Devotion<br/> Warlock: Fiend',
+    archetype: {
+      paladin: ['devotion'],
+      warlock: ['fiend'],
+    },
     domains: 'Light, War',
     oaths: 'Devotion',
     patrons: 'Fiend',
@@ -2316,7 +2402,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Conjuration',
     class: ['cleric', 'druid', 'wizard'],
-    archetype: 'Cleric: Light',
+    archetype: {
+      cleric: ['light'],
+    },
     domains: 'Light',
   },
   {
@@ -2366,7 +2454,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Conjuration',
     class: ['cleric', 'druid', 'ranger', 'sorcerer', 'wizard'],
-    archetype: 'Cleric: Tempest',
+    archetype: {
+      cleric: ['tempest'],
+    },
     domains: 'Tempest',
   },
   {
@@ -2429,7 +2519,9 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Abjuration',
     class: ['bard', 'cleric', 'druid', 'paladin', 'ranger'],
-    archetype: 'Paladin: Devotion',
+    archetype: {
+      paladin: ['devotion'],
+    },
     domains: 'War',
     circles: 'Arctic, Coast, Forest, Grassland, Swamp',
     oaths: 'Devotion',
@@ -2464,7 +2556,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Transmutation',
     class: ['druid', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Druid: Underdark',
+    archetype: {
+      druid: ['underdark'],
+    },
     circles: 'Underdark',
   },
   {
@@ -2605,7 +2699,9 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Conjuration',
     class: ['cleric', 'druid', 'ranger'],
-    archetype: 'Cleric: Nature',
+    archetype: {
+      cleric: ['nature'],
+    },
     domains: 'Nature',
   },
   {
@@ -2636,7 +2732,10 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Illusion',
     class: ['bard', 'druid', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Druid: Underdark<br/> Warlock: Archfey',
+    archetype: {
+      druid: ['underdark'],
+      warlock: ['archfey'],
+    },
     circles: 'Underdark',
     patrons: 'Archfey',
   },
@@ -2668,7 +2767,9 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Conjuration',
     class: ['cleric', 'paladin'],
-    archetype: 'Paladin: Devotion',
+    archetype: {
+      paladin: ['devotion'],
+    },
     domains: 'Life, Light',
     oaths: 'Devotion',
   },
@@ -2732,7 +2833,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Evocation',
     class: ['cleric', 'druid', 'sorcerer', 'wizard'],
-    archetype: 'Cleric: Tempest',
+    archetype: {
+      cleric: ['tempest'],
+    },
     domains: 'Tempest',
   },
   {
@@ -2766,7 +2869,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Evocation',
     class: ['cleric', 'warlock'],
-    archetype: 'Warlock: Fiend',
+    archetype: {
+      warlock: ['fiend'],
+    },
     patrons: 'Fiend',
   },
   {
@@ -2814,7 +2919,10 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Transmutation',
     class: ['druid', 'paladin', 'sorcerer', 'wizard'],
-    archetype: 'Druid: Grassland<br/> Paladin: Vengeance',
+    archetype: {
+      druid: ['grassland'],
+      paladin: ['vengeance'],
+    },
     circles: 'Grassland',
     oaths: 'Vengeance',
   },
@@ -2946,7 +3054,10 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Enchantment',
     class: ['bard', 'cleric', 'paladin', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: War<br/> Paladin: Vengeance',
+    archetype: {
+      cleric: ['war'],
+      paladin: ['vengeance'],
+    },
     domains: 'War',
     oaths: 'Vengeance',
   },
@@ -2974,7 +3085,9 @@ export const SPELL_LIST = [
       'warlock',
       'wizard',
     ],
-    archetype: 'Paladin: Vengeance',
+    archetype: {
+      paladin: ['vengeance'],
+    },
     circles: 'Arctic',
     oaths: 'Vengeance',
   },
@@ -3024,7 +3137,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Divination',
     class: ['paladin', 'ranger'],
-    archetype: 'Paladin: Vengeance',
+    archetype: {
+      paladin: ['vengeance'],
+    },
     oaths: 'Vengeance',
   },
   {
@@ -3059,7 +3174,10 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Evocation',
     class: ['cleric', 'druid', 'paladin', 'sorcerer', 'wizard'],
-    archetype: 'Cleric: Tempest<br/> Paladin: Ancients',
+    archetype: {
+      cleric: ['tempest'],
+      paladin: ['ancients'],
+    },
     domains: 'Tempest',
     circles: 'Arctic',
     oaths: 'Ancients',
@@ -3078,7 +3196,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Divination',
     class: ['bard', 'cleric', 'ritual caster', 'wizard'],
-    archetype: 'Cleric: Knowledge',
+    archetype: {
+      cleric: ['knowledge'],
+    },
     domains: 'Knowledge',
   },
   {
@@ -3179,7 +3299,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Illusion',
     class: ['bard', 'druid', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Druid: Grassland',
+    archetype: {
+      druid: ['grassland'],
+    },
     circles: 'Grassland',
   },
   {
@@ -3338,7 +3460,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Evocation',
     class: ['druid', 'sorcerer', 'wizard'],
-    archetype: 'Druid: Mountain',
+    archetype: {
+      druid: ['mountain'],
+    },
     circles: 'Mountain',
   },
   {
@@ -3514,7 +3638,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Transmutation',
     class: ['cleric', 'paladin', 'wizard'],
-    archetype: 'Cleric: War',
+    archetype: {
+      cleric: ['war'],
+    },
     domains: 'War',
   },
   {
@@ -3626,7 +3752,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Transmutation',
     class: ['cleric', 'druid', 'ritual caster'],
-    archetype: 'Druid: Mountain',
+    archetype: {
+      druid: ['mountain'],
+    },
     circles: 'Mountain',
   },
   {
@@ -3645,7 +3773,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Evocation',
     class: ['druid', 'wizard'],
-    archetype: 'Druid: Swamp',
+    archetype: {
+      druid: ['swamp'],
+    },
     circles: 'Swamp',
   },
   {
@@ -3748,7 +3878,10 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Illusion',
     class: ['cleric', 'druid', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Trickery<br/> Druid: Coast',
+    archetype: {
+      cleric: ['trickery'],
+      druid: ['coast'],
+    },
     domains: 'Trickery',
     circles: 'Coast',
   },
@@ -3779,7 +3912,10 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Conjuration',
     class: ['druid', 'paladin', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Druid: Coast<br/> Paladin: Ancients, Vengeance',
+    archetype: {
+      druid: ['coast'],
+      paladin: ['ancients', 'vengeance'],
+    },
     circles: 'Coast',
     oaths: 'Ancients, Vengeance',
   },
@@ -3798,7 +3934,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Enchantment',
     class: ['bard', 'cleric', 'wizard'],
-    archetype: 'Cleric: Trickery',
+    archetype: {
+      cleric: ['trickery'],
+    },
     domains: 'Trickery',
   },
   {
@@ -3818,7 +3956,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Evocation',
     class: ['druid', 'paladin'],
-    archetype: 'Paladin: Ancients',
+    archetype: {
+      paladin: ['ancients'],
+    },
     oaths: 'Ancients',
   },
   {
@@ -3918,7 +4058,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Abjuration',
     class: ['bard', 'cleric', 'ranger', 'wizard'],
-    archetype: 'Cleric: Knowledge',
+    archetype: {
+      cleric: ['knowledge'],
+    },
     domains: 'Knowledge',
   },
   {
@@ -3997,7 +4139,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Abjuration',
     class: ['cleric', 'druid', 'ranger'],
-    archetype: 'Cleric: Trickery',
+    archetype: {
+      cleric: ['trickery'],
+    },
     domains: 'Trickery',
     circles: 'Grassland',
   },
@@ -4015,7 +4159,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Transmutation',
     class: ['druid', 'wizard'],
-    archetype: 'Druid: Mountain',
+    archetype: {
+      druid: ['mountain'],
+    },
     circles: 'Mountain',
   },
   {
@@ -4032,7 +4178,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Illusion',
     class: ['bard', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Warlock: Archfey, Great Old One',
+    archetype: {
+      warlock: ['archfey', 'greatOldOne'],
+    },
     patrons: 'Archfey, Great Old One',
   },
   {
@@ -4125,7 +4273,11 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Transmutation',
     class: ['bard', 'cleric', 'druid', 'paladin', 'ranger', 'warlock'],
-    archetype: 'Cleric: Nature<br/> Paladin: Ancients<br/> Warlock: Archfey',
+    archetype: {
+      cleric: ['nature'],
+      paladin: ['ancients'],
+      warlock: ['archfey'],
+    },
     domains: 'Nature',
     circles: 'Forest',
     oaths: 'Ancients',
@@ -4159,7 +4311,9 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Transmutation',
     class: ['bard', 'cleric', 'druid', 'sorcerer', 'wizard'],
-    archetype: 'Cleric: Trickery',
+    archetype: {
+      cleric: ['trickery'],
+    },
     domains: 'Trickery',
   },
   {
@@ -4319,7 +4473,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Abjuration',
     class: ['cleric', 'druid', 'paladin', 'ranger', 'sorcerer', 'wizard'],
-    archetype: 'Paladin: Ancients, Vengeance',
+    archetype: {
+      paladin: ['ancients', 'vengeance'],
+    },
     circles: 'Desert',
     oaths: 'Ancients, Vengeance',
   },
@@ -4592,7 +4748,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Abjuration',
     class: ['cleric', 'paladin'],
-    archetype: 'Paladin: Devotion',
+    archetype: {
+      paladin: ['devotion'],
+    },
     oaths: 'Devotion',
   },
   {
@@ -4610,7 +4768,10 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Evocation',
     class: ['cleric', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Light<br/> Warlock: Fiend',
+    archetype: {
+      cleric: ['light'],
+      warlock: ['fiend'],
+    },
     domains: 'Light',
     patrons: 'Fiend',
   },
@@ -4629,7 +4790,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Divination',
     class: ['bard', 'cleric', 'druid', 'paladin', 'warlock', 'wizard'],
-    archetype: 'Paladin: Vengeance',
+    archetype: {
+      paladin: ['vengeance'],
+    },
     domains: 'Knowledge, Light',
     circles: 'Coast, Swamp',
     oaths: 'Vengeance',
@@ -4678,7 +4841,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Illusion',
     class: ['bard', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Warlock: Archfey',
+    archetype: {
+      warlock: ['archfey'],
+    },
     patrons: 'Archfey',
   },
   {
@@ -4695,7 +4860,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Evocation',
     class: ['bard', 'cleric', 'warlock', 'wizard'],
-    archetype: 'Warlock: Great Old One',
+    archetype: {
+      warlock: ['greatOldOne'],
+    },
     patrons: 'Great Old One',
   },
   {
@@ -4746,7 +4913,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Evocation',
     class: ['bard', 'cleric', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Tempest',
+    archetype: {
+      cleric: ['tempest'],
+    },
     domains: 'Tempest',
   },
   {
@@ -4821,7 +4990,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Illusion',
     class: ['bard', 'cleric', 'druid', 'ranger', 'ritual caster'],
-    archetype: 'Druid: Desert',
+    archetype: {
+      druid: ['desert'],
+    },
     circles: 'Desert',
   },
   {
@@ -4871,7 +5042,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Enchantment',
     class: ['bard', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Warlock: Archfey',
+    archetype: {
+      warlock: ['archfey'],
+    },
     patrons: 'Archfey',
   },
   {
@@ -4888,7 +5061,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Conjuration',
     class: ['cleric', 'druid', 'sorcerer', 'wizard'],
-    archetype: 'Cleric: Tempest',
+    archetype: {
+      cleric: ['tempest'],
+    },
     domains: 'Tempest',
     circles: 'Arctic',
   },
@@ -4906,7 +5081,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Transmutation',
     class: ['druid', 'sorcerer', 'wizard'],
-    archetype: 'Druid: Arctic',
+    archetype: {
+      druid: ['arctic'],
+    },
     circles: 'Arctic',
   },
   {
@@ -4936,7 +5113,10 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Divination',
     class: ['bard', 'cleric', 'druid', 'paladin', 'ranger', 'ritual caster'],
-    archetype: 'Cleric: Nature<br/> Paladin: Ancients',
+    archetype: {
+      cleric: ['nature'],
+      paladin: ['ancients'],
+    },
     domains: 'Nature',
     oaths: 'Ancients',
   },
@@ -4984,7 +5164,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Transmutation',
     class: ['druid', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Druid: Forest, Mountain, Underdark',
+    archetype: {
+      druid: ['forest', 'mountain', 'underdark'],
+    },
     circles: 'Forest, Mountain, Underdark',
   },
   {
@@ -5001,7 +5183,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Transmutation',
     class: ['cleric', 'druid', 'ranger'],
-    archetype: 'Cleric: Nature',
+    archetype: {
+      cleric: ['nature'],
+    },
     domains: 'Nature',
     circles: 'Arctic, Mountain',
   },
@@ -5068,7 +5252,10 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Conjuration',
     class: ['bard', 'druid', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Druid: Swamp, Underdark<br/> Warlock: Fiend',
+    archetype: {
+      druid: ['swamp', 'underdark'],
+      warlock: ['fiend'],
+    },
     circles: 'Swamp, Underdark',
     patrons: 'Fiend',
   },
@@ -5103,7 +5290,10 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Abjuration',
     class: ['cleric', 'druid', 'paladin', 'ranger', 'sorcerer', 'wizard'],
-    archetype: 'Cleric: War<br/> Paladin: Ancients',
+    archetype: {
+      cleric: ['war'],
+      paladin: ['ancients'],
+    },
     domains: 'War',
     circles: 'Mountain',
     oaths: 'Ancients',
@@ -5137,7 +5327,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Enchantment',
     class: ['bard', 'cleric', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Knowledge',
+    archetype: {
+      cleric: ['knowledge'],
+    },
     domains: 'Knowledge',
   },
   {
@@ -5215,7 +5407,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Enchantment',
     class: ['bard', 'warlock', 'wizard'],
-    archetype: 'Warlock: Great Old One',
+    archetype: {
+      warlock: ['greatOldOne'],
+    },
     patrons: 'Great Old One',
   },
   {
@@ -5231,7 +5425,9 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Transmutation',
     class: ['sorcerer', 'warlock', 'wizard'],
-    archetype: 'Warlock: Great Old One',
+    archetype: {
+      warlock: ['greatOldOne'],
+    },
     patrons: 'Great Old One',
   },
   {
@@ -5352,7 +5548,9 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Evocation',
     class: ['bard', 'cleric', 'druid', 'sorcerer', 'wizard'],
-    archetype: 'Cleric: Tempest',
+    archetype: {
+      cleric: ['tempest'],
+    },
     domains: 'Tempest',
   },
   {
@@ -5425,7 +5623,10 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Conjuration',
     class: ['cleric', 'druid', 'paladin', 'ranger'],
-    archetype: 'Cleric: Nature<br/> Paladin: Ancients',
+    archetype: {
+      cleric: ['nature'],
+      paladin: ['ancients'],
+    },
     domains: 'Nature',
     circles: 'Forest',
     oaths: 'Ancients',
@@ -5566,7 +5767,10 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Evocation',
     class: ['cleric', 'druid', 'sorcerer', 'warlock', 'wizard'],
-    archetype: 'Cleric: Light<br/> Warlock: Fiend',
+    archetype: {
+      cleric: ['light'],
+      warlock: ['fiend'],
+    },
     domains: 'Light',
     patrons: 'Fiend',
   },
@@ -5696,7 +5900,9 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Conjuration',
     class: ['druid', 'sorcerer', 'wizard'],
-    archetype: 'Druid: Underdark',
+    archetype: {
+      druid: ['underdark'],
+    },
     circles: 'Underdark',
   },
   {
@@ -5742,7 +5948,9 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Evocation',
     class: ['cleric', 'druid', 'ranger'],
-    archetype: 'Cleric: Nature',
+    archetype: {
+      cleric: ['nature'],
+    },
     domains: 'Nature',
   },
   {

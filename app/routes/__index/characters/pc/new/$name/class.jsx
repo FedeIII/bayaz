@@ -67,7 +67,7 @@ export const action = async ({ request }) => {
       ...pc.proficientItems,
       ...items.map(itemName => pcItem(itemName)),
     ];
-  if (patron) pcAttrs.classAttrs.patron = patron;
+  if (patron) pcAttrs.classAttrs.warlock = { patron };
   if (divineDomain) pcAttrs.classAttrs.divineDomain = divineDomain;
   if (clericSkills.length) pcAttrs.classAttrs.skills = clericSkills;
   if (favoredEnemy || favoredEnemyHumanoids.length) {

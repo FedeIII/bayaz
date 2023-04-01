@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 
 import styles from '~/components/characters.module.css';
+import { translatePatron } from '~/domain/classes/warlock/warlock';
+import { translateSpell } from '~/domain/spells/spells';
 import {
+  getSpellPatrons,
   getWarlockSpellSlots,
   getWarlockTotalSpells,
-  WARLOCK_SPELLS
-} from "~/domain/spells/warlock";
+  isSpellFrom,
+  WARLOCK_SPELLS,
+} from '~/domain/spells/warlock';
 
 function WarlockSkills(props) {
   const { pc, setSkillsNamespace } = props;
@@ -34,6 +38,7 @@ function WarlockSkills(props) {
           <input
             type="radio"
             name="patron"
+            id="archfey"
             value="archfey"
             onChange={e => setSelectedPatron(e.target.value)}
           />
@@ -43,6 +48,7 @@ function WarlockSkills(props) {
           <input
             type="radio"
             name="patron"
+            id="fiend"
             value="fiend"
             onChange={e => setSelectedPatron(e.target.value)}
           />
@@ -52,6 +58,7 @@ function WarlockSkills(props) {
           <input
             type="radio"
             name="patron"
+            id="greatOldOne"
             value="greatOldOne"
             onChange={e => setSelectedPatron(e.target.value)}
           />
@@ -73,6 +80,7 @@ function WarlockSkills(props) {
                 type="checkbox"
                 name="spells[]"
                 checked={!!selectedSpells0[i]}
+                id={spell.name}
                 value={spell.name}
                 onChange={() =>
                   setSelectedSpells0(oldChecks => {
@@ -82,7 +90,7 @@ function WarlockSkills(props) {
                   })
                 }
               />
-              {spell.translation}
+              {translateSpell(spell.name)}
             </label>
           ))}
       </p>
@@ -91,7 +99,9 @@ function WarlockSkills(props) {
         Conoces {totalSpells} conjuros de nivel 1 de brujo:{' '}
         {Object.values(WARLOCK_SPELLS)
           .filter(
-            s => s.level === 1 && (!s.subtype || s.subtype === selectedPatron)
+            s =>
+              s.level === 1 &&
+              (!getSpellPatrons(s).length || isSpellFrom(s, selectedPatron))
           )
           .map((spell, i) => (
             <label
@@ -103,6 +113,7 @@ function WarlockSkills(props) {
                 type="checkbox"
                 name="spells[]"
                 checked={!!selectedSpells1[i]}
+                id={spell.name}
                 value={spell.name}
                 onChange={() =>
                   setSelectedSpells1(oldChecks => {
@@ -112,7 +123,10 @@ function WarlockSkills(props) {
                   })
                 }
               />
-              {spell.translation}
+              {translateSpell(spell.name)}{' '}
+              {selectedPatron && isSpellFrom(spell, selectedPatron) && (
+                <>({translatePatron(selectedPatron)})</>
+              )}
             </label>
           ))}
       </p>

@@ -22,8 +22,9 @@ import {
   getAllSimpleRanged,
   translateDamage,
 } from './equipment/weapons';
-import { displayBardTrait } from './classes/bard/bard';
-import { displayBarbarianTrait } from './classes/barbarian/barbarian';
+import { displayBardTrait } from './classes/bard/displayBardTrait';
+import { displayBarbarianTrait } from './classes/barbarian/displayBarbarianTrait';
+import { displayWarlockTrait } from './classes/warlock/displayWarlockTrait';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -420,6 +421,10 @@ export function displayTrait(traitName, trait, pc) {
   const bardDisplay = displayBardTrait(traitName, trait, pc);
   if (bardDisplay) return bardDisplay;
   else if (bardDisplay === false) return null;
+
+  const warlockDisplay = displayWarlockTrait(traitName, trait, pc);
+  if (warlockDisplay) return warlockDisplay;
+  else if (warlockDisplay === false) return null;
 
   return trait;
 }

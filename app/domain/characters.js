@@ -33,8 +33,9 @@ import {
 } from './equipment/weapons';
 import { SKILLS_EXPLANATION } from './skillsExplanation';
 import { getSorcererOrigin, SORCERER_ORIGIN } from './sorcerer';
-import { PATRONS } from './warlock';
+import { PATRONS } from './classes/warlock/warlock';
 import random from '~/domain/random';
+import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExplanation';
 
 export const RACES = {
   dwarf: {
@@ -834,6 +835,25 @@ export const CLASSES = {
     spellcastingAbility: 'cha',
     statImprove: [4, 8, 12, 16, 19],
     leveling: {
+      1: {
+        patron: {
+          archfey: {
+            traits: {
+              feyPresence: 'Presencia Feérica',
+            },
+          },
+          fiend: {
+            traits: {
+              darkOnesBlessing: 'Bendición del Oscuro',
+            },
+          },
+          greatOldOne: {
+            traits: {
+              awakenedMind: 'Mente Despierta',
+            },
+          },
+        },
+      },
       2: {},
     },
   },
@@ -1573,6 +1593,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...BACKGROUND_SKILLS_EXPLANATION,
       ...BARBARIAN_SKILLS_EXPLANATION,
       ...BARD_SKILLS_EXPLANATION,
+      ...WARLOCK_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }
