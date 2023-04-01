@@ -62,6 +62,7 @@ npx prisma migrate dev
   - track usages of bardic inspiration
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
+- Temporary HP (just edit manually)
 - dediplicate items in item proficiencies and in treasure inventory
 - Bardic Inspiration die
 - Gain extra HP (con and others) on level up

@@ -1,4 +1,6 @@
-import { getSpellSavingThrow } from "~/domain/spells/spells";
+import { getStat, getStatMod } from '~/domain/characters';
+import { increment } from '~/domain/display';
+import { getSpellSavingThrow } from '~/domain/spells/spells';
 
 export const WARLOCK_SKILLS_EXPLANATION = {
   feyPresence: (skill, pc) => (
@@ -17,5 +19,26 @@ export const WARLOCK_SKILLS_EXPLANATION = {
         finalices un descanso corto o prolongado.
       </p>
     </>
+  ),
+
+  darkOnesBlessing: (skill, pc) => (
+    <p>
+      Comenzando en el nivel 1 cuando reduces los Puntos de Golpe de una
+      criatura hostil a 0, ganas{' '}
+      {increment(getStatMod(getStat(pc, 'cha')) + pc.level)} Puntos de Golpe
+      temporales equivalentes a tu modificador de Carisma + tu nivel de brujo
+      (con un mínimo de 1).
+    </p>
+  ),
+
+  awakenedMind: (skill, pc) => (
+    <p>
+      Comenzando en el nivel 1 tu conocimiento exterior te da la habilidad de
+      tocar las mentes de otras criaturas. Puedes comunicarte telepáticamente
+      con cualquier criatura que puedas ver en un rango de 30 pies (9 metros) de
+      ti. No necesitas compartir un idioma con la criatura para que comprenda tu
+      mensaje telepático, pero la criatura debe ser capaz de comprender al menos
+      un idioma.
+    </p>
   ),
 };

@@ -33,38 +33,71 @@ function WarlockSkills(props) {
   return (
     <>
       <p>
-        Firma un pacto con un ser de otro mundo:{' '}
-        <label htmlFor="archfey" className={styles.skillLabel}>
-          <input
-            type="radio"
+        <label>
+          <span className={styles.paleText}>
+            Firma un pacto con un ser de otro mundo:
+          </span>{' '}
+          <select
             name="patron"
-            id="archfey"
-            value="archfey"
+            defaultValue=""
+            className={cardStyles.buttonCard}
             onChange={e => setSelectedPatron(e.target.value)}
-          />
-          El Archihada
-        </label>
-        <label htmlFor="fiend" className={styles.skillLabel}>
-          <input
-            type="radio"
-            name="patron"
-            id="fiend"
-            value="fiend"
-            onChange={e => setSelectedPatron(e.target.value)}
-          />
-          El Diablo
-        </label>
-        <label htmlFor="greatOldOne" className={styles.skillLabel}>
-          <input
-            type="radio"
-            name="patron"
-            id="greatOldOne"
-            value="greatOldOne"
-            onChange={e => setSelectedPatron(e.target.value)}
-          />
-          El Gran Antiguo
+          >
+            <option value="" disabled></option>
+            <option value="archfey">El Archihada</option>
+            <option value="fiend">El Diablo</option>
+            <option value="greatOldOne">El Gran Antiguo</option>
+          </select>
         </label>
       </p>
+
+      {selectedPatron === 'archfey' && (
+        <p>
+          Tu patrón es un noble entre los feéricos. Una criatura de leyenda,
+          poseedora de secretos que fueron olvidados antes de que las razas
+          mortales nacieran. Las motivaciones de este ser son a menudo
+          inescrutables, y a veces caprichosas, y podrían involucrar la
+          obtención de mayor poder mágico o reparar antiguos rencores. Los seres
+          de este tipo incluyen al Príncipe del Frío; la Reina del Aire y la
+          Oscuridad, soberana de la Corte Crepuscular; Titania de la Corte del
+          Verano; su consorte Oberon, el Señor Verde; Hyrsam, el Príncipe de los
+          Tontos; y antiguas brujas.
+        </p>
+      )}
+      {selectedPatron === 'fiend' && (
+        <p>
+          Has realizado un pacto con un diablo de los planos inferiores de
+          existencia, un ser cuyas metas son malvadas, incluso si peleas contra
+          esas metas. Tales seres desean la corrupción o destrucción de todas
+          las cosas, incluyéndote a ti. Los diablos con suficiente poder para
+          firmar un pacto incluyen señores demoníacos como Demogorgon, Orcus,
+          Fraz’Urb-luu y Baphomet; Archidiablos como Asmodeo, Dispater,
+          Mefistófeles y Belial; diablos del foso y balors que sean
+          especialmente poderosos; y ultroloths y otros señores de los
+          yugoloths.
+        </p>
+      )}
+      {selectedPatron === 'greatOldOne' && (
+        <>
+          <p>
+            Tu patrón es una misteriosa entidad cuya naturaleza es totalmente
+            ajena al tejido de la realidad. Podría venir del Reino Lejano, el
+            espacio más allá de la realidad, o ser uno de los dioses antiguos,
+            sólo conocidos en las leyendas. Sus motivos son incomprensibles para
+            los mortales, y su conocimiento, tan inmenso y antiguo, que incluso
+            las mayores bibliotecas palidecen en comparación a los vastos
+            secretos que guardan estos seres. El Gran Antiguo podría no ser
+            consciente de tu existencia, o ser totalmente indiferente a esta,
+            pero los secretos que aprendiste te permiten tomar tu magia de él.
+          </p>
+          <p>
+            Entidades de este tipo incluyen a Ghaunadar, llamado El Que se
+            Esconde; Tharizdun, el Dios Encadenado; Dendar, la Serpiente
+            Nocturna; Zargon, el Retornante; el Gran Cthulhu; y otros seres
+            insondables.
+          </p>
+        </>
+      )}
 
       <p>
         Conoces {spellSlots[0]} trucos de brujo:{' '}
