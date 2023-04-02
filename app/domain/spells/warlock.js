@@ -130,4 +130,3 @@ export function hasNewWarlockSpells(pc) {
 
   return !(newCantrips || newSpells);
 }
-

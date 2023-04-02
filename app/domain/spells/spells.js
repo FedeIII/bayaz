@@ -51,7 +51,12 @@ import {
   getWizardTotalSpells,
   WIZARD_SPELLS,
 } from './wizard';
-import { getKnownSpells, getSpell } from './getSpells';
+import {
+  getAllPcSpells,
+  getKnownCantrips,
+  getKnownSpells,
+  getSpell,
+} from './getSpells';
 import { SPELL_TRANSLATIONS } from './spellTranslations';
 import { SPELL_LIST } from './spellList';
 import {
@@ -60,6 +65,11 @@ import {
   getLoreSpells,
   getMagicalSecretsSpells,
 } from '../classes/bard/bard';
+import {
+  getInvocation,
+  getInvocations,
+  getInvocationsSpells,
+} from '../classes/warlock/warlock';
 
 const zero = () => 0;
 
@@ -209,14 +219,9 @@ export function getSpellSavingThrow(pc, spellType) {
 }
 
 export function divideSpells(pc) {
-  const { spells } = pc;
-
-  const loreSpells = getLoreSpells(pc);
-  const magicalSecretsSpells = getMagicalSecretsSpells(pc);
-
-  return [...spells, ...loreSpells, ...magicalSecretsSpells].reduce(
+  return [...getKnownCantrips(pc), ...getAllPcSpells(pc)].reduce(
     (spellsByLevel, pSpell) => {
-      const spell = getSpell(pSpell.name, pSpell.type);
+      const spell = getSpell(pSpell.name);
       if (typeof spell?.level === 'number') {
         spellsByLevel[spell.level] = [...spellsByLevel[spell.level], spell];
       }
@@ -229,7 +234,15 @@ export function divideSpells(pc) {
 export function isPreparedSpell(pc, spellName) {
   const { preparedSpells } = pc;
 
-  return !!preparedSpells.find(spell => spell.name === spellName);
+  const preparedInvocationSpells = getInvocations(pc)
+    .map(getInvocation)
+    .filter(s => s.preparedSpell)
+    .map(s => s.spell)
+    .map(getSpell);
+
+  return !![...preparedSpells, ...preparedInvocationSpells].find(
+    spell => spell.name === spellName
+  );
 }
 
 export function getNewSpellsAmount(pc) {

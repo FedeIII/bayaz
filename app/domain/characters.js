@@ -33,7 +33,7 @@ import {
 } from './equipment/weapons';
 import { SKILLS_EXPLANATION } from './skillsExplanation';
 import { getSorcererOrigin, SORCERER_ORIGIN } from './sorcerer';
-import { PATRONS } from './classes/warlock/warlock';
+import { PATRONS, getInvocationsSkills } from './classes/warlock/warlock';
 import random from '~/domain/random';
 import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExplanation';
 
@@ -854,7 +854,11 @@ export const CLASSES = {
           },
         },
       },
-      2: {},
+      2: {
+        traits: {
+          eldritchInvocations: 'Invocaciones Sobrenaturales',
+        },
+      },
     },
   },
   wizard: {
@@ -1128,6 +1132,7 @@ export function getSkills(pc) {
       ...(pc.classAttrs?.skills || []),
       ...(pc.background?.skills || []),
       ...getLoreCollegeProficiencies(pc),
+      ...getInvocationsSkills(pc),
     ]),
   ];
 }

@@ -1,6 +1,5 @@
 import { Link } from '@remix-run/react';
 
-import styles from '~/components/modal/inventoryItem.module.css';
 import {
   CLASSES,
   getExpertSkills,
@@ -14,6 +13,8 @@ import {
   getLoreCollegeProficiencies,
   hasToLearnMagicalSecretsSpells,
 } from './bard';
+
+import styles from '~/components/modal/inventoryItem.module.css';
 
 export const BARD_SKILLS_EXPLANATION = {
   bardicInspiration: (skill, pc) => (

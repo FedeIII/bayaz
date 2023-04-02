@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
-import { SkillModalContent, SpellModalContent } from './skillModal';
+import {
+  SkillModalContent,
+  SpellModalContent,
+  InvocationModalContent,
+} from './skillModal';
 
 export function useSkillItems(pc, skillRefs) {
   const [skillModalContent, setSkillModalContent] = useState(null);
@@ -17,6 +21,12 @@ export function useSkillItems(pc, skillRefs) {
             () => props =>
               skill === 'spell' ? (
                 <SpellModalContent pc={pc} spellName={skillName} />
+              ) : skill === 'invocation' ? (
+                <InvocationModalContent
+                  pc={pc}
+                  skillName={skillName}
+                  skill={skill}
+                />
               ) : (
                 <SkillModalContent
                   pc={pc}

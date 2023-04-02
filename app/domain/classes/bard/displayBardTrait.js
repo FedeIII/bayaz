@@ -4,9 +4,9 @@ import {
   getStatMod,
   hasToSelectExpertSkills
 } from '../../characters';
-import sheetStyles from '~/components/sheet.module.css';
 import { getBardCollege, getLoreCollegeProficiencies, getLoreSpells, hasToLearnMagicalSecretsSpells } from './bard';
 
+import sheetStyles from '~/components/sheet.module.css';
 
 export function displayBardTrait(traitName, trait, pc) {
   switch (traitName) {

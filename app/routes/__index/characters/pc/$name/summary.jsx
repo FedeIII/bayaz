@@ -87,8 +87,10 @@ import {
   translateBardCollege,
 } from '~/domain/classes/bard/bard';
 import {
+  getInvocations,
   getWarlockPatron,
   getWarlockPatronTraits,
+  hasToSelectInvocations,
   translatePatron,
 } from '~/domain/classes/warlock/warlock';
 
@@ -347,11 +349,13 @@ function PcSummary() {
   ] = useInventoryItems(pc, itemRefs, actionModalContent);
 
   const traits = getTraits(pc);
+  const invocations = getInvocations(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
     spells: [useRef()],
     traits: traits.map(() => useRef()),
+    invocations: invocations.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -835,10 +839,34 @@ function PcSummary() {
             </li>
           )}
 
+          {!!invocations.length && !hasToSelectInvocations(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                Invocaciones Sobrenaturales{' '}
+                {hasToSelectInvocations(pc) && (
+                  <span className={styles.pendingTrait}>(!)</span>
+                )}
+              </strong>
+              <ul>
+                {invocations.map((invocationName, i) => (
+                  <li className={styles.traitLabel} key={invocationName}>
+                    <SkillItem
+                      ref={skillRefs.invocations[i]}
+                      traitName={invocationName}
+                      trait="invocation"
+                      pc={pc}
+                      openModal={openSkillModal('invocations', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
           {!!getWarlockPatron(pc) && (
             <li className={styles.traitLabel}>
               <strong className={styles.trait}>
-                Colegio del {translatePatron(getWarlockPatron(pc))}
+                Pacto con {translatePatron(getWarlockPatron(pc))}
               </strong>
               <ul>
                 {getWarlockPatronTraits(pc).map(([traitName, trait], i) => (

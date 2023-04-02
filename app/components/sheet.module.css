@@ -288,7 +288,7 @@
 .wisProf {
   grid-area: wiP;
   transform: rotate(45deg);
-  margin: 6px 0px 0px 4px;
+  margin: 4px 0px 0px 4px;
   align-items: flex-start;
 }
 

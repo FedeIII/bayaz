@@ -1,4 +1,5 @@
 import { getLoreSpells, getMagicalSecretsSpells } from '../classes/bard/bard';
+import { getInvocationsSpells } from '../classes/warlock/warlock';
 import { SPELL_LIST } from './spellList';
 
 export function getSpell(spellName, spellClass) {
@@ -38,9 +39,10 @@ export function getAllPcSpells(pc) {
 
   const loreSpells = getLoreSpells(pc);
   const magicalSecretsSpells = getMagicalSecretsSpells(pc);
+  const invocationsSpells = getInvocationsSpells(pc);
 
   return (
-    [...spells, ...loreSpells, ...magicalSecretsSpells]
+    [...spells, ...loreSpells, ...magicalSecretsSpells, ...invocationsSpells]
       .map(pSpell => getSpell(pSpell.name, pSpell.type))
       .filter(spell => spell.level > 0) || []
   );

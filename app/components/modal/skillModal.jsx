@@ -3,8 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
 import { displayTrait } from '~/domain/display';
 import { getSkillExplanation, translateClass } from '~/domain/characters';
-
-import styles from './inventoryItem.module.css';
 import { translateSpell } from '~/domain/spells/spells';
 import { getSpell } from '~/domain/spells/getSpells';
 import {
@@ -12,6 +10,10 @@ import {
   translateRange,
   translateSchool,
 } from '~/domain/spells/spellTranslations';
+import { getInvocationExplanation } from '~/domain/classes/warlock/warlockSkillsExplanation';
+import { getInvocation } from '~/domain/classes/warlock/warlock';
+
+import styles from './inventoryItem.module.css';
 
 const MODAL_VERTICAL_OFFSET = 100;
 const MODAL_HORIZONTAL_OFFSET_RIGHT = 50;
@@ -123,6 +125,20 @@ export function SpellModalContent(props) {
           />
         )}
       </div>
+    </>
+  );
+}
+
+export function InvocationModalContent(props) {
+  const { pc, skillName, skill } = props;
+
+  const invocationTitle = getInvocation(skillName).translation;
+  const invocationExplanation = getInvocationExplanation(skillName, skill, pc);
+
+  return (
+    <>
+      <h3 className={styles.modalTitle}>{invocationTitle}</h3>
+      <div className={styles.modalContentText}>{invocationExplanation}</div>
     </>
   );
 }

@@ -24,6 +24,7 @@ import { replaceAt } from '~/utils/insert';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
+import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
 
 import styles from '~/components/checkbox.module.css';
 import appStyles from '~/components/app.module.css';
@@ -66,7 +67,12 @@ function NewSpells() {
     getNewSpellsAmount(pc)
   );
 
-  const knownSpells = getAllPcSpells(pc);
+  const knownSpells = getAllPcSpells(pc).filter(
+    spell =>
+      !getInvocationsSpells(pc)
+        .map(s => s.name)
+        .includes(spell.name)
+  );
   const allCantrips = getClassSpells(pc)
     .filter(spell => spell.level === 0)
     .filter(

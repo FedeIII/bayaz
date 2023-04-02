@@ -20,11 +20,12 @@ import {
   hasToPrepareSpells,
   isPreparedSpell,
 } from '~/domain/spells/spells';
-
-import styles from '~/components/spells.module.css';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
+import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
+
+import styles from '~/components/spells.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -118,6 +119,8 @@ function PcSpells() {
   ] = useSkillItems(pc, skillRefs);
 
   const formRef = useRef(null);
+
+  const invocationsSpells = getInvocationsSpells(pc);
 
   return (
     <>
@@ -214,7 +217,10 @@ function PcSpells() {
                     traitName={spell.name}
                     trait="spell"
                     openModal={openSkillModal(level, i)}
-                  />
+                  />{' '}
+                  {invocationsSpells.map(s => s.name).includes(spell.name) && (
+                    <> (Invocación)</>
+                  )}
                 </li>
               ))}
             </ul>
