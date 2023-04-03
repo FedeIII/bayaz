@@ -594,7 +594,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['fiend'],
     },
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'blink',
@@ -614,7 +614,7 @@ export const SPELL_LIST = [
       warlock: ['archfey'],
     },
     domains: 'Trickery',
-    patrons: 'Archfey',
+    patrons: ['archfey'],
   },
   {
     name: 'blur',
@@ -670,7 +670,7 @@ export const SPELL_LIST = [
       warlock: ['fiend'],
     },
     domains: 'Light',
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'callLightning',
@@ -709,7 +709,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['archfey'],
     },
-    patrons: 'Archfey',
+    patrons: ['archfey'],
   },
   {
     name: 'chainLightning',
@@ -829,7 +829,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['greatOldOne'],
     },
-    patrons: 'Great Old One',
+    patrons: ['greatOldOne'],
   },
   {
     name: 'clone',
@@ -921,7 +921,7 @@ export const SPELL_LIST = [
       warlock: ['fiend'],
     },
     domains: 'Knowledge',
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'commune',
@@ -1619,7 +1619,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['greatOldOne'],
     },
-    patrons: 'Great Old One',
+    patrons: ['greatOldOne'],
   },
   {
     name: 'dimensionDoor',
@@ -1738,7 +1738,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['greatOldOne'],
     },
-    patrons: 'Great Old One',
+    patrons: ['greatOldOne'],
   },
   {
     name: 'divination',
@@ -1812,7 +1812,7 @@ export const SPELL_LIST = [
       warlock: ['archfey', 'greatOldOne'],
     },
     domains: 'Nature',
-    patrons: 'Archfey, Great Old One',
+    patrons: ['archfey', 'greatOldOne'],
   },
   {
     name: "drawmij'sInstantSummons",
@@ -1865,7 +1865,7 @@ export const SPELL_LIST = [
       warlock: ['archfey', 'greatOldOne'],
     },
     domains: 'Trickery',
-    patrons: 'Archfey, Great Old One',
+    patrons: ['archfey', 'greatOldOne'],
   },
   {
     name: 'dream',
@@ -2059,7 +2059,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['greatOldOne'],
     },
-    patrons: 'Great Old One',
+    patrons: ['greatOldOne'],
   },
   {
     name: 'expeditiousRetreat',
@@ -2121,7 +2121,7 @@ export const SPELL_LIST = [
       warlock: ['archfey'],
     },
     domains: 'Light',
-    patrons: 'Archfey',
+    patrons: ['archfey'],
   },
   {
     name: 'falseLife',
@@ -2295,7 +2295,7 @@ export const SPELL_LIST = [
       warlock: ['fiend'],
     },
     domains: 'Light',
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'fireBolt',
@@ -2328,7 +2328,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['fiend'],
     },
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'fireStorm',
@@ -2383,7 +2383,7 @@ export const SPELL_LIST = [
     },
     domains: 'Light, War',
     oaths: 'Devotion',
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'flamingSphere',
@@ -2737,7 +2737,7 @@ export const SPELL_LIST = [
       warlock: ['archfey'],
     },
     circles: 'Underdark',
-    patrons: 'Archfey',
+    patrons: ['archfey'],
   },
   {
     name: 'greaterRestoration',
@@ -2872,7 +2872,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['fiend'],
     },
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'hallucinatoryTerrain',
@@ -4181,7 +4181,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['archfey', 'greatOldOne'],
     },
-    patrons: 'Archfey, Great Old One',
+    patrons: ['archfey', 'greatOldOne'],
   },
   {
     name: 'phantasmalKiller',
@@ -4281,7 +4281,7 @@ export const SPELL_LIST = [
     domains: 'Nature',
     circles: 'Forest',
     oaths: 'Ancients',
-    patrons: 'Archfey',
+    patrons: ['archfey'],
   },
   {
     name: 'poisonSpray',
@@ -4773,7 +4773,7 @@ export const SPELL_LIST = [
       warlock: ['fiend'],
     },
     domains: 'Light',
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'scrying',
@@ -4844,7 +4844,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['archfey'],
     },
-    patrons: 'Archfey',
+    patrons: ['archfey'],
   },
   {
     name: 'sending',
@@ -4863,7 +4863,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['greatOldOne'],
     },
-    patrons: 'Great Old One',
+    patrons: ['greatOldOne'],
   },
   {
     name: 'sequester',
@@ -5045,7 +5045,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['archfey'],
     },
-    patrons: 'Archfey',
+    patrons: ['archfey'],
   },
   {
     name: 'sleetStorm',
@@ -5257,7 +5257,7 @@ export const SPELL_LIST = [
       warlock: ['fiend'],
     },
     circles: 'Swamp, Underdark',
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'stoneShape',
@@ -5410,7 +5410,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['greatOldOne'],
     },
-    patrons: 'Great Old One',
+    patrons: ['greatOldOne'],
   },
   {
     name: 'telekinesis',
@@ -5428,7 +5428,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['greatOldOne'],
     },
-    patrons: 'Great Old One',
+    patrons: ['greatOldOne'],
   },
   {
     name: 'telepathy',
@@ -5772,7 +5772,7 @@ export const SPELL_LIST = [
       warlock: ['fiend'],
     },
     domains: 'Light',
-    patrons: 'Fiend',
+    patrons: ['fiend'],
   },
   {
     name: 'wallOfForce',

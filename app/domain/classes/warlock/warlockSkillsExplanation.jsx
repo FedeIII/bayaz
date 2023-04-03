@@ -208,6 +208,55 @@ export const WARLOCK_SKILLS_EXPLANATION = {
       </>
     );
   },
+
+  mistyEscape: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 6 puedes desvanecerte en una cortina de humo en
+        respuesta al daño. Cuando recibes daño, puedes usar tu reacción para
+        volverte invisible y teletransportarte hasta 60 pies (18 metros) hacia
+        un espacio desocupado que puedas ver. Permaneces invisible hasta el
+        comienzo de tu siguiente turno o hasta que ataques o lances un conjuro.
+      </p>
+      <p>
+        Una vez que usas este rasgo, no puedes usarlo nuevamente hasta que
+        finalices un descanso corto o prolongado.
+      </p>
+    </>
+  ),
+
+  darkOnesOwnLuck: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 6 puedes pedir a tu patrón que altere el destino en
+        tu favor. Cuando realizas una prueba de habilidad o una tirada de
+        salvación, puedes usar este rasgo para añadir un d10 a tu tirada. Puedes
+        hacerlo después de ver la tirada inicial, pero antes de que ocurran los
+        efectos de la tirada.
+      </p>
+      <p>
+        Una vez que usas este rasgo, no puedes usarlo de nuevo hasta que
+        finalices un descanso corto o prolongado.
+      </p>
+    </>
+  ),
+
+  entropicWard: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 6 aprendes a protegerte mágicamente contra un ataque
+        y devolver un golpe fallado de tu enemigo convirtiéndolo en un golpe de
+        suerte para ti. Cuando una criatura hace una tirada de ataque contra ti,
+        puedes usar tu reacción para imponerle desventaja en esa tirada. Si el
+        ataque falla, tu próxima tirada de ataque contra esa criatura tiene
+        ventaja si la realizas antes del final de tu siguiente turno.
+      </p>
+      <p>
+        Una vez que usas este rasgo, no puedes usarlo de nuevo hasta que
+        finalices un descanso corto o prolongado.
+      </p>
+    </>
+  ),
 };
 
 export function getInvocationExplanation(invocationName, invocationTitle, pc) {

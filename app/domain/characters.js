@@ -869,6 +869,25 @@ export const CLASSES = {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
         },
       },
+      6: {
+        patron: {
+          archfey: {
+            traits: {
+              mistyEscape: 'Escape Brumoso',
+            },
+          },
+          fiend: {
+            traits: {
+              darkOnesOwnLuck: 'Suerte del Oscuro',
+            },
+          },
+          greatOldOne: {
+            traits: {
+              entropicWard: 'Guardia Entrópica',
+            },
+          },
+        },
+      },
     },
   },
   wizard: {

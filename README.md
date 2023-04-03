@@ -60,6 +60,7 @@ npx prisma migrate dev
 - show all extra stat points in the improve stat screen
 - Bard:
   - track usages of bardic inspiration
+- Improve spell modal data
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
 - Temporary HP (just edit manually)

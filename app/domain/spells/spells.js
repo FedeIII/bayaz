@@ -19,6 +19,7 @@ import {
   getDruidSpellSlots,
 } from './druid';
 import {
+  getPatron,
   getWarlockCantripsNumber,
   getWarlockSpellSlots,
   getWarlockSpellSlotsLevel,
@@ -77,7 +78,10 @@ export function getClassSpells(pc) {
       ...getForgottenMagicalSecretsSpells(pc).map(s => getSpell(s.name)),
     ];
 
-  if (pClass == 'warlock') return WARLOCK_SPELLS;
+  if (pClass == 'warlock')
+    return WARLOCK_SPELLS.filter(
+      spell => !spell.patrons || spell.patrons.includes(getPatron(pc))
+    );
 
   return [];
 }
