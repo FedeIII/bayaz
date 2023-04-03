@@ -18,7 +18,11 @@ import {
   hasNewLevelSpells,
   maxSpellLevel,
 } from '~/domain/spells/spells';
-import { getAllPcSpells, getKnownCantrips } from '~/domain/spells/getSpells';
+import {
+  getAllPcSpells,
+  getKnownCantrips,
+  getKnownSpellsByLevel,
+} from '~/domain/spells/getSpells';
 import { Card } from '~/components/cards/card';
 import { replaceAt } from '~/utils/insert';
 import { SkillModal } from '~/components/modal/skillModal';
@@ -61,8 +65,6 @@ function NewSpells() {
 
   useTitle(`${translateClass(pClass)} nivel ${level}`);
 
-  const totalSpellsNumber = getTotalSpells(pc);
-
   const [newSpellsNumber, setNewSpellsNumber] = useState(
     getNewSpellsAmount(pc)
   );
@@ -73,6 +75,7 @@ function NewSpells() {
         .map(s => s.name)
         .includes(spell.name)
   );
+
   const allCantrips = getClassSpells(pc)
     .filter(spell => spell.level === 0)
     .filter(
@@ -81,10 +84,14 @@ function NewSpells() {
           .map(s => s.name)
           .includes(spell.name)
     );
-  const [cantripSlots, ...spellSlots] = getSpellSlots(pc);
+
+  // Known spells
+  const totalSpellsNumber = getTotalSpells(pc);
   const kwnonSpellLevels = [
     ...new Set(knownSpells.filter(s => s.level > 0).map(s => s.level)),
   ];
+  const knownSpellsByLevel = getKnownSpellsByLevel(pc);
+  // Known spells
 
   const [toForget, setToForget] = useState(
     kwnonSpellLevels.map(spellLevel =>
@@ -136,7 +143,9 @@ function NewSpells() {
 
   const [skillRefs, setSkillRefs] = useState({
     cantrips: allCantrips.map(() => useRef()),
+    // Known Spells
     known: knownSpells.map(() => useRef()),
+    // Known Spells
     ...spellsByLevel.map(spells => spells.map(() => useRef())),
   });
 
@@ -201,6 +210,7 @@ function NewSpells() {
         </>
       )}
 
+      {/* // Known Spells */}
       <h3>{totalSpellsNumber} conjuros conocidos</h3>
       <p>
         Puedes elegir uno de los conjuros de {translateClass(pClass)} que
@@ -208,58 +218,58 @@ function NewSpells() {
         {translateClass(pClass)} de hasta nivel {newSpellsMaxLevel}
       </p>
       <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
-        {spellSlots.map((slots, spellLevelIndex) => {
+        {knownSpellsByLevel.map((spells, spellLevelIndex) => {
           const spellLevel = spellLevelIndex + 1;
+          const slots = getSpellSlots(pc)[pc.level];
           return (
             <Card
               title={`Conjuros nivel ${spellLevel}`}
               className={cardStyles.scrollCard}
-              singleCard={kwnonSpellLevels.length === 1}
+              singleCard={knownSpellsByLevel.length === 1}
               key={spellLevel}
             >
-              <h4>({slots} Huecos)</h4>
+              {Array.isArray(slots) && <h4>({slots} Huecos)</h4>}
               <ul className={cardStyles.cardList}>
-                {knownSpells
-                  .filter(spell => spell.level === spellLevel)
-                  .map((spell, spellIndex) => (
-                    <li key={spell.name}>
-                      <label
-                        htmlFor={spell.name}
-                        className={`${styles.toRemove} ${
-                          toForget[spellLevel - 1]?.[spellIndex] &&
-                          styles.selectedToRemove
-                        }`}
-                      >
-                        <input
-                          hidden
-                          type="checkbox"
-                          id={spell.name}
-                          name="forget"
-                          value={spell.name}
-                          checked={toForget[spellLevel - 1]?.[spellIndex]}
-                          onChange={e =>
-                            setSpellToForget(
-                              spellLevel - 1,
-                              spellIndex,
-                              e.target.checked
-                            )
-                          }
-                        />
-                        <SkillItem
-                          ref={skillRefs.known[spellIndex]}
-                          traitName={spell.name}
-                          trait="spell"
-                          openModal={openSkillModal('known', spellIndex)}
-                          openOnRightClick
-                        />
-                      </label>
-                    </li>
-                  ))}
+                {spells.map((spell, spellIndex) => (
+                  <li key={spell.name}>
+                    <label
+                      htmlFor={spell.name}
+                      className={`${styles.toRemove} ${
+                        toForget[spellLevel - 1]?.[spellIndex] &&
+                        styles.selectedToRemove
+                      }`}
+                    >
+                      <input
+                        hidden
+                        type="checkbox"
+                        id={spell.name}
+                        name="forget"
+                        value={spell.name}
+                        checked={toForget[spellLevel - 1]?.[spellIndex]}
+                        onChange={e =>
+                          setSpellToForget(
+                            spellLevel - 1,
+                            spellIndex,
+                            e.target.checked
+                          )
+                        }
+                      />
+                      <SkillItem
+                        ref={skillRefs.known[spellIndex]}
+                        traitName={spell.name}
+                        trait="spell"
+                        openModal={openSkillModal('known', spellIndex)}
+                        openOnRightClick
+                      />
+                    </label>
+                  </li>
+                ))}
               </ul>
             </Card>
           );
         })}
       </div>
+      {/* // Known Spells */}
 
       {(hasNewLevelSpells(pc) || toForget.flat().some(v => v)) && (
         <>

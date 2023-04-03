@@ -41,11 +41,16 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get('name');
   const invocations = formData.getAll('invocations[]');
+  const forget = formData.get('forget');
+
   let pInvocations = formData.get('pInvocations');
   pInvocations = pInvocations ? pInvocations.split(',') : [];
+  if (forget) pInvocations = pInvocations.filter(invName => forget !== invName);
+
   await updateAttrsForClass(name, 'warlock', {
     invocations: [...pInvocations, ...invocations],
   });
+
   return redirect(`/characters/pc/${name}/summary`);
 };
 
@@ -56,12 +61,16 @@ function EldritchInvocations() {
 
   useTitle('Brujo nivel ' + pc.level);
 
-  const [selectedInvocations, setSelectedInvocations] = useState(invocations);
+  const [invocationToForget, setInvocationToForget] = useState(null);
+  const [selectedInvocations, setSelectedInvocations] = useState([]);
+
+  const numberOfInvocationsToSelect =
+    maxInvocations - (invocations.length - (invocationToForget ? 1 : 0));
 
   function changeSelectedInvocations(invocationName) {
     return e => {
       if (e.target.checked) {
-        if (selectedInvocations.length < maxInvocations)
+        if (selectedInvocations.length < numberOfInvocationsToSelect)
           setSelectedInvocations(old => [...old, invocationName]);
       } else {
         setSelectedInvocations(old =>
@@ -71,12 +80,25 @@ function EldritchInvocations() {
     };
   }
 
-  const [skillRefs, setSkillRefs] = useState(
-    Object.keys(INVOCATIONS).reduce(
+  function changeInvocationToForget(invocationName) {
+    return e => {
+      if (e.target.checked) setInvocationToForget(invocationName);
+      else {
+        setSelectedInvocations([]);
+        setInvocationToForget(null);
+      }
+    };
+  }
+
+  const [skillRefs, setSkillRefs] = useState({
+    // Known Invocations
+    known: invocations.map(() => useRef()),
+    // Known Invocations
+    ...Object.keys(INVOCATIONS).reduce(
       (refs, invName) => ({ ...refs, [invName]: [useRef()] }),
       {}
-    )
-  );
+    ),
+  });
 
   const [
     skillModalContent,
@@ -115,9 +137,52 @@ function EldritchInvocations() {
         para aprenderla. Puedes aprender la invocación en el mismo momento en
         que cumples sus prerrequisitos.
       </p>
+
+      {/* // Known Invocations */}
+      <h3>{invocations.length} invocaciones conocidas</h3>
+      <p>
+        Puedes elegir una invocación que conozcas y reemplazarla con otra
+        invocación que puedas aprender a ese nivel.
+      </p>
+      <div className={`${cardStyles.cards}`}>
+        <Card title="Invocaciones conocidas" singleCard>
+          <ul className={cardStyles.cardList}>
+            {invocations.map((invocationName, i) => (
+              <li key={invocationName}>
+                <label
+                  htmlFor={invocationName}
+                  className={`${styles.toRemove} ${
+                    invocationToForget === invocationName &&
+                    styles.selectedToRemove
+                  }`}
+                >
+                  <input
+                    hidden
+                    type="checkbox"
+                    id={invocationName}
+                    name="forget"
+                    value={invocationName}
+                    checked={invocationToForget === invocationName}
+                    onChange={changeInvocationToForget(invocationName)}
+                  />
+                  <SkillItem
+                    ref={skillRefs.known[i]}
+                    traitName={invocationName}
+                    trait="invocation"
+                    openModal={openSkillModal('known', i)}
+                    openOnRightClick
+                  />
+                </label>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </div>
+      {/* // Known Invocations */}
+
       <p>
         <h3 className={appStyles.paleText}>
-          Escoge {maxInvocations} invocaciones
+          Escoge {numberOfInvocationsToSelect} invocaciones
         </h3>
         <div className={`${cardStyles.cards}`}>
           <Card title={`Invocaciones nivel ${pc.level}`} singleCard>
@@ -126,6 +191,7 @@ function EldritchInvocations() {
                 .filter(invocationName =>
                   isInvocationAvailable(pc, invocationName)
                 )
+                .filter(invocationName => !invocations.includes(invocationName))
                 .map(invocationName => {
                   return (
                     <li key={invocationName}>

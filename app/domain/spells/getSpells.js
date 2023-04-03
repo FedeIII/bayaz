@@ -5,14 +5,8 @@ import {
 } from '../classes/warlock/warlock';
 import { SPELL_LIST } from './spellList';
 
-export function getSpell(spellName, spellClass) {
-  return (
-    SPELL_LIST.find(
-      spell =>
-        spell.name === spellName &&
-        (!spellClass || spell.class.includes(spellClass))
-    ) || {}
-  );
+export function getSpell(spellName) {
+  return SPELL_LIST.find(spell => spell.name === spellName) || {};
 }
 
 export function getKnownCantrips(pc) {
@@ -47,6 +41,16 @@ export function getKnownSpells(pc) {
       .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level > 0) || []
   );
+}
+
+export function getKnownSpellsByLevel(pc) {
+  const spells = getKnownSpells(pc);
+
+  return spells.reduce((spellsByLevel, spell) => {
+    spellsByLevel[spell.level - 1] = spellsByLevel[spell.level - 1] || [];
+    spellsByLevel[spell.level - 1].push(spell);
+    return spellsByLevel;
+  }, []);
 }
 
 export function getAllPcSpells(pc) {

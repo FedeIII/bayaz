@@ -864,6 +864,11 @@ export const CLASSES = {
           pactBoon: 'Don del Pacto',
         },
       },
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
     },
   },
   wizard: {

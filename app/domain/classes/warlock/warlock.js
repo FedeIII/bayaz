@@ -73,9 +73,9 @@ export function getWarlockMaxInvocations(pc) {
   const { level } = pc;
   /* prettier-ignore */
   return [
-    null, 2, 2, 2, 3, 3, 4, 4,
+    null, 2, 2, 3, 3, 4, 4,
     5, 5, 5, 6, 6, 6, 7, 7, 7,
-    8, 8, 8
+    8, 8, 8, 8
   ][level - 1];
 }
 
@@ -96,7 +96,7 @@ export const INVOCATIONS = {
     translation: 'Cadenas de Carceri',
     reqs: {
       level: 15,
-      trait: 'pactOfTheChain',
+      pactBoon: 'pactOfTheChain',
     },
     spell: 'holdMonster',
   },
@@ -104,7 +104,7 @@ export const INVOCATIONS = {
     translation: 'Chupavidas',
     reqs: {
       level: 12,
-      trait: 'pactOfTheBlade',
+      pactBoon: 'pactOfTheBlade',
     },
   },
   sculptorOfFlesh: {
@@ -119,7 +119,7 @@ export const INVOCATIONS = {
     translation: 'Espada Sedienta',
     reqs: {
       level: 5,
-      trait: 'pactOfTheBlade',
+      pactBoon: 'pactOfTheBlade',
     },
   },
   agonizingBlast: {
@@ -144,7 +144,7 @@ export const INVOCATIONS = {
   },
   eldritchSpear: {
     translation: 'Lanza Arcana',
-    req: {
+    reqs: {
       trait: 'eldritchBlast',
     },
   },
@@ -155,7 +155,7 @@ export const INVOCATIONS = {
   bookOfAncientSecrets: {
     translation: 'Libro de los Secretos Antiguos',
     reqs: {
-      trait: 'pactOfTheTome',
+      pactBoon: 'pactOfTheTome',
     },
   },
   masterOfMyriadForms: {
@@ -273,7 +273,7 @@ export const INVOCATIONS = {
   voiceOfTheChainMaster: {
     translation: 'Voz del Amo de la Cadena',
     reqs: {
-      trait: 'pactOfTheChain',
+      pactBoon: 'pactOfTheChain',
     },
   },
 };
@@ -295,11 +295,14 @@ export function getInvocationsSkills(pc) {
 
 export function isInvocationAvailable(pc, invocationName) {
   const invocation = getInvocation(invocationName);
+  const pPactBoon = getPactBoon(pc);
 
-  const { reqs: { level, trait } = {} } = invocation;
+  const { reqs: { level, trait, pactBoon } = {} } = invocation;
 
   return (
-    (!level || level < pc.level) && (!trait || getTraits(pc).includes(trait))
+    (!level || level < pc.level) &&
+    (!trait || getTraits(pc).includes(trait)) &&
+    (!pactBoon || pactBoon === pPactBoon)
   );
 }
 
