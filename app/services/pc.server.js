@@ -100,6 +100,7 @@ const warlockSchema = new mongoose.Schema({
   invocations: [String],
   pactBoon: String,
   tomeSpells: [spellSchema],
+  tomeRituals: [spellSchema],
 });
 
 const classAttrsSchema = new mongoose.Schema({

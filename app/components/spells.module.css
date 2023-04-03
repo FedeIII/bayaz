@@ -434,7 +434,7 @@
   height: 15px;
   background-color: white;
   left: -2px;
-  bottom: 6px;
+  top: 33px;
   z-index: -1;
   border-radius: 50%;
 }

@@ -3,6 +3,7 @@ import { increment } from '~/domain/display';
 import {
   getInvocation,
   getPactBoon,
+  getTomeRituals,
   getTomeSpells,
   hasToLearnTomeSpells,
   hasToSelectInvocations,
@@ -57,5 +58,17 @@ export function displayWarlockTrait(traitName, trait, pc) {
 }
 
 export function displayInvocation(invocationName, invocationTitle, pc) {
+  if (invocationName === 'bookOfAncientSecrets') {
+    const tomeRituals = getTomeRituals(pc);
+    return (
+      <>
+        {getInvocation(invocationName).translation}
+        {!tomeRituals.length && (
+          <span className={sheetStyles.pendingTrait}>(!)</span>
+        )}
+      </>
+    );
+  }
+  
   return getInvocation(invocationName).translation;
 }

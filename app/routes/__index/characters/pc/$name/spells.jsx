@@ -26,6 +26,7 @@ import { SkillItem } from '~/components/modal/skillItem';
 import {
   getInvocationsSpells,
   getPactSpells,
+  getTomeRituals,
 } from '~/domain/classes/warlock/warlock';
 import {
   getLoreSpells,
@@ -131,6 +132,7 @@ function PcSpells() {
   const magicalSecretsSpells = getMagicalSecretsSpells(pc);
   const invocationsSpells = getInvocationsSpells(pc);
   const pactSpells = getPactSpells(pc);
+  const tomeRituals = getTomeRituals(pc);
 
   return (
     <>
@@ -243,6 +245,7 @@ function PcSpells() {
                     {pactSpells.map(s => s.name).includes(spell.name) && (
                       <> (Don del Pacto)</>
                     )}
+                    {tomeRituals.includes(spell.name) && <>(Ritual)</>}
                   </span>
                 </li>
               ))}

@@ -6,7 +6,9 @@ import {
   getInvocation,
   getInvocations,
   getPactBoon,
+  getTomeRituals,
   getTomeSpells,
+  hasToLearnTomeRituals,
   hasToLearnTomeSpells,
   hasToSelectInvocations,
   translatePactBoon,
@@ -340,6 +342,7 @@ export function getInvocationExplanation(invocationName, invocationTitle, pc) {
         </p>
       );
     case 'bookOfAncientSecrets':
+      const tomeRituals = getTomeRituals(pc);
       return (
         <>
           <p>
@@ -362,6 +365,25 @@ export function getInvocationExplanation(invocationName, invocationTitle, pc) {
             proceso de transcripción lleva 2 horas y cuesta 50 po por las raras
             tintas necesarias para inscribirlo.
           </p>
+
+          {hasToLearnTomeRituals(pc) && (
+              <div className={styles.modalButtons}>
+                <Link
+                  to={`/characters/pc/${pc.name}/leveling/warlock/tomeRituals`}
+                  className={styles.modalButton}
+                >
+                  Escoge Rituales
+                </Link>
+              </div>
+            )}
+
+            {!hasToLearnTomeRituals(pc) && (
+              <ul>
+                {tomeRituals.map(spellName => (
+                  <li>{translateSpell(spellName)}</li>
+                ))}
+              </ul>
+            )}
         </>
       );
     case 'masterOfMyriadForms':

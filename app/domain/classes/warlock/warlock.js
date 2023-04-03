@@ -339,7 +339,8 @@ export function getPactSpells(pc) {
   const boon = getPactBoon(pc);
 
   if (boon === 'pactOfTheChain') return [getSpell('findFamiliar')];
-  if (boon === 'pactOfTheTome') return getTomeSpells(pc).map(s => getSpell(s));
+  if (boon === 'pactOfTheTome')
+    return [...getTomeSpells(pc), ...getTomeRituals(pc)].map(s => getSpell(s));
 }
 
 export function hasToLearnTomeSpells(pc) {
@@ -347,4 +348,20 @@ export function hasToLearnTomeSpells(pc) {
   const tomeSpells = getTomeSpells(pc);
 
   return !!(boon === 'pactOfTheTome' && tomeSpells.length < 3);
+}
+
+export function getTomeRituals(pc) {
+  return pc.classAttrs?.warlock?.tomeRituals?.map(spell => spell.name) || [];
+}
+
+export function hasToLearnTomeRituals(pc) {
+  const boon = getPactBoon(pc);
+  const tomeRituals = getTomeRituals(pc);
+  const invocations = getInvocations(pc);
+
+  return !!(
+    boon === 'pactOfTheTome' &&
+    tomeRituals.length < 2 &&
+    invocations.includes('bookOfAncientSecrets')
+  );
 }
