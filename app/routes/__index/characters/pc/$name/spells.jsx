@@ -195,7 +195,9 @@ function PcSpells() {
             <ul className={`${styles.data} ${styles[`spells-${level}`]}`}>
               {spells.map((spell, i) => (
                 <li
-                  className={`${styles.data} ${styles.spell}`}
+                  className={`${styles.data} ${
+                    level === 0 ? styles.cantrip : styles.spell
+                  }`}
                   key={spell.name}
                 >
                   {!!(level > 0) && (
