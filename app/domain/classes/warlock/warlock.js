@@ -314,3 +314,34 @@ export function getInvocationsSpells(pc) {
     ),
   ].map(getSpell);
 }
+
+export function getPactBoon(pc) {
+  return pc.classAttrs?.warlock?.pactBoon;
+}
+
+export const PACT_BOONS = ['pactOfTheChain', 'pactOfTheBlade', 'pactOfTheTome'];
+
+export function translatePactBoon(boon) {
+  if (boon === 'pactOfTheChain') return 'Pacto de la Cadena';
+  if (boon === 'pactOfTheBlade') return 'Pacto de la Espada';
+  if (boon === 'pactOfTheTome') return 'Pacto del Tomo';
+  return 'unknown pact boon';
+}
+
+export function getTomeSpells(pc) {
+  return pc.classAttrs?.warlock?.tomeSpells?.map(spell => spell.name) || [];
+}
+
+export function getPactSpells(pc) {
+  const boon = getPactBoon(pc);
+
+  if (boon === 'pactOfTheChain') return [getSpell('findFamiliar')];
+  if (boon === 'pactOfTheTome') return getTomeSpells(pc).map(s => getSpell(s));
+}
+
+export function hasToLearnTomeSpells(pc) {
+  const boon = getPactBoon(pc);
+  const tomeSpells = getTomeSpells(pc);
+
+  return !!(boon === 'pactOfTheTome' && tomeSpells.length < 3);
+}

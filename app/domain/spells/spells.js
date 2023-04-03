@@ -52,8 +52,8 @@ import {
   WIZARD_SPELLS,
 } from './wizard';
 import {
+  getAllPcCantrips,
   getAllPcSpells,
-  getKnownCantrips,
   getKnownSpells,
   getSpell,
 } from './getSpells';
@@ -62,14 +62,8 @@ import { SPELL_LIST } from './spellList';
 import {
   getForgottenLoreSpells,
   getForgottenMagicalSecretsSpells,
-  getLoreSpells,
-  getMagicalSecretsSpells,
 } from '../classes/bard/bard';
-import {
-  getInvocation,
-  getInvocations,
-  getInvocationsSpells,
-} from '../classes/warlock/warlock';
+import { getInvocation, getInvocations } from '../classes/warlock/warlock';
 
 const zero = () => 0;
 
@@ -219,7 +213,7 @@ export function getSpellSavingThrow(pc, spellType) {
 }
 
 export function divideSpells(pc) {
-  return [...getKnownCantrips(pc), ...getAllPcSpells(pc)].reduce(
+  return [...getAllPcCantrips(pc), ...getAllPcSpells(pc)].reduce(
     (spellsByLevel, pSpell) => {
       const spell = getSpell(pSpell.name);
       if (typeof spell?.level === 'number') {

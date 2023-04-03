@@ -859,6 +859,11 @@ export const CLASSES = {
           eldritchInvocations: 'Invocaciones Sobrenaturales',
         },
       },
+      3: {
+        traits: {
+          pactBoon: 'Don del Pacto',
+        },
+      },
     },
   },
   wizard: {

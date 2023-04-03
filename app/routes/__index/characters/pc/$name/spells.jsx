@@ -23,7 +23,14 @@ import {
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
-import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
+import {
+  getInvocationsSpells,
+  getPactSpells,
+} from '~/domain/classes/warlock/warlock';
+import {
+  getLoreSpells,
+  getMagicalSecretsSpells,
+} from '~/domain/classes/bard/bard';
 
 import styles from '~/components/spells.module.css';
 
@@ -120,7 +127,10 @@ function PcSpells() {
 
   const formRef = useRef(null);
 
+  const loreSpells = getLoreSpells(pc);
+  const magicalSecretsSpells = getMagicalSecretsSpells(pc);
   const invocationsSpells = getInvocationsSpells(pc);
+  const pactSpells = getPactSpells(pc);
 
   return (
     <>
@@ -212,15 +222,26 @@ function PcSpells() {
                       <span className={styles.hideNextBullet} />
                     </>
                   )}
-                  <SkillItem
-                    ref={skillRefs[level][i]}
-                    traitName={spell.name}
-                    trait="spell"
-                    openModal={openSkillModal(level, i)}
-                  />{' '}
-                  {invocationsSpells.map(s => s.name).includes(spell.name) && (
-                    <> (Invocación)</>
-                  )}
+                  <span>
+                    <SkillItem
+                      ref={skillRefs[level][i]}
+                      traitName={spell.name}
+                      trait="spell"
+                      openModal={openSkillModal(level, i)}
+                    />{' '}
+                    {loreSpells.map(s => s.name).includes(spell.name) && (
+                      <> (Colegio del Conocimiento)</>
+                    )}
+                    {magicalSecretsSpells
+                      .map(s => s.name)
+                      .includes(spell.name) && <> (Secretos Mágicos)</>}
+                    {invocationsSpells
+                      .map(s => s.name)
+                      .includes(spell.name) && <> (Invocación)</>}
+                    {pactSpells.map(s => s.name).includes(spell.name) && (
+                      <> (Don del Pacto)</>
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>

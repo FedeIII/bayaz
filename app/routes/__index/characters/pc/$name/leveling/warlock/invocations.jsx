@@ -178,13 +178,9 @@ export function ErrorBoundary({ error }) {
       <h2 className={appStyles.errorText}>{error.message}</h2>
 
       <p className={appStyles.paragraph}>
-        A partir del nivel 3 eliges dos de tus habilidades en las que seas
-        competente. Tu bonificador de competencia para esas habilidades se
-        duplica para cualquier prueba de habilidad que realices con ellas.
-      </p>
-      <p className={appStyles.paragraph}>
-        Al nivel 10 eliges otras dos habilidades en las que seas com- petente
-        que ganarán este beneficio.
+        Si una invocación sobrenatural tiene prerrequisitos, debes cumplirlos
+        para aprenderla. Puedes aprender la invocación en el mismo momento en
+        que cumples sus prerrequisitos.
       </p>
 
       <p className={appStyles.errorStack}>{error.stack}</p>

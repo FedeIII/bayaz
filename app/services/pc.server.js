@@ -98,6 +98,8 @@ const warlockSchema = new mongoose.Schema({
     enum: ['archfey', 'fiend', 'greatOldOne'],
   },
   invocations: [String],
+  pactBoon: String,
+  tomeSpells: [spellSchema],
 });
 
 const classAttrsSchema = new mongoose.Schema({

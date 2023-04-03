@@ -1,14 +1,19 @@
 import { Link } from '@remix-run/react';
 import { getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
-import { getSpellSavingThrow } from '~/domain/spells/spells';
+import { getSpellSavingThrow, translateSpell } from '~/domain/spells/spells';
 import {
   getInvocation,
   getInvocations,
+  getPactBoon,
+  getTomeSpells,
+  hasToLearnTomeSpells,
   hasToSelectInvocations,
+  translatePactBoon,
 } from './warlock';
 
 import styles from '~/components/modal/inventoryItem.module.css';
+import appStyles from '~/components/app.module.css';
 
 export const WARLOCK_SKILLS_EXPLANATION = {
   feyPresence: (skill, pc) => (
@@ -88,6 +93,117 @@ export const WARLOCK_SKILLS_EXPLANATION = {
               <li>{getInvocation(invocation).translation}</li>
             ))}
           </ul>
+        )}
+      </>
+    );
+  },
+
+  pactBoon: (skill, pc) => {
+    const boon = getPactBoon(pc);
+    const tomeSpells = getTomeSpells(pc);
+    return (
+      <>
+        <p>
+          A partir del nivel 3 tu Patrón de Otro Mundo te recompensa con un don
+          por tus leales servicios. Ganas uno de los siguientes rasgos a tu
+          elección.
+        </p>
+
+        {!!boon && <h3>{translatePactBoon(boon)}</h3>}
+
+        {!boon && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/warlock/pactBoon`}
+              className={styles.modalButton}
+            >
+              Escoge Don del Pacto
+            </Link>
+          </div>
+        )}
+
+        {boon === 'pactOfTheChain' && (
+          <>
+            <p className={appStyles.paragraph}>
+              Aprendes el conjuro encontrar familiar y puedes lanzarlo como
+              ritual. El conjuro no cuenta para tu número de conjuros conocidos.
+            </p>
+            <p className={appStyles.paragraph}>
+              Cuando lanzas el conjuro, puedes elegir una de las formas
+              habituales para tu familiar o una de las siguientes formas
+              especiales: diablillo, pseudodragón, quasit o duende.
+            </p>
+            <p className={appStyles.paragraph}>
+              Adicionalmente, cuando realizas la acción de Atacar, puedes
+              sustituir uno de tus ataques para permitir que tu familiar haga
+              uno de los suyos.
+            </p>
+          </>
+        )}
+        {boon === 'pactOfTheBlade' && (
+          <>
+            <p className={appStyles.paragraph}>
+              Puedes usar tu acción para crear un arma de pacto en tu mano
+              vacía. Puedes elegir la forma que el arma cuerpo a cuerpo toma
+              cada vez que la creas (mira el Capítulo 5 para ver las opciones de
+              armas). Eres competente con ella mientras la blandes. Esta arma
+              cuenta como mágica para el propósito de traspasar resistencias e
+              inmunidades contra ataques y daño no mágicos.
+            </p>
+            <p className={appStyles.paragraph}>
+              Tu arma de pacto desaparece si está a más de 5 pies (1,5 metros)
+              de distancia de ti durante un minuto o más. También desaparece si
+              usas este rasgo de nuevo, si descartas el arma (no requiere una
+              acción), o si mueres.
+            </p>
+            <p className={appStyles.paragraph}>
+              Puedes transformar un arma mágica en tu arma de pacto haciendo un
+              ritual especial mientras sostienes tu arma. Llevas a cabo el
+              ritual durante una hora, que puede ser realizado durante un
+              descanso corto. Luego puedes descartar el arma, colocándola en un
+              espacio extradimensional, y aparece siempre que creas tu arma de
+              pacto a partir de entonces. No puedes afectar un artefacto o un
+              arma inteligente de esta forma. El arma deja de ser tu arma de
+              pacto si mueres, si realizas el ritual de una hora en un arma
+              diferente o si llevas a cabo un ritual de una hora para romper tu
+              vínculo con ella. El arma aparece a tus pies si está en el espacio
+              extradimensional cuando el vínculo se rompe.
+            </p>
+          </>
+        )}
+        {boon === 'pactOfTheTome' && (
+          <>
+            <p className={appStyles.paragraph}>
+              Tu patrón te da un grimorio llamado Libro de las Sombras. Cuando
+              ganas este rasgo, elige tres trucos de la lista de cualquier
+              clase. Mientras el libro está contigo, puedes lanzar estos tres
+              trucos a voluntad. No cuentan para tu número de trucos conocidos.
+            </p>
+            <p className={appStyles.paragraph}>
+              Si pierdes tu Libro de las Sombras, puedes llevar a cabo una
+              ceremonia de una hora para recibir un reemplazo de tu patrón. Esta
+              ceremonia puede ser realizada durante un descanso corto o
+              prolongado, y destruye el libro anterior. El libro se vuelve
+              cenizas cuando mueres.
+            </p>
+            {hasToLearnTomeSpells(pc) && (
+              <div className={styles.modalButtons}>
+                <Link
+                  to={`/characters/pc/${pc.name}/leveling/warlock/tomeSpells`}
+                  className={styles.modalButton}
+                >
+                  Escoge Trucos
+                </Link>
+              </div>
+            )}
+            {!hasToLearnTomeSpells(pc) && (
+              <ul>
+                {tomeSpells.map(spellName => (
+                  <li>{translateSpell(spellName)}</li>
+                ))}
+              </ul>
+            )}
+          </>
         )}
       </>
     );
