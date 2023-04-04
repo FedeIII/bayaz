@@ -3,11 +3,13 @@ import { getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import { getSpellSavingThrow, translateSpell } from '~/domain/spells/spells';
 import {
+  getArcanum,
   getInvocation,
   getInvocations,
   getPactBoon,
   getTomeRituals,
   getTomeSpells,
+  hasToLearnArcanum,
   hasToLearnTomeRituals,
   hasToLearnTomeSpells,
   hasToSelectInvocations,
@@ -103,6 +105,7 @@ export const WARLOCK_SKILLS_EXPLANATION = {
   pactBoon: (skill, pc) => {
     const boon = getPactBoon(pc);
     const tomeSpells = getTomeSpells(pc);
+    const tomeRituals = getTomeRituals(pc);
     return (
       <>
         <p>
@@ -203,6 +206,9 @@ export const WARLOCK_SKILLS_EXPLANATION = {
                 {tomeSpells.map(spellName => (
                   <li>{translateSpell(spellName)}</li>
                 ))}
+                {tomeRituals.map(spellName => (
+                  <li>{translateSpell(spellName)} (Ritual)</li>
+                ))}
               </ul>
             )}
           </>
@@ -290,6 +296,47 @@ export const WARLOCK_SKILLS_EXPLANATION = {
       recibido.
     </p>
   ),
+
+  mysticArcanum: (skill, pc) => {
+    return (
+      <>
+        <p>
+          A partir del nivel 11 tu patrón te recompensa con un secreto mágico
+          llamado arcanum. Elige un conjuro de nivel 6 de la lista de conjuros
+          del brujo como arcanum.
+        </p>
+        <p>
+          Puedes lanzar tu arcanum una vez sin gastar un espacio de conjuro.
+          Debes finalizar un descanso prolongado para poder lanzarlo de nuevo.
+        </p>
+        <p>
+          A niveles superiores, ganas más conjuros de brujo de tu elección que
+          pueden ser lanzados de esta manera. Un conjuro de nivel 7 en el nivel
+          13, un conjuro de nivel 8 en el nivel 15 y un conjuro de nivel 9 en el
+          nivel 17. Recobras todos los usos de tu Arcanum Místico cuando
+          finalizas un descanso prolongado.
+        </p>
+
+        {hasToLearnArcanum(pc) && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/warlock/arcanum`}
+              className={styles.modalButton}
+            >
+              Elige Conjuro
+            </Link>
+          </div>
+        )}
+        {!hasToLearnArcanum(pc) && (
+          <ul>
+            {getArcanum(pc).map(spellName => (
+              <li>{translateSpell(spellName)}</li>
+            ))}
+          </ul>
+        )}
+      </>
+    );
+  },
 };
 
 export function getInvocationExplanation(invocationName, invocationTitle, pc) {

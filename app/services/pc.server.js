@@ -101,6 +101,7 @@ const warlockSchema = new mongoose.Schema({
   pactBoon: String,
   tomeSpells: [spellSchema],
   tomeRituals: [spellSchema],
+  arcanum: [spellSchema],
 });
 
 const classAttrsSchema = new mongoose.Schema({
@@ -342,6 +343,24 @@ export async function updateAttrsForClass(pcName, pClass, classAttrs) {
     { name: pcName },
     {
       $set: Object.entries(classAttrs).reduce(
+        (setAttrs, [classAttrName, classAttrValue]) => ({
+          ...setAttrs,
+          [`classAttrs.${pClass}.${classAttrName}`]: classAttrValue,
+        }),
+        {}
+      ),
+    },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function pushAttrsForClass(pcName, pClass, classAttrs) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    {
+      $push: Object.entries(classAttrs).reduce(
         (setAttrs, [classAttrName, classAttrValue]) => ({
           ...setAttrs,
           [`classAttrs.${pClass}.${classAttrName}`]: classAttrValue,

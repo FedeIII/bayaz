@@ -5,6 +5,7 @@ import {
   getPactBoon,
   getTomeRituals,
   getTomeSpells,
+  hasToLearnArcanum,
   hasToLearnTomeSpells,
   hasToSelectInvocations,
   translatePactBoon,
@@ -51,6 +52,17 @@ export function displayWarlockTrait(traitName, trait, pc) {
       );
     }
 
+    case 'mysticArcanum': {
+      return (
+        <>
+          {trait}
+          {hasToLearnArcanum(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+        </>
+      );
+    }
+
     default:
   }
 
@@ -69,6 +81,6 @@ export function displayInvocation(invocationName, invocationTitle, pc) {
       </>
     );
   }
-  
+
   return getInvocation(invocationName).translation;
 }

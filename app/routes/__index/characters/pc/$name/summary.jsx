@@ -90,7 +90,6 @@ import {
   getInvocations,
   getWarlockPatron,
   getWarlockPatronTraits,
-  hasToSelectInvocations,
   translatePatron,
 } from '~/domain/classes/warlock/warlock';
 
@@ -845,13 +844,10 @@ function PcSummary() {
             </li>
           )}
 
-          {!!invocations.length && !hasToSelectInvocations(pc) && (
+          {!!invocations.length && (
             <li className={styles.traitLabel}>
               <strong className={styles.trait}>
                 Invocaciones Sobrenaturales{' '}
-                {hasToSelectInvocations(pc) && (
-                  <span className={styles.pendingTrait}>(!)</span>
-                )}
               </strong>
               <ul>
                 {invocations.map((invocationName, i) => (

@@ -1,5 +1,6 @@
 import { getLoreSpells, getMagicalSecretsSpells } from '../classes/bard/bard';
 import {
+  getArcanum,
   getInvocationsSpells,
   getPactSpells,
 } from '../classes/warlock/warlock';
@@ -60,6 +61,7 @@ export function getAllPcSpells(pc) {
   const magicalSecretsSpells = getMagicalSecretsSpells(pc);
   const invocationsSpells = getInvocationsSpells(pc);
   const pactSpells = getPactSpells(pc);
+  const arcanumSpells = getArcanum(pc).map(getSpell);
 
   return (
     [
@@ -68,6 +70,7 @@ export function getAllPcSpells(pc) {
       ...magicalSecretsSpells,
       ...invocationsSpells,
       ...pactSpells,
+      ...arcanumSpells,
     ]
       .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level > 0) || []

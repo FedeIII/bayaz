@@ -24,6 +24,7 @@ import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import {
+  getArcanum,
   getInvocationsSpells,
   getPactSpells,
   getTomeRituals,
@@ -133,6 +134,7 @@ function PcSpells() {
   const invocationsSpells = getInvocationsSpells(pc);
   const pactSpells = getPactSpells(pc);
   const tomeRituals = getTomeRituals(pc);
+  const arcanum = getArcanum(pc);
 
   return (
     <>
@@ -246,6 +248,7 @@ function PcSpells() {
                       <> (Don del Pacto)</>
                     )}
                     {tomeRituals.includes(spell.name) && <>(Ritual)</>}
+                    {arcanum.includes(spell.name) && <>(Arcanum)</>}
                   </span>
                 </li>
               ))}

@@ -907,6 +907,11 @@ export const CLASSES = {
           },
         },
       },
+      11: {
+        traits: {
+          mysticArcanum: 'Arcanum Místico'
+        }
+      }
     },
   },
   wizard: {

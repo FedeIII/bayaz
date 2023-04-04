@@ -6,20 +6,6 @@ export const PATHS = {
   spells: pcName => `/characters/pc/${pcName}/spells`,
 };
 
-export function getCurrentSummaryPage() {
-  return doc?.location.pathname.match(/\/characters\/pc\/(.+)\/summary/)?.[1];
-}
-
-export function getCurrentBioPage() {
-  return doc?.location.pathname.match(/\/characters\/pc\/(.+)\/bio/)?.[1];
-}
-
-export function getCurrentSpellsPage() {
-  return doc?.location.pathname.match(/\/characters\/pc\/(.+)\/spells/)?.[1];
-}
-
 export function getCurrentPcPage() {
-  return (
-    getCurrentSummaryPage() || getCurrentBioPage() || getCurrentSpellsPage()
-  );
+  return doc?.location.pathname.match(/\/characters\/pc\/(.+?)\//)?.[1];
 }

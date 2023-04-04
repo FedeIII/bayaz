@@ -365,3 +365,18 @@ export function hasToLearnTomeRituals(pc) {
     invocations.includes('bookOfAncientSecrets')
   );
 }
+
+export function getArcanum(pc) {
+  return pc.classAttrs?.warlock?.arcanum.map(s => s.name) || [];
+}
+
+export function hasToLearnArcanum(pc) {
+  const arcanum = getArcanum(pc);
+
+  return (
+    (pc.level >= 17 && arcanum.length < 4) ||
+    (pc.level >= 15 && arcanum.length < 3) ||
+    (pc.level >= 13 && arcanum.length < 2) ||
+    (pc.level >= 11 && arcanum.length < 1)
+  );
+}
