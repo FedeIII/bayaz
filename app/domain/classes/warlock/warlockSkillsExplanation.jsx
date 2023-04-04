@@ -337,6 +337,68 @@ export const WARLOCK_SKILLS_EXPLANATION = {
       </>
     );
   },
+
+  darkDelirium: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 14 puedes zambullir a una criatura en un reino
+        ilusorio. Como una acción, elige una criatura que puedas ver en un rango
+        de 60 pies (18 metros) de ti. Debe realizar una tirada de salvación de
+        Sabiduría contra la CD de tus conjuros de brujo (
+        {getSpellSavingThrow(pc)}). Si falla la tirada de salvación, pasa a
+        estar hechizada o asustada por ti (a tu elección) durante un minuto o
+        hasta que tu concentración se rompa (como si estuvieses concentrándote
+        en un conjuro). Este efecto termina si la criatura recibe cualquier
+        daño.
+      </p>
+      <p>
+        Hasta que la ilusión finaliza la criatura piensa que está perdida en un
+        reino brumoso con la apariencia que elijas. La criatura sólo puede ver y
+        escucharse a sí misma, a ti y a la ilusión.
+      </p>
+      <p>
+        Debes finalizar un descanso corto o prolongado antes de que puedas usar
+        este rasgo de nuevo.
+      </p>
+    </>
+  ),
+
+  hurlThroughHell: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 14 cuando golpeas a una criatura con un ataque,
+        puedes usar este rasgo para transportar inmediatamente al objetivo a
+        través de los planos inferiores. La criatura desaparece y atraviesa un
+        paisaje de pesadilla.
+      </p>
+      <p>
+        Al final de tu siguiente turno, la criatura aparece en el espacio que
+        ocupaba previamente, o en el espacio desocupado más cercano. Si el
+        objetivo no es un diablo, recibe 10d10 de daño psíquico mientras se
+        recupera de su terrible experiencia.
+      </p>
+      <p>
+        Una vez que usas este rasgo, no puedes usarlo de nuevo hasta que
+        finalices un descanso prolongado.
+      </p>
+    </>
+  ),
+
+  createThrall: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 14 ganas la habilidad de infectar la mente de un
+        humanoide con la magia exterior de tu patrón. Puedes usar tu acción para
+        tocar a un humanoide incapacitado. Esa criatura pasa a estar encantada
+        por ti hasta que sea afectada por un conjuro de quitar maldición, la
+        condición de encantado sea eliminada o uses este rasgo de nuevo.
+      </p>
+      <p>
+        Puedes comunicarte telepáticamente con la criatura hechizada mientras
+        los dos estéis en el mismo plano de existencia.
+      </p>
+    </>
+  ),
 };
 
 export function getInvocationExplanation(invocationName, invocationTitle, pc) {

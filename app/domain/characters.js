@@ -909,9 +909,28 @@ export const CLASSES = {
       },
       11: {
         traits: {
-          mysticArcanum: 'Arcanum Místico'
-        }
-      }
+          mysticArcanum: 'Arcanum Místico',
+        },
+      },
+      14: {
+        patron: {
+          archfey: {
+            traits: {
+              darkDelirium: 'Delirio Oscuro',
+            },
+          },
+          fiend: {
+            traits: {
+              hurlThroughHell: 'Lanzar a Través del Infierno',
+            },
+          },
+          greatOldOne: {
+            traits: {
+              createThrall: 'Crear Esclavo',
+            },
+          },
+        },
+      },
     },
   },
   wizard: {

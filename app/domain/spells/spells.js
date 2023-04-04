@@ -302,3 +302,13 @@ export function hasLearnedSpellsForCurrentLevel(pc) {
 
   return !!hasLearnedSpells[level - 1];
 }
+
+export function getDeltaSpells(pc) {
+  const dSpells =
+    getTotalSpells(pc) - getTotalSpells({ ...pc, level: pc.level - 1 });
+
+  const dCantrips =
+    getCantripsNumber(pc) - getCantripsNumber({ ...pc, level: pc.level - 1 });
+
+  return dSpells + dCantrips;
+}
