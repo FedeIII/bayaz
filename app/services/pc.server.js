@@ -402,6 +402,16 @@ export async function addImprovedStatsLevel(name, level) {
   return updatedPc;
 }
 
+export async function markSpellsLearntForLevel(name) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: name },
+    { $push: { 'magic.hasLearnedSpells': true } },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
 export async function learnSpells(pcName, toLearn) {
   const hasBardLoreSpell = await Promise.all(
     toLearn.map(spellName =>

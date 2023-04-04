@@ -145,6 +145,7 @@ export const SPELL_TRANSLATIONS = {
   delayPoison: 'Lentificar veneno',
   delayedBlastFireball: 'Bola de fuego de explosión retardada',
   demand: 'Exigencia',
+  demiplane: 'Semiplano',
   desecrate: 'Profanar',
   destruction: 'Destrucción',
   destructiveWave: 'Onda destructora',

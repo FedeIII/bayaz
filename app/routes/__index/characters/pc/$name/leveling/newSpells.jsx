@@ -11,6 +11,7 @@ import { translateClass } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
   getClassSpells,
+  getDeltaSpells,
   getNewSpellsAmount,
   getSpellSlots,
   getTotalSpells,
@@ -50,11 +51,16 @@ export const action = async ({ request }) => {
   const forget = formData.get('forget');
   const learn = formData.getAll('learn[]');
 
-  await Promise.all([
+  const [pc] = await Promise.all([
+    getPc(name),
     learnSpells(name, learn),
     prepareSpells(name, learn),
     forget && forgetSpell(name, forget),
   ]);
+
+  if (getDeltaSpells(pc) === 0) {
+    await markSpellsLearntForLevel(name);
+  }
 
   return redirect(`/characters/pc/${name}/summary`);
 };
