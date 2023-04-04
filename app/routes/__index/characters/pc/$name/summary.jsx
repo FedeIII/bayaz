@@ -349,13 +349,19 @@ function PcSummary() {
   ] = useInventoryItems(pc, itemRefs, actionModalContent);
 
   const traits = getTraits(pc);
+  const primalPathTraits = getPrimalPathTraits(pc);
   const invocations = getInvocations(pc);
+  const patronTraits = getWarlockPatronTraits(pc);
+  const bardCollegeTraits = getBardCollegeTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
     spells: [useRef()],
     traits: traits.map(() => useRef()),
+    primalPath: primalPathTraits.map(() => useRef()),
+    bardCollege: bardCollegeTraits.map(() => useRef()),
     invocations: invocations.map(() => useRef()),
+    patron: patronTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -803,14 +809,14 @@ function PcSummary() {
                 Senda del {translatePrimalPath(getPrimalPath(pc))}
               </strong>
               <ul>
-                {getPrimalPathTraits(pc).map(([traitName, trait], i) => (
+                {primalPathTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.traits[i]}
+                      ref={skillRefs.primalPath[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
-                      openModal={openSkillModal('traits', i)}
+                      openModal={openSkillModal('primalPath', i)}
                     />
                   </li>
                 ))}
@@ -824,14 +830,14 @@ function PcSummary() {
                 Colegio del {translateBardCollege(getBardCollege(pc))}
               </strong>
               <ul>
-                {getBardCollegeTraits(pc).map(([traitName, trait], i) => (
+                {bardCollegeTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.traits[i]}
+                      ref={skillRefs.bardCollege[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
-                      openModal={openSkillModal('traits', i)}
+                      openModal={openSkillModal('bardCollege', i)}
                     />
                   </li>
                 ))}
@@ -869,14 +875,14 @@ function PcSummary() {
                 Pacto con {translatePatron(getWarlockPatron(pc))}
               </strong>
               <ul>
-                {getWarlockPatronTraits(pc).map(([traitName, trait], i) => (
+                {patronTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.traits[i]}
+                      ref={skillRefs.patron[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
-                      openModal={openSkillModal('traits', i)}
+                      openModal={openSkillModal('patron', i)}
                     />
                   </li>
                 ))}

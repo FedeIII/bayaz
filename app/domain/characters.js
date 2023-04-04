@@ -888,6 +888,25 @@ export const CLASSES = {
           },
         },
       },
+      10: {
+        patron: {
+          archfey: {
+            traits: {
+              beguilingDefenses: 'Defensas Seductoras',
+            },
+          },
+          fiend: {
+            traits: {
+              fiendishResilience: 'Resistencia Diabólica',
+            },
+          },
+          greatOldOne: {
+            traits: {
+              thoughtShield: 'Escudo de Pensamientos',
+            },
+          },
+        },
+      },
     },
   },
   wizard: {

@@ -167,6 +167,7 @@ function EldritchInvocations() {
                   />
                   <SkillItem
                     ref={skillRefs.known[i]}
+                    pc={pc}
                     traitName={invocationName}
                     trait="invocation"
                     openModal={openSkillModal('known', i)}

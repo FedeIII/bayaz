@@ -259,6 +259,37 @@ export const WARLOCK_SKILLS_EXPLANATION = {
       </p>
     </>
   ),
+
+  beguilingDefenses: (skill, pc) => (
+    <p>
+      Comenzando en el nivel 10 tu patrón te enseña a volver la magia que lanzan
+      tus oponentes, y que afecta a la mente, en su contra. Eres inmune a ser
+      encantado, y cuando otra criatura intenta encantarte, puedes usar tu
+      reacción para devolverle el hechizo. La criatura debe tener éxito en una
+      tirada de salvación de Sabiduría contra la CD de tus conjuros de brujo o
+      pasa a estar encantada por ti durante un minuto o hasta que reciba
+      cualquier daño.
+    </p>
+  ),
+
+  fiendishResilience: (skill, pc) => (
+    <p>
+      Comenzando en el nivel 10 puedes elegir un tipo de daño cuando finalizas
+      un descanso corto. Ganas resistencia a ese tipo de daño hasta que elijas
+      otro mediante este rasgo. El daño por armas mágicas o de plata ignora esta
+      resistencia.
+    </p>
+  ),
+
+  thoughtShield: (skill, pc) => (
+    <p>
+      Comenzando al nivel 10 tus pensamientos no pueden ser leídos mediante
+      telepatía u otros medios, a menos que lo permitas. También ganas
+      resistencia al daño psíquico y siempre que una criatura te haga daño
+      psíquico, esa criatura recibe la misma cantidad de daño que tú hayas
+      recibido.
+    </p>
+  ),
 };
 
 export function getInvocationExplanation(invocationName, invocationTitle, pc) {
@@ -367,23 +398,23 @@ export function getInvocationExplanation(invocationName, invocationTitle, pc) {
           </p>
 
           {hasToLearnTomeRituals(pc) && (
-              <div className={styles.modalButtons}>
-                <Link
-                  to={`/characters/pc/${pc.name}/leveling/warlock/tomeRituals`}
-                  className={styles.modalButton}
-                >
-                  Escoge Rituales
-                </Link>
-              </div>
-            )}
+            <div className={styles.modalButtons}>
+              <Link
+                to={`/characters/pc/${pc.name}/leveling/warlock/tomeRituals`}
+                className={styles.modalButton}
+              >
+                Escoge Rituales
+              </Link>
+            </div>
+          )}
 
-            {!hasToLearnTomeRituals(pc) && (
-              <ul>
-                {tomeRituals.map(spellName => (
-                  <li>{translateSpell(spellName)}</li>
-                ))}
-              </ul>
-            )}
+          {!hasToLearnTomeRituals(pc) && (
+            <ul>
+              {tomeRituals.map(spellName => (
+                <li>{translateSpell(spellName)}</li>
+              ))}
+            </ul>
+          )}
         </>
       );
     case 'masterOfMyriadForms':

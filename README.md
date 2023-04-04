@@ -64,7 +64,13 @@ npx prisma migrate dev
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
 - Temporary HP (just edit manually)
-- dediplicate items in item proficiencies and in treasure inventory
+- Copy random spells on the Book:
+  - Warlock bookOfAncientSecrets
+  - Wizard
+- Profiles:
+  - User: restrict access to generation screens
+  - Admin: add super powers to edit values
+- deduplicate items in item proficiencies and in treasure inventory
 - Bardic Inspiration die
 - Gain extra HP (con and others) on level up
 - no env monsters without details and/or translations
