@@ -39,6 +39,7 @@
   background-color: #5c687e;
   color: white;
   align-items: flex-end;
+  overflow-y: scroll;
 }
 
 .content {
@@ -59,7 +60,7 @@
 }
 
 .mainButton {
-  height: 32px;
+  min-height: 32px;
   margin: 8px 0 8px;
   width: 100%;
   background-color: #a3b3d0;
@@ -73,7 +74,7 @@
 }
 
 .secondaryButton {
-  height: 24px;
+  min-height: 24px;
   margin: 0 0 8px 16px;
   width: 80%;
   background-color: #a3b3d0;
@@ -87,7 +88,7 @@
 }
 
 .tertiaryButton {
-  height: 20px;
+  min-height: 20px;
   margin: 0 0 8px 16px;
   width: 65%;
   background-color: #a3b3d0;

@@ -341,6 +341,8 @@ export function getPactSpells(pc) {
   if (boon === 'pactOfTheChain') return [getSpell('findFamiliar')];
   if (boon === 'pactOfTheTome')
     return [...getTomeSpells(pc), ...getTomeRituals(pc)].map(s => getSpell(s));
+
+  return [];
 }
 
 export function hasToLearnTomeSpells(pc) {

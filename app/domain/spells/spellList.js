@@ -78,7 +78,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['nature'],
     },
-    domains: 'Nature',
+    domains: ['nature'],
   },
   {
     name: 'animalMessenger',
@@ -206,7 +206,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['knowledge'],
     },
-    domains: 'Knowledge',
+    domains: ['knowledge'],
   },
   {
     name: 'arcaneGate',
@@ -301,7 +301,7 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Divination',
     class: ['cleric', 'ritual caster'],
-    domains: 'Knowledge',
+    domains: ['knowledge'],
   },
   {
     name: 'auraOfLife',
@@ -430,7 +430,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['nature'],
     },
-    domains: 'Nature',
+    domains: ['nature'],
     circles: 'Forest',
   },
   {
@@ -449,7 +449,7 @@ export const SPELL_LIST = [
     archetype: {
       paladin: ['devotion'],
     },
-    domains: 'Life',
+    domains: ['life'],
     oaths: 'Devotion',
   },
   {
@@ -543,7 +543,7 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Enchantment',
     class: ['cleric', 'paladin'],
-    domains: 'Life',
+    domains: ['life'],
   },
   {
     name: 'blight',
@@ -613,7 +613,7 @@ export const SPELL_LIST = [
       cleric: ['trickery'],
       warlock: ['archfey'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
     patrons: ['archfey'],
   },
   {
@@ -669,7 +669,7 @@ export const SPELL_LIST = [
       cleric: ['light'],
       warlock: ['fiend'],
     },
-    domains: 'Light',
+    domains: ['light'],
     patrons: ['fiend'],
   },
   {
@@ -690,7 +690,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['tempest'],
     },
-    domains: 'Tempest',
+    domains: ['tempest'],
     circles: 'Forest',
   },
   {
@@ -747,7 +747,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['trickery'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
   },
   {
     name: 'chillTouch',
@@ -920,7 +920,7 @@ export const SPELL_LIST = [
     archetype: {
       warlock: ['fiend'],
     },
-    domains: 'Knowledge',
+    domains: ['knowledge'],
     patrons: ['fiend'],
   },
   {
@@ -1044,7 +1044,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['knowledge'],
     },
-    domains: 'Knowledge',
+    domains: ['knowledge'],
   },
   {
     name: 'conjureAnimals',
@@ -1264,7 +1264,7 @@ export const SPELL_LIST = [
     level: 8,
     school: 'Transmutation',
     class: ['cleric', 'druid', 'wizard'],
-    domains: 'Tempest',
+    domains: ['tempest'],
     circles: 'Coast',
   },
   {
@@ -1402,7 +1402,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['war'],
     },
-    domains: 'War',
+    domains: ['war'],
   },
   {
     name: 'cureWounds',
@@ -1419,7 +1419,7 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Evocation',
     class: ['bard', 'cleric', 'druid', 'paladin', 'ranger'],
-    domains: 'Life',
+    domains: ['life'],
   },
   {
     name: 'dancingLights',
@@ -1483,7 +1483,7 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Evocation',
     class: ['cleric', 'druid', 'paladin', 'ranger', 'sorcerer'],
-    domains: 'Light',
+    domains: ['light'],
     circles: 'Grassland',
   },
   {
@@ -1499,7 +1499,7 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Abjuration',
     class: ['cleric', 'paladin'],
-    domains: 'Life',
+    domains: ['life'],
   },
   {
     name: 'delayedBlastFireball',
@@ -1548,7 +1548,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['tempest'],
     },
-    domains: 'Tempest',
+    domains: ['tempest'],
   },
   {
     name: 'detectEvilAndGood',
@@ -1638,7 +1638,7 @@ export const SPELL_LIST = [
       cleric: ['trickery'],
       paladin: ['vengeance'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
     oaths: 'Vengeance',
   },
   {
@@ -1657,7 +1657,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['trickery'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
   },
   {
     name: 'disintegrate',
@@ -1717,7 +1717,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['trickery'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
     oaths: 'Devotion',
   },
   {
@@ -1776,7 +1776,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['war'],
     },
-    domains: 'War',
+    domains: ['war'],
   },
   {
     name: 'divineWord',
@@ -1811,7 +1811,7 @@ export const SPELL_LIST = [
       cleric: ['nature'],
       warlock: ['archfey', 'greatOldOne'],
     },
-    domains: 'Nature',
+    domains: ['nature'],
     patrons: ['archfey', 'greatOldOne'],
   },
   {
@@ -1864,7 +1864,7 @@ export const SPELL_LIST = [
       cleric: ['trickery'],
       warlock: ['archfey', 'greatOldOne'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
     patrons: ['archfey', 'greatOldOne'],
   },
   {
@@ -2120,7 +2120,7 @@ export const SPELL_LIST = [
       cleric: ['light'],
       warlock: ['archfey'],
     },
-    domains: 'Light',
+    domains: ['light'],
     patrons: ['archfey'],
   },
   {
@@ -2294,7 +2294,7 @@ export const SPELL_LIST = [
       cleric: ['light'],
       warlock: ['fiend'],
     },
-    domains: 'Light',
+    domains: ['light'],
     patrons: ['fiend'],
   },
   {
@@ -2381,7 +2381,7 @@ export const SPELL_LIST = [
       paladin: ['devotion'],
       warlock: ['fiend'],
     },
-    domains: 'Light, War',
+    domains: ['light', 'war'],
     oaths: 'Devotion',
     patrons: ['fiend'],
   },
@@ -2405,7 +2405,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['light'],
     },
-    domains: 'Light',
+    domains: ['light'],
   },
   {
     name: 'fleshToStone',
@@ -2457,7 +2457,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['tempest'],
     },
-    domains: 'Tempest',
+    domains: ['tempest'],
   },
   {
     name: 'forbiddance',
@@ -2522,7 +2522,7 @@ export const SPELL_LIST = [
     archetype: {
       paladin: ['devotion'],
     },
-    domains: 'War',
+    domains: ['war'],
     circles: 'Arctic, Coast, Forest, Grassland, Swamp',
     oaths: 'Devotion',
   },
@@ -2702,7 +2702,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['nature'],
     },
-    domains: 'Nature',
+    domains: ['nature'],
   },
   {
     name: 'grease',
@@ -2770,7 +2770,7 @@ export const SPELL_LIST = [
     archetype: {
       paladin: ['devotion'],
     },
-    domains: 'Life, Light',
+    domains: ['life', 'light'],
     oaths: 'Devotion',
   },
   {
@@ -2836,7 +2836,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['tempest'],
     },
-    domains: 'Tempest',
+    domains: ['tempest'],
   },
   {
     name: 'hailOfThorns',
@@ -3058,7 +3058,7 @@ export const SPELL_LIST = [
       cleric: ['war'],
       paladin: ['vengeance'],
     },
-    domains: 'War',
+    domains: ['war'],
     oaths: 'Vengeance',
   },
   {
@@ -3178,7 +3178,7 @@ export const SPELL_LIST = [
       cleric: ['tempest'],
       paladin: ['ancients'],
     },
-    domains: 'Tempest',
+    domains: ['tempest'],
     circles: 'Arctic',
     oaths: 'Ancients',
   },
@@ -3199,7 +3199,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['knowledge'],
     },
-    domains: 'Knowledge',
+    domains: ['knowledge'],
   },
   {
     name: 'illusoryScript',
@@ -3280,7 +3280,7 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Conjuration',
     class: ['cleric', 'druid', 'sorcerer'],
-    domains: 'Nature, Tempest',
+    domains: ['nature', 'tempest'],
     circles: 'Desert, Grassland, Swamp, Underdark',
   },
   {
@@ -3348,7 +3348,7 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Divination',
     class: ['bard', 'cleric', 'wizard'],
-    domains: 'Knowledge',
+    domains: ['knowledge'],
   },
   {
     name: "leomund'sSecretChest",
@@ -3394,7 +3394,7 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Abjuration',
     class: ['bard', 'cleric', 'druid', 'paladin', 'ranger'],
-    domains: 'Life',
+    domains: ['life'],
     oaths: 'Devotion',
   },
   {
@@ -3641,7 +3641,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['war'],
     },
-    domains: 'War',
+    domains: ['war'],
   },
   {
     name: 'majorImage',
@@ -3675,7 +3675,7 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Conjuration',
     class: ['bard', 'cleric', 'druid'],
-    domains: 'Life',
+    domains: ['life'],
   },
   {
     name: 'massHeal',
@@ -3882,7 +3882,7 @@ export const SPELL_LIST = [
       cleric: ['trickery'],
       druid: ['coast'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
     circles: 'Coast',
   },
   {
@@ -3937,7 +3937,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['trickery'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
   },
   {
     name: 'moonbeam',
@@ -4061,7 +4061,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['knowledge'],
     },
-    domains: 'Knowledge',
+    domains: ['knowledge'],
   },
   {
     name: "nystul'sMagicAura",
@@ -4142,7 +4142,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['trickery'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
     circles: 'Grassland',
   },
   {
@@ -4278,7 +4278,7 @@ export const SPELL_LIST = [
       paladin: ['ancients'],
       warlock: ['archfey'],
     },
-    domains: 'Nature',
+    domains: ['nature'],
     circles: 'Forest',
     oaths: 'Ancients',
     patrons: ['archfey'],
@@ -4314,7 +4314,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['trickery'],
     },
-    domains: 'Trickery',
+    domains: ['trickery'],
   },
   {
     name: 'powerWordHeal',
@@ -4538,7 +4538,7 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Necromancy',
     class: ['bard', 'cleric', 'paladin'],
-    domains: 'Life',
+    domains: ['life'],
   },
   {
     name: "rary'sTelepathicBond",
@@ -4703,7 +4703,7 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Conjuration',
     class: ['cleric', 'paladin'],
-    domains: 'Life',
+    domains: ['life'],
   },
   {
     name: 'ropeTrick',
@@ -4772,7 +4772,7 @@ export const SPELL_LIST = [
       cleric: ['light'],
       warlock: ['fiend'],
     },
-    domains: 'Light',
+    domains: ['light'],
     patrons: ['fiend'],
   },
   {
@@ -4793,7 +4793,7 @@ export const SPELL_LIST = [
     archetype: {
       paladin: ['vengeance'],
     },
-    domains: 'Knowledge, Light',
+    domains: ['knowledge', 'light'],
     circles: 'Coast, Swamp',
     oaths: 'Vengeance',
   },
@@ -4916,7 +4916,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['tempest'],
     },
-    domains: 'Tempest',
+    domains: ['tempest'],
   },
   {
     name: 'shield',
@@ -4946,7 +4946,7 @@ export const SPELL_LIST = [
     level: 1,
     school: 'Abjuration',
     class: ['cleric', 'paladin'],
-    domains: 'War',
+    domains: ['war'],
   },
   {
     name: 'shillelagh',
@@ -5064,7 +5064,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['tempest'],
     },
-    domains: 'Tempest',
+    domains: ['tempest'],
     circles: 'Arctic',
   },
   {
@@ -5117,7 +5117,7 @@ export const SPELL_LIST = [
       cleric: ['nature'],
       paladin: ['ancients'],
     },
-    domains: 'Nature',
+    domains: ['nature'],
     oaths: 'Ancients',
   },
   {
@@ -5134,7 +5134,7 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Necromancy',
     class: ['bard', 'cleric'],
-    domains: 'Knowledge',
+    domains: ['knowledge'],
   },
   {
     name: 'speakWithPlants',
@@ -5186,7 +5186,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['nature'],
     },
-    domains: 'Nature',
+    domains: ['nature'],
     circles: 'Arctic, Mountain',
   },
   {
@@ -5205,7 +5205,7 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Conjuration',
     class: ['cleric'],
-    domains: 'War',
+    domains: ['war'],
   },
   {
     name: 'spiritualWeapon',
@@ -5222,7 +5222,7 @@ export const SPELL_LIST = [
     level: 2,
     school: 'Evocation',
     class: ['cleric'],
-    domains: 'Life, War',
+    domains: ['life', 'war'],
   },
   {
     name: 'staggeringSmite',
@@ -5294,7 +5294,7 @@ export const SPELL_LIST = [
       cleric: ['war'],
       paladin: ['ancients'],
     },
-    domains: 'War',
+    domains: ['war'],
     circles: 'Mountain',
     oaths: 'Ancients',
   },
@@ -5330,7 +5330,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['knowledge'],
     },
-    domains: 'Knowledge',
+    domains: ['knowledge'],
   },
   {
     name: 'sunbeam',
@@ -5551,7 +5551,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['tempest'],
     },
-    domains: 'Tempest',
+    domains: ['tempest'],
   },
   {
     name: 'timeStop',
@@ -5627,7 +5627,7 @@ export const SPELL_LIST = [
       cleric: ['nature'],
       paladin: ['ancients'],
     },
-    domains: 'Nature',
+    domains: ['nature'],
     circles: 'Forest',
     oaths: 'Ancients',
   },
@@ -5771,7 +5771,7 @@ export const SPELL_LIST = [
       cleric: ['light'],
       warlock: ['fiend'],
     },
-    domains: 'Light',
+    domains: ['light'],
     patrons: ['fiend'],
   },
   {
@@ -5951,7 +5951,7 @@ export const SPELL_LIST = [
     archetype: {
       cleric: ['nature'],
     },
-    domains: 'Nature',
+    domains: ['nature'],
   },
   {
     name: 'wish',

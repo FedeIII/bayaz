@@ -10,13 +10,11 @@ import {
   translateDivineDomain,
   getDivineDomain,
 } from '~/domain/cleric';
-import {
-  getClericSpellSlots,
-  CLERIC_SPELLS
-} from "~/domain/spells/cleric";
-import { DRUID_SPELLS } from "~/domain/spells/druid";
+import { getClericSpellSlots, CLERIC_SPELLS } from '~/domain/spells/cleric';
+import { DRUID_SPELLS } from '~/domain/spells/druid';
 
 import styles from '~/components/characters.module.css';
+import { translateSpell } from '~/domain/spells/spells';
 
 function getSkillChecked(skillName, skillsToSelect) {
   return !!skillsToSelect[skillName]?.selected;
@@ -212,7 +210,7 @@ function ClericSkills(props) {
                 }
                 disabled={divineDomain === 'light' && spell.name === 'light'}
               />
-              {spell.translation}{' '}
+              {translateSpell(spell.name)}{' '}
               {divineDomain === 'light' &&
                 spell.name === 'light' &&
                 ' (Ya lo conoces por el Dominio de la Luz)'}

@@ -65,6 +65,7 @@ import {
   getForgottenMagicalSecretsSpells,
 } from '../classes/bard/bard';
 import { getInvocation, getInvocations } from '../classes/warlock/warlock';
+import { getDivineDomain } from '../cleric';
 
 const zero = () => 0;
 
@@ -78,9 +79,14 @@ export function getClassSpells(pc) {
       ...getForgottenMagicalSecretsSpells(pc).map(s => getSpell(s.name)),
     ];
 
-  if (pClass == 'warlock')
+  if (pClass === 'warlock')
     return WARLOCK_SPELLS.filter(
       spell => !spell.patrons || spell.patrons.includes(getPatron(pc))
+    );
+
+  if (pClass === 'cleric')
+    return CLERIC_SPELLS.filter(
+      spell => !spell.domains || spell.domains.includes(getDivineDomain(pc))
     );
 
   return [];

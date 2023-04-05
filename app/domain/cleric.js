@@ -83,7 +83,7 @@ export function translateDivineDomain(divineDomainName) {
 }
 
 export function getDivineDomain(pc) {
-  return pc.classAttrs?.divineDomain;
+  return pc.classAttrs?.cleric?.divineDomain;
 }
 
 export function CLERIC_EQUIPMENT() {

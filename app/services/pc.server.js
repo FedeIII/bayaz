@@ -104,15 +104,18 @@ const warlockSchema = new mongoose.Schema({
   arcanum: [spellSchema],
 });
 
-const classAttrsSchema = new mongoose.Schema({
-  barbarian: barbarianSchema,
-  bard: bardSchema,
-  warlock: warlockSchema,
-  // CLERIC
+const clericSchema = new mongoose.Schema({
   divineDomain: {
     type: String,
     enum: Object.keys(DIVINE_DOMAINS),
   },
+});
+
+const classAttrsSchema = new mongoose.Schema({
+  barbarian: barbarianSchema,
+  bard: bardSchema,
+  warlock: warlockSchema,
+  cleric: clericSchema,
   favoredEnemies: [
     { type: String, enum: [...FAVORED_ENEMIES, ...FAVORED_ENEMIES_HUMANOIDS] },
   ],

@@ -68,7 +68,7 @@ export const action = async ({ request }) => {
       ...items.map(itemName => pcItem(itemName)),
     ];
   if (patron) pcAttrs.classAttrs.warlock = { patron };
-  if (divineDomain) pcAttrs.classAttrs.divineDomain = divineDomain;
+  if (divineDomain) pcAttrs.classAttrs.cleric = { divineDomain };
   if (clericSkills.length) pcAttrs.classAttrs.skills = clericSkills;
   if (favoredEnemy || favoredEnemyHumanoids.length) {
     pcAttrs.classAttrs.favoredEnemies = favoredEnemyHumanoids?.length

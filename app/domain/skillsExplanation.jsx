@@ -111,4 +111,6 @@ export const SKILLS_EXPLANATION = {
       </div>
     );
   },
+
+  savingThrows: (skill, pc) => <></>,
 };

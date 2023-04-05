@@ -891,9 +891,7 @@ function PcSummary() {
 
           {!!getDivineDomain(pc) && (
             <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>Dominio Divino:</span>
               <strong className={styles.trait}>
-                {' '}
                 Dominio de {translateDivineDomain(getDivineDomain(pc))}
               </strong>
             </li>
