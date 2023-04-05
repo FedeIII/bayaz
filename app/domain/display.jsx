@@ -1,11 +1,17 @@
 import { Fragment } from 'react';
-import { translateGuild } from './backgrounds/backgrounds';
+import {
+  translateCriminalSpecialty,
+  translateFavoriteScheme,
+  translateGuild,
+  translateOutlanderOrigin,
+  translateRoutine,
+  translateSageSpecialty,
+  translateSoldierSpecialty,
+} from './backgrounds/backgrounds';
 import {
   getAttackBonus,
   getDamageBonus,
   getMaxHitPoints,
-  getStat,
-  getStatMod,
   hasToImproveAbilityScore,
   translateSavingThrowStatus,
 } from './characters';
@@ -25,6 +31,7 @@ import {
 import { displayBardTrait } from './classes/bard/displayBardTrait';
 import { displayBarbarianTrait } from './classes/barbarian/displayBarbarianTrait';
 import { displayWarlockTrait } from './classes/warlock/displayWarlockTrait';
+import { displayClericTrait } from './classes/cleric/displayClericTrait';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -316,45 +323,6 @@ export function displayTrait(traitName, trait, pc) {
     case 'trance':
       return 'Trance';
 
-    case 'warCleric':
-      times = getStatMod(getStat(pc, 'wis'));
-      return (
-        <Fragment>
-          <u>{trait}.</u> {times > 0 ? times : 1} veces al día.
-        </Fragment>
-      );
-
-    case 'wardingFlare':
-      times = getStatMod(getStat(pc, 'wis'));
-      return (
-        <Fragment>
-          <u>{trait}.</u> {times > 0 ? times : 1} veces al día.
-        </Fragment>
-      );
-
-    case 'wrathOfTheStorm':
-      times = getStatMod(getStat(pc, 'wis'));
-      return (
-        <Fragment>
-          <u>{trait}.</u> {times > 0 ? times : 1} veces al día.
-        </Fragment>
-      );
-
-    case 'blessingOfTheTrickster':
-      return (
-        <Fragment>
-          <u>{trait}.</u> Dura 1 hora.
-        </Fragment>
-      );
-
-    case 'discipleOfLife':
-      return (
-        <Fragment>
-          <u>{trait}.</u> Conjuros de sanación curan un extra de (2 + nivel del
-          conjuro).
-        </Fragment>
-      );
-
     case 'secondWind':
       return (
         <Fragment>
@@ -371,15 +339,93 @@ export function displayTrait(traitName, trait, pc) {
         </Fragment>
       );
 
+    // BACKGROUNDS
     case 'guildMembership':
       return (
         <Fragment>
-          <u>{trait}.</u>
+          <u>Artesano Gremial:</u> {trait}.
           {!!pc.background?.guild
             ? ` Gremio de ${translateGuild(pc.background.guild)}`
             : ''}
         </Fragment>
       );
+
+    case 'byPopularDemand':
+      return (
+        <Fragment>
+          <u>Artista:</u> {trait}.
+          {!!pc.background?.routines?.length ? (
+            <>
+              {' '}
+              <u>Especialidades:</u>{' '}
+              {pc.background.routines.map(translateRoutine)}
+            </>
+          ) : (
+            ''
+          )}
+        </Fragment>
+      );
+
+    case 'falseIdentity':
+      return (
+        <Fragment>
+          <u>{trait}.</u>
+          {!!pc.background?.favoriteScheme
+            ? ` Estafa: ${translateFavoriteScheme(
+                pc.background.favoriteScheme
+              )}`
+            : ''}
+        </Fragment>
+      );
+
+    case 'criminalContact':
+      return (
+        <Fragment>
+          <u>{trait}.</u>
+          {!!pc.background?.criminalSpecialty
+            ? ` Especialidad Criminal: ${translateCriminalSpecialty(
+                pc.background.criminalSpecialty
+              )}`
+            : ''}
+        </Fragment>
+      );
+
+    case 'wanderer':
+      return (
+        <Fragment>
+          <u>{trait}.</u>
+          {!!pc.background?.outlanderOrigin
+            ? ` Origen: ${translateOutlanderOrigin(
+                pc.background.outlanderOrigin
+              )}`
+            : ''}
+        </Fragment>
+      );
+
+    case 'researcher':
+      return (
+        <Fragment>
+          <u>{trait}.</u>
+          {!!pc.background?.sageSpecialty
+            ? ` Especialidad: ${translateSageSpecialty(
+                pc.background.sageSpecialty
+              )}`
+            : ''}
+        </Fragment>
+      );
+
+    case 'militaryRank':
+      return (
+        <Fragment>
+          <u>{trait}.</u>
+          {!!pc.background?.soldierSpecialty
+            ? ` Especialidad: ${translateSoldierSpecialty(
+                pc.background.soldierSpecialty
+              )}`
+            : ''}
+        </Fragment>
+      );
+    // BACKGROUNDS
 
     case 'newSpells':
       return (
@@ -425,6 +471,10 @@ export function displayTrait(traitName, trait, pc) {
   const warlockDisplay = displayWarlockTrait(traitName, trait, pc);
   if (warlockDisplay) return warlockDisplay;
   else if (warlockDisplay === false) return null;
+
+  const clericDisplay = displayClericTrait(traitName, trait, pc);
+  if (clericDisplay) return clericDisplay;
+  else if (clericDisplay === false) return null;
 
   return trait;
 }

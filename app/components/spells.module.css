@@ -132,13 +132,19 @@
   margin: 8px 0 0 0;
 }
 
-.spells-1 {
-  grid-area: sp1;
+.spellsLevel {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;
   padding: 0 0 0 2px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: relative;
+}
+
+.spells-1 {
+  grid-area: sp1;
   margin: 10px 0 -20px 0px;
 }
 
@@ -160,11 +166,6 @@
 
 .spells-2 {
   grid-area: sp2;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 0 0 0 2px;
   margin: -13px 0 -20px 0px;
 }
 
@@ -186,11 +187,6 @@
 
 .spells-3 {
   grid-area: sp3;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 0 0 0 2px;
   margin: -10px 0px -20px -2px;
 }
 
@@ -212,11 +208,6 @@
 
 .spells-4 {
   grid-area: sp4;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 0 0 0 2px;
   margin: -12px 0px -20px -2px;
 }
 
@@ -238,11 +229,6 @@
 
 .spells-5 {
   grid-area: sp5;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 0 0 0 2px;
   margin: -11px 0 -20px -2px;
 }
 
@@ -264,11 +250,6 @@
 
 .spells-6 {
   grid-area: sp6;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 0 0 0 2px;
   margin: -10px 0 -20px -1px;
 }
 
@@ -290,11 +271,6 @@
 
 .spells-7 {
   grid-area: sp7;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 0 0 0 2px;
   margin: -10px 0 -20px -1px;
 }
 
@@ -316,11 +292,6 @@
 
 .spells-8 {
   grid-area: sp8;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 0 0 0 2px;
   margin: -10px 0 -20px -1px;
 }
 
@@ -342,11 +313,6 @@
 
 .spells-9 {
   grid-area: sp9;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 0 0 0 2px;
   margin: -10px 0 -20px -1px;
 }
 
@@ -365,7 +331,7 @@
   margin: 0 0 0px 0;
   padding: 0 0 0 20px;
   line-height: 1.71;
-  max-width: 50%;
+  max-width: 43.9%;
 }
 
 .preparedSpells {
@@ -434,7 +400,7 @@
   height: 15px;
   background-color: white;
   left: -2px;
-  top: 33px;
+  top: 34px;
   z-index: -1;
   border-radius: 50%;
 }

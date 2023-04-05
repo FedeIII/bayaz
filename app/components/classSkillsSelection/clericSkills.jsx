@@ -9,7 +9,7 @@ import {
   DIVINE_DOMAINS,
   translateDivineDomain,
   getDivineDomain,
-} from '~/domain/cleric';
+} from '~/domain/classes/cleric/cleric';
 import { getClericSpellSlots, CLERIC_SPELLS } from '~/domain/spells/cleric';
 import { DRUID_SPELLS } from '~/domain/spells/druid';
 

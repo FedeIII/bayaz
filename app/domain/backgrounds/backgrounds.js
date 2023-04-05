@@ -136,7 +136,10 @@ export const BACKGROUNDS = {
     ],
     money: [15, 0, 0],
     select: {
-      guild: { items: ARTISAN_GUILDS, translate: translateGuild },
+      guild: {
+        items: ARTISAN_GUILDS,
+        translate: translateGuild,
+      },
     },
     traits: {
       guildMembership: 'Membresía del Gremio',
@@ -248,7 +251,7 @@ export const BACKGROUNDS = {
       TOOLS.commonClothes(),
     ],
     money: [10, 0, 0],
-    trait: {
+    traits: {
       rusticHospitality: 'Hospitalidad Rústica',
     },
   },

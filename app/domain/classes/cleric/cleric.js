@@ -1,14 +1,14 @@
-import { getItemProficiencies } from './characters';
-import { ARMORS, getAllHeavyArmors } from './equipment/armors';
-import { EXPLORERS_PACK, PRIESTS_PACK } from './equipment/packs';
-import { TOOLS } from './equipment/tools';
+import { CLASSES, getItemProficiencies } from '../../characters';
+import { ARMORS, getAllHeavyArmors } from '../../equipment/armors';
+import { EXPLORERS_PACK, PRIESTS_PACK } from '../../equipment/packs';
+import { TOOLS } from '../../equipment/tools';
 import {
   getAllMartialMelee,
   getAllMartialRanged,
   getAllSimpleMelee,
   getAllSimpleRanged,
   WEAPONS,
-} from './equipment/weapons';
+} from '../../equipment/weapons';
 
 export const DIVINE_DOMAINS = {
   knowledge: {
@@ -117,4 +117,22 @@ export function CLERIC_EQUIPMENT() {
     ARMORS.shield(),
     TOOLS.holySymbol(),
   ];
+}
+
+export function getClericDomainTraits(pc) {
+  const { level } = pc;
+
+  const divineDomain = getDivineDomain(pc);
+
+  return Object.entries(
+    Object.entries(CLASSES.cleric.leveling).reduce(
+      (levelingTraits, [traitLevel, levelSkills]) => ({
+        ...levelingTraits,
+        ...(parseInt(traitLevel, 10) <= level
+          ? levelSkills.divineDomain?.[divineDomain]?.traits || {}
+          : {}),
+      }),
+      {}
+    )
+  );
 }

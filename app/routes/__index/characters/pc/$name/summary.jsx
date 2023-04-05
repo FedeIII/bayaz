@@ -57,7 +57,11 @@ import {
   getRangerArchetype,
   translateRangerArchetype,
 } from '~/domain/ranger';
-import { translateDivineDomain, getDivineDomain } from '~/domain/cleric';
+import {
+  translateDivineDomain,
+  getDivineDomain,
+  getClericDomainTraits,
+} from '~/domain/classes/cleric/cleric';
 import {
   getPrimalPath,
   getPrimalPathTraits,
@@ -355,6 +359,7 @@ function PcSummary() {
   const invocations = getInvocations(pc);
   const patronTraits = getWarlockPatronTraits(pc);
   const bardCollegeTraits = getBardCollegeTraits(pc);
+  const divineDomainTraits = getClericDomainTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -364,6 +369,7 @@ function PcSummary() {
     bardCollege: bardCollegeTraits.map(() => useRef()),
     invocations: invocations.map(() => useRef()),
     patron: patronTraits.map(() => useRef()),
+    divineDomain: divineDomainTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -894,6 +900,19 @@ function PcSummary() {
               <strong className={styles.trait}>
                 Dominio de {translateDivineDomain(getDivineDomain(pc))}
               </strong>
+              <ul>
+                {divineDomainTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.divineDomain[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('divineDomain', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
             </li>
           )}
 

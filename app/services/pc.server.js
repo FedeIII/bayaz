@@ -16,7 +16,7 @@ import {
   FAVORED_TERRAINS,
   RANGER_ARCHETYPES,
 } from '~/domain/ranger';
-import { DIVINE_DOMAINS } from '~/domain/cleric';
+import { DIVINE_DOMAINS } from '~/domain/classes/cleric/cleric';
 import { getItem, pcItem } from '~/domain/equipment/equipment';
 import {
   getExtraPreparedSpells,

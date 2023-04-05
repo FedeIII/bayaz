@@ -1,5 +1,5 @@
 import { getStat, getStatMod } from '../characters';
-import { getDivineDomain } from '../cleric';
+import { getDivineDomain } from '../classes/cleric/cleric';
 import { SPELL_LIST } from './spellList';
 
 export const CLERIC_SPELLS = SPELL_LIST.filter(spell =>
@@ -61,6 +61,8 @@ export function getClericExtraPreparedSpells(pc) {
   const divineDomain = getDivineDomain(pc);
 
   return Object.values(CLERIC_SPELLS).filter(
-    spell => spell.subtype === divineDomain
+    spell =>
+      Math.ceil(pc.level / 2) >= spell.level &&
+      spell.domains?.includes(divineDomain)
   );
 }

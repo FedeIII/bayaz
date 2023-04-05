@@ -196,7 +196,11 @@ function PcSpells() {
                 )}
               </div>
             )}
-            <ul className={`${styles.data} ${styles[`spells-${level}`]}`}>
+            <ul
+              className={`${styles.data} ${styles.spellsLevel} ${
+                styles[`spells-${level}`]
+              }`}
+            >
               {spells.map((spell, i) => (
                 <li
                   className={`${styles.data} ${

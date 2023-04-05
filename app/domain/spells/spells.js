@@ -65,7 +65,7 @@ import {
   getForgottenMagicalSecretsSpells,
 } from '../classes/bard/bard';
 import { getInvocation, getInvocations } from '../classes/warlock/warlock';
-import { getDivineDomain } from '../cleric';
+import { getDivineDomain } from '../classes/cleric/cleric';
 
 const zero = () => 0;
 

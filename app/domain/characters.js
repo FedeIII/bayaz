@@ -12,7 +12,7 @@ import {
   translateDivineDomain,
   getDivineDomain,
   DIVINE_DOMAINS,
-} from './cleric';
+} from './classes/cleric/cleric';
 import { displayTrait } from './display';
 import {
   getAllHeavyArmors,
@@ -36,6 +36,7 @@ import { getSorcererOrigin, SORCERER_ORIGIN } from './sorcerer';
 import { PATRONS, getInvocationsSkills } from './classes/warlock/warlock';
 import random from '~/domain/random';
 import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExplanation';
+import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanation';
 
 export const RACES = {
   dwarf: {
@@ -614,6 +615,42 @@ export const CLASSES = {
     ],
     spellcastingAbility: 'wis',
     statImprove: [4, 8, 12, 16, 19],
+    leveling: {
+      1: {
+        divineDomain: {
+          knowledge: {
+            traits: {
+              blessingsOfKnowledge: 'Bendiciones del Conocimiento',
+            },
+          },
+          war: {
+            traits: {
+              warPriest: 'Clérigo de Guerra',
+            },
+          },
+          light: {
+            traits: {
+              wardingFlare: 'Filgor Protector',
+            },
+          },
+          tempest: {
+            traits: {
+              wrathOfTheStorm: 'Ira de la Tormenta',
+            },
+          },
+          trickery: {
+            traits: {
+              blessingOfTheTrickster: 'Bendición del Tramposo',
+            },
+          },
+          life: {
+            traits: {
+              discipleOfLife: 'Discípulo de la Vida',
+            },
+          },
+        },
+      },
+    },
   },
   druid: {
     initialHitPoints: 8,
@@ -1676,6 +1713,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...BARBARIAN_SKILLS_EXPLANATION,
       ...BARD_SKILLS_EXPLANATION,
       ...WARLOCK_SKILLS_EXPLANATION,
+      ...CLERIC_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }

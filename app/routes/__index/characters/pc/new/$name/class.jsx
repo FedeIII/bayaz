@@ -86,9 +86,10 @@ export const action = async ({ request }) => {
     pcAttrs.spells = [
       ...pc.spells,
       ...spells.map(spell => {
-        const [spellName, spellClass = pc.pClass] = spell.split(',');
-        return getSpell(spellName, spellClass);
+        const [spellName] = spell.split(',');
+        return getSpell(spellName);
       }),
+      ...(divineDomain === 'light' ? [getSpell('light')] : []),
     ];
   }
 
