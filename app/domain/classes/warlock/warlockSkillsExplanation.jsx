@@ -399,6 +399,19 @@ export const WARLOCK_SKILLS_EXPLANATION = {
       </p>
     </>
   ),
+
+  eldritchMaster: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 20 puedes explotar tu reserva interna de poder
+        místico mientras ruegas a tu patrón para recuperar los espacios de
+        conjuro gastados. Debes pasar un minuto rogando a tu patrón para que te
+        ayude a recobrar todos tus espacios gastados de tu rasgo Magia de Pacto.
+        Una vez que recobras espacios de conjuro de esta forma, debes finalizar
+        un descanso prolongado antes de que puedas hacerlo de nuevo
+      </p>
+    </>
+  ),
 };
 
 export function getInvocationExplanation(invocationName, invocationTitle, pc) {

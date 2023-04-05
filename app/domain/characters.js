@@ -931,6 +931,11 @@ export const CLASSES = {
           },
         },
       },
+      20: {
+        traits: {
+          eldritchMaster: 'Maestro Arcano',
+        },
+      },
     },
   },
   wizard: {

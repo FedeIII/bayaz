@@ -55,6 +55,8 @@ npx prisma migrate dev
 
 - lose HP on combats
 - recover HP after rest
+- recover spell slots after rest
+  - Warlock eldritchMaster
 - Use spells (consume slots)
 - put hit dice roll on level up in the modal
 - show all extra stat points in the improve stat screen
