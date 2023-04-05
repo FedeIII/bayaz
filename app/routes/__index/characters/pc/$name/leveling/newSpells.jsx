@@ -6,12 +6,12 @@ import {
   getPc,
   learnSpells,
   prepareSpells,
+  updatePc,
 } from '~/services/pc.server';
 import { translateClass } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
   getClassSpells,
-  getDeltaSpells,
   getNewSpellsAmount,
   getSpellSlots,
   getTotalSpells,
@@ -47,20 +47,23 @@ export const loader = async ({ params }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get('name');
+  const level = formData.get('level');
 
   const forget = formData.get('forget');
   const learn = formData.getAll('learn[]');
 
-  const [pc] = await Promise.all([
-    getPc(name),
+  await Promise.all([
     learnSpells(name, learn),
     prepareSpells(name, learn),
+    updatePc({
+      name,
+      'magic.hasLearnedSpells': Array.from(
+        Array(parseInt(level, 0)),
+        () => true
+      ),
+    }),
     forget && forgetSpell(name, forget),
   ]);
-
-  if (getDeltaSpells(pc) === 0) {
-    await markSpellsLearntForLevel(name);
-  }
 
   return redirect(`/characters/pc/${name}/summary`);
 };
@@ -168,6 +171,7 @@ function NewSpells() {
   return (
     <Form method="post" ref={formRef}>
       <input readOnly type="text" name="name" value={name} hidden />
+      <input readOnly type="text" name="level" value={level} hidden />
 
       <h2 className={appStyles.paleText}>Escoge nuevos Conjuros</h2>
 

@@ -402,16 +402,6 @@ export async function addImprovedStatsLevel(name, level) {
   return updatedPc;
 }
 
-export async function markSpellsLearntForLevel(name) {
-  const updatedPc = await Pc.findOneAndUpdate(
-    { name: name },
-    { $push: { 'magic.hasLearnedSpells': true } },
-    { new: true, upsert: true }
-  ).exec();
-
-  return updatedPc;
-}
-
 export async function learnSpells(pcName, toLearn) {
   const hasBardLoreSpell = await Promise.all(
     toLearn.map(spellName =>
@@ -467,7 +457,6 @@ export async function learnRegularSpells(pcName, toLearn) {
         spells: {
           $each: toLearn.map(sName => ({ name: sName })),
         },
-        'magic.hasLearnedSpells': true,
       },
     },
     { new: true, upsert: true }
@@ -547,12 +536,10 @@ export async function learnBardLoreSpells(pcName, spells) {
               $set: {
                 'classAttrs.bard.loreSpells.$.forgotten': false,
               },
-              $push: { 'magic.hasLearnedSpells': true },
             }
           : {
               $push: {
                 'classAttrs.bard.loreSpells': { name: spells[i] },
-                'magic.hasLearnedSpells': true,
               },
             },
         { new: true, upsert: true }
@@ -607,12 +594,10 @@ export async function learnBardMagicalSecretsSpells(pcName, spells) {
               $set: {
                 'classAttrs.bard.magicalSecretsSpells.$.forgotten': false,
               },
-              $push: { 'magic.hasLearnedSpells': true },
             }
           : {
               $push: {
                 'classAttrs.bard.magicalSecretsSpells': { name: spells[i] },
-                'magic.hasLearnedSpells': true,
               },
             },
         { new: true, upsert: true }
