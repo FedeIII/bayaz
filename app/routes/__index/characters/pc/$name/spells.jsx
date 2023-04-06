@@ -181,7 +181,9 @@ function PcSpells() {
             )}
             {level > 0 && (
               <div
-                className={`${styles.data} ${styles[`spentSpaces-${level}`]}`}
+                className={`${styles.data} ${styles.spentSpaces} ${
+                  styles[`spentSpaces-${level}`]
+                }`}
               >
                 0
                 {hasToPrepareSpells(pc) && (

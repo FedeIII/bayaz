@@ -24,3 +24,11 @@ export function removeItem(findCallback, array) {
   const index = array.findIndex(findCallback);
   return [...array.slice(0, index), ...array.slice(index + 1, array.length)];
 }
+
+export function unique(values) {
+  return [...new Set(values || [])];
+}
+
+export function substract(minuend, subtrahend) {
+  return minuend.filter(el => !subtrahend.includes(el));
+}

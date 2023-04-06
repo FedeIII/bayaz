@@ -163,6 +163,10 @@
   font-size: 18px;
 }
 
+.smallText {
+  font-size: 14px;
+}
+
 .filter {
   display: inline-block;
   margin: 16px 16px;

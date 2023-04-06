@@ -107,6 +107,13 @@
   margin: 12px 0 0 0;
 }
 
+.spentSpaces {
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  margin: 8px -12px 0 0px;
+}
+
 .spells-0 {
   grid-area: sp0;
   flex-direction: column;
@@ -126,10 +133,6 @@
 
 .spentSpaces-1 {
   grid-area: sS1;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 8px 0 0 0;
 }
 
 .spellsLevel {
@@ -158,10 +161,6 @@
 
 .spentSpaces-2 {
   grid-area: sS2;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 8px 0 0 0;
 }
 
 .spells-2 {
@@ -179,10 +178,6 @@
 
 .spentSpaces-3 {
   grid-area: sS3;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 8px 0 0 0;
 }
 
 .spells-3 {
@@ -200,10 +195,6 @@
 
 .spentSpaces-4 {
   grid-area: sS4;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 8px 0 0 0;
 }
 
 .spells-4 {
@@ -221,10 +212,6 @@
 
 .spentSpaces-5 {
   grid-area: sS5;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 8px 0 0 0;
 }
 
 .spells-5 {
@@ -242,10 +229,6 @@
 
 .spentSpaces-6 {
   grid-area: sS6;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 8px 0 0 0;
 }
 
 .spells-6 {
@@ -263,10 +246,6 @@
 
 .spentSpaces-7 {
   grid-area: sS7;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 8px 0 0 0;
 }
 
 .spells-7 {
@@ -284,10 +263,6 @@
 
 .spentSpaces-8 {
   grid-area: sS8;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 8px 0 0 0;
 }
 
 .spells-8 {
@@ -305,10 +280,6 @@
 
 .spentSpaces-9 {
   grid-area: sS9;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 8px 0 0 0;
 }
 
 .spells-9 {

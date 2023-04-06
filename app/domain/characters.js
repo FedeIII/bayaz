@@ -1505,9 +1505,9 @@ export function getItemProficiencies(pc) {
     ...(RACES[race][subrace].proficientItems || []),
     ...(CLASSES[pClass].proficientItems || []),
     ...(pc.proficientItems?.map(item => item.name) || []),
-    ...((divineDomain ? DIVINE_DOMAINS[divineDomain].proficientItems : []) ||
+    ...((divineDomain ? DIVINE_DOMAINS[divineDomain]?.proficientItems : []) ||
       []),
-    ...((bardCollege ? BARD_COLLEGES[bardCollege].proficientItems : []) || []),
+    ...((bardCollege ? BARD_COLLEGES[bardCollege]?.proficientItems : []) || []),
   ];
 }
 

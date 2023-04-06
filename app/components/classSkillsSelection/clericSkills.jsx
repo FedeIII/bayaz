@@ -218,20 +218,6 @@ function ClericSkills(props) {
           ))}
       </p>
 
-      {Object.values(CLERIC_SPELLS)
-        .filter(
-          s => s.level === 1 && (!s.subtype || s.subtype === divineDomain)
-        )
-        .map(spell => (
-          <input
-            readOnly
-            type="text"
-            name="spells[]"
-            value={spell.name}
-            hidden
-          />
-        ))}
-
       {divineDomain === 'nature' && (
         <p>
           Conoces 1 truco de druida:{' '}

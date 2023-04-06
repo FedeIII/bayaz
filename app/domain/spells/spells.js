@@ -11,6 +11,8 @@ import {
   getClericExtraPreparedSpells,
   getClericMaxPreparedSpells,
   getClericSpellSlots,
+  hasNewClericCantrips,
+  maxClericSpellLevel,
 } from './cleric';
 import {
   DRUID_SPELLS,
@@ -185,6 +187,18 @@ export function getExtraPreparedSpells(pc) {
   else return [];
 }
 
+export function hasToLearnSpells(pc) {
+  const { pClass } = pc;
+
+  return ['bard', 'warlock'].includes(pClass);
+}
+
+export function doesNotHaveToLearnSpells(pc) {
+  const { pClass } = pc;
+
+  return ['cleric'].includes(pClass);
+}
+
 export function hasToPrepareSpells(pc) {
   const { pClass } = pc;
 
@@ -263,6 +277,7 @@ export function hasNewCantrips(pc) {
     {
       bard: hasNewBardCantrips,
       warlock: hasNewWarlockCantrips,
+      cleric: hasNewClericCantrips,
     }[pClass] || zero
   )(pc);
 }
@@ -296,6 +311,7 @@ export function maxSpellLevel(pc) {
     {
       bard: maxBardSpellLevel,
       warlock: getWarlockSpellSlotsLevel,
+      cleric: maxClericSpellLevel,
     }[pClass] || zero
   )(pc);
 }

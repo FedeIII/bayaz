@@ -5,6 +5,12 @@ import {
   getPactSpells,
 } from '../classes/warlock/warlock';
 import { SPELL_LIST } from './spellList';
+import {
+  doesNotHaveToLearnSpells,
+  getClassSpells,
+  hasToLearnSpells,
+  maxSpellLevel,
+} from './spells';
 
 export function getSpell(spellName) {
   return SPELL_LIST.find(spell => spell.name === spellName) || {};
@@ -35,10 +41,20 @@ export function getAllPcCantrips(pc) {
 export function getKnownSpells(pc) {
   const { spells = [] } = pc;
 
+  let pSpells;
+  if (hasToLearnSpells(pc)) {
+    pSpells = spells;
+  } else if (doesNotHaveToLearnSpells(pc)) {
+    pSpells = getClassSpells(pc).filter(
+      spell => spell.level <= maxSpellLevel(pc)
+    );
+  }
+
+  // spells that count for the total known
   const magicalSecretsSpells = getMagicalSecretsSpells(pc);
 
   return (
-    [...spells, ...magicalSecretsSpells]
+    [...pSpells, ...magicalSecretsSpells]
       .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level > 0) || []
   );
@@ -57,17 +73,18 @@ export function getKnownSpellsByLevel(pc) {
 export function getAllPcSpells(pc) {
   const { spells = [] } = pc;
 
+  let knownSpells = getKnownSpells(pc);
+
+  // spells that don't count for the total known
   const loreSpells = getLoreSpells(pc);
-  const magicalSecretsSpells = getMagicalSecretsSpells(pc);
   const invocationsSpells = getInvocationsSpells(pc);
   const pactSpells = getPactSpells(pc);
   const arcanumSpells = getArcanum(pc).map(getSpell);
 
   return (
     [
-      ...spells,
+      ...knownSpells,
       ...loreSpells,
-      ...magicalSecretsSpells,
       ...invocationsSpells,
       ...pactSpells,
       ...arcanumSpells,

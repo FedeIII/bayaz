@@ -1,6 +1,6 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { addLevelHitPoints, getPc } from '~/services/pc.server';
+import { addLevelHitPoints, getPc, prepareSpells } from '~/services/pc.server';
 import {
   CLASSES,
   getFixedHealthForLevelUp,
@@ -10,6 +10,8 @@ import {
 } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 import { increment } from '~/domain/display';
+import { getExtraPreparedSpells } from '~/domain/spells/spells';
+import { substract } from '~/utils/insert';
 
 import appStyles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
@@ -41,7 +43,15 @@ export const action = async ({ request }) => {
     extraHitPoints = parseInt(hitPoints, 10);
   }
 
-  await addLevelHitPoints(name, extraHitPoints);
+  const extraPreparedSpells = substract(
+    getExtraPreparedSpells(pc).map(s => s.name),
+    pc.preparedSpells.map(s => s.name)
+  );
+
+  await Promise.all([
+    prepareSpells(name, extraPreparedSpells),
+    addLevelHitPoints(name, extraHitPoints),
+  ]);
 
   return redirect(
     `/characters/pc/${name}/summary?addExtraHitPoints=${extraHitPoints}`

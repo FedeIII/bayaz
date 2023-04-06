@@ -1,5 +1,6 @@
 import { getStat, getStatMod } from '../characters';
 import { getDivineDomain } from '../classes/cleric/cleric';
+import { getKnownCantrips } from './getSpells';
 import { SPELL_LIST } from './spellList';
 
 export const CLERIC_SPELLS = SPELL_LIST.filter(spell =>
@@ -62,7 +63,17 @@ export function getClericExtraPreparedSpells(pc) {
 
   return Object.values(CLERIC_SPELLS).filter(
     spell =>
-      Math.ceil(pc.level / 2) >= spell.level &&
-      spell.domains?.includes(divineDomain)
+      pc.level >= spell.level * 2 - 1 && spell.domains?.includes(divineDomain)
   );
+}
+
+export function maxClericSpellLevel(pc) {
+  return clericSpellSlots(pc).length;
+}
+
+export function hasNewClericCantrips(pc) {
+  const knownCantripsNumber = getClericCantripsNumber(pc);
+  if (knownCantripsNumber > getKnownCantrips(pc).length) return true;
+
+  return false;
 }
