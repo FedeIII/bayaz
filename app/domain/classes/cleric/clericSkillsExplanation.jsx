@@ -133,14 +133,33 @@ export const CLERIC_SKILLS_EXPLANATION = {
         salvación de Sabiduría. Si la criatura falla la tirada de salvación, se
         encuentra expulsada durante 1 minuto o hasta que reciba cualquier daño.
       </p>
-      <p>
-        Una criatura expulsada debe emplear sus turnos intentando moverse tan
-        lejos de ti como sea capaz, y no puede acercarse voluntariamente a una
-        distancia de 30 pies (9 metros) de ti. Tampoco puede realizar
-        reacciones. Como acción, solo puede usar la acción de Carrera o intentar
-        escapar de un efecto que le impida moverse. Si no hay ningún lugar para
-        moverse, la criatura puede usar la acción de Esquivar.
-      </p>
+      {pc.level < 5 && (
+        <p>
+          Una criatura expulsada debe emplear sus turnos intentando moverse tan
+          lejos de ti como sea capaz, y no puede acercarse voluntariamente a una
+          distancia de 30 pies (9 metros) de ti. Tampoco puede realizar
+          reacciones. Como acción, solo puede usar la acción de Carrera o
+          intentar escapar de un efecto que le impida moverse. Si no hay ningún
+          lugar para moverse, la criatura puede usar la acción de Esquivar.
+        </p>
+      )}
+      {pc.level >= 5 && (
+        <p>
+          A partir del nivel 5, cuando un muerto viviente falle su tirada de
+          salvación contra tu Expulsar Muertos Vivientes, la criatura es
+          destruida instantáneamente si su valor de desafío es{' '}
+          {pc.level >= 17
+            ? '4'
+            : pc.level >= 14
+            ? '3'
+            : pc.level >= 11
+            ? '2'
+            : pc.level >= 8
+            ? '1'
+            : '1/2'}{' '}
+          o menor.
+        </p>
+      )}
     </>
   ),
 

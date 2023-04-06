@@ -69,6 +69,31 @@ export function displayClericTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'turnUndead':
+      return (
+        <>
+          {pc.level < 5 ? trait : 'Destruir Muertos Vivientes'}.{' '}
+          {pc.level >= 5 && (
+            <span className={appStyles.smallText}>
+              CR{' '}
+              {pc.level >= 17
+                ? '4'
+                : pc.level >= 14
+                ? '3'
+                : pc.level >= 11
+                ? '2'
+                : pc.level >= 8
+                ? '1'
+                : '1/2'}{' '}
+              o menor
+            </span>
+          )}
+        </>
+      );
+
+    case 'destroyUndead':
+      return false;
+
     default:
   }
 

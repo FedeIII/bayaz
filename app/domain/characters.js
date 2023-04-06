@@ -695,6 +695,16 @@ export const CLASSES = {
           },
         },
       },
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      5: {
+        traits: {
+          destroyUndead: 'Destruir Muertos Vivientes',
+        },
+      },
     },
   },
   druid: {
