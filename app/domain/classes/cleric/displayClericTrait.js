@@ -57,6 +57,15 @@ export function displayClericTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'channelDivinity':
+      return (
+        <>
+          <u>{trait}.</u>{' '}
+          {pc.level >= 18 ? '3 veces' : pc.level >= 6 ? '2 veces' : '1 vez'}{' '}
+          entre descansos
+        </>
+      );
+
     default:
   }
 

@@ -33,7 +33,7 @@ import {
 } from './equipment/weapons';
 import { SKILLS_EXPLANATION } from './skillsExplanation';
 import { getSorcererOrigin, SORCERER_ORIGIN } from './sorcerer';
-import { PATRONS, getInvocationsSkills } from './classes/warlock/warlock';
+import { getInvocationsSkills } from './classes/warlock/warlock';
 import random from '~/domain/random';
 import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExplanation';
 import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanation';
@@ -646,6 +646,51 @@ export const CLASSES = {
           life: {
             traits: {
               discipleOfLife: 'Discípulo de la Vida',
+            },
+          },
+        },
+      },
+      2: {
+        traits: {
+          channelDivinity: 'Canalizar Divinidad',
+        },
+        channelDivinity: {
+          traits: {
+            turnUndead: 'Expulsar Muertos Vivientes',
+          },
+          knowledge: {
+            traits: {
+              knowledgeOfTheAges: 'Conocimiento de las Edades',
+            },
+          },
+          war: {
+            traits: {
+              guidedStrike: 'Impacto Guiado',
+            },
+          },
+          light: {
+            traits: {
+              radianceOfTheDawn: 'Resplandor del Alba',
+            },
+          },
+          nature: {
+            traits: {
+              charmAnimalsAndPlants: 'Hechizar Animales y Plantas',
+            },
+          },
+          tempest: {
+            traits: {
+              destructiveWrath: 'Ira Destructiva',
+            },
+          },
+          trickery: {
+            traits: {
+              invokeDuplicity: 'Invocar Duplicidad',
+            },
+          },
+          life: {
+            traits: {
+              preserveLife: 'Preservar Vida',
             },
           },
         },
@@ -1543,32 +1588,27 @@ export function translateSavingThrowStatus(status) {
 function getLevelingTraits(pc) {
   const { pClass, level } = pc;
 
-  return Object.entries(CLASSES[pClass]?.leveling || {}).reduce(
+  const levelingTraits = Object.entries(CLASSES[pClass]?.leveling || {}).reduce(
     (levelingTraits, [traitLevel, levelSkills]) => ({
       ...levelingTraits,
       ...(parseInt(traitLevel, 10) <= level ? levelSkills.traits : {}),
     }),
     {}
   );
+
+  delete levelingTraits.channelDivinity;
+
+  return levelingTraits;
 }
 
 export function getTraits(pc) {
-  const {
-    race,
-    subrace,
-    pClass,
-    classAttrs: { patron, divineDomain } = {},
-    background = {},
-    level,
-  } = pc;
+  const { race, subrace, pClass, background = {} } = pc;
 
   return Object.entries({
     ...RACES[race][subrace].traits,
     ...(BACKGROUNDS[background.name]?.traits || {}),
     ...CLASSES[pClass].traits,
     ...getLevelingTraits(pc),
-    ...(pClass === 'warlock' ? PATRONS[patron]?.traits || {} : {}),
-    ...(pClass === 'cleric' ? DIVINE_DOMAINS[divineDomain]?.traits || {} : {}),
   }).filter(([traitName, trait]) => displayTrait(traitName, trait, pc));
 }
 

@@ -18,14 +18,6 @@ export const DIVINE_DOMAINS = {
   },
   life: {
     proficientItems: [...getAllHeavyArmors().map(item => item.name)],
-    traits: {
-      discipleOfLife: 'Discípulo de la Vida',
-    },
-  },
-  light: {
-    traits: {
-      wardingFlare: 'Fulgor Protector',
-    },
   },
   nature: {
     pickSkills: 1,
@@ -38,14 +30,6 @@ export const DIVINE_DOMAINS = {
       ...getAllMartialRanged().map(item => item.name),
       ...getAllHeavyArmors().map(item => item.name),
     ],
-    traits: {
-      wrathOfTheStorm: 'Ira de la Tormenta',
-    },
-  },
-  trickery: {
-    traits: {
-      blessingOfTheTrickster: 'Bendición del Tramposo',
-    },
   },
   war: {
     proficientItems: [
@@ -53,9 +37,6 @@ export const DIVINE_DOMAINS = {
       ...getAllMartialRanged().map(item => item.name),
       ...getAllHeavyArmors().map(item => item.name),
     ],
-    traits: {
-      warCleric: 'Inspiración de Clérico de Guerra',
-    },
   },
 };
 
@@ -130,6 +111,31 @@ export function getClericDomainTraits(pc) {
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level
           ? levelSkills.divineDomain?.[divineDomain]?.traits || {}
+          : {}),
+      }),
+      {}
+    )
+  );
+}
+
+export function hasChannelDivinity(pc) {
+  return pc.pClass === 'cleric' && pc.level >= 2;
+}
+
+export function getChannelDivinityTraits(pc) {
+  const { level } = pc;
+
+  const divineDomain = getDivineDomain(pc);
+
+  return Object.entries(
+    Object.entries(CLASSES.cleric.leveling).reduce(
+      (levelingTraits, [traitLevel, levelSkills]) => ({
+        ...levelingTraits,
+        ...(parseInt(traitLevel, 10) <= level
+          ? levelSkills.channelDivinity?.traits || {}
+          : {}),
+        ...(parseInt(traitLevel, 10) <= level
+          ? levelSkills.channelDivinity?.[divineDomain]?.traits || {}
           : {}),
       }),
       {}

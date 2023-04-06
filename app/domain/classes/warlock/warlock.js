@@ -29,23 +29,7 @@ export function translatePatron(patron) {
   if (patron === 'greatOldOne') return 'El Gran Antiguo';
 }
 
-export const PATRONS = {
-  archfey: {
-    traits: {
-      feyPresence: 'Presencia Feérica',
-    },
-  },
-  fiend: {
-    traits: {
-      darkOnesBlessing: 'Bendición del Oscuro',
-    },
-  },
-  greatOldOne: {
-    traits: {
-      awakenedMind: 'Mente Despierta',
-    },
-  },
-};
+export const PATRONS = ['archfey', 'fiend', 'greatOldOne'];
 
 export function getWarlockPatron(pc) {
   return pc.classAttrs?.warlock?.patron;

@@ -61,6 +61,8 @@ import {
   translateDivineDomain,
   getDivineDomain,
   getClericDomainTraits,
+  hasChannelDivinity,
+  getChannelDivinityTraits,
 } from '~/domain/classes/cleric/cleric';
 import {
   getPrimalPath,
@@ -360,6 +362,7 @@ function PcSummary() {
   const patronTraits = getWarlockPatronTraits(pc);
   const bardCollegeTraits = getBardCollegeTraits(pc);
   const divineDomainTraits = getClericDomainTraits(pc);
+  const channelDivinityTraits = getChannelDivinityTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -370,6 +373,11 @@ function PcSummary() {
     invocations: invocations.map(() => useRef()),
     patron: patronTraits.map(() => useRef()),
     divineDomain: divineDomainTraits.map(() => useRef()),
+    channelDivinity: (() => {
+      const refs = channelDivinityTraits.map(() => useRef());
+      refs.main = useRef();
+      return refs;
+    })(),
     hp: [useRef()],
   });
 
@@ -909,6 +917,33 @@ function PcSummary() {
                       trait={trait}
                       pc={pc}
                       openModal={openSkillModal('divineDomain', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {hasChannelDivinity(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                <SkillItem
+                  ref={skillRefs.channelDivinity.main}
+                  traitName="channelDivinity"
+                  trait={CLASSES.cleric.leveling[2].traits.channelDivinity}
+                  pc={pc}
+                  openModal={openSkillModal('channelDivinity', 'main')}
+                />
+              </strong>
+              <ul>
+                {channelDivinityTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.channelDivinity[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('channelDivinity', i)}
                     />
                   </li>
                 ))}
