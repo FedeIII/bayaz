@@ -358,7 +358,7 @@ export function displayTrait(traitName, trait, pc) {
             <>
               {' '}
               <u>Especialidades:</u>{' '}
-              {pc.background.routines.map(translateRoutine)}
+              {pc.background.routines.map(translateRoutine).join(', ')}
             </>
           ) : (
             ''
