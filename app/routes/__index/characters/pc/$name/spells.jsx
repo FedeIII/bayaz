@@ -258,6 +258,7 @@ function PcSpells() {
                   </span>
                 </li>
               ))}
+              <span className={styles.hideCircles} />
             </ul>
           </Fragment>
         ))}

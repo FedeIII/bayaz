@@ -375,3 +375,10 @@
   z-index: -1;
   border-radius: 50%;
 }
+
+.hideCircles {
+  flex-grow: 1;
+  background-color: white;
+  margin: 0 0 10px -3px;
+  padding: 0 16px 0 0;
+}
