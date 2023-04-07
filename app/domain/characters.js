@@ -700,9 +700,40 @@ export const CLASSES = {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
         },
       },
-      5: {
-        traits: {
-          destroyUndead: 'Destruir Muertos Vivientes',
+      6: {
+        divineDomain: {
+          nature: {
+            traits: {
+              dampenElements: 'Amortiguar Elementos',
+            },
+          },
+          tempest: {
+            traits: {
+              thunderousStrike: 'Golpe de Rayo',
+            },
+          },
+          life: {
+            traits: {
+              blessedHealer: 'Sanador Bendecido',
+            },
+          },
+        },
+        channelDivinity: {
+          knowledge: {
+            traits: {
+              readThoughts: 'Leer Pensamientos',
+            },
+          },
+          war: {
+            traits: {
+              warGodsBlessing: 'Bendición del Dios de la Guerra',
+            },
+          },
+          trickery: {
+            traits: {
+              cloakOfShadows: 'Capa de Sombras',
+            },
+          },
         },
       },
     },

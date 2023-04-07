@@ -29,7 +29,11 @@ export function displayClericTrait(traitName, trait, pc) {
       const times = getStatMod(getStat(pc, 'wis'));
       return (
         <>
-          <u>{trait}.</u> {times > 0 ? times : 1} veces al día.
+          <u>
+            {trait}
+            {pc.level >= 6 ? ' Mejorado' : ''}.
+          </u>{' '}
+          {times > 0 ? times : 1} veces al día.
         </>
       );
     }

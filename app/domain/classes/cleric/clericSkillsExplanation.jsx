@@ -55,6 +55,13 @@ export const CLERIC_SKILLS_EXPLANATION = {
         Recuperas todos los usos gastados cuando finalizas un descanso
         prolongado.
       </p>
+      {pc.level >= 6 && (
+        <p>
+          A partir del nivel 6 también puedes usar tu Fulgor Protector cuando
+          una criatura en un rango de 30 pies (9 metros) de ti ataque a otra
+          criatura.
+        </p>
+      )}
     </>
   ),
 
@@ -272,5 +279,82 @@ export const CLERIC_SKILLS_EXPLANATION = {
         constructo.
       </p>
     </>
+  ),
+
+  readThoughts: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 6 puedes usar tu Canalizar Divinidad para leer los
+        pensamientos de una criatura. Luego puedes usar tu acceso a la mente de
+        la criatura para comandarla.
+      </p>
+      <p>
+        Como una acción, elige una criatura que puedas ver en un rango de 60
+        pies (18 metros) de ti. Esa criatura debe realizar una tirada de
+        salvación de Sabiduría. Si la criatura tiene éxito en su salvación, no
+        puedes usar este rasgo en ella nuevamente hasta que finalices un
+        descanso prolongado.
+      </p>
+      <p>
+        Si la criatura falla su salvación, puedes leer sus pensamientos
+        superficiales (lo que tenga en mente, reflejando sus emociones actuales
+        y lo que está pensando activamente) cuando está en un rango de 60 pies
+        (18 metros) de ti. Este efecto dura un minuto.
+      </p>
+      <p>
+        Durante ese tiempo, puedes usar tu acción para terminar este efecto y
+        lanzar el hechizo sugestión sobre la criatura sin gastar un espacio de
+        conjuro. La criatura falla automáticamente su tirada de salvación contra
+        el conjuro.
+      </p>
+    </>
+  ),
+
+  warGodsBlessing: (skill, pc) => (
+    <p>
+      A partir del nivel 6 cuando una criatura en un rango de 30 pies (9 metros)
+      de ti hace una tirada de ataque, puedes usar tu reacción para darle a esa
+      criatura un bonificador de +10 a la tirada, usando tu Canalizar Divinidad.
+      Haces esta elección después de ver la tirada, pero antes de que el DM diga
+      si el ataque golpea o falla.
+    </p>
+  ),
+
+  dampenElements: (skill, pc) => (
+    <p>
+      Comenzando en el nivel 6 cuando tú o una criatura en un rango de 30 pies
+      (9 metros) de ti reciba daño de ácido, frío, fuego, electricidad o sónico,
+      puedes usar tu reacción para darle a esa criatura resistencia contra ese
+      tipo de daño.
+    </p>
+  ),
+
+  thunderousStrike: (skill, pc) => (
+    <p>
+      A partir del nivel 6 cuando hagas daño eléctrico a una criatura Grande o
+      más pequeña, también puedes empujarla a 10 pies (3 metros) de ti.
+    </p>
+  ),
+
+  cloakOfShadows: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 6 puedes usar tu Canalizar Divinidad para
+        desaparecer.
+      </p>
+      <p>
+        Como una acción, te vuelves invisible hasta el final de tu siguiente
+        turno. Te vuelves visible si atacas o lanzas un conjuro.
+      </p>
+    </>
+  ),
+
+  blessedHealer: (skill, pc) => (
+    <p>
+      Empezando en el nivel 6 los conjuros de sanación que lanzas en otros te
+      sanan a ti también. Cuando lanzas un conjuro de nivel 1 o superior que
+      recupera Puntos de Golpe a una criatura que no seas tú, recuperas también
+      Puntos de Golpe igual a 2 + el nivel del conjuro.
+    </p>
   ),
 };
