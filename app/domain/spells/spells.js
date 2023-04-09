@@ -19,6 +19,8 @@ import {
   getDruidCantripsNumber,
   getDruidMaxPreparedSpells,
   getDruidSpellSlots,
+  hasNewDruidCantrips,
+  maxDruidSpellLevel,
 } from './druid';
 import {
   getPatron,
@@ -90,6 +92,8 @@ export function getClassSpells(pc) {
     return CLERIC_SPELLS.filter(
       spell => !spell.domains || spell.domains.includes(getDivineDomain(pc))
     );
+
+  if (pClass === 'druid') return DRUID_SPELLS;
 
   return [];
 }
@@ -196,7 +200,7 @@ export function hasToLearnSpells(pc) {
 export function doesNotHaveToLearnSpells(pc) {
   const { pClass } = pc;
 
-  return ['cleric'].includes(pClass);
+  return ['cleric', 'druid'].includes(pClass);
 }
 
 export function hasToPrepareSpells(pc) {
@@ -278,6 +282,7 @@ export function hasNewCantrips(pc) {
       bard: hasNewBardCantrips,
       warlock: hasNewWarlockCantrips,
       cleric: hasNewClericCantrips,
+      druid: hasNewDruidCantrips,
     }[pClass] || zero
   )(pc);
 }
@@ -312,6 +317,7 @@ export function maxSpellLevel(pc) {
       bard: maxBardSpellLevel,
       warlock: getWarlockSpellSlotsLevel,
       cleric: maxClericSpellLevel,
+      druid: maxDruidSpellLevel,
     }[pClass] || zero
   )(pc);
 }

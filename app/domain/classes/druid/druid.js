@@ -1,11 +1,11 @@
-import { ARMORS } from './equipment/armors';
-import { EXPLORERS_PACK } from './equipment/packs';
-import { getAllDruidicFocus } from './equipment/tools';
+import { ARMORS } from '../../equipment/armors';
+import { EXPLORERS_PACK } from '../../equipment/packs';
+import { getAllDruidicFocus } from '../../equipment/tools';
 import {
   getAllSimpleMelee,
   getAllSimpleRanged,
   WEAPONS,
-} from './equipment/weapons';
+} from '../../equipment/weapons';
 
 export const DRUID_EQUIPMENT = [
   { or: [ARMORS.shield(), ...getAllSimpleMelee(), ...getAllSimpleRanged()] },

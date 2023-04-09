@@ -37,6 +37,7 @@ import { getInvocationsSkills } from './classes/warlock/warlock';
 import random from '~/domain/random';
 import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExplanation';
 import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanation';
+import { DRUID_SKILLS_EXPLANATION } from './classes/druid/druidSkillsExplanation';
 
 export const RACES = {
   dwarf: {
@@ -1873,6 +1874,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...BARD_SKILLS_EXPLANATION,
       ...WARLOCK_SKILLS_EXPLANATION,
       ...CLERIC_SKILLS_EXPLANATION,
+      ...DRUID_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }

@@ -34,6 +34,9 @@ import { displayWarlockTrait } from './classes/warlock/displayWarlockTrait';
 import { displayClericTrait } from './classes/cleric/displayClericTrait';
 
 import sheetStyles from '~/components/sheet.module.css';
+import { displayDruidTrait } from './classes/druid/displayDruidTrait';
+
+const noOp = () => {};
 
 export function increment(num) {
   return num >= 0 ? '+' + num : num;
@@ -298,6 +301,20 @@ export function getSpecialAttacks(pc) {
   }, []);
 }
 
+function displayClassTrait(traitName, trait, pc) {
+  const classTrait = (
+    {
+      barbarian: displayBarbarianTrait,
+      bard: displayBardTrait,
+      warlock: displayWarlockTrait,
+      cleric: displayClericTrait,
+      druid: displayDruidTrait,
+    }[pc.pClass] || noOp
+  )(traitName, trait, pc);
+
+  return classTrait;
+}
+
 export function displayTrait(traitName, trait, pc) {
   let times;
 
@@ -460,21 +477,9 @@ export function displayTrait(traitName, trait, pc) {
     default:
   }
 
-  const barbarianTrait = displayBarbarianTrait(traitName, trait, pc);
-  if (barbarianTrait) return barbarianTrait;
-  else if (barbarianTrait === false) return null;
-
-  const bardDisplay = displayBardTrait(traitName, trait, pc);
-  if (bardDisplay) return bardDisplay;
-  else if (bardDisplay === false) return null;
-
-  const warlockDisplay = displayWarlockTrait(traitName, trait, pc);
-  if (warlockDisplay) return warlockDisplay;
-  else if (warlockDisplay === false) return null;
-
-  const clericDisplay = displayClericTrait(traitName, trait, pc);
-  if (clericDisplay) return clericDisplay;
-  else if (clericDisplay === false) return null;
+  const classDisplay = displayClassTrait(traitName, trait, pc);
+  if (classDisplay) return classDisplay;
+  else if (classDisplay === false) return null;
 
   return trait;
 }
