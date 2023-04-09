@@ -884,6 +884,20 @@ export const CLASSES = {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
         },
       },
+      6: {
+        druidCircle: {
+          land: {
+            traits: {
+              landsStride: 'Zancada Forestal',
+            },
+          },
+          moon: {
+            traits: {
+              primalStrike: 'Golpe Primitivo',
+            },
+          },
+        },
+      },
     },
   },
   fighter: {

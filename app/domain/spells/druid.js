@@ -50,8 +50,12 @@ export function getDruidSpellSlots(pc) {
 export function getDruidMaxPreparedSpells(pc) {
   const { level } = pc;
 
-  const totalSpells = getStatMod(getStat(pc, 'wis')) + level;
-  return totalSpells > 1 ? totalSpells : 1;
+  const extraSpells = getDruidExtraPreparedSpells(pc);
+
+  let totalSpells = getStatMod(getStat(pc, 'wis')) + level;
+  totalSpells = totalSpells > 1 ? totalSpells : 1;
+
+  return totalSpells + extraSpells.length;
 }
 
 export function getDruidExtraPreparedSpells(pc) {
