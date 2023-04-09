@@ -926,6 +926,17 @@ export const CLASSES = {
           },
         },
       },
+      18: {
+        traits: {
+          timelessBody: 'Cuerpo Eterno',
+          beastSpells: 'Conjuros Bestiales',
+        },
+      },
+      20: {
+        traits: {
+          archdruid: 'Archidruida',
+        },
+      },
     },
   },
   fighter: {

@@ -57,6 +57,9 @@ export function displayDruidTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'archdruid':
+      return <u>{trait}</u>;
+
     default:
   }
 

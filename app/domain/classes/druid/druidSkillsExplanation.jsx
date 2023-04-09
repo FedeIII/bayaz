@@ -8,7 +8,6 @@ import {
 } from './druid';
 
 import styles from '~/components/modal/inventoryItem.module.css';
-import appStyles from '~/components/app.module.css';
 
 export const DRUID_SKILLS_EXPLANATION = {
   wildShape: (skill, pc) => (
@@ -316,5 +315,37 @@ export const DRUID_SKILLS_EXPLANATION = {
       </em>{' '}
       a voluntad.
     </p>
+  ),
+
+  timelessBody: (skill, pc) => (
+    <p>
+      A partir del nivel 18 la magia primigenia que manejas hace que envejezcas
+      lentamente. Por cada 10 años que pasan, tu cuerpo envejece sólo 1 año.
+    </p>
+  ),
+
+  beastSpells: (skill, pc) => (
+    <p>
+      Comenzando en el nivel 18 puedes lanzar muchos de tus conjuros de druida
+      en cualquier forma que asumas por el uso de tu Forma Salvaje. Puedes
+      realizar los componentes somáticos y verbales de un conjuro de druida
+      mientras estás en forma bestial pero no eres capaz de proporcionar los
+      componentes materiales.
+    </p>
+  ),
+
+  archdruid: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 20 puedes usar tu rasgo de Forma Salvaje de manera
+        ilimitada.
+      </p>
+      <p>
+        Además, puedes ignorar los componentes verbales y somáticos de tus
+        hechizos de druida, así como los componentes materiales que carecen de
+        coste y no son consumidos por el hechizo. Ganas este beneficio tanto en
+        tu forma natural como en tu forma salvaje.
+      </p>
+    </>
   ),
 };
