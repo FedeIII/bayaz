@@ -261,6 +261,19 @@ export const CLERIC_SKILLS_EXPLANATION = {
         ataque, teniendo en cuenta la distracción que causa la ilusión en el
         objetivo.
       </p>
+      {pc.level >= 17 && (
+        <p>
+          <strong>
+            <em>
+              <u>Duplicidad Mejorada:</u>
+            </em>
+          </strong>{' '}
+          En el nivel 17 puedes crear hasta 4 duplicados de ti mismo, en lugar
+          de uno, cuando usas Invocar Duplicidad. Como una acción adicional en
+          tu turno, puedes mover cualquier número de ellas hasta 30 pies (9
+          metros), con un rango máximo de 120 pies (36 metros) de ti.
+        </p>
+      )}
     </>
   ),
 
@@ -400,5 +413,93 @@ export const CLERIC_SKILLS_EXPLANATION = {
         no es necesaria ninguna tirada.
       </p>
     </>
+  ),
+
+  visionsOfThePast: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 17 puedes invocar visiones del pasado que se
+        relacionen con un objeto que sostengas o que esté a tu alrededor.
+        Empleas al menos un minuto de meditación y plegarias, luego recibes
+        visiones borrosas, como si se tratara de un sueño, de eventos recientes.
+        Puedes meditar de esta forma durante {getStat(pc, 'wis')} minutos
+        (equivalente a tu puntuación de Sabiduría) y debes mantener la
+        concentración durante ese tiempo, como si lanzaras un conjuro.
+      </p>
+      <p>
+        <strong>
+          <em>
+            <u>Lectura de un Objeto.</u>
+          </em>
+        </strong>{' '}
+        Sosteniendo el objeto mientras meditas, puedes ver visiones de su dueño
+        anterior. Después de meditar durante un minuto, aprendes cómo su
+        anterior dueño adquirió el objeto y el evento significativo más reciente
+        que envuelva al objeto y a ese dueño. Si el objeto tuvo otro dueño en el
+        pasado reciente hasta {getStat(pc, 'wis')} días o menos (equivalente a
+        tu puntuación de Sabiduría), puedes pasar un minuto adicional por cada
+        dueño para conocer la misma información sobre esa otra criatura.
+      </p>
+      <p>
+        <strong>
+          <em>
+            <u>Lectura de un Área.</u>
+          </em>
+        </strong>{' '}
+        Mientras meditas, ves visiones de eventos recientes a tu alrededor (una
+        habitación, una calle, un túnel, un claro o similar, hasta un cubo de 50
+        pies [15 metros]) retrocediendo hasta {getStat(pc, 'wis')} días
+        (equivalente a tu puntuación de Sabiduría). Por cada minuto que pasas
+        meditando, aprendes sobre un evento significativo, comenzando con el más
+        reciente. Los eventos significativos involucran emociones poderosas,
+        como batallas y traiciones, casamientos, asesinatos, nacimientos o
+        funerales. Aun así, también podrían incluirse eventos más mundanos, que
+        carecen de importancia en tu situación actual.
+      </p>
+    </>
+  ),
+
+  avatarOfBattle: (skill, pc) => (
+    <p>
+      A partir del nivel 17 ganas resistencia al daño contundente, perforante y
+      cortante de armas no mágicas.
+    </p>
+  ),
+
+  coronaOfLight: (skill, pc) => (
+    <p>
+      A partir del nivel 17 puedes usar tu acción para activar un aura de luz
+      solar que dura un minuto o hasta que la desactives, usando otra acción.
+      Emites luz brillante en un radio de 60 pies (18 metros) y luz tenue en un
+      radio de 30 pies (9 metros) más allá. Tus enemigos en la luz brillante
+      tienen desventaja en las tiradas de salvación contra cualquier conjuro que
+      haga daño radiante o de fuego.
+    </p>
+  ),
+
+  masterOfNature: (skill, pc) => (
+    <p>
+      A partir del nivel 17 ganas la habilidad de comandar plantas y animales.
+      Mientras las criaturas estén encantadas por tu rasgo{' '}
+      <u>Hechizar Animales y Plantas</u>, puedes usar una acción adicional en tu
+      turno para ordenar verbalmente a cada una de esas criaturas qué hacer en
+      el turno siguiente.
+    </p>
+  ),
+
+  stormborn: (skill, pc) => (
+    <p>
+      A partir del nivel 17 tienes velocidad de vuelo equivalente a tu actual
+      velocidad de movimiento, siempre que no estés en interiores o bajo tierra.
+    </p>
+  ),
+
+  supremeHealing: (skill, pc) => (
+    <p>
+      Empezando en el nivel 17 cuando normalmente tirarías uno o más dados para
+      recuperar Puntos de Golpe con un hechizo, en lugar de eso utilizas la
+      tirada más alta posible para cada dado. Por ejemplo, en vez de recuperar
+      2d6 Puntos de Golpe a una criatura, le recuperas 12.
+    </p>
   ),
 };

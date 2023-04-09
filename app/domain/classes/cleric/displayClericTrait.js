@@ -98,6 +98,14 @@ export function displayClericTrait(traitName, trait, pc) {
     case 'destroyUndead':
       return false;
 
+    case 'invokeDuplicity':
+      return (
+        <>
+          {trait}
+          {pc.level >= 17 ? ' Mejorada' : ''}.
+        </>
+      );
+
     case 'divineStrike':
       return (
         <>
@@ -115,6 +123,14 @@ export function displayClericTrait(traitName, trait, pc) {
           <span className={appStyles.smallText}>
             {pc.level >= 20 ? 'Éxito automático' : `1d100 <= ${pc.level}`}
           </span>
+        </>
+      );
+
+    case 'visionsOfThePast':
+      return (
+        <>
+          <u>{trait}</u>.{' '}
+          <span className={appStyles.smallText}>{getStat(pc, 'wis')} min.</span>
         </>
       );
 

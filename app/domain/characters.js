@@ -780,6 +780,40 @@ export const CLASSES = {
           divineIntervention: 'Intervención Divina',
         },
       },
+      17: {
+        divineDomain: {
+          knowledge: {
+            traits: {
+              visionsOfThePast: 'Visiones del Pasado',
+            },
+          },
+          war: {
+            traits: {
+              avatarOfBattle: 'Avatar de Batalla',
+            },
+          },
+          light: {
+            traits: {
+              coronaOfLight: 'Corona de Luz',
+            },
+          },
+          nature: {
+            traits: {
+              masterOfNature: 'Maestro de la Naturaleza',
+            },
+          },
+          tempest: {
+            traits: {
+              stormborn: 'Hijo de la Tormenta',
+            },
+          },
+          life: {
+            traits: {
+              supremeHealing: 'Sanación Suprema',
+            },
+          },
+        },
+      },
     },
   },
   druid: {
