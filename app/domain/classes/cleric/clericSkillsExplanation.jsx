@@ -1,5 +1,6 @@
 import { getSpellSavingThrow } from '~/domain/spells/spells';
 import { getStat, getStatMod, translateSkill } from '../../characters';
+import { increment } from '~/domain/display';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -356,5 +357,48 @@ export const CLERIC_SKILLS_EXPLANATION = {
       recupera Puntos de Golpe a una criatura que no seas tú, recuperas también
       Puntos de Golpe igual a 2 + el nivel del conjuro.
     </p>
+  ),
+
+  potentSpellcasting: (skill, pc) => (
+    <p>
+      A partir del nivel 8 agregas tu modificador de Sabiduría (
+      {increment(getStatMod(getStat(pc, 'wis')))}) al daño que haces con
+      cualquier truco de clérigo.
+    </p>
+  ),
+
+  divineStrike: (skill, pc) => (
+    <p>
+      A partir del nivel 8 ganas la habilidad de infundir de energía divina tus
+      golpes con arma. Una vez por turno, cuando golpees a una criatura con un
+      ataque con arma, puedes hacer que el ataque cause 1d8 adicional de daño de
+      frío, fuego o eléctrico (a tu elección) al objetivo. Cuando alcanzas el
+      nivel 14, el daño adicional se incrementa a 2d8.
+    </p>
+  ),
+
+  divineIntervention: (skill, pc) => (
+    <>
+      <p>
+        Empezando a nivel 10, puedes invocar a tu deidad para que intervenga a
+        tu favor cuando tu necesidad sea acuciante.
+      </p>
+      <p>
+        Implorar la ayuda de tu deidad requiere que uses tu acción. Describe la
+        asistencia que buscas y tira un dado porcentual. Si tu tirada es igual o
+        menor que {pc.level} (tu nivel de clérigo), tu deidad interviene. El DM
+        elige la naturaleza de la intervención; el efecto de cualquier conjuro
+        de clérigo o conjuro de dominio de clérigo sería apropiado.
+      </p>
+      <p>
+        Si tu deidad interviene, no puedes usar otra vez este rasgo durante 7
+        días. De no ser así, puedes usarlo otra vez tras finalizar un descanso
+        prolongado.
+      </p>
+      <p>
+        A nivel 20, tu llamada para la intervención tiene éxito automáticamente,
+        no es necesaria ninguna tirada.
+      </p>
+    </>
   ),
 };

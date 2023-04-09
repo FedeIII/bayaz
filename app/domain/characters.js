@@ -736,6 +736,50 @@ export const CLASSES = {
           },
         },
       },
+      8: {
+        divineDomain: {
+          knowledge: {
+            traits: {
+              potentSpellcasting: 'Lanzamiento de Conjuros Potente',
+            },
+          },
+          war: {
+            traits: {
+              divineStrike: 'Golpe Divino',
+            },
+          },
+          light: {
+            traits: {
+              potentSpellcasting: 'Lanzamiento de Conjuros Potente',
+            },
+          },
+          nature: {
+            traits: {
+              divineStrike: 'Golpe Divino',
+            },
+          },
+          tempest: {
+            traits: {
+              divineStrike: 'Golpe Divino',
+            },
+          },
+          trickery: {
+            traits: {
+              divineStrike: 'Golpe Divino',
+            },
+          },
+          life: {
+            traits: {
+              divineStrike: 'Golpe Divino',
+            },
+          },
+        },
+      },
+      10: {
+        traits: {
+          divineIntervention: 'Intervención Divina',
+        },
+      },
     },
   },
   druid: {

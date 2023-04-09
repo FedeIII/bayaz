@@ -98,6 +98,26 @@ export function displayClericTrait(traitName, trait, pc) {
     case 'destroyUndead':
       return false;
 
+    case 'divineStrike':
+      return (
+        <>
+          {trait}.{' '}
+          <span className={appStyles.smallText}>
+            {pc.level >= 14 ? '+2d8' : '+1d8'}
+          </span>
+        </>
+      );
+
+    case 'divineIntervention':
+      return (
+        <>
+          <u>{trait}</u>.{' '}
+          <span className={appStyles.smallText}>
+            {pc.level >= 20 ? 'Éxito automático' : `1d100 <= ${pc.level}`}
+          </span>
+        </>
+      );
+
     default:
   }
 
