@@ -898,6 +898,20 @@ export const CLASSES = {
           },
         },
       },
+      10: {
+        druidCircle: {
+          land: {
+            traits: {
+              naturesWard: 'Protección de la Naturaleza',
+            },
+          },
+          moon: {
+            traits: {
+              elementalWildShape: 'Forma Salvaje Elemental',
+            },
+          },
+        },
+      },
     },
   },
   fighter: {

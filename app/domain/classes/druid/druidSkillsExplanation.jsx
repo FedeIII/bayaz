@@ -2,6 +2,7 @@ import { Link } from '@remix-run/react';
 import { translateSpell } from '~/domain/spells/spells';
 import {
   getBonusCantrip,
+  getDruidCircle,
   getDruidLandCircle,
   translateDruidLandCircle,
 } from './druid';
@@ -20,24 +21,39 @@ export const DRUID_SKILLS_EXPLANATION = {
       </p>
       <p>
         Tu nivel de druida determina en qué bestias puedes transformarte, como
-        se muestra en la tabla Formas Salvajes:{' '}
-        {pc.level >= 8 ? (
+        se muestra en la tabla Formas Salvajes: puedes transformarte en
+        cualquier animal con un{' '}
+        {getDruidCircle(pc) === 'moon' ? (
+          // moon
+          pc.level >= 8 ? (
+            <strong>
+              <u>CR {Math.floor(pc.level / 3)} o menor</u>
+            </strong>
+          ) : pc.level >= 6 ? (
+            <strong>
+              <u>CR {Math.floor(pc.level / 3)} o menor sin vuelo</u>
+            </strong>
+          ) : pc.level >= 4 ? (
+            <strong>
+              <u>CR 1 sin vuelo</u>
+            </strong>
+          ) : (
+            <strong>
+              <u>CR 1 sin vuelo ni nado</u>
+            </strong>
+          )
+        ) : // land
+        pc.level >= 8 ? (
           <strong>
-            <u>Puedes transformarte en cualquier animal con un CR 1 o menor</u>
+            <u>CR 1 o menor</u>
           </strong>
         ) : pc.level >= 4 ? (
           <strong>
-            <u>
-              Puedes transformarte en cualquier animal con un CR 1/2 o menor que
-              no tenga velocidad de vuelo.
-            </u>
+            <u>CR 1/2 o menor sin vuelo</u>
           </strong>
         ) : (
           <strong>
-            <u>
-              Puedes transformarte en cualquier animal con un CR 1/4 o menor que
-              no tenga velocidad de vuelo o de nado
-            </u>
+            <u>CR 1/4 o menor sin vuelo ni nado</u>
           </strong>
         )}
       </p>
@@ -254,6 +270,21 @@ export const DRUID_SKILLS_EXPLANATION = {
       Al llegar al nivel 6 los ataques de tu forma bestial cuentan como mágicos
       a la hora de superar la resistencia e inmunidad para ataques y daño no
       mágico.
+    </p>
+  ),
+
+  naturesWard: (skill, pc) => (
+    <p>
+      Al alcanzar el nivel 10 no puedes ser encantado o asustado por elementales
+      o criaturas feéricas y eres inmune al veneno y la enfermedad.
+    </p>
+  ),
+
+  elementalWildShape: (skill, pc) => (
+    <p>
+      Al llegar al nivel 10 puedes emplear dos usos de tu <u>Forma Salvaje</u> a
+      la vez para transformarte en un elemental de aire, de tierra, de fuego o
+      de agua.
     </p>
   ),
 };
