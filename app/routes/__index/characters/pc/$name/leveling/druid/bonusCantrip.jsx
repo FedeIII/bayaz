@@ -1,0 +1,164 @@
+import { useRef, useState } from 'react';
+import { json, redirect } from '@remix-run/node';
+import { Form, useLoaderData } from '@remix-run/react';
+import { getPc, updateAttrsForClass } from '~/services/pc.server';
+import { useTitle } from '~/components/hooks/useTitle';
+import { Card } from '~/components/cards/card';
+import { replaceAt } from '~/utils/insert';
+import { SkillModal } from '~/components/modal/skillModal';
+import { useSkillItems } from '~/components/modal/useSkillItems';
+import { SkillItem } from '~/components/modal/skillItem';
+import { getBonusCantrip } from '~/domain/classes/druid/druid';
+import { DRUID_SPELLS } from '~/domain/spells/druid';
+import { getKnownCantrips } from '~/domain/spells/getSpells';
+
+import styles from '~/components/checkbox.module.css';
+import appStyles from '~/components/app.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
+
+export const loader = async ({ params }) => {
+  const pc = await getPc(params.name);
+
+  if (!pc) {
+    throw new Error('PC not found');
+  }
+
+  if (getBonusCantrip(pc)) {
+    throw new Error('Ya has escogido Truco Adicional');
+  }
+
+  if (pc.pClass !== 'druid') {
+    throw new Error(
+      'Solo los druidas pueden escoger Truco Adicional del Círculo de la Tierra'
+    );
+  }
+
+  return json({ pc });
+};
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const name = formData.get('name');
+  const learn = formData.get('learn');
+
+  await updateAttrsForClass(name, 'druid', {
+    bonusCantrip: { name: learn },
+  });
+  return redirect(`/characters/pc/${name}/summary`);
+};
+
+function BonusCantrip() {
+  const { pc } = useLoaderData();
+  const { name } = pc;
+
+  useTitle('Druida del Círculo de la Tierra nivel 2');
+
+  const knownCantrips = getKnownCantrips(pc).map(s => s.name);
+  const druidCantrips = DRUID_SPELLS.filter(
+    s => s.level === 0 && !knownCantrips.includes(s.name)
+  );
+
+  const [toLearn, setToLearn] = useState(druidCantrips.map(() => false));
+
+  function setSpellToLearn(spellIndex, checked) {
+    setToLearn(oldToLearn => {
+      if (checked && oldToLearn.filter(v => v)?.length === 1) return oldToLearn;
+      else return replaceAt(spellIndex, oldToLearn, checked);
+    });
+  }
+
+  const [skillRefs, setSkillRefs] = useState(
+    druidCantrips.map(() => [useRef()])
+  );
+
+  const [
+    skillModalContent,
+    closeSkillModal,
+    openSkillModal,
+    selectedSkillRef,
+    setSelectedSkillRef,
+  ] = useSkillItems(pc, skillRefs);
+
+  const formRef = useRef(null);
+
+  return (
+    <Form method="post" ref={formRef}>
+      <input readOnly type="text" name="name" value={name} hidden />
+
+      <h2 className={appStyles.paleText}>
+        Escoge Truco Adicional del Círculo de la Tierra
+      </h2>
+
+      {skillModalContent && (
+        <SkillModal
+          elRef={selectedSkillRef}
+          formRef={formRef}
+          closeModal={closeSkillModal}
+        >
+          {skillModalContent}
+        </SkillModal>
+      )}
+
+      <div className={`${cardStyles.cards}`}>
+        <Card title="Trucos" singleCard>
+          <ul className={cardStyles.cardList}>
+            {druidCantrips.map((spell, spellIndex) => (
+              <li key={spell.name}>
+                <label
+                  htmlFor={spell.name}
+                  className={`${styles.toSelect} ${
+                    toLearn[spellIndex] && styles.selectedToSelect
+                  }`}
+                >
+                  <input
+                    hidden
+                    type="checkbox"
+                    id={spell.name}
+                    name="learn"
+                    value={spell.name}
+                    checked={toLearn[spellIndex]}
+                    onChange={e =>
+                      setSpellToLearn(spellIndex, e.target.checked)
+                    }
+                  />
+                  <SkillItem
+                    ref={skillRefs[spellIndex][0]}
+                    traitName={spell.name}
+                    trait="spell"
+                    pc={pc}
+                    openModal={openSkillModal(spellIndex)}
+                    openOnRightClick
+                  />
+                </label>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </div>
+
+      <p>
+        <button type="submit" className={cardStyles.buttonCard}>
+          Escoger Truco
+        </button>
+      </p>
+    </Form>
+  );
+}
+
+export function ErrorBoundary({ error }) {
+  useTitle('Error');
+
+  return (
+    <div>
+      <h2 className={appStyles.errorText}>{error.message}</h2>
+
+      <p className={appStyles.paragraph}>
+        Aprendes 1 nuevo Truco de Druida del Círculo de la Tierra
+      </p>
+
+      <p className={appStyles.errorStack}>{error.stack}</p>
+    </div>
+  );
+}
+
+export default BonusCantrip;

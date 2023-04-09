@@ -849,6 +849,28 @@ export const CLASSES = {
     ],
     spellcastingAbility: 'wis',
     statImprove: [4, 8, 12, 16, 19],
+    leveling: {
+      2: {
+        traits: {
+          wildShape: 'Forma Salvaje',
+          druidCircle: 'Círculo Druídico',
+        },
+        druidCircle: {
+          land: {
+            traits: {
+              bonusCantrip: 'Truco Adicional',
+              naturalRecovery: 'Recuperación Natural',
+            },
+          },
+          moon: {
+            traits: {
+              combatWildShape: 'Forma Salvaje de Combate',
+              circleForms: 'Formas del Círculo',
+            },
+          },
+        },
+      },
+    },
   },
   fighter: {
     initialHitPoints: 10,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { DRUID_SPELLS, getDruidSpellSlots } from '~/domain/spells/druid';
+import { translateSpell } from '~/domain/spells/spells';
 
 import styles from '~/components/characters.module.css';
 
@@ -44,7 +45,7 @@ function DruidSkills(props) {
                   })
                 }
               />
-              {spell.translation}
+              {translateSpell(spell.name)}
             </label>
           ))}
       </p>

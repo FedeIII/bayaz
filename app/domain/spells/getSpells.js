@@ -1,4 +1,5 @@
 import { getLoreSpells, getMagicalSecretsSpells } from '../classes/bard/bard';
+import { getBonusCantrip } from '../classes/druid/druid';
 import {
   getArcanum,
   getInvocationsSpells,
@@ -30,9 +31,11 @@ export function getAllPcCantrips(pc) {
   const { spells = [] } = pc;
 
   const pactSpells = getPactSpells(pc);
+  const druidBonusCantrip = getBonusCantrip(pc);
+  const bonusCantrips = druidBonusCantrip ? [druidBonusCantrip] : [];
 
   return (
-    [...spells, ...pactSpells]
+    [...spells, ...pactSpells, ...bonusCantrips]
       .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level === 0) || []
   );
@@ -71,9 +74,7 @@ export function getKnownSpellsByLevel(pc) {
 }
 
 export function getAllPcSpells(pc) {
-  const { spells = [] } = pc;
-
-  let knownSpells = getKnownSpells(pc);
+  const knownSpells = getKnownSpells(pc);
 
   // spells that don't count for the total known
   const loreSpells = getLoreSpells(pc);

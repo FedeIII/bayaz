@@ -101,6 +101,11 @@ import {
   getWarlockPatronTraits,
   translatePatron,
 } from '~/domain/classes/warlock/warlock';
+import {
+  getDruidCircle,
+  getDruidCircleTraits,
+  translateDruidCircle,
+} from '~/domain/classes/druid/druid';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -363,6 +368,7 @@ function PcSummary() {
   const bardCollegeTraits = getBardCollegeTraits(pc);
   const divineDomainTraits = getClericDomainTraits(pc);
   const channelDivinityTraits = getChannelDivinityTraits(pc);
+  const druidCircleTraits = getDruidCircleTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -378,6 +384,7 @@ function PcSummary() {
       refs.main = useRef();
       return refs;
     })(),
+    druidCircle: druidCircleTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -944,6 +951,27 @@ function PcSummary() {
                       trait={trait}
                       pc={pc}
                       openModal={openSkillModal('channelDivinity', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {!!getDruidCircle(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                {translateDruidCircle(getDruidCircle(pc))}
+              </strong>
+              <ul>
+                {druidCircleTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.druidCircle[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('druidCircle', i)}
                     />
                   </li>
                 ))}
