@@ -1,6 +1,10 @@
 import { Link } from '@remix-run/react';
 import { translateSpell } from '~/domain/spells/spells';
-import { getBonusCantrip } from './druid';
+import {
+  getBonusCantrip,
+  getDruidLandCircle,
+  translateDruidLandCircle,
+} from './druid';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 import appStyles from '~/components/app.module.css';
@@ -191,6 +195,41 @@ export const DRUID_SKILLS_EXPLANATION = {
         desafío equivalente a un tercio de tu nivel de druida, redondeando hacia
         abajo.
       </p>
+    </>
+  ),
+
+  landCircle: (skill, pc) => (
+    <>
+      <p>
+        Tu conexión mística con la tierra te imbuye con la habilidad de lanzar
+        ciertos conjuros. Al nivel 3, 5, 7 y 9 accedes a conjuros del círculo
+        relacionados con la tierra en la que te convertiste en un druida. Elige
+        una tierra —ártico, bosque, costa, desierto, infraoscuridad, montaña,
+        pantano, o prado— y consulta la lista de conjuros asociados.
+      </p>
+      <p>
+        Una vez que adquieras acceso a un conjuro del círculo, siempre lo tienes
+        preparado y no cuenta para el número de conjuros que puedes preparar
+        cada día. Si tienes acceso a un conjuro que no aparece en la lista del
+        druida, no obstante cuenta como un conjuro de druida para ti.
+      </p>
+
+      {!getDruidLandCircle(pc) && (
+        <div className={styles.modalButtons}>
+          <Link
+            to={`/characters/pc/${pc.name}/leveling/druid/landCircle`}
+            className={styles.modalButton}
+          >
+            Escoge Círculo de la Tierra
+          </Link>
+        </div>
+      )}
+
+      {!!getDruidLandCircle(pc) && (
+        <p>
+          <strong>{translateDruidLandCircle(getDruidLandCircle(pc))}</strong>
+        </p>
+      )}
     </>
   ),
 };

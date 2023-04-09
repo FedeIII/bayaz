@@ -1,4 +1,5 @@
 import { getStat, getStatMod } from '../characters';
+import { getDruidLandCircle } from '../classes/druid/druid';
 import { getKnownCantrips } from './getSpells';
 import { SPELL_LIST } from './spellList';
 
@@ -51,6 +52,17 @@ export function getDruidMaxPreparedSpells(pc) {
 
   const totalSpells = getStatMod(getStat(pc, 'wis')) + level;
   return totalSpells > 1 ? totalSpells : 1;
+}
+
+export function getDruidExtraPreparedSpells(pc) {
+  const landCircle = getDruidLandCircle(pc);
+
+  if (!landCircle) return [];
+
+  return Object.values(DRUID_SPELLS).filter(
+    spell =>
+      pc.level >= spell.level * 2 - 1 && spell.circles?.includes(landCircle)
+  );
 }
 
 export function hasNewDruidCantrips(pc) {

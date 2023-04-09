@@ -1,4 +1,4 @@
-import { getBonusCantrip, getDruidCircle } from './druid';
+import { getBonusCantrip, getDruidCircle, getDruidLandCircle } from './druid';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -42,6 +42,16 @@ export function displayDruidTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {!getBonusCantrip(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+        </>
+      );
+
+    case 'landCircle':
+      return (
+        <>
+          <strong>{trait}</strong>
+          {!getDruidLandCircle(pc) && (
             <span className={sheetStyles.pendingTrait}>(!)</span>
           )}
         </>

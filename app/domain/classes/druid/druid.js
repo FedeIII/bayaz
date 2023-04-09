@@ -53,3 +53,39 @@ export function getBonusCantrip(pc) {
     null
   );
 }
+
+export const LAND_CIRCLES = [
+  'forest',
+  'desert',
+  'underdark',
+  'arctic',
+  'coast',
+  'swamp',
+  'grassland',
+  'mountain',
+];
+
+export function translateDruidLandCircle(circle) {
+  switch (circle) {
+    case 'forest':
+      return 'Bosque';
+    case 'desert':
+      return 'Desierto';
+    case 'underdark':
+      return 'Infraoscuridad';
+    case 'arctic':
+      return 'Ártico';
+    case 'coast':
+      return 'Costa';
+    case 'swamp':
+      return 'Pantano';
+    case 'grassland':
+      return 'Pradera';
+    case 'mountain':
+      return 'Montaña';
+  }
+}
+
+export function getDruidLandCircle(pc) {
+  return pc.classAttrs?.druid?.landCircle || null;
+}

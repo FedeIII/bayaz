@@ -431,7 +431,7 @@ export const SPELL_LIST = [
       cleric: ['nature'],
     },
     domains: ['nature'],
-    circles: 'Forest',
+    circles: ['forest'],
   },
   {
     name: 'beaconOfHope',
@@ -560,7 +560,7 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Necromancy',
     class: ['druid', 'sorcerer', 'warlock', 'wizard'],
-    circles: 'Desert',
+    circles: ['desert'],
   },
   {
     name: 'blindingSmite',
@@ -632,7 +632,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['desert'],
     },
-    circles: 'Desert',
+    circles: ['desert'],
   },
   {
     name: 'brandingSmite',
@@ -691,7 +691,7 @@ export const SPELL_LIST = [
       cleric: ['tempest'],
     },
     domains: ['tempest'],
-    circles: 'Forest',
+    circles: ['forest'],
   },
   {
     name: 'calmEmotions',
@@ -882,7 +882,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['underdark'],
     },
-    circles: 'Underdark',
+    circles: ['underdark'],
   },
   {
     name: 'colorSpray',
@@ -958,7 +958,7 @@ export const SPELL_LIST = [
     archetype: {
       paladin: ['ancients'],
     },
-    circles: 'Arctic, Forest',
+    circles: ['arctic', 'forest'],
     oaths: 'Ancients',
   },
   {
@@ -1023,7 +1023,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['arctic'],
     },
-    circles: 'Arctic',
+    circles: ['arctic'],
   },
   {
     name: 'confusion',
@@ -1110,7 +1110,7 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Conjuration',
     class: ['druid', 'wizard'],
-    circles: 'Coast',
+    circles: ['coast'],
   },
   {
     name: 'conjureFey',
@@ -1265,7 +1265,7 @@ export const SPELL_LIST = [
     school: 'Transmutation',
     class: ['cleric', 'druid', 'wizard'],
     domains: ['tempest'],
-    circles: 'Coast',
+    circles: ['coast'],
   },
   {
     name: 'cordonOfArrows',
@@ -1316,7 +1316,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['desert'],
     },
-    circles: 'Desert',
+    circles: ['desert'],
   },
   {
     name: 'createOrDestroyWater',
@@ -1453,7 +1453,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['swamp'],
     },
-    circles: 'Swamp',
+    circles: ['swamp'],
   },
   {
     name: 'darkvision',
@@ -1484,7 +1484,7 @@ export const SPELL_LIST = [
     school: 'Evocation',
     class: ['cleric', 'druid', 'paladin', 'ranger', 'sorcerer'],
     domains: ['light'],
-    circles: 'Grassland',
+    circles: ['grassland'],
   },
   {
     name: 'deathWard',
@@ -1758,7 +1758,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['forest', 'grassland'],
     },
-    circles: 'Forest, Grassland',
+    circles: ['forest', 'grassland'],
   },
   {
     name: 'divineFavor',
@@ -1885,7 +1885,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['grassland'],
     },
-    circles: 'Grassland',
+    circles: ['grassland'],
   },
   {
     name: 'druidcraft',
@@ -2523,7 +2523,7 @@ export const SPELL_LIST = [
       paladin: ['devotion'],
     },
     domains: ['war'],
-    circles: 'Arctic, Coast, Forest, Grassland, Swamp',
+    circles: ['arctic', 'coast', 'forest', 'grassland', 'swamp'],
     oaths: 'Devotion',
   },
   {
@@ -2559,7 +2559,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['underdark'],
     },
-    circles: 'Underdark',
+    circles: ['underdark'],
   },
   {
     name: 'gate',
@@ -2736,7 +2736,7 @@ export const SPELL_LIST = [
       druid: ['underdark'],
       warlock: ['archfey'],
     },
-    circles: 'Underdark',
+    circles: ['underdark'],
     patrons: ['archfey'],
   },
   {
@@ -2889,7 +2889,7 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Illusion',
     class: ['bard', 'druid', 'warlock', 'wizard'],
-    circles: 'Desert',
+    circles: ['desert'],
   },
   {
     name: 'harm',
@@ -2923,7 +2923,7 @@ export const SPELL_LIST = [
       druid: ['grassland'],
       paladin: ['vengeance'],
     },
-    circles: 'Grassland',
+    circles: ['grassland'],
     oaths: 'Vengeance',
   },
   {
@@ -3088,7 +3088,7 @@ export const SPELL_LIST = [
     archetype: {
       paladin: ['vengeance'],
     },
-    circles: 'Arctic',
+    circles: ['arctic'],
     oaths: 'Vengeance',
   },
   {
@@ -3179,7 +3179,7 @@ export const SPELL_LIST = [
       paladin: ['ancients'],
     },
     domains: ['tempest'],
-    circles: 'Arctic',
+    circles: ['arctic'],
     oaths: 'Ancients',
   },
   {
@@ -3281,7 +3281,7 @@ export const SPELL_LIST = [
     school: 'Conjuration',
     class: ['cleric', 'druid', 'sorcerer'],
     domains: ['nature', 'tempest'],
-    circles: 'Desert, Grassland, Swamp, Underdark',
+    circles: ['desert', 'grassland', 'swamp', 'underdark'],
   },
   {
     name: 'invisibility',
@@ -3302,7 +3302,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['grassland'],
     },
-    circles: 'Grassland',
+    circles: ['grassland'],
   },
   {
     name: 'jump',
@@ -3463,7 +3463,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['mountain'],
     },
-    circles: 'Mountain',
+    circles: ['mountain'],
   },
   {
     name: 'locateAnimalsOrPlants',
@@ -3494,7 +3494,7 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Divination',
     class: ['bard', 'cleric', 'druid', 'paladin', 'ranger', 'wizard'],
-    circles: 'Swamp',
+    circles: ['swamp'],
   },
   {
     name: 'locateObject',
@@ -3755,7 +3755,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['mountain'],
     },
-    circles: 'Mountain',
+    circles: ['mountain'],
   },
   {
     name: "melf'sAcidArrow",
@@ -3776,7 +3776,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['swamp'],
     },
-    circles: 'Swamp',
+    circles: ['swamp'],
   },
   {
     name: 'mending',
@@ -3883,7 +3883,7 @@ export const SPELL_LIST = [
       druid: ['coast'],
     },
     domains: ['trickery'],
-    circles: 'Coast',
+    circles: ['coast'],
   },
   {
     name: 'mislead',
@@ -3916,7 +3916,7 @@ export const SPELL_LIST = [
       druid: ['coast'],
       paladin: ['ancients', 'vengeance'],
     },
-    circles: 'Coast',
+    circles: ['coast'],
     oaths: 'Ancients, Vengeance',
   },
   {
@@ -4143,7 +4143,7 @@ export const SPELL_LIST = [
       cleric: ['trickery'],
     },
     domains: ['trickery'],
-    circles: 'Grassland',
+    circles: ['grassland'],
   },
   {
     name: 'passwall',
@@ -4162,7 +4162,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['mountain'],
     },
-    circles: 'Mountain',
+    circles: ['mountain'],
   },
   {
     name: 'phantasmalForce',
@@ -4279,7 +4279,7 @@ export const SPELL_LIST = [
       warlock: ['archfey'],
     },
     domains: ['nature'],
-    circles: 'Forest',
+    circles: ['forest'],
     oaths: 'Ancients',
     patrons: ['archfey'],
   },
@@ -4476,7 +4476,7 @@ export const SPELL_LIST = [
     archetype: {
       paladin: ['ancients', 'vengeance'],
     },
-    circles: 'Desert',
+    circles: ['desert'],
     oaths: 'Ancients, Vengeance',
   },
   {
@@ -4794,7 +4794,7 @@ export const SPELL_LIST = [
       paladin: ['vengeance'],
     },
     domains: ['knowledge', 'light'],
-    circles: 'Coast, Swamp',
+    circles: ['coast', 'swamp'],
     oaths: 'Vengeance',
   },
   {
@@ -4993,7 +4993,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['desert'],
     },
-    circles: 'Desert',
+    circles: ['desert'],
   },
   {
     name: 'silentImage',
@@ -5065,7 +5065,7 @@ export const SPELL_LIST = [
       cleric: ['tempest'],
     },
     domains: ['tempest'],
-    circles: 'Arctic',
+    circles: ['arctic'],
   },
   {
     name: 'slow',
@@ -5084,7 +5084,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['arctic'],
     },
-    circles: 'Arctic',
+    circles: ['arctic'],
   },
   {
     name: 'spareTheDying',
@@ -5167,7 +5167,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['forest', 'mountain', 'underdark'],
     },
-    circles: 'Forest, Mountain, Underdark',
+    circles: ['forest', 'mountain', 'underdark'],
   },
   {
     name: 'spikeGrowth',
@@ -5187,7 +5187,7 @@ export const SPELL_LIST = [
       cleric: ['nature'],
     },
     domains: ['nature'],
-    circles: 'Arctic, Mountain',
+    circles: ['arctic', 'mountain'],
   },
   {
     name: 'spiritGuardians',
@@ -5256,7 +5256,7 @@ export const SPELL_LIST = [
       druid: ['swamp', 'underdark'],
       warlock: ['fiend'],
     },
-    circles: 'Swamp, Underdark',
+    circles: ['swamp', 'underdark'],
     patrons: ['fiend'],
   },
   {
@@ -5274,7 +5274,7 @@ export const SPELL_LIST = [
     level: 4,
     school: 'Transmutation',
     class: ['cleric', 'druid', 'wizard'],
-    circles: 'Mountain, Underdark',
+    circles: ['mountain', 'underdark'],
   },
   {
     name: 'stoneskin',
@@ -5295,7 +5295,7 @@ export const SPELL_LIST = [
       paladin: ['ancients'],
     },
     domains: ['war'],
-    circles: 'Mountain',
+    circles: ['mountain'],
     oaths: 'Ancients',
   },
   {
@@ -5628,7 +5628,7 @@ export const SPELL_LIST = [
       paladin: ['ancients'],
     },
     domains: ['nature'],
-    circles: 'Forest',
+    circles: ['forest'],
     oaths: 'Ancients',
   },
   {
@@ -5820,7 +5820,7 @@ export const SPELL_LIST = [
     level: 5,
     school: 'Evocation',
     class: ['druid', 'sorcerer', 'wizard'],
-    circles: 'Desert, Mountain',
+    circles: ['desert', 'mountain'],
   },
   {
     name: 'wallOfThorns',
@@ -5869,7 +5869,7 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Transmutation',
     class: ['druid', 'ranger', 'ritual caster', 'sorcerer', 'wizard'],
-    circles: 'Coast',
+    circles: ['coast'],
   },
   {
     name: 'waterWalk',
@@ -5884,7 +5884,7 @@ export const SPELL_LIST = [
     level: 3,
     school: 'Transmutation',
     class: ['cleric', 'druid', 'ranger', 'ritual caster', 'sorcerer'],
-    circles: 'Coast, Swamp',
+    circles: ['coast', 'swamp'],
   },
   {
     name: 'web',
@@ -5903,7 +5903,7 @@ export const SPELL_LIST = [
     archetype: {
       druid: ['underdark'],
     },
-    circles: 'Underdark',
+    circles: ['underdark'],
   },
   {
     name: 'weird',

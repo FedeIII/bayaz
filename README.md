@@ -53,6 +53,7 @@ npx prisma migrate dev
 
 ## TO DOs
 
+- Background: {trait}
 - lose HP on combats
 - recover HP after rest
 - recover spell slots after rest

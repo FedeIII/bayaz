@@ -17,6 +17,7 @@ import {
 import {
   DRUID_SPELLS,
   getDruidCantripsNumber,
+  getDruidExtraPreparedSpells,
   getDruidMaxPreparedSpells,
   getDruidSpellSlots,
   hasNewDruidCantrips,
@@ -70,6 +71,7 @@ import {
 } from '../classes/bard/bard';
 import { getInvocation, getInvocations } from '../classes/warlock/warlock';
 import { getDivineDomain } from '../classes/cleric/cleric';
+import { getDruidLandCircle } from '../classes/druid/druid';
 
 const zero = () => 0;
 
@@ -93,7 +95,10 @@ export function getClassSpells(pc) {
       spell => !spell.domains || spell.domains.includes(getDivineDomain(pc))
     );
 
-  if (pClass === 'druid') return DRUID_SPELLS;
+  if (pClass === 'druid')
+    return DRUID_SPELLS.filter(
+      spell => !spell.circles || spell.circles.includes(getDruidLandCircle(pc))
+    );
 
   return [];
 }
@@ -185,6 +190,7 @@ export function getExtraPreparedSpells(pc) {
 
   const getClassExtraPreparedSpells = {
     cleric: getClericExtraPreparedSpells,
+    druid: getDruidExtraPreparedSpells,
   }[pClass];
 
   if (getClassExtraPreparedSpells) return getClassExtraPreparedSpells(pc);

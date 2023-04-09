@@ -870,6 +870,15 @@ export const CLASSES = {
           },
         },
       },
+      3: {
+        druidCircle: {
+          land: {
+            traits: {
+              landCircle: 'Conjuros del Círculo',
+            },
+          },
+        },
+      },
     },
   },
   fighter: {

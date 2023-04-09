@@ -32,7 +32,7 @@ import {
   SAGE_SPECIALTY,
   SOLDIER_SPECIALTY,
 } from '~/domain/backgrounds/backgrounds';
-import { DRUID_CIRCLES } from '~/domain/classes/druid/druid';
+import { DRUID_CIRCLES, LAND_CIRCLES } from '~/domain/classes/druid/druid';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -118,6 +118,10 @@ const druidSchema = new mongoose.Schema({
     enum: DRUID_CIRCLES,
   },
   bonusCantrip: spellSchema,
+  landCircle: {
+    type: String,
+    enum: LAND_CIRCLES,
+  },
 });
 
 const classAttrsSchema = new mongoose.Schema({
