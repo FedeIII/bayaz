@@ -49,18 +49,6 @@ function DruidSkills(props) {
             </label>
           ))}
       </p>
-
-      {Object.values(DRUID_SPELLS)
-        .filter(s => s.level === 1)
-        .map(spell => (
-          <input
-            readOnly
-            type="text"
-            name="spells[]"
-            value={spell.name}
-            hidden
-          />
-        ))}
     </>
   );
 }

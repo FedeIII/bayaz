@@ -21,8 +21,8 @@ import {
   maxSpellLevel,
 } from '~/domain/spells/spells';
 import {
+  getAllPcCantrips,
   getAllPcSpells,
-  getKnownCantrips,
   getKnownSpellsByLevel,
 } from '~/domain/spells/getSpells';
 import { Card } from '~/components/cards/card';
@@ -91,7 +91,7 @@ function NewSpells() {
     .filter(spell => spell.level === 0)
     .filter(
       spell =>
-        !getKnownCantrips(pc)
+        !getAllPcCantrips(pc)
           .map(s => s.name)
           .includes(spell.name)
     );

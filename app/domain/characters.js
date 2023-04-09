@@ -879,6 +879,11 @@ export const CLASSES = {
           },
         },
       },
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
     },
   },
   fighter: {
