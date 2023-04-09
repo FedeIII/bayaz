@@ -1,5 +1,5 @@
 import { Link } from '@remix-run/react';
-import { translateSpell } from '~/domain/spells/spells';
+import { getSpellSavingThrow, translateSpell } from '~/domain/spells/spells';
 import {
   getBonusCantrip,
   getDruidCircle,
@@ -285,6 +285,36 @@ export const DRUID_SKILLS_EXPLANATION = {
       Al llegar al nivel 10 puedes emplear dos usos de tu <u>Forma Salvaje</u> a
       la vez para transformarte en un elemental de aire, de tierra, de fuego o
       de agua.
+    </p>
+  ),
+
+  naturesSanctuary: (skill, pc) => (
+    <>
+      <p>
+        Al llegar al nivel 14 las criaturas del mundo natural sienten tu
+        conexión con la naturaleza y se vuelven reacios a atacarte. Cuando un
+        animal o una planta te ataquen deberán realizar una tirada de salvación
+        de Sabiduría contra la CD de salvación de tus conjuros (
+        {getSpellSavingThrow(pc)}). En una tirada fallida la criatura deberá
+        elegir un objetivo diferente o el ataque fallará automáticamente. Si
+        supera la salvación la criatura es inmune a este efecto durante 24
+        horas.
+      </p>
+      <p>
+        La criatura es consciente de este efecto antes de que haga su ataque
+        contra ti.
+      </p>
+    </>
+  ),
+
+  thousandForms: (skill, pc) => (
+    <p>
+      Cuando llegues nivel 14 habrás aprendido a usar la magia para alterar tu
+      aspecto físico de otras maneras. Puedes lanzar{' '}
+      <em>
+        <u>alterar el propio aspecto</u>
+      </em>{' '}
+      a voluntad.
     </p>
   ),
 };

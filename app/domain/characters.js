@@ -912,6 +912,20 @@ export const CLASSES = {
           },
         },
       },
+      14: {
+        druidCircle: {
+          land: {
+            traits: {
+              naturesSanctuary: 'Santuario de la Naturaleza',
+            },
+          },
+          moon: {
+            traits: {
+              thousandForms: 'Mil Formas',
+            },
+          },
+        },
+      },
     },
   },
   fighter: {
