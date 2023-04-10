@@ -123,18 +123,6 @@ function RangerSkills(props) {
           </label>
         ))}
       </p>
-      {/* <p>
-        <label>
-          Escoge arquetipo de explorador:{' '}
-          <select name="ranger-archetype">
-            {RANGER_ARCHETYPES.map(archetype => (
-              <option value={archetype} key={archetype}>
-                {translateRangerArchetype(archetype)}
-              </option>
-            ))}
-          </select>
-        </label>
-      </p> */}
     </>
   );
 }

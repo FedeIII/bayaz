@@ -98,6 +98,8 @@ export const action = async ({ request }) => {
       }),
       ...(divineDomain === 'light' ? [getSpell('light')] : []),
     ];
+  } else {
+    pcAttrs.spells = [];
   }
 
   pcAttrs.magic = {

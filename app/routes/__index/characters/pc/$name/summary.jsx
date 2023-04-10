@@ -50,10 +50,6 @@ import {
 } from '~/domain/sorcerer';
 import { getFightingStyles, translateFightingStyle } from '~/domain/fighter';
 import {
-  getRangerArchetype,
-  translateRangerArchetype,
-} from '~/domain/classes/ranger/ranger';
-import {
   translateDivineDomain,
   getDivineDomain,
   getClericDomainTraits,
@@ -102,6 +98,11 @@ import {
   getDruidCircleTraits,
   translateDruidCircle,
 } from '~/domain/classes/druid/druid';
+import {
+  getRangerConclave,
+  getRangerConclaveTraits,
+  translateRangerConclave,
+} from '~/domain/classes/ranger/ranger';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -365,6 +366,7 @@ function PcSummary() {
   const divineDomainTraits = getClericDomainTraits(pc);
   const channelDivinityTraits = getChannelDivinityTraits(pc);
   const druidCircleTraits = getDruidCircleTraits(pc);
+  const rangerConclaveTraits = getRangerConclaveTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -381,6 +383,7 @@ function PcSummary() {
       return refs;
     })(),
     druidCircle: druidCircleTraits.map(() => useRef()),
+    rangerConclave: rangerConclaveTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -975,15 +978,24 @@ function PcSummary() {
             </li>
           )}
 
-          {!!getRangerArchetype(pc) && (
+          {!!getRangerConclave(pc) && (
             <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>
-                Arquetipo de Explorador:
-              </span>
               <strong className={styles.trait}>
-                {' '}
-                {translateRangerArchetype(getRangerArchetype(pc))}
+                Arquetipo del {translateRangerConclave(getRangerConclave(pc))}
               </strong>
+              <ul>
+                {rangerConclaveTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.rangerConclave[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('rangerConclave', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
             </li>
           )}
 

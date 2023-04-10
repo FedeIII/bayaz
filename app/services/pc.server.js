@@ -14,7 +14,8 @@ import {
   FAVORED_ENEMIES,
   FAVORED_ENEMIES_HUMANOIDS,
   FAVORED_TERRAINS,
-  RANGER_ARCHETYPES,
+  HUNTERS_PREY,
+  RANGER_CONCLAVES,
   RANGER_FIGHTING_STYLES,
 } from '~/domain/classes/ranger/ranger';
 import { DIVINE_DOMAINS } from '~/domain/classes/cleric/cleric';
@@ -131,7 +132,8 @@ const rangerSchema = new mongoose.Schema({
   ],
   favoredTerrains: [{ type: String, enum: FAVORED_TERRAINS }],
   fightingStyle: { type: String, enum: RANGER_FIGHTING_STYLES },
-  rangerArchetype: { type: String, enum: RANGER_ARCHETYPES },
+  rangerConclave: { type: String, enum: RANGER_CONCLAVES },
+  huntersPrey: { type: String, enum: HUNTERS_PREY },
 });
 
 const classAttrsSchema = new mongoose.Schema({

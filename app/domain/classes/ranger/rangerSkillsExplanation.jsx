@@ -2,11 +2,15 @@ import { Link } from '@remix-run/react';
 import {
   getFavoredEnemies,
   getFavoredTerrains,
+  getHuntersPrey,
   getRangerFightingStyle,
   translateFavoredEnemy,
   translateFavoredTerrain,
+  translateHuntersPrey,
   translateRangerFightingStyle,
 } from './ranger';
+import { getProficiencyBonus } from '~/domain/characters';
+import { increment } from '~/domain/display';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -133,4 +137,97 @@ export const RANGER_SKILLS_EXPLANATION = {
       </>
     );
   },
+
+  rangerConclave: (skill, pc) => (
+    <>
+      <p>
+        A nivel 3 eliges un arquetipo que te esfuerzas en emular: Cazador o
+        Señor de las Bestias, ambos detallados al final de la descripción de la
+        clase. Tu elección te proporciona rasgos a nivel 3 y de nuevo a los
+        niveles 7, 11, y 15.
+      </p>
+
+      <div className={styles.modalButtons}>
+        <Link
+          to={`/characters/pc/${pc.name}/leveling/ranger/rangerConclave`}
+          className={styles.modalButton}
+        >
+          Escoge Arquetipo
+        </Link>
+      </div>
+    </>
+  ),
+
+  huntersPrey: (skill, pc) => {
+    const huntersPrey = getHuntersPrey(pc);
+    return (
+      <>
+        <p>A nivel 3 ganas uno de los siguientes rasgos de tu elección.</p>
+
+        {!huntersPrey && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/ranger/huntersPrey`}
+              className={styles.modalButton}
+            >
+              Escoge Presa del Cazador
+            </Link>
+          </div>
+        )}
+
+        {!!huntersPrey && <strong>{translateHuntersPrey(huntersPrey)}</strong>}
+
+        {huntersPrey === 'colossusSlayer' && (
+          <p>
+            Tu tenacidad puede desgastar hasta a los enemigos más potentes.
+            Cuando golpees a una criatura con un arma, ésta sufre un 1d8
+            adicional de daño si está por debajo de su máximo de Puntos de
+            Golpe. Puedes causar este daño extra sólo una vez por turno.
+          </p>
+        )}
+        {huntersPrey === 'giantKiller' && (
+          <p>
+            Cuando una criatura Grande o más grande que tú, a una distancia
+            máxima de 5 pies de ti, te golpea o falla con su ataque contra ti,
+            puedes utilizar tu reacción para atacar a esa criatura
+            inmediatamente después de su ataque, mientras puedas verla.
+          </p>
+        )}
+        {huntersPrey === 'hordeBreaker' && (
+          <p>
+            Una vez por turno, cuando hagas un ataque con armas, puedes realizar
+            otro ataque con la misma arma contra una criatura diferente que esté
+            a menos de 5 pies del objetivo original y dentro del rango de tu
+            arma.
+          </p>
+        )}
+      </>
+    );
+  },
+
+  rangersCompanion: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 3 obtienes un compañero animal que te acompaña en tus
+        aventuras y está capacitado para luchar junto a ti. Elige una bestia que
+        no sea mayor que tamaño Medio y que tenga un valor de desafío de un 1/4
+        o más bajo (el Apéndice D presenta las estadísticas para el halcón, el
+        mastín, y la pantera como ejemplos). Añade tu bonificador de competencia
+        ({increment(getProficiencyBonus(pc.level))}) a la CA de la bestia, sus
+        tiradas de ataque y de daño, así como a cualquier tirada de salvación y
+        habilidades en las que sea competente. Sus Puntos de Golpe máximos son
+        iguales a su máximo normal o cuatro veces tu nivel de explorador, el que
+        sea mayor
+      </p>
+      <p>
+        La bestia obedece las órdenes de la mejor manera que puede. Actúa en tu
+        turno de iniciativa, aunque no lo hará a menos que se lo ordenes. En tu
+        turno, puedes ordenar verbalmente a la bestia dónde moverse (sin que
+        cuente como acción). Puedes utilizar tu acción para ordenarle
+        verbalmente que realice la acción Ataque, Carrera, Retirada, Esquiva o
+        Ayuda. Una vez que tengas el rasgo Ataque Extra podrás hacer un ataque
+        tú mismo cuando ordenes a la bestia que realice la acción de atacar.
+      </p>
+    </>
+  ),
 };

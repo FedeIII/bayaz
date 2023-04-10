@@ -1,3 +1,4 @@
+import { CLASSES } from '~/domain/characters';
 import { ARMORS } from '../../equipment/armors';
 import { DUNGEONEERS_PACK, EXPLORERS_PACK } from '../../equipment/packs';
 import { TOOLS } from '../../equipment/tools';
@@ -137,21 +138,21 @@ export function getFavoredTerrains(pc) {
   return pc.classAttrs?.ranger?.favoredTerrains || [];
 }
 
-export const RANGER_ARCHETYPES = ['hunter', 'beast-master'];
+export const RANGER_CONCLAVES = ['hunter', 'beastMaster'];
 
-export function translateRangerArchetype(archetype) {
+export function translateRangerConclave(archetype) {
   switch (archetype) {
     case 'hunter':
       return 'Cazador';
-    case 'beast-master':
+    case 'beastMaster':
       return 'Señor de las Bestias';
     default:
-      return 'unknown ranger archetype';
+      return 'unknown ranger conclave';
   }
 }
 
-export function getRangerArchetype(pc) {
-  return pc.classAttrs?.ranger?.rangerArchetype || null;
+export function getRangerConclave(pc) {
+  return pc.classAttrs?.ranger?.rangerConclave || null;
 }
 
 export const RANGER_EQUIPMENT = [
@@ -191,4 +192,34 @@ export function translateRangerFightingStyle(style) {
 
 export function getRangerFightingStyle(pc) {
   return pc.classAttrs?.ranger?.fightingStyle || null;
+}
+
+export function getRangerConclaveTraits(pc) {
+  const { level } = pc;
+  const rangerConclave = getRangerConclave(pc);
+
+  return Object.entries(
+    Object.entries(CLASSES.ranger.leveling).reduce(
+      (levelingTraits, [traitLevel, levelSkills]) => ({
+        ...levelingTraits,
+        ...(parseInt(traitLevel, 10) <= level
+          ? levelSkills.rangerConclave?.[rangerConclave]?.traits || {}
+          : {}),
+      }),
+      {}
+    )
+  );
+}
+
+export const HUNTERS_PREY = ['colossusSlayer', 'giantKiller', 'hordeBreaker'];
+
+export function getHuntersPrey(pc) {
+  return pc.classAttrs?.ranger?.huntersPrey || null;
+}
+
+export function translateHuntersPrey(prey) {
+  if (prey === 'colossusSlayer') return 'Asesino Colosal';
+  if (prey === 'giantKiller') return 'Asesino de Gigantes';
+  if (prey === 'hordeBreaker') return 'Rompe Hordas';
+  return 'unknown hunters prey';
 }

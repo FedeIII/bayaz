@@ -1060,6 +1060,23 @@ export const CLASSES = {
           fightingStyle: 'Estilo de Combate',
         },
       },
+      3: {
+        traits: {
+          rangerConclave: 'Arquetipo de Explorador',
+        },
+        rangerConclave: {
+          hunter: {
+            traits: {
+              huntersPrey: 'Presa del Cazador',
+            },
+          },
+          beastMaster: {
+            traits: {
+              rangersCompanion: 'Compañero Animal',
+            },
+          },
+        },
+      },
     },
   },
   rogue: {

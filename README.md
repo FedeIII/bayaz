@@ -61,6 +61,9 @@ npx prisma migrate dev
 - Use spells (consume slots)
 - put hit dice roll on level up in the modal
 - show all extra stat points in the improve stat screen
+- Ranger:
+  - show fighting style bonus on weapons
+  - choose companion
 - Bard:
   - track usages of bardic inspiration
 - Improve spell modal data
