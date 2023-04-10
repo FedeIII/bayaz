@@ -120,7 +120,8 @@ export function SpellModalContent(props) {
           <div
             dangerouslySetInnerHTML={{
               __html:
-                '<strong>En niveles superiores: </strong>' + spell.higher_level,
+                '<strong><u>En niveles superiores:</u></strong>' +
+                spell.higher_level,
             }}
           />
         )}

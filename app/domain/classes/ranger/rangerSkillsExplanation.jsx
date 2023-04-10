@@ -2,8 +2,10 @@ import { Link } from '@remix-run/react';
 import {
   getFavoredEnemies,
   getFavoredTerrains,
+  getRangerFightingStyle,
   translateFavoredEnemy,
   translateFavoredTerrain,
+  translateRangerFightingStyle,
 } from './ranger';
 
 import styles from '~/components/modal/inventoryItem.module.css';
@@ -78,4 +80,57 @@ export const RANGER_SKILLS_EXPLANATION = {
       </strong>
     </>
   ),
+
+  fightingStyle: (skill, pc) => {
+    const fightingStyle = getRangerFightingStyle(pc);
+    return (
+      <>
+        <p>
+          A partir del nivel 2 adoptas un estilo particular de combate como
+          especialidad. Elige una de las siguientes opciones. No puedes elegir
+          un Estilo de Combate más de una vez, incluso si tienes la opción de
+          escoger otro más adelante.
+        </p>
+        {!fightingStyle && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/ranger/fightingStyle`}
+              className={styles.modalButton}
+            >
+              Escoge Estilo
+            </Link>
+          </div>
+        )}
+
+        {!!fightingStyle && (
+          <>
+            <h3>{translateRangerFightingStyle(fightingStyle)}</h3>
+            {fightingStyle === 'archery' && (
+              <p className={styles.paragraph}>
+                Ganas un bonificador de +2 a las tiradas de ataque que hagas con
+                armas a distancia
+              </p>
+            )}
+            {fightingStyle === 'defense' && (
+              <p className={styles.paragraph}>
+                Mientras lleves puesta una armadura ganas un +1 a la CA.
+              </p>
+            )}
+            {fightingStyle === 'dueling' && (
+              <p className={styles.paragraph}>
+                Cuando llevas un arma en una mano y ningún arma más, ganas un
+                bonificador de +2 a las tiradas de daño con esa arma.
+              </p>
+            )}
+            {fightingStyle === 'twoWeaponFighting' && (
+              <p className={styles.paragraph}>
+                Cuando luchas con el estilo de lucha de dos armas, puedes añadir
+                tu modificador de característica al daño del segundo ataque
+              </p>
+            )}
+          </>
+        )}
+      </>
+    );
+  },
 };

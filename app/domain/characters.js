@@ -1055,6 +1055,11 @@ export const CLASSES = {
           naturalExplorer: 'Explorador de lo Natural',
         },
       },
+      2: {
+        traits: {
+          fightingStyle: 'Estilo de Combate',
+        },
+      },
     },
   },
   rogue: {

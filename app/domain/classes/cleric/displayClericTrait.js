@@ -1,6 +1,5 @@
 import { getStat, getStatMod, translateSkill } from '../../characters';
 
-import sheetStyles from '~/components/sheet.module.css';
 import appStyles from '~/components/app.module.css';
 
 export function displayClericTrait(traitName, trait, pc) {

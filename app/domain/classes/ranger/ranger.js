@@ -151,7 +151,7 @@ export function translateRangerArchetype(archetype) {
 }
 
 export function getRangerArchetype(pc) {
-  return pc.classAttrs?.ranger?.rangerArchetype;
+  return pc.classAttrs?.ranger?.rangerArchetype || null;
 }
 
 export const RANGER_EQUIPMENT = [
@@ -165,3 +165,30 @@ export const RANGER_EQUIPMENT = [
   { or: [DUNGEONEERS_PACK, EXPLORERS_PACK] },
   { and: [WEAPONS.longbow(), TOOLS.arrows({ amount: 20 })] },
 ];
+
+export const RANGER_FIGHTING_STYLES = [
+  'archery',
+  'defense',
+  'dueling',
+  'twoWeaponFighting',
+];
+
+export function translateRangerFightingStyle(style) {
+  switch (style) {
+    case 'archery':
+      return 'A Distancia';
+    case 'defense':
+      return 'Defensa';
+    case 'dueling':
+      return 'Duelista';
+    case 'twoWeaponFighting':
+      return 'Lucha con Dos Armas';
+
+    default:
+      return 'unknown fighting style';
+  }
+}
+
+export function getRangerFightingStyle(pc) {
+  return pc.classAttrs?.ranger?.fightingStyle || null;
+}

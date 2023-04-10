@@ -1,11 +1,14 @@
 import {
   getFavoredEnemies,
   getFavoredTerrains,
+  getRangerFightingStyle,
   translateFavoredEnemy,
   translateFavoredTerrain,
+  translateRangerFightingStyle,
 } from './ranger';
 
 import appStyles from '~/components/app.module.css';
+import sheetStyles from '~/components/sheet.module.css';
 
 export function displayRangerTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -30,6 +33,23 @@ export function displayRangerTrait(traitName, trait, pc) {
           <span className={appStyles.smallText}>
             {getFavoredTerrains(pc).map(translateFavoredTerrain).join(', ')}
           </span>
+        </>
+      );
+
+    case 'fightingStyle':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          {!getRangerFightingStyle(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+          {!!getRangerFightingStyle(pc) && (
+            <span className={appStyles.smallText}>
+              {translateRangerFightingStyle(getRangerFightingStyle(pc))}
+            </span>
+          )}
         </>
       );
 

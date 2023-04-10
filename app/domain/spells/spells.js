@@ -72,6 +72,16 @@ import {
 import { getInvocation, getInvocations } from '../classes/warlock/warlock';
 import { getDivineDomain } from '../classes/cleric/cleric';
 import { getDruidLandCircle } from '../classes/druid/druid';
+import {
+  getRangerCantripsNumber,
+  getRangerSpellSlots,
+  getRangerTotalSpells,
+  hasNewRangerCantrips,
+  hasNewRangerLevelSpells,
+  hasNewRangerSpells,
+  maxRangerSpellLevel,
+  RANGER_SPELLS,
+} from './ranger';
 
 const zero = () => 0;
 
@@ -99,6 +109,8 @@ export function getClassSpells(pc) {
     return DRUID_SPELLS.filter(
       spell => !spell.circles || spell.circles.includes(getDruidLandCircle(pc))
     );
+
+  if (pClass === 'ranger') return RANGER_SPELLS;
 
   return [];
 }
@@ -134,6 +146,7 @@ export function getCantripsNumber(pc) {
     warlock: getWarlockCantripsNumber,
     cleric: getClericCantripsNumber,
     druid: getDruidCantripsNumber,
+    ranger: getRangerCantripsNumber,
     sorcerer: getSorcererCantripsNumber,
     wizard: getWizardCantripsNumber,
   }[pClass];
@@ -148,6 +161,7 @@ export function getTotalSpells(pc) {
   const getClassTotalSpells = {
     bard: getBardTotalSpells,
     warlock: getWarlockTotalSpells,
+    ranger: getRangerTotalSpells,
     sorcerer: getSorcererTotalSpells,
     wizard: getWizardTotalSpells,
   }[pClass];
@@ -164,6 +178,7 @@ export function getSpellSlots(pc) {
     warlock: getWarlockSpellSlots,
     cleric: getClericSpellSlots,
     druid: getDruidSpellSlots,
+    ranger: getRangerSpellSlots,
     sorcerer: getSorcererSpellSlots,
     wizard: getWizardSpellSlots,
   }[pClass];
@@ -200,7 +215,7 @@ export function getExtraPreparedSpells(pc) {
 export function hasToLearnSpells(pc) {
   const { pClass } = pc;
 
-  return ['bard', 'warlock'].includes(pClass);
+  return ['bard', 'warlock', 'ranger'].includes(pClass);
 }
 
 export function doesNotHaveToLearnSpells(pc) {
@@ -218,7 +233,7 @@ export function hasToPrepareSpells(pc) {
 export function doesNotHaveToPrepareSpells(pc) {
   const { pClass } = pc;
 
-  return ['bard', 'warlock', 'sorcerer'].includes(pClass);
+  return ['bard', 'warlock', 'ranger', 'sorcerer'].includes(pClass);
 }
 
 export function getSpellcastingAbility(pc, spellType) {
@@ -289,6 +304,7 @@ export function hasNewCantrips(pc) {
       warlock: hasNewWarlockCantrips,
       cleric: hasNewClericCantrips,
       druid: hasNewDruidCantrips,
+      ranger: hasNewRangerCantrips,
     }[pClass] || zero
   )(pc);
 }
@@ -300,6 +316,7 @@ export function hasNewLevelSpells(pc) {
     {
       bard: hasNewBardLevelSpells,
       warlock: hasNewWarlockLevelSpells,
+      ranger: hasNewRangerLevelSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -311,6 +328,7 @@ export function hasNewSpells(pc) {
     {
       bard: hasNewBardSpells,
       warlock: hasNewWarlockSpells,
+      ranger: hasNewRangerSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -324,6 +342,7 @@ export function maxSpellLevel(pc) {
       warlock: getWarlockSpellSlotsLevel,
       cleric: maxClericSpellLevel,
       druid: maxDruidSpellLevel,
+      ranger: maxRangerSpellLevel,
     }[pClass] || zero
   )(pc);
 }
