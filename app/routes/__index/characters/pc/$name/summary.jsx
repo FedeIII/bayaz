@@ -50,13 +50,9 @@ import {
 } from '~/domain/sorcerer';
 import { getFightingStyles, translateFightingStyle } from '~/domain/fighter';
 import {
-  getFavoredEnemies,
-  translateFavoredEnemy,
-  getFavoredTerrains,
-  translateFavoredTerrain,
   getRangerArchetype,
   translateRangerArchetype,
-} from '~/domain/ranger';
+} from '~/domain/classes/ranger/ranger';
 import {
   translateDivineDomain,
   getDivineDomain,
@@ -973,38 +969,6 @@ function PcSummary() {
                       pc={pc}
                       openModal={openSkillModal('druidCircle', i)}
                     />
-                  </li>
-                ))}
-              </ul>
-            </li>
-          )}
-
-          {!!getFavoredEnemies(pc)?.length && (
-            <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>
-                Enemigos Predilectos (Bonificacion en Inteligencia y Sabiduría
-                x2):
-              </span>
-              <ul className={styles.traitLabel}>
-                {getFavoredEnemies(pc).map(favoredEnemy => (
-                  <li className={styles.traitItem} key={favoredEnemy}>
-                    {translateFavoredEnemy(favoredEnemy)}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          )}
-
-          {!!getFavoredTerrains(pc)?.length && (
-            <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>
-                Terrenos Predilectos (Bonificacion en Inteligencia y Sabiduría
-                x2 + reglas extra):
-              </span>
-              <ul className={styles.traitLabel}>
-                {getFavoredTerrains(pc).map(favoredEnemy => (
-                  <li className={styles.traitItem} key={favoredEnemy}>
-                    {translateFavoredTerrain(favoredEnemy)}
                   </li>
                 ))}
               </ul>

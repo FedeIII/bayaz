@@ -44,7 +44,7 @@ export function getAllPcCantrips(pc) {
 export function getKnownSpells(pc) {
   const { spells = [] } = pc;
 
-  let pSpells;
+  let pSpells = [];
   if (hasToLearnSpells(pc)) {
     pSpells = spells;
   } else if (doesNotHaveToLearnSpells(pc)) {

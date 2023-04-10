@@ -32,9 +32,10 @@ import { displayBardTrait } from './classes/bard/displayBardTrait';
 import { displayBarbarianTrait } from './classes/barbarian/displayBarbarianTrait';
 import { displayWarlockTrait } from './classes/warlock/displayWarlockTrait';
 import { displayClericTrait } from './classes/cleric/displayClericTrait';
+import { displayDruidTrait } from './classes/druid/displayDruidTrait';
+import { displayRangerTrait } from './classes/ranger/displayRangerTrait';
 
 import sheetStyles from '~/components/sheet.module.css';
-import { displayDruidTrait } from './classes/druid/displayDruidTrait';
 
 const noOp = () => {};
 
@@ -309,6 +310,7 @@ function displayClassTrait(traitName, trait, pc) {
       warlock: displayWarlockTrait,
       cleric: displayClericTrait,
       druid: displayDruidTrait,
+      ranger: displayRangerTrait,
     }[pc.pClass] || noOp
   )(traitName, trait, pc);
 

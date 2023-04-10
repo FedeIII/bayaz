@@ -1,7 +1,7 @@
-import { ARMORS } from './equipment/armors';
-import { DUNGEONEERS_PACK, EXPLORERS_PACK } from './equipment/packs';
-import { TOOLS } from './equipment/tools';
-import { getAllSimpleMelee, WEAPONS } from './equipment/weapons';
+import { ARMORS } from '../../equipment/armors';
+import { DUNGEONEERS_PACK, EXPLORERS_PACK } from '../../equipment/packs';
+import { TOOLS } from '../../equipment/tools';
+import { getAllSimpleMelee, WEAPONS } from '../../equipment/weapons';
 
 export const FAVORED_ENEMIES = [
   'aberrations',
@@ -98,7 +98,7 @@ export function translateFavoredEnemy(enemy) {
 }
 
 export function getFavoredEnemies(pc) {
-  return pc.classAttrs?.favoredEnemies || [];
+  return pc.classAttrs?.ranger?.favoredEnemies || [];
 }
 
 export const FAVORED_TERRAINS = [
@@ -134,7 +134,7 @@ export function translateFavoredTerrain(terrain) {
 }
 
 export function getFavoredTerrains(pc) {
-  return pc.classAttrs?.favoredTerrains || [];
+  return pc.classAttrs?.ranger?.favoredTerrains || [];
 }
 
 export const RANGER_ARCHETYPES = ['hunter', 'beast-master'];
@@ -151,7 +151,7 @@ export function translateRangerArchetype(archetype) {
 }
 
 export function getRangerArchetype(pc) {
-  return pc.classAttrs?.rangerArchetype;
+  return pc.classAttrs?.ranger?.rangerArchetype;
 }
 
 export const RANGER_EQUIPMENT = [

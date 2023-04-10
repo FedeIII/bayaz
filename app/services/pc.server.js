@@ -15,7 +15,7 @@ import {
   FAVORED_ENEMIES_HUMANOIDS,
   FAVORED_TERRAINS,
   RANGER_ARCHETYPES,
-} from '~/domain/ranger';
+} from '~/domain/classes/ranger/ranger';
 import { DIVINE_DOMAINS } from '~/domain/classes/cleric/cleric';
 import { getItem, pcItem } from '~/domain/equipment/equipment';
 import {
@@ -124,18 +124,22 @@ const druidSchema = new mongoose.Schema({
   },
 });
 
+const rangerSchema = new mongoose.Schema({
+  favoredEnemies: [
+    { type: String, enum: [...FAVORED_ENEMIES, ...FAVORED_ENEMIES_HUMANOIDS] },
+  ],
+  favoredTerrains: [{ type: String, enum: FAVORED_TERRAINS }],
+  rangerArchetype: { type: String, enum: RANGER_ARCHETYPES },
+});
+
 const classAttrsSchema = new mongoose.Schema({
   barbarian: barbarianSchema,
   bard: bardSchema,
   warlock: warlockSchema,
   cleric: clericSchema,
   druid: druidSchema,
+  ranger: rangerSchema,
 
-  favoredEnemies: [
-    { type: String, enum: [...FAVORED_ENEMIES, ...FAVORED_ENEMIES_HUMANOIDS] },
-  ],
-  favoredTerrains: [{ type: String, enum: FAVORED_TERRAINS }],
-  rangerArchetype: { type: String, enum: RANGER_ARCHETYPES },
   fightingStyles: [{ type: String, enum: FIGHTING_STYLES }],
   sorcererOrigin: { type: String, enum: Object.keys(SORCERER_ORIGIN) },
   dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },

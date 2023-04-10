@@ -7,7 +7,7 @@ import { BARD_EQUIPMENT } from '../classes/bard/bard';
 import { WARLOCK_EQUIPMENT } from '../classes/warlock/warlock';
 import { CLERIC_EQUIPMENT } from '../classes/cleric/cleric';
 import { DRUID_EQUIPMENT } from '../classes/druid/druid';
-import { RANGER_EQUIPMENT } from '../ranger';
+import { RANGER_EQUIPMENT } from '../classes/ranger/ranger';
 import { FIGHTER_EQUIPMENT } from '../fighter';
 import { SORCERER_EQUIPMENT } from '../sorcerer';
 import { WIZARD_EQUIPMENT } from '../wizard';

@@ -52,7 +52,6 @@ export const action = async ({ request }) => {
   const favoredEnemy = formData.get('favored-enemy');
   const favoredEnemyHumanoids = formData.getAll('favored-enemy-humanoids[]');
   const favoredTerrain = formData.get('favored-terrain');
-  const rangerArchetype = formData.get('ranger-archetype');
   const fightingStyle = formData.get('fighting-style');
   const sorcererOrigin = formData.get('sorcerer-origin');
   const dragonAncestor = formData.get('dragon-ancestor');
@@ -67,19 +66,27 @@ export const action = async ({ request }) => {
       ...pc.proficientItems,
       ...items.map(itemName => pcItem(itemName)),
     ];
+
   if (patron) pcAttrs.classAttrs.warlock = { patron };
+
   if (divineDomain) pcAttrs.classAttrs.cleric = { divineDomain };
+
   if (clericSkills.length) pcAttrs.classAttrs.skills = clericSkills;
+
   if (favoredEnemy || favoredEnemyHumanoids.length) {
-    pcAttrs.classAttrs.favoredEnemies = favoredEnemyHumanoids?.length
-      ? favoredEnemyHumanoids
-      : [favoredEnemy];
+    pcAttrs.classAttrs.ranger = {
+      favoredEnemies: favoredEnemyHumanoids?.length
+        ? favoredEnemyHumanoids
+        : [favoredEnemy],
+    };
   }
-  if (favoredTerrain) pcAttrs.classAttrs.favoredTerrains = [favoredTerrain];
-  if (rangerArchetype) pcAttrs.classAttrs.rangerArchetype = rangerArchetype;
+  if (favoredTerrain)
+    pcAttrs.classAttrs.ranger.favoredTerrains = [favoredTerrain];
+
   if (fightingStyle) pcAttrs.classAttrs.fightingStyles = [fightingStyle];
   if (sorcererOrigin) pcAttrs.classAttrs.sorcererOrigin = sorcererOrigin;
   if (dragonAncestor) pcAttrs.classAttrs.dragonAncestor = dragonAncestor;
+
   if (expertSkills.length) pcAttrs.classAttrs.expertSkills = expertSkills;
   if (languages.length) pcAttrs.languages = [...pc.languages, ...languages];
   if (spells.length) {

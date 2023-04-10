@@ -38,6 +38,7 @@ import random from '~/domain/random';
 import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExplanation';
 import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanation';
 import { DRUID_SKILLS_EXPLANATION } from './classes/druid/druidSkillsExplanation';
+import { RANGER_SKILLS_EXPLANATION } from './classes/ranger/rangerSkillsExplanation';
 
 export const RACES = {
   dwarf: {
@@ -1047,6 +1048,14 @@ export const CLASSES = {
     ],
     spellcastingAbility: 'wis',
     statImprove: [4, 8, 12, 16, 19],
+    leveling: {
+      1: {
+        traits: {
+          favoredEnemy: 'Enemigo Predilecto',
+          naturalExplorer: 'Explorador de lo Natural',
+        },
+      },
+    },
   },
   rogue: {
     initialHitPoints: 8,
@@ -1964,6 +1973,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...WARLOCK_SKILLS_EXPLANATION,
       ...CLERIC_SKILLS_EXPLANATION,
       ...DRUID_SKILLS_EXPLANATION,
+      ...RANGER_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }
