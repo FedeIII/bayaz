@@ -1,6 +1,7 @@
 import {
   getFavoredEnemies,
   getFavoredTerrains,
+  getHunterDefensiveTactics,
   getHuntersPrey,
   getRangerConclave,
   getRangerFightingStyle,
@@ -8,6 +9,7 @@ import {
   hasToPickFavoredTerrain,
   translateFavoredEnemy,
   translateFavoredTerrain,
+  translateHuntersDefensiveTactics,
   translateHuntersPrey,
   translateRangerFightingStyle,
 } from './ranger';
@@ -87,6 +89,24 @@ export function displayRangerTrait(traitName, trait, pc) {
           {!!getHuntersPrey(pc) && (
             <span className={appStyles.smallText}>
               {translateHuntersPrey(getHuntersPrey(pc))}
+            </span>
+          )}
+        </>
+      );
+
+    case 'defensiveTactics':
+      return (
+        <>
+          <strong>
+            <u>{trait}</u>
+          </strong>
+          .{' '}
+          {!getHunterDefensiveTactics(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+          {!!getHunterDefensiveTactics(pc) && (
+            <span className={appStyles.smallText}>
+              {translateHuntersDefensiveTactics(getHunterDefensiveTactics(pc))}
             </span>
           )}
         </>

@@ -1087,6 +1087,20 @@ export const CLASSES = {
           extraAttack: 'Ataque Extra',
         },
       },
+      7: {
+        rangerConclave: {
+          hunter: {
+            traits: {
+              defensiveTactics: 'Tácticas Defensivas',
+            },
+          },
+          beastMaster: {
+            traits: {
+              exceptionalTraining: 'Entrenamiento Excepcional',
+            },
+          },
+        },
+      },
     },
   },
   rogue: {

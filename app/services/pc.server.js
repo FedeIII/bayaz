@@ -15,6 +15,7 @@ import {
   FAVORED_ENEMIES_HUMANOIDS,
   FAVORED_TERRAINS,
   HUNTERS_PREY,
+  HUNTER_DEFENSIVE_TACTICS,
   RANGER_CONCLAVES,
   RANGER_FIGHTING_STYLES,
 } from '~/domain/classes/ranger/ranger';
@@ -135,6 +136,7 @@ const rangerSchema = new mongoose.Schema({
   fightingStyle: { type: String, enum: RANGER_FIGHTING_STYLES },
   rangerConclave: { type: String, enum: RANGER_CONCLAVES },
   huntersPrey: { type: String, enum: HUNTERS_PREY },
+  defensiveTactics: { type: String, enum: HUNTER_DEFENSIVE_TACTICS },
 });
 
 const classAttrsSchema = new mongoose.Schema({

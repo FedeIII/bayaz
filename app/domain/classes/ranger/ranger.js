@@ -249,3 +249,20 @@ export function translateHuntersPrey(prey) {
   if (prey === 'hordeBreaker') return 'Rompe Hordas';
   return 'unknown hunters prey';
 }
+
+export const HUNTER_DEFENSIVE_TACTICS = [
+  'escapeTheHorde',
+  'multiattackDefense',
+  'steelWill',
+];
+
+export function getHunterDefensiveTactics(pc) {
+  return pc.classAttrs?.ranger?.defensiveTactics || null;
+}
+
+export function translateHuntersDefensiveTactics(prey) {
+  if (prey === 'escapeTheHorde') return 'Escapar de la Horda';
+  if (prey === 'multiattackDefense') return 'Defensa Contra Ataques Múltiples';
+  if (prey === 'steelWill') return 'Voluntad de Acero';
+  return 'unknown hunter defensive tactics';
+}

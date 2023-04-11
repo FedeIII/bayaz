@@ -2,12 +2,14 @@ import { Link } from '@remix-run/react';
 import {
   getFavoredEnemies,
   getFavoredTerrains,
+  getHunterDefensiveTactics,
   getHuntersPrey,
   getRangerFightingStyle,
   hasToPickFavoredEnemies,
   hasToPickFavoredTerrain,
   translateFavoredEnemy,
   translateFavoredTerrain,
+  translateHuntersDefensiveTactics,
   translateHuntersPrey,
   translateRangerFightingStyle,
 } from './ranger';
@@ -268,6 +270,53 @@ export const RANGER_SKILLS_EXPLANATION = {
     <p>
       Empezando en el nivel 5 puedes atacar dos veces, en lugar de una, siempre
       que uses la acción de Atacar en tu turno.
+    </p>
+  ),
+
+  defensiveTactics: (skill, pc) => {
+    const defensiveTactics = getHunterDefensiveTactics(pc);
+    return (
+      <>
+        <p>A nivel 7 ganas uno de los siguientes rasgos de tu elección</p>
+
+        {!defensiveTactics && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/ranger/defensiveTactics`}
+              className={styles.modalButton}
+            >
+              Escoge Táctica Defensiva
+            </Link>
+          </div>
+        )}
+
+        {!!defensiveTactics && (
+          <strong>{translateHuntersDefensiveTactics(defensiveTactics)}</strong>
+        )}
+
+        {defensiveTactics === 'escapeTheHorde' && (
+          <p>Los ataques de oportunidad contra ti se hacen con desventaja.</p>
+        )}
+        {defensiveTactics === 'multiattackDefense' && (
+          <p>
+            Cuando una criatura te golpea con un ataque, ganas un bonificador +4
+            a la CA contra todos los ataques posteriores realizados por esa
+            criatura durante el resto del turno.
+          </p>
+        )}
+        {defensiveTactics === 'steelWill' && (
+          <p>Tienes ventaja en tiradas de salvación contra miedo.</p>
+        )}
+      </>
+    );
+  },
+
+  exceptionalTraining: (skill, pc) => (
+    <p>
+      A partir del nivel 7 en cualquiera de tus turnos en los que el compañero
+      animal no ataque, puedes utilizar una acción adicional para ordenar a la
+      bestia que realice en su turno una acción de Carrera, Retirada, Esquiva o
+      Ayuda.
     </p>
   ),
 };
