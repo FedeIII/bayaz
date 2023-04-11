@@ -16,6 +16,7 @@ import {
   FAVORED_TERRAINS,
   HUNTERS_PREY,
   HUNTER_DEFENSIVE_TACTICS,
+  HUNTER_MULTIATTACK,
   RANGER_CONCLAVES,
   RANGER_FIGHTING_STYLES,
 } from '~/domain/classes/ranger/ranger';
@@ -137,6 +138,7 @@ const rangerSchema = new mongoose.Schema({
   rangerConclave: { type: String, enum: RANGER_CONCLAVES },
   huntersPrey: { type: String, enum: HUNTERS_PREY },
   defensiveTactics: { type: String, enum: HUNTER_DEFENSIVE_TACTICS },
+  multiattack: { type: String, enum: HUNTER_MULTIATTACK },
 });
 
 const classAttrsSchema = new mongoose.Schema({

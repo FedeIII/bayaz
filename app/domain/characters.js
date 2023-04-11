@@ -1111,6 +1111,20 @@ export const CLASSES = {
           hideInPlainSight: 'Ocultarse a Plena Vista',
         },
       },
+      11: {
+        rangerConclave: {
+          hunter: {
+            traits: {
+              multiattack: 'Ataque Múltiple',
+            },
+          },
+          beastMaster: {
+            traits: {
+              bestialFury: 'Furia Bestial',
+            },
+          },
+        },
+      },
     },
   },
   rogue: {

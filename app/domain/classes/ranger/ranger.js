@@ -260,9 +260,22 @@ export function getHunterDefensiveTactics(pc) {
   return pc.classAttrs?.ranger?.defensiveTactics || null;
 }
 
-export function translateHuntersDefensiveTactics(prey) {
-  if (prey === 'escapeTheHorde') return 'Escapar de la Horda';
-  if (prey === 'multiattackDefense') return 'Defensa Contra Ataques Múltiples';
-  if (prey === 'steelWill') return 'Voluntad de Acero';
+export function translateHuntersDefensiveTactics(tactic) {
+  if (tactic === 'escapeTheHorde') return 'Escapar de la Horda';
+  if (tactic === 'multiattackDefense')
+    return 'Defensa Contra Ataques Múltiples';
+  if (tactic === 'steelWill') return 'Voluntad de Acero';
   return 'unknown hunter defensive tactics';
+}
+
+export const HUNTER_MULTIATTACK = ['volley', 'whirlwindAttack'];
+
+export function getHunterMultiattack(pc) {
+  return pc.classAttrs?.ranger?.multiattack || null;
+}
+
+export function translateHunterMultiattack(multiattack) {
+  if (multiattack === 'volley') return 'Torrente';
+  if (multiattack === 'whirlwindAttack') return 'Ataque de Torbellino';
+  return 'unknown hunter multiattack';
 }

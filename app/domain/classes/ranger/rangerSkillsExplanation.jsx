@@ -3,12 +3,14 @@ import {
   getFavoredEnemies,
   getFavoredTerrains,
   getHunterDefensiveTactics,
+  getHunterMultiattack,
   getHuntersPrey,
   getRangerFightingStyle,
   hasToPickFavoredEnemies,
   hasToPickFavoredTerrain,
   translateFavoredEnemy,
   translateFavoredTerrain,
+  translateHunterMultiattack,
   translateHuntersDefensiveTactics,
   translateHuntersPrey,
   translateRangerFightingStyle,
@@ -352,5 +354,54 @@ export const RANGER_SKILLS_EXPLANATION = {
         debes camuflarte de nuevo para ganar este beneficio.
       </p>
     </>
+  ),
+
+  multiattack: (skill, pc) => {
+    const multiattack = getHunterMultiattack(pc);
+    return (
+      <>
+        <p>A nivel 11 ganas uno de los siguientes rasgos de tu elección.</p>
+
+        {!multiattack && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/ranger/multiattack`}
+              className={styles.modalButton}
+            >
+              Escoge Ataque Múltiple
+            </Link>
+          </div>
+        )}
+
+        {!!multiattack && (
+          <strong>{translateHunterMultiattack(multiattack)}</strong>
+        )}
+
+        {multiattack === 'volley' && (
+          <p>
+            Puedes utilizar tu acción para hacer un ataque a distancia contra
+            cualquier número de criaturas en torno a 10 pies (3 metros) de un
+            punto que puedas ver (siempre dentro del alcance de tu arma). Debes
+            tener munición para cada objetivo, como siempre, y realizar una
+            tirada de ataque por separado para cada uno de ellos.
+          </p>
+        )}
+        {multiattack === 'whirlwindAttack' && (
+          <p>
+            Puedes utilizar tu acción para realizar un ataque cuerpo a cuerpo
+            contra cualquier número de criaturas que estén a 5 pies (1,5 metros)
+            de ti, realizando una tirada de ataque separada para cada uno de
+            ellos.
+          </p>
+        )}
+      </>
+    );
+  },
+
+  bestialFury: (skill, pc) => (
+    <p>
+      A partir del nivel 11 tu compañero animal puede realizar dos ataques
+      cuando le ordenes que use la acción de Ataque.
+    </p>
   ),
 };
