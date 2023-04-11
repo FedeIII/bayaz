@@ -93,7 +93,7 @@ export function EquipmentCombo(props) {
     if (Array.isArray(combo)) {
       return (
         <label
-          htmlFor={`${combo.name}-${comboSection}`}
+          htmlFor={`${combo.map(i => i.name).join('-')}-${comboSection}`}
           className={styles.equipmentItem}
         >
           <input
@@ -103,7 +103,7 @@ export function EquipmentCombo(props) {
                 ? `${comboName}-choices-${comboSection}`
                 : `choices-${comboSection}`
             }
-            id={`${combo.name}-${comboSection}`}
+            id={`${combo.map(i => i.name).join('-')}-${comboSection}`}
             value={combo
               .map(comboItem => `${comboItem.name},${comboItem.amount}`)
               .join('|')}

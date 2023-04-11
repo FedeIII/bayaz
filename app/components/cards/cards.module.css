@@ -7,7 +7,7 @@
 
 .card {
   border: 1px solid white;
-  background-color: #252937;
+  background-color: var(--color-base);
   border-radius: 10px;
   padding: 16px;
   flex-basis: 0;
@@ -16,7 +16,7 @@
 
 .singleCard {
   border: 1px solid white;
-  background-color: #252937;
+  background-color: var(--color-base);
   border-radius: 10px;
   padding: 8px 16px 0px;
   display: inline-block;
@@ -30,7 +30,7 @@
 }
 
 .buttonCard {
-  background-color: #252937;
+  background-color: var(--color-base);
   padding: 8px 16px;
   color: white;
   text-decoration: none;
@@ -41,11 +41,17 @@
 }
 
 .buttonCard:hover {
-  background-color: #3d414f;
+  background-color: var(--color-light);
 }
 
 .buttonCard[data-selected='true'] {
-  background-color: #3d414f;
+  background-color: var(--color-light);
+}
+
+.buttonCard[disabled] {
+  background-color: var(--color-gray);
+  color: var(--color-pale);
+  cursor: initial;
 }
 
 .buttonCardBig {

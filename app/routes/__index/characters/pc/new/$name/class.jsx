@@ -30,6 +30,7 @@ import {
 import { getSpell } from '~/domain/spells/getSpells';
 
 import styles from '~/components/characters.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -316,12 +317,12 @@ function PcClassSkills() {
       />
 
       <p>
-        <button type="submit" disabled={isCreating || !canContinue}>
-          {isCreating
-            ? 'Creando...'
-            : canContinue
-            ? 'Continuar'
-            : 'Elige habilidades'}
+        <button
+          type="submit"
+          className={cardStyles.buttonCard}
+          disabled={isCreating || !canContinue}
+        >
+          {canContinue ? 'Continuar' : 'Elige habilidades'}
         </button>
       </p>
     </Form>
