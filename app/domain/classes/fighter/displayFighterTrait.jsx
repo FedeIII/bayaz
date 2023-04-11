@@ -22,6 +22,16 @@ export function displayFighterTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'actionSurge':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          {pc.level >= 17 ? 'Dos veces ' : 'Una vez '}entre descansos.
+        </>
+      );
+
     default:
   }
 

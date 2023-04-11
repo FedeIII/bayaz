@@ -974,6 +974,11 @@ export const CLASSES = {
           fightingStyle: 'Estilo de Combate',
         },
       },
+      2: {
+        traits: {
+          actionSurge: 'Oleada de Acción',
+        },
+      },
     },
   },
   monk: {
