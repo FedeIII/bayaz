@@ -4,6 +4,8 @@ import {
   getFavoredTerrains,
   getHuntersPrey,
   getRangerFightingStyle,
+  hasToPickFavoredEnemies,
+  hasToPickFavoredTerrain,
   translateFavoredEnemy,
   translateFavoredTerrain,
   translateHuntersPrey,
@@ -41,6 +43,17 @@ export const RANGER_SKILLS_EXPLANATION = {
       <strong>
         {getFavoredEnemies(pc).map(translateFavoredEnemy).join(', ')}
       </strong>
+
+      {hasToPickFavoredEnemies(pc) && (
+        <div className={styles.modalButtons}>
+          <Link
+            to={`/characters/pc/${pc.name}/leveling/ranger/favoredEnemies`}
+            className={styles.modalButton}
+          >
+            Escoge Enemigo Predilecto
+          </Link>
+        </div>
+      )}
     </>
   ),
 
@@ -82,6 +95,17 @@ export const RANGER_SKILLS_EXPLANATION = {
       <strong>
         {getFavoredTerrains(pc).map(translateFavoredTerrain).join(', ')}
       </strong>
+
+      {hasToPickFavoredTerrain(pc) && (
+        <div className={styles.modalButtons}>
+          <Link
+            to={`/characters/pc/${pc.name}/leveling/ranger/favoredTerrains`}
+            className={styles.modalButton}
+          >
+            Escoge Terreno Predilecto
+          </Link>
+        </div>
+      )}
     </>
   ),
 
@@ -228,6 +252,22 @@ export const RANGER_SKILLS_EXPLANATION = {
         Ayuda. Una vez que tengas el rasgo Ataque Extra podrás hacer un ataque
         tú mismo cuando ordenes a la bestia que realice la acción de atacar.
       </p>
+      <p>
+        Mientras viajas a través de su terreno predilecto solo con la bestia,
+        podéis moveros sigilosamente a un ritmo normal.
+      </p>
+      <p>
+        Si la bestia muere puedes conseguir otra si pasas 8 horas estableciendo
+        un vínculo mágico con otra bestia que no te sea hostil, ya sea el mismo
+        tipo de bestia anterior o una diferente.
+      </p>
     </>
+  ),
+
+  extraAttack: (skill, pc) => (
+    <p>
+      Empezando en el nivel 5 puedes atacar dos veces, en lugar de una, siempre
+      que uses la acción de Atacar en tu turno.
+    </p>
   ),
 };

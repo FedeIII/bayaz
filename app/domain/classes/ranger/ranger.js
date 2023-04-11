@@ -102,6 +102,21 @@ export function getFavoredEnemies(pc) {
   return pc.classAttrs?.ranger?.favoredEnemies || [];
 }
 
+export function getFavoredEnemiesSelected(pc) {
+  return pc.classAttrs?.ranger?.favoredEnemiesSelection?.length || 0;
+}
+
+export function hasToPickFavoredEnemies(pc) {
+  const { level } = pc;
+
+  const favoredEnemiesselected = getFavoredEnemiesSelected(pc);
+
+  return (
+    (level >= 14 && favoredEnemiesselected < 3) ||
+    (level >= 6 && favoredEnemiesselected < 2)
+  );
+}
+
 export const FAVORED_TERRAINS = [
   'arctic',
   'coast',
@@ -136,6 +151,17 @@ export function translateFavoredTerrain(terrain) {
 
 export function getFavoredTerrains(pc) {
   return pc.classAttrs?.ranger?.favoredTerrains || [];
+}
+
+export function hasToPickFavoredTerrain(pc) {
+  const { level } = pc;
+
+  const favoredTerrainsAmount = getFavoredTerrains(pc).length;
+
+  return (
+    (level >= 10 && favoredTerrainsAmount < 3) ||
+    (level >= 6 && favoredTerrainsAmount < 2)
+  );
 }
 
 export const RANGER_CONCLAVES = ['hunter', 'beastMaster'];

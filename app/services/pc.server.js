@@ -130,6 +130,7 @@ const rangerSchema = new mongoose.Schema({
   favoredEnemies: [
     { type: String, enum: [...FAVORED_ENEMIES, ...FAVORED_ENEMIES_HUMANOIDS] },
   ],
+  favoredEnemiesSelection: [Boolean],
   favoredTerrains: [{ type: String, enum: FAVORED_TERRAINS }],
   fightingStyle: { type: String, enum: RANGER_FIGHTING_STYLES },
   rangerConclave: { type: String, enum: RANGER_CONCLAVES },

@@ -78,6 +78,7 @@ export const action = async ({ request }) => {
       favoredEnemies: favoredEnemyHumanoids?.length
         ? favoredEnemyHumanoids
         : [favoredEnemy],
+      favoredEnemiesSelection: [true],
     };
   }
   if (favoredTerrain)

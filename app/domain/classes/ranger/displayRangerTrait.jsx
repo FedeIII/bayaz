@@ -4,6 +4,8 @@ import {
   getHuntersPrey,
   getRangerConclave,
   getRangerFightingStyle,
+  hasToPickFavoredEnemies,
+  hasToPickFavoredTerrain,
   translateFavoredEnemy,
   translateFavoredTerrain,
   translateHuntersPrey,
@@ -24,6 +26,9 @@ export function displayRangerTrait(traitName, trait, pc) {
           <span className={appStyles.smallText}>
             {getFavoredEnemies(pc).map(translateFavoredEnemy).join(', ')}
           </span>
+          {hasToPickFavoredEnemies(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
         </>
       );
 
@@ -36,6 +41,9 @@ export function displayRangerTrait(traitName, trait, pc) {
           <span className={appStyles.smallText}>
             {getFavoredTerrains(pc).map(translateFavoredTerrain).join(', ')}
           </span>
+          {hasToPickFavoredTerrain(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
         </>
       );
 
