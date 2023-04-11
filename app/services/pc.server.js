@@ -9,7 +9,7 @@ import {
   getLevelByXp,
 } from '~/domain/characters';
 import { SORCERER_ORIGIN, DRAGON_ANCESTORS } from '~/domain/sorcerer';
-import { FIGHTING_STYLES } from '~/domain/fighter';
+import { FIGHTING_STYLES } from '~/domain/classes/fighter/fighter';
 import {
   FAVORED_ENEMIES,
   FAVORED_ENEMIES_HUMANOIDS,
@@ -143,6 +143,10 @@ const rangerSchema = new mongoose.Schema({
   superiorHuntersDefense: { type: String, enum: SUPERIOR_HUNTERS_DEFENSE },
 });
 
+const fighterSchema = new mongoose.Schema({
+  fightingStyle: { type: String, enum: FIGHTING_STYLES },
+});
+
 const classAttrsSchema = new mongoose.Schema({
   barbarian: barbarianSchema,
   bard: bardSchema,
@@ -150,8 +154,8 @@ const classAttrsSchema = new mongoose.Schema({
   cleric: clericSchema,
   druid: druidSchema,
   ranger: rangerSchema,
+  fighter: fighterSchema,
 
-  fightingStyles: [{ type: String, enum: FIGHTING_STYLES }],
   sorcererOrigin: { type: String, enum: Object.keys(SORCERER_ORIGIN) },
   dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
 

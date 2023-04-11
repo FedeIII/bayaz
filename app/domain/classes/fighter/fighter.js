@@ -1,7 +1,7 @@
-import { ARMORS } from './equipment/armors';
-import { DUNGEONEERS_PACK, EXPLORERS_PACK } from './equipment/packs';
-import { TOOLS } from './equipment/tools';
-import { getAllMartialMelee, WEAPONS } from './equipment/weapons';
+import { ARMORS } from '../../equipment/armors';
+import { DUNGEONEERS_PACK, EXPLORERS_PACK } from '../../equipment/packs';
+import { TOOLS } from '../../equipment/tools';
+import { getAllMartialMelee, WEAPONS } from '../../equipment/weapons';
 
 export const FIGHTING_STYLES = [
   'archery',
@@ -32,8 +32,8 @@ export function translateFightingStyle(fightingStyle) {
   }
 }
 
-export function getFightingStyles(pc) {
-  return pc.classAttrs?.fightingStyles;
+export function getFightingStyle(pc) {
+  return pc.classAttrs?.fighter?.fightingStyle;
 }
 
 export const FIGHTER_EQUIPMENT = [

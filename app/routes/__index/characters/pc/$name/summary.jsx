@@ -48,7 +48,6 @@ import {
   getDragonAncestor,
   translateDragonAncestor,
 } from '~/domain/sorcerer';
-import { getFightingStyles, translateFightingStyle } from '~/domain/fighter';
 import {
   translateDivineDomain,
   getDivineDomain,
@@ -993,19 +992,6 @@ function PcSummary() {
                       pc={pc}
                       openModal={openSkillModal('rangerConclave', i)}
                     />
-                  </li>
-                ))}
-              </ul>
-            </li>
-          )}
-
-          {!!getFightingStyles(pc)?.length && (
-            <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>Estilos de Combate:</span>
-              <ul className={styles.traitLabel}>
-                {getFightingStyles(pc).map(fightingStyle => (
-                  <li className={styles.traitItem} key={fightingStyle}>
-                    {translateFightingStyle(fightingStyle)}
                   </li>
                 ))}
               </ul>

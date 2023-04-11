@@ -71,6 +71,7 @@ npx prisma migrate dev
 - Death saving throws
 - Temporary HP (just edit manually)
 - Attack bonus breakdown for weapons
+- 2x Weapons not showing in the weapons section
 - Copy random spells on the Book:
   - Warlock bookOfAncientSecrets
   - Wizard

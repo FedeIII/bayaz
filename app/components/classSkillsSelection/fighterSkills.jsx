@@ -1,4 +1,4 @@
-import { FIGHTING_STYLES, translateFightingStyle } from '~/domain/fighter';
+import { FIGHTING_STYLES, translateFightingStyle } from '~/domain/classes/fighter/fighter';
 
 import styles from '~/components/app.module.css';
 import cardStyles from '~/components/cards/cards.module.css';

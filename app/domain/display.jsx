@@ -34,6 +34,7 @@ import { displayWarlockTrait } from './classes/warlock/displayWarlockTrait';
 import { displayClericTrait } from './classes/cleric/displayClericTrait';
 import { displayDruidTrait } from './classes/druid/displayDruidTrait';
 import { displayRangerTrait } from './classes/ranger/displayRangerTrait';
+import { displayFighterTrait } from './classes/fighter/displayFighterTrait';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -311,6 +312,7 @@ function displayClassTrait(traitName, trait, pc) {
       cleric: displayClericTrait,
       druid: displayDruidTrait,
       ranger: displayRangerTrait,
+      fighter: displayFighterTrait,
     }[pc.pClass] || noOp
   )(traitName, trait, pc);
 

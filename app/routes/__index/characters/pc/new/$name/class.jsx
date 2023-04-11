@@ -85,7 +85,7 @@ export const action = async ({ request }) => {
   if (favoredTerrain)
     pcAttrs.classAttrs.ranger.favoredTerrains = [favoredTerrain];
 
-  if (fightingStyle) pcAttrs.classAttrs.fightingStyles = [fightingStyle];
+  if (fightingStyle) pcAttrs.classAttrs.fighter = { fightingStyle };
   if (sorcererOrigin) pcAttrs.classAttrs.sorcererOrigin = sorcererOrigin;
   if (dragonAncestor) pcAttrs.classAttrs.dragonAncestor = dragonAncestor;
 

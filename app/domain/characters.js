@@ -39,6 +39,7 @@ import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExpla
 import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanation';
 import { DRUID_SKILLS_EXPLANATION } from './classes/druid/druidSkillsExplanation';
 import { RANGER_SKILLS_EXPLANATION } from './classes/ranger/rangerSkillsExplanation';
+import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExplanation';
 
 export const RACES = {
   dwarf: {
@@ -966,8 +967,13 @@ export const CLASSES = {
       ...getAllMartialRanged().map(weapon => weapon.name),
     ],
     statImprove: [4, 6, 8, 12, 14, 16, 19],
-    traits: {
-      secondWind: 'Nuevas Energías',
+    leveling: {
+      1: {
+        traits: {
+          secondWind: 'Nuevas Energías',
+          fightingStyle: 'Estilo de Combate',
+        },
+      },
     },
   },
   monk: {
@@ -2073,6 +2079,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...CLERIC_SKILLS_EXPLANATION,
       ...DRUID_SKILLS_EXPLANATION,
       ...RANGER_SKILLS_EXPLANATION,
+      ...FIGHTER_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }
