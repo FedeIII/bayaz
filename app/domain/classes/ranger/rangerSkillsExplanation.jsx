@@ -6,6 +6,7 @@ import {
   getHunterMultiattack,
   getHuntersPrey,
   getRangerFightingStyle,
+  getSuperiorHuntersDefense,
   hasToPickFavoredEnemies,
   hasToPickFavoredTerrain,
   translateFavoredEnemy,
@@ -14,6 +15,7 @@ import {
   translateHuntersDefensiveTactics,
   translateHuntersPrey,
   translateRangerFightingStyle,
+  translateSuperiorHuntersDefense,
 } from './ranger';
 import { getProficiencyBonus } from '~/domain/characters';
 import { increment } from '~/domain/display';
@@ -410,6 +412,64 @@ export const RANGER_SKILLS_EXPLANATION = {
       A partir del nivel 14 puedes utilizar la acción Esconderse como acción
       adicional en tu turno. Además, no puedes ser rastreado por medios no
       mágicos, a menos que decidas dejar un rastro.
+    </p>
+  ),
+
+  superiorHuntersDefense: (skill, pc) => {
+    const superiorHuntersDefense = getSuperiorHuntersDefense(pc);
+    return (
+      <>
+        <p>A nivel 15 ganas uno de los siguientes rasgos de tu elección.</p>
+
+        {!superiorHuntersDefense && (
+          <div className={styles.modalButtons}>
+            <Link
+              to={`/characters/pc/${pc.name}/leveling/ranger/superiorHuntersDefense`}
+              className={styles.modalButton}
+            >
+              Escoge Defensa Superior
+            </Link>
+          </div>
+        )}
+
+        {!!superiorHuntersDefense && (
+          <strong>
+            {translateSuperiorHuntersDefense(superiorHuntersDefense)}
+          </strong>
+        )}
+
+        {superiorHuntersDefense === 'evasion' && (
+          <p>
+            Puedes esquivar ágilmente algunos efectos de área, como por ejemplo
+            el ardiente aliento de un dragón rojo o un conjuro de rayo
+            relampagueante. Cuando estés sujeto a un efecto que te permite hacer
+            una tirada de salvación de Destreza para sufrir sólo la mitad de
+            daño, en lugar de eso no sufres ningún daño si tienes éxito en la
+            tirada de salvación, y solo la mitad de daño si fallas la tirada.
+          </p>
+        )}
+        {superiorHuntersDefense === 'standAgainstTheTide' && (
+          <p>
+            Cuando una criatura hostil falla su ataque cuerpo a cuerpo sobre ti,
+            puedes utilizar tu reacción para obligarla a repetir el mismo ataque
+            contra otra criatura (que no sea sobre sí misma) de tu elección.
+          </p>
+        )}
+        {superiorHuntersDefense === 'uncannyDodge' && (
+          <p>
+            Cuando un atacante que puedas ver te golpea, puedes utilizar tu
+            reacción para reducir a la mitad el daño de los ataques recibidos.
+          </p>
+        )}
+      </>
+    );
+  },
+
+  shareSpells: (skill, pc) => (
+    <p>
+      A partir del nivel 15 cuando lances un conjuro dirigido a ti mismo también
+      puedes afectar a tu compañero animal si la bestia se encuentra a un máximo
+      de 30 pies (9 metros) de ti.
     </p>
   ),
 };

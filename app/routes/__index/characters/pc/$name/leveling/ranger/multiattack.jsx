@@ -38,7 +38,7 @@ export const action = async ({ request }) => {
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function HunterDefensiveTactics() {
+function HunterMultiattack() {
   const { pc } = useLoaderData();
 
   useTitle('Explorador nivel 11');
@@ -115,4 +115,4 @@ export function ErrorBoundary({ error }) {
   );
 }
 
-export default HunterDefensiveTactics;
+export default HunterMultiattack;

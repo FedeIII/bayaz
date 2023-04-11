@@ -279,3 +279,19 @@ export function translateHunterMultiattack(multiattack) {
   if (multiattack === 'whirlwindAttack') return 'Ataque de Torbellino';
   return 'unknown hunter multiattack';
 }
+export const SUPERIOR_HUNTERS_DEFENSE = [
+  'evasion',
+  'standAgainstTheTide',
+  'uncannyDodge',
+];
+
+export function getSuperiorHuntersDefense(pc) {
+  return pc.classAttrs?.ranger?.superiorHuntersDefense || null;
+}
+
+export function translateSuperiorHuntersDefense(defense) {
+  if (defense === 'evasion') return 'Evasión';
+  if (defense === 'standAgainstTheTide') return 'Contracorriente';
+  if (defense === 'uncannyDodge') return 'Esquiva Asombrosa';
+  return 'unknown superior hunters defense';
+}

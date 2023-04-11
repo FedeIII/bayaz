@@ -1130,6 +1130,20 @@ export const CLASSES = {
           vanish: 'Esfumarse',
         },
       },
+      15: {
+        rangerConclave: {
+          hunter: {
+            traits: {
+              superiorHuntersDefense: 'Defensa Superior del Cazador',
+            },
+          },
+          beastMaster: {
+            traits: {
+              shareSpells: 'Compartir Conjuros',
+            },
+          },
+        },
+      },
     },
   },
   rogue: {

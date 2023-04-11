@@ -19,6 +19,7 @@ import {
   HUNTER_MULTIATTACK,
   RANGER_CONCLAVES,
   RANGER_FIGHTING_STYLES,
+  SUPERIOR_HUNTERS_DEFENSE,
 } from '~/domain/classes/ranger/ranger';
 import { DIVINE_DOMAINS } from '~/domain/classes/cleric/cleric';
 import { getItem, pcItem } from '~/domain/equipment/equipment';
@@ -139,6 +140,7 @@ const rangerSchema = new mongoose.Schema({
   huntersPrey: { type: String, enum: HUNTERS_PREY },
   defensiveTactics: { type: String, enum: HUNTER_DEFENSIVE_TACTICS },
   multiattack: { type: String, enum: HUNTER_MULTIATTACK },
+  superiorHuntersDefense: { type: String, enum: SUPERIOR_HUNTERS_DEFENSE },
 });
 
 const classAttrsSchema = new mongoose.Schema({
