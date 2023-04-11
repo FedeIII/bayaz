@@ -1106,6 +1106,11 @@ export const CLASSES = {
           landsStride: 'Zancada Forestal',
         },
       },
+      10: {
+        traits: {
+          hideInPlainSight: 'Ocultarse a Plena Vista',
+        },
+      },
     },
   },
   rogue: {
