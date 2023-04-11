@@ -1144,6 +1144,16 @@ export const CLASSES = {
           },
         },
       },
+      18: {
+        traits: {
+          feralSenses: 'Sentidos Salvajes',
+        },
+      },
+      20: {
+        traits: {
+          foeSlayer: 'Asesino de Enemigos',
+        },
+      },
     },
   },
   rogue: {

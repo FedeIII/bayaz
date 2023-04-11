@@ -17,6 +17,8 @@ import {
   translateRangerFightingStyle,
   translateSuperiorHuntersDefense,
 } from './ranger';
+import { getStat, getStatMod } from '~/domain/characters';
+import { increment } from '~/domain/display';
 
 import appStyles from '~/components/app.module.css';
 import sheetStyles from '~/components/sheet.module.css';
@@ -149,6 +151,19 @@ export function displayRangerTrait(traitName, trait, pc) {
               {translateSuperiorHuntersDefense(getSuperiorHuntersDefense(pc))}
             </span>
           )}
+        </>
+      );
+
+    case 'foeSlayer':
+      return (
+        <>
+          <strong>
+            <u>{trait}</u>
+          </strong>
+          .{' '}
+          <span className={appStyles.smallText}>
+            {increment(getStatMod(getStat(pc, 'wis')))}
+          </span>
         </>
       );
 

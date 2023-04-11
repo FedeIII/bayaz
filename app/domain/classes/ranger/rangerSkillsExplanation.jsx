@@ -17,7 +17,7 @@ import {
   translateRangerFightingStyle,
   translateSuperiorHuntersDefense,
 } from './ranger';
-import { getProficiencyBonus } from '~/domain/characters';
+import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 
 import styles from '~/components/modal/inventoryItem.module.css';
@@ -471,5 +471,37 @@ export const RANGER_SKILLS_EXPLANATION = {
       puedes afectar a tu compañero animal si la bestia se encuentra a un máximo
       de 30 pies (9 metros) de ti.
     </p>
+  ),
+
+  feralSenses: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 18 obtienes sentidos sobrenaturales que te ayudan a
+        luchar contra criaturas que no puedes ver. Cuando atacas a una criatura
+        que no puedes ver, tu incapacidad de verla no implica una desventaja en
+        tus tiradas de ataque contra ella.
+      </p>
+      <p>
+        También eres consciente de la ubicación de cualquier criatura invisible
+        que se encuentre a 30 pies (9 metros) de ti, siempre que la criatura no
+        se esté escondiendo de ti y no estés cegado o ensordecido.
+      </p>
+    </>
+  ),
+
+  foeSlayer: (skill, pc) => (
+    <>
+      <p>
+        A nivel 20 te conviertes en un cazador sin igual de tus enemigos. Una
+        vez por turno, puedes añadir tu modificador de Sabiduría (
+        {increment(getStatMod(getStat(pc, 'wis')))}) a la tirada de ataque o la
+        tirada de daño de un ataque que hagas contra uno de tus enemigos
+        predilectos.
+      </p>
+      <p>
+        Puedes optar por utilizar este rasgo antes o después de realizar la
+        tirada, pero antes de que se apliquen los efectos de la tirada.
+      </p>
+    </>
   ),
 };
