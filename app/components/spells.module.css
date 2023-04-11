@@ -368,12 +368,11 @@
 .hideNextBullet {
   position: absolute;
   width: 14px;
-  height: 15px;
+  height: 16px;
   background-color: white;
   left: -2px;
-  top: 34px;
+  top: 33px;
   z-index: -1;
-  border-radius: 50%;
 }
 
 .hideCircles {

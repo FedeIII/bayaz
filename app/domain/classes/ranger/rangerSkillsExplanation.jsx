@@ -404,4 +404,12 @@ export const RANGER_SKILLS_EXPLANATION = {
       cuando le ordenes que use la acción de Ataque.
     </p>
   ),
+
+  vanish: (skill, pc) => (
+    <p>
+      A partir del nivel 14 puedes utilizar la acción Esconderse como acción
+      adicional en tu turno. Además, no puedes ser rastreado por medios no
+      mágicos, a menos que decidas dejar un rastro.
+    </p>
+  ),
 };

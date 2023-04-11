@@ -70,6 +70,7 @@ npx prisma migrate dev
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
 - Temporary HP (just edit manually)
+- Attack bonus breakdown for weapons
 - Copy random spells on the Book:
   - Warlock bookOfAncientSecrets
   - Wizard

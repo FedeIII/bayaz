@@ -1125,6 +1125,11 @@ export const CLASSES = {
           },
         },
       },
+      14: {
+        traits: {
+          vanish: 'Esfumarse',
+        },
+      },
     },
   },
   rogue: {
