@@ -1101,6 +1101,11 @@ export const CLASSES = {
           },
         },
       },
+      8: {
+        traits: {
+          landsStride: 'Zancada Forestal',
+        },
+      },
     },
   },
   rogue: {

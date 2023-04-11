@@ -319,4 +319,20 @@ export const RANGER_SKILLS_EXPLANATION = {
       Ayuda.
     </p>
   ),
+
+  landsStride: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 8 moverte a través de terreno difícil no mágico no
+        requiere movimiento adicional. También puedes pasar a través de las
+        plantas no mágicas sin ser frenado por ellas y sin recibir daño si
+        tienen espinas, zarzas o algún riesgo similar.
+      </p>
+      <p>
+        Además, tienes ventaja en las tiradas de salvación contra las plantas
+        que son creadas o manipuladas mágicamente para impedir el movimiento,
+        como las creadas por el conjuro enmarañar.
+      </p>
+    </>
+  ),
 };
