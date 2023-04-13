@@ -126,6 +126,8 @@ export function getClassSpells(pc) {
 
   if (pClass === 'fighter' && isEldritchknight(pc)) return FIGHTER_SPELLS;
 
+  if (pClass === 'wizard') return WIZARD_SPELLS;
+
   return [];
 }
 

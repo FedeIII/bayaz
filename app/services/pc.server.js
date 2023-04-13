@@ -42,6 +42,10 @@ import {
   SOLDIER_SPECIALTY,
 } from '~/domain/backgrounds/backgrounds';
 import { DRUID_CIRCLES, LAND_CIRCLES } from '~/domain/classes/druid/druid';
+import {
+  getAllLoreSpellsLearned,
+  getAllMagicalSecretsSpellsLearned,
+} from '~/domain/classes/bard/bard';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -517,12 +521,18 @@ export async function forgetSpell(pcName, spellName) {
     return forgetRegularSpell(pcName, spellName);
   }
 
-  if (pc.classAttrs.bard.loreSpells.map(s => s.name).includes(spellName)) {
+  if (
+    getAllLoreSpellsLearned(pc)
+      .map(s => s.name)
+      .includes(spellName)
+  ) {
     return forgetBardLoreSpell(pcName, spellName);
   }
 
   if (
-    pc.classAttrs.bard.magicalSecretsSpells.map(s => s.name).includes(spellName)
+    getAllMagicalSecretsSpellsLearned(pc)
+      .map(s => s.name)
+      .includes(spellName)
   ) {
     return forgetBardMagicalSecretsSpell(pcName, spellName);
   }

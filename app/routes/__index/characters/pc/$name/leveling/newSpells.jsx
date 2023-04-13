@@ -6,6 +6,7 @@ import {
   getPc,
   learnSpells,
   prepareSpells,
+  pushAttrsForClass,
   updatePc,
 } from '~/services/pc.server';
 import { translateClass } from '~/domain/characters';
@@ -25,6 +26,7 @@ import {
   getAllPcCantrips,
   getAllPcSpells,
   getKnownSpellsByLevel,
+  getSpell,
 } from '~/domain/spells/getSpells';
 import { Card } from '~/components/cards/card';
 import { replaceAt } from '~/utils/insert';
@@ -32,6 +34,7 @@ import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
+import { getKnightSpells } from '~/domain/classes/fighter/fighter';
 
 import styles from '~/components/checkbox.module.css';
 import appStyles from '~/components/app.module.css';
@@ -55,9 +58,19 @@ export const action = async ({ request }) => {
   const learn = formData.getAll('learn[]');
   const prepare = formData.getAll('prepare[]');
 
+  // Knight Spells
+  let pKnightSpells = formData.get('pKnightSpells');
+  pKnightSpells = pKnightSpells ? pKnightSpells.split(',') : [];
+  if (forget)
+    pKnightSpells = pKnightSpells.filter(invName => forget !== invName);
+
+  const learnWizard = formData.get('learnWizard');
+  const prepareWizard = formData.getAll('prepareWizard[]');
+  // Knight Spells
+
   await Promise.all([
     learnSpells(name, learn),
-    prepareSpells(name, prepare),
+    prepareSpells(name, [...prepare, ...prepareWizard]),
     updatePc({
       name,
       'magic.hasLearnedSpells': Array.from(
@@ -66,6 +79,10 @@ export const action = async ({ request }) => {
       ),
     }),
     forget && forgetSpell(name, forget),
+    learnWizard &&
+      pushAttrsForClass(name, 'fighter', {
+        knightSpells: [...pKnightSpells, learnWizard],
+      }),
   ]);
 
   return redirect(`/characters/pc/${name}/summary`);
@@ -111,12 +128,22 @@ function NewSpells() {
     });
   }
 
+  // Knight Spells
+  const knightSpells = getKnightSpells(pc).map(s => getSpell(s.name));
+  // Knight Spells
   // Known spells
   const totalSpellsNumber = getTotalSpells(pc);
   const kwnonSpellLevels = [
     ...new Set(knownSpells.filter(s => s.level > 0).map(s => s.level)),
   ];
-  const knownSpellsByLevel = getKnownSpellsByLevel(pc);
+  const knownSpellsByLevel = getKnownSpellsByLevel(pc).map(
+    (spells, spellIndex) => [
+      ...spells,
+      // Knight Spells
+      ...knightSpells.filter(s => s.level === spellIndex + 1),
+      // Knight Spells
+    ]
+  );
   // Known spells
 
   const [toForget, setToForget] = useState(
@@ -125,12 +152,39 @@ function NewSpells() {
     )
   );
 
+  // Knight Spells
+  const [isKnightSpellToForget, setIsKnightSpellToForget] = useState(false);
+  // Knight Spells
+
   function setSpellToForget(levelIndex, spellIndex, checked) {
     setToForget(oldToForget => {
       if (checked && oldToForget.flat().some(v => v)) return oldToForget;
       else {
-        if (checked) setNewSpellsNumber(n => n + 1);
-        else setNewSpellsNumber(n => n - 1);
+        if (checked) {
+          // Knight Spells
+          if (
+            knightSpells
+              .map(s => s.name)
+              .includes(knownSpellsByLevel[levelIndex][spellIndex]?.name)
+          ) {
+            setIsKnightSpellToForget(true);
+          } else {
+            setNewSpellsNumber(n => n + 1);
+            setIsKnightSpellToForget(false);
+          }
+          // Knight Spells
+        } else {
+          // Knight Spells
+          setIsKnightSpellToForget(false);
+          if (
+            !knightSpells
+              .map(s => s.name)
+              .includes(knownSpellsByLevel[levelIndex][spellIndex]?.name)
+          ) {
+            setNewSpellsNumber(n => n - 1);
+          }
+          // Knight Spells
+        }
 
         return replaceAt(
           levelIndex,
@@ -146,6 +200,13 @@ function NewSpells() {
   const spellsByLevel = newSpellLevels.map(spellLevel =>
     getClassSpells(pc).filter(spell => spell.level === spellLevel)
   );
+  // Knight Spells
+  const wizardSpellsByLevel = newSpellLevels.map(spellLevel =>
+    getClassSpells({ ...pc, pClass: 'wizard' }).filter(
+      spell => spell.level === spellLevel
+    )
+  );
+  // Knight Spells
 
   const [toLearn, setToLearn] = useState(
     spellsByLevel.map(spells => spells.map(() => false))
@@ -167,12 +228,49 @@ function NewSpells() {
     });
   }
 
+  // Knight Spells
+  const [toLearnWizard, setToLearnWizard] = useState(
+    wizardSpellsByLevel.map(spells => spells.map(() => false))
+  );
+
+  function setSpellToLearnWizard(levelIndex, spellIndex, checked) {
+    setToLearnWizard(oldToLearn => {
+      if (
+        checked &&
+        oldToLearn.flat().filter(v => v)?.length === newSpellsNumber
+      )
+        return oldToLearn;
+      else
+        return replaceAt(
+          levelIndex,
+          oldToLearn,
+          replaceAt(spellIndex, oldToLearn[levelIndex], checked)
+        );
+    });
+  }
+  // Knight Spells
+
   const [skillRefs, setSkillRefs] = useState({
     cantrips: allCantrips.map(() => useRef()),
     // Known Spells
     known: knownSpells.map(() => useRef()),
     // Known Spells
     ...spellsByLevel.map(spells => spells.map(() => useRef())),
+    // Knight Spells
+    ...wizardSpellsByLevel.reduce(
+      (levelRefs, spells, levelIndex) => ({
+        ...levelRefs,
+        ['w' + levelIndex]: spells.reduce(
+          (spellRefs, spell, spellIndex) => ({
+            ...spellRefs,
+            ['w' + spellIndex]: useRef(),
+          }),
+          {}
+        ),
+      }),
+      {}
+    ),
+    // Knight Spells
   });
 
   const [
@@ -189,6 +287,15 @@ function NewSpells() {
     <Form method="post" ref={formRef}>
       <input readOnly type="text" name="name" value={name} hidden />
       <input readOnly type="text" name="level" value={level} hidden />
+      {/* // Knight Spells */}
+      <input
+        readOnly
+        type="text"
+        name="pKnightSpells"
+        value={knightSpells.join(',')}
+        hidden
+      />
+      {/* // Knight Spells */}
 
       <h2 className={appStyles.paleText}>Escoge nuevos Conjuros</h2>
 
@@ -297,6 +404,11 @@ function NewSpells() {
                             openModal={openSkillModal('known', spellIndex)}
                             openOnRightClick
                           />
+                          {/* // Knight Spells */}
+                          {knightSpells
+                            .map(s => s.name)
+                            .includes(spell.name) && <> (Mago)</>}
+                          {/* // Knight Spells */}
                         </label>
                       </li>
                     ))}
@@ -386,6 +498,94 @@ function NewSpells() {
               </div>
             </>
           )}
+
+          {/* // Knight Spells */}
+          {isKnightSpellToForget && (
+            <>
+              <h3>
+                Aprendes 1 nuevo Conjuro de mago de hasta nivel{' '}
+                {newSpellsMaxLevel}
+              </h3>
+              <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
+                {wizardSpellsByLevel.map((spellsOfLevel, i) => {
+                  const spellLevel = i + 1;
+                  return (
+                    <Card
+                      title={`Conjuros de mago nivel ${spellLevel}`}
+                      className={cardStyles.scrollCard}
+                      singleCard={wizardSpellsByLevel.length === 1}
+                      key={spellLevel}
+                    >
+                      <ul className={cardStyles.cardList}>
+                        {spellsOfLevel
+                          .filter(
+                            spell =>
+                              !knownSpells.map(s => s.name).includes(spell.name)
+                          )
+                          .map((spell, spellIndex) => (
+                            <li key={spell.name}>
+                              <label
+                                htmlFor={spell.name}
+                                className={`${styles.toSelect} ${
+                                  toLearnWizard[spellLevel - 1][spellIndex] &&
+                                  styles.selectedToSelect
+                                }`}
+                              >
+                                <input
+                                  hidden
+                                  type="checkbox"
+                                  id={spell.name}
+                                  name="learnWizard[]"
+                                  value={spell.name}
+                                  checked={
+                                    toLearnWizard[spellLevel - 1][spellIndex]
+                                  }
+                                  onChange={e =>
+                                    setSpellToLearnWizard(
+                                      spellLevel - 1,
+                                      spellIndex,
+                                      e.target.checked
+                                    )
+                                  }
+                                />
+                                <input
+                                  hidden
+                                  type="checkbox"
+                                  id={spell.name}
+                                  name="prepareWizard[]"
+                                  value={spell.name}
+                                  checked={
+                                    toLearnWizard[spellLevel - 1][spellIndex]
+                                  }
+                                  onChange={e =>
+                                    setSpellToLearn(
+                                      spellLevel - 1,
+                                      spellIndex,
+                                      e.target.checked
+                                    )
+                                  }
+                                />
+                                <SkillItem
+                                  ref={skillRefs['w' + i]['w' + spellIndex]}
+                                  traitName={spell.name}
+                                  trait="spell"
+                                  openModal={openSkillModal(
+                                    'w' + i,
+                                    'w' + spellIndex
+                                  )}
+                                  openOnRightClick
+                                />
+                              </label>
+                            </li>
+                          ))}
+                      </ul>
+                    </Card>
+                  );
+                })}
+              </div>
+            </>
+          )}
+          {/* // Knight Spells */}
         </>
       )}
 
