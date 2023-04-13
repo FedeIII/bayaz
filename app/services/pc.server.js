@@ -9,7 +9,11 @@ import {
   getLevelByXp,
 } from '~/domain/characters';
 import { SORCERER_ORIGIN, DRAGON_ANCESTORS } from '~/domain/sorcerer';
-import { FIGHTING_STYLES } from '~/domain/classes/fighter/fighter';
+import {
+  COMBAT_SUPERIORITY_MANEUVERS,
+  FIGHTING_STYLES,
+  MARTIAL_ARCHETYPES,
+} from '~/domain/classes/fighter/fighter';
 import {
   FAVORED_ENEMIES,
   FAVORED_ENEMIES_HUMANOIDS,
@@ -47,6 +51,11 @@ const statsSchema = new mongoose.Schema({
     }),
     {}
   ),
+});
+
+const itemSchema = new mongoose.Schema({
+  name: String,
+  amount: Number,
 });
 
 const spellSchema = new mongoose.Schema({
@@ -145,6 +154,10 @@ const rangerSchema = new mongoose.Schema({
 
 const fighterSchema = new mongoose.Schema({
   fightingStyle: { type: String, enum: FIGHTING_STYLES },
+  martialArchetype: { type: String, enum: MARTIAL_ARCHETYPES },
+  knightSpells: [spellSchema],
+  combatSuperiority: [{ type: String, enum: COMBAT_SUPERIORITY_MANEUVERS }],
+  studentOfWar: itemSchema,
 });
 
 const classAttrsSchema = new mongoose.Schema({
@@ -181,11 +194,6 @@ const backgroundSchema = mongoose.Schema({
   outlanderOrigin: { type: String, enum: OUTLANDER_ORIGIN },
   sageSpecialty: { type: String, enum: SAGE_SPECIALTY },
   soldierSpecialty: { type: String, enum: SOLDIER_SPECIALTY },
-});
-
-const itemSchema = new mongoose.Schema({
-  name: String,
-  amount: Number,
 });
 
 const freeTextSchema = new mongoose.Schema({

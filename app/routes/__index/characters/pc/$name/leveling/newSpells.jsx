@@ -12,6 +12,7 @@ import { translateClass } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
   getClassSpells,
+  getNewCantripsAmount,
   getNewSpellsAmount,
   getSpellSlots,
   getTotalSpells,
@@ -76,6 +77,8 @@ function NewSpells() {
 
   useTitle(`${translateClass(pClass)} nivel ${level}`);
 
+  const newCantripsNumber = getNewCantripsAmount(pc);
+
   const [newSpellsNumber, setNewSpellsNumber] = useState(
     getNewSpellsAmount(pc)
   );
@@ -95,6 +98,18 @@ function NewSpells() {
           .map(s => s.name)
           .includes(spell.name)
     );
+
+  const [cantripsToLearn, setCantripsToLearn] = useState(
+    allCantrips.map(() => false)
+  );
+
+  function setCantripToLearn(cantripIndex, checked) {
+    setCantripsToLearn(oldToLearn => {
+      if (checked && oldToLearn.filter(v => v)?.length === newCantripsNumber)
+        return oldToLearn;
+      else return replaceAt(cantripIndex, oldToLearn, checked);
+    });
+  }
 
   // Known spells
   const totalSpellsNumber = getTotalSpells(pc);
@@ -189,11 +204,14 @@ function NewSpells() {
 
       {hasNewCantrips(pc) && (
         <>
-          <h3>Aprendes un nuevo Truco</h3>
+          <h3>
+            Aprendes {newCantripsNumber} nuevo{newCantripsNumber > 1 ? 's' : ''}{' '}
+            Truco{newCantripsNumber > 1 ? 's' : ''}
+          </h3>
           <p className={cardStyles.cards}>
             <Card title="Trucos" singleCard>
               <ul className={cardStyles.cardList}>
-                {allCantrips.map((spell, spellIndex) => (
+                {allCantrips.map((spell, cantripIndex) => (
                   <li key={spell.name}>
                     <label
                       htmlFor={spell.name}
@@ -201,16 +219,20 @@ function NewSpells() {
                     >
                       <input
                         hidden
-                        type="radio"
+                        type="checkbox"
                         id={spell.name}
                         name="learn[]"
                         value={spell.name}
+                        checked={cantripsToLearn[cantripIndex]}
+                        onChange={e =>
+                          setCantripToLearn(cantripIndex, e.target.checked)
+                        }
                       />
                       <SkillItem
-                        ref={skillRefs.cantrips[spellIndex]}
+                        ref={skillRefs.cantrips[cantripIndex]}
                         traitName={spell.name}
                         trait="spell"
-                        openModal={openSkillModal('cantrips', spellIndex)}
+                        openModal={openSkillModal('cantrips', cantripIndex)}
                         openOnRightClick
                       />
                     </label>

@@ -102,6 +102,11 @@ import {
   getRangerConclaveTraits,
   translateRangerConclave,
 } from '~/domain/classes/ranger/ranger';
+import {
+  getMartialArchetype,
+  getMartialArchetypeTraits,
+  translateMartialArchetype,
+} from '~/domain/classes/fighter/fighter';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -366,6 +371,7 @@ function PcSummary() {
   const channelDivinityTraits = getChannelDivinityTraits(pc);
   const druidCircleTraits = getDruidCircleTraits(pc);
   const rangerConclaveTraits = getRangerConclaveTraits(pc);
+  const martialArchetypeTraits = getMartialArchetypeTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -382,7 +388,7 @@ function PcSummary() {
       return refs;
     })(),
     druidCircle: druidCircleTraits.map(() => useRef()),
-    rangerConclave: rangerConclaveTraits.map(() => useRef()),
+    martialArchetype: martialArchetypeTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -991,6 +997,27 @@ function PcSummary() {
                       trait={trait}
                       pc={pc}
                       openModal={openSkillModal('rangerConclave', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {!!getMartialArchetype(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                {translateMartialArchetype(getMartialArchetype(pc))}
+              </strong>
+              <ul>
+                {martialArchetypeTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.martialArchetype[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('martialArchetype', i)}
                     />
                   </li>
                 ))}

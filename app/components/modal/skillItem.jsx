@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import { displayTrait } from '~/domain/display';
 import { translateSpell } from '~/domain/spells/spells';
 import { displayInvocation } from '~/domain/classes/warlock/displayWarlockTrait';
+import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fighter';
 
 import styles from './inventoryItem.module.css';
 
@@ -25,6 +26,8 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
           ? translateSpell(traitName)
           : trait === 'invocation'
           ? displayInvocation(traitName, trait, pc)
+          : trait === 'maneuver'
+          ? translateCombatSuperiorityManeuvers(traitName)
           : displayTrait(traitName, trait, pc)}
       </span>
     </>

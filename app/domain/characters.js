@@ -40,6 +40,7 @@ import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanat
 import { DRUID_SKILLS_EXPLANATION } from './classes/druid/druidSkillsExplanation';
 import { RANGER_SKILLS_EXPLANATION } from './classes/ranger/rangerSkillsExplanation';
 import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExplanation';
+import { getStudentOfWar } from './classes/fighter/fighter';
 
 export const RACES = {
   dwarf: {
@@ -966,6 +967,7 @@ export const CLASSES = {
       ...getAllMartialMelee().map(weapon => weapon.name),
       ...getAllMartialRanged().map(weapon => weapon.name),
     ],
+    spellcastingAbility: 'int',
     statImprove: [4, 6, 8, 12, 14, 16, 19],
     leveling: {
       1: {
@@ -977,6 +979,30 @@ export const CLASSES = {
       2: {
         traits: {
           actionSurge: 'Oleada de Acción',
+        },
+      },
+      3: {
+        traits: {
+          martialArchetype: 'Arquetipo Marcial',
+        },
+        martialArchetype: {
+          eldritchKnight: {
+            traits: {
+              weaponBond: 'Ligadura de Arma',
+              knightSpell: 'Conjuros de Caballero Arcano',
+            },
+          },
+          champion: {
+            traits: {
+              improvedCritical: 'Crítico Mejorado',
+            },
+          },
+          battleMaster: {
+            traits: {
+              combatSuperiority: 'Superioridad en Combate',
+              studentOfWar: 'Estudiante de Guerra',
+            },
+          },
         },
       },
     },
@@ -1828,6 +1854,7 @@ export function getItemProficiencies(pc) {
 
   const divineDomain = getDivineDomain(pc);
   const bardCollege = getBardCollege(pc);
+  const studentOfWarTools = getStudentOfWar(pc);
 
   return [
     ...(RACES[race][subrace].proficientItems || []),
@@ -1836,6 +1863,7 @@ export function getItemProficiencies(pc) {
     ...((divineDomain ? DIVINE_DOMAINS[divineDomain]?.proficientItems : []) ||
       []),
     ...((bardCollege ? BARD_COLLEGES[bardCollege]?.proficientItems : []) || []),
+    ...(studentOfWarTools ? [studentOfWarTools.name] : []),
   ];
 }
 

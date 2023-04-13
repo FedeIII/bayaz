@@ -4,6 +4,7 @@ import {
   SkillModalContent,
   SpellModalContent,
   InvocationModalContent,
+  ManeuverModalContent,
 } from './skillModal';
 
 export function useSkillItems(pc, skillRefs) {
@@ -23,6 +24,12 @@ export function useSkillItems(pc, skillRefs) {
                 <SpellModalContent pc={pc} spellName={skillName} />
               ) : skill === 'invocation' ? (
                 <InvocationModalContent
+                  pc={pc}
+                  skillName={skillName}
+                  skill={skill}
+                />
+              ) : skill === 'maneuver' ? (
+                <ManeuverModalContent
                   pc={pc}
                   skillName={skillName}
                   skill={skill}

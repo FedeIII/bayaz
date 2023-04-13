@@ -14,6 +14,8 @@ import { getInvocationExplanation } from '~/domain/classes/warlock/warlockSkills
 import { getInvocation } from '~/domain/classes/warlock/warlock';
 
 import styles from './inventoryItem.module.css';
+import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fighter';
+import { displayManeuver } from '~/domain/classes/fighter/fighterSkillsExplanation';
 
 const MODAL_VERTICAL_OFFSET = 100;
 const MODAL_HORIZONTAL_OFFSET_RIGHT = 50;
@@ -140,6 +142,20 @@ export function InvocationModalContent(props) {
     <>
       <h3 className={styles.modalTitle}>{invocationTitle}</h3>
       <div className={styles.modalContentText}>{invocationExplanation}</div>
+    </>
+  );
+}
+
+export function ManeuverModalContent(props) {
+  const { pc, skillName, skill } = props;
+
+  const maneuverTitle = translateCombatSuperiorityManeuvers(skillName);
+  const maneuverExplanation = displayManeuver(skillName, skill, pc);
+
+  return (
+    <>
+      <h3 className={styles.modalTitle}>{maneuverTitle}</h3>
+      <div className={styles.modalContentText}>{maneuverExplanation}</div>
     </>
   );
 }

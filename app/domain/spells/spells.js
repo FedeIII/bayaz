@@ -82,6 +82,18 @@ import {
   maxRangerSpellLevel,
   RANGER_SPELLS,
 } from './ranger';
+import { getKnightSpells, isEldritchknight } from '../classes/fighter/fighter';
+import {
+  FIGHTER_SPELLS,
+  getFighterCantripsNumber,
+  getFighterSpellSlots,
+  getFighterTotalSpells,
+  hasNewFighterCantrips,
+  hasNewFighterLevelSpells,
+  hasNewFighterSpells,
+  maxFighterSpellLevel,
+} from './fighter';
+import { getKnownCantrips } from './getSpells';
 
 const zero = () => 0;
 
@@ -111,6 +123,8 @@ export function getClassSpells(pc) {
     );
 
   if (pClass === 'ranger') return RANGER_SPELLS;
+
+  if (pClass === 'fighter' && isEldritchknight(pc)) return FIGHTER_SPELLS;
 
   return [];
 }
@@ -147,6 +161,7 @@ export function getCantripsNumber(pc) {
     cleric: getClericCantripsNumber,
     druid: getDruidCantripsNumber,
     ranger: getRangerCantripsNumber,
+    fighter: getFighterCantripsNumber,
     sorcerer: getSorcererCantripsNumber,
     wizard: getWizardCantripsNumber,
   }[pClass];
@@ -162,6 +177,7 @@ export function getTotalSpells(pc) {
     bard: getBardTotalSpells,
     warlock: getWarlockTotalSpells,
     ranger: getRangerTotalSpells,
+    fighter: getFighterTotalSpells,
     sorcerer: getSorcererTotalSpells,
     wizard: getWizardTotalSpells,
   }[pClass];
@@ -179,6 +195,7 @@ export function getSpellSlots(pc) {
     cleric: getClericSpellSlots,
     druid: getDruidSpellSlots,
     ranger: getRangerSpellSlots,
+    fighter: getFighterSpellSlots,
     sorcerer: getSorcererSpellSlots,
     wizard: getWizardSpellSlots,
   }[pClass];
@@ -215,7 +232,10 @@ export function getExtraPreparedSpells(pc) {
 export function hasToLearnSpells(pc) {
   const { pClass } = pc;
 
-  return ['bard', 'warlock', 'ranger'].includes(pClass);
+  return (
+    ['bard', 'warlock', 'ranger'].includes(pClass) ||
+    (pClass === 'fighter' && isEldritchknight(pc))
+  );
 }
 
 export function doesNotHaveToLearnSpells(pc) {
@@ -233,7 +253,10 @@ export function hasToPrepareSpells(pc) {
 export function doesNotHaveToPrepareSpells(pc) {
   const { pClass } = pc;
 
-  return ['bard', 'warlock', 'ranger', 'sorcerer'].includes(pClass);
+  return (
+    ['bard', 'warlock', 'ranger', 'sorcerer'].includes(pClass) ||
+    (pClass === 'fighter' && isEldritchknight(pc))
+  );
 }
 
 export function getSpellcastingAbility(pc, spellType) {
@@ -282,10 +305,20 @@ export function isPreparedSpell(pc, spellName) {
     .filter(s => s.preparedSpell)
     .map(s => s.spell)
     .map(getSpell);
+  const knightSpells = getKnightSpells(pc);
 
-  return !![...preparedSpells, ...preparedInvocationSpells].find(
-    spell => spell.name === spellName
-  );
+  return !![
+    ...preparedSpells,
+    ...preparedInvocationSpells,
+    ...knightSpells,
+  ].find(spell => spell.name === spellName);
+}
+
+export function getNewCantripsAmount(pc) {
+  const newKnownCantripsNumber = getCantripsNumber(pc);
+  const currentKnownCantripsNumber = getKnownCantrips(pc).length;
+
+  return newKnownCantripsNumber - currentKnownCantripsNumber;
 }
 
 export function getNewSpellsAmount(pc) {
@@ -305,6 +338,7 @@ export function hasNewCantrips(pc) {
       cleric: hasNewClericCantrips,
       druid: hasNewDruidCantrips,
       ranger: hasNewRangerCantrips,
+      fighter: hasNewFighterCantrips,
     }[pClass] || zero
   )(pc);
 }
@@ -317,6 +351,7 @@ export function hasNewLevelSpells(pc) {
       bard: hasNewBardLevelSpells,
       warlock: hasNewWarlockLevelSpells,
       ranger: hasNewRangerLevelSpells,
+      fighter: hasNewFighterLevelSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -329,6 +364,7 @@ export function hasNewSpells(pc) {
       bard: hasNewBardSpells,
       warlock: hasNewWarlockSpells,
       ranger: hasNewRangerSpells,
+      fighter: hasNewFighterSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -343,6 +379,7 @@ export function maxSpellLevel(pc) {
       cleric: maxClericSpellLevel,
       druid: maxDruidSpellLevel,
       ranger: maxRangerSpellLevel,
+      fighter: maxFighterSpellLevel,
     }[pClass] || zero
   )(pc);
 }
