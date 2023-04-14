@@ -7,6 +7,7 @@ import {
   increaseStats,
 } from '~/services/pc.server';
 import {
+  getPendingImproveAbilityLevels,
   hasToImproveAbilityScore,
   STATS,
   translateClass,
@@ -86,10 +87,18 @@ function AbilityScoreImprovement() {
     );
   }
 
+  const improvementLevel = getPendingImproveAbilityLevels(pc)[0];
+
   return (
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
-      <input readOnly type="text" name="level" value={pc.level} hidden />
+      <input
+        readOnly
+        type="text"
+        name="level"
+        value={improvementLevel}
+        hidden
+      />
 
       <h2 className={appStyles.paleText}>
         Escoge puntos extra de caracterísitica

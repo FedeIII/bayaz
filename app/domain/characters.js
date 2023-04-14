@@ -1005,6 +1005,11 @@ export const CLASSES = {
           },
         },
       },
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
       5: {
         traits: {
           extraAttack: 'Ataque Extra',
@@ -2142,11 +2147,17 @@ export function getSkillExplanation(skillName, skill, pc) {
 }
 
 export function hasToImproveAbilityScore(pc) {
+  return getPendingImproveAbilityLevels(pc).length > 0;
+}
+
+export function getPendingImproveAbilityLevels(pc) {
   const { level, improvedStatsLevels = [], pClass } = pc;
-  return (
-    !improvedStatsLevels.includes(level) &&
-    CLASSES[pClass].statImprove.includes(level)
+
+  const improveAtLevels = CLASSES[pClass].statImprove.filter(
+    lvl => lvl <= level
   );
+
+  return improveAtLevels.filter(lvl => !improvedStatsLevels.includes(lvl));
 }
 
 export function getSpeed(pc) {
