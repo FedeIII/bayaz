@@ -205,7 +205,9 @@ function NewSpells() {
   // Knight Spells
   const wizardSpellsByLevel = newSpellLevels.map(spellLevel =>
     getClassSpells({ ...pc, pClass: 'wizard' }).filter(
-      spell => spell.level === spellLevel
+      spell =>
+        spell.level === spellLevel &&
+        !['Abjuration', 'Evocation'].includes(spell.school)
     )
   );
   // Knight Spells

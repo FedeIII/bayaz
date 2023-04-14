@@ -295,10 +295,19 @@ export const FIGHTER_SKILLS_EXPLANATION = {
   ),
 
   warMagic: (skill, pc) => (
-    <p>
-      A partir del nivel 7 cuando usas tu acción para lanzar un truco, puedes
-      hacer un ataque con un arma como acción adicional.
-    </p>
+    <>
+      {pc.level >= 18 ? (
+        <p>
+          Comenzando en el nivel 18 cuando usas tu acción para lanzar un
+          conjuro, puedes realizar un ataque con arma como acción adicional.
+        </p>
+      ) : (
+        <p>
+          A partir del nivel 7 cuando usas tu acción para lanzar un truco,
+          puedes hacer un ataque con un arma como acción adicional.
+        </p>
+      )}
+    </>
   ),
 
   remarkableAthlete: (skill, pc) => (
@@ -399,6 +408,17 @@ export const FIGHTER_SKILLS_EXPLANATION = {
     <p>
       Comenzando en el nivel 15 si al realizar una tirada de iniciativa no te
       queda ningún dado de superioridad, recuperas 1 dado de superioridad.
+    </p>
+  ),
+
+  survivor: (skill, pc) => (
+    <p>
+      En el nivel 18 alcanzas tu máxima resistencia en batalla. Al{' '}
+      <u>principio de cada uno de tus turnos</u>, ganas{' '}
+      <u>{5 + getStatMod(getStat(pc, 'con'))} Puntos de Golpe</u> (igual a 5 +
+      tu modificador de Constitución) si no te quedan más de la mitad de tus
+      Puntos de Golpe. No puedes ganar este beneficio si tienes 0 Puntos de
+      Golpe
     </p>
   ),
 };

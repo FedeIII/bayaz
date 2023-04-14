@@ -1067,6 +1067,15 @@ export const CLASSES = {
           },
         },
       },
+      18: {
+        martialArchetype: {
+          champion: {
+            traits: {
+              survivor: 'Superviviente',
+            },
+          },
+        },
+      },
     },
   },
   monk: {

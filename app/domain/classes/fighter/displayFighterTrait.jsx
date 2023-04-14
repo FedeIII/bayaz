@@ -11,6 +11,8 @@ import {
 } from './fighter';
 import { hasToLearnKnightSpell } from '~/domain/spells/fighter';
 import { getItem } from '~/domain/equipment/equipment';
+import { increment } from '~/domain/display';
+import { getStat, getStatMod } from '~/domain/characters';
 
 import appStyles from '~/components/app.module.css';
 import sheetStyles from '~/components/sheet.module.css';
@@ -123,6 +125,14 @@ export function displayFighterTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'warMagic':
+      return (
+        <>
+          {trait}
+          {pc.level >= 18 ? ' Mejorada' : ''}
+        </>
+      );
+
     case 'indomitable': {
       return (
         <>
@@ -154,6 +164,18 @@ export function displayFighterTrait(traitName, trait, pc) {
             <u>{trait}.</u>
           </strong>{' '}
           <span className={appStyles.smallText}>Teletransporte a 9m</span>
+        </>
+      );
+
+    case 'survivor':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            {increment(5 + getStatMod(getStat(pc, 'con')))} HP/turno
+          </span>
         </>
       );
 
