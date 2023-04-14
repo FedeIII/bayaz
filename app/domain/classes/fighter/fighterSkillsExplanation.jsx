@@ -11,8 +11,9 @@ import {
 } from './fighter';
 import { hasToLearnKnightSpell } from '~/domain/spells/fighter';
 import { translateSpell } from '~/domain/spells/spells';
-import { getStat, getStatMod } from '~/domain/characters';
+import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { getItem } from '~/domain/equipment/equipment';
+import { increment } from '~/domain/display';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -262,6 +263,68 @@ export const FIGHTER_SKILLS_EXPLANATION = {
       {!!getStudentOfWar(pc) && (
         <strong>{getItem(getStudentOfWar(pc).name).translation}</strong>
       )}
+    </>
+  ),
+
+  extraAttack: (skill, pc) => (
+    <>
+      <p>
+        Empezando en el nivel 5 puedes atacar dos veces, en lugar de una,
+        siempre que uses la acción de Atacar en tu turno.
+      </p>
+      <p>
+        El número de ataques aumenta a tres cuando alcanzas el nivel 11 en esta
+        clase y a cuatro cuando alcanzas el nivel 20
+      </p>
+    </>
+  ),
+
+  warMagic: (skill, pc) => (
+    <p>
+      A partir del nivel 7 cuando usas tu acción para lanzar un truco, puedes
+      hacer un ataque con un arma como acción adicional.
+    </p>
+  ),
+
+  remarkableAthlete: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 7 puedes añadir{' '}
+        {increment(Math.ceil(getProficiencyBonus(pc.level) / 2))} (la mitad de
+        tu bonificador de competencia, redondeando hacia arriba) a cualquier{' '}
+        <u>prueba de Fuerza, Destreza o Constitución</u> que no use ya tu
+        bonificador de competencia.
+      </p>
+      <p>
+        Además, cuando hagas un salto largo en carrera, la distancia que abarcas
+        aumenta en <u>{getStatMod(getStat(pc, 'str'))} pies</u> (igual a tu
+        modificador de Fuerza).
+      </p>
+    </>
+  ),
+
+  knowYourEnemy: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 7, si te dedicas a observar o interactuar con
+        otra criatura fuera de combate durante al menos 1 minuto, aprendes
+        cierta información acerca de sus capacidades comparadas con las tuyas
+        propias. El DM te dirá si{' '}
+        <strong>
+          <u>dos</u>
+        </strong>{' '}
+        de las siguientes características del adversario son iguales, inferiores
+        o superiores con respecto a las tuyas:
+      </p>
+      <ul>
+        <li>Puntuación de Fuerza.</li>
+        <li>Puntuación de Destreza.</li>
+        <li>Puntuación de Constitución.</li>
+        <li>Clase de Armadura.</li>
+        <li>Puntos de Golpe actuales.</li>
+        <li>Niveles totales de clase (si hay alguno).</li>
+        <li>Niveles de clase de Guerrero (si hay alguno).</li>
+      </ul>
     </>
   ),
 };

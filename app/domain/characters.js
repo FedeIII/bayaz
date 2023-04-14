@@ -1005,6 +1005,30 @@ export const CLASSES = {
           },
         },
       },
+      5: {
+        traits: {
+          extraAttack: 'Ataque Extra',
+        },
+      },
+      7: {
+        martialArchetype: {
+          eldritchKnight: {
+            traits: {
+              warMagic: 'Magia de Guerra',
+            },
+          },
+          champion: {
+            traits: {
+              remarkableAthlete: 'Atleta Destacado',
+            },
+          },
+          battleMaster: {
+            traits: {
+              knowYourEnemy: 'Conoce a tu Enemigo',
+            },
+          },
+        },
+      },
     },
   },
   monk: {

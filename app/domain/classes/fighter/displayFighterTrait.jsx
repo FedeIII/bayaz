@@ -104,6 +104,18 @@ export function displayFighterTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'extraAttack':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            {pc.level >= 20 ? 4 : pc.level >= 11 ? 3 : 2} ataques
+          </span>
+        </>
+      );
+
     default:
   }
 

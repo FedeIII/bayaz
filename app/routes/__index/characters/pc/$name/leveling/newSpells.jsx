@@ -6,7 +6,7 @@ import {
   getPc,
   learnSpells,
   prepareSpells,
-  pushAttrsForClass,
+  updateAttrsForClass,
   updatePc,
 } from '~/services/pc.server';
 import { translateClass } from '~/domain/characters';
@@ -62,7 +62,9 @@ export const action = async ({ request }) => {
   let pKnightSpells = formData.get('pKnightSpells');
   pKnightSpells = pKnightSpells ? pKnightSpells.split(',') : [];
   if (forget)
-    pKnightSpells = pKnightSpells.filter(invName => forget !== invName);
+    pKnightSpells = pKnightSpells
+      .filter(invName => forget !== invName)
+      .map(s => ({ name: s }));
 
   const learnWizard = formData.get('learnWizard');
   const prepareWizard = formData.getAll('prepareWizard[]');
@@ -80,8 +82,8 @@ export const action = async ({ request }) => {
     }),
     forget && forgetSpell(name, forget),
     learnWizard &&
-      pushAttrsForClass(name, 'fighter', {
-        knightSpells: [...pKnightSpells, learnWizard],
+      updateAttrsForClass(name, 'fighter', {
+        knightSpells: [...pKnightSpells, { name: learnWizard }],
       }),
   ]);
 
@@ -292,7 +294,7 @@ function NewSpells() {
         readOnly
         type="text"
         name="pKnightSpells"
-        value={knightSpells.join(',')}
+        value={knightSpells.map(s => s.name).join(',')}
         hidden
       />
       {/* // Knight Spells */}
@@ -535,7 +537,7 @@ function NewSpells() {
                                   hidden
                                   type="checkbox"
                                   id={spell.name}
-                                  name="learnWizard[]"
+                                  name="learnWizard"
                                   value={spell.name}
                                   checked={
                                     toLearnWizard[spellLevel - 1][spellIndex]
