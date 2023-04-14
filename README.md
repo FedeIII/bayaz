@@ -66,6 +66,8 @@ npx prisma migrate dev
   - choose companion
 - Bard:
   - track usages of bardic inspiration
+- Fighter:
+  - track superiority dice consumption
 - Improve spell modal data
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws

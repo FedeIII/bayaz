@@ -1053,6 +1053,20 @@ export const CLASSES = {
           },
         },
       },
+      15: {
+        martialArchetype: {
+          eldritchKnight: {
+            traits: {
+              arcaneCharge: 'Carga Arcana',
+            },
+          },
+          battleMaster: {
+            traits: {
+              relentless: 'Implacable',
+            },
+          },
+        },
+      },
     },
   },
   monk: {

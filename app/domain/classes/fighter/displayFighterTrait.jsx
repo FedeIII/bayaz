@@ -68,7 +68,9 @@ export function displayFighterTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
-          <span className={appStyles.smallText}>Crits con 19 y 20</span>
+          <span className={appStyles.smallText}>
+            Crits con {pc.level >= 15 ? '18' : '19'} y 20
+          </span>
         </>
       );
 
@@ -143,6 +145,16 @@ export function displayFighterTrait(traitName, trait, pc) {
             <span className={sheetStyles.pendingTrait}>(!)</span>
           </>
         )
+      );
+
+    case 'arcaneCharge':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>Teletransporte a 9m</span>
+        </>
       );
 
     default:

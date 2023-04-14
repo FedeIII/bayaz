@@ -175,10 +175,16 @@ export const FIGHTER_SKILLS_EXPLANATION = {
   ),
 
   improvedCritical: (skill, pc) => (
-    <p>
-      A partir de que escojas este arquetipo en el nivel 3 los ataques de tus
-      armas obtienen un crítico en tiradas de 19 o 20.
-    </p>
+    <>
+      <p>
+        A partir de que escojas este arquetipo en el nivel 3 los ataques de tus
+        armas obtienen un crítico en tiradas de 19 o 20.
+      </p>
+      <p>
+        A partir del nivel 15 los ataques de tus armas obtienen un crítico en
+        tiradas de 18—20.
+      </p>
+    </>
   ),
 
   combatSuperiority: (skill, pc) => {
@@ -378,6 +384,22 @@ export const FIGHTER_SKILLS_EXPLANATION = {
         </Link>
       </div>
     </>
+  ),
+
+  arcaneCharge: (skill, pc) => (
+    <p>
+      En el nivel 15, ganas la habilidad de teletransportarte con tu Oleada de
+      Acción a un espacio desocupado que esté hasta a 30 pies de distancia y que
+      puedas ver. Puedes teletransportarte antes o después de la acción
+      adicional.
+    </p>
+  ),
+
+  relentless: (skill, pc) => (
+    <p>
+      Comenzando en el nivel 15 si al realizar una tirada de iniciativa no te
+      queda ningún dado de superioridad, recuperas 1 dado de superioridad.
+    </p>
   ),
 };
 
