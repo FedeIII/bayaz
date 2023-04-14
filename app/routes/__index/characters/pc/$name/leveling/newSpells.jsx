@@ -205,9 +205,7 @@ function NewSpells() {
   // Knight Spells
   const wizardSpellsByLevel = newSpellLevels.map(spellLevel =>
     getClassSpells({ ...pc, pClass: 'wizard' }).filter(
-      spell =>
-        spell.level === spellLevel &&
-        !['Abjuration', 'Evocation'].includes(spell.school)
+      spell => spell.level === spellLevel
     )
   );
   // Knight Spells
@@ -531,7 +529,7 @@ function NewSpells() {
                           .map((spell, spellIndex) => (
                             <li key={spell.name}>
                               <label
-                                htmlFor={spell.name}
+                                htmlFor={`w-${spell.name}`}
                                 className={`${styles.toSelect} ${
                                   toLearnWizard[spellLevel - 1][spellIndex] &&
                                   styles.selectedToSelect
@@ -540,7 +538,7 @@ function NewSpells() {
                                 <input
                                   hidden
                                   type="checkbox"
-                                  id={spell.name}
+                                  id={`w-${$spell.name}`}
                                   name="learnWizard"
                                   value={spell.name}
                                   checked={
