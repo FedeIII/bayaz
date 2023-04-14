@@ -1034,6 +1034,25 @@ export const CLASSES = {
           },
         },
       },
+      9: {
+        traits: {
+          indomitable: 'Indomable',
+        },
+      },
+      10: {
+        martialArchetype: {
+          eldritchKnight: {
+            traits: {
+              eldritchStrike: 'Golpe Sobrenatural',
+            },
+          },
+          champion: {
+            traits: {
+              extraFightingStyle: 'Estilo de Combate Adicional',
+            },
+          },
+        },
+      },
     },
   },
   monk: {

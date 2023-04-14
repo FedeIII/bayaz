@@ -317,14 +317,16 @@ function NewSpells() {
             Aprendes {newCantripsNumber} nuevo{newCantripsNumber > 1 ? 's' : ''}{' '}
             Truco{newCantripsNumber > 1 ? 's' : ''}
           </h3>
-          <p className={cardStyles.cards}>
+          <div className={cardStyles.cards}>
             <Card title="Trucos" singleCard>
               <ul className={cardStyles.cardList}>
                 {allCantrips.map((spell, cantripIndex) => (
                   <li key={spell.name}>
                     <label
                       htmlFor={spell.name}
-                      className={`${styles.toSelect}`}
+                      className={`${styles.toSelect} ${
+                        cantripsToLearn[cantripIndex] && styles.selectedToSelect
+                      }`}
                     >
                       <input
                         hidden
@@ -349,7 +351,7 @@ function NewSpells() {
                 ))}
               </ul>
             </Card>
-          </p>
+          </div>
         </>
       )}
 

@@ -40,7 +40,7 @@ export const action = async ({ request }) => {
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function PrimalPath() {
+function MartialAchetype() {
   const { pc } = useLoaderData();
 
   useTitle('Guerrero nivel 3');
@@ -147,4 +147,4 @@ export function ErrorBoundary({ error }) {
   );
 }
 
-export default PrimalPath;
+export default MartialAchetype;

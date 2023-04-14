@@ -162,6 +162,7 @@ const fighterSchema = new mongoose.Schema({
   knightSpells: [spellSchema],
   combatSuperiority: [{ type: String, enum: COMBAT_SUPERIORITY_MANEUVERS }],
   studentOfWar: itemSchema,
+  extraFightingStyle: { type: String, enum: FIGHTING_STYLES },
 });
 
 const classAttrsSchema = new mongoose.Schema({

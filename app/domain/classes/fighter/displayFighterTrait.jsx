@@ -1,6 +1,8 @@
 import {
+  getAllFightingStyles,
+  getCombatSuperiorityDice,
   getCombatSuperiorityManeuvers,
-  getFightingStyle,
+  getExtraFightingStyle,
   getMartialArchetype,
   getStudentOfWar,
   hasToLearnCombatSuperiorityManeuvers,
@@ -21,12 +23,12 @@ export function displayFighterTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          {!getFightingStyle(pc) && (
+          {!getAllFightingStyles(pc).length && (
             <span className={sheetStyles.pendingTrait}>(!)</span>
           )}
-          {!!getFightingStyle(pc) && (
+          {!!getAllFightingStyles(pc).length && (
             <span className={appStyles.smallText}>
-              {translateFightingStyle(getFightingStyle(pc))}
+              {getAllFightingStyles(pc).map(translateFightingStyle).join(', ')}
             </span>
           )}
         </>
@@ -74,6 +76,9 @@ export function displayFighterTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
+          <span className={appStyles.smallText}>
+            {getCombatSuperiorityDice(pc)}
+          </span>
           {hasToLearnCombatSuperiorityManeuvers(pc) && (
             <span className={sheetStyles.pendingTrait}>(!)</span>
           )}
@@ -111,9 +116,33 @@ export function displayFighterTrait(traitName, trait, pc) {
             <u>{trait}.</u>
           </strong>{' '}
           <span className={appStyles.smallText}>
-            {pc.level >= 20 ? 4 : pc.level >= 11 ? 3 : 2} ataques
+            {pc.level >= 20 ? '4' : pc.level >= 11 ? '3' : '2'} ataques
           </span>
         </>
+      );
+
+    case 'indomitable': {
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            {pc.level >= 17 ? '3' : pc.level >= 13 ? '2' : '1'} ve
+            {pc.level >= 13 ? 'ces' : 'z'} entre descansos prolongados.
+          </span>
+        </>
+      );
+    }
+
+    case 'extraFightingStyle':
+      return (
+        !getExtraFightingStyle(pc) && (
+          <>
+            <u>{trait}.</u>{' '}
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          </>
+        )
       );
 
     default:

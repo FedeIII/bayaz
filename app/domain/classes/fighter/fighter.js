@@ -8,6 +8,7 @@ import { ARMORS } from '../../equipment/armors';
 import { DUNGEONEERS_PACK, EXPLORERS_PACK } from '../../equipment/packs';
 import { TOOLS } from '../../equipment/tools';
 import { getAllMartialMelee, WEAPONS } from '../../equipment/weapons';
+import { displayTrait } from '~/domain/display';
 
 export const FIGHTING_STYLES = [
   'archery',
@@ -39,7 +40,15 @@ export function translateFightingStyle(fightingStyle) {
 }
 
 export function getFightingStyle(pc) {
-  return pc.classAttrs?.fighter?.fightingStyle;
+  return pc.classAttrs?.fighter?.fightingStyle || null;
+}
+
+export function getExtraFightingStyle(pc) {
+  return pc.classAttrs?.fighter?.extraFightingStyle || null;
+}
+
+export function getAllFightingStyles(pc) {
+  return [getFightingStyle(pc), getExtraFightingStyle(pc)].filter(s => s);
 }
 
 export const FIGHTER_EQUIPMENT = [
@@ -98,6 +107,10 @@ export function isEldritchknight(pc) {
   return getMartialArchetype(pc) === 'eldritchKnight';
 }
 
+export function isChampion(pc) {
+  return getMartialArchetype(pc) === 'champion';
+}
+
 export function isBattleMaster(pc) {
   return getMartialArchetype(pc) === 'battleMaster';
 }
@@ -116,7 +129,7 @@ export function getMartialArchetypeTraits(pc) {
       }),
       {}
     )
-  );
+  ).filter(t => !!displayTrait(t[0], t[1], pc));
 }
 
 export function getKnightSpells(pc) {
@@ -210,6 +223,24 @@ export function getManeuverDc(pc) {
     8 +
     getProficiencyBonus(pc.level) +
     Math.max(getStatMod(getStat(pc, 'str')), getStatMod(getStat(pc, 'dex')))
+  );
+}
+
+export function getCombatSuperiorityDiceAmount(pc) {
+  const { level } = pc;
+
+  return level >= 15 ? 6 : level >= 7 ? 5 : 4;
+}
+
+export function getCombatSuperiorityDiceFaces(pc) {
+  const { level } = pc;
+
+  return level >= 18 ? 12 : level >= 10 ? 10 : 8;
+}
+
+export function getCombatSuperiorityDice(pc) {
+  return (
+    getCombatSuperiorityDiceAmount(pc) + 'd' + getCombatSuperiorityDiceFaces(pc)
   );
 }
 

@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react';
 import {
+  getAllFightingStyles,
   getCombatSuperiorityManeuvers,
-  getFightingStyle,
   getKnightSpells,
   getManeuverDc,
   getStudentOfWar,
@@ -29,7 +29,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
   ),
 
   fightingStyle: (skill, pc) => {
-    const fightingStyle = getFightingStyle(pc);
+    const fightingStyles = getAllFightingStyles(pc);
     return (
       <>
         <p>
@@ -38,46 +38,51 @@ export const FIGHTER_SKILLS_EXPLANATION = {
           de una vez, incluso si tienes la opción de escoger otro más adelante.
         </p>
 
-        <h3>{translateFightingStyle(fightingStyle)}</h3>
-        {fightingStyle === 'archery' && (
-          <p className={styles.paragraph}>
+        {fightingStyles.includes('archery') && (
+          <div className={styles.paragraph}>
+            <h3>{translateFightingStyle('archery')}</h3>
             Ganas un bonificador de +2 a las tiradas de ataque que hagas con
             armas a distancia.
-          </p>
+          </div>
         )}
-        {fightingStyle === 'defense' && (
-          <p className={styles.paragraph}>
+        {fightingStyles.includes('defense') && (
+          <div className={styles.paragraph}>
+            <h3>{translateFightingStyle('defense')}</h3>
             Mientras lleves puesta una armadura ganas un +1 la CA
-          </p>
+          </div>
         )}
-        {fightingStyle === 'dueling' && (
-          <p className={styles.paragraph}>
+        {fightingStyles.includes('dueling') && (
+          <div className={styles.paragraph}>
+            <h3>{translateFightingStyle('dueling')}</h3>
             Cuando llevas un arma cuerpo a cuerpo en una mano y ningún arma más,
             ganas un bonificador de +2 a las tiradas de daño con esa arma.
-          </p>
+          </div>
         )}
-        {fightingStyle === 'great-Weapon-fighting' && (
-          <p className={styles.paragraph}>
+        {fightingStyles.includes('great-Weapon-fighting') && (
+          <div className={styles.paragraph}>
+            <h3>{translateFightingStyle('great-Weapon-fighting')}</h3>
             Cuando obtienes un 1 o un 2 en un dado de daño con un arma a dos
             manos, puedes volver a realizar la tirada de daño y debiendo usar la
             nueva tirada, incluso si vuelve a ser un 1 o un 2. El arma debe ser
             un arma a dos manos o tener la propiedad versátil para ganar este
             beneficio.
-          </p>
+          </div>
         )}
-        {fightingStyle === 'protection' && (
-          <p className={styles.paragraph}>
+        {fightingStyles.includes('protection') && (
+          <div className={styles.paragraph}>
+            <h3>{translateFightingStyle('protection')}</h3>
             Cuando una criatura que puedes ver ataca a un objetivo que no eres
             tú y está a 5 pies o menos de ti, puedes usar tu reacción para hacer
             que el enemigo tenga desventaja en la tirada de ataque. Debes estar
             usando un escudo
-          </p>
+          </div>
         )}
-        {fightingStyle === 'two-weapon-fighting' && (
-          <p className={styles.paragraph}>
+        {fightingStyles.includes('two-weapon-fighting') && (
+          <div className={styles.paragraph}>
+            <h3>{translateFightingStyle('two-weapon-fighting')}</h3>
             Cuando luchas con el estilo de lucha de dos armas, puedes añadir tu
             modificador de característica al daño del segundo ataque.
-          </p>
+          </div>
         )}
       </>
     );
@@ -209,6 +214,10 @@ export const FIGHTER_SKILLS_EXPLANATION = {
           Ganas un dado de superioridad en el nivel 7 y otro más en el nivel 15.
         </p>
         <p>
+          En el nivel 10 tus dados de superioridad pasan a ser d10. En el nivel
+          18, pasan a ser d12.
+        </p>
+        <p>
           <strong>
             <u>Tiradas de Salvación.</u>
           </strong>{' '}
@@ -234,7 +243,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
               <strong>
                 <u>{translateCombatSuperiorityManeuvers(maneuver)}.</u>
               </strong>{' '}
-              {displayManeuver(maneuver)}
+              {displayManeuver(maneuver, skill, pc)}
             </li>
           ))}
         </ul>
@@ -325,6 +334,49 @@ export const FIGHTER_SKILLS_EXPLANATION = {
         <li>Niveles totales de clase (si hay alguno).</li>
         <li>Niveles de clase de Guerrero (si hay alguno).</li>
       </ul>
+    </>
+  ),
+
+  indomitable: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 9 puedes volver a tirar una tirada de salvación que
+        hayas fallado. Si lo haces debes usar la nueva tirada, y no podrás
+        volver a usar este rasgo hasta que hayas realizado un descanso
+        prolongado.
+      </p>
+      <p>
+        Puedes usar este rasgo dos veces antes de un descanso prolongado a
+        partir del nivel 13 y tres veces entre descansos a partir del nivel 17.
+      </p>
+    </>
+  ),
+
+  eldritchStrike: (skill, pc) => (
+    <p>
+      En el nivel 10 aprendes cómo hacer que los golpes de tu arma disminuyan la
+      resistencia de una criatura a tus conjuros. Cuando golpeas a una criatura
+      con un ataque con arma, dicha criatura tiene desventaja en la siguiente
+      tirada de salvación que realice en contra de un conjuro que lances antes
+      del final de tu siguiente turno.
+    </p>
+  ),
+
+  extraFightingStyle: (skill, pc) => (
+    <>
+      <p>
+        En el nivel 10 puedes escoger una segunda opción del rasgo Estilo de
+        Combate.
+      </p>
+
+      <div className={styles.modalButtons}>
+        <Link
+          to={`/characters/pc/${pc.name}/leveling/fighter/extraFightingStyle`}
+          className={styles.modalButton}
+        >
+          Escoge Estilo de Combate Adicional
+        </Link>
+      </div>
     </>
   ),
 };
