@@ -86,8 +86,9 @@ export const action = async ({ request }) => {
     pcAttrs.classAttrs.ranger.favoredTerrains = [favoredTerrain];
 
   if (fightingStyle) pcAttrs.classAttrs.fighter = { fightingStyle };
-  if (sorcererOrigin) pcAttrs.classAttrs.sorcererOrigin = sorcererOrigin;
-  if (dragonAncestor) pcAttrs.classAttrs.dragonAncestor = dragonAncestor;
+
+  if (sorcererOrigin || dragonAncestor)
+    pcAttrs.classAttrs.sorcerer = { sorcererOrigin, dragonAncestor };
 
   if (expertSkills.length) pcAttrs.classAttrs.expertSkills = expertSkills;
   if (languages.length) pcAttrs.languages = [...pc.languages, ...languages];

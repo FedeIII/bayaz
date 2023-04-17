@@ -45,9 +45,8 @@ import {
 import {
   getSorcererOrigin,
   translateSorcererOrigin,
-  getDragonAncestor,
-  translateDragonAncestor,
-} from '~/domain/sorcerer';
+  getSorcererOriginTraits,
+} from '~/domain/classes/sorcerer/sorcerer';
 import {
   translateDivineDomain,
   getDivineDomain,
@@ -372,6 +371,7 @@ function PcSummary() {
   const druidCircleTraits = getDruidCircleTraits(pc);
   const rangerConclaveTraits = getRangerConclaveTraits(pc);
   const martialArchetypeTraits = getMartialArchetypeTraits(pc);
+  const sorcererOriginTraits = getSorcererOriginTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -389,6 +389,7 @@ function PcSummary() {
     })(),
     druidCircle: druidCircleTraits.map(() => useRef()),
     martialArchetype: martialArchetypeTraits.map(() => useRef()),
+    sorcererOrigin: sorcererOriginTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -1027,37 +1028,22 @@ function PcSummary() {
 
           {!!getSorcererOrigin(pc) && (
             <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>Origen de Hechicero:</span>
               <strong className={styles.trait}>
-                {' '}
                 {translateSorcererOrigin(getSorcererOrigin(pc))}
               </strong>
-              {getSorcererOrigin(pc) === 'draconic-bloodline' && (
-                <ul className={styles.traitLabel}>
-                  <li className={styles.traitItem}>
-                    CA 13 + Dex bonus sin armadura
+              <ul>
+                {sorcererOriginTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.sorcererOrigin[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('sorcererOrigin', i)}
+                    />
                   </li>
-                  <li className={styles.traitItem}>
-                    x2 Bonus a pruebas de Carisma contra dragones
-                  </li>
-                </ul>
-              )}
-              {getSorcererOrigin(pc) === 'wild-magic' && (
-                <ul className={styles.traitLabel}>
-                  <li className={styles.traitItem}>Oleada de Magia Salvaje</li>
-                  <li className={styles.traitItem}>Mareas de Caos</li>
-                </ul>
-              )}
-            </li>
-          )}
-
-          {!!getDragonAncestor(pc) && (
-            <li className={styles.traitLabel}>
-              <span className={styles.traitTitle}>Ancestro Dragón:</span>
-              <strong className={styles.trait}>
-                {' '}
-                {translateDragonAncestor(getDragonAncestor(pc))}
-              </strong>
+                ))}
+              </ul>
             </li>
           )}
         </ul>

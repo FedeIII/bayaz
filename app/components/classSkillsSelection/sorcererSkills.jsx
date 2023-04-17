@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
 
 import {
-  SORCERER_ORIGIN,
   translateSorcererOrigin,
   getSorcererOrigin,
   DRAGON_ANCESTORS,
   translateDragonAncestor,
-} from '~/domain/sorcerer';
+  SORCERER_ORIGINS,
+} from '~/domain/classes/sorcerer/sorcerer';
 import {
   getSorcererSpellSlots,
   getSorcererTotalSpells,
   SORCERER_SPELLS,
 } from '~/domain/spells/sorcerer';
+import { translateSpell } from '~/domain/spells/spells';
 
 import styles from '~/components/characters.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 function SorcererSkills(props) {
   const { pc, setSkillsNamespace } = props;
@@ -38,26 +40,35 @@ function SorcererSkills(props) {
     <>
       <p>
         <label>
-          Escoge Origen de Hechicero:{' '}
+          <span className={styles.paleText}>Escoge Origen de Hechicero</span>
+          <br />
           <select
             name="sorcerer-origin"
-            value={sorcererOrigin}
+            defaultValue=""
+            className={cardStyles.buttonCard}
             onChange={e => setSorcererOrigin(e.target.value)}
           >
-            {Object.keys(SORCERER_ORIGIN).map(sorcererOrigin => (
-              <option value={sorcererOrigin} key={sorcererOrigin}>
-                {translateSorcererOrigin(sorcererOrigin)}
+            <option value="" disabled></option>
+            {SORCERER_ORIGINS.map(origin => (
+              <option value={origin} key={origin}>
+                {translateSorcererOrigin(origin)}
               </option>
             ))}
           </select>
         </label>
       </p>
 
-      {sorcererOrigin === 'draconic-bloodline' && (
+      {sorcererOrigin === 'draconicBloodline' && (
         <p>
           <label>
-            Escoge Ancestro Dragon:{' '}
-            <select name="dragon-ancestor">
+            <span className={styles.paleText}>Escoge Ancestro Dragon</span>
+            <br />
+            <select
+              name="dragon-ancestor"
+              defaultValue=""
+              className={cardStyles.buttonCard}
+            >
+              <option value="" disabled></option>
               {DRAGON_ANCESTORS.map(ancestor => (
                 <option value={ancestor} key={ancestor}>
                   {translateDragonAncestor(ancestor)}
@@ -92,7 +103,7 @@ function SorcererSkills(props) {
                   })
                 }
               />
-              {spell.translation}
+              {translateSpell(spell.name)}
             </label>
           ))}
       </p>
@@ -121,7 +132,7 @@ function SorcererSkills(props) {
                   })
                 }
               />
-              {spell.translation}
+              {translateSpell(spell.name)}
             </label>
           ))}
       </p>

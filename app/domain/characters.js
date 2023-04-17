@@ -32,7 +32,7 @@ import {
   getAllWeapons,
 } from './equipment/weapons';
 import { SKILLS_EXPLANATION } from './skillsExplanation';
-import { getSorcererOrigin, SORCERER_ORIGIN } from './sorcerer';
+import { isDraconicBloodline } from './classes/sorcerer/sorcerer';
 import { getInvocationsSkills } from './classes/warlock/warlock';
 import random from '~/domain/random';
 import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExplanation';
@@ -41,6 +41,7 @@ import { DRUID_SKILLS_EXPLANATION } from './classes/druid/druidSkillsExplanation
 import { RANGER_SKILLS_EXPLANATION } from './classes/ranger/rangerSkillsExplanation';
 import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExplanation';
 import { getStudentOfWar } from './classes/fighter/fighter';
+import { SORCERER_SKILLS_EXPLANATION } from './classes/sorcerer/sorcererSkillsExplanation';
 
 export const RACES = {
   dwarf: {
@@ -1319,6 +1320,24 @@ export const CLASSES = {
     ],
     spellcastingAbility: 'cha',
     statImprove: [4, 8, 12, 16, 19],
+    leveling: {
+      1: {
+        sorcererOrigin: {
+          draconicBloodline: {
+            traits: {
+              dragonAncestor: 'Ancestro Dragón',
+              draconicResilience: 'Resistencia Dracónica',
+            },
+          },
+          wildMagic: {
+            traits: {
+              wildMagicSurge: 'Oleada de Magia Salvaje',
+              tidesOfChaos: 'Mareas de Caos',
+            },
+          },
+        },
+      },
+    },
   },
   warlock: {
     initialHitPoints: 8,
@@ -1491,9 +1510,7 @@ export function getExtraHitPoints(pc) {
   return (
     (RACES[race][subrace].extraHitPoints || 0) +
     getStatMod(getStat(pc, 'con')) * level +
-    (pClass === 'sorcerer' && getSorcererOrigin(pc)
-      ? SORCERER_ORIGIN[getSorcererOrigin(pc)]?.extraHitPoints(pc) || 0
-      : 0)
+    (isDraconicBloodline(pc) ? pc.level : 0)
   );
 }
 
@@ -1960,6 +1977,10 @@ export function getArmorClass(pc) {
     return 10 + getStatMod(getStat(pc, 'dex')) + getStatMod(getStat(pc, 'wis'));
   }
 
+  if (pClass === 'sorcerer' && isDraconicBloodline(pc) && !armor && !shield) {
+    return 13 + getStatMod(getStat(pc, 'dex'));
+  }
+
   if (armor) return getItemArmorClass(pc, armor.name);
   else return 10 + getStatMod(getStat(pc, 'dex'));
 }
@@ -2184,6 +2205,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...DRUID_SKILLS_EXPLANATION,
       ...RANGER_SKILLS_EXPLANATION,
       ...FIGHTER_SKILLS_EXPLANATION,
+      ...SORCERER_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }

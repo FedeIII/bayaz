@@ -68,6 +68,8 @@ npx prisma migrate dev
   - track usages of bardic inspiration
 - Fighter:
   - track superiority dice consumption
+- Sorcerer:
+  - Wild Magic Tide table
 - Improve spell modal data
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws

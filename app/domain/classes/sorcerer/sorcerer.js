@@ -1,23 +1,20 @@
-import { DUNGEONEERS_PACK, EXPLORERS_PACK } from './equipment/packs';
-import { getAllArcaneFocus, TOOLS } from './equipment/tools';
+import { CLASSES } from '~/domain/characters';
+import { DUNGEONEERS_PACK, EXPLORERS_PACK } from '../../equipment/packs';
+import { getAllArcaneFocus, TOOLS } from '../../equipment/tools';
 import {
   getAllSimpleMelee,
   getAllSimpleRanged,
   WEAPONS,
-} from './equipment/weapons';
+} from '../../equipment/weapons';
+import { displayTrait } from '~/domain/display';
 
-export const SORCERER_ORIGIN = {
-  ['draconic-bloodline']: {
-    extraHitPoints: pc => pc.level,
-  },
-  ['wild-magic']: {},
-};
+export const SORCERER_ORIGINS = ['draconicBloodline', 'wildMagic'];
 
 export function translateSorcererOrigin(origin) {
   switch (origin) {
-    case 'draconic-bloodline':
+    case 'draconicBloodline':
       return 'Línea de sangre Dracónica';
-    case 'wild-magic':
+    case 'wildMagic':
       return 'Magia Salvaje';
 
     default:
@@ -26,7 +23,11 @@ export function translateSorcererOrigin(origin) {
 }
 
 export function getSorcererOrigin(pc) {
-  return pc.classAttrs?.sorcererOrigin;
+  return pc.classAttrs?.sorcerer?.sorcererOrigin || null;
+}
+
+export function isDraconicBloodline(pc) {
+  return getSorcererOrigin(pc) === 'draconicBloodline';
 }
 
 export const DRAGON_ANCESTORS = ['acid', 'cold', 'fire', 'lightning', 'poison'];
@@ -50,7 +51,7 @@ export function translateDragonAncestor(ancestor) {
 }
 
 export function getDragonAncestor(pc) {
-  return pc.classAttrs?.dragonAncestor;
+  return pc.classAttrs?.sorcerer?.dragonAncestor || null;
 }
 
 export const SORCERER_EQUIPMENT = [
@@ -64,3 +65,20 @@ export const SORCERER_EQUIPMENT = [
   { or: [TOOLS.componentPouch(), ...getAllArcaneFocus()] },
   { or: [DUNGEONEERS_PACK, EXPLORERS_PACK] },
 ];
+
+export function getSorcererOriginTraits(pc) {
+  const { level } = pc;
+  const sorcererOrigin = getSorcererOrigin(pc);
+
+  return Object.entries(
+    Object.entries(CLASSES.sorcerer.leveling).reduce(
+      (levelingTraits, [traitLevel, levelSkills]) => ({
+        ...levelingTraits,
+        ...(parseInt(traitLevel, 10) <= level
+          ? levelSkills.sorcererOrigin?.[sorcererOrigin]?.traits || {}
+          : {}),
+      }),
+      {}
+    )
+  ).filter(t => !!displayTrait(t[0], t[1], pc));
+}

@@ -8,7 +8,7 @@ import {
   CLASSES,
   getLevelByXp,
 } from '~/domain/characters';
-import { SORCERER_ORIGIN, DRAGON_ANCESTORS } from '~/domain/sorcerer';
+import { DRAGON_ANCESTORS, SORCERER_ORIGINS } from '~/domain/classes/sorcerer/sorcerer';
 import {
   COMBAT_SUPERIORITY_MANEUVERS,
   FIGHTING_STYLES,
@@ -165,6 +165,11 @@ const fighterSchema = new mongoose.Schema({
   extraFightingStyle: { type: String, enum: FIGHTING_STYLES },
 });
 
+const sorcererSchema = new mongoose.Schema({
+  sorcererOrigin: { type: String, enum: SORCERER_ORIGINS },
+  dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
+});
+
 const classAttrsSchema = new mongoose.Schema({
   barbarian: barbarianSchema,
   bard: bardSchema,
@@ -173,10 +178,7 @@ const classAttrsSchema = new mongoose.Schema({
   druid: druidSchema,
   ranger: rangerSchema,
   fighter: fighterSchema,
-
-  sorcererOrigin: { type: String, enum: Object.keys(SORCERER_ORIGIN) },
-  dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
-
+  sorcerer: sorcererSchema,
   // ALL
   expertSkills: [
     { type: String, enum: [...SKILLS.map(s => s.name), 'thieves-tools'] },

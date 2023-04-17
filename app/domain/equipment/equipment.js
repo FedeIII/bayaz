@@ -9,7 +9,7 @@ import { CLERIC_EQUIPMENT } from '../classes/cleric/cleric';
 import { DRUID_EQUIPMENT } from '../classes/druid/druid';
 import { RANGER_EQUIPMENT } from '../classes/ranger/ranger';
 import { FIGHTER_EQUIPMENT } from '../classes/fighter/fighter';
-import { SORCERER_EQUIPMENT } from '../sorcerer';
+import { SORCERER_EQUIPMENT } from '../classes/sorcerer/sorcerer';
 import { WIZARD_EQUIPMENT } from '../wizard';
 import { MONK_EQUIPMENT } from '../monk';
 import { PALADIN_EQUIPMENT } from '../paladin';

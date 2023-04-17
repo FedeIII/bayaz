@@ -48,6 +48,10 @@ import {
   getSorcererCantripsNumber,
   getSorcererSpellSlots,
   getSorcererTotalSpells,
+  hasNewSorcererCantrips,
+  hasNewSorcererLevelSpells,
+  hasNewSorcererSpells,
+  maxSorcererSpellLevel,
   SORCERER_SPELLS,
 } from './sorcerer';
 import {
@@ -127,6 +131,8 @@ export function getClassSpells(pc) {
   if (pClass === 'fighter' && isEldritchknight(pc)) return FIGHTER_SPELLS;
 
   if (pClass === 'wizard') return WIZARD_SPELLS;
+
+  if (pClass === 'sorcerer') return SORCERER_SPELLS;
 
   return [];
 }
@@ -235,7 +241,7 @@ export function hasToLearnSpells(pc) {
   const { pClass } = pc;
 
   return (
-    ['bard', 'warlock', 'ranger'].includes(pClass) ||
+    ['bard', 'warlock', 'ranger', 'sorcerer'].includes(pClass) ||
     (pClass === 'fighter' && isEldritchknight(pc))
   );
 }
@@ -341,6 +347,7 @@ export function hasNewCantrips(pc) {
       druid: hasNewDruidCantrips,
       ranger: hasNewRangerCantrips,
       fighter: hasNewFighterCantrips,
+      sorcerer: hasNewSorcererCantrips,
     }[pClass] || zero
   )(pc);
 }
@@ -354,6 +361,7 @@ export function hasNewLevelSpells(pc) {
       warlock: hasNewWarlockLevelSpells,
       ranger: hasNewRangerLevelSpells,
       fighter: hasNewFighterLevelSpells,
+      sorcerer: hasNewSorcererLevelSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -367,6 +375,7 @@ export function hasNewSpells(pc) {
       warlock: hasNewWarlockSpells,
       ranger: hasNewRangerSpells,
       fighter: hasNewFighterSpells,
+      sorcerer: hasNewSorcererSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -382,6 +391,7 @@ export function maxSpellLevel(pc) {
       druid: maxDruidSpellLevel,
       ranger: maxRangerSpellLevel,
       fighter: maxFighterSpellLevel,
+      sorcerer: maxSorcererSpellLevel,
     }[pClass] || zero
   )(pc);
 }
