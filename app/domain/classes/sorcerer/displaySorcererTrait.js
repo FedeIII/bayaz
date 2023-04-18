@@ -1,5 +1,6 @@
 import { getStat, getStatMod } from '~/domain/characters';
 import { getDragonAncestor, translateDragonAncestor } from './sorcerer';
+import { getSorcereryPoints } from '~/domain/spells/sorcerer';
 
 import appStyles from '~/components/app.module.css';
 
@@ -38,6 +39,18 @@ export function displaySorcererTrait(traitName, trait, pc) {
           </strong>{' '}
           <span className={appStyles.smallText}>
             1 vez entre descansos prolongados.
+          </span>
+        </>
+      );
+
+    case 'fontOfMagic':
+      return (
+        <>
+          <strong>
+            <u>{trait}</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            {getSorcereryPoints(pc)} Puntos de Hechicería
           </span>
         </>
       );

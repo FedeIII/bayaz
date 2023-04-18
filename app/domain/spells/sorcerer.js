@@ -1,5 +1,5 @@
-import { getKnownCantrips } from "./getSpells";
-import { SPELL_LIST } from "./spellList";
+import { getKnownCantrips, getKnownSpells } from './getSpells';
+import { SPELL_LIST } from './spellList';
 
 export const SORCERER_SPELLS = SPELL_LIST.filter(spell =>
   spell.class.includes('sorcerer')
@@ -53,6 +53,13 @@ export function getSorcererTotalSpells(pc) {
     12,12,13,13,14,14,
     15,15,15,15,
   ][level - 1]
+}
+
+export function getSorcereryPoints(pc) {
+  const { level } = pc;
+  return [
+    0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ][level - 1];
 }
 
 export function hasNewSorcererCantrips(pc) {

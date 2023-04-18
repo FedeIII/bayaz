@@ -1337,6 +1337,11 @@ export const CLASSES = {
           },
         },
       },
+      2: {
+        traits: {
+          fontOfMagic: 'Fuente de Magia',
+        },
+      },
     },
   },
   warlock: {

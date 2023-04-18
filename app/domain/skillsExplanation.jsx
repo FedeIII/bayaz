@@ -84,27 +84,27 @@ export const SKILLS_EXPLANATION = {
 
     return (
       <div className={styles.hpContainer}>
-        <table className={styles.hpTable}>
-          <thead className={styles.hpTableHead}>
+        <table className={styles.table}>
+          <thead className={styles.tableHead}>
             <tr>
-              <th className={styles.hpCell}>Nivel</th>
+              <th className={styles.tableCell}>Nivel</th>
               {totalHitPoints.map((roll, i) => (
-                <th className={styles.hpCellLevel}>{i + 1}</th>
+                <th className={styles.tableCellLevel}>{i + 1}</th>
               ))}
-              <th className={styles.hpCellExtra}>Con</th>
-              {!!extraHp && <th className={styles.hpCellExtra}>Extra HP</th>}
+              <th className={styles.tableCellExtra}>Con</th>
+              {!!extraHp && <th className={styles.tableCellExtra}>Extra HP</th>}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className={styles.hpCell}>HP</td>
+              <td className={styles.tableCell}>HP</td>
               {totalHitPoints.map(roll => (
-                <td className={styles.hpCellLevel}>{increment(roll)}</td>
+                <td className={styles.tableCellLevel}>{increment(roll)}</td>
               ))}
-              <td className={styles.hpCellExtra}>
+              <td className={styles.tableCellExtra}>
                 {increment(conHp)} x {level}
               </td>
-              {!!extraHp && <td className={styles.hpCellExtra}>{extraHp}</td>}
+              {!!extraHp && <td className={styles.tableCellExtra}>{extraHp}</td>}
             </tr>
           </tbody>
         </table>

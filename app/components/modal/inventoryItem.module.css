@@ -160,27 +160,44 @@
   margin: 16px 8px 0 8px;
 }
 
-.hpTable {
+.withTable {
+  display: flex;
+  flex-direction: row;
+  column-gap: 24px;
+  justify-content: space-evenly;
+}
+
+.withTable .table {
+  font-size: 12px;
+  line-height: 1;
+  height: 0;
+}
+
+.table {
   border-collapse: collapse;
 }
 
-.hpTableHead {
+.tableHead {
   border-bottom: 1px solid black;
   color: gray;
 }
 
-.hpCell {
+.tableRow {
+  border-top: 1px solid lightgray;
+}
+
+.tableCell {
   text-align: right;
   padding: 4px 8px 4px 8px;
 }
 
-.hpCellLevel {
+.tableCellLevel {
   text-align: center;
   padding: 4px 8px 4px 8px;
   border-left: 1px solid lightgray;
 }
 
-.hpCellExtra {
+.tableCellExtra {
   text-align: center;
   padding: 4px 8px 4px 8px;
   border-left: 1px solid black;

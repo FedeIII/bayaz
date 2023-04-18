@@ -61,4 +61,85 @@ export const SORCERER_SKILLS_EXPLANATION = {
       </p>
     </>
   ),
+
+  fontOfMagic: (skill, pc) => (
+    <>
+      <p>
+        En el nivel 2 te conectas con una profunda fuente de magia en tu
+        interior. Esta fuente es representada por los puntos de hechicería, que
+        te permite crear una gran variedad de efectos mágicos.
+      </p>
+      <h4>Puntos de Hechicería</h4>
+      <p>
+        Tienes 2 puntos de hechicería y ganas más cuando alcanzas niveles
+        superiores. Como se muestra en la columna puntos de hechicería de la
+        tabla Hechicero. Nunca puedes tener más puntos de hechicería que los
+        mostrados en la tabla para tu nivel. Recuperas tus puntos de hechicería
+        al completar un descanso prolongado.
+      </p>
+      <h4>Conjuración Flexible</h4>
+      <p>
+        Puedes usar tus puntos de hechicería para ganar espacios de conjuro
+        adicionales, o sacrificar espacios de conjuro para ganar puntos de
+        hechicería. Aprendes nuevas formas de usar tus puntos de hechicería al
+        alcanzar niveles superiores.
+      </p>
+      <div className={styles.withTable}>
+        <p>
+          <strong>
+            <em>
+              <u>Creando espacios de conjuro.</u>
+            </em>
+          </strong>{' '}
+          Puedes transformar puntos de hechicería sin gastar en un espacio para
+          conjuro como una acción adicional en tu turno. La tabla de creación de
+          espacios de conjuro muestra el coste de crear un espacio de conjuro de
+          un nivel determinado. No puedes crear espacios de conjuro de nivel
+          superior al 5.
+        </p>
+
+        <table className={styles.table}>
+          <thead className={styles.tableHead}>
+            <tr>
+              <th className={styles.tableCell}>Nivel de espacio de conjuro</th>
+              <th className={styles.tableCell}>
+                Coste en Puntos de Hechicería
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className={styles.tableRow}>
+              <td className={styles.tableCell}>1</td>
+              <td className={styles.tableCell}>2</td>
+            </tr>
+            <tr className={styles.tableRow}>
+              <td className={styles.tableCell}>2</td>
+              <td className={styles.tableCell}>3</td>
+            </tr>
+            <tr className={styles.tableRow}>
+              <td className={styles.tableCell}>3</td>
+              <td className={styles.tableCell}>5</td>
+            </tr>
+            <tr className={styles.tableRow}>
+              <td className={styles.tableCell}>4</td>
+              <td className={styles.tableCell}>6</td>
+            </tr>
+            <tr className={styles.tableRow}>
+              <td className={styles.tableCell}>5</td>
+              <td className={styles.tableCell}>7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <strong>
+          <em>
+            <u>Convertir espacios de conjuro en puntos de hechicería.</u>
+          </em>
+        </strong>{' '}
+        Como acción adicional en tu turno, puedes gastar un espacio de conjuro y
+        ganar un número de puntos de hechicería igual al nivel del espacio.
+      </p>
+    </>
+  ),
 };
