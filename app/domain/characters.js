@@ -1366,6 +1366,39 @@ export const CLASSES = {
           },
         },
       },
+      14: {
+        sorcererOrigin: {
+          draconicBloodline: {
+            traits: {
+              dragonWings: 'Alas de Dragón',
+            },
+          },
+          wildMagic: {
+            traits: {
+              controlledChaos: 'Caos Controlado',
+            },
+          },
+        },
+      },
+      18: {
+        sorcererOrigin: {
+          draconicBloodline: {
+            traits: {
+              draconicPresence: 'Presencia Draconiana',
+            },
+          },
+          wildMagic: {
+            traits: {
+              spellBombardment: 'Bombardeo de conjuros',
+            },
+          },
+        },
+      },
+      20: {
+        traits: {
+          sorcerousRestoration: 'Restablecimiento de Hechicero',
+        },
+      },
     },
   },
   warlock: {

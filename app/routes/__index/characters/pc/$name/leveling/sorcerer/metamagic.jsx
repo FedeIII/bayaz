@@ -136,6 +136,7 @@ function Metamagic() {
             <div>
               <h3 className={appStyles.paleText}>
                 {translateMetamagic(metamagic)}
+                {pMetamagic.includes(metamagic) ? ' (Conocido)' : ''}
               </h3>
               {explanation}
             </div>

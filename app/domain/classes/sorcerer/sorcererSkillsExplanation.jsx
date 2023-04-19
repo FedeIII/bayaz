@@ -138,6 +138,7 @@ export const SORCERER_SKILLS_EXPLANATION = {
           </tbody>
         </table>
       </div>
+
       <p>
         <strong>
           <em>
@@ -218,6 +219,72 @@ export const SORCERER_SKILLS_EXPLANATION = {
       y aplicar el resultado como un bonificador o un penalizador (tú eliges) a
       la tirada de la criatura. Puedes hacer esto después de la tirada de la
       criatura, pero antes de saber los resultados de la tirada.
+    </p>
+  ),
+
+  dragonWings: (skill, pc) => (
+    <>
+      <p>
+        En el nivel 14 ganas la habilidad de hacer brotar de tu espalda un par
+        de alas, ganando una velocidad de vuelo igual a tu velocidad actual.
+        Puedes crear estas alas como una acción adicional en tu turno. Duran
+        hasta que las descartas como una acción adicional en tu turno.
+      </p>
+      <p>
+        No puedes manifestar tus alas mientras lleves una armadura puesta, a no
+        ser que la armadura esté hecha para acomodarlas, y la ropa que no esté
+        hecha para acomodarse a las alas será destruida cuando las saques.
+      </p>
+    </>
+  ),
+
+  controlledChaos: (skill, pc) => (
+    <p>
+      A nivel 14 ganas un mínimo control sobre las oleadas de magia salvaje.
+      Siempre que lances en la tabla Oleada de Magia Salvaje, puedes tirar de
+      nuevo y usar cualquiera de las dos tiradas.
+    </p>
+  ),
+
+  draconicPresence: (skill, pc) => (
+    <p>
+      Empezando en el nivel 18 puedes canalizar la presencia aterradora de tu
+      ancestro dragón, haciendo que los que te rodean queden sobrecogidos o
+      asustados. Como una acción, puedes gastar{' '}
+      <strong>
+        <u>5 puntos de hechicería</u>
+      </strong>{' '}
+      para usar este poder y manifestar un aura de{' '}
+      <strong>
+        <u>sobrecogimiento o miedo</u>
+      </strong>{' '}
+      (tú eliges) a una distancia de 60 pies (18 metros). Durante 1 minuto o
+      hasta que pierdas la concentración (como si hubieras lanzado un hechizo de
+      concentración) cualquier criatura hostil que comience su turno en este
+      aura deberá realizar un prueba de{' '}
+      <strong>
+        <u>salvación de sabiduría</u>
+      </strong>{' '}
+      o quedará encantada (si elegiste sobrecogimiento) o asustada (si elegiste
+      miedo) hasta que el aura termine. Una criatura que supere esta tirada de
+      salvación será inmune a tu aura durante 24 horas.
+    </p>
+  ),
+
+  spellBombardment: (skill, pc) => (
+    <p>
+      Empezando el nivel 18 la energía dañina de tus conjuros se intensifica.
+      Cuando lanzas el daño de un conjuro y sacas el mayor resultado posible en
+      cualquiera de los dados, elige uno de los dados, lánzalo de nuevo y añade
+      el resultado a la tirada de daño. Puedes usar este rasgo sólo una vez por
+      turno.
+    </p>
+  ),
+
+  sorcerousRestoration: (skill, pc) => (
+    <p>
+      En el nivel 20 recuperas 4 puntos de hechicería al finalizar un descanso
+      corto.
     </p>
   ),
 };
