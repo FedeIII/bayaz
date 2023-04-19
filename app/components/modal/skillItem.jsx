@@ -7,18 +7,20 @@ import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fi
 import styles from './inventoryItem.module.css';
 
 export const SkillItem = forwardRef(function SkillItem(props, ref) {
-  const { traitName, trait, pc, openModal, openOnRightClick } = props;
+  const { traitName, trait, pc, openModal, openOnRightClick, bigModal } = props;
 
   return (
     <>
       <span
         ref={ref}
         className={styles.item}
-        onClick={() => !openOnRightClick && openModal(traitName, trait)}
+        onClick={() =>
+          !openOnRightClick && openModal(traitName, trait, bigModal)
+        }
         onContextMenu={e => {
           if (openOnRightClick) {
             e.preventDefault();
-            openModal(traitName, trait);
+            openModal(traitName, trait, bigModal);
           }
         }}
       >

@@ -399,6 +399,7 @@ function PcSummary() {
     openSkillModal,
     selectedSkillRef,
     setSelectedSkillRef,
+    skillBigModalContent,
   ] = useSkillItems(pc, skillRefs);
 
   const formRef = useRef(null);
@@ -501,6 +502,17 @@ function PcSummary() {
             closeModal={closeSkillModal}
           >
             {skillModalContent}
+          </SkillModal>
+        )}
+
+        {skillBigModalContent && (
+          <SkillModal
+            elRef={selectedSkillRef}
+            formRef={formRef}
+            closeModal={closeSkillModal}
+            bigModal
+          >
+            {skillBigModalContent}
           </SkillModal>
         )}
 
@@ -1040,6 +1052,7 @@ function PcSummary() {
                       trait={trait}
                       pc={pc}
                       openModal={openSkillModal('sorcererOrigin', i)}
+                      bigModal={traitName === 'wildMagicSurge'}
                     />
                   </li>
                 ))}

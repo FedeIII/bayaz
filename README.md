@@ -69,7 +69,6 @@ npx prisma migrate dev
 - Fighter:
   - track superiority dice consumption
 - Sorcerer:
-  - Wild Magic Tide table
   - Sorcery Points / spell slots tracker
 - Improve spell modal data
 - PC screens sharable for players with annotations (in modal and/or inline)

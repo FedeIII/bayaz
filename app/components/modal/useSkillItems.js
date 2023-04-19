@@ -9,41 +9,49 @@ import {
 
 export function useSkillItems(pc, skillRefs) {
   const [skillModalContent, setSkillModalContent] = useState(null);
+  const [skillBigModalContent, setSkillBigModalContent] = useState(null);
   const [selectedSkillRef, setSelectedSkillRef] = useState(null);
-  const closeSkillModal = () => setSkillModalContent(null);
+  const closeSkillModal = () => {
+    setSkillModalContent(null);
+    setSkillBigModalContent(null);
+  };
 
   function openSkillModal(sectionName, skillIndex = 0) {
-    return (skillName, skill) => {
+    return (skillName, skill, bigModal) => {
       setSelectedSkillRef(skillRefs[sectionName][skillIndex]);
 
-      setTimeout(
-        () =>
-          setSkillModalContent(
-            () => props =>
-              skill === 'spell' ? (
-                <SpellModalContent pc={pc} spellName={skillName} />
-              ) : skill === 'invocation' ? (
-                <InvocationModalContent
-                  pc={pc}
-                  skillName={skillName}
-                  skill={skill}
-                />
-              ) : skill === 'maneuver' ? (
-                <ManeuverModalContent
-                  pc={pc}
-                  skillName={skillName}
-                  skill={skill}
-                />
-              ) : (
-                <SkillModalContent
-                  pc={pc}
-                  skillName={skillName}
-                  skill={skill}
-                />
-              )
-          ),
-        0
-      );
+      setTimeout(() => {
+        const setModalContent = bigModal
+          ? setSkillBigModalContent
+          : setSkillModalContent;
+        setModalContent(
+          () => props =>
+            skill === 'spell' ? (
+              <SpellModalContent pc={pc} spellName={skillName} bigModal />
+            ) : skill === 'invocation' ? (
+              <InvocationModalContent
+                pc={pc}
+                skillName={skillName}
+                skill={skill}
+                bigModal
+              />
+            ) : skill === 'maneuver' ? (
+              <ManeuverModalContent
+                pc={pc}
+                skillName={skillName}
+                skill={skill}
+                bigModal
+              />
+            ) : (
+              <SkillModalContent
+                pc={pc}
+                skillName={skillName}
+                skill={skill}
+                bigModal
+              />
+            )
+        );
+      }, 0);
     };
   }
 
@@ -53,5 +61,6 @@ export function useSkillItems(pc, skillRefs) {
     openSkillModal,
     selectedSkillRef,
     setSelectedSkillRef,
+    skillBigModalContent,
   ];
 }

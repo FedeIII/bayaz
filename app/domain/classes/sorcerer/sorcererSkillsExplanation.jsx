@@ -7,6 +7,7 @@ import {
   translateDragonAncestor,
   translateMetamagic,
 } from './sorcerer';
+import { WILD_MAGIC_SURGE_TABLE } from './WILD_MAGIC_SURGE_TABLE';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -43,13 +44,62 @@ export const SORCERER_SKILLS_EXPLANATION = {
   ),
 
   wildMagicSurge: (skill, pc) => (
-    <p>
-      Comenzando cuando eliges este origen en el nivel 1, tus lanzamientos de
-      conjuros pueden desatar oleadas de magia salvaje. Inmediatamente después
-      de que lances un conjuro de hechicero de nivel 1 o superior, el DM puede
-      hacerte tirar un d20. Si sacas un 1, tira en la tabla Oleada de Magia
-      Salvaje para crear un efecto mágico aleatorio.
-    </p>
+    <>
+      <p>
+        Comenzando cuando eliges este origen en el nivel 1, tus lanzamientos de
+        conjuros pueden desatar oleadas de magia salvaje. Inmediatamente después
+        de que lances un conjuro de hechicero de nivel 1 o superior, el DM puede
+        hacerte tirar un d20. Si sacas un 1, tira en la tabla Oleada de Magia
+        Salvaje para crear un efecto mágico aleatorio.
+      </p>
+
+      <div>
+        <h3>Oleada de Magia Salvaje</h3>
+        <table className={styles.table}>
+          <thead className={styles.tableHead}>
+            <tr>
+              <th className={styles.tableCell}>
+                <strong>d100</strong>
+              </th>
+              <th className={`${styles.tableCell} ${styles.left}`}>
+                <strong>Efecto</strong>
+              </th>
+              <th className={styles.tableCell}>
+                <strong>d100</strong>
+              </th>
+              <th className={`${styles.tableCell} ${styles.left}`}>
+                <strong>Efecto</strong>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {WILD_MAGIC_SURGE_TABLE.reduce(
+              (rows, row, i) =>
+                i < WILD_MAGIC_SURGE_TABLE.length - 2 && i % 2 === 0
+                  ? [
+                      ...rows,
+                      <tr className={styles.tableRow}>
+                        <td className={`${styles.tableCell} ${styles.noWrap}`}>
+                          {row.dice}
+                        </td>
+                        <td className={`${styles.tableCell} ${styles.left}`}>
+                          {row.effect}
+                        </td>
+                        <td className={`${styles.tableCell} ${styles.noWrap}`}>
+                          {WILD_MAGIC_SURGE_TABLE[i + 1].dice}
+                        </td>
+                        <td className={`${styles.tableCell} ${styles.left}`}>
+                          {WILD_MAGIC_SURGE_TABLE[i + 1].effect}
+                        </td>
+                      </tr>,
+                    ]
+                  : rows,
+              []
+            )}
+          </tbody>
+        </table>
+      </div>
+    </>
   ),
 
   tidesOfChaos: (skill, pc) => (

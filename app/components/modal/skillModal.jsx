@@ -12,17 +12,17 @@ import {
 } from '~/domain/spells/spellTranslations';
 import { getInvocationExplanation } from '~/domain/classes/warlock/warlockSkillsExplanation';
 import { getInvocation } from '~/domain/classes/warlock/warlock';
-
-import styles from './inventoryItem.module.css';
 import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fighter';
 import { displayManeuver } from '~/domain/classes/fighter/fighterSkillsExplanation';
+
+import styles from './inventoryItem.module.css';
 
 const MODAL_VERTICAL_OFFSET = 100;
 const MODAL_HORIZONTAL_OFFSET_RIGHT = 50;
 const MODAL_HORIZONTAL_OFFSET_LEFT = -180;
 
 export function SkillModalContent(props) {
-  const { pc, skillName, skill } = props;
+  const { pc, skillName, skill, bigModal } = props;
 
   const skillExplanation = getSkillExplanation(skillName, skill, pc);
   const skillTitle = displayTrait(skillName, skill, pc);
@@ -30,7 +30,13 @@ export function SkillModalContent(props) {
   return (
     <>
       <h3 className={styles.modalTitle}>{skillTitle}</h3>
-      <div className={styles.modalContentText}>{skillExplanation}</div>
+      <div
+        className={
+          bigModal ? styles.modalBigContentText : styles.modalContentText
+        }
+      >
+        {skillExplanation}
+      </div>
     </>
   );
 }
@@ -160,13 +166,15 @@ export function ManeuverModalContent(props) {
   );
 }
 
-function getSelfTopY(elPos, formPos, selfPosition) {
+function getSelfTopY(elPos, formPos, selfPosition, bigModal) {
   let selfTopY = (elPos?.y || 0) - (formPos?.y || 0);
   const selfHeight = selfPosition?.height || 0;
   const selfBottomY = selfTopY + selfHeight;
   const formTopY = -formPos?.y || 0;
   const windowHeight = window?.innerHeight || 0;
   const formBottomY = formTopY + windowHeight;
+
+  if (bigModal) return formTopY + MODAL_VERTICAL_OFFSET;
 
   if (selfTopY < formTopY + MODAL_VERTICAL_OFFSET)
     selfTopY = formTopY + MODAL_VERTICAL_OFFSET;
@@ -197,7 +205,8 @@ function getSelfLeftX(elPos, formPos, selfPosition) {
 }
 
 export function SkillModal(props) {
-  const { children, elRef, formRef, closeModal, closeOnLeave } = props;
+  const { children, elRef, formRef, closeModal, closeOnLeave, bigModal } =
+    props;
 
   const ref = useRef(null);
   const [selfPosition, setSelfPosition] = useState(null);
@@ -208,18 +217,22 @@ export function SkillModal(props) {
     setSelfPosition(ref?.current.getBoundingClientRect());
   }, [setSelfPosition, ref?.current]);
 
-  const selfTopY = getSelfTopY(elPos, formPos, selfPosition);
+  const selfTopY = getSelfTopY(elPos, formPos, selfPosition, bigModal);
   const selfLeftX = getSelfLeftX(elPos, formPos, selfPosition);
 
   return (
     <>
       <div className={styles.modalShadow} />
       <div
-        className={styles.actionModal}
-        style={{
-          top: selfTopY + 'px',
-          left: selfLeftX + 'px',
-        }}
+        className={bigModal ? styles.actionModalBig : styles.actionModal}
+        style={
+          bigModal
+            ? { top: selfTopY + 'px' }
+            : {
+                top: selfTopY + 'px',
+                left: selfLeftX + 'px',
+              }
+        }
         onMouseLeave={closeOnLeave && closeModal}
         ref={ref}
       >

@@ -14,6 +14,23 @@
   max-width: 50%;
 }
 
+.actionModalBig {
+  color: black;
+  position: absolute;
+  padding: 8px 4px 0px 4px;
+  background-color: var(--color-gray);
+  border-color: black;
+  border-style: groove;
+  border-inline-width: 3px;
+  z-index: 2;
+  border-start-start-radius: 5px;
+  border-start-end-radius: 5px;
+  border-end-end-radius: 10px;
+  border-end-start-radius: 10px;
+  left: 32px;
+  right: 32px;
+}
+
 .modalShadow {
   position: absolute;
   top: 0;
@@ -105,6 +122,22 @@
   max-height: 50vh;
 }
 
+.modalBigContentText {
+  position: relative;
+  border-color: black;
+  border-inline-style: groove;
+  border-start-start-radius: 5px;
+  border-start-end-radius: 5px;
+  border-end-end-radius: 10px;
+  border-end-start-radius: 10px;
+  margin: -23px 0 0 0;
+  padding: 20px 12px 12px 12px;
+  background-color: white;
+  text-align: left;
+  overflow-y: scroll;
+  max-height: 80vh;
+}
+
 .modalContentTextPadding {
   padding: 30px 12px 12px 12px;
 }
@@ -188,7 +221,17 @@
 
 .tableCell {
   text-align: right;
+  vertical-align: top;
   padding: 4px 8px 4px 8px;
+}
+
+.noWrap {
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.left {
+  text-align: left;
 }
 
 .tableCellLevel {
