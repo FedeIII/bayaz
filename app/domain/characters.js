@@ -1347,6 +1347,25 @@ export const CLASSES = {
           metamagic: 'Metamagia',
         },
       },
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      6: {
+        sorcererOrigin: {
+          draconicBloodline: {
+            traits: {
+              elementalAffinity: 'Afinidad Elemental',
+            },
+          },
+          wildMagic: {
+            traits: {
+              bendLuck: 'Curvar la Suerte',
+            },
+          },
+        },
+      },
     },
   },
   warlock: {

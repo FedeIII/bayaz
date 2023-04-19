@@ -181,6 +181,45 @@ export const SORCERER_SKILLS_EXPLANATION = {
       ))}
     </>
   ),
+
+  elementalAffinity: (skill, pc) => (
+    <>
+      <p>
+        Al alcanzar el nivel 6, cuando lances un conjuro que utilice el daño del
+        tipo asociado a tu linaje dracónico,{' '}
+        <strong>
+          <u>añade {getStatMod(getStat(pc, 'cha'))} al daño</u>
+        </strong>{' '}
+        (tu modificador de Carisma).
+      </p>
+      <p>
+        Al mismo tiempo, puedes gastar{' '}
+        <strong>
+          <u>1 punto de hechicería</u>
+        </strong>{' '}
+        para ganar resistencia a este tipo de daño durante una hora.
+      </p>
+    </>
+  ),
+
+  bendLuck: (skill, pc) => (
+    <p>
+      A partir del nivel 6 tienes la capacidad de torcer el destino usando tu
+      magia salvaje. Cuando otra criatura a la que puedas ver realice una tirada
+      de ataque, una prueba de habilidad o una tirada de salvación, puedes usar
+      tu reacción y gastar{' '}
+      <strong>
+        <u>2 puntos de hechicería</u>
+      </strong>{' '}
+      para lanzar{' '}
+      <strong>
+        <u>1d4</u>
+      </strong>{' '}
+      y aplicar el resultado como un bonificador o un penalizador (tú eliges) a
+      la tirada de la criatura. Puedes hacer esto después de la tirada de la
+      criatura, pero antes de saber los resultados de la tirada.
+    </p>
+  ),
 };
 
 export const METAMAGIC_EXPLANATION = {
