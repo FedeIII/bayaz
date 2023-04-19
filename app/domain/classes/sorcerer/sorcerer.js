@@ -82,3 +82,62 @@ export function getSorcererOriginTraits(pc) {
     )
   ).filter(t => !!displayTrait(t[0], t[1], pc));
 }
+
+export const METAMAGIC = [
+  'carefulSpell',
+  'distantSpell',
+  'empoweredSpell',
+  'extendedSpell',
+  'heightenedSpell',
+  'quickenedSpell',
+  'subtleSpell',
+  'twinnedSpell',
+];
+
+export function getMetamagic(pc) {
+  return pc.classAttrs?.sorcerer?.metamagic || [];
+}
+
+export function translateMetamagic(metamagic) {
+  switch (metamagic) {
+    case 'carefulSpell':
+      return 'Conjuro Cuidadoso';
+    case 'distantSpell':
+      return 'Conjuro Distante';
+    case 'empoweredSpell':
+      return 'Conjuro Potenciado';
+    case 'extendedSpell':
+      return 'Ampliar Conjuro';
+    case 'heightenedSpell':
+      return 'Conjuro Aumentado';
+    case 'quickenedSpell':
+      return 'Conjuro Acelerado';
+    case 'subtleSpell':
+      return 'Conjuro sutil';
+    case 'twinnedSpell':
+      return 'Conjuro Duplicado';
+
+    default:
+      return 'unknown metamagic';
+  }
+}
+
+function getMaxMetamagic(pc) {
+  const { level } = pc;
+
+  return level >= 17 ? 4 : level >= 10 ? 3 : 2;
+}
+
+export function hasToLearnMetamagic(pc) {
+  const { pClass } = pc;
+
+  return pClass === 'sorcerer' && getMaxMetamagic(pc) > getMetamagic(pc).length;
+}
+
+export function getMetamagicAmountToLearn(pc) {
+  const { pClass } = pc;
+
+  if (pClass !== 'sorcerer') return 0;
+
+  return getMaxMetamagic(pc) - getMetamagic(pc).length;
+}

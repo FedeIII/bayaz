@@ -1,8 +1,15 @@
 import { getStat, getStatMod } from '~/domain/characters';
-import { getDragonAncestor, translateDragonAncestor } from './sorcerer';
+import {
+  getDragonAncestor,
+  getMetamagic,
+  hasToLearnMetamagic,
+  translateDragonAncestor,
+  translateMetamagic,
+} from './sorcerer';
 import { getSorcereryPoints } from '~/domain/spells/sorcerer';
 
 import appStyles from '~/components/app.module.css';
+import sheetStyles from '~/components/sheet.module.css';
 
 export function displaySorcererTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -52,6 +59,23 @@ export function displaySorcererTrait(traitName, trait, pc) {
           <span className={appStyles.smallText}>
             {getSorcereryPoints(pc)} Puntos de Hechicería
           </span>
+        </>
+      );
+
+    case 'metamagic':
+      return (
+        <>
+          <strong>
+            <u>{trait}</u>
+          </strong>{' '}
+          {hasToLearnMetamagic(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+          {!hasToLearnMetamagic(pc) && (
+            <span className={appStyles.smallText}>
+              {getMetamagic(pc).map(translateMetamagic).join(', ')}
+            </span>
+          )}
         </>
       );
 

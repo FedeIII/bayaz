@@ -1,5 +1,12 @@
+import { Link } from '@remix-run/react';
 import { getStat, getStatMod } from '../../characters';
-import { getDragonAncestor, translateDragonAncestor } from './sorcerer';
+import {
+  getDragonAncestor,
+  getMetamagic,
+  hasToLearnMetamagic,
+  translateDragonAncestor,
+  translateMetamagic,
+} from './sorcerer';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -141,5 +148,112 @@ export const SORCERER_SKILLS_EXPLANATION = {
         ganar un número de puntos de hechicería igual al nivel del espacio.
       </p>
     </>
+  ),
+
+  metamagic: (skill, pc) => (
+    <>
+      <p>
+        A nivel 3 ganas la habilidad de moldear tus conjuros para que se adapten
+        a tus necesidades. Ganas dos de las siguientes opciones metamágicas a tu
+        elección. Ganas una más al nivel 10 y al nivel 17
+      </p>
+      <p>
+        Sólo puedes usar una opción metamágica en cada conjuro cuando lo lanzas,
+        a menos que se indique lo contrario.
+      </p>
+      {hasToLearnMetamagic(pc) && (
+        <div className={styles.modalButtons}>
+          <Link
+            to={`/characters/pc/${pc.name}/leveling/sorcerer/metamagic`}
+            className={styles.modalButton}
+          >
+            Escoge Metamagia
+          </Link>
+        </div>
+      )}
+      {getMetamagic(pc).map(metamagic => (
+        <>
+          <h3>
+            <u>{translateMetamagic(metamagic)}</u>
+          </h3>
+          {METAMAGIC_EXPLANATION[metamagic]}
+        </>
+      ))}
+    </>
+  ),
+};
+
+export const METAMAGIC_EXPLANATION = {
+  carefulSpell: (
+    <p>
+      Cuando lances un conjuro que fuerce a otras criaturas a efectuar una
+      tirada de salvación. Puedes proteger a algunas de esas criaturas de toda
+      la fuerza del conjuro. Para ello, gastas 1 punto de hechicería y escoges
+      un número de criaturas igual a tu modificador de Carisma como máximo
+      (mínimo una criatura). Las criaturas elegidas pasan automáticamente la
+      tirada de salvación del conjuro
+    </p>
+  ),
+  distantSpell: (
+    <>
+      <p>
+        Cuando lanzas un conjuro con un rango de 5 pies (1,5 metros) o superior.
+        Puedes gastar 1 punto de hechicería para doblar el rango del conjuro.
+      </p>
+      <p>
+        Cuando lanzas un conjuro con un rango de toque, puedes gastar 1 punto de
+        hechicería para hacer el rango del conjuro de 30 (9 metros) pies.
+      </p>
+    </>
+  ),
+  empoweredSpell: (
+    <>
+      <p>
+        Cuando tiras el daño de un conjuro, puedes gastar un punto de hechicería
+        para volver a lanzar un número de dados de daño igual a tu modificador
+        de Carisma (mínimo de uno). Debes usar las nuevas tiradas.
+      </p>
+      <p>
+        Puedes usar Conjuro Potenciado incluso si ya has usado una metamagia
+        diferente durante el lanzamiento del conjuro.
+      </p>
+    </>
+  ),
+  extendedSpell: (
+    <p>
+      Cuando lanzas un conjuro que tenga una duración de 1 minuto o más, puedes
+      usar 1 punto de hechicería para doblar su duración, hasta un máximo de 24
+      horas
+    </p>
+  ),
+  heightenedSpell: (
+    <p>
+      Cuando lances un conjuro que fuerce a una criatura a realizar una tirada
+      de salvación para resistir sus efectos, puedes gastar 3 puntos de
+      hechicería para dar desventaja a un objetivo del conjuro en la primera
+      tirada de salvación hecha contra el conjuro.
+    </p>
+  ),
+  quickenedSpell: (
+    <p>
+      Cuando lances un conjuro que tenga un tiempo de lanzamiento igual a 1
+      acción. Puedes gastar 2 puntos de hechicería para cambiar el tiempo de
+      lanzamiento a 1 acción adicional para este lanzamiento.
+    </p>
+  ),
+  subtleSpell: (
+    <p>
+      Cuando lanzas un conjuro puedes gastar 1 punto de hechicería para lanzarlo
+      sin componentes verbales o somáticos.
+    </p>
+  ),
+  twinnedSpell: (
+    <p>
+      Cuando lanzas un conjuro que tenga como objetivo a una sola criatura y no
+      tenga un rango “Personal”, puedes gastar un número de puntos de hechicería
+      igual al nivel del conjuro para apuntar a una segunda criatura dentro del
+      alcance con el mismo conjuro (1 punto de hechicería si el conjuro es un
+      truco).
+    </p>
   ),
 };

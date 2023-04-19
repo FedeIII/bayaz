@@ -8,7 +8,7 @@ import {
   CLASSES,
   getLevelByXp,
 } from '~/domain/characters';
-import { DRAGON_ANCESTORS, SORCERER_ORIGINS } from '~/domain/classes/sorcerer/sorcerer';
+import { DRAGON_ANCESTORS, METAMAGIC, SORCERER_ORIGINS } from '~/domain/classes/sorcerer/sorcerer';
 import {
   COMBAT_SUPERIORITY_MANEUVERS,
   FIGHTING_STYLES,
@@ -168,6 +168,7 @@ const fighterSchema = new mongoose.Schema({
 const sorcererSchema = new mongoose.Schema({
   sorcererOrigin: { type: String, enum: SORCERER_ORIGINS },
   dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
+  metamagic: [{ type: String, enum: METAMAGIC }]
 });
 
 const classAttrsSchema = new mongoose.Schema({
