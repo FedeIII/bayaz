@@ -70,6 +70,8 @@ npx prisma migrate dev
   - track superiority dice consumption
 - Sorcerer:
   - Sorcery Points / spell slots tracker
+- Wizard
+  - arcaneRecovery interaction button to update spells
 - Improve spell modal data
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws

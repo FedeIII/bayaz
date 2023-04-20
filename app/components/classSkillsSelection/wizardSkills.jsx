@@ -5,6 +5,7 @@ import {
   getWizardTotalSpells,
   WIZARD_SPELLS,
 } from '~/domain/spells/wizard';
+import { translateSpell } from '~/domain/spells/spells';
 
 import styles from '~/components/characters.module.css';
 
@@ -51,7 +52,7 @@ function WizardSkills(props) {
                   })
                 }
               />
-              {spell.translation}
+              {translateSpell(spell.name)}
             </label>
           ))}
       </p>
@@ -80,7 +81,7 @@ function WizardSkills(props) {
                   })
                 }
               />
-              {spell.translation}
+              {translateSpell(spell.name)}
             </label>
           ))}
       </p>

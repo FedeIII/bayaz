@@ -19,6 +19,14 @@ import sheetStyles from '~/components/sheet.module.css';
 
 export function displayFighterTrait(traitName, trait, pc) {
   switch (traitName) {
+    case 'secondWind':
+      return (
+        <>
+          <u>{trait}.</u> Recupera 1d10 + {pc.level} al día como acción
+          adicional.
+        </>
+      );
+
     case 'fightingStyle':
       return (
         <>

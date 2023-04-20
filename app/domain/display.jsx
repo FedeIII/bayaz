@@ -36,6 +36,7 @@ import { displayDruidTrait } from './classes/druid/displayDruidTrait';
 import { displayRangerTrait } from './classes/ranger/displayRangerTrait';
 import { displayFighterTrait } from './classes/fighter/displayFighterTrait';
 import { displaySorcererTrait } from './classes/sorcerer/displaySorcererTrait';
+import { displayWizardTrait } from './classes/wizard/displayWizardTrait';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -315,6 +316,7 @@ function displayClassTrait(traitName, trait, pc) {
       ranger: displayRangerTrait,
       fighter: displayFighterTrait,
       sorcerer: displaySorcererTrait,
+      wizard: displayWizardTrait,
     }[pc.pClass] || noOp
   )(traitName, trait, pc);
 
@@ -345,22 +347,6 @@ export function displayTrait(traitName, trait, pc) {
 
     case 'trance':
       return 'Trance';
-
-    case 'secondWind':
-      return (
-        <Fragment>
-          <u>{trait}.</u> Recupera 1d10 + {pc.level} al día como acción
-          adicional.
-        </Fragment>
-      );
-
-    case 'arcaneRecovery':
-      return (
-        <Fragment>
-          <u>{trait}.</u> Recupera la mitad de tus espacios de conjuro tras un
-          descarto corto una vez al día
-        </Fragment>
-      );
 
     // BACKGROUNDS
     case 'guildMembership':

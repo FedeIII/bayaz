@@ -59,6 +59,8 @@ import {
   getWizardMaxPreparedSpells,
   getWizardSpellSlots,
   getWizardTotalSpells,
+  hasNewWizardCantrips,
+  maxWizardSpellLevel,
   WIZARD_SPELLS,
 } from './wizard';
 import {
@@ -241,7 +243,7 @@ export function hasToLearnSpells(pc) {
   const { pClass } = pc;
 
   return (
-    ['bard', 'warlock', 'ranger', 'sorcerer'].includes(pClass) ||
+    ['bard', 'warlock', 'ranger', 'sorcerer', 'wizard'].includes(pClass) ||
     (pClass === 'fighter' && isEldritchknight(pc))
   );
 }
@@ -348,6 +350,7 @@ export function hasNewCantrips(pc) {
       ranger: hasNewRangerCantrips,
       fighter: hasNewFighterCantrips,
       sorcerer: hasNewSorcererCantrips,
+      wizard: hasNewWizardCantrips,
     }[pClass] || zero
   )(pc);
 }
@@ -392,6 +395,7 @@ export function maxSpellLevel(pc) {
       ranger: maxRangerSpellLevel,
       fighter: maxFighterSpellLevel,
       sorcerer: maxSorcererSpellLevel,
+      wizard: maxWizardSpellLevel,
     }[pClass] || zero
   )(pc);
 }

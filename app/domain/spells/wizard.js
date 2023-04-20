@@ -1,4 +1,5 @@
 import { getStat, getStatMod } from '../characters';
+import { getKnownCantrips } from './getSpells';
 import { SPELL_LIST } from './spellList';
 
 export const WIZARD_SPELLS = SPELL_LIST.filter(spell =>
@@ -56,4 +57,15 @@ export function getWizardMaxPreparedSpells(pc) {
 
   const totalSpells = getStatMod(getStat(pc, 'int')) + level;
   return totalSpells > 1 ? totalSpells : 1;
+}
+
+export function maxWizardSpellLevel(pc) {
+  return wizardSpellSlots(pc).length;
+}
+
+export function hasNewWizardCantrips(pc) {
+  const knownCantripsNumber = getWizardCantripsNumber(pc);
+  if (knownCantripsNumber > getKnownCantrips(pc).length) return true;
+
+  return false;
 }

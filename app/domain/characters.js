@@ -42,6 +42,7 @@ import { RANGER_SKILLS_EXPLANATION } from './classes/ranger/rangerSkillsExplanat
 import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExplanation';
 import { getStudentOfWar } from './classes/fighter/fighter';
 import { SORCERER_SKILLS_EXPLANATION } from './classes/sorcerer/sorcererSkillsExplanation';
+import { WIZARD_SKILLS_EXPLANATION } from './classes/wizard/wizardSkillsExplanation';
 
 export const RACES = {
   dwarf: {
@@ -1548,8 +1549,12 @@ export const CLASSES = {
     ],
     spellcastingAbility: 'int',
     statImprove: [4, 8, 12, 16, 19],
-    traits: {
-      arcaneRecovery: 'Recuperación Arcana',
+    leveling: {
+      1: {
+        traits: {
+          arcaneRecovery: 'Recuperación Arcana',
+        },
+      },
     },
   },
 };
@@ -2268,6 +2273,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...RANGER_SKILLS_EXPLANATION,
       ...FIGHTER_SKILLS_EXPLANATION,
       ...SORCERER_SKILLS_EXPLANATION,
+      ...WIZARD_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }
