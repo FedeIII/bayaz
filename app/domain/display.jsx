@@ -161,11 +161,13 @@ export function getItemDisplayList(itemNames) {
 export function displayDamage(pc, weapon) {
   const { properties: { versatile } = {} } = weapon;
   const damageBonus = getDamageBonus(pc, weapon);
+  const bonusOperator = damageBonus > 0 ? '+' : '';
+
   if (versatile)
     if (damageBonus)
-      return `${weapon.damage[0]} (${versatile}) + ${damageBonus}`;
+      return `${weapon.damage[0]} (${versatile}) ${bonusOperator} ${damageBonus}`;
     else return `${weapon.damage[0]} (${versatile})`;
-  if (damageBonus) return `${weapon.damage[0]} + ${damageBonus}`;
+  if (damageBonus) return `${weapon.damage[0]} ${bonusOperator} ${damageBonus}`;
   else return `${weapon.damage[0]}`;
 }
 
