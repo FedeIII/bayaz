@@ -60,6 +60,8 @@ import {
   getWizardSpellSlots,
   getWizardTotalSpells,
   hasNewWizardCantrips,
+  hasNewWizardLevelSpells,
+  hasNewWizardSpells,
   maxWizardSpellLevel,
   WIZARD_SPELLS,
 } from './wizard';
@@ -145,18 +147,16 @@ export function getAllClassesWithSpells() {
   );
 }
 
-export function getAllSpellSchools() {
-  return [
-    'Conjuration',
-    'Abjuration',
-    'Transmutation',
-    'Enchantment',
-    'Necromancy',
-    'Divination',
-    'Evocation',
-    'Illusion',
-  ];
-}
+export const SPELL_SCHOOLS = [
+  'Conjuration',
+  'Abjuration',
+  'Transmutation',
+  'Enchantment',
+  'Necromancy',
+  'Divination',
+  'Evocation',
+  'Illusion',
+];
 
 export function translateSpell(spellName) {
   return SPELL_TRANSLATIONS[spellName] || `[[<--- ${spellName} --->]]`;
@@ -365,6 +365,7 @@ export function hasNewLevelSpells(pc) {
       ranger: hasNewRangerLevelSpells,
       fighter: hasNewFighterLevelSpells,
       sorcerer: hasNewSorcererLevelSpells,
+      wizard: hasNewWizardLevelSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -379,6 +380,7 @@ export function hasNewSpells(pc) {
       ranger: hasNewRangerSpells,
       fighter: hasNewFighterSpells,
       sorcerer: hasNewSorcererSpells,
+      wizard: hasNewWizardSpells,
     }[pClass] || zero
   )(pc);
 }

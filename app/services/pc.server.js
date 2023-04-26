@@ -8,7 +8,11 @@ import {
   CLASSES,
   getLevelByXp,
 } from '~/domain/characters';
-import { DRAGON_ANCESTORS, METAMAGIC, SORCERER_ORIGINS } from '~/domain/classes/sorcerer/sorcerer';
+import {
+  DRAGON_ANCESTORS,
+  METAMAGIC,
+  SORCERER_ORIGINS,
+} from '~/domain/classes/sorcerer/sorcerer';
 import {
   COMBAT_SUPERIORITY_MANEUVERS,
   FIGHTING_STYLES,
@@ -28,6 +32,7 @@ import {
 import { DIVINE_DOMAINS } from '~/domain/classes/cleric/cleric';
 import { getItem, pcItem } from '~/domain/equipment/equipment';
 import {
+  SPELL_SCHOOLS,
   getExtraPreparedSpells,
   getMaxPreparedSpells,
 } from '~/domain/spells/spells';
@@ -168,7 +173,11 @@ const fighterSchema = new mongoose.Schema({
 const sorcererSchema = new mongoose.Schema({
   sorcererOrigin: { type: String, enum: SORCERER_ORIGINS },
   dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
-  metamagic: [{ type: String, enum: METAMAGIC }]
+  metamagic: [{ type: String, enum: METAMAGIC }],
+});
+
+const wizardSchema = new mongoose.Schema({
+  arcaneTradition: { type: String, enum: SPELL_SCHOOLS },
 });
 
 const classAttrsSchema = new mongoose.Schema({
@@ -180,6 +189,7 @@ const classAttrsSchema = new mongoose.Schema({
   ranger: rangerSchema,
   fighter: fighterSchema,
   sorcerer: sorcererSchema,
+  wizard: wizardSchema,
   // ALL
   expertSkills: [
     { type: String, enum: [...SKILLS.map(s => s.name), 'thieves-tools'] },

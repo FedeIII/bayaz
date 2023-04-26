@@ -1,5 +1,5 @@
 import { getStat, getStatMod } from '../characters';
-import { getKnownCantrips } from './getSpells';
+import { getKnownCantrips, getKnownSpells } from './getSpells';
 import { SPELL_LIST } from './spellList';
 
 export const WIZARD_SPELLS = SPELL_LIST.filter(spell =>
@@ -68,4 +68,17 @@ export function hasNewWizardCantrips(pc) {
   if (knownCantripsNumber > getKnownCantrips(pc).length) return true;
 
   return false;
+}
+
+export function hasNewWizardLevelSpells(pc) {
+  const knownSpellsNumber = getWizardTotalSpells(pc);
+  if (knownSpellsNumber > getKnownSpells(pc).length) return true;
+
+  return false;
+}
+
+export function hasNewWizardSpells(pc) {
+  const newSpells = hasNewWizardLevelSpells(pc);
+
+  return newSpells;
 }

@@ -1555,6 +1555,18 @@ export const CLASSES = {
           arcaneRecovery: 'Recuperación Arcana',
         },
       },
+      2: {
+        traits: {
+          arcaneTradition: 'Tradición Arcana',
+        },
+        arcaneTradition: {
+          all: {
+            traits: {
+              schoolSavant: 'Erudito de',
+            },
+          },
+        },
+      },
     },
   },
 };

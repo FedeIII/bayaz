@@ -10,7 +10,7 @@ import { translateClass } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
   getAllClassesWithSpells,
-  getAllSpellSchools,
+  SPELL_SCHOOLS,
   getSpellSlots,
   getTotalSpells,
   maxSpellLevel,
@@ -200,7 +200,7 @@ function MagicalSecretsSpells() {
               onChange={e => setFSchool(e.target.value)}
             >
               <option value="all">Todas</option>
-              {getAllSpellSchools().map(c => (
+              {SPELL_SCHOOLS.map(c => (
                 <option value={c} key={c}>
                   {translateSchool(c)}
                 </option>

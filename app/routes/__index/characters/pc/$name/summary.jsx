@@ -106,6 +106,11 @@ import {
   getMartialArchetypeTraits,
   translateMartialArchetype,
 } from '~/domain/classes/fighter/fighter';
+import {
+  getArcaneTradition,
+  getArcaneTraditionTraits,
+  translateArcaneTradition,
+} from '~/domain/classes/wizard/wizard';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -372,6 +377,7 @@ function PcSummary() {
   const rangerConclaveTraits = getRangerConclaveTraits(pc);
   const martialArchetypeTraits = getMartialArchetypeTraits(pc);
   const sorcererOriginTraits = getSorcererOriginTraits(pc);
+  const arcaneTradicionTraits = getArcaneTraditionTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -390,6 +396,7 @@ function PcSummary() {
     druidCircle: druidCircleTraits.map(() => useRef()),
     martialArchetype: martialArchetypeTraits.map(() => useRef()),
     sorcererOrigin: sorcererOriginTraits.map(() => useRef()),
+    arcaneTradition: arcaneTradicionTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -1053,6 +1060,27 @@ function PcSummary() {
                       pc={pc}
                       openModal={openSkillModal('sorcererOrigin', i)}
                       bigModal={traitName === 'wildMagicSurge'}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {!!getArcaneTradition(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                {translateArcaneTradition(getArcaneTradition(pc))}
+              </strong>
+              <ul>
+                {arcaneTradicionTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.arcaneTradition[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('arcaneTradition', i)}
                     />
                   </li>
                 ))}
