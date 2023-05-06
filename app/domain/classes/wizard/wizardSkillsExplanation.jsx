@@ -627,6 +627,37 @@ export const WIZARD_SKILLS_EXPLANATION = {
       </ul>
     </>
   ),
+
+  spellMastery: (skill, pc) => (
+    <>
+      <p>
+        A nivel 18 has logrado tal grado de maestría sobre ciertos conjuros que
+        puedes lanzarlos a voluntad. Elige un conjuro de nivel 1 de mago y otro
+        conjuro de nivel 2 de mago que esté en tu Libro de conjuros. Puedes
+        lanzarlos con su nivel más bajo sin gastar un espacio de conjuro cuando
+        los tengas preparados. Si quieres lanzar el conjuro a un nivel mayor,
+        deberás gastar un espacio de conjuro de la manera habitual. Dedicando 8
+        horas de estudio, puedes intercambiar uno o ambos conjuros que hayas
+        elegido por diferentes conjuros de los mismos niveles
+      </p>
+    </>
+  ),
+
+  signatureSpells: (skill, pc) => (
+    <>
+      <p>
+        Cuando alcanzas el nivel 20 obtienes maestría sobre dos poderosos
+        conjuros y puedes lanzarlos con muy poco esfuerzo. Elige dos conjuros de
+        mago de nivel 3 de tu libro de conjuros como tus conjuros de signatura.
+        Siempre los tienes preparados, no cuentan para el número de conjuros
+        preparados que puedes tener, y puedes lanzar cada uno de ellos sin
+        gastar espacios de conjuros. No puedes volver a hacer esto a menos que
+        finalices un descanso corto o prolongado. Si quieres lanzar uno de estos
+        conjuros a mayor nivel debes gastar un espacio de conjuros de la manera
+        habitual.
+      </p>
+    </>
+  ),
 };
 
 export const SCHOOL_EXPLANATION = {

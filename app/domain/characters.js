@@ -1740,6 +1740,16 @@ export const CLASSES = {
           },
         },
       },
+      18: {
+        traits: {
+          spellMastery: 'Maestría de Conjuros',
+        },
+      },
+      20: {
+        traits: {
+          signatureSpells: 'Conjuros de Firma',
+        },
+      },
     },
   },
 };

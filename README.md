@@ -72,6 +72,8 @@ npx prisma migrate dev
   - Sorcery Points / spell slots tracker
 - Wizard
   - arcaneRecovery interaction button to update spells
+  - spellMastery select spells
+  - signatureSpells select spells
 - Improve spell modal data
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws
