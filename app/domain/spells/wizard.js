@@ -1,5 +1,6 @@
 import { getStat, getStatMod } from '../characters';
-import { getKnownCantrips, getKnownSpells } from './getSpells';
+import { getArcaneTradition } from '../classes/wizard/wizard';
+import { getKnownCantrips, getKnownSpells, getSpell } from './getSpells';
 import { SPELL_LIST } from './spellList';
 
 export const WIZARD_SPELLS = SPELL_LIST.filter(spell =>
@@ -81,4 +82,13 @@ export function hasNewWizardSpells(pc) {
   const newSpells = hasNewWizardLevelSpells(pc);
 
   return newSpells;
+}
+
+export function getWizardExtraKnownSpells(pc) {
+  const school = getArcaneTradition(pc);
+
+  if (school === 'Necromancy' && pc.level >= 6)
+    return [getSpell('animateDead')];
+
+  return [];
 }

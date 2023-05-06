@@ -20,6 +20,7 @@ import {
   hasNewCantrips,
   hasNewLevelSpells,
   hasToLearnSpells,
+  hasToPrepareSpells,
   maxSpellLevel,
 } from '~/domain/spells/spells';
 import {
@@ -470,21 +471,18 @@ function NewSpells() {
                                     )
                                   }
                                 />
-                                <input
-                                  hidden
-                                  type="checkbox"
-                                  id={spell.name}
-                                  name="prepare[]"
-                                  value={spell.name}
-                                  checked={toLearn[spellLevel - 1][spellIndex]}
-                                  onChange={e =>
-                                    setSpellToLearn(
-                                      spellLevel - 1,
-                                      spellIndex,
-                                      e.target.checked
-                                    )
-                                  }
-                                />
+                                {!hasToPrepareSpells(pc) && (
+                                  <input
+                                    hidden
+                                    type="checkbox"
+                                    id={spell.name}
+                                    name="prepare[]"
+                                    value={spell.name}
+                                    checked={
+                                      toLearn[spellLevel - 1][spellIndex]
+                                    }
+                                  />
+                                )}
                                 <SkillItem
                                   ref={skillRefs[i][spellIndex]}
                                   traitName={spell.name}

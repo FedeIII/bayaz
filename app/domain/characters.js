@@ -1565,6 +1565,95 @@ export const CLASSES = {
               schoolSavant: 'Erudito de',
             },
           },
+          Abjuration: {
+            traits: {
+              arcaneWard: 'Guardián Arcano',
+            },
+          },
+          Divination: {
+            traits: {
+              portent: 'Portento',
+            },
+          },
+          Conjuration: {
+            traits: {
+              minorConjuration: 'Conjuración Menor',
+            },
+          },
+          Enchantment: {
+            traits: {
+              hypnoticGaze: 'Mirada Hipnótica',
+            },
+          },
+          Evocation: {
+            traits: {
+              sculptSpells: 'Esculpir Conjuros',
+            },
+          },
+          Illusion: {
+            traits: {
+              improvedMinorIllusion: 'Ilusión Menor Mejorada',
+            },
+          },
+          Necromancy: {
+            traits: {
+              grimHarvest: 'Cosecha Sombría',
+            },
+          },
+          Transmutation: {
+            traits: {
+              minorAlchemy: 'Alquimia Menor',
+            },
+          },
+        },
+      },
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      6: {
+        arcaneTradition: {
+          Abjuration: {
+            traits: {
+              projectedWard: 'Guardián Proyectado',
+            },
+          },
+          Divination: {
+            traits: {
+              expertDivination: 'Adivinación Experta',
+            },
+          },
+          Conjuration: {
+            traits: {
+              benignTransportation: 'Transposición Benigna',
+            },
+          },
+          Enchantment: {
+            traits: {
+              instinctiveCharm: 'Encantamiento Insintivo',
+            },
+          },
+          Evocation: {
+            traits: {
+              potentCantrip: 'Truco Potente',
+            },
+          },
+          Illusion: {
+            traits: {
+              malleableIllusions: 'Ilusiones Maleables',
+            },
+          },
+          Necromancy: {
+            traits: {
+              undeadThralls: 'Esclavos Muertos Vivientes',
+            },
+          },
+          Transmutation: {
+            traits: {
+              transmutersStone: 'Piedra del Transmutador',
+            },
+          },
         },
       },
     },

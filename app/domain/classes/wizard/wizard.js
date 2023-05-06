@@ -30,12 +30,16 @@ export function getArcaneTraditionTraits(pc) {
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level
           ? {
-              ...(levelSkills.arcaneTradition?.[arcaneTradition]?.traits || {}),
               ...(levelSkills.arcaneTradition?.all?.traits || {}),
+              ...(levelSkills.arcaneTradition?.[arcaneTradition]?.traits || {}),
             }
           : {}),
       }),
       {}
     )
   ).filter(t => !!displayTrait(t[0], t[1], pc));
+}
+
+export function getImprovedMinorIllusionSpell(pc) {
+  return pc.classAttrs?.wizard?.improvedMinorIllusion || null;
 }

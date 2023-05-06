@@ -78,6 +78,7 @@ npx prisma migrate dev
 - Temporary HP (just edit manually)
 - Attack bonus breakdown for weapons
 - 2x Weapons not showing in the weapons section
+- Free text annotations anywhere in the character sheets (other colors)
 - Copy random spells on the Book:
   - Warlock bookOfAncientSecrets
   - Wizard

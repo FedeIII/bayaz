@@ -1,5 +1,7 @@
-import { getArcaneTradition } from './wizard';
+import { getArcaneTradition, getImprovedMinorIllusionSpell } from './wizard';
 import { translateSchool } from '~/domain/spells/spellTranslations';
+import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
+import { increment } from '~/domain/display';
 
 import appStyles from '~/components/app.module.css';
 import sheetStyles from '~/components/sheet.module.css';
@@ -34,6 +36,101 @@ export function displayWizardTrait(traitName, trait, pc) {
         <span>
           {trait} {translateSchool(getArcaneTradition(pc))}
         </span>
+      );
+
+    case 'arcaneWard':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            {pc.level * 2 + getStatMod(getStat(pc, 'int'))} HP
+          </span>
+        </>
+      );
+
+    case 'portent':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            2d20 para reemplazar entre descansos prolongados
+          </span>
+        </>
+      );
+
+    case 'sculptSpells':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            1 + {'<'}nivel de conjuro{'>'} objetivos.
+          </span>
+        </>
+      );
+
+    case 'improvedMinorIllusion':
+      return (
+        <>
+          <span>{trait}</span>
+          {!getImprovedMinorIllusionSpell(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+        </>
+      );
+
+    case 'grimHarvest':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            Recuperas HP cuando matas criaturas con conjuros.
+          </span>
+        </>
+      );
+
+    case 'expertDivination':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            Recuperas espacios de conjuro al lanzar conjuros de Adivinación.
+          </span>
+        </>
+      );
+
+    case 'benignTransportation':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            Teletransporte a 10 metros.
+          </span>
+        </>
+      );
+
+    case 'undeadThralls':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            {increment(pc.level)} HP, {increment(getProficiencyBonus(pc.level))}{' '}
+            daño con armas.
+          </span>
+        </>
       );
 
     default:

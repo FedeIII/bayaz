@@ -1,3 +1,4 @@
+import { unique } from '~/utils/insert';
 import { getLoreSpells, getMagicalSecretsSpells } from '../classes/bard/bard';
 import { getBonusCantrip } from '../classes/druid/druid';
 import { getKnightSpells } from '../classes/fighter/fighter';
@@ -6,6 +7,7 @@ import {
   getInvocationsSpells,
   getPactSpells,
 } from '../classes/warlock/warlock';
+import { getImprovedMinorIllusionSpell } from '../classes/wizard/wizard';
 import { SPELL_LIST } from './spellList';
 import {
   doesNotHaveToLearnSpells,
@@ -13,6 +15,7 @@ import {
   hasToLearnSpells,
   maxSpellLevel,
 } from './spells';
+import { getWizardExtraKnownSpells } from './wizard';
 
 export function getSpell(spellName) {
   return SPELL_LIST.find(spell => spell.name === spellName) || {};
@@ -31,12 +34,19 @@ export function getKnownCantrips(pc) {
 export function getAllPcCantrips(pc) {
   const { spells = [] } = pc;
 
+  // cantrips that don't count for the total known
   const pactSpells = getPactSpells(pc);
   const druidBonusCantrip = getBonusCantrip(pc);
   const bonusCantrips = druidBonusCantrip ? [druidBonusCantrip] : [];
+  const illusionCantrip = getImprovedMinorIllusionSpell(pc);
 
   return (
-    [...spells, ...pactSpells, ...bonusCantrips]
+    [
+      ...spells,
+      ...pactSpells,
+      ...bonusCantrips,
+      ...(illusionCantrip ? [illusionCantrip] : []),
+    ]
       .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level === 0) || []
   );
@@ -83,8 +93,9 @@ export function getAllPcSpells(pc) {
   const pactSpells = getPactSpells(pc);
   const arcanumSpells = getArcanum(pc).map(getSpell);
   const knightSpells = getKnightSpells(pc);
+  const wizardExtraSpells = getWizardExtraKnownSpells(pc);
 
-  return (
+  return unique(
     [
       ...knownSpells,
       ...loreSpells,
@@ -92,6 +103,7 @@ export function getAllPcSpells(pc) {
       ...pactSpells,
       ...arcanumSpells,
       ...knightSpells,
+      ...wizardExtraSpells,
     ]
       .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level > 0) || []

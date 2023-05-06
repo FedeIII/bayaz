@@ -178,6 +178,7 @@ const sorcererSchema = new mongoose.Schema({
 
 const wizardSchema = new mongoose.Schema({
   arcaneTradition: { type: String, enum: SPELL_SCHOOLS },
+  improvedMinorIllusion: spellSchema,
 });
 
 const classAttrsSchema = new mongoose.Schema({
