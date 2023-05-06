@@ -94,6 +94,11 @@ export const WIZARD_SKILLS_EXPLANATION = {
         El objeto desaparece después de una hora, cuando uses este rasgo
         nuevamente o si recibe algún daño.
       </p>
+      <p>
+        Comenzando en el nivel 14, las visiones de tus sueños se intensifican y
+        dibujan una imagen más precisa en tu mente de lo que está por venir.
+        Tira tres d20 para tu rasgo de Portento, en lugar de dos
+      </p>
     </>
   ),
 
@@ -479,6 +484,147 @@ export const WIZARD_SKILLS_EXPLANATION = {
         nuevamente hasta que finalices un descanso corto o prolongado, aunque
         puedes lanzarlo normalmente usando un espacio de conjuro.
       </p>
+    </>
+  ),
+
+  spellResistance: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 14, tienes ventaja en las tiradas de salvación contra
+        conjuros.
+      </p>
+      <p>Además, tienes resistencia al daño provocado por conjuros</p>
+    </>
+  ),
+
+  durableSummons: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 14, cualquier criatura que crees o invoques con
+        un conjuro de conjuración tiene 30 Puntos de Golpe temporales.
+      </p>
+    </>
+  ),
+
+  alterMemories: (skill, pc) => (
+    <>
+      <p>
+        En el nivel 14, ganas la habilidad de hacer que una criatura desconozca
+        tu influencia mágica en ella. Cuando lanzas un conjuro de encantamiento
+        para encantar a una o más criaturas, puedes alterar su entendimiento
+        para evitar que sea consciente de que ha sido encantada.
+      </p>
+      <p>
+        Además, una vez antes de que expire el hechizo, puedes usar tu acción
+        para intentar que la criatura elegida olvide parte del tiempo que pasó
+        estando encantada. La criatura debe tener éxito en una tirada de
+        salvación de Inteligencia de {getSpellSavingThrow(pc)} (la CD de
+        salvación de tus conjuros de mago) u olvidar{' '}
+        {1 + getStatMod(getStat(pc, 'cha'))} horas (igual a 1 + tu modificador
+        de Carisma, mínimo 1). Puedes hacer que la criatura olvide menos tiempo,
+        y la cantidad de tiempo no puede exceder la duración del conjuro de
+        encantamiento.
+      </p>
+    </>
+  ),
+
+  overchannel: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 14, puedes incrementar el poder de tus conjuros
+        más simples. Cuando lanzas un conjuro de mago de nivel 5 o menor que
+        provoque daño, puedes realizar el daño máximo con ese conjuro.
+      </p>
+    </>
+  ),
+
+  illusoryReality: (skill, pc) => (
+    <>
+      <p>
+        Cuando alcanzas el nivel 14, has aprendido el secreto de entretejer la
+        magia de las sombras entre tus ilusiones para brindarles parte de
+        realidad. Cuando lanzas un conjuro de Ilusión de nivel 1 o superior,
+        puedes elegir un objeto inanimado y no mágico que sea parte de esa
+        ilusión y convertirlo en real. Puedes hacer esto en tu turno como una
+        acción adicional mientras el conjuro esté funcionando. El objeto será
+        real durante un minuto. Por ejemplo, podrías crear la ilusión de un
+        puente sobre un abismo y hacerlo real el tiempo suficiente para que tus
+        aliados lo crucen.
+      </p>
+      <p>
+        El objeto no puede hacer daño a nadie directamente o de cualquier otra
+        manera.
+      </p>
+    </>
+  ),
+
+  commandUndead: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 14 puedes usar la magia para conducir a los
+        muertos vivientes bajo tu control incluso aquellos creados por otros
+        magos. Como una acción, puedes elegir un muerto viviente que puedas ver
+        en un rango de 60 pies (18 metros). La criatura debe superar una tirada
+        de salvación de Carisma de {getSpellSavingThrow(pc)} (la CD de tus
+        conjuros de mago). Si tiene éxito, no puedes usar este rasgo en ella
+        nuevamente. Si falla, se vuelve amistosa contigo y obedece tus órdenes
+        hasta que uses este rasgo nuevamente.
+      </p>
+      <p>
+        Los muertos vivientes inteligentes son más difíciles de controlar de
+        esta forma. Si el objetivo tiene una inteligencia de 8 o superior, tiene
+        ventaja en la tirada de salvación. Si falla su salvación y tiene una
+        Inteligencia de 12 o superior, puede repetir la tirada una vez cada hora
+        hasta tener éxito y liberarse.
+      </p>
+    </>
+  ),
+
+  masterTransmuter: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 14 puedes usar tu acción para consumir la reserva
+        de magia de transmutación almacenada en tu Piedra del Transmutador en
+        una única andanada. Cuando lo haces, elige uno de los siguientes
+        efectos. Tu Piedra del Transmutador es destruida y no puedes crear otra
+        hasta finalizar un descanso prolongado
+      </p>
+      <ul>
+        <li>
+          <strong>
+            <u>Transmutación Mayor.</u>
+          </strong>{' '}
+          Puedes transmutar un objeto no mágico (no mayor que un cubo de 5 pies
+          (1,5 metros)) en otro objeto no mágico de tamaño similar y masa igual
+          o menor. Debes pasar 10 minutos manipulando el objeto para
+          transformarlo.
+        </li>
+        <li>
+          <strong>
+            <u>Panacea.</u>
+          </strong>{' '}
+          Eliminas todas las maldiciones, enfermedades y venenos que afecten a
+          la criatura que toques con tu piedra del Transmutador. La criatura
+          recobra todos sus Puntos de Golpe.
+        </li>
+        <li>
+          <strong>
+            <u>Restaurar Vida.</u>
+          </strong>{' '}
+          Lanzas el conjuro "revivir a los muertos" sobre una criatura que
+          toques con la Piedra del Transmutador, sin gastar un espacio de
+          conjuro y sin necesidad de tenerlo en tu libro de conjuros.
+        </li>
+        <li>
+          <strong>
+            <u>Restaurar Juventud.</u>
+          </strong>{' '}
+          Tocas a una criatura voluntaria con tu Piedra del Transmutador, y la
+          edad aparente de esa criatura se reduce en 3d10 años, con un mínimo de
+          13 años. Este efecto no extiende la duración de la vida de una
+          criatura
+        </li>
+      </ul>
     </>
   ),
 };

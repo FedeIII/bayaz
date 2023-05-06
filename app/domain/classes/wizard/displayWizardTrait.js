@@ -54,10 +54,11 @@ export function displayWizardTrait(traitName, trait, pc) {
       return (
         <>
           <strong>
-            <u>{trait}.</u>
+            <u>{pc.level >= 14 ? 'Portento Mayor' : trait}.</u>
           </strong>{' '}
           <span className={appStyles.smallText}>
-            2d20 para reemplazar entre descansos prolongados
+            {pc.level >= 14 ? '3' : '2'}d20 para reemplazar entre descansos
+            prolongados
           </span>
         </>
       );
@@ -142,6 +143,18 @@ export function displayWizardTrait(traitName, trait, pc) {
           <span className={appStyles.smallText}>
             {increment(getStatMod(getStat(pc, 'int')))} daño por conjuros de
             Evocación
+          </span>
+        </>
+      );
+
+    case 'durableSummons':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            Todas las invocaciones tienen 30 HP temporales
           </span>
         </>
       );

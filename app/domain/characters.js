@@ -1701,6 +1701,45 @@ export const CLASSES = {
           },
         },
       },
+      14: {
+        arcaneTradition: {
+          Abjuration: {
+            traits: {
+              spellResistance: 'Resistencia a Conjuros',
+            },
+          },
+          Conjuration: {
+            traits: {
+              durableSummons: 'Invocaciones Duraderas',
+            },
+          },
+          Enchantment: {
+            traits: {
+              alterMemories: 'Alterar Recuerdos',
+            },
+          },
+          Evocation: {
+            traits: {
+              overchannel: 'Sobrecargar',
+            },
+          },
+          Illusion: {
+            traits: {
+              illusoryReality: 'Realidad Ilusoria',
+            },
+          },
+          Necromancy: {
+            traits: {
+              commandUndead: 'Comandar Muertos Vivientes',
+            },
+          },
+          Transmutation: {
+            traits: {
+              masterTransmuter: 'Maestro Transmutador',
+            },
+          },
+        },
+      },
     },
   },
 };
