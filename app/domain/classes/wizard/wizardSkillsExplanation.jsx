@@ -3,7 +3,7 @@ import { translateSchool } from '~/domain/spells/spellTranslations';
 import { getArcaneTradition, getImprovedMinorIllusionSpell } from './wizard';
 import { getSpellSavingThrow, translateSpell } from '~/domain/spells/spells';
 import { increment } from '~/domain/display';
-import { getProficiencyBonus } from '~/domain/characters';
+import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -351,6 +351,133 @@ export const WIZARD_SKILLS_EXPLANATION = {
       <p>
         Si creas una nueva Piedra del Transmutador, la anterior deja de
         funcionar.
+      </p>
+    </>
+  ),
+
+  improvedAbjuration: (skill, px) => (
+    <>
+      <p>
+        Comenzando en el nivel 10, cuando lanzas un conjuro de abjuración que
+        requiera que hagas una prueba de habilidad como parte del lanzamiento de
+        ese conjuro (como contraconjuro o disipar magia), agregas{' '}
+        <u>{increment(getProficiencyBonus(pc.level))}</u> (tu bonificador de
+        competencia) a esa prueba de habilidad.
+      </p>
+    </>
+  ),
+
+  theThirdEye: (skill, px) => (
+    <>
+      <p>
+        A partir del nivel 10 puedes usar tu acción para incrementar tus poderes
+        perceptivos. Cuando lo haces, elige uno de los siguientes beneficios,
+        que dura hasta que estés incapacitado o comiences un descanso corto o
+        prolongado. No puedes usar este rasgo nuevamente hasta que termines un
+        descanso.
+      </p>
+      <u>
+        <li>
+          <strong>
+            <u>Visión en la Oscuridad.</u>
+          </strong>{' '}
+          Ganas visión en la oscuridad en un rango de 60 pies (18 metros), tal
+          como se describe en el Capítulo 8.
+        </li>
+        <li>
+          <strong>
+            <u>Vista Etérea.</u>
+          </strong>{' '}
+          Puedes ver en el Plano Etéreo en un rango de 60 pies (18 metros) en
+          torno a ti.
+        </li>
+        <li>
+          <strong>
+            <u>Comprensión Mayor.</u>
+          </strong>{' '}
+          Puedes leer cualquier lenguaje.
+        </li>
+        <li>
+          <strong>
+            <u>Ver Invisibilidad.</u>
+          </strong>{' '}
+          Puedes ver objetos y criaturas invisibles en un rango de 10 pies (3
+          metros) que estén en tu línea de visión.
+        </li>
+      </u>
+    </>
+  ),
+
+  focusedConjuration: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 10, mientras estés concentrándote en un conjuro de
+        conjuración, tu concentración no puede ser rota como resultado de
+        recibir daño.
+      </p>
+    </>
+  ),
+
+  splitEnchantment: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 10, cuando lanzas un conjuro de encantamiento de
+        nivel 1 o superior que tenga como objetivo solo una creatura, puedes
+        hacer que también afecte a una segunda creatura.
+      </p>
+    </>
+  ),
+
+  empoweredEvocation: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 10, puedes añadir{' '}
+        <u>{increment(getStatMod(getStat(pc, 'int')))}</u> (tu bonificador de
+        Inteligencia) a las <u>tiradas de daño</u> de cualquier conjuro de
+        evocación que lances.
+      </p>
+    </>
+  ),
+
+  illusorySelf: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 10, puedes crear una copia ilusoria de ti mismo como
+        una reacción instantánea, casi instintiva, frente al peligro. Cuando una
+        criatura realiza una tirada de ataque contra ti, puedes usar tu reacción
+        para interponer el duplicado ilusorio entre el atacante y tú. El ataque
+        falla automáticamente y la ilusión se disipa.
+      </p>
+      <p>
+        Una vez que usas este rasgo, no puedes usarlo nuevamente hasta que
+        finalices un descanso corto o prolongado.
+      </p>
+    </>
+  ),
+
+  inuredToUndeath: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 10 tienes <u>resistencia al daño necrótico</u> y
+        tu máximo de Puntos de Golpe no puede ser reducido. Has pasado tanto
+        tiempo tratando con los muertos vivientes y las fuerzas que los animan
+        que te has acostumbrado a algunos de sus peores efectos.
+      </p>
+    </>
+  ),
+
+  shapechanger: (skill, pc) => (
+    <>
+      <p>
+        En el nivel 10, agregas el conjuro polimorfar a tu libro de conjuros si
+        aún no lo tenías. Puedes lanzar polimorfar sin gastar un espacio de
+        conjuro. Cuando lo haces, sólo puedes lanzarlo sobre ti mismo y
+        transformarte en una bestia cuyo valor de desafío sea 1 o inferior.
+      </p>
+      <p>
+        Una vez que lanzas polimorfar de esta manera, no puedes hacerlo
+        nuevamente hasta que finalices un descanso corto o prolongado, aunque
+        puedes lanzarlo normalmente usando un espacio de conjuro.
       </p>
     </>
   ),

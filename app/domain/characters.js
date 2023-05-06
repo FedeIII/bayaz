@@ -1657,6 +1657,50 @@ export const CLASSES = {
           },
         },
       },
+      10: {
+        arcaneTradition: {
+          Abjuration: {
+            traits: {
+              improvedAbjuration: 'Abjuración Mejorada',
+            },
+          },
+          Divination: {
+            traits: {
+              theThirdEye: 'El Tercer Ojo',
+            },
+          },
+          Conjuration: {
+            traits: {
+              focusedConjuration: 'Conjuración Concentrada',
+            },
+          },
+          Enchantment: {
+            traits: {
+              splitEnchantment: 'Encantamiento Dividido',
+            },
+          },
+          Evocation: {
+            traits: {
+              empoweredEvocation: 'Fortalecer evocación',
+            },
+          },
+          Illusion: {
+            traits: {
+              illusorySelf: 'Ser Ilusorio',
+            },
+          },
+          Necromancy: {
+            traits: {
+              inuredToUndeath: 'Acostumbrado a los Muertos Vivientes',
+            },
+          },
+          Transmutation: {
+            traits: {
+              shapechanger: 'Cambiaformas',
+            },
+          },
+        },
+      },
     },
   },
 };

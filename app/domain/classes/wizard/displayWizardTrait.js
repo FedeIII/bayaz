@@ -133,6 +133,19 @@ export function displayWizardTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'empoweredEvocation':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            {increment(getStatMod(getStat(pc, 'int')))} daño por conjuros de
+            Evocación
+          </span>
+        </>
+      );
+
     default:
   }
 

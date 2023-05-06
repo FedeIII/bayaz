@@ -85,10 +85,14 @@ export function hasNewWizardSpells(pc) {
 }
 
 export function getWizardExtraKnownSpells(pc) {
+  const extraSpells = [];
   const school = getArcaneTradition(pc);
 
   if (school === 'Necromancy' && pc.level >= 6)
-    return [getSpell('animateDead')];
+    extraSpells.push(getSpell('animateDead'));
 
-  return [];
+  if (school === 'Transmutation' && pc.level >= 10)
+    extraSpells.push(getSpell('polymorph'));
+
+  return extraSpells;
 }
