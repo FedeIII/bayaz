@@ -43,6 +43,7 @@ import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExpla
 import { getStudentOfWar } from './classes/fighter/fighter';
 import { SORCERER_SKILLS_EXPLANATION } from './classes/sorcerer/sorcererSkillsExplanation';
 import { WIZARD_SKILLS_EXPLANATION } from './classes/wizard/wizardSkillsExplanation';
+import { getPackItems } from './equipment/packs';
 
 export const RACES = {
   dwarf: {
@@ -2312,25 +2313,31 @@ export function getExtraWeapons(pc) {
 }
 
 export function getEquipmentWeight(pc) {
-  return Object.values(pc.items).reduce((encumbrance, section) => {
-    return (
-      encumbrance +
-      Object.values(section).reduce((sectionEncumbrance, subsection) => {
-        return (
-          sectionEncumbrance +
-          (Array.isArray(subsection)
-            ? subsection.reduce((subsectionEncumbrance, item) => {
-                return (
-                  subsectionEncumbrance +
-                  (getItem(item?.name)?.weight || 0) * (item?.amount || 1)
-                );
-              }, 0)
-            : (getItem(subsection?.name)?.weight || 0) *
-              (subsection?.amount || 1))
-        );
-      }, 0)
-    );
-  }, 0);
+  return (
+    Object.values(pc.items).reduce((encumbrance, section) => {
+      return (
+        encumbrance +
+        Object.values(section).reduce((sectionEncumbrance, subsection) => {
+          return (
+            sectionEncumbrance +
+            (Array.isArray(subsection)
+              ? subsection.reduce((subsectionEncumbrance, item) => {
+                  return (
+                    subsectionEncumbrance +
+                    (getItem(item?.name)?.weight || 0) * (item?.amount || 1)
+                  );
+                }, 0)
+              : (getItem(subsection?.name)?.weight || 0) *
+                (subsection?.amount || 1))
+          );
+        }, 0)
+      );
+    }, 0) +
+    getPackItems(pc.pack).reduce(
+      (packEncumbrance, packItem) => packEncumbrance + (packItem.weight || 0),
+      0
+    )
+  );
 }
 
 const EXP_FOR_LEVEL = [
