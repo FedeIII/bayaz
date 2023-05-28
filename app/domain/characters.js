@@ -44,6 +44,8 @@ import { getStudentOfWar } from './classes/fighter/fighter';
 import { SORCERER_SKILLS_EXPLANATION } from './classes/sorcerer/sorcererSkillsExplanation';
 import { WIZARD_SKILLS_EXPLANATION } from './classes/wizard/wizardSkillsExplanation';
 import { getPackItems } from './equipment/packs';
+import { MONK_SKILLS_EXPLANATION } from './classes/monk/monkSkillsExplanation';
+import { getMartialArtsDice, isMonkWeapon } from './classes/monk/monk';
 
 export const RACES = {
   dwarf: {
@@ -1100,6 +1102,14 @@ export const CLASSES = {
       'shortsword',
     ],
     statImprove: [4, 8, 12, 16, 19],
+    leveling: {
+      1: {
+        traits: {
+          unarmoredDefense: 'Defensa sin Armadura',
+          martialArts: 'Artes Marciales',
+        },
+      },
+    },
   },
   paladin: {
     initialHitPoints: 10,
@@ -2254,6 +2264,7 @@ export function getExtraArmorClass(pc) {
 }
 
 export function getAttackBonus(pc, weapon) {
+  const { pClass } = pc;
   const { subtype, properties: { finesse } = {} } = weapon;
   let statMod = 0;
 
@@ -2261,6 +2272,8 @@ export function getAttackBonus(pc, weapon) {
   const dexMod = getStatMod(getStat(pc, 'dex'));
 
   if (finesse) statMod = strMod > dexMod ? strMod : dexMod;
+  else if (pClass === 'monk' && isMonkWeapon(weapon))
+    statMod = strMod > dexMod ? strMod : dexMod;
   else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
     statMod = strMod;
   else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')
@@ -2273,7 +2286,29 @@ export function getAttackBonus(pc, weapon) {
   return statMod + proficiencyBonus;
 }
 
+export function getDamageDice(pc, weapon) {
+  const damage = weapon.damage[0];
+  const { pClass, level } = pc;
+
+  if (pClass !== 'monk') {
+    return damage;
+  }
+
+  const martialArtsDice = getMartialArtsDice(pc);
+
+  if (damage === '-') {
+    return martialArtsDice;
+  }
+
+  if (isMonkWeapon(weapon)) {
+    return `${damage} / ${martialArtsDice}`;
+  }
+
+  return damage;
+}
+
 export function getDamageBonus(pc, weapon) {
+  const { pClass } = pc;
   const { subtype, properties: { finesse } = {} } = weapon;
   let statMod = 0;
 
@@ -2281,6 +2316,8 @@ export function getDamageBonus(pc, weapon) {
   const dexMod = getStatMod(getStat(pc, 'dex'));
 
   if (finesse) statMod = strMod > dexMod ? strMod : dexMod;
+  else if (pClass === 'monk' && isMonkWeapon(weapon))
+    statMod = strMod > dexMod ? strMod : dexMod;
   else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
     statMod = strMod;
   else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')
@@ -2475,6 +2512,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...FIGHTER_SKILLS_EXPLANATION,
       ...SORCERER_SKILLS_EXPLANATION,
       ...WIZARD_SKILLS_EXPLANATION,
+      ...MONK_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }

@@ -17,7 +17,7 @@ function MonkSkills(props) {
           key={tool.name}
           className={styles.skillLabel}
         >
-          <input type="radio" name="items[]" value={tool.name} />
+          <input type="radio" name="items[]" id={tool.name} value={tool.name} />
           {translateItem(tool.name)}
         </label>
       ))}

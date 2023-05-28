@@ -687,6 +687,7 @@ function PcSummary() {
                     onItemClick={onItemClick('weapons', i)}
                     openModal={openItemModal('weapons', i)}
                     closeModal={closeItemModal}
+                    className={itemStyles.centeredItem}
                     key={attack.weapon.name}
                   />
                 </label>

@@ -142,6 +142,19 @@ export const WEAPONS = {
       ...props,
     };
   },
+  martialArts(props) {
+    return {
+      name: 'martialArts',
+      translation: 'Golpe desarmado (Artes Marciales)',
+      type: 'weapon',
+      subtype: 'simpleMelee',
+      price: 0,
+      damage: ['-', 'bludgeoning'],
+      weight: 0,
+      properties: {},
+      ...props,
+    };
+  },
   lightCrossbow(props) {
     return {
       name: 'lightCrossbow',

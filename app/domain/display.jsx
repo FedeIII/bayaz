@@ -11,6 +11,7 @@ import {
 import {
   getAttackBonus,
   getDamageBonus,
+  getDamageDice,
   getMaxHitPoints,
   hasToImproveAbilityScore,
   translateSavingThrowStatus,
@@ -37,6 +38,8 @@ import { displayRangerTrait } from './classes/ranger/displayRangerTrait';
 import { displayFighterTrait } from './classes/fighter/displayFighterTrait';
 import { displaySorcererTrait } from './classes/sorcerer/displaySorcererTrait';
 import { displayWizardTrait } from './classes/wizard/displayWizardTrait';
+import { displayMonkTrait } from './classes/monk/displayMonkTrait';
+import { isMonkWeapon } from './classes/monk/monk';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -160,15 +163,16 @@ export function getItemDisplayList(itemNames) {
 
 export function displayDamage(pc, weapon) {
   const { properties: { versatile } = {} } = weapon;
+  const damageDice = getDamageDice(pc, weapon);
   const damageBonus = getDamageBonus(pc, weapon);
   const bonusOperator = damageBonus > 0 ? '+' : '';
 
   if (versatile)
     if (damageBonus)
-      return `${weapon.damage[0]} (${versatile}) ${bonusOperator} ${damageBonus}`;
-    else return `${weapon.damage[0]} (${versatile})`;
-  if (damageBonus) return `${weapon.damage[0]} ${bonusOperator} ${damageBonus}`;
-  else return `${weapon.damage[0]}`;
+      return `${damageDice} (${versatile}) ${bonusOperator} ${damageBonus}`;
+    else return `${damageDice} (${versatile})`;
+  if (damageBonus) return `${damageDice} ${bonusOperator} ${damageBonus}`;
+  else return `${damageDice}`;
 }
 
 function getAttackFromWeapon(pc, weapon, specialAttackIndex) {
@@ -194,7 +198,7 @@ export function getAttacks(pc) {
       getAttackFromWeapon(
         pc,
         weapon,
-        hasSpecialAttack(weapon) && ++specialAttackIndex
+        hasSpecialAttack(weapon, pc) && ++specialAttackIndex
       )
     );
 
@@ -202,20 +206,23 @@ export function getAttacks(pc) {
   }, []);
 }
 
-function hasSpecialAttack(weapon) {
+function hasSpecialAttack(weapon, pc) {
   const { properties } = weapon;
+  const { pClass } = pc;
+
   return !!(
-    properties &&
-    (properties.thrown ||
-      properties.reach ||
-      properties.twoHanded ||
-      properties.loading ||
-      properties.ammunition ||
-      properties.special ||
-      properties.light ||
-      properties.heavy ||
-      properties.finesse ||
-      properties.versatile)
+    (properties &&
+      (properties.thrown ||
+        properties.reach ||
+        properties.twoHanded ||
+        properties.loading ||
+        properties.ammunition ||
+        properties.special ||
+        properties.light ||
+        properties.heavy ||
+        properties.finesse ||
+        properties.versatile)) ||
+    (pClass === 'monk' && isMonkWeapon(weapon))
   );
 }
 
@@ -235,8 +242,13 @@ function SpecialAttackFromWeapon(props) {
       versatile,
     } = {},
   } = weapon;
+  const { pClass } = pc;
 
   const components = [];
+
+  if (pClass === 'monk' && isMonkWeapon(weapon)) {
+    components.push(<Fragment key="monk-weapon">Arma de monje. </Fragment>);
+  }
 
   if (thrown)
     components.push(
@@ -297,7 +309,7 @@ export function getSpecialAttacks(pc) {
 
   return weapons.reduce((specialAttacks, pWeapon) => {
     const weapon = getItem(pWeapon.name);
-    if (hasSpecialAttack(weapon)) {
+    if (hasSpecialAttack(weapon, pc)) {
       specialAttacks.push(
         <SpecialAttackFromWeapon pc={pc} weapon={weapon} key={weapon.name} />
       );
@@ -319,6 +331,7 @@ function displayClassTrait(traitName, trait, pc) {
       fighter: displayFighterTrait,
       sorcerer: displaySorcererTrait,
       wizard: displayWizardTrait,
+      monk: displayMonkTrait,
     }[pc.pClass] || noOp
   )(traitName, trait, pc);
 

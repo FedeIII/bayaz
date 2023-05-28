@@ -11,7 +11,7 @@ import { RANGER_EQUIPMENT } from '../classes/ranger/ranger';
 import { FIGHTER_EQUIPMENT } from '../classes/fighter/fighter';
 import { SORCERER_EQUIPMENT } from '../classes/sorcerer/sorcerer';
 import { WIZARD_EQUIPMENT } from '../classes/wizard/wizard';
-import { MONK_EQUIPMENT } from '../monk';
+import { MONK_EQUIPMENT } from '../classes/monk/monk';
 import { PALADIN_EQUIPMENT } from '../paladin';
 import { ROGUE_EQUIPMENT } from '../rogue';
 
