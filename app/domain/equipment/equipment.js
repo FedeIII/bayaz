@@ -122,3 +122,7 @@ export const CLASS_EQUIPMENT = {
   paladin: PALADIN_EQUIPMENT,
   rogue: ROGUE_EQUIPMENT,
 };
+
+export function getEquippedArmor(pc) {
+  return pc.items?.equipment?.armor || null;
+}

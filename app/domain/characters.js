@@ -45,7 +45,11 @@ import { SORCERER_SKILLS_EXPLANATION } from './classes/sorcerer/sorcererSkillsEx
 import { WIZARD_SKILLS_EXPLANATION } from './classes/wizard/wizardSkillsExplanation';
 import { getPackItems } from './equipment/packs';
 import { MONK_SKILLS_EXPLANATION } from './classes/monk/monkSkillsExplanation';
-import { getMartialArtsDice, isMonkWeapon } from './classes/monk/monk';
+import {
+  getExtraUnarmoredMovement,
+  getMartialArtsDice,
+  isMonkWeapon,
+} from './classes/monk/monk';
 
 export const RACES = {
   dwarf: {
@@ -1107,6 +1111,15 @@ export const CLASSES = {
         traits: {
           unarmoredDefense: 'Defensa sin Armadura',
           martialArts: 'Artes Marciales',
+        },
+      },
+      2: {
+        traits: {
+          ki: 'Ki',
+          flurryOfBlows: 'Ráfaga de Golpes',
+          patientDefense: 'Defensa Paciente',
+          stepOfTheWind: 'Andar del Viento',
+          unarmoredMovement: 'Movimiento sin Armadura',
         },
       },
     },
@@ -2536,6 +2549,8 @@ export function getSpeed(pc) {
 
   if (pClass === 'barbarian' && level >= 5 && !items.equipment?.armor)
     return speed + 3;
+
+  if (pClass === 'monk') return speed + getExtraUnarmoredMovement(pc);
 
   return speed;
 }

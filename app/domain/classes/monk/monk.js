@@ -1,3 +1,4 @@
+import { getEquippedArmor } from '~/domain/equipment/equipment';
 import { DUNGEONEERS_PACK, EXPLORERS_PACK } from '../../equipment/packs';
 import {
   getAllSimpleMelee,
@@ -36,4 +37,23 @@ export function getMartialArtsDice(pc) {
     : level >= 5
     ? '1d6'
     : '1d4';
+}
+
+export function getKiPoints(pc) {
+  const { level } = pc;
+
+  return level === 1 ? 0 : level > 20 ? 20 : level;
+}
+
+export function getExtraUnarmoredMovement(pc) {
+  const { level } = pc;
+
+  if (getEquippedArmor(pc)) return 0;
+
+  return [
+    /*  1 */ 0, /*  2 */ 3, /*  3 */ 3, /*  4 */ 3, /*  5 */ 3, /*  6 */ 5,
+    /*  7 */ 5, /*  8 */ 5, /*  9 */ 5, /* 10 */ 6, /* 11 */ 6, /* 12 */ 6,
+    /* 13 */ 6, /* 14 */ 8, /* 15 */ 8, /* 16 */ 8, /* 17 */ 8, /* 18 */ 10,
+    /* 19 */ 10, /* 20 */ 10,
+  ][level - 1];
 }

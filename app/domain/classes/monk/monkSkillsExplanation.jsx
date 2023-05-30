@@ -1,6 +1,7 @@
 import { Link } from '@remix-run/react';
-import { getStat, getStatMod } from '~/domain/characters';
+import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
+import { getExtraUnarmoredMovement, getKiPoints } from './monk';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -54,6 +55,91 @@ export const MONK_SKILLS_EXPLANATION = {
         de monje, puedes usar las estadísticas dadas para cada arma asociada en
         el Capítulo 5.
       </p>
+    </>
+  ),
+
+  ki: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 2 tu entrenamiento te permite utilizar la mística
+        energía del ki. Tu acceso a esta energía está representado por un número
+        de puntos ki. Tu nivel de monje determina la cantidad de puntos de ki
+        que tienes:{' '}
+        <strong>
+          <u>{getKiPoints(pc)} puntos</u>
+        </strong>
+      </p>
+      <p>
+        Puedes gastar estos puntos para utilizar varios rasgos. Comienzas
+        conociendo tres: Ráfaga de Golpes, Defensa Paciente y Andar del Viento.
+        Aprendes más rasgos al progresar niveles en esta clase.
+      </p>
+      <p>
+        Cuando gastas un punto ki, no podrás volver a usarlo hasta que termine
+        un descanso corto o prolongado, después del cual recuperas todos los
+        puntos ki que hayas gastado. Debes pasar al menos 30 minutos del
+        descanso en meditación para poder recuperar tus puntos ki.
+      </p>
+      <p>
+        Algunos de tus rasgos ki requieren que tu objetivo haga una tirada de
+        salvación para resistirse a los efectos del rasgo.
+        <strong>
+          <u>
+            La CD de la tirada de salvación es{' '}
+            {8 + getProficiencyBonus(pc.level) + getStatMod(getStat(pc, 'wis'))}
+          </u>
+        </strong>{' '}
+        y se calcula de la siguiente manera:
+      </p>
+      <p>
+        <strong>
+          <u>CD de la Salvación de Ki:</u>
+        </strong>{' '}
+        {8 + getProficiencyBonus(pc.level) + getStatMod(getStat(pc, 'wis'))} = 8
+        + bonificador de competencia ({getProficiencyBonus(pc.level)}) +
+        modificador de Sabiduría ({getStatMod(getStat(pc, 'wis'))})
+      </p>
+    </>
+  ),
+
+  flurryOfBlows: (skill, pc) => (
+    <p>
+      Inmediatamente después de realizar la acción de Ataque en tu turno, puedes
+      gastar un punto ki para hacer dos ataques sin armas como una acción
+      adicional.
+    </p>
+  ),
+
+  patientDefense: (skill, pc) => (
+    <p>
+      Puedes gastar un punto ki para usar la acción de Esquivar como una acción
+      adicional en tu turno.
+    </p>
+  ),
+
+  stepOfTheWind: (skill, pc) => (
+    <p>
+      Puedes gastar un punto ki para usar la acción de Retirada o Carrera como
+      una acción adicional en tu turno, además, tu distancia de salto se duplica
+      durante este turno.
+    </p>
+  ),
+
+  unarmoredMovement: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 2 tu velocidad se incrementa en 10 pies (3
+        metros) mientras no uses armadura ni escudo. Esta bonificación se
+        incrementa cuando alcanzas ciertos niveles de monje.
+      </p>
+      <strong>{increment(getExtraUnarmoredMovement(pc))}m</strong>
+      {pc.level >= 9 && (
+        <p>
+          Al nivel 9, obtienes la capacidad de moverte por superficies
+          verticales o sobre líquidos durante tu turno, sin caer mientras te
+          encuentres en movimiento.
+        </p>
+      )}
     </>
   ),
 

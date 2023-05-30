@@ -74,6 +74,8 @@ npx prisma migrate dev
   - arcaneRecovery interaction button to update spells
   - spellMastery select spells
   - signatureSpells select spells
+- Monk
+  - track Ki points
 - Improve spell modal data
 - PC screens sharable for players with annotations (in modal and/or inline)
 - Death saving throws

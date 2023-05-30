@@ -1,5 +1,10 @@
 import { getStat, getStatMod } from '~/domain/characters';
-import { getMartialArtsDice } from './monk';
+import {
+  getExtraUnarmoredMovement,
+  getKiPoints,
+  getMartialArtsDice,
+} from './monk';
+import { increment } from '~/domain/display';
 
 import appStyles from '~/components/app.module.css';
 import sheetStyles from '~/components/sheet.module.css';
@@ -29,6 +34,70 @@ export function displayMonkTrait(traitName, trait, pc) {
           </strong>{' '}
           <span className={appStyles.smallText}>
             {getMartialArtsDice(pc)}. Ataque sin armas como una acción adicional
+          </span>
+        </>
+      );
+
+    case 'ki':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            {getKiPoints(pc)} puntos de Ki
+          </span>
+        </>
+      );
+
+    case 'flurryOfBlows':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>1 punto de Ki</span>
+        </>
+      );
+
+    case 'patientDefense':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>1 punto de Ki</span>
+        </>
+      );
+
+    case 'stepOfTheWind':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>1 punto de Ki</span>
+        </>
+      );
+
+    case 'stepOfTheWind':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>1 punto de Ki</span>
+        </>
+      );
+
+    case 'unarmoredMovement':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>{' '}
+          <span className={appStyles.smallText}>
+            {increment(getExtraUnarmoredMovement(pc))}m
           </span>
         </>
       );
