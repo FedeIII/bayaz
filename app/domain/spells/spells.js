@@ -101,6 +101,14 @@ import {
   hasNewFighterSpells,
   maxFighterSpellLevel,
 } from './fighter';
+import {
+  getPaladinCantripsNumber,
+  getPaladinMaxPreparedSpells,
+  getPaladinSpellSlots,
+  hasNewPaladinCantrips,
+  maxPaladinSpellLevel,
+  PALADIN_SPELLS,
+} from './paladin';
 import { getKnownCantrips } from './getSpells';
 
 const zero = () => 0;
@@ -138,6 +146,8 @@ export function getClassSpells(pc) {
 
   if (pClass === 'sorcerer') return SORCERER_SPELLS;
 
+  if (pClass === 'paladin') return PALADIN_SPELLS;
+
   return [];
 }
 
@@ -174,6 +184,7 @@ export function getCantripsNumber(pc) {
     fighter: getFighterCantripsNumber,
     sorcerer: getSorcererCantripsNumber,
     wizard: getWizardCantripsNumber,
+    paladin: getPaladinCantripsNumber,
   }[pClass];
 
   if (getClassCantripsNumber) return getClassCantripsNumber(pc);
@@ -208,6 +219,7 @@ export function getSpellSlots(pc) {
     fighter: getFighterSpellSlots,
     sorcerer: getSorcererSpellSlots,
     wizard: getWizardSpellSlots,
+    paladin: getPaladinSpellSlots,
   }[pClass];
 
   if (getClassSpellSlots) return getClassSpellSlots(pc);
@@ -221,6 +233,7 @@ export function getMaxPreparedSpells(pc) {
     cleric: getClericMaxPreparedSpells,
     druid: getDruidMaxPreparedSpells,
     wizard: getWizardMaxPreparedSpells,
+    paladin: getPaladinMaxPreparedSpells,
   }[pClass];
 
   if (getClassMaxPreparedSpells) return getClassMaxPreparedSpells(pc);
@@ -251,13 +264,13 @@ export function hasToLearnSpells(pc) {
 export function doesNotHaveToLearnSpells(pc) {
   const { pClass } = pc;
 
-  return ['cleric', 'druid', 'monk'].includes(pClass);
+  return ['cleric', 'druid', 'monk', 'paladin'].includes(pClass);
 }
 
 export function hasToPrepareSpells(pc) {
   const { pClass } = pc;
 
-  return ['cleric', 'druid', 'wizard'].includes(pClass);
+  return ['cleric', 'druid', 'wizard', 'paladin'].includes(pClass);
 }
 
 export function doesNotHaveToPrepareSpells(pc) {
@@ -351,6 +364,7 @@ export function hasNewCantrips(pc) {
       fighter: hasNewFighterCantrips,
       sorcerer: hasNewSorcererCantrips,
       wizard: hasNewWizardCantrips,
+      paladin: hasNewPaladinCantrips,
     }[pClass] || zero
   )(pc);
 }
@@ -398,6 +412,7 @@ export function maxSpellLevel(pc) {
       fighter: maxFighterSpellLevel,
       sorcerer: maxSorcererSpellLevel,
       wizard: maxWizardSpellLevel,
+      paladin: maxPaladinSpellLevel,
     }[pClass] || zero
   )(pc);
 }

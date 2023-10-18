@@ -19,3 +19,14 @@ export const PALADIN_EQUIPMENT = [
   ARMORS.chainMail(),
   TOOLS.holySymbol(),
 ];
+
+export const PALADIN_FIGHTING_STYLES = [
+  'defense',
+  'dueling',
+  'great-Weapon-fighting',
+  'protection',
+];
+
+export function getPaladinFightingStyle(pc) {
+  return pc.classAttrs?.paladin?.fightingStyle || null;
+}

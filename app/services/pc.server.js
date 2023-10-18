@@ -55,6 +55,7 @@ import {
   ELEMENTAL_DISCIPLINES,
   MONASTIC_TRADITIONS,
 } from '~/domain/classes/monk/monk';
+import { PALADIN_FIGHTING_STYLES } from '~/domain/classes/paladin/paladin';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -192,6 +193,10 @@ const monkSchema = new mongoose.Schema({
   ],
 });
 
+const paladinSchema = new mongoose.Schema({
+  fightingStyle: { type: String, enum: PALADIN_FIGHTING_STYLES },
+});
+
 const classAttrsSchema = new mongoose.Schema({
   barbarian: barbarianSchema,
   bard: bardSchema,
@@ -203,6 +208,7 @@ const classAttrsSchema = new mongoose.Schema({
   sorcerer: sorcererSchema,
   wizard: wizardSchema,
   monk: monkSchema,
+  paladin: paladinSchema,
   // ALL
   expertSkills: [
     { type: String, enum: [...SKILLS.map(s => s.name), 'thieves-tools'] },

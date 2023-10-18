@@ -40,7 +40,7 @@ import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanat
 import { DRUID_SKILLS_EXPLANATION } from './classes/druid/druidSkillsExplanation';
 import { RANGER_SKILLS_EXPLANATION } from './classes/ranger/rangerSkillsExplanation';
 import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExplanation';
-import { getStudentOfWar } from './classes/fighter/fighter';
+import { getFightingStyle, getStudentOfWar } from './classes/fighter/fighter';
 import { SORCERER_SKILLS_EXPLANATION } from './classes/sorcerer/sorcererSkillsExplanation';
 import { WIZARD_SKILLS_EXPLANATION } from './classes/wizard/wizardSkillsExplanation';
 import {
@@ -48,12 +48,13 @@ import {
   elementalDisciplineExplanation,
 } from './classes/monk/monkSkillsExplanation';
 import { PALADIN_SKILLS_EXPLANATION } from './classes/paladin/paladinSkillsExplanation';
-import { getPackItems } from './equipment/packs';
 import {
   getExtraUnarmoredMovement,
   getMartialArtsDice,
   isMonkWeapon,
 } from './classes/monk/monk';
+import { getPaladinFightingStyle } from './classes/paladin/paladin';
+import { getPackItems } from './equipment/packs';
 
 export const RACES = {
   dwarf: {
@@ -1267,12 +1268,19 @@ export const CLASSES = {
       ...getAllMartialMelee().map(weapon => weapon.name),
       ...getAllMartialRanged().map(weapon => weapon.name),
     ],
+    spellcastingAbility: 'cha',
     statImprove: [4, 8, 12, 16, 19],
     leveling: {
       1: {
         traits: {
           divineSense: 'Sentido Divino',
           layOnHands: 'Imposición de Manos',
+        },
+      },
+      2: {
+        traits: {
+          fightingStyle: 'Estilo de Combate',
+          divineSmite: 'Castigo Divino',
         },
       },
     },
@@ -2374,6 +2382,8 @@ export function getArmorClass(pc) {
   const armor = pArmor && getItem(pArmor.name);
   const shield = pShield && getItem(pShield.name);
 
+  let extraAC = 0;
+
   if (pClass === 'barbarian' && !armor) {
     return 10 + getStatMod(getStat(pc, 'dex')) + getStatMod(getStat(pc, 'con'));
   }
@@ -2386,7 +2396,15 @@ export function getArmorClass(pc) {
     return 13 + getStatMod(getStat(pc, 'dex'));
   }
 
-  if (armor) return getItemArmorClass(pc, armor.name);
+  if (pClass === 'fighter' && getFightingStyle(pc) === 'defense') {
+    extraAC += 1;
+  }
+
+  if (pClass === 'paladin' && getPaladinFightingStyle(pc) === 'defense') {
+    extraAC += 1;
+  }
+
+  if (armor) return getItemArmorClass(pc, armor.name) + extraAC;
   else return 10 + getStatMod(getStat(pc, 'dex'));
 }
 
