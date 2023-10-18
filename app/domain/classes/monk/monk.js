@@ -122,6 +122,10 @@ export function getMonasticTraditionCantrips(pc) {
 export function getMonkSpells(pc) {
   const spells = [];
 
+  if (pc.classAttrs?.monk?.monasticTradition === 'openHand') {
+    if (pc.level >= 11) spells.push(getSpell('sanctuary'));
+  }
+
   if (pc.classAttrs?.monk?.monasticTradition === 'wayOfShadow') {
     spells.push(
       getSpell('darkness'),

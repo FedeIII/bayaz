@@ -1183,6 +1183,25 @@ export const CLASSES = {
           stillnessOfMind: 'Quietud de la Mente',
         },
       },
+      10: {
+        traits: {
+          purityOfBody: 'Pureza del Cuerpo',
+        },
+      },
+      11: {
+        monasticTradition: {
+          openHand: {
+            traits: {
+              tranquility: 'Tranquilidad',
+            },
+          },
+          wayOfShadow: {
+            traits: {
+              cloakOfShadows: 'Capa de Sombras',
+            },
+          },
+        },
+      },
     },
   },
   paladin: {

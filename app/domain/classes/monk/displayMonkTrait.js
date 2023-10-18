@@ -1,4 +1,4 @@
-import { getStat, getStatMod } from '~/domain/characters';
+import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import {
   ELEMENTAL_DISCIPLINES,
   getElementalDisciplines,
@@ -97,7 +97,10 @@ export function displayMonkTrait(traitName, trait, pc) {
       return (
         <>
           <strong>
-            <u>{trait}.</u>
+            <u>
+              {trait}
+              {pc.level >= 9 ? ' Mejorado.' : '.'}
+            </u>
           </strong>{' '}
           <span className={appStyles.smallText}>
             {increment(getExtraUnarmoredMovement(pc))}m
@@ -170,6 +173,17 @@ export function displayMonkTrait(traitName, trait, pc) {
           <u>{trait}.</u>{' '}
           <span className={appStyles.smallText}>
             {increment(pc.level * 3)} HP
+          </span>
+        </>
+      );
+
+    case 'tranquility':
+      return (
+        <>
+          <u>{trait}.</u>{' '}
+          <span className={appStyles.smallText}>
+            DC{' '}
+            {8 + getStatMod(getStat(pc, 'wis')) + getProficiencyBonus(pc.level)}
           </span>
         </>
       );

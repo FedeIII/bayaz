@@ -348,6 +348,36 @@ export const MONK_SKILLS_EXPLANATION = {
       ti causante del estado asustado o encantado.
     </p>
   ),
+
+  purityOfBody: (skill, pc) => (
+    <p>
+      Al nivel 10 tu maestría sobre el ki que recorre tu cuerpo te hace inmune a
+      la enfermedad y el veneno.
+    </p>
+  ),
+
+  tranquility: (skill, pc) => (
+    <p>
+      Empezando en el nivel 11 puedes realizar una meditación especial que te
+      rodea con un aura de paz. Al finalizar un descanso prolongado obtienes el
+      efecto del conjuro <u>santuario</u>, que dura hasta el inicio de tu
+      siguiente descanso prolongado (el conjuro puede terminar antes como es
+      habitual). La CD de la tirada de salvación para el conjuro es{' '}
+      {8 + getStatMod(getStat(pc, 'wis')) + getProficiencyBonus(pc.level)},
+      igual a 8 + tu modificador de Sabiduría (
+      {increment(getStatMod(getStat(pc, 'wis')))}) + tu bonificador de
+      competencia ({getProficiencyBonus(pc.level)}).
+    </p>
+  ),
+
+  cloakOfShadows: (skill, pc) => (
+    <p>
+      Para el nivel 11 has aprendido a ser uno con las sombras. Cuando te
+      encuentras en una zona de penumbra u oscuridad puedes usar tu acción para
+      volverte invisible. Permaneces invisible hasta que hagas un ataque, lances
+      un conjuro o entres a una zona de luz brillante.
+    </p>
+  ),
 };
 
 export function displayElementalDiscipline(discipline, trait, pc) {
