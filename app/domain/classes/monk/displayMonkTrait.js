@@ -135,6 +135,21 @@ export function displayMonkTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'deflectMissiles':
+      return (
+        <>
+          <u>{trait}.</u>{' '}
+          {increment(-10 - getStatMod(getStat(pc, 'dex')) - pc.level)} daño
+        </>
+      );
+
+    case 'slowFall':
+      return (
+        <>
+          <u>{trait}.</u> {increment(-pc.level * 5)} daño
+        </>
+      );
+
     default:
   }
 

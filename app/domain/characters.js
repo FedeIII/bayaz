@@ -1128,6 +1128,7 @@ export const CLASSES = {
       3: {
         traits: {
           monasticTradition: 'Tradición Monástica',
+          deflectMissiles: 'Desviar Proyectiles',
         },
         monasticTradition: {
           wayOfTheFourElements: {
@@ -1145,6 +1146,12 @@ export const CLASSES = {
               shadowArts: 'Artes Sombrías',
             },
           },
+        },
+      },
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          slowFall: 'Caída Lenta',
         },
       },
     },

@@ -223,7 +223,9 @@ export const MONK_SKILLS_EXPLANATION = {
         Cuando aprendas una nueva disciplina elemental, puedes reemplazar una
         disciplina elemental que ya conozcas por otra.
       </p>
-      <p><strong>Puntos Ki Máximos por Conjuro:</strong> {getMaxKiPerSpell(pc)}</p>
+      <p>
+        <strong>Puntos Ki Máximos por Conjuro:</strong> {getMaxKiPerSpell(pc)}
+      </p>
       {hasToLearnElementalDiscipline(pc) && (
         <div className={styles.modalButtons}>
           <Link
@@ -244,6 +246,44 @@ export const MONK_SKILLS_EXPLANATION = {
           </li>
         ))}
       </ul>
+    </>
+  ),
+
+  deflectMissiles: (skill, pc) => (
+    <>
+      <p>
+        A partir del nivel 3, puedes usar tu reacción para desviar o atrapar
+        proyectiles en el momento en que eres golpeado por un ataque a
+        distancia. Cuando lo haces, reduces el daño que recibes de dicho ataque
+        en{' '}
+        <u>
+          <strong>{10 + getStatMod(getStat(pc, 'dex')) + pc.level}</strong>
+        </u>
+        : 10 + tu modificador de Destreza ({getStatMod(getStat(pc, 'dex'))}) +
+        tu nivel de monje ({pc.level}).
+      </p>
+      <p>
+        Si el daño es reducido a 0 puedes atrapar el proyectil, si éste es lo
+        suficientemente pequeño para que lo sujetes con una mano y tienes, por
+        lo menos, una mano libre. Si atrapas el proyectil de esta manera puedes
+        gastar un punto ki para hacer un ataque a distancia con el arma o
+        munición que acabas de atrapar, como parte de la misma reacción. Haces
+        el ataque con competencia, sin importar tus competencias con armas, y el
+        proyectil cuenta como un arma de monje para este ataque.
+      </p>
+    </>
+  ),
+
+  slowFall: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 4 puedes usar tu reacción mientras caes para
+        reducir el daño por caída en una cantidad igual a{' '}
+        <u>
+          <strong>{pc.level * 5}</strong>
+        </u>{' '}
+        tu nivel de monje por cinco.
+      </p>
     </>
   ),
 };
