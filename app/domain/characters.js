@@ -1177,6 +1177,12 @@ export const CLASSES = {
           },
         },
       },
+      7: {
+        traits: {
+          evasion: 'Evasión',
+          stillnessOfMind: 'Quietud de la Mente',
+        },
+      },
     },
   },
   paladin: {

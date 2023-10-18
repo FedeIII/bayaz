@@ -330,6 +330,24 @@ export const MONK_SKILLS_EXPLANATION = {
       primer ataque cuerpo a cuerpo que realices antes de finalizar el turno.
     </p>
   ),
+
+  evasion: (skill, pc) => (
+    <p>
+      Al nivel 7 tu agilidad instintiva te permite esquivar ciertos efectos de
+      área, como el aliento eléctrico de un dragón azul o un conjuro de bola de
+      fuego. Cuando seas el objetivo de un efecto que te permita hacer una
+      tirada de salvación de Destreza para recibir únicamente la mitad del daño,
+      en su lugar no recibes daño si la tirada de salvación es exitosa, y solo
+      la mitad del daño si fallas.
+    </p>
+  ),
+
+  stillnessOfMind: (skill, pc) => (
+    <p>
+      Comenzando al nivel 7 puedes usar tu acción para que termine un efecto en
+      ti causante del estado asustado o encantado.
+    </p>
+  ),
 };
 
 export function displayElementalDiscipline(discipline, trait, pc) {
