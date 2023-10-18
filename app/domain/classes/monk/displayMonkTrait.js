@@ -205,7 +205,15 @@ export function displayMonkTrait(traitName, trait, pc) {
     case 'emptyBody':
       return (
         <>
-          <u>{trait}.</u> <span className={appStyles.smallText}>4 Ki / 8 Ki</span>
+          <u>{trait}.</u>{' '}
+          <span className={appStyles.smallText}>4 Ki / 8 Ki</span>
+        </>
+      );
+
+    case 'perfectSelf':
+      return (
+        <>
+          <u>{trait}.</u> <span className={appStyles.smallText}>+4 Ki</span>
         </>
       );
 

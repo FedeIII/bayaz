@@ -445,19 +445,26 @@ export const MONK_SKILLS_EXPLANATION = {
   emptyBody: (skill, pc) => (
     <>
       <p>
-        Comenzando en el nivel 18 puedes emplear tu acción para gastar <u>4 puntos
-        ki</u> y volverte invisible durante un minuto.
+        Comenzando en el nivel 18 puedes emplear tu acción para gastar{' '}
+        <u>4 puntos ki</u> y volverte invisible durante un minuto.
       </p>
       <p>
         Durante ese tiempo, también eres resistente a todo tipo de daño excepto
         al daño de Fuerza
       </p>
       <p>
-        Además, puedes gastar 8 puntos ki para lanzar el conjuro <u>proyección
-        astral</u> sin necesidad de componentes materiales. Cuando lo haces, no
-        puedes llevar a ninguna otra criatura contigo.
+        Además, puedes gastar 8 puntos ki para lanzar el conjuro{' '}
+        <u>proyección astral</u> sin necesidad de componentes materiales. Cuando
+        lo haces, no puedes llevar a ninguna otra criatura contigo.
       </p>
     </>
+  ),
+
+  perfectSelf: (skill, pc) => (
+    <p>
+      Al nivel 20, cuando tires iniciativa y no tengas puntos ki, recuperas <u>4
+      puntos ki</u>.
+    </p>
   ),
 };
 

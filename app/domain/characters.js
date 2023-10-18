@@ -1236,6 +1236,11 @@ export const CLASSES = {
           emptyBody: 'Cuerpo Vacío',
         },
       },
+      20: {
+        traits: {
+          perfectSelf: 'Perfección de Uno Mismo',
+        },
+      },
     },
   },
   paladin: {
