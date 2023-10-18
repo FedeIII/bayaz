@@ -83,16 +83,6 @@ export function displayMonkTrait(traitName, trait, pc) {
         </>
       );
 
-    case 'stepOfTheWind':
-      return (
-        <>
-          <strong>
-            <u>{trait}.</u>
-          </strong>{' '}
-          <span className={appStyles.smallText}>1 Ki</span>
-        </>
-      );
-
     case 'unarmoredMovement':
       return (
         <>

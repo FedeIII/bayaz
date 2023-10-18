@@ -47,6 +47,7 @@ import {
   MONK_SKILLS_EXPLANATION,
   elementalDisciplineExplanation,
 } from './classes/monk/monkSkillsExplanation';
+import { PALADIN_SKILLS_EXPLANATION } from './classes/paladin/paladinSkillsExplanation';
 import { getPackItems } from './equipment/packs';
 import {
   getExtraUnarmoredMovement,
@@ -1256,14 +1257,6 @@ export const CLASSES = {
       'persuasion',
       'religion',
     ],
-    proficiencies: {
-      ['Sentido Divino']: pc =>
-        `18m, ${getStatMod(getStat(pc, 'cha')) + 1} veces al día`,
-      ['Imposición de Manos']: pc =>
-        `Curación de ${
-          pc.level * 5
-        } Puntos de Golpe al día (5 puntos para curar enfermedad/veneno)`,
-    },
     proficientItems: [
       ...getAllLightArmors().map(armor => armor.name),
       ...getAllMediumArmors().map(armor => armor.name),
@@ -1275,6 +1268,14 @@ export const CLASSES = {
       ...getAllMartialRanged().map(weapon => weapon.name),
     ],
     statImprove: [4, 8, 12, 16, 19],
+    leveling: {
+      1: {
+        traits: {
+          divineSense: 'Sentido Divino',
+          layOnHands: 'Imposición de Manos',
+        },
+      },
+    },
   },
   ranger: {
     initialHitPoints: 10,
@@ -2646,6 +2647,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...WIZARD_SKILLS_EXPLANATION,
       ...MONK_SKILLS_EXPLANATION,
       ...elementalDisciplineExplanation(skillName),
+      ...PALADIN_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }

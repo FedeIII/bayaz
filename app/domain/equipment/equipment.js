@@ -12,7 +12,7 @@ import { FIGHTER_EQUIPMENT } from '../classes/fighter/fighter';
 import { SORCERER_EQUIPMENT } from '../classes/sorcerer/sorcerer';
 import { WIZARD_EQUIPMENT } from '../classes/wizard/wizard';
 import { MONK_EQUIPMENT } from '../classes/monk/monk';
-import { PALADIN_EQUIPMENT } from '../paladin';
+import { PALADIN_EQUIPMENT } from '../classes/paladin/paladin';
 import { ROGUE_EQUIPMENT } from '../rogue';
 
 export function translateEquipment(type) {

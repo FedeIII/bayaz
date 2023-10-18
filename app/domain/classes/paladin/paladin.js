@@ -1,11 +1,11 @@
-import { ARMORS } from './equipment/armors';
-import { EXPLORERS_PACK, PRIESTS_PACK } from './equipment/packs';
-import { TOOLS } from './equipment/tools';
+import { ARMORS } from '~/domain/equipment/armors';
+import { EXPLORERS_PACK, PRIESTS_PACK } from '~/domain/equipment/packs';
+import { TOOLS } from '~/domain/equipment/tools';
 import {
   getAllMartialMelee,
   getAllSimpleMelee,
   WEAPONS,
-} from './equipment/weapons';
+} from '~/domain/equipment/weapons';
 
 export const PALADIN_EQUIPMENT = [
   {
