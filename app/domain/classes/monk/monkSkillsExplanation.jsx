@@ -286,6 +286,50 @@ export const MONK_SKILLS_EXPLANATION = {
       </p>
     </>
   ),
+
+  extraAttack: (skill, pc) => (
+    <p>
+      Empezando en el nivel 5, puedes atacar dos veces, en lugar de una, siempre
+      que uses la acción de Atacar en tu turno.
+    </p>
+  ),
+
+  stunningStrike: (skill, pc) => (
+    <p>
+      Comenzando al nivel 5 puedes interferir con el flujo de ki en el cuerpo de
+      un oponente. Cuando golpeas una criatura con un ataque con arma cuerpo a
+      cuerpo, puedes gastar <u>un punto ki</u> para intentar un golpe aturdidor.
+      El objetivo debe tener éxito en una{' '}
+      <u>tirada de salvación de Constitución</u> o quedar <u>aturdido</u> hasta
+      el final de su siguiente turno.
+    </p>
+  ),
+
+  kiEmpoweredStrikes: (skill, pc) => (
+    <p>
+      A partir del nivel 6 tus ataques sin armas cuentan como mágicos para el
+      propósito de sobrepasar la resistencia e inmunidad a los ataques y daño
+      no-mágicos.
+    </p>
+  ),
+
+  wholenessOfBody: (skill, pc) => (
+    <p>
+      Al nivel 6 obtienes la capacidad para curarte a ti mismo. Como una acción,
+      puedes recuperar {pc.level * 3} HP (tres veces tu nivel de monje). Debes
+      terminar un descanso prolongado antes de poder usar este rasgo de nuevo.
+    </p>
+  ),
+
+  shadowStep: (skill, pc) => (
+    <p>
+      A nivel 6 obtienes la capacidad para desplazarte de una sombra a otra.
+      Cuando te encuentras en penumbra u oscuridad, puedes teletransportarte,
+      como una acción adicional, hasta 60 pies (20 metros) a un espacio
+      desocupado que también esté en penumbra u oscuridad. Tienes ventaja en el
+      primer ataque cuerpo a cuerpo que realices antes de finalizar el turno.
+    </p>
+  ),
 };
 
 export function displayElementalDiscipline(discipline, trait, pc) {

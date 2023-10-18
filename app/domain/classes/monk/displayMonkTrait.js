@@ -127,7 +127,9 @@ export function displayMonkTrait(traitName, trait, pc) {
               {getElementalDisciplines(pc).map(discipline => (
                 <li key={discipline}>
                   {translateElementalDisciplines(discipline)}.{' '}
-                  {displayElementalDisciplineKi(discipline)}
+                  <span className={appStyles.smallText}>
+                    {displayElementalDisciplineKi(discipline)}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -139,14 +141,36 @@ export function displayMonkTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
-          {increment(-10 - getStatMod(getStat(pc, 'dex')) - pc.level)} daño
+          <span className={appStyles.smallText}>
+            {increment(-10 - getStatMod(getStat(pc, 'dex')) - pc.level)} daño
+          </span>
         </>
       );
 
     case 'slowFall':
       return (
         <>
-          <u>{trait}.</u> {increment(-pc.level * 5)} daño
+          <u>{trait}.</u>{' '}
+          <span className={appStyles.smallText}>
+            {increment(-pc.level * 5)} daño
+          </span>
+        </>
+      );
+
+    case 'stunningStrike':
+      return (
+        <>
+          <u>{trait}.</u> <span className={appStyles.smallText}>1 Ki</span>
+        </>
+      );
+
+    case 'wholenessOfBody':
+      return (
+        <>
+          <u>{trait}.</u>{' '}
+          <span className={appStyles.smallText}>
+            {increment(pc.level * 3)} HP
+          </span>
         </>
       );
 

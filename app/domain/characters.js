@@ -1154,6 +1154,29 @@ export const CLASSES = {
           slowFall: 'Caída Lenta',
         },
       },
+      5: {
+        traits: {
+          extraAttack: 'Ataque Extra',
+          stunningStrike: 'Golpe Aturdidor',
+        },
+      },
+      6: {
+        traits: {
+          kiEmpoweredStrikes: 'Golpes Potenciados con Ki',
+        },
+        monasticTradition: {
+          openHand: {
+            traits: {
+              wholenessOfBody: 'Integridad del Cuerpo',
+            },
+          },
+          wayOfShadow: {
+            traits: {
+              shadowStep: 'Paso Sombrío',
+            },
+          },
+        },
+      },
     },
   },
   paladin: {
