@@ -188,6 +188,27 @@ export function displayMonkTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'diamondSoul':
+      return (
+        <>
+          <u>{trait}.</u> <span className={appStyles.smallText}>1 Ki</span>
+        </>
+      );
+
+    case 'quiveringPalm':
+      return (
+        <>
+          <u>{trait}.</u> <span className={appStyles.smallText}>3 Ki</span>
+        </>
+      );
+
+    case 'emptyBody':
+      return (
+        <>
+          <u>{trait}.</u> <span className={appStyles.smallText}>4 Ki / 8 Ki</span>
+        </>
+      );
+
     default:
   }
 

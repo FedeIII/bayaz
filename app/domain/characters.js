@@ -1202,6 +1202,40 @@ export const CLASSES = {
           },
         },
       },
+      13: {
+        traits: {
+          tongueOfTheSunAndMoon: 'Lengua del Sol y la Luna',
+        },
+      },
+      14: {
+        traits: {
+          diamondSoul: 'Alma Diamantina',
+        },
+      },
+      15: {
+        traits: {
+          timelessBody: 'Cuerpo Imperecedero',
+        },
+      },
+      17: {
+        monasticTradition: {
+          openHand: {
+            traits: {
+              quiveringPalm: 'Palma Temblorosa',
+            },
+          },
+          wayOfShadow: {
+            traits: {
+              opportunist: 'Oportunista',
+            },
+          },
+        },
+      },
+      18: {
+        traits: {
+          emptyBody: 'Cuerpo Vacío',
+        },
+      },
     },
   },
   paladin: {

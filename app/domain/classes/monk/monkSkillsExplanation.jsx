@@ -378,6 +378,87 @@ export const MONK_SKILLS_EXPLANATION = {
       un conjuro o entres a una zona de luz brillante.
     </p>
   ),
+
+  tongueOfTheSunAndMoon: (skill, pc) => (
+    <p>
+      Comenzando en el nivel 13 aprendes a establecer contacto con el ki de
+      otras mentes, por lo que entiendes cualquier idioma hablado. Además,
+      cualquier criatura capaz de entender un idioma puede comprender lo que
+      dices.
+    </p>
+  ),
+
+  diamondSoul: (skill, pc) => (
+    <>
+      <p>
+        Empezando en el nivel 14 tu maestría en el ki te otorga{' '}
+        <u>competencia en todas las tiradas de salvación</u>.
+      </p>
+      <p>
+        De forma adicional, cuando falles una tirada de salvación, puedes gastar
+        un punto ki para volver a realizar esa tirada y quedarte con el segundo
+        resultado.
+      </p>
+    </>
+  ),
+
+  timelessBody: (skill, pc) => (
+    <p>
+      Al nivel 15 obtienes sustento de tu ki, por lo que no sufres ninguna de
+      las desventajas de la vejez, y no puedes ser envejecido por medios
+      mágicos. Sin embargo, aun puedes morir por edad avanzada. Además, ya no
+      necesitas alimento ni agua.
+    </p>
+  ),
+
+  quiveringPalm: (skill, pc) => (
+    <>
+      <p>
+        Al nivel 17 ganas la capacidad de provocar vibraciones letales en el
+        cuerpo de alguien. Cuando golpeas con un ataque desarmado, puedes gastar
+        <u>3 puntos ki</u> para implantar estas vibraciones imperceptibles, que
+        duran
+        <u>{pc.level} días</u> (igual a tu nivel de monje). Las vibraciones son
+        inofensivas a menos que uses tu acción para finalizarlas. Para hacerlo,
+        tú y tu objetivo debéis estar en el mismo plano de existencia. Cuando
+        usas esta acción, la criatura debe hacer una{' '}
+        <u>tirada de salvación de Constitución</u>. Si falla, sus Puntos de
+        Golpe se reducen a 0. Si tiene éxito, recibe 10d10 de daño necrótico
+      </p>
+      <p>
+        Sólo puedes tener a una criatura bajo los efectos de este rasgo en un
+        período tiempo determinado. Puedes elegir finalizar las vibraciones de
+        manera inofensiva sin utilizar una acción.
+      </p>
+    </>
+  ),
+
+  opportunist: (skill, pc) => (
+    <p>
+      Al nivel 17 puedes sacar provecho de la distracción momentánea de una
+      criatura al ser golpeada por un ataque. Cuando una criatura a 5 pies (1,5
+      metros) es golpeada por otra criatura que no seas tú, puedes usar tu
+      reacción para hacer un ataque cuerpo a cuerpo contra esa criatura.
+    </p>
+  ),
+
+  emptyBody: (skill, pc) => (
+    <>
+      <p>
+        Comenzando en el nivel 18 puedes emplear tu acción para gastar <u>4 puntos
+        ki</u> y volverte invisible durante un minuto.
+      </p>
+      <p>
+        Durante ese tiempo, también eres resistente a todo tipo de daño excepto
+        al daño de Fuerza
+      </p>
+      <p>
+        Además, puedes gastar 8 puntos ki para lanzar el conjuro <u>proyección
+        astral</u> sin necesidad de componentes materiales. Cuando lo haces, no
+        puedes llevar a ninguna otra criatura contigo.
+      </p>
+    </>
+  ),
 };
 
 export function displayElementalDiscipline(discipline, trait, pc) {
