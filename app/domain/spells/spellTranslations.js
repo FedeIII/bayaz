@@ -557,7 +557,7 @@ export const SPELL_TRANSLATIONS = {
   stoneShape: 'Transformar piedra',
   stoneTell: 'Piedra parlante',
   stoneToFlesh: 'De la piedra a la carne',
-  stoneskin: 'Piel pétrea',
+  stoneskin: 'Piel de piedra',
   stormOfVengeance: 'Tormenta de venganza',
   suggestion: 'Sugestión',
   summonMonsterI: 'Convocar monstruo I',

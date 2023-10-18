@@ -1,7 +1,14 @@
 import { Link } from '@remix-run/react';
 import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
-import { getExtraUnarmoredMovement, getKiPoints } from './monk';
+import {
+  ELEMENTAL_DISCIPLINES,
+  getElementalDisciplines,
+  getExtraUnarmoredMovement,
+  getKiPoints,
+  hasToLearnElementalDiscipline,
+  translateElementalDisciplines,
+} from './monk';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -143,24 +150,287 @@ export const MONK_SKILLS_EXPLANATION = {
     </>
   ),
 
-  // arcaneTradition: (skill, pc) => (
-  //   <>
-  //     <p>
-  //       Cuando alcanzas el nivel 2 eliges una tradición arcana, que determina tu
-  //       práctica de la magia a través de una de las ocho escuelas mágicas
-  //       existentes: Abjuración, Adivinación, Conjuración, Encantamiento,
-  //       Evocación, Ilusión, Nigromancia o Transmutación. Tu elección te
-  //       proporciona rasgos de la escuela elegida en el nivel 2, y otra vez en
-  //       los niveles 6, 10 y 14
-  //     </p>
-  //     <div className={styles.modalButtons}>
-  //       <Link
-  //         to={`/characters/pc/${pc.name}/leveling/wizard/arcaneTradition`}
-  //         className={styles.modalButton}
-  //       >
-  //         Escoge Escuela
-  //       </Link>
-  //     </div>
-  //   </>
-  // ),
+  monasticTradition: (skill, pc) => (
+    <>
+      <p>
+        Al alcanzar el nivel 3 te comprometes con una tradición monástica: el
+        Camino de la Mano Abierta, el Camino de la Sombra o el Camino de los
+        Cuatro Elementos, todos detallados al final de la descripción de clase.
+        Tu tradición te otorga rasgos en los niveles 3, 6, 11 y 17.
+      </p>
+      <div className={styles.modalButtons}>
+        <Link
+          to={`/characters/pc/${pc.name}/leveling/monk/monasticTradition`}
+          className={styles.modalButton}
+        >
+          Escoge Tradición
+        </Link>
+      </div>
+    </>
+  ),
+
+  openHandTechnique: (skill, pc) => (
+    <>
+      <p>
+        Comenzando cuando eliges esta tradición en el nivel 3 puedes manipular
+        el ki del oponente al mismo tiempo que utilizas el tuyo. Cuando golpeas
+        a una criatura con uno de los ataques otorgados por tu ráfaga de golpes,
+        puedes aplicar alguno de los siguientes efectos en el objetivo:
+      </p>
+      <ul>
+        <li>
+          Debe tener éxito en una <u>tirada de salvación de Destreza</u> o ser{' '}
+          <u>tumbado</u>.
+        </li>
+        <li>
+          Debe hacer una <u>tirada de salvación de Fuerza</u>. Si falla, puedes{' '}
+          <u>empujarlo hasta 15 pies (5 metros)</u> lejos de ti.
+        </li>
+        <li>
+          <u>No puede hacer reacciones</u> hasta el final de tu siguiente turno.
+        </li>
+      </ul>
+    </>
+  ),
+
+  shadowArts: (skill, pc) => (
+    <p>
+      Cuando eliges esta tradición en el nivel 3 puedes usar tu ki para duplicar
+      el efecto de ciertos conjuros. Como una acción, puedes gastar{' '}
+      <u>2 puntos ki</u>
+      para lanzar <u>oscuridad</u>, <u>visión en la oscuridad</u>,{' '}
+      <u>pasar sin dejar rastro</u>, o<u>silencio</u> sin requerir componentes
+      materiales. Además, obtienes el truco
+      <u>ilusión menor</u> si es que no lo conoces de antemano.
+    </p>
+  ),
+
+  discipleOftheElements: (skill, pc) => (
+    <>
+      <p>
+        Cuando eliges esta tradición en el nivel 3 aprendes disciplinas mágicas
+        que emplean el poder de los cuatro elementos. Una disciplina requiere
+        que gastes puntos ki cada vez que la usas.
+      </p>
+      <p>
+        Conoces la disciplina de Sintonía Elemental y otra disciplina elemental
+        de tu elección, que se detallan en la sección Disciplinas Elementales
+        más abajo. Aprendes una disciplina elemental adicional de tu elección a
+        los niveles 6, 11 y 17
+      </p>
+      <p>
+        Cuando aprendas una nueva disciplina elemental, puedes reemplazar una
+        disciplina elemental que ya conozcas por otra.
+      </p>
+      {hasToLearnElementalDiscipline(pc) && (
+        <div className={styles.modalButtons}>
+          <Link
+            to={`/characters/pc/${pc.name}/leveling/monk/elementalDisciplines`}
+            className={styles.modalButton}
+          >
+            Escoge Disciplinas Elementales
+          </Link>
+        </div>
+      )}
+      <ul>
+        {getElementalDisciplines(pc).map(discipline => (
+          <li key={discipline}>
+            <strong>
+              <u>{translateElementalDisciplines(discipline)}.</u>
+            </strong>{' '}
+            {displayElementalDiscipline(discipline, skill, pc)}
+          </li>
+        ))}
+      </ul>
+    </>
+  ),
 };
+
+export function displayElementalDiscipline(discipline, trait, pc) {
+  switch (discipline) {
+    case 'breathOfWinter':
+      return (
+        <p>
+          Puedes gastar <u>6 puntos ki</u> para lanzar <u>cono de frío</u>.
+        </p>
+      );
+    case 'clenchOfTheNorthWind':
+      return (
+        <p>
+          Puedes gastar <u>3 puntos ki</u> para lanzar{' '}
+          <u>inmovilizar persona</u>.
+        </p>
+      );
+    case 'elementalAttunement':
+      return (
+        <>
+          <p>
+            Puedes usar tu acción para controlar las fuerzas elementales
+            cercanas brevemente, causando uno de los siguientes efectos de tu
+            elección:
+          </p>
+          <ul>
+            <li>
+              Crear un efecto sensorial inofensivo relacionado con el aire, el
+              fuego, el agua o la tierra; como una lluvia de chispas, un soplo
+              de viento, una bruma ligera o un leve retumbar de rocas.
+            </li>
+            <li>
+              Instantáneamente encender o extinguir una vela, antorcha o pequeña
+              fogata.
+            </li>
+            <li>
+              Enfriar o entibiar hasta 1 libra (0,5 kg) de materia no viva
+              durante una hora.
+            </li>
+            <li>
+              Provocar que una cantidad de tierra, fuego, agua o niebla que
+              pueda caber en un cubo de 1 pie (30 cm3) cambie de forma y adopte
+              una forma tosca que tú decidas.
+            </li>
+          </ul>
+        </>
+      );
+    case 'eternalMountainDefense':
+      return (
+        <p>
+          Puedes gastar <u>5 puntos ki</u> para lanzar <u>piel de piedra</u>.
+        </p>
+      );
+    case 'fangsOfTheFireSnake':
+      return (
+        <p>
+          Cuando usas la acción de ataque en tu turno, puedes gastar{' '}
+          <u>1 punto ki</u>
+          para hacer que látigos de llamas salgan de tus puños y pies. El
+          alcance de tus ataques sin armas aumenta 10 pies (3 metros) para esa
+          acción y el resto del turno. Un golpe con uno de estos ataques provoca{' '}
+          <u>daño de fuego</u> en vez de daño contundente y si gastas{' '}
+          <u>1 punto ki</u> cuando el ataque acierta hará{' '}
+          <u>1d10 de daño de fuego extra</u>.
+        </p>
+      );
+    case 'fistOfFourThunders':
+      return (
+        <p>
+          Puedes gastar <u>2 puntos ki</u> para lanzar <u>onda atronadora</u>.
+        </p>
+      );
+    case 'fistOfUnbrokenAir':
+      return (
+        <p>
+          Puedes crear una ráfaga de aire comprimido que golpea como un poderoso
+          puño. Como una acción, puedes gastar <u>2 puntos ki</u> y elegir una
+          criatura a 30 pies (10 metros) de ti. Esa criatura debe hacer una{' '}
+          <u>tirada de salvación de Fuerza</u>. Si falla, la criatura recibe{' '}
+          <u>3d10 de daño contundente</u>, más <u>1d10 de daño contundente</u>{' '}
+          extra por <u>cada punto ki</u> adicional que gastes, y puedes empujar
+          a la criatura hasta 20 pies (8 metros) lejos de ti y tumbarla. Si la
+          salvación tiene éxito, la criatura recibe la mitad del daño y no es
+          empujada ni tumbada.
+        </p>
+      );
+    case 'flamesOfThePhoenix':
+      return (
+        <p>
+          Puedes gastar <u>4 puntos ki</u> para lanzar <u>bola de fuego</u>.
+        </p>
+      );
+    case 'gongOfTheSummit':
+      return (
+        <p>
+          Puedes gastar <u>5 puntos ki</u> para lanzar <u>estallar</u>.
+        </p>
+      );
+    case 'mistStance':
+      return (
+        <p>
+          Puedes gastar <u>4 puntos ki</u> para lanzar <u>forma gaseosa</u>,
+          siendo tú el objetivo.
+        </p>
+      );
+    case 'rideTheWind':
+      return (
+        <p>
+          Puedes gastar <u>4 puntos ki</u> para lanzar <u>volar</u>, siendo tú
+          el objetivo.
+        </p>
+      );
+    case 'riverOfHungryFlame':
+      return (
+        <p>
+          Puedes gastar <u>5 puntos ki</u> para lanzar <u>muro de fuego</u>.
+        </p>
+      );
+    case 'rushOfTheGaleSpirits':
+      return (
+        <p>
+          Puedes gastar <u>2 puntos ki</u> para lanzar <u>ráfaga de viento</u>.
+        </p>
+      );
+    case 'shapeTheFlowingRiver':
+      return (
+        <p>
+          Como una acción, puedes gastar <u>1 punto ki</u> para elegir una zona
+          de agua o hielo no mayor a 30 pies (10 metros) por cada lado (10 x 10
+          metros) a una distancia de hasta 120 pies (40 metros) de ti. Puedes
+          cambiar el agua a hielo dentro de esa zona y viceversa, y puedes
+          moldear el hielo en dicha área en cualquier forma que elijas. Puedes
+          elevar o descender la elevación del hielo, crear o rellenar una zanja,
+          erigir o aplanar una pared o formar un pilar. La magnitud de dichos
+          cambios no puede exceder la mitad de las dimensiones totales del área.
+          Por ejemplo, si afectas una zona de 30 pies cuadrados (10 metros
+          cuadrados), puedes crear un pilar de hasta 15 pies (5 metros) de alto,
+          elevar o descender dicha zona hasta 15 pies (5 metros), crear una
+          zanja con hasta 15 pies (5 metros) de profundidad, y así
+          sucesivamente. No puedes moldear el hielo de forma que atrape o hiera
+          a una criatura.
+        </p>
+      );
+    case 'sweepingCinderStrike':
+      return (
+        <p>
+          Puedes gastar <u>2 puntos ki</u> para lanzar <u>manos ardientes</u>.
+        </p>
+      );
+    case 'waterWhip':
+      return (
+        <p>
+          Puedes gastar <u>2 puntos ki</u> como una acción adicional para crear
+          un látigo de agua que empuje y agarre a una criatura para
+          desestabilizarla. Una criatura que puedas ver a no más de 30 pies (10
+          metros) de ti debe hacer una <u>tirada de salvación de Destreza</u>.
+          Si falla la tirada, la criatura recibe <u>3d10 de daño contundente</u>
+          , más <u>1d10 de daño contundente</u> extra por <u>cada punto ki</u>{' '}
+          adicional que gastes, y puedes tumbarla o apresarla y atraerla hacia
+          ti hasta 25 pies (8 metros). Si la tirada de salvación tiene éxito, la
+          criatura recibe la mitad de ese daño y no la apresas ni la tumbas.
+        </p>
+      );
+    case 'waveOfRollingEarth':
+      return (
+        <p>
+          Puedes gastar <u>6 puntos ki</u> para lanzar <u>muro de piedra</u>.
+        </p>
+      );
+    case 'clenchOfTheNorthWind':
+      return (
+        <p>
+          Puedes gastar <u>3 puntos ki</u> para lanzar{' '}
+          <u>inmovilizar persona</u>.
+        </p>
+      );
+
+    default:
+      break;
+  }
+}
+
+export function elementalDisciplineExplanation(discipline) {
+  if (Object.keys(ELEMENTAL_DISCIPLINES).includes(discipline))
+    return {
+      [discipline]: (trait, pc) =>
+        displayElementalDiscipline(discipline, trait, pc),
+    };
+  else return {};
+}

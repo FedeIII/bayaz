@@ -16,8 +16,13 @@ import {
   maxSpellLevel,
 } from './spells';
 import { getWizardExtraKnownSpells } from './wizard';
+import {
+  getMonasticTraditionCantrips,
+  getMonkSpells,
+} from '../classes/monk/monk';
 
 export function getSpell(spellName) {
+  if (!spellName) return null;
   return SPELL_LIST.find(spell => spell.name === spellName) || {};
 }
 
@@ -39,6 +44,7 @@ export function getAllPcCantrips(pc) {
   const druidBonusCantrip = getBonusCantrip(pc);
   const bonusCantrips = druidBonusCantrip ? [druidBonusCantrip] : [];
   const illusionCantrip = getImprovedMinorIllusionSpell(pc);
+  const monasticTraditionCantrips = getMonasticTraditionCantrips(pc);
 
   return (
     [
@@ -46,6 +52,7 @@ export function getAllPcCantrips(pc) {
       ...pactSpells,
       ...bonusCantrips,
       ...(illusionCantrip ? [illusionCantrip] : []),
+      ...monasticTraditionCantrips,
     ]
       .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level === 0) || []
@@ -94,6 +101,7 @@ export function getAllPcSpells(pc) {
   const arcanumSpells = getArcanum(pc).map(getSpell);
   const knightSpells = getKnightSpells(pc);
   const wizardExtraSpells = getWizardExtraKnownSpells(pc);
+  const monkSpells = getMonkSpells(pc);
 
   return unique(
     [
@@ -104,6 +112,7 @@ export function getAllPcSpells(pc) {
       ...arcanumSpells,
       ...knightSpells,
       ...wizardExtraSpells,
+      ...monkSpells,
     ]
       .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level > 0) || []

@@ -43,8 +43,11 @@ import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExpla
 import { getStudentOfWar } from './classes/fighter/fighter';
 import { SORCERER_SKILLS_EXPLANATION } from './classes/sorcerer/sorcererSkillsExplanation';
 import { WIZARD_SKILLS_EXPLANATION } from './classes/wizard/wizardSkillsExplanation';
+import {
+  MONK_SKILLS_EXPLANATION,
+  elementalDisciplineExplanation,
+} from './classes/monk/monkSkillsExplanation';
 import { getPackItems } from './equipment/packs';
-import { MONK_SKILLS_EXPLANATION } from './classes/monk/monkSkillsExplanation';
 import {
   getExtraUnarmoredMovement,
   getMartialArtsDice,
@@ -1120,6 +1123,28 @@ export const CLASSES = {
           patientDefense: 'Defensa Paciente',
           stepOfTheWind: 'Andar del Viento',
           unarmoredMovement: 'Movimiento sin Armadura',
+        },
+      },
+      3: {
+        traits: {
+          monasticTradition: 'Tradición Monástica',
+        },
+        monasticTradition: {
+          wayOfTheFourElements: {
+            traits: {
+              discipleOftheElements: 'Discípulo de los Elementos',
+            },
+          },
+          openHand: {
+            traits: {
+              openHandTechnique: 'Técnica de la Mano Abierta',
+            },
+          },
+          wayOfShadow: {
+            traits: {
+              shadowArts: 'Artes Sombrías',
+            },
+          },
         },
       },
     },
@@ -2526,6 +2551,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...SORCERER_SKILLS_EXPLANATION,
       ...WIZARD_SKILLS_EXPLANATION,
       ...MONK_SKILLS_EXPLANATION,
+      ...elementalDisciplineExplanation(skillName),
     }[skillName]?.(skill, pc) || skill
   );
 }

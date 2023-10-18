@@ -53,6 +53,8 @@ npx prisma migrate dev
 
 ## TO DOs
 
+- Hitpoints at levelup with physical dice
+- Glossary with searcher
 - Background: {trait}
 - lose HP on combats
 - recover HP after rest

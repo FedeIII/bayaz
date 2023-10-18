@@ -111,6 +111,11 @@ import {
   getArcaneTraditionTraits,
   translateArcaneTradition,
 } from '~/domain/classes/wizard/wizard';
+import {
+  getMonasticTradition,
+  getMonasticTraditionTraits,
+  translateMonasticTradition,
+} from '~/domain/classes/monk/monk';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -378,6 +383,7 @@ function PcSummary() {
   const martialArchetypeTraits = getMartialArchetypeTraits(pc);
   const sorcererOriginTraits = getSorcererOriginTraits(pc);
   const arcaneTradicionTraits = getArcaneTraditionTraits(pc);
+  const monasticTraditionTraits = getMonasticTraditionTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -397,6 +403,7 @@ function PcSummary() {
     martialArchetype: martialArchetypeTraits.map(() => useRef()),
     sorcererOrigin: sorcererOriginTraits.map(() => useRef()),
     arcaneTradition: arcaneTradicionTraits.map(() => useRef()),
+    monasticTradition: monasticTraditionTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -1082,6 +1089,27 @@ function PcSummary() {
                       trait={trait}
                       pc={pc}
                       openModal={openSkillModal('arcaneTradition', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {!!getMonasticTradition(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                {translateMonasticTradition(getMonasticTradition(pc))}
+              </strong>
+              <ul>
+                {monasticTraditionTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.monasticTradition[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('monasticTradition', i)}
                     />
                   </li>
                 ))}

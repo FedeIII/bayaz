@@ -251,7 +251,7 @@ export function hasToLearnSpells(pc) {
 export function doesNotHaveToLearnSpells(pc) {
   const { pClass } = pc;
 
-  return ['cleric', 'druid'].includes(pClass);
+  return ['cleric', 'druid', 'monk'].includes(pClass);
 }
 
 export function hasToPrepareSpells(pc) {

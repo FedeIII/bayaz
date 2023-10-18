@@ -1,8 +1,13 @@
 import { getStat, getStatMod } from '~/domain/characters';
 import {
+  ELEMENTAL_DISCIPLINES,
+  getElementalDisciplines,
   getExtraUnarmoredMovement,
   getKiPoints,
   getMartialArtsDice,
+  getMonasticTradition,
+  hasToLearnElementalDiscipline,
+  translateElementalDisciplines,
 } from './monk';
 import { increment } from '~/domain/display';
 
@@ -44,9 +49,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
-            {getKiPoints(pc)} puntos de Ki
-          </span>
+          <span className={appStyles.smallText}>{getKiPoints(pc)} Ki</span>
         </>
       );
 
@@ -56,7 +59,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>1 punto de Ki</span>
+          <span className={appStyles.smallText}>1 Ki</span>
         </>
       );
 
@@ -66,7 +69,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>1 punto de Ki</span>
+          <span className={appStyles.smallText}>1 Ki</span>
         </>
       );
 
@@ -76,7 +79,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>1 punto de Ki</span>
+          <span className={appStyles.smallText}>1 Ki</span>
         </>
       );
 
@@ -86,7 +89,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>1 punto de Ki</span>
+          <span className={appStyles.smallText}>1 Ki</span>
         </>
       );
 
@@ -102,30 +105,49 @@ export function displayMonkTrait(traitName, trait, pc) {
         </>
       );
 
-    // case 'arcaneTradition':
-    //   return (
-    //     !getArcaneTradition(pc) && (
-    //       <>
-    //         <strong>{trait}</strong>
-    //         <span className={sheetStyles.pendingTrait}>(!)</span>
-    //       </>
-    //     )
-    //   );
+    case 'monasticTradition':
+      return (
+        !getMonasticTradition(pc) && (
+          <>
+            <strong>{trait}</strong>
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          </>
+        )
+      );
 
-    // case 'durableSummons':
-    //   return (
-    //     <>
-    //       <strong>
-    //         <u>{trait}.</u>
-    //       </strong>{' '}
-    //       <span className={appStyles.smallText}>
-    //         Todas las invocaciones tienen 30 HP temporales
-    //       </span>
-    //     </>
-    //   );
+    case 'discipleOftheElements':
+      return (
+        <>
+          <u>{trait}.</u>{' '}
+          {hasToLearnElementalDiscipline(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+          {!!getElementalDisciplines(pc).length && (
+            <ul className={appStyles.smallText}>
+              {getElementalDisciplines(pc).map(discipline => (
+                <li key={discipline}>
+                  {translateElementalDisciplines(discipline)}.{' '}
+                  {displayElementalDisciplineKi(discipline)}
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      );
 
     default:
   }
 
+  if (trait === 'discipline') return translateElementalDisciplines(traitName);
+
   return null;
+}
+
+function displayElementalDisciplineKi(disciplineName) {
+  const discipline = ELEMENTAL_DISCIPLINES[disciplineName];
+  let ki = `${discipline.ki} Ki`;
+  if (discipline.extraKi) {
+    ki += `+ ${discipline.extraKi}`;
+  }
+  return ki;
 }

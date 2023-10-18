@@ -51,6 +51,10 @@ import {
   getAllLoreSpellsLearned,
   getAllMagicalSecretsSpellsLearned,
 } from '~/domain/classes/bard/bard';
+import {
+  ELEMENTAL_DISCIPLINES,
+  MONASTIC_TRADITIONS,
+} from '~/domain/classes/monk/monk';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -181,6 +185,13 @@ const wizardSchema = new mongoose.Schema({
   improvedMinorIllusion: spellSchema,
 });
 
+const monkSchema = new mongoose.Schema({
+  monasticTradition: { type: String, enum: MONASTIC_TRADITIONS },
+  elementalDisciplines: [
+    { type: String, enum: Object.keys(ELEMENTAL_DISCIPLINES) },
+  ],
+});
+
 const classAttrsSchema = new mongoose.Schema({
   barbarian: barbarianSchema,
   bard: bardSchema,
@@ -191,6 +202,7 @@ const classAttrsSchema = new mongoose.Schema({
   fighter: fighterSchema,
   sorcerer: sorcererSchema,
   wizard: wizardSchema,
+  monk: monkSchema,
   // ALL
   expertSkills: [
     { type: String, enum: [...SKILLS.map(s => s.name), 'thieves-tools'] },
