@@ -256,3 +256,16 @@ export function translateElementalDisciplines(discipline) {
       return 'unknown discipline';
   }
 }
+
+export function getMaxKiPerSpell(pc) {
+  const { level } = pc;
+  return level >= 17
+    ? 6
+    : level >= 13
+    ? 5
+    : level >= 9
+    ? 4
+    : level >= 5
+    ? 3
+    : 2;
+}

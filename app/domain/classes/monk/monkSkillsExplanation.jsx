@@ -6,6 +6,7 @@ import {
   getElementalDisciplines,
   getExtraUnarmoredMovement,
   getKiPoints,
+  getMaxKiPerSpell,
   hasToLearnElementalDiscipline,
   translateElementalDisciplines,
 } from './monk';
@@ -222,6 +223,7 @@ export const MONK_SKILLS_EXPLANATION = {
         Cuando aprendas una nueva disciplina elemental, puedes reemplazar una
         disciplina elemental que ya conozcas por otra.
       </p>
+      <p><strong>Puntos Ki Máximos por Conjuro:</strong> {getMaxKiPerSpell(pc)}</p>
       {hasToLearnElementalDiscipline(pc) && (
         <div className={styles.modalButtons}>
           <Link
