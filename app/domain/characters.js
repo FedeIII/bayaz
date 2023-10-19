@@ -1188,6 +1188,11 @@ export const CLASSES = {
           stillnessOfMind: 'Quietud de la Mente',
         },
       },
+      8: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
       10: {
         traits: {
           purityOfBody: 'Pureza del Cuerpo',
@@ -1207,6 +1212,11 @@ export const CLASSES = {
           },
         },
       },
+      12: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
       13: {
         traits: {
           tongueOfTheSunAndMoon: 'Lengua del Sol y la Luna',
@@ -1220,6 +1230,11 @@ export const CLASSES = {
       15: {
         traits: {
           timelessBody: 'Cuerpo Imperecedero',
+        },
+      },
+      16: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
         },
       },
       17: {
@@ -1239,6 +1254,11 @@ export const CLASSES = {
       18: {
         traits: {
           emptyBody: 'Cuerpo Vacío',
+        },
+      },
+      19: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
         },
       },
       20: {
@@ -1309,6 +1329,108 @@ export const CLASSES = {
             traits: {
               abjureEnemy: 'Renunciar al Enemigo',
               vowOfEnmity: 'Voto de Enemistad',
+            },
+          },
+        },
+      },
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      5: {
+        traits: {
+          extraAttack: 'Ataque Extra',
+        },
+      },
+      6: {
+        traits: {
+          auraOfProtection: 'Aura de Protección',
+        },
+      },
+      7: {
+        sacredOath: {
+          Devotion: {
+            traits: {
+              auraOfDevotion: 'Aura de Devoción',
+            },
+          },
+          Ancients: {
+            traits: {
+              auraOfWarding: 'Aura de Custodia',
+            },
+          },
+          Vengeance: {
+            traits: {
+              relentlessAvenger: 'Venganza Implacable',
+            },
+          },
+        },
+      },
+      8: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      10: {
+        traits: {
+          auraOfCourage: 'Aura de Coraje',
+        },
+      },
+      12: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      14: {
+        traits: {
+          cleansingTouch: 'Toque de Purificación',
+        },
+      },
+      15: {
+        sacredOath: {
+          Devotion: {
+            traits: {
+              purityOfSpirit: 'Pureza de Espíritu',
+            },
+          },
+          Ancients: {
+            traits: {
+              undyingSentinel: 'Centinela Imperecedero',
+            },
+          },
+          Vengeance: {
+            traits: {
+              soulOfVengeance: 'Alma de Venganza',
+            },
+          },
+        },
+      },
+      16: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      19: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      20: {
+        sacredOath: {
+          Devotion: {
+            traits: {
+              holyNimbus: 'Aura Sagrada',
+            },
+          },
+          Ancients: {
+            traits: {
+              elderChampion: 'Campeón Ancestral',
+            },
+          },
+          Vengeance: {
+            traits: {
+              avengingAngel: 'Ángel Vengador',
             },
           },
         },

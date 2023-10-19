@@ -3,6 +3,7 @@ import { getStat, getStatMod } from '~/domain/characters';
 import { getSpellSavingThrow } from '~/domain/spells/spells';
 import { getPaladinFightingStyle, getSacredOath } from './paladin';
 import { translateFightingStyle } from '../fighter/fighter';
+import { increment } from '~/domain/display';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -118,15 +119,26 @@ export const PALADIN_SKILLS_EXPLANATION = {
 
   divineSmite: (skill, pc) => {
     return (
-      <p>
-        Comenzando en el nivel 2, cuando golpeas a una criatura con un ataque
-        con un arma cuerpo a cuerpo, puedes gastar uno de tus espacios de
-        conjuro de paladín para infligir <u>daño radiante</u> al objetivo,
-        además del daño del arma. El daño extra es <u>2d8</u> para un espacio de
-        conjuro de <u>nivel 1</u>, más <u>1d8</u> por <u>cada nivel</u> de
-        conjuro superior a 1, hasta un máximo de 5d8. El daño se incrementa en
-        1d8 si el objetivo es un muerto viviente o infernal.
-      </p>
+      <>
+        <p>
+          Comenzando en el nivel 2, cuando golpeas a una criatura con un ataque
+          con un arma cuerpo a cuerpo, puedes gastar uno de tus espacios de
+          conjuro de paladín para infligir <u>daño radiante</u> al objetivo,
+          además del daño del arma. El daño extra es <u>2d8</u> para un espacio
+          de conjuro de <u>nivel 1</u>, más <u>1d8</u> por <u>cada nivel</u> de
+          conjuro superior a 1, hasta un máximo de 5d8. El daño se incrementa en
+          1d8 si el objetivo es un muerto viviente o infernal.
+        </p>
+        {pc.level >= 11 && (
+          <p>
+            En nivel 11, estás tan imbuido de poder justiciero que todos tus
+            golpes con armas portan tu poder divino. Siempre que golpees a una
+            criatura con un ataque con armas, la criatura recibe 1d8 de daño
+            radiante extra. Además, si usas tu Castigo Divino con un ataque,
+            añades este daño al daño extra de tu Castigo Divino.
+          </p>
+        )}
+      </>
     );
   },
 
@@ -306,12 +318,223 @@ export const PALADIN_SKILLS_EXPLANATION = {
   vowOfEnmity: (skill, pc) => {
     return (
       <p>
-        . Como acción adicional, puedes realizar un voto de enemistad contra una
+        Como acción adicional, puedes realizar un voto de enemistad contra una
         criatura que esté a 10 pies (3 metros) o menos de ti y que puedas ver,
         usando tu Canalizar Divinidad. Ganas ventaja en las tiradas de ataque
         contra esa criatura durante 1 minuto o hasta que sus Puntos de Golpe
-        lleguen a 0 o caiga inconsciente
+        lleguen a 0 o caiga inconsciente.
       </p>
+    );
+  },
+
+  extraAttack: (skill, pc) => {
+    return (
+      <p>
+        Comenzando en el nivel 5 puedes atacar dos veces en lugar de una siempre
+        que realices la acción de Atacar en tu turno.
+      </p>
+    );
+  },
+
+  auraOfProtection: (skill, pc) => {
+    const mod = getStatMod(getStat(pc, 'cha'));
+    return (
+      <p>
+        Comenzando en el nivel 6, siempre que tú o una criatura amistosa situada
+        hasta a {pc.level >= 18 ? '30 pies (9 metros)' : '10 pies (3 metros)'}{' '}
+        de ti tenga que realizar una tirada de salvación, la criatura gana una
+        bonificación a la tirada de salvación igual a{' '}
+        {increment(mod > 0 ? mod : 1)}: tu modificador de Carisma (con una
+        bonificación mínima de +1). Debes estar consciente para otorgar esta
+        bonificación.
+      </p>
+    );
+  },
+
+  auraOfCourage: (skill, pc) => {
+    return (
+      <p>
+        Comenzando en el nivel 10 tú y las criaturas amistosas situadas hasta a{' '}
+        {pc.level >= 18 ? '30 pies (9 metros)' : '10 pies (3 metros)'} de ti no
+        podéis ser asustadas mientras estés consciente.
+      </p>
+    );
+  },
+
+  cleansingTouch: (skill, pc) => {
+    const mod = getStatMod(getStat(pc, 'cha'));
+    return (
+      <>
+        <p>
+          Comenzando a nivel 14 puedes usar tu acción para finalizar un conjuro
+          que te afecte a ti o a una criatura voluntaria con tu toque.
+        </p>
+        <p>
+          Puedes usar esta característica {mod > 0 ? mod : 1} veces, igual a tu
+          modificador de Carisma (como mínimo una vez). Recuperas los usos
+          gastados cuando finalizas un descanso prolongado.
+        </p>
+      </>
+    );
+  },
+
+  auraOfDevotion: (skill, pc) => {
+    return (
+      <p>
+        Comenzando en el nivel 7 tú y todas las criaturas amistosas a{' '}
+        {pc.level >= 18 ? '30 pies (9 metros)' : '10 pies (3 metros)'} de ti no
+        podéis ser hechizados mientras estéis conscientes.
+      </p>
+    );
+  },
+
+  auraOfWarding: (skill, pc) => {
+    return (
+      <p>
+        Comenzando en el nivel 7 la magia antigua te imbuye de una manera tan
+        fuerte que forma una custodia sobrenatural. Tú y las criaturas amistosas
+        a {pc.level >= 18 ? '30 pies (9 metros)' : '10 pies (3 metros)'} o menos
+        de ti tenéis resistencia al daño de los hechizos.
+      </p>
+    );
+  },
+
+  relentlessAvenger: (skill, pc) => {
+    return (
+      <p>
+        En el nivel 7 tu concentración sobrenatural te ayuda a evitar la
+        retirada de tu enemigo. Cuando golpeas a una criatura con un ataque de
+        oportunidad, puedes moverte hasta la mitad de tu velocidad
+        inmediatamente después del ataque como parte de esa misma reacción. Este
+        movimiento no provoca ataques de oportunidad.
+      </p>
+    );
+  },
+
+  purityOfSpirit: (skill, pc) => {
+    return (
+      <p>
+        Comenzando en el nivel 15 siempre estás bajo los efectos de un conjuro
+        de <u>protección contra el mal y el bien</u>.
+      </p>
+    );
+  },
+
+  undyingSentinel: (skill, pc) => {
+    return (
+      <>
+        <p>
+          Comenzando en el nivel 15, cuando eres reducido a 0 Puntos de Golpe y
+          no estás muerto, puedes decidir ser reducido a 1 punto de golpe en
+          lugar de a 0. Cuando utilizas esta habilidad, no puedes volver a
+          usarla hasta que finalices un descanso prolongado.
+        </p>
+        <p>
+          Además, no sufres ninguno de los inconvenientes de la vejez y no
+          puedes ser envejecido mágicamente.
+        </p>
+      </>
+    );
+  },
+
+  soulOfVengeance: (skill, pc) => {
+    return (
+      <>
+        <p>
+          En el nivel 20 como una acción puedes emanar un aura de luz solar.
+          Durante 1 minuto una luz brillante sale de ti en un radio de 30 pies
+          (9 metros), y de luz tenue 30 pies (9 metros) más allá.
+        </p>
+        <p>
+          Siempre que una criatura enemiga comience su turno en la luz
+          brillante, la criatura sufre 10 puntos de daño radiante.
+        </p>
+        <p>
+          Además, durante la duración, tienes ventaja en las tiradas de
+          salvación contra conjuros lanzados por seres demoníacos o muertos
+          vivientes.
+        </p>
+        <p>
+          Una vez hayas utilizado este rasgo, no puedes volver a usarlo hasta
+          que hayas finalizado un descanso prolongado.
+        </p>
+      </>
+    );
+  },
+
+  holyNimbus: (skill, pc) => {
+    return (
+      <p>
+        Comenzando en el nivel 15 la autoridad con la que recitas tu Voto de
+        Enemistad te otorga un poder aún mayor sobre tu enemigo. Cuando una
+        criatura bajo los efectos de tu Voto de Enemistad realiza un ataque,
+        puedes usar tu reacción para realizar un ataque con un arma cuerpo a
+        cuerpo contra esa criatura si está dentro de tu rango.
+      </p>
+    );
+  },
+
+  elderChampion: (skill, pc) => {
+    return (
+      <>
+        <p>
+          En nivel 20 puedes asumir la forma de una fuerza de la naturaleza
+          ancestral tomando una apariencia de tu elección. Por ejemplo, tu piel
+          podría volverse verde o su textura podría volverse como la corteza,
+          podrían surgir hojas o musgo de tu pelo, o podrían crecerte astas o
+          una melena de león. Usando tu acción, comienzas a transformarte.
+        </p>
+        <p>Durante 1 minuto, ganas los siguientes beneficios:</p>
+        <ul>
+          <li>
+            Al comienzo de cada uno de tus turnos recuperas 10 Puntos de Golpe.
+          </li>
+          <li>
+            Siempre que lances un conjuro de paladín que tenga un tiempo de
+            lanzamiento de 1 acción, puedes lanzarlo como una acción adicional
+            en su lugar.
+          </li>
+          <li>
+            Las criaturas enemigas a 10 pies (3 metros) o menos de ti tienen
+            desventaja en las tiradas de salvación contra tus conjuros de
+            paladín y opciones de Canalizar Divinidad.
+          </li>
+          <li>
+            Una vez hayas utilizado este rasgo no puedes volver a usarlo hasta
+            que finalices un descanso prolongado.
+          </li>
+        </ul>
+      </>
+    );
+  },
+
+  avengingAngel: (skill, pc) => {
+    return (
+      <>
+        <p>
+          En nivel 20 puedes asumir la forma de un vengador angelical. Usando tu
+          acción, comienzas a transformarte. Durante 1 hora, ganas los
+          siguientes beneficios:
+        </p>
+        <ul>
+          <li>
+            De tu espalda surgen alas y te otorgan una velocidad de vuelo de 60
+            pies (18 metros).
+          </li>
+          <li>
+            Emanas un aura amenazante en un radio de 30 pies (9 metros). La
+            primera vez que una criatura enemiga entra en el aura, o comienza su
+            turno ahí durante la batalla, debe superar una tirada de salvación
+            de Sabiduría o estará asustada durante 1 minuto o hasta que reciba
+            algún daño. Las tiradas de ataque contra la criatura asustada tienen
+            ventaja.
+          </li>
+        </ul>
+        <p>
+          Una vez hayas usado esta característica, no podrás volver a usarla
+          hasta que finalices un descanso prolongado.
+        </p>
+      </>
     );
   },
 };
