@@ -21,6 +21,7 @@ import {
 } from './equipment/armors';
 import {
   canBeAlwaysEquipped,
+  explodeEquipment,
   getItem,
   unifyEquipment,
 } from './equipment/equipment';
@@ -1602,6 +1603,38 @@ export const CLASSES = {
       'thievesTools',
     ],
     statImprove: [4, 8, 10, 12, 16, 19],
+    leveling: {
+      4: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      8: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      10: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      12: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      16: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      19: {
+        traits: {
+          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+    },
   },
   sorcerer: {
     initialHitPoints: 6,
@@ -2674,43 +2707,51 @@ export function translateMoney(money) {
     .join(', ');
 }
 
+function putItemInInventory(inventory, pItem) {
+  const item = getItem(pItem.name);
+
+  if (item.type === 'weapon') {
+    if (inventory.weapons.length < 3) {
+      inventory.weapons.push(pItem);
+    } else {
+      inventory.treasure.weapons.push(pItem);
+    }
+  } else if (item.subtype === 'shield') {
+    if (!inventory.equipment.shield) {
+      inventory.equipment.shield = pItem;
+    } else {
+      inventory.treasure.armors.push(pItem);
+    }
+  } else if (item.type === 'armor') {
+    if (!inventory.equipment.armor) {
+      inventory.equipment.armor = pItem;
+    } else {
+      inventory.treasure.armors.push(pItem);
+    }
+  } else if (item.subtype === 'ammunition') {
+    inventory.equipment.ammunition.push(pItem);
+  } else if (canBeAlwaysEquipped(item)) {
+    inventory.equipment.others.push(pItem);
+  } else {
+    inventory.treasure.others.push(pItem);
+  }
+
+  return inventory;
+}
+
 export function distributeItems(pc, items) {
-  const unifiedItems = unifyEquipment(items);
+  const explodedItems = explodeEquipment(items);
   const {
     items: { weapons: pWeapons, equipment: pEquipment, treasure: pTreasure },
   } = pc;
 
-  return unifiedItems.reduce(
+  const distributedItems = explodedItems.reduce(
     (distributedItems, pItem) => {
-      const item = getItem(pItem.name);
-
-      if (item.type === 'weapon') {
-        if (distributedItems.weapons.length < 3) {
-          distributedItems.weapons.push(pItem);
-        } else {
-          distributedItems.treasure.weapons.push(pItem);
-        }
-      } else if (item.subtype === 'shield') {
-        if (!distributedItems.equipment.shield) {
-          distributedItems.equipment.shield = pItem;
-        } else {
-          distributedItems.treasure.armors.push(pItem);
-        }
-      } else if (item.type === 'armor') {
-        if (!distributedItems.equipment.armor) {
-          distributedItems.equipment.armor = pItem;
-        } else {
-          distributedItems.treasure.armors.push(pItem);
-        }
-      } else if (item.subtype === 'ammunition') {
-        distributedItems.equipment.ammunition.push(pItem);
-      } else if (canBeAlwaysEquipped(item)) {
-        distributedItems.equipment.others.push(pItem);
-      } else {
-        distributedItems.treasure.others.push(pItem);
+      let newDistributedItems = distributedItems;
+      for (let i = 1; i <= pItem.amount; i++) {
+        newDistributedItems = putItemInInventory(newDistributedItems, pItem);
       }
-
-      return distributedItems;
+      return newDistributedItems;
     },
     {
       weapons: [...pWeapons],
@@ -2727,6 +2768,24 @@ export function distributeItems(pc, items) {
       },
     }
   );
+
+  distributedItems.equipment.ammunition = unifyEquipment(
+    distributedItems.equipment.ammunition
+  );
+  distributedItems.equipment.others = unifyEquipment(
+    distributedItems.equipment.others
+  );
+  distributedItems.treasure.weapons = unifyEquipment(
+    distributedItems.treasure.weapons
+  );
+  distributedItems.treasure.armors = unifyEquipment(
+    distributedItems.treasure.armors
+  );
+  distributedItems.treasure.others = unifyEquipment(
+    distributedItems.treasure.others
+  );
+
+  return distributedItems;
 }
 
 export function hasExtraWeapons(pc) {

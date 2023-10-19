@@ -755,51 +755,122 @@ export async function deletePreparedSpell(pcName, spell) {
   return updatedPc;
 }
 
-export async function equipWeapons(name, oldWeaponName, newWeaponName) {
-  await Pc.findOneAndUpdate(
-    { name, 'items.weapons.name': oldWeaponName },
-    { $set: { 'items.weapons.$': getItem(newWeaponName) } },
-    { new: true }
+export async function equipWeapons(
+  name,
+  weaponToUnequipName,
+  weaponToEquipName
+) {
+  const pc = await getPc(name);
+  let updatedPc = null;
+
+  const {
+    items: {
+      treasure: { weapons },
+    },
+  } = pc;
+
+  const weaponToEquipInTreasure = weapons.find(
+    w => w.name === weaponToEquipName
+  );
+  const weaponToUnequipInTreasure = weapons.find(
+    w => w.name === weaponToUnequipName
   );
 
-  const updatedPc = await Pc.findOneAndUpdate(
-    { name, 'items.treasure.weapons.name': newWeaponName },
-    { $set: { 'items.treasure.weapons.$': getItem(oldWeaponName) } },
+  if (weaponToEquipInTreasure.amount > 1) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name, 'items.treasure.weapons.name': weaponToEquipName },
+      { $inc: { 'items.treasure.weapons.$.amount': -1 } },
+      { new: true }
+    );
+  } else {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name },
+      { $pull: { 'items.treasure.weapons': { name: weaponToEquipName } } },
+      { new: true }
+    );
+  }
+
+  if (weaponToUnequipInTreasure) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name, 'items.treasure.weapons.name': weaponToUnequipName },
+      { $inc: { 'items.treasure.weapons.$.amount': 1 } },
+      { new: true }
+    );
+  } else {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name },
+      { $push: { 'items.treasure.weapons': getItem(weaponToUnequipName) } },
+      { new: true }
+    );
+  }
+
+  updatedPc = await Pc.findOneAndUpdate(
+    { name, 'items.weapons.name': weaponToUnequipName },
+    { $set: { 'items.weapons.$': getItem(weaponToEquipName) } },
     { new: true }
   );
 
   return updatedPc;
 }
 
-export async function equipWeaponInSlot(name, weaponName, slot) {
+export async function equipWeaponInSlot(name, weaponToEquipName, slot) {
   const pc = await getPc(name);
   const {
-    items: { weapons },
+    items: {
+      weapons,
+      treasure: { weapons: treasureWeapons },
+    },
   } = pc;
-  const weaponInSlot = weapons[slot];
+  let updatedPc = null;
+  const weaponToUnequip = weapons[slot];
+  const weaponToUnequipName = weaponToUnequip?.name;
+  const weaponToEquipInTreasure = treasureWeapons.find(
+    w => w.name === weaponToEquipName
+  );
+  const weaponToUnequipInTreasure = treasureWeapons.find(
+    w => w.name === weaponToUnequipName
+  );
 
-  await Pc.findOneAndUpdate(
+  updatedPc = await Pc.findOneAndUpdate(
     { name },
-    { $set: { [`items.weapons.${slot}`]: getItem(weaponName) } },
+    { $set: { [`items.weapons.${slot}`]: getItem(weaponToEquipName) } },
     { new: true }
   );
 
-  if (weaponInSlot) {
-    await Pc.findOneAndUpdate(
-      { name },
-      { $push: { 'items.treasure.weapons': getItem(weaponInSlot.name) } },
+  if (weaponToEquipInTreasure.amount > 1) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name, 'items.treasure.weapons.name': weaponToEquipName },
+      { $inc: { 'items.treasure.weapons.$.amount': -1 } },
       { new: true }
     );
-
-    await Pc.findOneAndUpdate(
+  } else {
+    updatedPc = await Pc.findOneAndUpdate(
       { name },
-      { $pull: { 'items.treasure.weapons': { name: weaponName } } },
+      { $pull: { 'items.treasure.weapons': { name: weaponToEquipName } } },
       { new: true }
     );
   }
+
+  if (weaponToUnequip) {
+    if (weaponToUnequipInTreasure) {
+      updatedPc = await Pc.findOneAndUpdate(
+        { name, 'items.treasure.weapons.name': weaponToUnequipName },
+        { $inc: { 'items.treasure.weapons.$.amount': 1 } },
+        { new: true }
+      );
+    } else {
+      updatedPc = await Pc.findOneAndUpdate(
+        { name },
+        { $push: { 'items.treasure.weapons': getItem(weaponToUnequipName) } },
+        { new: true }
+      );
+    }
+  }
+
+  return updatedPc;
 }
 
-export async function switchWeapons(name, weaponName, destinationSlot) {
+export async function reorderWeapons(name, weaponName, destinationSlot) {
   const pc = await getPc(name);
   const weapons = pc.items.weapons.slice();
 

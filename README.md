@@ -53,6 +53,7 @@ npx prisma migrate dev
 
 ## TO DOs
 
+- Attributes at creation with physical dice
 - Hitpoints at levelup with physical dice
 - Glossary with searcher
 - Background: {trait}
@@ -97,3 +98,4 @@ npx prisma migrate dev
 - no env monsters without details and/or translations
 - Some class skills can be piled up if you go back and forth in the browser navigation
 - Conditions for equiped items
+- When equipping a weapon from the summary screen, the correct slot is not used

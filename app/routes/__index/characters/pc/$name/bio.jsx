@@ -1,4 +1,4 @@
-import { json } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import {
   Form,
   useLoaderData,
@@ -80,12 +80,15 @@ async function updateFreeTextsAction(formData) {
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
+  const name = formData.get('name');
   const action = formData.get('action');
 
   if (action === 'equipWeapon') {
     await equipWeaponAction(formData);
+    return redirect(`/characters/pc/${name}/summary`);
   } else if (action === 'equipArmor') {
     await equipArmorAction(formData);
+    return redirect(`/characters/pc/${name}/summary`);
   } else {
     await updateFreeTextsAction(formData);
   }

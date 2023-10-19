@@ -31,13 +31,14 @@ function RogueSkills(props) {
         Escoge 2 competencias en las que ser experto
         {skills.map(skillName => (
           <label
-            htmlFor={skillName}
+            htmlFor={`${skillName}-expert`}
             key={skillName}
             className={styles.skillLabel}
           >
             <input
               type="checkbox"
               name="expert-skills[]"
+              id={`${skillName}-expert`}
               value={skillName}
               onChange={onSkillChange}
             />

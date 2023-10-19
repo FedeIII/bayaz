@@ -40,7 +40,7 @@ export function getItem(itemName) {
     return null;
   }
 
-  return itemBuilder();
+  return itemBuilder({ amount: 1 });
 }
 
 export function translateItem(itemName) {
@@ -95,6 +95,15 @@ export function unifyEquipment(pcItems) {
     if (itemIndex >= 0) unifiedEquipment[itemIndex].amount += item.amount;
     else unifiedEquipment.push({ ...item });
     return unifiedEquipment;
+  }, []);
+}
+
+export function explodeEquipment(pcItems) {
+  return pcItems.reduce((explodedEquipment, item) => {
+    for (let i = 1; i <= item.amount; i++) {
+      explodedEquipment.push({ ...item, amount: 1 });
+    }
+    return explodedEquipment;
   }, []);
 }
 

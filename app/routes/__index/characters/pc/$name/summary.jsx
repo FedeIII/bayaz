@@ -12,7 +12,7 @@ import {
   getPc,
   equipWeapons,
   updatePc,
-  switchWeapons,
+  reorderWeapons,
   switchArmor,
 } from '~/services/pc.server';
 import {
@@ -141,12 +141,12 @@ async function equipWeaponsAction(formData) {
   await equipWeapons(name, oldWeaponName, newWeaponName);
 }
 
-async function switchWeaponsAction(formData) {
+async function reorderWeaponsAction(formData) {
   const name = formData.get('name');
   const weaponName = formData.get('weaponName');
   const weaponSlot = formData.get('weaponSlot');
 
-  await switchWeapons(name, weaponName, weaponSlot);
+  await reorderWeapons(name, weaponName, weaponSlot);
 }
 
 async function switchArmorAction(formData) {
@@ -177,8 +177,8 @@ export const action = async ({ request }) => {
 
   if (action === 'equipWeapons') {
     await equipWeaponsAction(formData);
-  } else if (action === 'switchWeapons') {
-    await switchWeaponsAction(formData);
+  } else if (action === 'reorderWeapons') {
+    await reorderWeaponsAction(formData);
   } else if (action === 'equipArmor') {
     await switchArmorAction(formData);
   } else {
@@ -349,7 +349,7 @@ function PcSummary() {
   function onWeaponDrop(weaponName, weaponSlot) {
     submit(
       {
-        action: 'switchWeapons',
+        action: 'reorderWeapons',
         name: pcName,
         weaponName,
         weaponSlot,
@@ -481,6 +481,11 @@ function PcSummary() {
       }
     }
   }, []);
+
+  const [attacks, setAttacks] = useState([null, null, null]);
+  useEffect(() => {
+    setAttacks(getAttacks(pc));
+  }, [pc]);
 
   return (
     <>
@@ -666,13 +671,13 @@ function PcSummary() {
         </span>
 
         {/* ATTACKS */}
-        {getAttacks(pc).map((attack, i) => {
+        {attacks.map((attack, i) => {
           const [_1, drag] = useDrag(
             () => ({
               type: 'WEAPON',
-              item: { value: attack.weapon.name },
+              item: { value: attack?.weapon.name },
             }),
-            [attack.weapon.name]
+            [attack?.weapon.name]
           );
 
           const [_2, drop] = useDrop(
@@ -683,8 +688,10 @@ function PcSummary() {
             []
           );
 
+          if (!attack) return null;
+
           return (
-            <Fragment key={attack.weapon.name}>
+            <Fragment key={i}>
               <div className={`${styles.data} ${styles['attackName-' + i]}`}>
                 <label
                   className={styles.attackHandler}
