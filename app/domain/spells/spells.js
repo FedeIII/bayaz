@@ -103,12 +103,14 @@ import {
 } from './fighter';
 import {
   getPaladinCantripsNumber,
+  getPaladinExtraPreparedSpells,
   getPaladinMaxPreparedSpells,
   getPaladinSpellSlots,
   hasNewPaladinCantrips,
   maxPaladinSpellLevel,
   PALADIN_SPELLS,
 } from './paladin';
+import { getSacredOath } from '../classes/paladin/paladin';
 import { getKnownCantrips } from './getSpells';
 
 const zero = () => 0;
@@ -146,7 +148,10 @@ export function getClassSpells(pc) {
 
   if (pClass === 'sorcerer') return SORCERER_SPELLS;
 
-  if (pClass === 'paladin') return PALADIN_SPELLS;
+  if (pClass === 'paladin')
+    return PALADIN_SPELLS.filter(
+      spell => !spell.oaths || spell.oaths.includes(getSacredOath(pc))
+    );
 
   return [];
 }
@@ -246,6 +251,7 @@ export function getExtraPreparedSpells(pc) {
   const getClassExtraPreparedSpells = {
     cleric: getClericExtraPreparedSpells,
     druid: getDruidExtraPreparedSpells,
+    paladin: getPaladinExtraPreparedSpells,
   }[pClass];
 
   if (getClassExtraPreparedSpells) return getClassExtraPreparedSpells(pc);

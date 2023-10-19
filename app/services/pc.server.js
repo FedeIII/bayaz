@@ -55,7 +55,10 @@ import {
   ELEMENTAL_DISCIPLINES,
   MONASTIC_TRADITIONS,
 } from '~/domain/classes/monk/monk';
-import { PALADIN_FIGHTING_STYLES } from '~/domain/classes/paladin/paladin';
+import {
+  PALADIN_FIGHTING_STYLES,
+  SACRED_OATHS,
+} from '~/domain/classes/paladin/paladin';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -195,6 +198,7 @@ const monkSchema = new mongoose.Schema({
 
 const paladinSchema = new mongoose.Schema({
   fightingStyle: { type: String, enum: PALADIN_FIGHTING_STYLES },
+  sacredOath: { type: String, enum: SACRED_OATHS },
 });
 
 const classAttrsSchema = new mongoose.Schema({

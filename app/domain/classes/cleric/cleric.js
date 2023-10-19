@@ -119,26 +119,8 @@ export function getClericDomainTraits(pc) {
 }
 
 export function hasChannelDivinity(pc) {
-  return pc.pClass === 'cleric' && pc.level >= 2;
-}
-
-export function getChannelDivinityTraits(pc) {
-  const { level } = pc;
-
-  const divineDomain = getDivineDomain(pc);
-
-  return Object.entries(
-    Object.entries(CLASSES.cleric.leveling).reduce(
-      (levelingTraits, [traitLevel, levelSkills]) => ({
-        ...levelingTraits,
-        ...(parseInt(traitLevel, 10) <= level
-          ? levelSkills.channelDivinity?.traits || {}
-          : {}),
-        ...(parseInt(traitLevel, 10) <= level
-          ? levelSkills.channelDivinity?.[divineDomain]?.traits || {}
-          : {}),
-      }),
-      {}
-    )
+  const { pClass, level } = pc;
+  return (
+    (pClass === 'cleric' && level >= 2) || (pClass === 'paladin' && level >= 3)
   );
 }

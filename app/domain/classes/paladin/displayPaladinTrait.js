@@ -1,5 +1,5 @@
 import { getStat, getStatMod } from '~/domain/characters';
-import { getPaladinFightingStyle } from './paladin';
+import { getPaladinFightingStyle, getSacredOath } from './paladin';
 import { translateFightingStyle } from '../fighter/fighter';
 
 import appStyles from '~/components/app.module.css';
@@ -47,6 +47,24 @@ export function displayPaladinTrait(traitName, trait, pc) {
         </>
       );
     }
+
+    case 'sacredOath':
+      return (
+        !getSacredOath(pc) && (
+          <>
+            <strong>{trait}</strong>
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          </>
+        )
+      );
+
+    case 'channelDivinity':
+      return (
+        <>
+          {trait}.{' '}
+          <span className={appStyles.smallText}>1 vez entre descansos</span>
+        </>
+      );
 
     default:
   }

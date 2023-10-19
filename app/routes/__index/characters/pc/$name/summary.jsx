@@ -41,6 +41,7 @@ import {
   getHitDice,
   getRemainingHitDice,
   hasLeveledUp,
+  getChannelDivinityTraits,
 } from '~/domain/characters';
 import {
   getSorcererOrigin,
@@ -52,7 +53,6 @@ import {
   getDivineDomain,
   getClericDomainTraits,
   hasChannelDivinity,
-  getChannelDivinityTraits,
 } from '~/domain/classes/cleric/cleric';
 import {
   getPrimalPath,
@@ -116,6 +116,11 @@ import {
   getMonasticTraditionTraits,
   translateMonasticTradition,
 } from '~/domain/classes/monk/monk';
+import {
+  getSacredOath,
+  getSacredOathTraits,
+  translateSacredOath,
+} from '~/domain/classes/paladin/paladin';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -384,6 +389,7 @@ function PcSummary() {
   const sorcererOriginTraits = getSorcererOriginTraits(pc);
   const arcaneTradicionTraits = getArcaneTraditionTraits(pc);
   const monasticTraditionTraits = getMonasticTraditionTraits(pc);
+  const sacredOathTraits = getSacredOathTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -404,6 +410,7 @@ function PcSummary() {
     sorcererOrigin: sorcererOriginTraits.map(() => useRef()),
     arcaneTradition: arcaneTradicionTraits.map(() => useRef()),
     monasticTradition: monasticTraditionTraits.map(() => useRef()),
+    sacredOath: sacredOathTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -1110,6 +1117,27 @@ function PcSummary() {
                       trait={trait}
                       pc={pc}
                       openModal={openSkillModal('monasticTradition', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {!!getSacredOath(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                {translateSacredOath(getSacredOath(pc))}
+              </strong>
+              <ul>
+                {sacredOathTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.sacredOath[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('sacredOath', i)}
                     />
                   </li>
                 ))}

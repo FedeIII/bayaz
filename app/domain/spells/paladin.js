@@ -1,4 +1,5 @@
 import { getStat, getStatMod } from '../characters';
+import { getSacredOath } from '../classes/paladin/paladin';
 import { SPELL_LIST } from './spellList';
 
 export const PALADIN_SPELLS = SPELL_LIST.filter(spell =>
@@ -46,10 +47,21 @@ export function hasNewPaladinCantrips(pc) {
 export function getPaladinMaxPreparedSpells(pc) {
   const { level } = pc;
 
+  const extraSpells = getPaladinExtraPreparedSpells(pc);
+
   let totalSpells = getStatMod(getStat(pc, 'cha')) + Math.floor(level / 2);
   totalSpells = totalSpells > 1 ? totalSpells : 1;
 
-  return totalSpells;
+  return totalSpells + extraSpells.length;
+}
+
+export function getPaladinExtraPreparedSpells(pc) {
+  const sacredOath = getSacredOath(pc);
+
+  return Object.values(PALADIN_SPELLS).filter(
+    spell =>
+      pc.level >= spell.level * 2 - 1 && spell.oaths?.includes(sacredOath)
+  );
 }
 
 export function maxPaladinSpellLevel(pc) {

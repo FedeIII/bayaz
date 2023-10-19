@@ -53,7 +53,10 @@ import {
   getMartialArtsDice,
   isMonkWeapon,
 } from './classes/monk/monk';
-import { getPaladinFightingStyle } from './classes/paladin/paladin';
+import {
+  getPaladinFightingStyle,
+  getSacredOath,
+} from './classes/paladin/paladin';
 import { getPackItems } from './equipment/packs';
 
 export const RACES = {
@@ -1281,6 +1284,33 @@ export const CLASSES = {
         traits: {
           fightingStyle: 'Estilo de Combate',
           divineSmite: 'Castigo Divino',
+        },
+      },
+      3: {
+        traits: {
+          divineHealth: 'Salud Divina',
+          channelDivinity: 'Canalizar Divinidad',
+          sacredOath: 'Juramento Sagrado',
+        },
+        channelDivinity: {
+          Devotion: {
+            traits: {
+              sacredWeapon: 'Arma Sagrada',
+              turnTheUnholy: 'Expulsar al Profano',
+            },
+          },
+          Ancients: {
+            traits: {
+              naturesWrath: 'Ira de la Naturaleza',
+              turnTheFaithless: 'Expulsar a los Infieles',
+            },
+          },
+          Vengeance: {
+            traits: {
+              abjureEnemy: 'Renunciar al Enemigo',
+              vowOfEnmity: 'Voto de Enemistad',
+            },
+          },
         },
       },
     },
@@ -2698,4 +2728,28 @@ export function getSpeed(pc) {
 export function hasLeveledUp(pc) {
   const { level, hitDice } = pc;
   return level > hitDice;
+}
+
+export function getChannelDivinityTraits(pc) {
+  const { level, pClass } = pc;
+
+  let channelDivinitySource;
+  const divineDomain = getDivineDomain(pc);
+  const sacredOath = getSacredOath(pc);
+  channelDivinitySource = divineDomain || sacredOath;
+
+  return Object.entries(
+    Object.entries(CLASSES[pClass].leveling).reduce(
+      (levelingTraits, [traitLevel, levelSkills]) => ({
+        ...levelingTraits,
+        ...(parseInt(traitLevel, 10) <= level
+          ? levelSkills.channelDivinity?.traits || {}
+          : {}),
+        ...(parseInt(traitLevel, 10) <= level
+          ? levelSkills.channelDivinity?.[channelDivinitySource]?.traits || {}
+          : {}),
+      }),
+      {}
+    )
+  );
 }
