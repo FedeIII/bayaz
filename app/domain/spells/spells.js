@@ -111,6 +111,20 @@ import {
   PALADIN_SPELLS,
 } from './paladin';
 import { getSacredOath } from '../classes/paladin/paladin';
+import {
+  getArcaneTricksterSpells,
+  isArcaneTrickster,
+} from '../classes/rogue/rogue';
+import {
+  getRogueCantripsNumber,
+  getRogueSpellSlots,
+  getRogueTotalSpells,
+  hasNewRogueCantrips,
+  hasNewRogueLevelSpells,
+  hasNewRogueSpells,
+  maxRogueSpellLevel,
+  ROGUE_SPELLS,
+} from './rogue';
 import { getKnownCantrips } from './getSpells';
 
 const zero = () => 0;
@@ -153,6 +167,8 @@ export function getClassSpells(pc) {
       spell => !spell.oaths || spell.oaths.includes(getSacredOath(pc))
     );
 
+  if (pClass === 'rogue' && isArcaneTrickster(pc)) return ROGUE_SPELLS;
+
   return [];
 }
 
@@ -190,6 +206,7 @@ export function getCantripsNumber(pc) {
     sorcerer: getSorcererCantripsNumber,
     wizard: getWizardCantripsNumber,
     paladin: getPaladinCantripsNumber,
+    rogue: getRogueCantripsNumber,
   }[pClass];
 
   if (getClassCantripsNumber) return getClassCantripsNumber(pc);
@@ -206,6 +223,7 @@ export function getTotalSpells(pc) {
     fighter: getFighterTotalSpells,
     sorcerer: getSorcererTotalSpells,
     wizard: getWizardTotalSpells,
+    rogue: getRogueTotalSpells,
   }[pClass];
 
   if (getClassTotalSpells) return getClassTotalSpells(pc);
@@ -225,6 +243,7 @@ export function getSpellSlots(pc) {
     sorcerer: getSorcererSpellSlots,
     wizard: getWizardSpellSlots,
     paladin: getPaladinSpellSlots,
+    rogue: getRogueSpellSlots,
   }[pClass];
 
   if (getClassSpellSlots) return getClassSpellSlots(pc);
@@ -263,7 +282,8 @@ export function hasToLearnSpells(pc) {
 
   return (
     ['bard', 'warlock', 'ranger', 'sorcerer', 'wizard'].includes(pClass) ||
-    (pClass === 'fighter' && isEldritchknight(pc))
+    (pClass === 'fighter' && isEldritchknight(pc)) ||
+    (pClass === 'rogue' && isArcaneTrickster(pc))
   );
 }
 
@@ -284,7 +304,8 @@ export function doesNotHaveToPrepareSpells(pc) {
 
   return (
     ['bard', 'warlock', 'ranger', 'sorcerer'].includes(pClass) ||
-    (pClass === 'fighter' && isEldritchknight(pc))
+    (pClass === 'fighter' && isEldritchknight(pc)) ||
+    (pClass === 'rogue' && isArcaneTrickster(pc))
   );
 }
 
@@ -335,11 +356,13 @@ export function isPreparedSpell(pc, spellName) {
     .map(s => s.spell)
     .map(getSpell);
   const knightSpells = getKnightSpells(pc);
+  const arcaneTricksterSpells = getArcaneTricksterSpells(pc);
 
   return !![
     ...preparedSpells,
     ...preparedInvocationSpells,
     ...knightSpells,
+    ...arcaneTricksterSpells,
   ].find(spell => spell.name === spellName);
 }
 
@@ -371,6 +394,7 @@ export function hasNewCantrips(pc) {
       sorcerer: hasNewSorcererCantrips,
       wizard: hasNewWizardCantrips,
       paladin: hasNewPaladinCantrips,
+      rogue: hasNewRogueCantrips,
     }[pClass] || zero
   )(pc);
 }
@@ -386,6 +410,7 @@ export function hasNewLevelSpells(pc) {
       fighter: hasNewFighterLevelSpells,
       sorcerer: hasNewSorcererLevelSpells,
       wizard: hasNewWizardLevelSpells,
+      rogue: hasNewRogueLevelSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -401,6 +426,7 @@ export function hasNewSpells(pc) {
       fighter: hasNewFighterSpells,
       sorcerer: hasNewSorcererSpells,
       wizard: hasNewWizardSpells,
+      rogue: hasNewRogueSpells,
     }[pClass] || zero
   )(pc);
 }
@@ -419,6 +445,7 @@ export function maxSpellLevel(pc) {
       sorcerer: maxSorcererSpellLevel,
       wizard: maxWizardSpellLevel,
       paladin: maxPaladinSpellLevel,
+      rogue: maxRogueSpellLevel,
     }[pClass] || zero
   )(pc);
 }

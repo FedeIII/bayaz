@@ -1,4 +1,5 @@
 import { CLASSES } from '~/domain/characters';
+import { displayTrait } from '~/domain/display';
 import { ARMORS } from '~/domain/equipment/armors';
 import {
   BURGLARS_PACK,
@@ -73,6 +74,10 @@ export function getRoguishArchetypeTraits(pc) {
   ).filter(t => !!displayTrait(t[0], t[1], pc));
 }
 
+export function isArcaneTrickster(pc) {
+  return getRoguishArchetype(pc) === 'arcaneTrickster';
+}
+
 export function getRogueProficiencies(pc) {
   const roguishArchetype = getRoguishArchetype(pc);
 
@@ -81,4 +86,8 @@ export function getRogueProficiencies(pc) {
       ? [ENTERTAINERS_PACK.items.disguiseKit().name, TOOLS.poisonersKit().name]
       : []),
   ];
+}
+
+export function getArcaneTricksterSpells(pc) {
+  return pc.classAttrs?.rogue?.spellcasting || [];
 }

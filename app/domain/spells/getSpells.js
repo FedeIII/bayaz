@@ -20,6 +20,7 @@ import {
   getMonasticTraditionCantrips,
   getMonkSpells,
 } from '../classes/monk/monk';
+import { getArcaneTricksterSpells } from '../classes/rogue/rogue';
 
 export function getSpell(spellName) {
   if (!spellName) return null;
@@ -102,6 +103,7 @@ export function getAllPcSpells(pc) {
   const knightSpells = getKnightSpells(pc);
   const wizardExtraSpells = getWizardExtraKnownSpells(pc);
   const monkSpells = getMonkSpells(pc);
+  const rogueSpells = getArcaneTricksterSpells(pc);
 
   return unique(
     [
@@ -113,6 +115,7 @@ export function getAllPcSpells(pc) {
       ...knightSpells,
       ...wizardExtraSpells,
       ...monkSpells,
+      ...rogueSpells,
     ]
       .map(pSpell => getSpell(pSpell.name))
       .filter(spell => spell.level > 0) || []

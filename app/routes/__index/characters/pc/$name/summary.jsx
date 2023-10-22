@@ -395,7 +395,7 @@ function PcSummary() {
   const arcaneTradicionTraits = getArcaneTraditionTraits(pc);
   const monasticTraditionTraits = getMonasticTraditionTraits(pc);
   const sacredOathTraits = getSacredOathTraits(pc);
-  const roguishArchetypes = getRoguishArchetypeTraits(pc);
+  const roguishArchetypeTraits = getRoguishArchetypeTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -417,6 +417,7 @@ function PcSummary() {
     arcaneTradition: arcaneTradicionTraits.map(() => useRef()),
     monasticTradition: monasticTraditionTraits.map(() => useRef()),
     sacredOath: sacredOathTraits.map(() => useRef()),
+    roguishArchetype: roguishArchetypeTraits.map(() => useRef()),
     hp: [useRef()],
   });
 
@@ -1164,14 +1165,14 @@ function PcSummary() {
                 {translateRoguishArchetype(getRoguishArchetype(pc))}
               </strong>
               <ul>
-                {roguishArchetypesTraits.map(([traitName, trait], i) => (
+                {roguishArchetypeTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.roguishArchetypes[i]}
+                      ref={skillRefs.roguishArchetype[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
-                      openModal={openSkillModal('roguishArchetypes', i)}
+                      openModal={openSkillModal('roguishArchetype', i)}
                     />
                   </li>
                 ))}

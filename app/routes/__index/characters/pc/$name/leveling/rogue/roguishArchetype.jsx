@@ -1,6 +1,11 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, updateAttrsForClass } from '~/services/pc.server';
+import {
+  getPc,
+  learnSpells,
+  prepareSpells,
+  updateAttrsForClass,
+} from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
   ROGISH_ARCHETYPES,
@@ -35,6 +40,13 @@ export const action = async ({ request }) => {
   const roguishArchetype = formData.get('roguishArchetype');
 
   await updateAttrsForClass(name, 'rogue', { roguishArchetype });
+
+  if (roguishArchetype === 'arcaneTrickster') {
+    await Promise.all([
+      learnSpells(name, ['mageHand']),
+      prepareSpells(name, ['mageHand']),
+    ]);
+  }
 
   return redirect(`/characters/pc/${name}/summary`);
 };

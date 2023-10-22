@@ -149,7 +149,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
   knightSpell: (skill, pc) => (
     <>
       <p>
-        En los niveles 1, 8, 14 y 20 aprendes un conjuro que puede ser de
+        En los niveles 3, 8, 14 y 20 aprendes un conjuro que puede ser de
         cualquier escuela de magia.
       </p>
 

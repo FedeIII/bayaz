@@ -1601,6 +1601,7 @@ export const CLASSES = {
       'shortsword',
       'thievesTools',
     ],
+    spellcastingAbility: 'int',
     statImprove: [4, 8, 10, 12, 16, 19],
     leveling: {
       1: {
@@ -1621,16 +1622,19 @@ export const CLASSES = {
           arcaneTrickster: {
             traits: {
               mageHandLegerdemain: 'Prestidigitación de Mano de Mago',
+              spellcasting: 'Lanzamiento de Conjuros',
             },
           },
           assassin: {
             traits: {
               bonusProficiencies: 'Competencias Adicionales',
+              assassinate: 'Asesinar',
             },
           },
           thief: {
             traits: {
               fastHands: 'Manos Rápidas',
+              secondStoryWork: 'Trabajo en el Segundo Piso',
             },
           },
         },
@@ -1640,9 +1644,38 @@ export const CLASSES = {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
         },
       },
+      5: {
+        traits: {
+          uncannyDodge: 'Esquiva Asombrosa',
+        },
+      },
+      7: {
+        traits: {
+          evasion: 'Evasión',
+        },
+      },
       8: {
         traits: {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      9: {
+        roguishArchetype: {
+          arcaneTrickster: {
+            traits: {
+              magicalAmbush: 'Emboscada Mágica',
+            },
+          },
+          thief: {
+            traits: {
+              supremeSneak: 'Sigilo Supremo',
+            },
+          },
+          assassin: {
+            traits: {
+              infiltrationExpertise: 'Experto en Infiltración',
+            },
+          },
         },
       },
       10: {
@@ -1650,9 +1683,43 @@ export const CLASSES = {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
         },
       },
+      11: {
+        traits: {
+          reliableTalent: 'Talento Seguro',
+        },
+      },
       12: {
         traits: {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      13: {
+        roguishArchetype: {
+          arcaneTrickster: {
+            traits: {
+              versatileTrickster: 'Bribón Versátil',
+            },
+          },
+          thief: {
+            traits: {
+              useMagicDevice: 'Usar Objeto Mágico',
+            },
+          },
+          assassin: {
+            traits: {
+              impostor: 'Impostor',
+            },
+          },
+        },
+      },
+      14: {
+        traits: {
+          blindsense: 'Sentido Ciego',
+        },
+      },
+      15: {
+        traits: {
+          slipperyMind: 'Mente Escurridiza',
         },
       },
       16: {
@@ -1660,9 +1727,38 @@ export const CLASSES = {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
         },
       },
+      17: {
+        roguishArchetype: {
+          arcaneTrickster: {
+            traits: {
+              spellThief: 'Ladrón de Conjuros',
+            },
+          },
+          thief: {
+            traits: {
+              thiefsReflexes: 'Reflejos de Ladrón',
+            },
+          },
+          assassin: {
+            traits: {
+              deathStrike: 'Golpe Mortal',
+            },
+          },
+        },
+      },
+      18: {
+        traits: {
+          elusive: 'Escurridizo',
+        },
+      },
       19: {
         traits: {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+        },
+      },
+      20: {
+        traits: {
+          strokeOfLuck: 'Golpe de Suerte',
         },
       },
     },

@@ -36,6 +36,7 @@ import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
 import { getKnightSpells } from '~/domain/classes/fighter/fighter';
+import { getArcaneTricksterSpells } from '~/domain/classes/rogue/rogue';
 
 import styles from '~/components/checkbox.module.css';
 import appStyles from '~/components/app.module.css';
@@ -67,13 +68,31 @@ export const action = async ({ request }) => {
       .filter(invName => forget !== invName)
       .map(s => ({ name: s }));
 
-  const learnWizard = formData.get('learnWizard');
-  const prepareWizard = formData.getAll('prepareWizard[]');
+  const learnKnight = formData.get('learnKnight');
+  const prepareKnight = formData.getAll('prepareKnight[]');
   // Knight Spells
+
+  // Arcane Trickster Spells
+  let pArcaneTricksterSpells = formData.get('pArcaneTricksterSpells');
+  pArcaneTricksterSpells = pArcaneTricksterSpells
+    ? pArcaneTricksterSpells.split(',')
+    : [];
+  if (forget)
+    pArcaneTricksterSpells = pArcaneTricksterSpells
+      .filter(invName => forget !== invName)
+      .map(s => ({ name: s }));
+
+  const learnArcaneTrickster = formData.get('learnArcaneTrickster');
+  const prepareArcaneTrickster = formData.getAll('prepareArcaneTrickster[]');
+  // Arcane Trickster Spells
 
   await Promise.all([
     learnSpells(name, learn),
-    prepareSpells(name, [...prepare, ...prepareWizard]),
+    prepareSpells(name, [
+      ...prepare,
+      ...prepareKnight,
+      ...prepareArcaneTrickster,
+    ]),
     updatePc({
       name,
       'magic.hasLearnedSpells': Array.from(
@@ -82,9 +101,16 @@ export const action = async ({ request }) => {
       ),
     }),
     forget && forgetSpell(name, forget),
-    learnWizard &&
+    learnKnight &&
       updateAttrsForClass(name, 'fighter', {
-        knightSpells: [...pKnightSpells, { name: learnWizard }],
+        knightSpells: [...pKnightSpells, { name: learnKnight }],
+      }),
+    learnArcaneTrickster &&
+      updateAttrsForClass(name, 'rogue', {
+        spellcasting: [
+          ...pArcaneTricksterSpells,
+          { name: learnArcaneTrickster },
+        ],
       }),
   ]);
 
@@ -134,6 +160,13 @@ function NewSpells() {
   // Knight Spells
   const knightSpells = getKnightSpells(pc).map(s => getSpell(s.name));
   // Knight Spells
+
+  // Arcane Trickster Spells
+  const arcaneTricksterSpells = getArcaneTricksterSpells(pc).map(s =>
+    getSpell(s.name)
+  );
+  // Arcane Trickster Spells
+
   // Known spells
   const totalSpellsNumber = getTotalSpells(pc);
   const kwnonSpellLevels = [
@@ -145,6 +178,9 @@ function NewSpells() {
       // Knight Spells
       ...knightSpells.filter(s => s.level === spellIndex + 1),
       // Knight Spells
+      // Arcane Trickster Spells
+      ...arcaneTricksterSpells.filter(s => s.level === spellIndex + 1),
+      // Arcane Trickster Spells
     ]
   );
   // Known spells
@@ -156,7 +192,7 @@ function NewSpells() {
   );
 
   // Knight Spells
-  const [isKnightSpellToForget, setIsKnightSpellToForget] = useState(false);
+  const [isWizardSpellToForget, setIsWizardSpellToForget] = useState(false);
   // Knight Spells
 
   function setSpellToForget(levelIndex, spellIndex, checked) {
@@ -164,29 +200,35 @@ function NewSpells() {
       if (checked && oldToForget.flat().some(v => v)) return oldToForget;
       else {
         if (checked) {
-          // Knight Spells
+          // Knight Spells / Arcane Trickster Spells
           if (
             knightSpells
               .map(s => s.name)
+              .includes(knownSpellsByLevel[levelIndex][spellIndex]?.name) ||
+            arcaneTricksterSpells
+              .map(s => s.name)
               .includes(knownSpellsByLevel[levelIndex][spellIndex]?.name)
           ) {
-            setIsKnightSpellToForget(true);
+            setIsWizardSpellToForget(true);
           } else {
             setNewSpellsNumber(n => n + 1);
-            setIsKnightSpellToForget(false);
+            setIsWizardSpellToForget(false);
           }
-          // Knight Spells
+          // Knight Spells / Arcane Trickster Spells
         } else {
-          // Knight Spells
-          setIsKnightSpellToForget(false);
+          // Knight Spells / Arcane Trickster Spells
+          setIsWizardSpellToForget(false);
           if (
             !knightSpells
+              .map(s => s.name)
+              .includes(knownSpellsByLevel[levelIndex][spellIndex]?.name) &&
+            !arcaneTricksterSpells
               .map(s => s.name)
               .includes(knownSpellsByLevel[levelIndex][spellIndex]?.name)
           ) {
             setNewSpellsNumber(n => n - 1);
           }
-          // Knight Spells
+          // Knight Spells / Arcane Trickster Spells
         }
 
         return replaceAt(
@@ -203,13 +245,13 @@ function NewSpells() {
   const spellsByLevel = newSpellLevels.map(spellLevel =>
     getClassSpells(pc).filter(spell => spell.level === spellLevel)
   );
-  // Knight Spells
+  // Knight Spells / Arcane Trickster Spells
   const wizardSpellsByLevel = newSpellLevels.map(spellLevel =>
     getClassSpells({ ...pc, pClass: 'wizard' }).filter(
       spell => spell.level === spellLevel
     )
   );
-  // Knight Spells
+  // Knight Spells / Arcane Trickster Spells
 
   const [toLearn, setToLearn] = useState(
     spellsByLevel.map(spells => spells.map(() => false))
@@ -231,7 +273,7 @@ function NewSpells() {
     });
   }
 
-  // Knight Spells
+  // Knight Spells / Arcane Trickster Spells
   const [toLearnWizard, setToLearnWizard] = useState(
     wizardSpellsByLevel.map(spells => spells.map(() => false))
   );
@@ -251,7 +293,7 @@ function NewSpells() {
         );
     });
   }
-  // Knight Spells
+  // Knight Spells / Arcane Trickster Spells
 
   const [skillRefs, setSkillRefs] = useState({
     cantrips: allCantrips.map(() => useRef()),
@@ -259,7 +301,7 @@ function NewSpells() {
     known: knownSpells.map(() => useRef()),
     // Known Spells
     ...spellsByLevel.map(spells => spells.map(() => useRef())),
-    // Knight Spells
+    // Knight Spells / Arcane Trickster Spells
     ...wizardSpellsByLevel.reduce(
       (levelRefs, spells, levelIndex) => ({
         ...levelRefs,
@@ -273,7 +315,7 @@ function NewSpells() {
       }),
       {}
     ),
-    // Knight Spells
+    // Knight Spells / Arcane Trickster Spells
   });
 
   const [
@@ -299,6 +341,15 @@ function NewSpells() {
         hidden
       />
       {/* // Knight Spells */}
+      {/* // Arcane Trickster Spells */}
+      <input
+        readOnly
+        type="text"
+        name="pArcaneTricksterSpells"
+        value={arcaneTricksterSpells.map(s => s.name).join(',')}
+        hidden
+      />
+      {/* // Arcane Trickster Spells */}
 
       <h2 className={appStyles.paleText}>Escoge nuevos Conjuros</h2>
 
@@ -414,6 +465,11 @@ function NewSpells() {
                             .map(s => s.name)
                             .includes(spell.name) && <> (Mago)</>}
                           {/* // Knight Spells */}
+                          {/* // Arcane Trickster Spells */}
+                          {arcaneTricksterSpells
+                            .map(s => s.name)
+                            .includes(spell.name) && <> (Mago)</>}
+                          {/* // Arcane Trickster Spells */}
                         </label>
                       </li>
                     ))}
@@ -501,8 +557,8 @@ function NewSpells() {
             </>
           )}
 
-          {/* // Knight Spells */}
-          {isKnightSpellToForget && (
+          {/* // Knight Spells / Arcane Trickster Spells */}
+          {isWizardSpellToForget && (
             <>
               <h3>
                 Aprendes 1 nuevo Conjuro de mago de hasta nivel{' '}
@@ -533,40 +589,82 @@ function NewSpells() {
                                   styles.selectedToSelect
                                 }`}
                               >
-                                <input
-                                  hidden
-                                  type="checkbox"
-                                  id={`w-${$spell.name}`}
-                                  name="learnWizard"
-                                  value={spell.name}
-                                  checked={
-                                    toLearnWizard[spellLevel - 1][spellIndex]
-                                  }
-                                  onChange={e =>
-                                    setSpellToLearnWizard(
-                                      spellLevel - 1,
-                                      spellIndex,
-                                      e.target.checked
-                                    )
-                                  }
-                                />
-                                <input
-                                  hidden
-                                  type="checkbox"
-                                  id={spell.name}
-                                  name="prepareWizard[]"
-                                  value={spell.name}
-                                  checked={
-                                    toLearnWizard[spellLevel - 1][spellIndex]
-                                  }
-                                  onChange={e =>
-                                    setSpellToLearn(
-                                      spellLevel - 1,
-                                      spellIndex,
-                                      e.target.checked
-                                    )
-                                  }
-                                />
+                                {pClass === 'fighter' && (
+                                  <input
+                                    hidden
+                                    type="checkbox"
+                                    id={`w-${$spell.name}`}
+                                    name="learnKnight"
+                                    value={spell.name}
+                                    checked={
+                                      toLearnWizard[spellLevel - 1][spellIndex]
+                                    }
+                                    onChange={e =>
+                                      setSpellToLearnWizard(
+                                        spellLevel - 1,
+                                        spellIndex,
+                                        e.target.checked
+                                      )
+                                    }
+                                  />
+                                )}
+                                {pClass === 'rogue' && (
+                                  <input
+                                    hidden
+                                    type="checkbox"
+                                    id={`w-${$spell.name}`}
+                                    name="learnArcaneTrickster"
+                                    value={spell.name}
+                                    checked={
+                                      toLearnWizard[spellLevel - 1][spellIndex]
+                                    }
+                                    onChange={e =>
+                                      setSpellToLearnWizard(
+                                        spellLevel - 1,
+                                        spellIndex,
+                                        e.target.checked
+                                      )
+                                    }
+                                  />
+                                )}
+                                {pClass === 'fighter' && (
+                                  <input
+                                    hidden
+                                    type="checkbox"
+                                    id={spell.name}
+                                    name="prepareKnight[]"
+                                    value={spell.name}
+                                    checked={
+                                      toLearnWizard[spellLevel - 1][spellIndex]
+                                    }
+                                    onChange={e =>
+                                      setSpellToLearn(
+                                        spellLevel - 1,
+                                        spellIndex,
+                                        e.target.checked
+                                      )
+                                    }
+                                  />
+                                )}
+                                {pClass === 'rogue' && (
+                                  <input
+                                    hidden
+                                    type="checkbox"
+                                    id={spell.name}
+                                    name="prepareArcaneTrickster[]"
+                                    value={spell.name}
+                                    checked={
+                                      toLearnWizard[spellLevel - 1][spellIndex]
+                                    }
+                                    onChange={e =>
+                                      setSpellToLearn(
+                                        spellLevel - 1,
+                                        spellIndex,
+                                        e.target.checked
+                                      )
+                                    }
+                                  />
+                                )}
                                 <SkillItem
                                   ref={skillRefs['w' + i]['w' + spellIndex]}
                                   traitName={spell.name}
@@ -587,7 +685,7 @@ function NewSpells() {
               </div>
             </>
           )}
-          {/* // Knight Spells */}
+          {/* // Knight Spells / Arcane Trickster Spells */}
         </>
       )}
 

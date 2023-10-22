@@ -8,16 +8,16 @@ import { Card } from '~/components/cards/card';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillModal } from '~/components/modal/skillModal';
 import { SkillItem } from '~/components/modal/skillItem';
-import {
-  getMaxKnightSpells,
-  hasToLearnKnightSpell,
-} from '~/domain/spells/fighter';
-import {
-  getKnightSpells,
-  isEldritchknight,
-} from '~/domain/classes/fighter/fighter';
 import { WIZARD_SPELLS } from '~/domain/spells/wizard';
 import { getSpellSlots, maxSpellLevel } from '~/domain/spells/spells';
+import {
+  getArcaneTricksterSpells,
+  isArcaneTrickster,
+} from '~/domain/classes/rogue/rogue';
+import {
+  getMaxArcaneTricksterSpells,
+  hasToLearnArcaneTricksterSpell,
+} from '~/domain/spells/rogue';
 import { getAllPcSpells } from '~/domain/spells/getSpells';
 
 import styles from '~/components/checkbox.module.css';
@@ -30,13 +30,13 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (!hasToLearnKnightSpell(pc)) {
-    throw new Error('Ya has escogido Conjuros de Caballero Arcano en tu nivel');
+  if (!hasToLearnArcaneTricksterSpell(pc)) {
+    throw new Error('Ya has escogido Conjuros de Bribón Arcano en tu nivel');
   }
 
-  if (pc.pClass !== 'fighter' || !isEldritchknight(pc)) {
+  if (pc.pClass !== 'rogue' || !isArcaneTrickster(pc)) {
     throw new Error(
-      'Solo los Caballeros Arcanos pueden escoger Conjuros de Caballero Arcano'
+      'Solo los Bribones Arcanos pueden escoger Conjuros de Bribón Arcano'
     );
   }
 
@@ -46,28 +46,34 @@ export const loader = async ({ params }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get('name');
-  const knightSpells = formData.getAll('knightSpells[]');
+  const arcaneTricksterSpells = formData.getAll('arcaneTricksterSpells[]');
   const forget = formData.get('forget');
-  let pKnightSpells = formData.get('pKnightSpells');
-  pKnightSpells = pKnightSpells ? pKnightSpells.split(',') : [];
+  let pArcaneTrciksterSpells = formData.get('pArcaneTrciksterSpells');
+  pArcaneTrciksterSpells = pArcaneTrciksterSpells
+    ? pArcaneTrciksterSpells.split(',')
+    : [];
   if (forget)
-    pKnightSpells = pKnightSpells.filter(invName => forget !== invName);
+    pArcaneTrciksterSpells = pArcaneTrciksterSpells.filter(
+      invName => forget !== invName
+    );
 
-  await updateAttrsForClass(name, 'fighter', {
-    knightSpells: [...pKnightSpells, ...knightSpells].map(spellName => ({
-      name: spellName,
-    })),
+  await updateAttrsForClass(name, 'rogue', {
+    spellcasting: [...pArcaneTrciksterSpells, ...arcaneTricksterSpells].map(
+      spellName => ({
+        name: spellName,
+      })
+    ),
   });
 
   return redirect(`/characters/pc/${name}/summary`);
 };
 
-function ArcaneKnightSpells() {
+function ArcaneTricksterSpells() {
   const { pc } = useLoaderData();
-  const knightSpells = getKnightSpells(pc).map(s => s.name);
-  const maxKnightSpells = getMaxKnightSpells(pc);
+  const arcaneTricksterSpells = getArcaneTricksterSpells(pc).map(s => s.name);
+  const maxArcaneTricksterSpells = getMaxArcaneTricksterSpells(pc);
 
-  useTitle('Caballero Arcano nivel ' + pc.level);
+  useTitle('Bribón Arcano nivel ' + pc.level);
 
   const knownSpells = getAllPcSpells(pc);
 
@@ -75,7 +81,8 @@ function ArcaneKnightSpells() {
   const [selectedSpells, setSelectedSpells] = useState([]);
 
   const numberOfSpellsToSelect =
-    maxKnightSpells - (knightSpells.length - (spellToForet ? 1 : 0));
+    maxArcaneTricksterSpells -
+    (arcaneTricksterSpells.length - (spellToForet ? 1 : 0));
 
   function changeSelectedSpells(spellName) {
     return e => {
@@ -108,7 +115,7 @@ function ArcaneKnightSpells() {
 
   const [skillRefs, setSkillRefs] = useState({
     // Known Spells
-    known: knightSpells.map(() => useRef()),
+    known: arcaneTricksterSpells.map(() => useRef()),
     // Known Spells
     ...spellsByLevel.map(spells => spells.map(() => useRef())),
   });
@@ -129,8 +136,8 @@ function ArcaneKnightSpells() {
       <input
         readOnly
         type="text"
-        name="pKnightSpells"
-        value={knightSpells.join(',')}
+        name="pArcaneTrciksterSpells"
+        value={arcaneTricksterSpells.join(',')}
         hidden
       />
 
@@ -144,25 +151,25 @@ function ArcaneKnightSpells() {
         </SkillModal>
       )}
 
-      <h2 className={appStyles.paleText}>Conjuros de Caballero Arcano</h2>
+      <h2 className={appStyles.paleText}>Conjuros de Bribón Arcano</h2>
       <p className={appStyles.paragraph}>
         En los niveles 3, 8, 14 y 20 aprendes un conjuro que puede ser de
         cualquier escuela de magia.
       </p>
 
       {/* // Known Spells */}
-      {!!knightSpells.length && (
+      {!!arcaneTricksterSpells.length && (
         <>
-          <h3>{knightSpells.length} Conjuros conocidos</h3>
+          <h3>{arcaneTricksterSpells.length} Conjuros conocidos</h3>
           <p>
-            Puedes elegir un conjuro de Caballero Arcano que conozcas y
+            Puedes elegir un conjuro de Bribón Arcano que conozcas y
             reemplazarla con otro conjuro de mago que puedas aprender a ese
             nivel.
           </p>
           <div className={`${cardStyles.cards}`}>
             <Card title="Conjuros conocidas" singleCard>
               <ul className={cardStyles.cardList}>
-                {knightSpells.map((spellName, i) => (
+                {arcaneTricksterSpells.map((spellName, i) => (
                   <li key={spellName}>
                     <label
                       htmlFor={spellName}
@@ -233,7 +240,7 @@ function ArcaneKnightSpells() {
                               hidden
                               type="checkbox"
                               id={spell.name}
-                              name="knightSpells[]"
+                              name="arcaneTricksterSpells[]"
                               value={spell.name}
                               checked={selectedSpells.includes(spell.name)}
                               onChange={changeSelectedSpells(spell.name)}
@@ -276,9 +283,8 @@ export function ErrorBoundary({ error }) {
       <h2 className={appStyles.errorText}>{error.message}</h2>
 
       <p className={appStyles.paragraph}>
-        Si una invocación sobrenatural tiene prerrequisitos, debes cumplirlos
-        para aprenderla. Puedes aprender la invocación en el mismo momento en
-        que cumples sus prerrequisitos.
+        En los niveles 3, 8, 14 y 20 aprendes un conjuro que puede ser de
+        cualquier escuela de magia.
       </p>
 
       <p className={appStyles.errorStack}>{error.stack}</p>
@@ -286,4 +292,4 @@ export function ErrorBoundary({ error }) {
   );
 }
 
-export default ArcaneKnightSpells;
+export default ArcaneTricksterSpells;

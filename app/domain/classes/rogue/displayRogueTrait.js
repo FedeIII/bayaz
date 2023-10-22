@@ -1,4 +1,5 @@
 import { SNEAK_ATTACK_DAMAGE, getRoguishArchetype } from './rogue';
+import { hasToLearnArcaneTricksterSpell } from '~/domain/spells/rogue';
 
 import appStyles from '~/components/app.module.css';
 import sheetStyles from '~/components/sheet.module.css';
@@ -25,6 +26,16 @@ export function displayRogueTrait(traitName, trait, pc) {
             <span className={sheetStyles.pendingTrait}>(!)</span>
           </>
         )
+      );
+
+    case 'spellcasting':
+      return (
+        <>
+          <strong>{trait}</strong>
+          {hasToLearnArcaneTricksterSpell(pc) && (
+            <span className={sheetStyles.pendingTrait}>(!)</span>
+          )}
+        </>
       );
 
     default:

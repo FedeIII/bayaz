@@ -204,6 +204,7 @@ const paladinSchema = new mongoose.Schema({
 
 const rogueSchema = new mongoose.Schema({
   roguishArchetype: { type: String, enum: ROGISH_ARCHETYPES },
+  spellcasting: [spellSchema],
 });
 
 const classAttrsSchema = new mongoose.Schema({
