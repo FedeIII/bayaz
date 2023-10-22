@@ -12,6 +12,7 @@ import {
 } from '~/domain/characters';
 import { RandomStatValues } from '~/components/statSelection/randomStatValues';
 import { CustomStatValues } from '~/components/statSelection/customStatValues';
+import { RealDiceStatValues } from '~/components/statSelection/realDiceStatValues';
 import { setPcStats } from '~/domain/characterMutations';
 
 const ItemTypes = {
@@ -120,6 +121,7 @@ function SelectVariant(props) {
           </option>
           <option value="random">Random</option>
           <option value="custom">Custom</option>
+          <option value="realDice">Dados reales</option>
         </select>
       </label>
     </p>
@@ -131,6 +133,8 @@ function ShowStatValues(props) {
 
   if (variant === 'random') return <RandomStatValues usedRolls={usedRolls} />;
   if (variant === 'custom') return <CustomStatValues usedRolls={usedRolls} />;
+  if (variant === 'realDice')
+    return <RealDiceStatValues usedRolls={usedRolls} />;
   return <SelectVariant setVariant={setVariant} />;
 }
 

@@ -53,7 +53,6 @@ npx prisma migrate dev
 
 ## TO DOs
 
-- Attributes at creation with physical dice
 - Hitpoints at levelup with physical dice
 - Glossary with searcher
 - Background: {trait}
