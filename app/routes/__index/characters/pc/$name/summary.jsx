@@ -121,6 +121,11 @@ import {
   getSacredOathTraits,
   translateSacredOath,
 } from '~/domain/classes/paladin/paladin';
+import {
+  getRoguishArchetype,
+  getRoguishArchetypeTraits,
+  translateRoguishArchetype,
+} from '~/domain/classes/rogue/rogue';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -390,6 +395,7 @@ function PcSummary() {
   const arcaneTradicionTraits = getArcaneTraditionTraits(pc);
   const monasticTraditionTraits = getMonasticTraditionTraits(pc);
   const sacredOathTraits = getSacredOathTraits(pc);
+  const roguishArchetypes = getRoguishArchetypeTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
     levelUp: [useRef()],
@@ -1145,6 +1151,27 @@ function PcSummary() {
                       trait={trait}
                       pc={pc}
                       openModal={openSkillModal('sacredOath', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {!!getRoguishArchetype(pc) && (
+            <li className={styles.traitLabel}>
+              <strong className={styles.trait}>
+                {translateRoguishArchetype(getRoguishArchetype(pc))}
+              </strong>
+              <ul>
+                {roguishArchetypesTraits.map(([traitName, trait], i) => (
+                  <li className={styles.traitLabel} key={traitName}>
+                    <SkillItem
+                      ref={skillRefs.roguishArchetypes[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      pc={pc}
+                      openModal={openSkillModal('roguishArchetypes', i)}
                     />
                   </li>
                 ))}

@@ -40,6 +40,7 @@ import { displaySorcererTrait } from './classes/sorcerer/displaySorcererTrait';
 import { displayWizardTrait } from './classes/wizard/displayWizardTrait';
 import { displayMonkTrait } from './classes/monk/displayMonkTrait';
 import { displayPaladinTrait } from './classes/paladin/displayPaladinTrait';
+import { displayRogueTrait } from './classes/rogue/displayRogueTrait';
 import { isMonkWeapon } from './classes/monk/monk';
 
 import sheetStyles from '~/components/sheet.module.css';
@@ -334,6 +335,7 @@ function displayClassTrait(traitName, trait, pc) {
       wizard: displayWizardTrait,
       monk: displayMonkTrait,
       paladin: displayPaladinTrait,
+      rogue: displayRogueTrait,
     }[pc.pClass] || noOp
   )(traitName, trait, pc);
 

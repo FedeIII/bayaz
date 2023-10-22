@@ -13,7 +13,7 @@ import { SORCERER_EQUIPMENT } from '../classes/sorcerer/sorcerer';
 import { WIZARD_EQUIPMENT } from '../classes/wizard/wizard';
 import { MONK_EQUIPMENT } from '../classes/monk/monk';
 import { PALADIN_EQUIPMENT } from '../classes/paladin/paladin';
-import { ROGUE_EQUIPMENT } from '../rogue';
+import { ROGUE_EQUIPMENT } from '../classes/rogue/rogue';
 
 export function translateEquipment(type) {
   switch (type) {

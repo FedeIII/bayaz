@@ -59,6 +59,7 @@ import {
   PALADIN_FIGHTING_STYLES,
   SACRED_OATHS,
 } from '~/domain/classes/paladin/paladin';
+import { ROGISH_ARCHETYPES } from '~/domain/classes/rogue/rogue';
 
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
@@ -201,6 +202,10 @@ const paladinSchema = new mongoose.Schema({
   sacredOath: { type: String, enum: SACRED_OATHS },
 });
 
+const rogueSchema = new mongoose.Schema({
+  roguishArchetype: { type: String, enum: ROGISH_ARCHETYPES },
+});
+
 const classAttrsSchema = new mongoose.Schema({
   barbarian: barbarianSchema,
   bard: bardSchema,
@@ -213,6 +218,7 @@ const classAttrsSchema = new mongoose.Schema({
   wizard: wizardSchema,
   monk: monkSchema,
   paladin: paladinSchema,
+  rogue: rogueSchema,
   // ALL
   expertSkills: [
     { type: String, enum: [...SKILLS.map(s => s.name), 'thieves-tools'] },

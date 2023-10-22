@@ -771,6 +771,17 @@ export const TOOLS = {
       ...props,
     };
   },
+  poisonersKit(props) {
+    return {
+      name: 'poisonersKit',
+      translation: 'Kit de envenenador',
+      type: 'tool',
+      subtype: 'adventure',
+      price: [50, 0, 0],
+      weight: 1,
+      ...props,
+    };
+  },
 };
 
 export function translateTool(tool) {

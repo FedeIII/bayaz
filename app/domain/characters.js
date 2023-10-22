@@ -58,6 +58,8 @@ import {
   getPaladinFightingStyle,
   getSacredOath,
 } from './classes/paladin/paladin';
+import { ROGUE_SKILLS_EXPLANATION } from './classes/rogue/rogueSkillsExplanation';
+import { getRogueProficiencies } from './classes/rogue/rogue';
 import { getPackItems } from './equipment/packs';
 
 export const RACES = {
@@ -1589,9 +1591,6 @@ export const CLASSES = {
       'persuasion',
       'stealth',
     ],
-    proficiencies: {
-      ['Ataque Furtivo']: pc => `${Math.ceil(pc.level / 2)}d6 daño extra`,
-    },
     proficientItems: [
       ...getAllLightArmors().map(armor => armor.name),
       ...getAllSimpleMelee().map(weapon => weapon.name),
@@ -1604,6 +1603,38 @@ export const CLASSES = {
     ],
     statImprove: [4, 8, 10, 12, 16, 19],
     leveling: {
+      1: {
+        traits: {
+          sneakAttack: 'Ataque Furtivo',
+        },
+      },
+      2: {
+        traits: {
+          cunningAction: 'Acción Astuta',
+        },
+      },
+      3: {
+        traits: {
+          roguishArchetype: 'Arquetipo de Pícaro',
+        },
+        roguishArchetype: {
+          arcaneTrickster: {
+            traits: {
+              mageHandLegerdemain: 'Prestidigitación de Mano de Mago',
+            },
+          },
+          assassin: {
+            traits: {
+              bonusProficiencies: 'Competencias Adicionales',
+            },
+          },
+          thief: {
+            traits: {
+              fastHands: 'Manos Rápidas',
+            },
+          },
+        },
+      },
       4: {
         traits: {
           abilityScoreImprovement: 'Mejora de Puntuación de Característica',
@@ -2550,6 +2581,7 @@ export function getItemProficiencies(pc) {
       []),
     ...((bardCollege ? BARD_COLLEGES[bardCollege]?.proficientItems : []) || []),
     ...(studentOfWarTools ? [studentOfWarTools.name] : []),
+    ...getRogueProficiencies(pc),
   ];
 }
 
@@ -2877,6 +2909,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...MONK_SKILLS_EXPLANATION,
       ...elementalDisciplineExplanation(skillName),
       ...PALADIN_SKILLS_EXPLANATION,
+      ...ROGUE_SKILLS_EXPLANATION,
     }[skillName]?.(skill, pc) || skill
   );
 }
