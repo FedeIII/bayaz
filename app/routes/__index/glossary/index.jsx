@@ -4,16 +4,19 @@ import { SkillItem } from '~/components/modal/skillItem';
 import { SkillModal } from '~/components/modal/skillModal';
 import { MAX_RESULTS, getSearchResults } from '~/domain/search';
 import { InventoryItem } from '~/components/modal/inventoryItem';
+import { ItemModal } from '~/components/modal/itemModal';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
 
 import styles from '~/components/glossary.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
 
+const ITEM_HEIGHT = 67;
+
 function Sidebar(props) {
   const { filters, setFilters } = props;
 
   function onSearchChange(e) {
-    const newFilters = { search: e.target.value.toLowerCase() };
+    const newFilters = { search: e.target.value };
     setFilters(newFilters);
   }
 
@@ -101,7 +104,7 @@ function Glossary() {
           elRef={selectedItemRef}
           formRef={formRef}
           closeModal={closeItemModal}
-          closeOnLeave
+          showOverMouse={ITEM_HEIGHT}
         >
           {itemModalContent}
         </ItemModal>
@@ -142,7 +145,6 @@ function Glossary() {
                       pItem={item}
                       isLast
                       openModal={openItemModal('equipment', i)}
-                      closeModal={closeItemModal}
                       key={item.name}
                     />
                   </li>

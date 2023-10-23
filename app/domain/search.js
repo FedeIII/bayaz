@@ -1,12 +1,12 @@
-import { getAllItems } from './equipment/equipment';
+import { getAllItems, translateItem } from './equipment/equipment';
 import { SPELL_LIST } from './spells/spellList';
 import { translateSpell } from './spells/spells';
 
-export const MAX_RESULTS = 5;
+export const MAX_RESULTS = 20;
 
 function isSpellMatch(spell, search) {
-  return (
-    spell.name.includes(search) || translateSpell(spell.name).includes(search)
+  return [spell.name, translateSpell(spell.name)].some(str =>
+    str.includes(search)
   );
 }
 
@@ -18,7 +18,15 @@ function findSpells(search) {
 }
 
 function isItemMatch(itemBuilder, search) {
-  return itemBuilder().name?.includes(search);
+  const item = itemBuilder();
+  return [
+    item.name,
+    item.translation,
+    item.type,
+    item.subtype,
+    item.damage?.[1],
+    translateItem(item.subtype),
+  ].some(str => str?.toLowerCase().includes(search));
 }
 
 function findEquipment(search) {
@@ -29,6 +37,7 @@ function findEquipment(search) {
 }
 
 export function getSearchResults(search) {
+  const lowercaseSearch = search?.toLowerCase();
   if (!search)
     return {
       spells: [],
@@ -36,7 +45,7 @@ export function getSearchResults(search) {
     };
 
   return {
-    spells: findSpells(search),
-    equipment: findEquipment(search),
+    spells: findSpells(lowercaseSearch),
+    equipment: findEquipment(lowercaseSearch),
   };
 }

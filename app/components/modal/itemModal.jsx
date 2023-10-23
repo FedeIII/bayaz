@@ -7,6 +7,7 @@ import { getItemArmorClass, translateMoney } from '~/domain/characters';
 
 import styles from './inventoryItem.module.css';
 import { translateDamage } from '~/domain/equipment/weapons';
+import { getSelfLeftX, getSelfTopY } from './modalPosition';
 
 export function ItemModalContent(props) {
   const { pc, item } = props;
@@ -71,16 +72,30 @@ export function ItemModal(props) {
     closeOnLeave,
     center,
     dropShadow,
+    showOverMouse = 0,
   } = props;
 
   const ref = useRef(null);
   const [selfPosition, setSelfPosition] = useState(null);
-  const elPos = elRef?.current.getBoundingClientRect();
-  const formPos = formRef?.current.getBoundingClientRect();
+  const elPos = elRef?.current?.getBoundingClientRect();
+  const formPos = formRef?.current?.getBoundingClientRect();
 
   useEffect(() => {
-    setSelfPosition(ref?.current.getBoundingClientRect());
+    setSelfPosition(ref?.current?.getBoundingClientRect());
   }, [setSelfPosition, ref?.current]);
+
+  const selfTopY = getSelfTopY({
+    elPos,
+    formPos,
+    selfPosition,
+    showOverMouse,
+  });
+  const selfLeftX = getSelfLeftX({
+    elPos,
+    formPos,
+    selfPosition,
+    center,
+  });
 
   return (
     <>
@@ -88,16 +103,8 @@ export function ItemModal(props) {
       <div
         className={styles.actionModal}
         style={{
-          top:
-            (elPos?.y || 0) -
-            (formPos?.y || 0) -
-            (selfPosition?.height || 0) +
-            'px',
-          left:
-            (elPos?.x || 0) -
-            (formPos?.x || 0) -
-            (center ? (selfPosition?.width || 0) / 2 : 0) +
-            'px',
+          top: selfTopY + 'px',
+          left: selfLeftX + 'px',
         }}
         onMouseLeave={closeOnLeave && closeModal}
         ref={ref}

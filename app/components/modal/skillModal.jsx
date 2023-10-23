@@ -14,12 +14,9 @@ import { getInvocationExplanation } from '~/domain/classes/warlock/warlockSkills
 import { getInvocation } from '~/domain/classes/warlock/warlock';
 import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fighter';
 import { displayManeuver } from '~/domain/classes/fighter/fighterSkillsExplanation';
+import { getSelfLeftX, getSelfTopY } from './modalPosition';
 
 import styles from './inventoryItem.module.css';
-
-const MODAL_VERTICAL_OFFSET = 100;
-const MODAL_HORIZONTAL_OFFSET_RIGHT = 50;
-const MODAL_HORIZONTAL_OFFSET_LEFT = -180;
 
 export function SkillModalContent(props) {
   const { pc, skillName, skill, bigModal } = props;
@@ -166,44 +163,6 @@ export function ManeuverModalContent(props) {
   );
 }
 
-function getSelfTopY(elPos, formPos, selfPosition, bigModal) {
-  let selfTopY = (elPos?.y || 0) - (formPos?.y || 0);
-  const selfHeight = selfPosition?.height || 0;
-  const selfBottomY = selfTopY + selfHeight;
-  const formTopY = -formPos?.y || 0;
-  const windowHeight = window?.innerHeight || 0;
-  const formBottomY = formTopY + windowHeight;
-
-  if (bigModal) return formTopY + MODAL_VERTICAL_OFFSET;
-
-  if (selfTopY < formTopY + MODAL_VERTICAL_OFFSET)
-    selfTopY = formTopY + MODAL_VERTICAL_OFFSET;
-  if (selfBottomY > formBottomY - MODAL_VERTICAL_OFFSET)
-    selfTopY = formBottomY - MODAL_VERTICAL_OFFSET - selfHeight;
-
-  return selfTopY;
-}
-
-function getSelfLeftX(elPos, formPos, selfPosition) {
-  const selfWidth = selfPosition?.width || 0;
-  const formWidth = formPos?.width || 0;
-  const formLeftX = formPos?.x || 0;
-
-  let selfLeftX = (elPos?.x || 0) - formLeftX - selfWidth / 2;
-
-  if (
-    selfLeftX + formLeftX + selfWidth >
-    formWidth - MODAL_HORIZONTAL_OFFSET_RIGHT
-  )
-    selfLeftX =
-      formWidth - MODAL_HORIZONTAL_OFFSET_RIGHT - selfWidth - formLeftX;
-
-  if (selfLeftX < formLeftX + MODAL_HORIZONTAL_OFFSET_LEFT)
-    selfLeftX = formLeftX + MODAL_HORIZONTAL_OFFSET_LEFT;
-
-  return selfLeftX;
-}
-
 export function SkillModal(props) {
   const { children, elRef, formRef, closeModal, closeOnLeave, bigModal } =
     props;
@@ -217,8 +176,14 @@ export function SkillModal(props) {
     setSelfPosition(ref?.current.getBoundingClientRect());
   }, [setSelfPosition, ref?.current]);
 
-  const selfTopY = getSelfTopY(elPos, formPos, selfPosition, bigModal);
-  const selfLeftX = getSelfLeftX(elPos, formPos, selfPosition);
+  const selfTopY = getSelfTopY({
+    elPos,
+    formPos,
+    selfPosition,
+    bigModal,
+    showOverMouse: 1,
+  });
+  const selfLeftX = getSelfLeftX({ elPos, formPos, selfPosition });
 
   return (
     <>
