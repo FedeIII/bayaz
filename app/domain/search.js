@@ -5,9 +5,12 @@ import { translateSpell } from './spells/spells';
 export const MAX_RESULTS = 20;
 
 function isSpellMatch(spell, search) {
-  return [spell.name, translateSpell(spell.name)].some(str =>
-    str.includes(search)
-  );
+  return [
+    spell.name,
+    translateSpell(spell.name),
+    spell.desc,
+    spell.school,
+  ].some(str => str.includes(search));
 }
 
 function findSpells(search) {
