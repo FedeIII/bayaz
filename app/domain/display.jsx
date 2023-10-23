@@ -21,7 +21,7 @@ import {
   getAllLightArmors,
   getAllMediumArmors,
 } from './equipment/armors';
-import { getItem, translateItem } from './equipment/equipment';
+import { getItem, noItem, translateItem } from './equipment/equipment';
 import {
   getAllMartialMelee,
   getAllMartialRanged,
@@ -178,13 +178,21 @@ export function displayDamage(pc, weapon) {
 }
 
 function getAttackFromWeapon(pc, weapon, specialAttackIndex) {
-  return {
-    weapon: getItem(weapon.name),
-    specialAttackIndex,
-    bonus: getAttackBonus(pc, weapon),
-    damage: displayDamage(pc, weapon),
-    type: `(${translateDamage(weapon.damage[1])})`,
-  };
+  return weapon.name
+    ? {
+        weapon: getItem(weapon.name),
+        specialAttackIndex,
+        bonus: getAttackBonus(pc, weapon),
+        damage: displayDamage(pc, weapon),
+        type: `(${translateDamage(weapon.damage[1])})`,
+      }
+    : {
+        weapon: noItem(),
+        specialAttackIndex: null,
+        bonus: null,
+        damage: null,
+        type: null,
+      };
 }
 
 export function getAttacks(pc) {
@@ -193,7 +201,9 @@ export function getAttacks(pc) {
   } = pc;
 
   let specialAttackIndex = 0;
-  return weapons.reduce((attacks, pWeapon) => {
+  let weaponSlots = [...weapons, noItem(), noItem(), noItem()];
+  weaponSlots = weaponSlots.slice(0, 3).map(w => w || noItem());
+  return weaponSlots.reduce((attacks, pWeapon) => {
     const weapon = getItem(pWeapon.name);
 
     attacks.push(
@@ -310,6 +320,7 @@ export function getSpecialAttacks(pc) {
   } = pc;
 
   return weapons.reduce((specialAttacks, pWeapon) => {
+    pWeapon = pWeapon || noItem();
     const weapon = getItem(pWeapon.name);
     if (hasSpecialAttack(weapon, pc)) {
       specialAttacks.push(

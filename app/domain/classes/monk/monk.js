@@ -22,7 +22,7 @@ export function isMonkWeapon(weapon) {
   const {
     name,
     subtype,
-    properties: { twoHanded, heavy },
+    properties: { twoHanded, heavy } = {},
   } = weapon;
 
   return (

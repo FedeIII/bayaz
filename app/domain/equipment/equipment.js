@@ -64,12 +64,17 @@ export function translateItem(itemName) {
   return null;
 }
 
+export function noItem() {
+  return { name: null, translation: 'no item' };
+}
+
 export function getAllItems() {
   return Object.values({
     ...WEAPONS,
     ...ARMORS,
     ...TOOLS,
     ...getAllPackItems(),
+    noItem,
   });
 }
 

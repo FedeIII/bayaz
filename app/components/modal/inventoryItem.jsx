@@ -15,6 +15,8 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
   } = props;
   const item = getItem(pItem.name);
 
+  if (!item.name) return null;
+
   return (
     <>
       <strong

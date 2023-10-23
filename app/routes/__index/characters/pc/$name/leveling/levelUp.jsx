@@ -33,6 +33,7 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get('name');
   const hitPoints = formData.get('hitPoints');
+  const hitPointsRealDice = formData.get('hitPointsRealDice');
 
   const pc = await getPc(name);
 
@@ -40,7 +41,7 @@ export const action = async ({ request }) => {
   if (hitPoints === 'random') {
     extraHitPoints = getRandomLevelUpHitPoints(pc);
   } else {
-    extraHitPoints = parseInt(hitPoints, 10);
+    extraHitPoints = parseInt(hitPoints || hitPointsRealDice, 10);
   }
 
   const extraPreparedSpells = substract(
@@ -98,6 +99,22 @@ function LevelUp() {
         >
           Utilizar valor fijo ({increment(getFixedHealthForLevelUp(pc))})
         </button>
+        <label htmlFor="realDice" className={appStyles.inputButton}>
+          <input
+            type="number"
+            id="realDice"
+            name="hitPointsRealDice"
+            onKeydown="return false"
+            max="20"
+            min="1"
+          />
+          <button
+            type="submit"
+            className={`${cardStyles.buttonCard} ${appStyles.buttonBig}`}
+          >
+            Lanzar Dado Real ({CLASSES[pClass].hitDice})
+          </button>
+        </label>
       </div>
     </Form>
   );

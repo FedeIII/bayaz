@@ -66,7 +66,7 @@ import {
   getSpecialAttacks,
   increment,
 } from '~/domain/display';
-import { getItem, translateItem } from '~/domain/equipment/equipment';
+import { getItem, noItem, translateItem } from '~/domain/equipment/equipment';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { translateBackground } from '~/domain/backgrounds/backgrounds';
 import { InventoryItem } from '~/components/modal/inventoryItem';
@@ -129,6 +129,8 @@ import {
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
+
+const noAttack = { weapon: noItem() };
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -489,7 +491,7 @@ function PcSummary() {
     }
   }, []);
 
-  const [attacks, setAttacks] = useState([null, null, null]);
+  const [attacks, setAttacks] = useState([noAttack, noAttack, noAttack]);
   useEffect(() => {
     setAttacks(getAttacks(pc));
   }, [pc]);
@@ -682,20 +684,20 @@ function PcSummary() {
           const [_1, drag] = useDrag(
             () => ({
               type: 'WEAPON',
-              item: { value: attack?.weapon.name },
+              item: { value: attack.weapon.name },
+              canDrag: () => !!attack.weapon.name,
             }),
-            [attack?.weapon.name]
+            [attack.weapon.name]
           );
 
           const [_2, drop] = useDrop(
             () => ({
               accept: 'WEAPON',
               drop: item => onWeaponDrop(item.value, i),
+              canDrop: () => !!attack.weapon.name,
             }),
-            []
+            [attack.weapon.name]
           );
-
-          if (!attack) return null;
 
           return (
             <Fragment key={i}>
@@ -726,14 +728,20 @@ function PcSummary() {
                   </sup>
                 )}
               </div>
-              <span className={`${styles.data} ${styles['attackBonus-' + i]}`}>
-                {increment(attack.bonus)}
-              </span>
-              <span className={`${styles.data} ${styles['attackType-' + i]}`}>
-                {attack.damage}
-                <br />
-                {attack.type}
-              </span>
+              {!!attack.bonus && (
+                <span
+                  className={`${styles.data} ${styles['attackBonus-' + i]}`}
+                >
+                  {increment(attack.bonus)}
+                </span>
+              )}
+              {!!attack.damage && (
+                <span className={`${styles.data} ${styles['attackType-' + i]}`}>
+                  {attack.damage}
+                  <br />
+                  {attack.type}
+                </span>
+              )}
             </Fragment>
           );
         })}
