@@ -360,7 +360,7 @@ export const WIZARD_SKILLS_EXPLANATION = {
     </>
   ),
 
-  improvedAbjuration: (skill, px) => (
+  improvedAbjuration: (skill, pc) => (
     <>
       <p>
         Comenzando en el nivel 10, cuando lanzas un conjuro de abjuración que
@@ -372,7 +372,7 @@ export const WIZARD_SKILLS_EXPLANATION = {
     </>
   ),
 
-  theThirdEye: (skill, px) => (
+  theThirdEye: (skill, pc) => (
     <>
       <p>
         A partir del nivel 10 puedes usar tu acción para incrementar tus poderes

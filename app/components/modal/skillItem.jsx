@@ -4,11 +4,19 @@ import { translateSpell } from '~/domain/spells/spells';
 import { displayInvocation } from '~/domain/classes/warlock/displayWarlockTrait';
 import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fighter';
 import { translateElementalDisciplines } from '~/domain/classes/monk/monk';
+import { BASE_CHARACTER } from '~/domain/characters';
 
 import styles from './inventoryItem.module.css';
 
 export const SkillItem = forwardRef(function SkillItem(props, ref) {
-  const { traitName, trait, pc, openModal, openOnRightClick, bigModal } = props;
+  const {
+    traitName,
+    trait,
+    pc = BASE_CHARACTER,
+    openModal,
+    openOnRightClick,
+    bigModal,
+  } = props;
 
   return (
     <>

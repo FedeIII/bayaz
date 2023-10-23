@@ -58,6 +58,7 @@ function Glossary() {
   const refsList = {
     spells: Array.from(Array(MAX_RESULTS), () => useRef()),
     equipment: Array.from(Array(MAX_RESULTS), () => useRef()),
+    traits: Array.from(Array(MAX_RESULTS), () => useRef()),
   };
 
   const searchResults = useMemo(() => getSearchResults(search), [search]);
@@ -146,6 +147,25 @@ function Glossary() {
                       isLast
                       openModal={openItemModal('equipment', i)}
                       key={item.name}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {!!searchResults.traits.length && (
+            <div className={styles.resultsSection}>
+              <div className={styles.sectionHeader}>
+                <span className={styles.headerTitle}>Rasgos y Atributos</span>
+              </div>
+              <ul className={styles.sectionItems}>
+                {searchResults.traits.map(([traitName, trait], i) => (
+                  <li className={styles.sectionItem}>
+                    <SkillItem
+                      ref={itemRefs.traits[i]}
+                      traitName={traitName}
+                      trait={trait}
+                      openModal={openSkillModal('traits', i)}
                     />
                   </li>
                 ))}

@@ -50,9 +50,11 @@ import {
 } from './classes/monk/monkSkillsExplanation';
 import { PALADIN_SKILLS_EXPLANATION } from './classes/paladin/paladinSkillsExplanation';
 import {
+  ELEMENTAL_DISCIPLINES,
   getExtraUnarmoredMovement,
   getMartialArtsDice,
   isMonkWeapon,
+  translateElementalDisciplines,
 } from './classes/monk/monk';
 import {
   getPaladinFightingStyle,
@@ -383,11 +385,13 @@ export const CLASSES = {
       'animal-handling',
     ],
     statImprove: [4, 8, 12, 16, 19],
-    traits: {
-      rage: 'Furia',
-      unarmoredDefense: 'Defensa sin Armadura',
-    },
     leveling: {
+      1: {
+        traits: {
+          rage: 'Furia',
+          unarmoredDefense: 'Defensa sin Armadura',
+        },
+      },
       2: {
         traits: {
           recklessAttack: 'Ataque Temerario',
@@ -533,10 +537,12 @@ export const CLASSES = {
     ],
     spellcastingAbility: 'cha',
     statImprove: [4, 8, 12, 16, 19],
-    traits: {
-      bardicInspiration: 'Inspiración de Bardo',
-    },
     leveling: {
+      1: {
+        traits: {
+          bardicInspiration: 'Inspiración de Bardo',
+        },
+      },
       2: {
         traits: {
           jackOfAllTrades: 'Polivalente',
@@ -654,7 +660,7 @@ export const CLASSES = {
           },
           light: {
             traits: {
-              wardingFlare: 'Filgor Protector',
+              wardingFlare: 'Fulgor Protector',
             },
           },
           tempest: {
@@ -3086,4 +3092,49 @@ export const BASE_CHARACTER = {
   },
   languages: ['common'],
   money: [0, 0, 0],
+  classAttrs: {
+    skills: [],
+  },
 };
+
+export const ALL_TRAITS = Object.entries(
+  Object.values(CLASSES).reduce(
+    (traitDictionary, classValues) => ({
+      ...traitDictionary,
+      ...Object.values(classValues.leveling).reduce(
+        (classTraitDictionary, levelTraits) => ({
+          ...classTraitDictionary,
+          ...levelTraits.traits,
+          ...Object.entries(levelTraits).reduce(
+            (levelTraitDictionary, [traitKey, traitValue]) => ({
+              ...levelTraitDictionary,
+              ...(traitKey !== 'traits'
+                ? Object.values(traitValue).reduce(
+                    (specialtyTraitDictionary, specialtyValue) => ({
+                      ...specialtyTraitDictionary,
+                      ...specialtyValue.traits,
+                    }),
+                    {}
+                  )
+                : {}),
+            }),
+            {}
+          ),
+        }),
+        {}
+      ),
+    }),
+    {}
+  )
+).concat(
+  Object.values(ELEMENTAL_DISCIPLINES).reduce(
+    (elementalDisciplinesTraits, elementalDiscipline) => [
+      ...elementalDisciplinesTraits,
+      [
+        elementalDiscipline.name,
+        translateElementalDisciplines(elementalDiscipline.name),
+      ],
+    ],
+    []
+  )
+);

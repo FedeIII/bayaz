@@ -6,8 +6,9 @@ import {
   InvocationModalContent,
   ManeuverModalContent,
 } from './skillModal';
+import { BASE_CHARACTER } from '~/domain/characters';
 
-export function useSkillItems(pc, skillRefs) {
+export function useSkillItems(pc = BASE_CHARACTER, skillRefs) {
   const [skillModalContent, setSkillModalContent] = useState(null);
   const [skillBigModalContent, setSkillBigModalContent] = useState(null);
   const [selectedSkillRef, setSelectedSkillRef] = useState(null);
