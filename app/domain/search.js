@@ -1,5 +1,6 @@
 import { getAllItems, translateItem } from './equipment/equipment';
 import { SPELL_LIST } from './spells/spellList';
+import { translateSchool } from './spells/spellTranslations';
 import { translateSpell } from './spells/spells';
 
 export const MAX_RESULTS = 20;
@@ -10,7 +11,8 @@ function isSpellMatch(spell, search) {
     translateSpell(spell.name),
     spell.desc,
     spell.school,
-  ].some(str => str.includes(search));
+    translateSchool(spell.school),
+  ].some(str => str?.toLowerCase().includes(search));
 }
 
 function findSpells(search) {
