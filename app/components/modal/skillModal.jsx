@@ -42,7 +42,7 @@ export function SkillModalContent(props) {
 }
 
 export function SpellModalContent(props) {
-  const { pc, spellName } = props;
+  const { spellName } = props;
 
   const spell = getSpell(spellName);
 

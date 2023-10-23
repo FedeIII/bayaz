@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { getItem } from '~/domain/equipment/equipment';
 
 import { ItemModalContent } from './itemModal';
+import { BASE_CHARACTER } from '~/domain/characters';
 
-export function useInventoryItems(pc, itemRefs, otherModalContent) {
+export function useInventoryItems(pc = BASE_CHARACTER, itemRefs, otherModalContent) {
   const [itemModalContent, setItemModalContent] = useState(null);
   const [selectedItemRef, setSelectedItemRef] = useState(null);
   const closeItemModal = () => setItemModalContent(null);

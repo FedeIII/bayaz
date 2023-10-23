@@ -635,13 +635,6 @@ export function displayElementalDiscipline(discipline, trait, pc) {
           Puedes gastar <u>6 puntos ki</u> para lanzar <u>muro de piedra</u>.
         </p>
       );
-    case 'clenchOfTheNorthWind':
-      return (
-        <p>
-          Puedes gastar <u>3 puntos ki</u> para lanzar{' '}
-          <u>inmovilizar persona</u>.
-        </p>
-      );
 
     default:
       break;

@@ -171,3 +171,8 @@
   display: inline-block;
   margin: 16px 16px;
 }
+
+.inputButton {
+  display: flex;
+  flex-direction: column;
+}

@@ -27,7 +27,7 @@ export function useSkillItems(pc, skillRefs) {
         setModalContent(
           () => props =>
             skill === 'spell' ? (
-              <SpellModalContent pc={pc} spellName={skillName} bigModal />
+              <SpellModalContent spellName={skillName} bigModal />
             ) : skill === 'invocation' ? (
               <InvocationModalContent
                 pc={pc}

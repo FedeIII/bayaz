@@ -3063,3 +3063,27 @@ export function getChannelDivinityTraits(pc) {
     )
   );
 }
+
+export const BASE_CHARACTER = {
+  name: 'Base Character',
+  race: 'human',
+  size: 'M',
+  speed: 10,
+  pClass: 'fighter',
+  level: 1,
+  exp: 0,
+  totalHitPoints: [8],
+  hitPoints: 8,
+  hitDice: 1,
+  remainingHitDice: 1,
+  stats: {
+    str: 10,
+    dex: 10,
+    con: 10,
+    int: 10,
+    wis: 10,
+    cha: 10,
+  },
+  languages: ['common'],
+  money: [0, 0, 0],
+};

@@ -12,6 +12,7 @@ const mainLinks = [
   { name: 'Lugares', url: '/places', level: 0 },
   { name: 'Personajes', url: '/characters', level: 0 },
   { name: 'Party', url: '/party', level: 0 },
+  { name: 'Glosario', url: '/glossary', level: 0 },
 ];
 
 function getMenuItems(partyContext = {}, monsterContext = {}) {
@@ -20,22 +21,24 @@ function getMenuItems(partyContext = {}, monsterContext = {}) {
   let items = [...mainLinks];
 
   if (partyIdState) {
-    items.push(
+    items = insertAfter(item => item.name === 'Party', items, [
       { name: partyIdState, url: `/party/${partyIdState}`, level: 1 },
       {
         name: 'Encuentros',
         url: `/party/${partyIdState}/encounters`,
         level: 2,
-      }
-    );
+      },
+    ]);
   }
 
   if (partyIdState && encounterIdState) {
-    items.push({
-      name: 'Combate',
-      url: `/party/${partyIdState}/encounters/${encounterIdState}`,
-      level: 2,
-    });
+    items = insertAfter(item => item.name === 'Encuentros', items, [
+      {
+        name: 'Combate',
+        url: `/party/${partyIdState}/encounters/${encounterIdState}`,
+        level: 2,
+      },
+    ]);
   }
 
   if (pcNamesState?.length) {
