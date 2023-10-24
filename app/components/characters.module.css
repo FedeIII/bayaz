@@ -50,3 +50,70 @@
 .equipmentItem {
   display: block;
 }
+
+.actionModal {
+  background-color: var(--color-x-pale);
+}
+
+.name {
+  background-color: var(--color-x-pale);
+}
+
+.characterContent {
+  position: relative;
+  border-color: black;
+  border-inline-style: groove;
+  border-start-start-radius: 5px;
+  border-start-end-radius: 5px;
+  border-end-end-radius: 10px;
+  border-end-start-radius: 10px;
+  margin: -23px 0 0 0;
+  padding: 32px 16px 16px 16px;
+  background-color: var(--color-light);
+  text-align: left;
+  overflow-y: scroll;
+  max-height: 50vh;
+  font-size: 14px;
+  color: white;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  margin: 16px 0 0;
+  color: var(--color-x-pale);
+}
+
+.actionsDivider {
+  margin: 0 0 8px;
+  border-color: var(--color-x-pale);
+}
+
+.sectionDivider {
+  border-color: var(--color-x-pale);
+}
+
+.attrSection {
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+  padding: 0 16px;
+}
+
+.attrBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bold {
+  font-weight: bolder;
+  color: var(--color-x-pale);
+}
+
+.p {
+  margin: 12px 0 0;
+}

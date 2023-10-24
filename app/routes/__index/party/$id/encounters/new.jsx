@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 
@@ -32,6 +32,9 @@ import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/newEncounter.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
+import { useCharacterItems } from '~/components/modal/useCharacterItems';
+import { CharacterModal } from '~/components/modal/characterModal';
+import { CharacterItem } from '~/components/modal/characterItem';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -286,19 +289,19 @@ function SelectedMonsters(props) {
 function MonsterCatalog(props) {
   const {
     numberOfPcs,
-    filteredMonsterList,
+    monsterList,
     encounterMonsters,
     xpThreshold,
     encounterXp,
     partyMaxLevel,
     addMonsterToEncounter,
+    monsterRefs,
+    openMonsterModal,
   } = props;
-
-  const groupedFilteredMonsterList = groupByCR(filteredMonsterList);
 
   return (
     <div className={styles.monsters}>
-      {groupedFilteredMonsterList.map((monstersByCr, crIndex) => (
+      {monsterList.map((monstersByCr, crIndex) => (
         <div className={styles.crGroup} key={crIndex}>
           <div
             className={
@@ -318,7 +321,7 @@ function MonsterCatalog(props) {
             </div>
           </div>
           <ul className={styles.crMonsters}>
-            {sortByXp(monstersByCr).map(monster => (
+            {monstersByCr.map(monster => (
               <li
                 className={`${styles.monsterButton}`}
                 data-suitable={isMonsterSuitable(
@@ -334,7 +337,16 @@ function MonsterCatalog(props) {
               >
                 <div className={styles.monsterInfo}>
                   <span className={styles.monsterName}>
-                    {Monster(monster).translation}
+                    <CharacterItem
+                      ref={monsterRefs[Monster(monster).name][0]}
+                      character={Monster(monster)}
+                      charSection={Monster(monster).name}
+                      openModal={openMonsterModal(
+                        Monster(monster),
+                        Monster(monster).name
+                      )}
+                      openOnRightClick
+                    />
                   </span>{' '}
                   <div className={styles.monsterStats}>
                     <span className={styles.monsterXp}>
@@ -412,9 +424,36 @@ function NewEncounter() {
     setFilteredMonsterList(monsters);
   }
 
+  const groupedFilteredMonsterList = groupByCR(filteredMonsterList);
+
+  const [monsterRefs, setMonsterRefs] = useState(
+    monsterList.reduce((refs, m) => ({ ...refs, [m.name]: [useRef()] }), {})
+  );
+
+  const [
+    monsterModalContent,
+    closeMonsterModal,
+    openMonsterModal,
+    selectedMonsterRef,
+    setSelectedMonsterRef,
+  ] = useCharacterItems(monsterRefs);
+
+  const formRef = useRef(null);
+
   return (
-    <Form method="post">
+    <Form method="post" ref={formRef}>
       <input readOnly type="text" name="partyId" value={party.id} hidden />
+
+      {monsterModalContent && (
+        <CharacterModal
+          elRef={selectedMonsterRef}
+          formRef={formRef}
+          closeModal={closeMonsterModal}
+        >
+          {monsterModalContent}
+        </CharacterModal>
+      )}
+
       <div className={styles.newEncounter}>
         <Sidebar
           pcs={pcs}
@@ -435,12 +474,14 @@ function NewEncounter() {
           {!!filteredMonsterList.length && (
             <MonsterCatalog
               numberOfPcs={pcs.length}
-              filteredMonsterList={filteredMonsterList}
+              monsterList={groupedFilteredMonsterList}
               encounterMonsters={encounterMonsters}
               xpThreshold={xpThreshold}
               encounterXp={encounterXp}
               partyMaxLevel={partyMaxLevel}
               addMonsterToEncounter={addMonsterToEncounter}
+              monsterRefs={monsterRefs}
+              openMonsterModal={openMonsterModal}
             />
           )}
         </div>

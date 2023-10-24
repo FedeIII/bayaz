@@ -167,6 +167,10 @@
   font-size: 14px;
 }
 
+.tinyText {
+  font-size: 12px;
+}
+
 .filter {
   display: inline-block;
   margin: 16px 16px;

@@ -7,11 +7,10 @@ import { translateMonster } from './monsterTranslations';
 export function Monster(monster) {
   if (isString(monster)) monster = getMonster(monster);
   return {
-    name: monster.name,
+    ...monster,
     xp: parseInt(monster.xp, 10),
     challenge: getMonsterChallenge(monster),
     translation: translateMonster(monster.name),
-    size: monster.size,
   };
 }
 
@@ -128,13 +127,15 @@ function getMonsterChallenge(monster) {
 }
 
 export function groupByCR(monsterList) {
-  return monsterList.reduce((groupedMonsters, monster) => {
+  const monstersByCr = monsterList.reduce((groupedMonsters, monster) => {
     let crIndex = Monster(monster).challenge;
     crIndex = crIndex < 1 ? 0 : crIndex;
     groupedMonsters[crIndex] = groupedMonsters[crIndex] || [];
     groupedMonsters[crIndex].push(monster);
     return groupedMonsters;
   }, []);
+
+  return monstersByCr.map(sortByXp);
 }
 
 export function sortByXp(monsterList) {
@@ -168,4 +169,63 @@ export function translateSize(size) {
     default:
       'unknown size';
   }
+}
+
+export function t(key) {
+  return {
+    Tiny: 'Diminuto',
+    Small: 'Pequeño',
+    Medium: 'Mediano',
+    Large: 'Grande',
+    Huge: 'Enorme',
+    Gargantuan: 'Gigantesco',
+    orc: 'orco',
+    LG: 'Legal bueno',
+    NG: 'Neutral bueno',
+    CG: 'Caótico bueno',
+    LN: 'Legal neutral',
+    N: 'Neutral',
+    CN: 'Caótico neutral',
+    LE: 'Legal malvado',
+    NE: 'Neutral malvado',
+    CE: 'Caótico malvado',
+    Humanoid: 'Humanoide',
+    Fey: 'Feérico',
+    Fiend: 'Infernal',
+    Monstrosity: 'Monstruos',
+    Undead: 'No-muerto',
+    Beast: 'Bestia',
+    Celestial: 'Celestial',
+    Plant: 'Planta',
+    Aberration: 'Aberración',
+    Elemental: 'Elemental',
+    Ooze: 'Cieno',
+    Dragon: 'Dragón',
+    Construct: 'Constructo',
+    Giant: 'Gigante',
+  }[key];
+}
+
+const NON_SPECIAL_SKILLS = [
+  'actions',
+  'legendaryActions',
+  'Armor Class',
+  'Hit Points',
+  'Speed',
+  'Skills',
+  'Senses',
+  'Languages',
+  'Challenge',
+  'stats',
+  'notes',
+];
+
+export function getSpecialSkills(monster) {
+  return Object.entries(monster.details).reduce(
+    (specialSkills, [key, value]) => ({
+      ...specialSkills,
+      ...(NON_SPECIAL_SKILLS.includes(key) ? {} : { [key]: value }),
+    }),
+    {}
+  );
 }
