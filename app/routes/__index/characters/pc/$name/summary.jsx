@@ -503,7 +503,7 @@ function PcSummary() {
       ? hitPointsState < maxHitPoints / 5
         ? barStyles.redBar
         : barStyles.orangeBar
-      : barStyles.greenBar;
+      : barStyles.blueBar;
 
   function animateHitPoints(addExtraHitPoints, i) {
     setTimeout(() => {
