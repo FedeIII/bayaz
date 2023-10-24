@@ -54,3 +54,26 @@ export async function damageMonster(encounterId, monsterId, damage) {
 
   return updatedEncounter;
 }
+
+export async function healMonster(encounterId, monsterId, healing) {
+  const encounter = await getEncounter(encounterId);
+
+  const monster = encounter.monsters.find(m => m.id === monsterId);
+
+  let updatedEncounter = encounter;
+  if (monster.hp + healing > monster.maxHp) {
+    updatedEncounter = await Encounter.findOneAndUpdate(
+      { id: encounterId, 'monsters.id': monsterId },
+      { $set: { 'monsters.$.hp': monster.maxHp } },
+      { new: true }
+    );
+  } else {
+    updatedEncounter = await Encounter.findOneAndUpdate(
+      { id: encounterId, 'monsters.id': monsterId },
+      { $inc: { 'monsters.$.hp': healing } },
+      { new: true }
+    );
+  }
+
+  return updatedEncounter;
+}

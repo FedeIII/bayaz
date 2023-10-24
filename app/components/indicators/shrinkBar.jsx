@@ -9,7 +9,10 @@ export function ShrinkBar(props) {
   const { cursorPos, maxValue, midValue, lowValue, color } = props;
 
   const total = 20;
-  const filled = Math.round((cursorPos * total) / maxValue);
+  const filled = Math.max(
+    Math.min(Math.round((cursorPos * total) / maxValue), total),
+    0
+  );
   const empty = total - filled;
 
   const barStyle =

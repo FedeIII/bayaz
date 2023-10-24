@@ -53,9 +53,7 @@ npx prisma migrate dev
 
 ## TO DOs
 
-- Glossary with searcher
 - Background: {trait}
-- lose HP on combats
 - recover HP after rest
 - recover spell slots after rest
   - Warlock eldritchMaster

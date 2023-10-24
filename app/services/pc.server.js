@@ -7,6 +7,7 @@ import {
   EXOTIC_LANGUAGES,
   CLASSES,
   getLevelByXp,
+  getMaxHitPoints,
 } from '~/domain/characters';
 import {
   DRAGON_ANCESTORS,
@@ -393,6 +394,40 @@ export async function updatePc(pcAttrs) {
     { $set: pcAttrs },
     { new: true }
   ).exec();
+
+  return updatedPc;
+}
+
+export async function damagePc(pcName, damage) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    { $inc: { hitPoints: -damage } },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function healPc(pcName, healing) {
+  const pc = await getPc(pcName);
+  const maxHitPoints = getMaxHitPoints(pc);
+  const { hitPoints } = pc;
+
+  let updatedPc = pc;
+
+  if (hitPoints + healing > maxHitPoints) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name: pcName },
+      { $set: { hitPoints: maxHitPoints } },
+      { new: true }
+    ).exec();
+  } else {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name: pcName },
+      { $inc: { hitPoints: healing } },
+      { new: true }
+    ).exec();
+  }
 
   return updatedPc;
 }

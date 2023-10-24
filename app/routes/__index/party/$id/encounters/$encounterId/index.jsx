@@ -2,7 +2,7 @@ import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 import { useContext, useEffect } from 'react';
 
-import { getPc } from '~/services/pc.server';
+import { damagePc, getPc, healPc } from '~/services/pc.server';
 import { addMonstersKilled, getParty } from '~/services/party.server';
 import {
   badlyHurtHP,
@@ -17,6 +17,7 @@ import {
   damageMonster,
   deleteEncounter,
   getEncounter,
+  healMonster,
 } from '~/services/encounter.server';
 import { ShrinkBar } from '~/components/indicators/shrinkBar';
 import MonstersContext from '~/components/contexts/monstersContext';
@@ -25,6 +26,7 @@ import { getMonsterPositionStyle } from '~/domain/encounters/encounters';
 import styles from '~/components/randomEncounter.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
 import { getActiveSession } from '~/domain/party/party';
+import { getMaxHitPoints } from '~/domain/characters';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -72,14 +74,39 @@ export const action = async ({ request }) => {
     return redirect(`/party/${partyId}/encounters`);
   }
 
+  let updatedEncounter = encounter;
+
   const damagedMonsterId = formData.get('damage');
   const damage = formData.get(`damage-${damagedMonsterId}`);
+  if (damagedMonsterId && damage) {
+    updatedEncounter = await damageMonster(
+      encounterId,
+      damagedMonsterId,
+      parseInt(damage, 10)
+    );
+  }
 
-  const updatedEncounter = await damageMonster(
-    encounterId,
-    damagedMonsterId,
-    damage
-  );
+  const healMonsterId = formData.get('heal');
+  const heal = formData.get(`heal-${healMonsterId}`);
+  if (healMonsterId && heal) {
+    updatedEncounter = await healMonster(
+      encounterId,
+      healMonsterId,
+      parseInt(heal, 10)
+    );
+  }
+
+  const damagePcName = formData.get('pc-damage');
+  const pcDamage = formData.get(`pc-damage-${damagePcName}`);
+  if (damagePcName && pcDamage) {
+    await damagePc(damagePcName, parseInt(pcDamage, 10));
+  }
+
+  const healPcName = formData.get('pc-heal');
+  const pcHeal = formData.get(`pc-heal-${healPcName}`);
+  if (healPcName && pcHeal) {
+    await healPc(healPcName, parseInt(pcHeal, 10));
+  }
 
   return json({ encounter: updatedEncounter });
 };
@@ -128,7 +155,7 @@ function PartyCombat() {
       />
       <input readOnly type="text" name="partyId" value={partyId} hidden />
 
-      <h2>Combate</h2>
+      <h2>Enemigos</h2>
       <div className={`${cardStyles.cards} ${styles.monsterList}`}>
         {sortByXp(monsters)?.map((monster, i, all) => {
           const { hp, maxHp, id: monsterId } = monstersStats[i] || {};
@@ -168,10 +195,77 @@ function PartyCombat() {
                   />
                 </div>
               )}
+              <div className={styles.buttonContainer}>
+                <button name="heal" value={monsterId}>
+                  Curación
+                </button>
+                <input
+                  type="text"
+                  name={`heal-${monsterId}`}
+                  className={styles.damageInput}
+                />
+              </div>
             </Card>
           );
         })}
       </div>
+
+      <h2>PCs</h2>
+      <div className={`${cardStyles.cards} ${styles.monsterList}`}>
+        {pcs.map((pc, i, all) => {
+          const maxHitPoints = getMaxHitPoints(pc);
+          const isAlive = pc.hitPoints > -maxHitPoints;
+
+          return (
+            <Card
+              title={pc.name}
+              key={pc.name}
+              style={getMonsterPositionStyle(i, all.length)}
+            >
+              {isAlive && (
+                <>
+                  {' '}
+                  <div>
+                    HP:{' '}
+                    <ShrinkBar
+                      cursorPos={pc.hitPoints}
+                      maxValue={maxHitPoints}
+                      midValue={maxHitPoints / 2}
+                      lowValue={maxHitPoints / 5}
+                    />
+                  </div>
+                  <div className={styles.buttonContainer}>
+                    <button name="pc-damage" value={pc.name}>
+                      Daño
+                    </button>
+                    <input
+                      type="text"
+                      name={`pc-damage-${pc.name}`}
+                      className={styles.damageInput}
+                    />
+                  </div>
+                </>
+              )}
+              {!isAlive && (
+                <div className={styles.death}>
+                  <span className={styles.deathIcon}>☠</span> Muerto
+                </div>
+              )}
+              <div className={styles.buttonContainer}>
+                <button name="pc-heal" value={pc.name}>
+                  Curación
+                </button>
+                <input
+                  type="text"
+                  name={`pc-heal-${pc.name}`}
+                  className={styles.damageInput}
+                />
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+
       <p className={styles.buttonsRow}>
         <Link
           to={`/party/${partyId}/encounters/${encounterId}/players`}
