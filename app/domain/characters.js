@@ -2994,7 +2994,7 @@ export function getLevelByXp(exp) {
   return EXP_FOR_LEVEL.findIndex(xp => xp > exp);
 }
 
-export function getSkillExplanation(skillName, skill, pc) {
+export function getSkillExplanation(skillName, skill, pc, submit, closeModal) {
   return (
     {
       ...SKILLS_EXPLANATION,
@@ -3012,7 +3012,7 @@ export function getSkillExplanation(skillName, skill, pc) {
       ...elementalDisciplineExplanation(skillName),
       ...PALADIN_SKILLS_EXPLANATION,
       ...ROGUE_SKILLS_EXPLANATION,
-    }[skillName]?.(skill, pc) || skill
+    }[skillName]?.(skill, pc, submit, closeModal) || skill
   );
 }
 

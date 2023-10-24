@@ -39,9 +39,9 @@ import {
   getExtraWeapons,
   getSpeed,
   getHitDice,
-  getRemainingHitDice,
   hasLeveledUp,
   getChannelDivinityTraits,
+  getMaxHitPoints,
 } from '~/domain/characters';
 import {
   getSorcererOrigin,
@@ -126,9 +126,11 @@ import {
   getRoguishArchetypeTraits,
   translateRoguishArchetype,
 } from '~/domain/classes/rogue/rogue';
+import { longRest, spendHitDie } from '~/domain/characterMutations';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
+import barStyles from '~/components/indicators/bar.module.css';
 
 const noAttack = { weapon: noItem() };
 
@@ -145,7 +147,7 @@ async function equipWeaponsAction(formData) {
   const newWeaponName = formData.get('newWeaponName');
   const name = formData.get('name');
 
-  await equipWeapons(name, oldWeaponName, newWeaponName);
+  return await equipWeapons(name, oldWeaponName, newWeaponName);
 }
 
 async function reorderWeaponsAction(formData) {
@@ -153,14 +155,35 @@ async function reorderWeaponsAction(formData) {
   const weaponName = formData.get('weaponName');
   const weaponSlot = formData.get('weaponSlot');
 
-  await reorderWeapons(name, weaponName, weaponSlot);
+  return await reorderWeapons(name, weaponName, weaponSlot);
 }
 
 async function switchArmorAction(formData) {
   const name = formData.get('name');
   const newArmorName = formData.get('newArmorName');
 
-  await switchArmor(name, newArmorName);
+  return await switchArmor(name, newArmorName);
+}
+
+async function spendHitDieAction(formData) {
+  const name = formData.get('name');
+  const diceAmount = formData.get('diceAmount');
+
+  return await spendHitDie(name, parseInt(diceAmount, 10));
+}
+
+async function spendRealHitDieAction(formData) {
+  const name = formData.get('name');
+  const die = formData.get('die');
+  const diceAmount = formData.get('diceAmount');
+
+  return await spendHitDie(name, parseInt(diceAmount, 10), parseInt(die, 10));
+}
+
+async function longRestAction(formData) {
+  const name = formData.get('name');
+
+  return await longRest(name);
 }
 
 async function updateFreeTexts(formData) {
@@ -171,7 +194,7 @@ async function updateFreeTexts(formData) {
   const bonds = formData.get('bonds');
   const flaws = formData.get('flaws');
 
-  await updatePc({
+  return await updatePc({
     name,
     freeText: { playerName, personality, ideals, bonds, flaws },
   });
@@ -182,17 +205,24 @@ export const action = async ({ request }) => {
 
   const action = formData.get('action');
 
+  let pc = null;
   if (action === 'equipWeapons') {
-    await equipWeaponsAction(formData);
+    pc = await equipWeaponsAction(formData);
   } else if (action === 'reorderWeapons') {
-    await reorderWeaponsAction(formData);
+    pc = await reorderWeaponsAction(formData);
   } else if (action === 'equipArmor') {
-    await switchArmorAction(formData);
+    pc = await switchArmorAction(formData);
+  } else if (action === 'spendHitDie') {
+    pc = await spendHitDieAction(formData);
+  } else if (action === 'spendRealHitDie') {
+    pc = await spendRealHitDieAction(formData);
+  } else if (action === 'longRest') {
+    pc = await longRestAction(formData);
   } else {
-    await updateFreeTexts(formData);
+    pc = await updateFreeTexts(formData);
   }
 
-  return null;
+  return json({ pc });
 };
 
 function WeaponModalContent(props) {
@@ -421,6 +451,7 @@ function PcSummary() {
     sacredOath: sacredOathTraits.map(() => useRef()),
     roguishArchetype: roguishArchetypeTraits.map(() => useRef()),
     hp: [useRef()],
+    remainingHitDice: [useRef()],
   });
 
   const [
@@ -430,7 +461,7 @@ function PcSummary() {
     selectedSkillRef,
     setSelectedSkillRef,
     skillBigModalContent,
-  ] = useSkillItems(pc, skillRefs);
+  ] = useSkillItems(pc, skillRefs, submit);
 
   const formRef = useRef(null);
 
@@ -466,6 +497,13 @@ function PcSummary() {
 
   const [extraHitPoints, setExtraHitPoints] = useState(null);
   const [hitPointsState, setHitPointsState] = useState(hitPoints);
+  const maxHitPoints = getMaxHitPoints(pc);
+  const hitPointsStyle =
+    hitPointsState < maxHitPoints / 2
+      ? hitPointsState < maxHitPoints / 5
+        ? barStyles.redBar
+        : barStyles.orangeBar
+      : barStyles.greenBar;
 
   function animateHitPoints(addExtraHitPoints, i) {
     setTimeout(() => {
@@ -476,17 +514,21 @@ function PcSummary() {
     else animateHitPoints(addExtraHitPoints, i + 1);
   }
 
+  function heal(extraHitPoints) {
+    setTimeout(() => {
+      setExtraHitPoints(null);
+    }, 5000);
+    setHitPointsState(hitPoints - extraHitPoints);
+    setExtraHitPoints(extraHitPoints);
+    animateHitPoints(parseInt(extraHitPoints, 10), 0);
+  }
+
   useEffect(() => {
     if (window) {
       const url = new URL(window?.location.href);
       const addExtraHitPoints = url.searchParams.get('addExtraHitPoints');
       if (addExtraHitPoints) {
-        setTimeout(() => {
-          setExtraHitPoints(null);
-        }, 5000);
-        setHitPointsState(hitPoints - addExtraHitPoints);
-        setExtraHitPoints(addExtraHitPoints);
-        animateHitPoints(parseInt(addExtraHitPoints, 10), 0);
+        heal(addExtraHitPoints);
       }
     }
   }, []);
@@ -495,6 +537,13 @@ function PcSummary() {
   useEffect(() => {
     setAttacks(getAttacks(pc));
   }, [pc]);
+
+  useEffect(() => {
+    const addExtraHitPoints = hitPoints - hitPointsState;
+    if (addExtraHitPoints > 0) {
+      heal(addExtraHitPoints);
+    }
+  }, [hitPoints]);
 
   return (
     <>
@@ -664,7 +713,9 @@ function PcSummary() {
             openModal={openSkillModal('hp', 0)}
           />
         </span>
-        <span className={`${styles.data} ${styles.hitPoints}`}>
+        <span
+          className={`${styles.data} ${styles.hitPoints} ${hitPointsStyle}`}
+        >
           {hitPointsState}
           {!!extraHitPoints && (
             <span className={`${styles.data} ${styles.extraHitPoints}`}>
@@ -673,10 +724,16 @@ function PcSummary() {
           )}
         </span>
         <span className={`${styles.data} ${styles.hitDice}`}>
-          {getHitDice(pc)} {increment(getStatMod(getStat(pc, 'con')))}
+          {getHitDice(pc)}
         </span>
         <span className={`${styles.data} ${styles.remainingHitDice}`}>
-          {getRemainingHitDice(pc)}
+          <SkillItem
+            ref={skillRefs.remainingHitDice[0]}
+            traitName="remainingHitDice"
+            trait="Dados de golpe"
+            pc={pc}
+            openModal={openSkillModal('remainingHitDice', 0)}
+          />
         </span>
 
         {/* ATTACKS */}

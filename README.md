@@ -54,7 +54,6 @@ npx prisma migrate dev
 ## TO DOs
 
 - Background: {trait}
-- recover HP after rest
 - recover spell slots after rest
   - Warlock eldritchMaster
 - Use spells (consume slots)

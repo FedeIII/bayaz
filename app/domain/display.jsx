@@ -13,6 +13,7 @@ import {
   getDamageBonus,
   getDamageDice,
   getMaxHitPoints,
+  getRemainingHitDice,
   hasToImproveAbilityScore,
   translateSavingThrowStatus,
 } from './characters';
@@ -495,6 +496,9 @@ export function displayTrait(traitName, trait, pc) {
 
     case 'maxHitPoints':
       return getMaxHitPoints(pc);
+
+    case 'remainingHitDice':
+      return getRemainingHitDice(pc);
 
     default:
   }

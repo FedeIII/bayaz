@@ -1,5 +1,13 @@
-import { STATS, isStat, getInitialHitPoints } from '~/domain/characters';
-import { updatePc } from '~/services/pc.server';
+import {
+  STATS,
+  isStat,
+  getInitialHitPoints,
+  CLASSES,
+  getStatMod,
+  getStat,
+} from '~/domain/characters';
+import { getPc, healPc, updatePc } from '~/services/pc.server';
+import { rollDice } from '~/domain/random';
 
 export async function setPcStats(pcParams) {
   const {
@@ -63,4 +71,45 @@ export async function setPcStats(pcParams) {
     totalHitPoints: getInitialHitPoints(updatedPc),
     hitPoints: getInitialHitPoints(updatedPc),
   });
+}
+
+export async function spendHitDie(pcName, diceAmount, dieValue) {
+  let pc = await getPc(pcName);
+  const { remainingHitDice, pClass } = pc;
+
+  if (remainingHitDice === 0) {
+    return pc;
+  }
+
+  if (!dieValue) {
+    dieValue = rollDice(`${diceAmount}${CLASSES[pClass].hitDice.slice(1)}`);
+  }
+
+  dieValue += diceAmount * getStatMod(getStat(pc, 'con'));
+
+  pc = await updatePc({
+    name: pcName,
+    remainingHitDice: remainingHitDice - diceAmount,
+  });
+  pc = await healPc(pcName, dieValue);
+
+  return pc;
+}
+
+export async function longRest(pcName) {
+  let pc = await getPc(pcName);
+  const { remainingHitDice, hitDice } = pc;
+
+  let newRemainingHitDice =
+    remainingHitDice + (hitDice / 2 >= 1 ? Math.floor(hitDice / 2) : 1);
+  newRemainingHitDice =
+    newRemainingHitDice > hitDice ? hitDice : newRemainingHitDice;
+
+  pc = await updatePc({
+    name: pcName,
+    remainingHitDice: newRemainingHitDice,
+  });
+  pc = await healPc(pcName, Infinity);
+
+  return pc;
 }

@@ -8,7 +8,9 @@ import {
 } from './skillModal';
 import { BASE_CHARACTER } from '~/domain/characters';
 
-export function useSkillItems(pc = BASE_CHARACTER, skillRefs) {
+const noOp = () => {};
+
+export function useSkillItems(pc = BASE_CHARACTER, skillRefs, submit = noOp) {
   const [skillModalContent, setSkillModalContent] = useState(null);
   const [skillBigModalContent, setSkillBigModalContent] = useState(null);
   const [selectedSkillRef, setSelectedSkillRef] = useState(null);
@@ -49,6 +51,8 @@ export function useSkillItems(pc = BASE_CHARACTER, skillRefs) {
                 skillName={skillName}
                 skill={skill}
                 bigModal
+                submit={submit}
+                {...props}
               />
             )
         );

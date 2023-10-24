@@ -1,4 +1,5 @@
 import { Link } from '@remix-run/react';
+import HitDiceActions from '~/components/skills/hitDiceActions';
 import {
   CLASSES,
   getExtraHitPoints,
@@ -104,11 +105,24 @@ export const SKILLS_EXPLANATION = {
               <td className={styles.tableCellExtra}>
                 {increment(conHp)} x {level}
               </td>
-              {!!extraHp && <td className={styles.tableCellExtra}>{extraHp}</td>}
+              {!!extraHp && (
+                <td className={styles.tableCellExtra}>{extraHp}</td>
+              )}
             </tr>
           </tbody>
         </table>
       </div>
+    );
+  },
+
+  remainingHitDice: (skill, pc, submit, closeModal) => {
+    return (
+      <HitDiceActions
+        skill={skill}
+        pc={pc}
+        submit={submit}
+        closeModal={closeModal}
+      />
     );
   },
 
