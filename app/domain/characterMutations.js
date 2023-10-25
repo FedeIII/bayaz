@@ -99,7 +99,7 @@ export async function spendHitDie(pcName, diceAmount, dieValue) {
 
 export async function longRest(pcName) {
   let pc = await getPc(pcName);
-  const { remainingHitDice, hitDice } = pc;
+  const { remainingHitDice, hitDice, magic } = pc;
 
   let newRemainingHitDice =
     remainingHitDice + (hitDice / 2 >= 1 ? Math.floor(hitDice / 2) : 1);
@@ -109,6 +109,7 @@ export async function longRest(pcName) {
   pc = await updatePc({
     name: pcName,
     remainingHitDice: newRemainingHitDice,
+    magic: { ...magic, spentSpellSlots: Array(10).fill(0) },
   });
   pc = await healPc(pcName, Infinity);
 
@@ -125,7 +126,7 @@ export async function spendSpellSlot(pcName, spellSlotLevel) {
     newSpentSpellSlots[spellSlotLevel] += 1;
     pc = await updatePc({
       name: pcName,
-      magic: { spentSpellSlots: newSpentSpellSlots },
+      magic: { ...magic, spentSpellSlots: newSpentSpellSlots },
     });
   }
 
@@ -141,7 +142,7 @@ export async function resetSpellSlots(pcName, spellsLevel) {
 
   pc = await updatePc({
     name: pcName,
-    magic: { spentSpellSlots: newSpentSpellSlots },
+    magic: { ...magic, spentSpellSlots: newSpentSpellSlots },
   });
 
   return pc;

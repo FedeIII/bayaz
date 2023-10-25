@@ -83,12 +83,12 @@ function HitDiceActions(props) {
               name="diceAmount"
               onKeydown="return false"
               max={remainingHitDice}
-              min="1"
+              min="0"
               value={amountOfDice}
               onChange={e => setAmountOfDice(e.target.value)}
               className={`${styles.modalInput} ${styles.modalInputSmall}`}
             />{' '}
-            <span>dado{amountOfDice > 1 ? 's' : ''}:</span>
+            <span>dado{amountOfDice !== 1 ? 's' : ''}:</span>
           </label>
         )}
         {action === 'virtualDice' && (
@@ -112,7 +112,7 @@ function HitDiceActions(props) {
                 id="realDie"
                 name="hitPointsRealDie"
                 onKeydown="return false"
-                min="1"
+                min="0"
                 value={realDie}
                 onChange={e => setRealDie(e.target.value)}
                 className={`${styles.modalInput} ${styles.modalInputSmall}`}
@@ -137,7 +137,8 @@ function HitDiceActions(props) {
               className={styles.modalButton}
               onClick={onLongRestClick}
             >
-              Recuperar HP y {hitDiceRecoveredForLongRest} dados de golpe
+              Recuperar HP, {hitDiceRecoveredForLongRest} dados de golpe, y
+              espacios de conjuro
             </button>
           </label>
         )}
