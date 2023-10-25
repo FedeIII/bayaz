@@ -106,7 +106,12 @@ export function MonsterContent(props) {
           {Object.entries(getSpecialSkills(character)).map(
             ([skill, description]) => (
               <p className={charactersStyles.p}>
-                <o className={charactersStyles.bold}>{skill}.</o> {description}
+                <o className={charactersStyles.bold}>{skill}.</o>{' '}
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: description,
+                  }}
+                />
               </p>
             )
           )}

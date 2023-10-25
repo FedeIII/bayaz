@@ -72,7 +72,7 @@
   background-color: var(--color-light);
   text-align: left;
   overflow-y: scroll;
-  max-height: 50vh;
+  max-height: 80vh;
   font-size: 14px;
   color: white;
 }

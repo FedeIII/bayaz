@@ -15,7 +15,7 @@ export function useCharacterItems(characterRefs) {
 
       setTimeout(() => {
         setCharacterModalContent(() => props => {
-          return <MonsterContent character={character} />;
+          return <MonsterContent character={character} {...props} />;
         });
       }, 0);
     };

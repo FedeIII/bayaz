@@ -6,6 +6,10 @@ import { MAX_RESULTS, getSearchResults } from '~/domain/search';
 import { InventoryItem } from '~/components/modal/inventoryItem';
 import { ItemModal } from '~/components/modal/itemModal';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
+import { useCharacterItems } from '~/components/modal/useCharacterItems';
+import { CharacterModal } from '~/components/modal/characterModal';
+import { CharacterItem } from '~/components/modal/characterItem';
+import { Monster } from '~/domain/encounters/monsters';
 
 import styles from '~/components/glossary.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
@@ -59,6 +63,7 @@ function Glossary() {
     spells: Array.from(Array(MAX_RESULTS), () => useRef()),
     equipment: Array.from(Array(MAX_RESULTS), () => useRef()),
     traits: Array.from(Array(MAX_RESULTS), () => useRef()),
+    monsters: Array.from(Array(MAX_RESULTS), () => useRef()),
   };
 
   const searchResults = useMemo(() => getSearchResults(search), [search]);
@@ -87,6 +92,14 @@ function Glossary() {
     setSelectedItemRef,
   ] = useInventoryItems(undefined, itemRefs);
 
+  const [
+    characterModalContent,
+    closeCharacterModal,
+    openCharacterModal,
+    selectedCharacterRef,
+    setSelectedCharacterRef,
+  ] = useCharacterItems(itemRefs);
+
   const formRef = useRef(null);
 
   return (
@@ -100,6 +113,7 @@ function Glossary() {
           {skillModalContent}
         </SkillModal>
       )}
+
       {itemModalContent && (
         <ItemModal
           elRef={selectedItemRef}
@@ -110,6 +124,17 @@ function Glossary() {
           {itemModalContent}
         </ItemModal>
       )}
+
+      {characterModalContent && (
+        <CharacterModal
+          elRef={selectedCharacterRef}
+          formRef={formRef}
+          closeModal={closeCharacterModal}
+        >
+          {characterModalContent}
+        </CharacterModal>
+      )}
+
       <Sidebar filters={filters} setFilters={setFilters} />
       <div className={styles.glossaryList}>
         <div className={styles.results}>
@@ -120,7 +145,7 @@ function Glossary() {
               </div>
               <ul className={styles.sectionItems}>
                 {searchResults.spells.map((spell, i) => (
-                  <li className={styles.sectionItem}>
+                  <li className={styles.sectionItem} key={spell.name}>
                     <SkillItem
                       ref={itemRefs.spells[i]}
                       traitName={spell.name}
@@ -133,6 +158,7 @@ function Glossary() {
               </ul>
             </div>
           )}
+
           {!!searchResults.equipment.length && (
             <div className={styles.resultsSection}>
               <div className={styles.sectionHeader}>
@@ -140,7 +166,7 @@ function Glossary() {
               </div>
               <ul className={styles.sectionItems}>
                 {searchResults.equipment.map((item, i) => (
-                  <li className={styles.sectionItem}>
+                  <li className={styles.sectionItem} key={item.name}>
                     <InventoryItem
                       ref={itemRefs.equipment[i]}
                       pItem={item}
@@ -153,6 +179,7 @@ function Glossary() {
               </ul>
             </div>
           )}
+
           {!!searchResults.traits.length && (
             <div className={styles.resultsSection}>
               <div className={styles.sectionHeader}>
@@ -160,12 +187,37 @@ function Glossary() {
               </div>
               <ul className={styles.sectionItems}>
                 {searchResults.traits.map(([traitName, trait], i) => (
-                  <li className={styles.sectionItem}>
+                  <li className={styles.sectionItem} key={traitName}>
                     <SkillItem
                       ref={itemRefs.traits[i]}
                       traitName={traitName}
                       trait={trait}
                       openModal={openSkillModal('traits', i)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {!!searchResults.monsters.length && (
+            <div className={styles.resultsSection}>
+              <div className={styles.sectionHeader}>
+                <span className={styles.headerTitle}>Enemigos</span>
+              </div>
+              <ul className={styles.sectionItems}>
+                {searchResults.monsters.map((monster, i) => (
+                  <li className={styles.sectionItem} key={monster.name}>
+                    <CharacterItem
+                      ref={itemRefs.monsters[i]}
+                      character={Monster(monster.name)}
+                      charSection="monsters"
+                      charIndex={i}
+                      openModal={openCharacterModal(
+                        Monster(monster.name),
+                        'monsters',
+                        i
+                      )}
                     />
                   </li>
                 ))}
