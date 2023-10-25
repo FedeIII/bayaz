@@ -107,6 +107,7 @@ export const action = async ({ request }) => {
 
   pcAttrs.magic = {
     hasLearnedSpells: [true],
+    spentSpellSlots: Array(10).fill(0),
   };
 
   pcAttrs.improvedStatsLevels = [];

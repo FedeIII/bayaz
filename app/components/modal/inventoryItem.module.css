@@ -54,7 +54,7 @@
 }
 
 .item:hover {
-  color: #7171d8;
+  color: var(--color-x-blue-ink);
 }
 
 .actionModalTitle {
@@ -196,6 +196,7 @@
   border: 2px groove gray;
   border-radius: 10px;
   cursor: pointer;
+  font-family: fantasy;
 }
 
 .modalButton:hover {

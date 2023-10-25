@@ -28,7 +28,11 @@ export function SkillModalContent(props) {
     submit,
     closeModal
   );
-  const skillTitle = displayTrait(skillName, skill, pc);
+
+  const skillTitle =
+    skillName === 'resetSpellSlots'
+      ? `Espacios de nivel ${skill}`
+      : displayTrait(skillName, skill, pc);
 
   return (
     <>

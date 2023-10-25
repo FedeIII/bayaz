@@ -339,6 +339,7 @@ const pcSchema = new mongoose.Schema({
   freeText: freeTextSchema,
   magic: {
     hasLearnedSpells: [Boolean],
+    spentSpellSlots: [Number],
   },
   spells: [spellSchema],
   preparedSpells: [spellSchema],

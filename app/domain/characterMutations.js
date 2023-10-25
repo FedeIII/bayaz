@@ -8,6 +8,7 @@ import {
 } from '~/domain/characters';
 import { getPc, healPc, updatePc } from '~/services/pc.server';
 import { rollDice } from '~/domain/random';
+import { getSpellSlots } from './spells/spells';
 
 export async function setPcStats(pcParams) {
   const {
@@ -110,6 +111,38 @@ export async function longRest(pcName) {
     remainingHitDice: newRemainingHitDice,
   });
   pc = await healPc(pcName, Infinity);
+
+  return pc;
+}
+
+export async function spendSpellSlot(pcName, spellSlotLevel) {
+  let pc = await getPc(pcName);
+  const { magic } = pc;
+  const spellSlots = getSpellSlots(pc);
+
+  if (magic.spentSpellSlots[spellSlotLevel] < spellSlots[spellSlotLevel]) {
+    const newSpentSpellSlots = magic.spentSpellSlots.slice();
+    newSpentSpellSlots[spellSlotLevel] += 1;
+    pc = await updatePc({
+      name: pcName,
+      magic: { spentSpellSlots: newSpentSpellSlots },
+    });
+  }
+
+  return pc;
+}
+
+export async function resetSpellSlots(pcName, spellsLevel) {
+  let pc = await getPc(pcName);
+  const { magic } = pc;
+
+  const newSpentSpellSlots = magic.spentSpellSlots.slice();
+  newSpentSpellSlots[spellsLevel] = 0;
+
+  pc = await updatePc({
+    name: pcName,
+    magic: { spentSpellSlots: newSpentSpellSlots },
+  });
 
   return pc;
 }

@@ -126,5 +126,33 @@ export const SKILLS_EXPLANATION = {
     );
   },
 
+  resetSpellSlots: (skill, pc, submit, closeModal) => {
+    function onResetSlotsClick() {
+      closeModal();
+      submit(
+        {
+          action: 'resetSlots',
+          name: pc.name,
+          spellsLevel: skill,
+        },
+        { method: 'post' }
+      );
+    }
+
+    return (
+      <div className={styles.hpContainer}>
+        <div className={styles.modalButtons}>
+          <button
+            type="button"
+            className={styles.modalButton}
+            onClick={onResetSlotsClick}
+          >
+            Reiniciar espacios
+          </button>
+        </div>
+      </div>
+    );
+  },
+
   savingThrows: (skill, pc) => <></>,
 };

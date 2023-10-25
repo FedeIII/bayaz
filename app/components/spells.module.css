@@ -112,6 +112,11 @@
   align-items: center;
   font-size: 32px;
   margin: 8px -12px 0 0px;
+  cursor: pointer;
+}
+
+.spentSpaces:hover {
+  color: var(--color-x-blue-ink);
 }
 
 .spells-0 {

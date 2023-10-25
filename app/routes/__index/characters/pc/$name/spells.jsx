@@ -33,6 +33,7 @@ import {
   getLoreSpells,
   getMagicalSecretsSpells,
 } from '~/domain/classes/bard/bard';
+import { resetSpellSlots, spendSpellSlot } from '~/domain/characterMutations';
 
 import styles from '~/components/spells.module.css';
 
@@ -44,12 +45,11 @@ export const loader = async ({ params }) => {
   return json({ pc });
 };
 
-export const action = async ({ request }) => {
-  const formData = await request.formData();
-
+async function prepareSpellAction(formData) {
   const name = formData.get('name');
   const pClass = formData.get('pClass');
   const preparedSpell = formData.get('preparedSpell');
+
   const [preparedSpellName, spellType, spellSubtype, isPrepared] =
     preparedSpell.split(',');
 
@@ -64,13 +64,41 @@ export const action = async ({ request }) => {
   } else {
     await deletePreparedSpell(name, spell);
   }
+}
+
+async function useSpellSlotAction(formData) {
+  const name = formData.get('name');
+  const spellSlotLevel = formData.get('spellSlotLevel');
+
+  await spendSpellSlot(name, spellSlotLevel);
+}
+
+async function resetSlotsAction(formData) {
+  const name = formData.get('name');
+  const spellsLevel = formData.get('spellsLevel');
+
+  await resetSpellSlots(name, spellsLevel);
+}
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+
+  const action = formData.get('action');
+
+  if (action === 'prepareSpell') {
+    await prepareSpellAction(formData);
+  } else if (action === 'useSpellSlot') {
+    await useSpellSlotAction(formData);
+  } else if (action === 'resetSlots') {
+    await resetSlotsAction(formData);
+  }
 
   return null;
 };
 
 function PcSpells() {
   const { pc } = useLoaderData();
-  const { pClass, name, preparedSpells } = pc;
+  const { pClass, name, preparedSpells, magic } = pc;
 
   const submit = useSubmit();
 
@@ -100,6 +128,7 @@ function PcSpells() {
       if (hasToPrepareSpells(pc)) {
         submit(
           {
+            action: 'prepareSpell',
             name,
             pClass,
             preparedSpell: [
@@ -115,9 +144,21 @@ function PcSpells() {
     };
   }
 
-  const [skillRefs, setSkillRefs] = useState(
-    spellsByLevel.map(spells => spells.map(() => useRef()))
-  );
+  function onSpentSpacesClick(level) {
+    submit(
+      {
+        action: 'useSpellSlot',
+        name,
+        spellSlotLevel: level,
+      },
+      { method: 'post' }
+    );
+  }
+
+  const [skillRefs, setSkillRefs] = useState({
+    ...spellsByLevel.map(spells => spells.map(useRef)),
+    resetSpellSlots: Array.from(Array(10), useRef),
+  });
 
   const [
     skillModalContent,
@@ -125,7 +166,7 @@ function PcSpells() {
     openSkillModal,
     selectedSkillRef,
     setSelectedSkillRef,
-  ] = useSkillItems(pc, skillRefs);
+  ] = useSkillItems(pc, skillRefs, submit);
 
   const formRef = useRef(null);
 
@@ -176,7 +217,13 @@ function PcSpells() {
               <span
                 className={`${styles.data} ${styles[`totalSpaces-${level}`]}`}
               >
-                {spellSlots[level] || 0}
+                <SkillItem
+                  ref={skillRefs.resetSpellSlots[level]}
+                  pc={pc}
+                  traitName="resetSpellSlots"
+                  trait={level}
+                  openModal={openSkillModal('resetSpellSlots', level)}
+                />
               </span>
             )}
             {level > 0 && (
@@ -184,8 +231,9 @@ function PcSpells() {
                 className={`${styles.data} ${styles.spentSpaces} ${
                   styles[`spentSpaces-${level}`]
                 }`}
+                onClick={() => onSpentSpacesClick(level)}
               >
-                0
+                {magic.spentSpellSlots[level] || 0}
                 {hasToPrepareSpells(pc) && (
                   <>
                     {' '}

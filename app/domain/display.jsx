@@ -43,6 +43,7 @@ import { displayMonkTrait } from './classes/monk/displayMonkTrait';
 import { displayPaladinTrait } from './classes/paladin/displayPaladinTrait';
 import { displayRogueTrait } from './classes/rogue/displayRogueTrait';
 import { isMonkWeapon } from './classes/monk/monk';
+import { getSpellSlots } from './spells/spells';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -355,7 +356,7 @@ function displayClassTrait(traitName, trait, pc) {
 }
 
 export function displayTrait(traitName, trait, pc) {
-  let times;
+  const spellSlots = getSpellSlots(pc);
 
   switch (traitName) {
     case 'savingThrows':
@@ -499,6 +500,9 @@ export function displayTrait(traitName, trait, pc) {
 
     case 'remainingHitDice':
       return getRemainingHitDice(pc);
+
+    case 'resetSpellSlots':
+      return spellSlots[trait] || 0;
 
     default:
   }
