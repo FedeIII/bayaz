@@ -38,10 +38,10 @@
     /* 26 */ '.   .   .   chP chS .   .   .   .   .   .   .   .   bnd bnd bnd .  ' /* 26 */
     /* 27 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   bnd bnd bnd .  ' /* 27 */
     /* 28 */ '.   con .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 28 */
-    /* 29 */ '.   con .   .   .   hiD hiD hiD .   .   .   .   .   flw flw flw .  ' /* 29 */
-    /* 30 */ '.   .   .   sP1 sS1 hiD hiD hiD .   .   .   .   .   flw flw flw .  ' /* 30 */
+    /* 29 */ '.   con .   .   .   hiD hiD hiD .   .   dsS .   .   flw flw flw .  ' /* 29 */
+    /* 30 */ '.   .   .   sP1 sS1 hiD hiD hiD .   .   dsS .   .   flw flw flw .  ' /* 30 */
     /* 31 */ '.   coM .   .   .   exH exH exH .   .   .   .   .   flw flw flw .  ' /* 31 */
-    /* 32 */ '.   coM .   sP2 sS2 exH exH exH .   .   .   .   .   flw flw flw .  ' /* 32 */
+    /* 32 */ '.   coM .   sP2 sS2 exH exH exH .   .   dsF .   .   flw flw flw .  ' /* 32 */
     /* 33 */ '.   .   .   .   .   exH exH exH .   .   .   .   .   flw flw flw .  ' /* 33 */
     /* 34 */ '.   .   .   sP3 sS3 .   .   .   .   .   .   .   .   .   .   .   .  ' /* 34 */
     /* 35 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 35 */
@@ -371,6 +371,22 @@
 
 .remainingHitDice {
   grid-area: exH;
+  font-size: 24px;
+  justify-content: center;
+  padding: 12px 0 0;
+}
+
+.deathSavingThrowSuccess {
+  grid-area: dsS;
+  position: absolute;
+  font-size: 24px;
+  justify-content: center;
+  padding: 12px 0 0;
+}
+
+.deathSavingThrowFailure {
+  grid-area: dsF;
+  position: absolute;
   font-size: 24px;
   justify-content: center;
   padding: 12px 0 0;
