@@ -54,11 +54,7 @@ npx prisma migrate dev
 ## TO DOs
 
 - Background: {trait}
-- recover spell slots after rest
-  - Warlock eldritchMaster
-- Use spells (consume slots)
 - put hit dice roll on level up in the modal
-- show all extra stat points in the improve stat screen
 - Ranger:
   - show fighting style bonus on weapons
   - choose companion

@@ -8,12 +8,14 @@ import {
 } from '~/services/pc.server';
 import {
   getPendingImproveAbilityLevels,
+  getStatMod,
   hasToImproveAbilityScore,
   STATS,
   translateClass,
   translateStat,
 } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
+import { increment } from '~/domain/display';
 
 import styles from '~/components/stats.module.css';
 import appStyles from '~/components/app.module.css';
@@ -58,7 +60,13 @@ export const action = async ({ request }) => {
 
 function AbilityScoreImprovement() {
   const { pc } = useLoaderData();
-  const { pClass, level, stats } = pc;
+  const {
+    pClass,
+    level,
+    stats,
+    extraStats: pExtraStats,
+    halfElf: { extraStats: halfElfExtraStats },
+  } = pc;
 
   useTitle(`${translateClass(pClass)} nivel ${level}`);
 
@@ -114,7 +122,9 @@ function AbilityScoreImprovement() {
       <div className={`${styles.stats} ${cardStyles.card}`}>
         {STATS.map(statName => (
           <div key={statName} className={styles.stat}>
-            <div className={`${styles.cell} ${styles.leftCell}`}>
+            <div
+              className={`${styles.cell} ${styles.leftCell} ${appStyles.bigText}`}
+            >
               <span className={`${styles.statName}`}>
                 {translateStat(statName)}
               </span>
@@ -122,8 +132,19 @@ function AbilityScoreImprovement() {
                 {stats[statName]}
               </span>
             </div>
-            <span className={`${styles.cell}`}>+</span>
-            <span className={`${styles.cell} ${styles.rightCell}`}>
+            {!!(pExtraStats?.[statName] || halfElfExtraStats?.[statName]) && (
+              <>
+                <span className={`${styles.cell} ${appStyles.bigText}`}>+</span>
+                <span className={`${styles.cell} ${appStyles.bigText}`}>
+                  {(pExtraStats?.[statName] || 0) +
+                    (halfElfExtraStats?.[statName] || 0)}
+                </span>
+              </>
+            )}
+            <span className={`${styles.cell} ${appStyles.bigText}`}>+</span>
+            <span
+              className={`${styles.cell} ${styles.rightCell} ${appStyles.bigText}`}
+            >
               <input
                 type="number"
                 id={statName}
@@ -148,6 +169,15 @@ function AbilityScoreImprovement() {
               >
                 -
               </button>
+            </span>
+            <span className={`${styles.cell} ${styles.rightCell}`}>
+              (
+              {increment(
+                getStatMod(
+                  stats[statName] + pExtraStats[statName] + extraStats[statName]
+                )
+              )}
+              )
             </span>
           </div>
         ))}
