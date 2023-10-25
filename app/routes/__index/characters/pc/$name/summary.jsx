@@ -194,9 +194,11 @@ async function updateFreeTexts(formData) {
   const ideals = formData.get('ideals');
   const bonds = formData.get('bonds');
   const flaws = formData.get('flaws');
+  const temporaryHitPoints = formData.get('temporaryHitPoints');
 
   return await updatePc({
     name,
+    temporaryHitPoints,
     freeText: { playerName, personality, ideals, bonds, flaws },
   });
 }
@@ -312,6 +314,7 @@ function PcSummary() {
     subrace,
     level,
     hitPoints,
+    temporaryHitPoints,
     exp,
     languages,
     items: { weapons, equipment, treasure },
@@ -724,6 +727,17 @@ function PcSummary() {
             </span>
           )}
         </span>
+        <span className={`${styles.data} ${styles.temporaryHitPoints}`}>
+          <input
+            type="number"
+            name="temporaryHitPoints"
+            min="0"
+            onChange={onFreeTextChange}
+            defaultValue={temporaryHitPoints || ''}
+            className={styles.temporaryHitPointsInput}
+          />
+        </span>
+
         <span className={`${styles.data} ${styles.hitDice}`}>
           {getHitDice(pc)}
         </span>

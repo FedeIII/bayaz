@@ -147,3 +147,27 @@ export async function resetSpellSlots(pcName, spellsLevel) {
 
   return pc;
 }
+
+export async function damagePc(pcName, damage) {
+  let pc = await getPc(pcName);
+  const { hitPoints, temporaryHitPoints } = pc;
+
+  if (temporaryHitPoints) {
+    damage -= temporaryHitPoints;
+  }
+
+  if (damage >= 0) {
+    pc = await updatePc({
+      name: pcName,
+      hitPoints: hitPoints - damage,
+      temporaryHitPoints: 0,
+    });
+  } else {
+    pc = await updatePc({
+      name: pcName,
+      temporaryHitPoints: -damage,
+    });
+  }
+
+  return pc;
+}

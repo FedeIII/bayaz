@@ -308,6 +308,7 @@ const pcSchema = new mongoose.Schema({
   exp: Number,
   totalHitPoints: [Number],
   hitPoints: Number,
+  temporaryHitPoints: Number,
   hitDice: Number,
   remainingHitDice: Number,
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
@@ -393,16 +394,6 @@ export async function updatePc(pcAttrs) {
   const updatedPc = await Pc.findOneAndUpdate(
     { name: pcAttrs.name },
     { $set: pcAttrs },
-    { new: true }
-  ).exec();
-
-  return updatedPc;
-}
-
-export async function damagePc(pcName, damage) {
-  const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
-    { $inc: { hitPoints: -damage } },
     { new: true }
   ).exec();
 

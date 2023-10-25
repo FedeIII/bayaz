@@ -72,8 +72,6 @@ npx prisma migrate dev
   - track Ki points
 - Improve spell modal data
 - PC screens sharable for players with annotations (in modal and/or inline)
-- Death saving throws
-- Temporary HP (just edit manually)
 - Attack bonus breakdown for weapons
 - 2x Weapons not showing in the weapons section
 - Free text annotations anywhere in the character sheets (other colors)

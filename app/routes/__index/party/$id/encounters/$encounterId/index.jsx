@@ -2,7 +2,7 @@ import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 import { useContext, useEffect } from 'react';
 
-import { damagePc, getPc, healPc } from '~/services/pc.server';
+import { getPc, healPc } from '~/services/pc.server';
 import { addMonstersKilled, getParty } from '~/services/party.server';
 import {
   badlyHurtHP,
@@ -22,11 +22,12 @@ import {
 import { ShrinkBar } from '~/components/indicators/shrinkBar';
 import MonstersContext from '~/components/contexts/monstersContext';
 import { getMonsterPositionStyle } from '~/domain/encounters/encounters';
+import { getActiveSession } from '~/domain/party/party';
+import { getMaxHitPoints } from '~/domain/characters';
+import { damagePc } from '~/domain/characterMutations';
 
 import styles from '~/components/randomEncounter.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
-import { getActiveSession } from '~/domain/party/party';
-import { getMaxHitPoints } from '~/domain/characters';
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -229,6 +230,7 @@ function PartyCombat() {
                     HP:{' '}
                     <ShrinkBar
                       cursorPos={pc.hitPoints}
+                      extraValue={pc.temporaryHitPoints}
                       maxValue={maxHitPoints}
                       midValue={maxHitPoints / 2}
                       lowValue={maxHitPoints / 5}

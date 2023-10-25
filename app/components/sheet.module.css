@@ -34,8 +34,8 @@
     /* 22 */ '.   .   .   inP inS .   .   .   .   .   .   .   .   .   .   .   .  ' /* 22 */
     /* 23 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 23 */
     /* 24 */ '.   deM .   wiP wiS .   .   .   .   .   .   .   .   bnd bnd bnd .  ' /* 24 */
-    /* 25 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   bnd bnd bnd .  ' /* 25 */
-    /* 26 */ '.   .   .   chP chS .   .   .   .   .   .   .   .   bnd bnd bnd .  ' /* 26 */
+    /* 25 */ '.   .   .   .   .   thp thp thp thp thp thp .   .   bnd bnd bnd .  ' /* 25 */
+    /* 26 */ '.   .   .   chP chS thp thp thp thp thp thp .   .   bnd bnd bnd .  ' /* 26 */
     /* 27 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   bnd bnd bnd .  ' /* 27 */
     /* 28 */ '.   con .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 28 */
     /* 29 */ '.   con .   .   .   hiD hiD hiD .   .   dsS .   .   flw flw flw .  ' /* 29 */
@@ -362,6 +362,24 @@
     margin-top: -32px;
     color: var(--color-green);
   }
+}
+
+.temporaryHitPoints {
+  grid-area: thp;
+  justify-content: center;
+  align-items: center;
+  font-size: 44px;
+}
+
+.temporaryHitPointsInput {
+  background-color: transparent;
+  border: none;
+  margin: 4px 0px 0px 0px;
+  font-family: fantasy;
+  color: var(--color-blue-ink);
+  font-size: 44px;
+  width: 100%;
+  text-align: center;
 }
 
 .hitDice {

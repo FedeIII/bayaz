@@ -7,19 +7,23 @@
 }
 
 .greenBar {
-  color: #2b8c47;
+  color: var(--color-green);
 }
 
 .blueBar {
-  color: #0000d4;
+  color: var(--color-blue-ink);
 }
 
 .orangeBar {
-  color: #daa645;
+  color: var(--color-orange);
 }
 
 .redBar {
-  color: #d84343;
+  color: var(--color-red);
+}
+
+.xBlueBar {
+  color: var(--color-x-blue-ink);
 }
 
 .cursorValue {
