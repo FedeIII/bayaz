@@ -2734,20 +2734,7 @@ export function getExtraArmorClass(pc) {
 }
 
 export function getAttackBonus(pc, weapon) {
-  const { pClass } = pc;
-  const { subtype, properties: { finesse } = {} } = weapon;
-  let statMod = 0;
-
-  const strMod = getStatMod(getStat(pc, 'str'));
-  const dexMod = getStatMod(getStat(pc, 'dex'));
-
-  if (finesse) statMod = strMod > dexMod ? strMod : dexMod;
-  else if (pClass === 'monk' && isMonkWeapon(weapon))
-    statMod = strMod > dexMod ? strMod : dexMod;
-  else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
-    statMod = strMod;
-  else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')
-    statMod = dexMod;
+  const statMod = getDamageBonus(pc, weapon);
 
   const proficiencyBonus = getItemProficiencies(pc).includes(weapon.name)
     ? getProficiencyBonus(pc.level)
@@ -2994,7 +2981,14 @@ export function getLevelByXp(exp) {
   return EXP_FOR_LEVEL.findIndex(xp => xp > exp);
 }
 
-export function getSkillExplanation(skillName, skill, pc, submit, closeModal) {
+export function getSkillExplanation(
+  skillName,
+  skill,
+  pc,
+  submit,
+  closeModal,
+  skillIndex
+) {
   return (
     {
       ...SKILLS_EXPLANATION,
@@ -3012,7 +3006,7 @@ export function getSkillExplanation(skillName, skill, pc, submit, closeModal) {
       ...elementalDisciplineExplanation(skillName),
       ...PALADIN_SKILLS_EXPLANATION,
       ...ROGUE_SKILLS_EXPLANATION,
-    }[skillName]?.(skill, pc, submit, closeModal) || skill
+    }[skillName]?.(skill, pc, submit, closeModal, skillIndex) || skill
   );
 }
 

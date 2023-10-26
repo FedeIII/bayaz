@@ -17,6 +17,7 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
     openOnRightClick,
     bigModal,
     disabled,
+    children,
   } = props;
 
   return (
@@ -36,15 +37,17 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
           }
         }}
       >
-        {trait === 'spell'
-          ? translateSpell(traitName)
-          : trait === 'invocation'
-          ? displayInvocation(traitName, trait, pc)
-          : trait === 'maneuver'
-          ? translateCombatSuperiorityManeuvers(traitName)
-          : trait === 'discipline'
-          ? translateElementalDisciplines(traitName)
-          : displayTrait(traitName, trait, pc)}
+        {!!children && children}
+        {!children &&
+          (trait === 'spell'
+            ? translateSpell(traitName)
+            : trait === 'invocation'
+            ? displayInvocation(traitName, trait, pc)
+            : trait === 'maneuver'
+            ? translateCombatSuperiorityManeuvers(traitName)
+            : trait === 'discipline'
+            ? translateElementalDisciplines(traitName)
+            : displayTrait(traitName, trait, pc))}
       </span>
     </>
   );

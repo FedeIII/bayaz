@@ -52,6 +52,7 @@ export function useSkillItems(pc = BASE_CHARACTER, skillRefs, submit = noOp) {
                 skill={skill}
                 bigModal
                 submit={submit}
+                skillIndex={skillIndex}
                 {...props}
               />
             )

@@ -422,7 +422,7 @@
   grid-area: aB0;
   justify-content: center;
   margin-right: -16px;
-  line-height: 1;
+  line-height: 1.6;
 }
 
 .attackType-0 {
@@ -445,7 +445,7 @@
   grid-area: aB1;
   justify-content: center;
   margin-right: -16px;
-  line-height: 1;
+  line-height: 1.6;
 }
 
 .attackType-1 {
@@ -468,7 +468,7 @@
   grid-area: aB2;
   justify-content: center;
   margin-right: -16px;
-  line-height: 1;
+  line-height: 1.6;
 }
 
 .attackType-2 {

@@ -12,8 +12,6 @@ import {
   getAttackBonus,
   getDamageBonus,
   getDamageDice,
-  getMaxHitPoints,
-  getRemainingHitDice,
   hasToImproveAbilityScore,
   translateSavingThrowStatus,
 } from './characters';
@@ -43,7 +41,6 @@ import { displayMonkTrait } from './classes/monk/displayMonkTrait';
 import { displayPaladinTrait } from './classes/paladin/displayPaladinTrait';
 import { displayRogueTrait } from './classes/rogue/displayRogueTrait';
 import { isMonkWeapon } from './classes/monk/monk';
-import { getSpellSlots } from './spells/spells';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -356,8 +353,6 @@ function displayClassTrait(traitName, trait, pc) {
 }
 
 export function displayTrait(traitName, trait, pc) {
-  const spellSlots = getSpellSlots(pc);
-
   switch (traitName) {
     case 'savingThrows':
       return Object.entries(trait).map(([salvation, status]) => (
@@ -494,15 +489,6 @@ export function displayTrait(traitName, trait, pc) {
           <span className={sheetStyles.pendingTrait}>(!)</span>
         </>
       );
-
-    case 'maxHitPoints':
-      return getMaxHitPoints(pc);
-
-    case 'remainingHitDice':
-      return getRemainingHitDice(pc);
-
-    case 'resetSpellSlots':
-      return spellSlots[trait] || 0;
 
     default:
   }

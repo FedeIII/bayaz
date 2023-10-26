@@ -42,6 +42,7 @@ import {
   hasLeveledUp,
   getChannelDivinityTraits,
   getMaxHitPoints,
+  getRemainingHitDice,
 } from '~/domain/characters';
 import {
   getSorcererOrigin,
@@ -456,6 +457,7 @@ function PcSummary() {
     roguishArchetype: roguishArchetypeTraits.map(() => useRef()),
     hp: [useRef()],
     remainingHitDice: [useRef()],
+    attackBonus: [useRef(), useRef(), useRef()],
   });
 
   const [
@@ -717,7 +719,9 @@ function PcSummary() {
             trait="Puntos de Golpe máximos"
             pc={pc}
             openModal={openSkillModal('hp', 0)}
-          />
+          >
+            {maxHitPoints}
+          </SkillItem>
         </span>
         <span
           className={`${styles.data} ${styles.hitPoints} ${hitPointsStyle}`}
@@ -752,7 +756,9 @@ function PcSummary() {
             pc={pc}
             openModal={openSkillModal('remainingHitDice', 0)}
             disabled={isForPlayers}
-          />
+          >
+            {getRemainingHitDice(pc)}
+          </SkillItem>
         </span>
 
         <div className={`${styles.data} ${styles.deathSavingThrowSuccess}`}>
@@ -1009,11 +1015,19 @@ function PcSummary() {
                   </sup>
                 )}
               </div>
-              {!!attack.bonus && (
+              {!!(attack.bonus || attack.bonus === 0) && (
                 <span
                   className={`${styles.data} ${styles['attackBonus-' + i]}`}
                 >
-                  {increment(attack.bonus)}
+                  <SkillItem
+                    ref={skillRefs.attackBonus[i]}
+                    traitName="attackBonus"
+                    trait="Bonificador de ataque"
+                    pc={pc}
+                    openModal={openSkillModal('attackBonus', i)}
+                  >
+                    {increment(attack.bonus)}
+                  </SkillItem>
                 </span>
               )}
               {!!attack.damage && (

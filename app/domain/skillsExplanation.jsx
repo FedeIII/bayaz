@@ -3,11 +3,14 @@ import HitDiceActions from '~/components/skills/hitDiceActions';
 import {
   CLASSES,
   getExtraHitPoints,
+  getItemProficiencies,
+  getProficiencyBonus,
   getStat,
   getStatMod,
   translateClass,
 } from './characters';
 import { increment } from './display';
+import { getItem } from './equipment/equipment';
 
 import styles from '~/components/modal/inventoryItem.module.css';
 
@@ -155,4 +158,65 @@ export const SKILLS_EXPLANATION = {
   },
 
   savingThrows: (skill, pc) => <></>,
+
+  attackBonus: (skill, pc, submit, closeModal, skillIndex) => {
+    const {
+      items: { weapons },
+      pClass,
+    } = pc;
+
+    const weapon = weapons[skillIndex];
+    const {
+      subtype,
+      properties: { finesse } = {},
+      translation,
+    } = getItem(weapon.name);
+
+    const strMod = getStatMod(getStat(pc, 'str'));
+    const dexMod = getStatMod(getStat(pc, 'dex'));
+
+    let selectedStat;
+    if (finesse) selectedStat = strMod > dexMod ? 'str' : 'dex';
+    else if (pClass === 'monk' && isMonkWeapon(weapon))
+      selectedStat = strMod > dexMod ? 'str' : 'dex';
+    else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
+      selectedStat = 'str';
+    else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')
+      selectedStat = 'dex';
+
+    const proficiencyBonus = getItemProficiencies(pc).includes(weapon.name)
+      ? getProficiencyBonus(pc.level)
+      : 0;
+
+    return (
+      <div className={styles.hpContainer}>
+        <table className={styles.table}>
+          <thead className={styles.tableHead}>
+            <tr>
+              <th className={styles.tableCellLevel}>
+                {selectedStat.toUpperCase()}
+              </th>
+              <th
+                className={`${styles.tableCellLevel} ${styles.tableCellSmall}`}
+              >
+                Compentencia en {translation}
+              </th>
+              <th className={styles.tableCellLevel}>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className={styles.tableCellLevel}>
+                {increment(getStatMod(getStat(pc, selectedStat)))}
+              </td>
+              <td className={styles.tableCellLevel}>{proficiencyBonus}</td>
+              <td className={styles.tableCellExtra}>
+                {getStatMod(getStat(pc, selectedStat)) + proficiencyBonus}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  },
 };

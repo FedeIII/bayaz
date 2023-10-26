@@ -226,7 +226,9 @@ function PcSpells() {
                   trait={level}
                   openModal={openSkillModal('resetSpellSlots', level)}
                   disabled={isForPlayers}
-                />
+                >
+                  {spellSlots[level] || 0}
+                </SkillItem>
               </span>
             )}
             {level > 0 && (
