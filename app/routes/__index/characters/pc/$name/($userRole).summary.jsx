@@ -5,8 +5,7 @@ import {
   useSubmit,
   useTransition,
 } from '@remix-run/react';
-import { Fragment, useEffect, useRef, useState } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   getPc,
@@ -20,33 +19,10 @@ import {
   updateNotePosition,
 } from '~/services/pc.server';
 import {
-  STATS,
-  getStat,
-  translateClass,
-  translateRace,
-  getStatMod,
-  getProficiencyBonus,
-  statSavingThrow,
-  isProficientStat,
   CLASSES,
-  SKILLS,
-  skillCheckBonus,
-  getConditionalSkills,
-  getSkills,
-  translateLanguage,
-  getPassivePerception,
-  getItemProficiencies,
-  getArmorClass,
-  getExtraArmorClass,
   getTraits,
-  hasExtraWeapons,
-  getExtraWeapons,
-  getSpeed,
-  getHitDice,
   hasLeveledUp,
   getChannelDivinityTraits,
-  getMaxHitPoints,
-  getRemainingHitDice,
 } from '~/domain/characters';
 import {
   getSorcererOrigin,
@@ -64,17 +40,7 @@ import {
   getPrimalPathTraits,
   translatePrimalPath,
 } from '~/domain/classes/barbarian/barbarian';
-import {
-  displayMoneyAmount,
-  getAttacks,
-  getItemDisplayList,
-  getSpecialAttacks,
-  increment,
-} from '~/domain/display';
-import { getItem, noItem, translateItem } from '~/domain/equipment/equipment';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
-import { translateBackground } from '~/domain/backgrounds/backgrounds';
-import { InventoryItem } from '~/components/modal/inventoryItem';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import { ItemModal } from '~/components/modal/itemModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
@@ -132,15 +98,16 @@ import {
   translateRoguishArchetype,
 } from '~/domain/classes/rogue/rogue';
 import { longRest, spendHitDie } from '~/domain/characterMutations';
-import { removeItem, unique } from '~/utils/insert';
+import Note from '~/components/note/note';
+import BasicAttrs from '~/components/summary/basicAttrs';
+import CombatAttrs from '~/components/summary/combatAttrs';
+import SheetStats from '~/components/summary/sheetStats';
+import SheetSkills from '~/components/summary/sheetSkills';
+import SheetAttacks from '~/components/summary/sheetAttacks';
+import SheetEquipment from '~/components/summary/sheetEquipment';
+import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLanguages';
 
 import styles from '~/components/sheet.module.css';
-import itemStyles from '~/components/modal/inventoryItem.module.css';
-import barStyles from '~/components/indicators/bar.module.css';
-import spellStyles from '~/components/spells.module.css';
-import Note from '~/components/note/note';
-
-const noAttack = { weapon: noItem() };
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -273,99 +240,12 @@ export const action = async ({ request }) => {
   return json({ pc });
 };
 
-function WeaponModalContent(props) {
-  const { pc, weapon, onWeaponChange, closeModal } = props;
-
-  function onEquipClick(e) {
-    const newWeaponName = e.target.value;
-    onWeaponChange(newWeaponName);
-    closeModal();
-  }
-
-  return (
-    <>
-      <h3 className={itemStyles.actionModalTitle}>{weapon.translation}</h3>
-      <span className={itemStyles.modalClose} onClick={closeModal}>
-        ⨉
-      </span>
-      <div className={itemStyles.modalContent}>
-        <ul className={itemStyles.modalOptions}>
-          <li>
-            Cambiar por:{' '}
-            <select
-              className={styles.selectAttack}
-              disabled={!hasExtraWeapons(pc)}
-              onChange={onEquipClick}
-            >
-              <option value={weapon.name}>{weapon.translation}</option>
-              {getExtraWeapons(pc).map(extraWeapon => (
-                <option value={extraWeapon.name} key={extraWeapon.name}>
-                  {translateItem(extraWeapon.name)}
-                </option>
-              ))}
-            </select>
-          </li>
-        </ul>
-      </div>
-    </>
-  );
-}
-
-function ArmorModalContent(props) {
-  const { pc, armor, onArmorChange, closeModal } = props;
-  const {
-    items: {
-      treasure: { armors },
-    },
-  } = pc;
-
-  function onEquipClick(e) {
-    const newArmorName = e.target.value;
-    onArmorChange(newArmorName);
-    closeModal();
-  }
-
-  return (
-    <>
-      <h3 className={itemStyles.actionModalTitle}>{armor.translation}</h3>
-      <span className={itemStyles.modalClose} onClick={closeModal}>
-        ⨉
-      </span>
-      <div className={itemStyles.modalContent}>
-        <ul className={itemStyles.modalOptions}>
-          <li>
-            Cambiar por:{' '}
-            <select className={styles.selectAttack} onChange={onEquipClick}>
-              <option value={armor.name}>{armor.translation}</option>
-              {armors.map(extraArmor => (
-                <option value={extraArmor.name} key={extraArmor.name}>
-                  {translateItem(extraArmor.name)}
-                </option>
-              ))}
-            </select>
-          </li>
-        </ul>
-      </div>
-    </>
-  );
-}
-
 function PcSummary() {
   const { pc, isForPlayers } = useLoaderData();
   const {
-    pClass,
     name,
-    race,
-    subrace,
-    level,
-    hitPoints,
-    temporaryHitPoints,
-    exp,
-    languages,
-    items: { weapons, equipment, treasure },
-    money,
-    background = {},
-    freeText: { playerName, personality, ideals, bonds, flaws } = {},
+    items: { equipment },
+    freeText: { personality, ideals, bonds, flaws } = {},
     notes,
   } = pc;
 
@@ -378,9 +258,6 @@ function PcSummary() {
   const isCreating = Boolean(transition.submission);
 
   useTitle(pcName);
-
-  const allSkills = getSkills(pc);
-  const conditionalSkills = getConditionalSkills(pc);
 
   const [isSubmitShown, setIsSubmitShown] = useState(false);
 
@@ -456,43 +333,6 @@ function PcSummary() {
 
   const submit = useSubmit();
 
-  function onWeaponChange(i) {
-    return newWeaponName => {
-      submit(
-        {
-          action: 'equipWeapons',
-          name: pcName,
-          oldWeaponName: weapons[i].name,
-          newWeaponName,
-        },
-        { method: 'post' }
-      );
-    };
-  }
-
-  function onArmorChange(newArmorName) {
-    submit(
-      {
-        action: 'equipArmor',
-        name: pcName,
-        newArmorName,
-      },
-      { method: 'post' }
-    );
-  }
-
-  function onWeaponDrop(weaponName, weaponSlot) {
-    submit(
-      {
-        action: 'reorderWeapons',
-        name: pcName,
-        weaponName,
-        weaponSlot,
-      },
-      { method: 'post' }
-    );
-  }
-
   const [actionModalContent, setActionModalContent] = useState(null);
 
   const [itemRefs, setItemRefs] = useState({
@@ -564,86 +404,6 @@ function PcSummary() {
   ] = useSkillItems(pc, skillRefs, submit);
 
   const formRef = useRef(null);
-
-  function onItemClick(itemType, itemIndex = 0) {
-    return itemName => {
-      const item = getItem(itemName);
-
-      setSelectedItemRef(itemRefs[itemType][itemIndex]);
-
-      let content;
-      if (item.type === 'weapon')
-        content = props => (
-          <WeaponModalContent
-            pc={pc}
-            weapon={item}
-            onWeaponChange={onWeaponChange(itemIndex)}
-            closeModal={() => setActionModalContent(null)}
-          />
-        );
-      if (item.type === 'armor')
-        content = props => (
-          <ArmorModalContent
-            pc={pc}
-            armor={item}
-            onArmorChange={onArmorChange}
-            closeModal={() => setActionModalContent(null)}
-          />
-        );
-
-      setTimeout(() => setActionModalContent(() => content), 0);
-    };
-  }
-
-  const [extraHitPoints, setExtraHitPoints] = useState(null);
-  const [hitPointsState, setHitPointsState] = useState(hitPoints);
-  const maxHitPoints = getMaxHitPoints(pc);
-  const hitPointsStyle =
-    hitPointsState < maxHitPoints / 2
-      ? hitPointsState < maxHitPoints / 5
-        ? barStyles.redBar
-        : barStyles.orangeBar
-      : barStyles.blueBar;
-
-  function animateHitPoints(addExtraHitPoints, i) {
-    setTimeout(() => {
-      setHitPointsState(hitPoints - addExtraHitPoints + i);
-    }, (1000 / addExtraHitPoints) * i + 1000);
-
-    if (addExtraHitPoints === i) return;
-    else animateHitPoints(addExtraHitPoints, i + 1);
-  }
-
-  function heal(extraHitPoints) {
-    setTimeout(() => {
-      setExtraHitPoints(null);
-    }, 5000);
-    setHitPointsState(hitPoints - extraHitPoints);
-    setExtraHitPoints(extraHitPoints);
-    animateHitPoints(parseInt(extraHitPoints, 10), 0);
-  }
-
-  useEffect(() => {
-    if (window) {
-      const url = new URL(window?.location.href);
-      const addExtraHitPoints = url.searchParams.get('addExtraHitPoints');
-      if (addExtraHitPoints) {
-        heal(addExtraHitPoints);
-      }
-    }
-  }, []);
-
-  const [attacks, setAttacks] = useState([noAttack, noAttack, noAttack]);
-  useEffect(() => {
-    setAttacks(getAttacks(pc));
-  }, [pc]);
-
-  useEffect(() => {
-    const addExtraHitPoints = hitPoints - hitPointsState;
-    if (addExtraHitPoints > 0) {
-      heal(addExtraHitPoints);
-    }
-  }, [hitPoints]);
 
   const [mousePos, setMousePos] = useState([null, null]);
 
@@ -744,7 +504,6 @@ function PcSummary() {
           </button>
         )}
 
-        {/* NOTES */}
         {notes.map(note => {
           return (
             <Note
@@ -761,503 +520,52 @@ function PcSummary() {
         })}
 
         {/* BASIC ATTRS */}
-        <span className={`${styles.data} ${styles.name}`}>{pcName}</span>
-        <span className={`${styles.data} ${styles.pClass}`}>
-          {translateClass(pClass)} lvl {level}
-        </span>
-        <span className={`${styles.data} ${styles.background}`}>
-          {translateBackground(background.name)}
-        </span>
-        <input
-          type="text"
-          className={`${styles.data} ${styles.playerName}`}
-          name="playerName"
-          defaultValue={playerName}
-          onChange={onFreeTextChange}
+        <BasicAttrs
+          pc={pc}
+          pcName={pcName}
+          onFreeTextChange={onFreeTextChange}
         />
-        <span className={`${styles.data} ${styles.race}`}>
-          {translateRace(race)}
-          {subrace !== 'subrace' && ' ' + translateRace(subrace)}
-        </span>
-        <span className={`${styles.data} ${styles.exp}`}>{exp}</span>
 
         {/* STATS */}
-        {STATS.map(statName => (
-          <Fragment key={statName}>
-            <span className={`${styles.data} ${styles[statName]}`}>
-              {getStat(pc, statName)}
-            </span>
-            <span className={`${styles.data} ${styles[`${statName}Mod`]}`}>
-              {increment(getStatMod(getStat(pc, statName)))}
-            </span>
-          </Fragment>
-        ))}
-        <span className={`${styles.data} ${styles.proficiencyBonus}`}>
-          {increment(getProficiencyBonus(level))}
-        </span>
-        {STATS.map(statName => (
-          <Fragment key={statName}>
-            {isProficientStat(statName, pClass) && (
-              <span className={`${styles.data} ${styles[`${statName}Prof`]}`}>
-                ◍
-              </span>
-            )}
-            <span className={`${styles.data} ${styles[`${statName}Saving`]}`}>
-              {increment(
-                statSavingThrow(statName, getStat(pc, statName), pClass, level)
-              )}
-            </span>
-          </Fragment>
-        ))}
+        <SheetStats pc={pc} />
 
         {/* SKILLS */}
-        {SKILLS.map(
-          skill =>
-            allSkills.includes(skill.name) && (
-              <span
-                className={`${styles.data} ${styles[`${skill.name}Prof`]}`}
-                key={skill.name}
-              >
-                ◍
-              </span>
-            )
-        )}
-        {SKILLS.map(skill => (
-          <span
-            className={`${styles.data} ${styles[`${skill.name}Saving`]}`}
-            key={skill.name}
-          >
-            {increment(skillCheckBonus(pc, skill.name))}
-            {Object.keys(conditionalSkills).includes(skill.name) && (
-              <span className={styles.annotation}>
-                ({increment(conditionalSkills[skill.name](pc)[0])}{' '}
-                {conditionalSkills[skill.name](pc)[1]})
-              </span>
-            )}
-          </span>
-        ))}
-
-        <span className={`${styles.data} ${styles.passivePerception}`}>
-          {getPassivePerception(pc)}
-        </span>
+        <SheetSkills pc={pc} />
 
         {/* COMBAT ATTRS */}
-        <div className={`${styles.data} ${styles.armorClass}`}>
-          {getArmorClass(pc)}
-          <span className={`${styles.data} ${styles.extraArmorClass}`}>
-            {getExtraArmorClass(pc)
-              ? `(${increment(getExtraArmorClass(pc))})`
-              : null}
-          </span>
-        </div>
-        <span className={`${styles.data} ${styles.speed}`}>
-          {getSpeed(pc)}m
-        </span>
-        <span className={`${styles.data} ${styles.maxHitPoints}`}>
-          <SkillItem
-            ref={skillRefs.hp[0]}
-            traitName="maxHitPoints"
-            trait="Puntos de Golpe máximos"
-            pc={pc}
-            openModal={openSkillModal('hp', 0)}
-          >
-            {maxHitPoints}
-          </SkillItem>
-        </span>
-        <span
-          className={`${styles.data} ${styles.hitPoints} ${hitPointsStyle}`}
-        >
-          {hitPointsState}
-          {!!extraHitPoints && (
-            <span className={`${styles.data} ${styles.extraHitPoints}`}>
-              {increment(extraHitPoints)}
-            </span>
-          )}
-        </span>
-        <span className={`${styles.data} ${styles.temporaryHitPoints}`}>
-          <input
-            type="number"
-            name="temporaryHitPoints"
-            min="0"
-            onChange={onFreeTextChange}
-            defaultValue={temporaryHitPoints || ''}
-            className={styles.temporaryHitPointsInput}
-            disabled={isForPlayers}
-          />
-        </span>
-
-        <span className={`${styles.data} ${styles.hitDice}`}>
-          {getHitDice(pc)}
-        </span>
-        <span className={`${styles.data} ${styles.remainingHitDice}`}>
-          <SkillItem
-            ref={skillRefs.remainingHitDice[0]}
-            traitName="remainingHitDice"
-            trait="Dados de golpe"
-            pc={pc}
-            openModal={openSkillModal('remainingHitDice', 0)}
-            disabled={isForPlayers}
-          >
-            {getRemainingHitDice(pc)}
-          </SkillItem>
-        </span>
-
-        <div className={`${styles.data} ${styles.deathSavingThrowSuccess}`}>
-          <input
-            type="checkbox"
-            name="savingThrowSuccess0"
-            id="savingThrowSuccess0"
-            value="savingThrowSuccess0"
-            className={`${styles.data} ${spellStyles.preparedSpell}`}
-            style={{
-              left: '4px',
-              top: '0px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowSuccess0"
-            className={spellStyles.preparedSpellNotChecked}
-            style={{
-              left: '5px',
-              top: '-3px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowSuccess0"
-            className={spellStyles.preparedSpellChecked}
-            style={{
-              left: '4px',
-              top: '0px',
-              zIndex: 10,
-            }}
-          >
-            ◍
-          </label>
-        </div>
-        <div className={`${styles.data} ${styles.deathSavingThrowSuccess}`}>
-          <input
-            type="checkbox"
-            name="savingThrowSuccess1"
-            id="savingThrowSuccess1"
-            value="savingThrowSuccess1"
-            className={`${styles.data} ${spellStyles.preparedSpell}`}
-            style={{
-              left: '29px',
-              top: '0px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowSuccess1"
-            className={spellStyles.preparedSpellNotChecked}
-            style={{
-              left: '31px',
-              top: '-3px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowSuccess1"
-            className={spellStyles.preparedSpellChecked}
-            style={{
-              left: '29px',
-              top: '0px',
-              zIndex: 10,
-            }}
-          >
-            ◍
-          </label>
-        </div>
-        <div className={`${styles.data} ${styles.deathSavingThrowSuccess}`}>
-          <input
-            type="checkbox"
-            name="savingThrowSuccess2"
-            id="savingThrowSuccess2"
-            value="savingThrowSuccess2"
-            className={`${styles.data} ${spellStyles.preparedSpell}`}
-            style={{
-              left: '54px',
-              top: '0px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowSuccess2"
-            className={spellStyles.preparedSpellNotChecked}
-            style={{
-              left: '56px',
-              top: '-3px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowSuccess2"
-            className={spellStyles.preparedSpellChecked}
-            style={{
-              left: '54px',
-              top: '0px',
-              zIndex: 10,
-            }}
-          >
-            ◍
-          </label>
-        </div>
-        <div className={`${styles.data} ${styles.deathSavingThrowFailure}`}>
-          <input
-            type="checkbox"
-            name="savingThrowFailure0"
-            id="savingThrowFailure0"
-            value="savingThrowFailure0"
-            className={`${styles.data} ${spellStyles.preparedSpell}`}
-            style={{
-              left: '5px',
-              top: '-7px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowFailure0"
-            className={spellStyles.preparedSpellNotChecked}
-            style={{
-              left: '5px',
-              top: '-7px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowFailure0"
-            className={spellStyles.preparedSpellChecked}
-            style={{
-              left: '4px',
-              top: '-4px',
-              zIndex: 10,
-            }}
-          >
-            ◍
-          </label>
-        </div>
-        <div className={`${styles.data} ${styles.deathSavingThrowFailure}`}>
-          <input
-            type="checkbox"
-            name="savingThrowFailure1"
-            id="savingThrowFailure1"
-            value="savingThrowFailure1"
-            className={`${styles.data} ${spellStyles.preparedSpell}`}
-            style={{
-              left: '5px',
-              top: '-7px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowFailure1"
-            className={spellStyles.preparedSpellNotChecked}
-            style={{
-              left: '31px',
-              top: '-7px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowFailure1"
-            className={spellStyles.preparedSpellChecked}
-            style={{
-              left: '30px',
-              top: '-4px',
-              zIndex: 10,
-            }}
-          >
-            ◍
-          </label>
-        </div>
-        <div className={`${styles.data} ${styles.deathSavingThrowFailure}`}>
-          <input
-            type="checkbox"
-            name="savingThrowFailure2"
-            id="savingThrowFailure2"
-            value="savingThrowFailure2"
-            className={`${styles.data} ${spellStyles.preparedSpell}`}
-            style={{
-              left: '56px',
-              top: '-7px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowFailure2"
-            className={spellStyles.preparedSpellNotChecked}
-            style={{
-              left: '56px',
-              top: '-7px',
-              zIndex: 10,
-            }}
-          />
-          <label
-            htmlFor="savingThrowFailure2"
-            className={spellStyles.preparedSpellChecked}
-            style={{
-              left: '55px',
-              top: '-4px',
-              zIndex: 10,
-            }}
-          >
-            ◍
-          </label>
-        </div>
+        <CombatAttrs
+          pc={pc}
+          skillRefs={skillRefs}
+          openSkillModal={openSkillModal}
+          onFreeTextChange={onFreeTextChange}
+          isForPlayers={isForPlayers}
+        />
 
         {/* ATTACKS */}
-        {attacks.map((attack, i) => {
-          const [_1, drag] = useDrag(
-            () => ({
-              type: 'WEAPON',
-              item: { value: attack.weapon.name },
-              canDrag: () => !!attack.weapon.name,
-            }),
-            [attack.weapon.name]
-          );
-
-          const [_2, drop] = useDrop(
-            () => ({
-              accept: 'WEAPON',
-              drop: item => onWeaponDrop(item.value, i),
-              canDrop: () => !!attack.weapon.name,
-            }),
-            [attack.weapon.name]
-          );
-
-          return (
-            <Fragment key={i}>
-              <div className={`${styles.data} ${styles['attackName-' + i]}`}>
-                <label
-                  className={styles.attackHandler}
-                  ref={el => {
-                    drag(el);
-                    drop(el);
-                  }}
-                >
-                  <span className={styles.attackHandlerCharacter}>░</span>
-                  <InventoryItem
-                    ref={itemRefs.weapons[i]}
-                    pItem={attack.weapon}
-                    isLast
-                    onItemClick={onItemClick('weapons', i)}
-                    openModal={openItemModal('weapons', i)}
-                    closeModal={closeItemModal}
-                    className={itemStyles.centeredItem}
-                    key={attack.weapon.name}
-                  />
-                </label>
-
-                {!!attack.specialAttackIndex && (
-                  <sup className={styles.superscript}>
-                    {attack.specialAttackIndex}
-                  </sup>
-                )}
-              </div>
-              {!!(attack.bonus || attack.bonus === 0) && (
-                <span
-                  className={`${styles.data} ${styles['attackBonus-' + i]}`}
-                >
-                  <SkillItem
-                    ref={skillRefs.attackBonus[i]}
-                    traitName="attackBonus"
-                    trait="Bonificador de ataque"
-                    pc={pc}
-                    openModal={openSkillModal('attackBonus', i)}
-                  >
-                    {increment(attack.bonus)}
-                  </SkillItem>
-                </span>
-              )}
-              {!!attack.damage && (
-                <span className={`${styles.data} ${styles['attackType-' + i]}`}>
-                  {attack.damage}
-                  <br />
-                  {attack.type}
-                </span>
-              )}
-            </Fragment>
-          );
-        })}
-        <ul className={`${styles.data} ${styles.specialAttacks}`}>
-          {getSpecialAttacks(pc).map((specialAttack, i) => (
-            <li className={styles.specialAttack} key={i}>
-              {specialAttack}
-            </li>
-          ))}
-        </ul>
+        <SheetAttacks
+          pc={pc}
+          pcName={pcName}
+          itemRefs={itemRefs}
+          setSelectedItemRef={setSelectedItemRef}
+          setActionModalContent={setActionModalContent}
+          openItemModal={openItemModal}
+          closeItemModal={closeItemModal}
+          skillRefs={skillRefs}
+          openSkillModal={openSkillModal}
+          submit={submit}
+        />
 
         {/* EQUIPMENT */}
-        <ul className={`${styles.data} ${styles.equipment}`}>
-          {!!equipment.armor && (
-            <li>
-              <u>Armadura:</u>{' '}
-              <InventoryItem
-                ref={itemRefs.armor[0]}
-                pItem={equipment.armor}
-                isLast
-                onItemClick={!!treasure.armors.length && onItemClick('armor')}
-                openModal={openItemModal('armor')}
-                closeModal={closeItemModal}
-                key={equipment.armor.name}
-              />
-            </li>
-          )}
-          {!!equipment.shield && (
-            <li>
-              <u>Escudo:</u>{' '}
-              <InventoryItem
-                ref={itemRefs.shield[0]}
-                pItem={equipment.shield}
-                isLast
-                openModal={openItemModal('shield')}
-                closeModal={closeItemModal}
-                key={equipment.shield.name}
-              />
-            </li>
-          )}
-          {!!equipment.ammunition?.length && (
-            <li>
-              <u>Proyectiles:</u>{' '}
-              {equipment.ammunition.map((ammo, i) => (
-                <InventoryItem
-                  ref={itemRefs.ammunition[i]}
-                  pItem={ammo}
-                  isLast={i === equipment.ammunition.length - 1}
-                  openModal={openItemModal('ammunition', i)}
-                  closeModal={closeItemModal}
-                  key={ammo.name}
-                />
-              ))}
-            </li>
-          )}
-          {!!equipment.others?.length && (
-            <li>
-              {equipment.others.map((otherItem, i) => (
-                <InventoryItem
-                  ref={itemRefs.others[i]}
-                  pItem={otherItem}
-                  isLast={i === equipment.others.length - 1}
-                  openModal={openItemModal('others', i)}
-                  closeModal={closeItemModal}
-                  key={otherItem.name}
-                />
-              ))}
-            </li>
-          )}
-        </ul>
-
-        <div className={`${styles.data} ${styles.copper}`}>
-          {displayMoneyAmount(money[2])}
-        </div>
-        <div className={`${styles.data} ${styles.silver}`}>
-          {displayMoneyAmount(money[1])}
-        </div>
-        <div className={`${styles.data} ${styles.gold}`}>
-          {displayMoneyAmount(money[0])}
-        </div>
+        <SheetEquipment
+          pc={pc}
+          pcName={pcName}
+          itemRefs={itemRefs}
+          openItemModal={openItemModal}
+          closeItemModal={closeItemModal}
+          setSelectedItemRef={setSelectedItemRef}
+          setActionModalContent={setActionModalContent}
+          submit={submit}
+        />
 
         {/* FREETEXT */}
         <textarea
@@ -1626,38 +934,7 @@ function PcSummary() {
         </ul>
 
         {/* PROFICIENCIES & LANGUAGES */}
-        <ul className={`${styles.data} ${styles.competencesAndLanguages}`}>
-          <li className={styles.traitLabel}>
-            <span className={styles.traitTitle}>Idiomas:</span>{' '}
-            <strong className={styles.trait}>
-              {languages
-                .map(language => translateLanguage(language))
-                .join(', ')}
-            </strong>
-          </li>
-
-          <li className={styles.traitLabel}>
-            <span className={styles.traitTitle}>Competente con:</span>{' '}
-            {getItemDisplayList(getItemProficiencies(pc)).map(
-              (itemName, i, proficiencies) => (
-                <strong className={styles.trait} key={itemName}>
-                  {translateItem(itemName)}
-                  {i + 1 < proficiencies.length && ', '}
-                </strong>
-              )
-            )}
-          </li>
-
-          {CLASSES[pClass].proficiencies &&
-            Object.entries(CLASSES[pClass].proficiencies).map(
-              ([profName, profValue]) => (
-                <li className={styles.traitLabel} key={profName}>
-                  {profName}:{' '}
-                  <strong className={styles.trait}>{profValue(pc)}</strong>
-                </li>
-              )
-            )}
-        </ul>
+        <ProficienciesAndLanguages pc={pc} />
       </Form>
     </>
   );
