@@ -23,6 +23,7 @@ function getMenuItems(partyContext = {}, monsterContext = {}, isForPlayers) {
   if (isForPlayers) {
     const pcName = getCurrentPcPage();
     items = [
+      { name: 'Dados', url: PATHS.dice(pcName, isForPlayers), level: 0 },
       {
         name: pcName,
         url: PATHS.summary(pcName, isForPlayers),

@@ -7,6 +7,8 @@ export const PATHS = {
     `/characters/pc/${pcName}${isForPlayers ? '/players' : ''}/bio`,
   spells: (pcName, isForPlayers) =>
     `/characters/pc/${pcName}${isForPlayers ? '/players' : ''}/spells`,
+  dice: (pcName, isForPlayers) =>
+    isForPlayers ? `/characters/pc/${pcName}/players/dice` : '/dice',
 };
 
 export function getCurrentPcPage() {
