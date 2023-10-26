@@ -10,7 +10,7 @@ import { translateDamage } from '~/domain/equipment/weapons';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
 
 export function ItemModalContent(props) {
-  const { pc, item } = props;
+  const { pc, item, isForPlayers } = props;
 
   const subtypeTranslation = item.subtype && translateItem(item.subtype);
   const isWeapon = item.type === 'weapon';
@@ -45,12 +45,14 @@ export function ItemModalContent(props) {
               </strong>
             </li>
           )}
-          <li className={styles.modalItem}>
-            <span className={styles.modalRowTitle}>Coste:</span>{' '}
-            <strong className={styles.modalRowValue}>
-              {translateMoney(item.price)}
-            </strong>
-          </li>
+          {!isForPlayers && (
+            <li className={styles.modalItem}>
+              <span className={styles.modalRowTitle}>Coste:</span>{' '}
+              <strong className={styles.modalRowValue}>
+                {translateMoney(item.price)}
+              </strong>
+            </li>
+          )}
           <li className={styles.modalItem}>
             <span className={styles.modalRowTitle}>Peso:</span>{' '}
             <strong className={styles.modalRowValue}>

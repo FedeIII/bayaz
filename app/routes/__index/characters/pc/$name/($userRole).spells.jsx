@@ -42,13 +42,14 @@ export const loader = async ({ params }) => {
   if (!pc) {
     throw new Error('pc not found');
   }
-  return json({ pc });
+  return json({ pc, isForPlayers: params.userRole === 'players' });
 };
 
 async function prepareSpellAction(formData) {
   const name = formData.get('name');
   const pClass = formData.get('pClass');
   const preparedSpell = formData.get('preparedSpell');
+  const isForPlayers = formData.get('isForPlayers') === 'true';
 
   const [preparedSpellName, spellType, spellSubtype, isPrepared] =
     preparedSpell.split(',');
@@ -61,7 +62,7 @@ async function prepareSpellAction(formData) {
 
   if (isPrepared === 'true') {
     await addPreparedSpell(name, spell);
-  } else {
+  } else if (!isForPlayers) {
     await deletePreparedSpell(name, spell);
   }
 }
@@ -97,7 +98,7 @@ export const action = async ({ request }) => {
 };
 
 function PcSpells() {
-  const { pc } = useLoaderData();
+  const { pc, isForPlayers } = useLoaderData();
   const { pClass, name, preparedSpells, magic } = pc;
 
   const submit = useSubmit();
@@ -137,6 +138,7 @@ function PcSpells() {
               spell.subtype,
               e.target.checked,
             ],
+            isForPlayers,
           },
           { method: 'post' }
         );
@@ -223,6 +225,7 @@ function PcSpells() {
                   traitName="resetSpellSlots"
                   trait={level}
                   openModal={openSkillModal('resetSpellSlots', level)}
+                  disabled={isForPlayers}
                 />
               </span>
             )}

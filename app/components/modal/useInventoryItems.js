@@ -4,7 +4,11 @@ import { getItem } from '~/domain/equipment/equipment';
 import { ItemModalContent } from './itemModal';
 import { BASE_CHARACTER } from '~/domain/characters';
 
-export function useInventoryItems(pc = BASE_CHARACTER, itemRefs, otherModalContent) {
+export function useInventoryItems(
+  pc = BASE_CHARACTER,
+  itemRefs,
+  otherModalContent
+) {
   const [itemModalContent, setItemModalContent] = useState(null);
   const [selectedItemRef, setSelectedItemRef] = useState(null);
   const closeItemModal = () => setItemModalContent(null);
@@ -19,7 +23,7 @@ export function useInventoryItems(pc = BASE_CHARACTER, itemRefs, otherModalConte
         setTimeout(
           () =>
             setItemModalContent(() => props => (
-              <ItemModalContent pc={pc} item={item} />
+              <ItemModalContent pc={pc} item={item} {...props} />
             )),
           0
         );

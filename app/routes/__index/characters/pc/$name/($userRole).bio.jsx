@@ -35,7 +35,7 @@ export const loader = async ({ params }) => {
   if (!pc) {
     throw new Error('pc not found');
   }
-  return json({ pc });
+  return json({ pc, isForPlayers: params.userRole === 'players' });
 };
 
 async function equipWeaponAction(formData) {
@@ -181,7 +181,7 @@ function ArmorModalContent(props) {
 }
 
 function PcBio() {
-  const { pc } = useLoaderData();
+  const { pc, isForPlayers } = useLoaderData();
   const {
     name,
     age,
@@ -342,6 +342,7 @@ function PcBio() {
             elRef={selectedItemRef}
             formRef={formRef}
             closeModal={() => setActionModalContent(null)}
+            isForPlayers={isForPlayers}
           >
             {actionModalContent}
           </ItemModal>
@@ -353,6 +354,7 @@ function PcBio() {
             formRef={formRef}
             closeModal={closeItemModal}
             closeOnLeave
+            isForPlayers={isForPlayers}
           >
             {itemModalContent}
           </ItemModal>

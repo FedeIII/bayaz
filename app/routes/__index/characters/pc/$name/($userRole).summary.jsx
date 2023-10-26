@@ -140,7 +140,7 @@ export const loader = async ({ params }) => {
   if (!pc) {
     throw new Error('pc not found');
   }
-  return json({ pc });
+  return json({ pc, isForPlayers: params.userRole === 'players' });
 };
 
 async function equipWeaponsAction(formData) {
@@ -306,7 +306,7 @@ function ArmorModalContent(props) {
 }
 
 function PcSummary() {
-  const { pc } = useLoaderData();
+  const { pc, isForPlayers } = useLoaderData();
   const {
     pClass,
     name,
@@ -567,6 +567,7 @@ function PcSummary() {
             formRef={formRef}
             closeModal={() => setActionModalContent(null)}
             dropShadow
+            isForPlayers={isForPlayers}
           >
             {actionModalContent}
           </ItemModal>
@@ -578,6 +579,7 @@ function PcSummary() {
             formRef={formRef}
             closeModal={closeItemModal}
             closeOnLeave
+            isForPlayers={isForPlayers}
           >
             {itemModalContent}
           </ItemModal>
@@ -735,6 +737,7 @@ function PcSummary() {
             onChange={onFreeTextChange}
             defaultValue={temporaryHitPoints || ''}
             className={styles.temporaryHitPointsInput}
+            disabled={isForPlayers}
           />
         </span>
 
@@ -748,6 +751,7 @@ function PcSummary() {
             trait="Dados de golpe"
             pc={pc}
             openModal={openSkillModal('remainingHitDice', 0)}
+            disabled={isForPlayers}
           />
         </span>
 

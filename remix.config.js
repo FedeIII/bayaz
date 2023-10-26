@@ -11,6 +11,7 @@ module.exports = {
   // serverBuildPath: "api/index.js",
   // publicPath: "/build/",
   future: {
+    v2_dev: true,
     unstable_cssModules: true,
   },
   serverDependenciesToBundle: [

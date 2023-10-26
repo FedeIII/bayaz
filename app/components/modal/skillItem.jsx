@@ -16,6 +16,7 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
     openModal,
     openOnRightClick,
     bigModal,
+    disabled,
   } = props;
 
   return (
@@ -24,10 +25,12 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
         ref={ref}
         className={styles.item}
         onClick={() =>
-          !openOnRightClick && openModal(traitName, trait, bigModal)
+          !disabled &&
+          !openOnRightClick &&
+          openModal(traitName, trait, bigModal)
         }
         onContextMenu={e => {
-          if (openOnRightClick) {
+          if (!disabled && openOnRightClick) {
             e.preventDefault();
             openModal(traitName, trait, bigModal);
           }

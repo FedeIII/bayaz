@@ -15,10 +15,33 @@ const mainLinks = [
   { name: 'Glosario', url: '/glossary', level: 0 },
 ];
 
-function getMenuItems(partyContext = {}, monsterContext = {}) {
+function getMenuItems(partyContext = {}, monsterContext = {}, isForPlayers) {
   const { partyIdState, pcNamesState } = partyContext;
   const { encounterIdState } = monsterContext;
   let items = [...mainLinks];
+
+  if (isForPlayers) {
+    const pcName = getCurrentPcPage();
+    items = [
+      {
+        name: pcName,
+        url: PATHS.summary(pcName, isForPlayers),
+        level: 0,
+      },
+      {
+        name: 'Inventario',
+        url: PATHS.bio(pcName, isForPlayers),
+        level: 1,
+      },
+      {
+        name: 'Conjuros',
+        url: PATHS.spells(pcName, isForPlayers),
+        level: 1,
+      },
+    ];
+
+    return items;
+  }
 
   if (partyIdState) {
     items = insertAfter(item => item.name === 'Party', items, [
@@ -92,13 +115,15 @@ function getMenuItems(partyContext = {}, monsterContext = {}) {
 
   return items;
 }
-export function SideBar() {
+export function SideBar(props) {
+  const { isForPlayers } = props;
+
   const menuContext = useContext(MenuContext) || {};
   const partyContext = useContext(PartyContext) || {};
   const monsterContext = useContext(MonstersContext) || {};
   const { hasMenu } = menuContext;
 
-  const menuItems = getMenuItems(partyContext, monsterContext);
+  const menuItems = getMenuItems(partyContext, monsterContext, isForPlayers);
 
   if (!hasMenu) return null;
 
