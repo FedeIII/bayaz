@@ -177,7 +177,7 @@ export function displayDamage(pc, weapon) {
 }
 
 function getAttackFromWeapon(pc, weapon, specialAttackIndex) {
-  return weapon.name
+  return weapon?.name
     ? {
         weapon: getItem(weapon.name),
         specialAttackIndex,
@@ -218,6 +218,8 @@ export function getAttacks(pc) {
 }
 
 function hasSpecialAttack(weapon, pc) {
+  if (!weapon) return null;
+
   const { properties } = weapon;
   const { pClass } = pc;
 

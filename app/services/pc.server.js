@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { mongoose } from '~/services/db.server';
 import {
   RACES,
@@ -260,6 +261,12 @@ const freeTextSchema = new mongoose.Schema({
   extraTraits2: String,
 });
 
+const notesSchema = new mongoose.Schema({
+  id: String,
+  position: [Number, Number],
+  text: String,
+});
+
 const pcSchema = new mongoose.Schema({
   name: String,
   race: {
@@ -346,6 +353,7 @@ const pcSchema = new mongoose.Schema({
   preparedSpells: [spellSchema],
   money: [Number, Number, Number],
   improvedStatsLevels: [Number],
+  notes: [notesSchema],
 });
 
 function weaponLimit(val) {
@@ -394,6 +402,46 @@ export async function updatePc(pcAttrs) {
   const updatedPc = await Pc.findOneAndUpdate(
     { name: pcAttrs.name },
     { $set: pcAttrs },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function createNotes(pcName, position) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    { $push: { notes: { id: uuid(), position, text: '' } } },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function deleteNote(pcName, noteId) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    { $pull: { notes: { _id: noteId } } },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function updateNotes(pcName, noteId, text) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName, 'notes._id': noteId },
+    { $set: { 'notes.$.text': text } },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function updateNotePosition(pcName, noteId, position) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName, 'notes._id': noteId },
+    { $set: { 'notes.$.position': position } },
     { new: true }
   ).exec();
 

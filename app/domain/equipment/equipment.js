@@ -32,6 +32,8 @@ export function translateEquipment(type) {
 }
 
 export function getItem(itemName) {
+  if (!itemName) return null;
+
   const allItems = getAllItems();
   const itemBuilder = allItems.find(item => item().name === itemName);
 

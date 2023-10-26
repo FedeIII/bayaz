@@ -14,6 +14,10 @@ import {
   updatePc,
   reorderWeapons,
   switchArmor,
+  createNotes,
+  updateNotes,
+  deleteNote,
+  updateNotePosition,
 } from '~/services/pc.server';
 import {
   STATS,
@@ -128,11 +132,13 @@ import {
   translateRoguishArchetype,
 } from '~/domain/classes/rogue/rogue';
 import { longRest, spendHitDie } from '~/domain/characterMutations';
+import { removeItem, unique } from '~/utils/insert';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
 import barStyles from '~/components/indicators/bar.module.css';
 import spellStyles from '~/components/spells.module.css';
+import Note from '~/components/note/note';
 
 const noAttack = { weapon: noItem() };
 
@@ -188,6 +194,36 @@ async function longRestAction(formData) {
   return await longRest(name);
 }
 
+async function createNotesAction(formData) {
+  const name = formData.get('name');
+  const position = formData.get('position');
+
+  return await createNotes(name, position.split(','));
+}
+
+async function deleteNoteAction(formData) {
+  const name = formData.get('name');
+  const id = formData.get('id');
+
+  return await deleteNote(name, id);
+}
+
+async function updateNotePositionAction(formData) {
+  const name = formData.get('name');
+  const id = formData.get('noteId');
+  const position = formData.get('position');
+
+  return await updateNotePosition(name, id, position.split(','));
+}
+
+async function updateNoteTextAction(formData) {
+  const name = formData.get('name');
+  const id = formData.get('noteId');
+  const text = formData.get('text');
+
+  return await updateNotes(name, id, text);
+}
+
 async function updateFreeTexts(formData) {
   const name = formData.get('name');
   const playerName = formData.get('playerName');
@@ -222,6 +258,14 @@ export const action = async ({ request }) => {
     pc = await spendRealHitDieAction(formData);
   } else if (action === 'longRest') {
     pc = await longRestAction(formData);
+  } else if (action === 'createNotes') {
+    pc = await createNotesAction(formData);
+  } else if (action === 'deleteNote') {
+    pc = await deleteNoteAction(formData);
+  } else if (action === 'updateNotePosition') {
+    pc = await updateNotePositionAction(formData);
+  } else if (action === 'updateNoteText') {
+    pc = await updateNoteTextAction(formData);
   } else {
     pc = await updateFreeTexts(formData);
   }
@@ -322,6 +366,7 @@ function PcSummary() {
     money,
     background = {},
     freeText: { playerName, personality, ideals, bonds, flaws } = {},
+    notes,
   } = pc;
 
   const [pcName, setPcName] = useState(name);
@@ -345,6 +390,54 @@ function PcSummary() {
 
   function onFormSubmit(e) {
     setIsSubmitShown(false);
+  }
+
+  const [selectedNote, setSelectedNote] = useState(null);
+
+  function onNoteChange(noteId, text) {
+    submit(
+      {
+        action: 'updateNoteText',
+        name: pcName,
+        noteId,
+        text,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function onNoteDelete(noteId) {
+    submit(
+      {
+        action: 'deleteNote',
+        name: pcName,
+        id: noteId,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function onPickNote(noteId) {
+    setSelectedNote(noteId);
+  }
+
+  function onDropNote(e) {
+    if (selectedNote) {
+      e.preventDefault();
+      const formPos = formRef?.current?.getBoundingClientRect();
+      const formLeftX = formPos?.x || 0;
+      const formTopY = formPos?.y || 0;
+      submit(
+        {
+          action: 'updateNotePosition',
+          name: pcName,
+          noteId: selectedNote,
+          position: [e.clientX - formLeftX, e.clientY - formTopY],
+        },
+        { method: 'post' }
+      );
+      setSelectedNote(null);
+    }
   }
 
   useAddMenuItems('/characters', [
@@ -458,6 +551,7 @@ function PcSummary() {
     hp: [useRef()],
     remainingHitDice: [useRef()],
     attackBonus: [useRef(), useRef(), useRef()],
+    movingModal: [useRef()],
   });
 
   const [
@@ -551,9 +645,40 @@ function PcSummary() {
     }
   }, [hitPoints]);
 
+  const [mousePos, setMousePos] = useState([null, null]);
+
+  function onNotesClick(e) {
+    setMousePos([null, null]);
+  }
+
+  function onNotesRightClick(e) {
+    e.preventDefault();
+    const formPos = formRef?.current?.getBoundingClientRect();
+    const formLeftX = formPos?.x || 0;
+    const formTopY = formPos?.y || 0;
+    setMousePos([e.clientX - formLeftX, e.clientY - formTopY]);
+  }
+
   return (
     <>
       <img src="/images/sheet1.jpg" className={styles.sheetBackground} />
+      <div
+        className={styles.sheetNotes}
+        onClick={onNotesClick}
+        onContextMenu={onNotesRightClick}
+        onMouseUp={onDropNote}
+        style={{
+          zIndex: selectedNote ? 2 : 1,
+        }}
+      />
+      <SkillItem
+        ref={skillRefs.movingModal[0]}
+        traitName="notes"
+        trait="Notas"
+        pc={pc}
+        openModal={openSkillModal('movingModal', 0)}
+        position={mousePos[0] ? mousePos : []}
+      />
       <Form
         method="post"
         className={styles.summary}
@@ -618,6 +743,22 @@ function PcSummary() {
             Actualizar
           </button>
         )}
+
+        {/* NOTES */}
+        {notes.map(note => {
+          return (
+            <Note
+              key={note._id}
+              position={note.position}
+              id={note._id}
+              text={note.text}
+              selected={selectedNote === note._id}
+              onBlur={onNoteChange}
+              onDelete={onNoteDelete}
+              onPick={onPickNote}
+            />
+          );
+        })}
 
         {/* BASIC ATTRS */}
         <span className={`${styles.data} ${styles.name}`}>{pcName}</span>

@@ -20,7 +20,7 @@ export function useSkillItems(pc = BASE_CHARACTER, skillRefs, submit = noOp) {
   };
 
   function openSkillModal(sectionName, skillIndex = 0) {
-    return (skillName, skill, bigModal) => {
+    return (skillName, skill, bigModal, position) => {
       setSelectedSkillRef(skillRefs[sectionName][skillIndex]);
 
       setTimeout(() => {
@@ -53,6 +53,7 @@ export function useSkillItems(pc = BASE_CHARACTER, skillRefs, submit = noOp) {
                 bigModal
                 submit={submit}
                 skillIndex={skillIndex}
+                position={position}
                 {...props}
               />
             )

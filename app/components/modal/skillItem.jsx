@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useEffect, useMemo } from 'react';
 import { displayTrait } from '~/domain/display';
 import { translateSpell } from '~/domain/spells/spells';
 import { displayInvocation } from '~/domain/classes/warlock/displayWarlockTrait';
@@ -17,14 +17,33 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
     openOnRightClick,
     bigModal,
     disabled,
+    position,
     children,
   } = props;
+
+  useEffect(() => {
+    if (position?.[0]) {
+      openModal(traitName, trait, bigModal, position);
+    }
+  }, [position?.[0], position?.[1], traitName, trait, bigModal]);
+
+  const style = useMemo(() => {
+    return position
+      ? {
+          left: position[0],
+          top: position[1],
+          display: position[0] ? 'block' : 'none',
+          position: 'absolute',
+        }
+      : null;
+  }, [position?.[0], position?.[1]]);
 
   return (
     <>
       <span
         ref={ref}
         className={styles.item}
+        style={style}
         onClick={() =>
           !disabled &&
           !openOnRightClick &&
@@ -39,6 +58,7 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
       >
         {!!children && children}
         {!children &&
+          !position &&
           (trait === 'spell'
             ? translateSpell(traitName)
             : trait === 'invocation'

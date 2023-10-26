@@ -219,4 +219,30 @@ export const SKILLS_EXPLANATION = {
       </div>
     );
   },
+
+  notes: (skill, pc, submit, closeModal, skillIndex, position) => {
+    function onCreateNotesClick() {
+      closeModal();
+      submit(
+        {
+          action: 'createNotes',
+          name: pc.name,
+          position,
+        },
+        { method: 'post' }
+      );
+    }
+
+    return (
+      <div className={styles.hpContainer}>
+        <button
+          type="button"
+          className={styles.modalButton}
+          onClick={onCreateNotesClick}
+        >
+          Crear notas
+        </button>
+      </div>
+    );
+  },
 };

@@ -71,8 +71,6 @@ npx prisma migrate dev
 - Monk
   - track Ki points
 - Improve spell modal data
-- Attack bonus breakdown for weapons
-- 2x Weapons not showing in the weapons section
 - Free text annotations anywhere in the character sheets (other colors)
 - Copy random spells on the Book:
   - Warlock bookOfAncientSecrets

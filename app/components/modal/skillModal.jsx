@@ -19,7 +19,7 @@ import { getSelfLeftX, getSelfTopY } from './modalPosition';
 import styles from './inventoryItem.module.css';
 
 export function SkillModalContent(props) {
-  const { pc, skillName, skill, bigModal, submit, closeModal, skillIndex } =
+  const { pc, skillName, skill, bigModal, submit, closeModal, skillIndex, position } =
     props;
 
   const skillExplanation = getSkillExplanation(
@@ -28,7 +28,8 @@ export function SkillModalContent(props) {
     pc,
     submit,
     closeModal,
-    skillIndex
+    skillIndex,
+    position
   );
 
   const skillTitle =
