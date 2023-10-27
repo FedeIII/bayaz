@@ -6,6 +6,14 @@ import {
 } from '../../equipment/weapons';
 import { CLASSES } from '../../characters';
 
+export const BARBARIAN_EQUIPMENT = [
+  { or: getAllMartialMelee() },
+  {
+    or: [WEAPONS.handaxe({ amount: 2 }), ...getAllSimpleMelee()],
+  },
+  EXPLORERS_PACK,
+  WEAPONS.javelin({ amount: 4 }),
+];
 
 export function getPrimalPath(pc) {
   return pc.classAttrs?.barbarian?.primalPath;
@@ -51,14 +59,3 @@ export function translatePrimalPath(primalPath) {
   if (primalPath === 'totem-warrior') return 'Guerrero Totémico';
   return 'unknown primal path';
 }
-
-export const BARBARIAN_EQUIPMENT = [
-  { or: getAllMartialMelee() },
-  {
-    or: [WEAPONS.handaxe({ amount: 2 }), ...getAllSimpleMelee()],
-  },
-  EXPLORERS_PACK,
-  WEAPONS.javelin({ amount: 4 }),
-];
-
-

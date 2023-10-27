@@ -2,6 +2,7 @@ import { Link } from '@remix-run/react';
 import HitDiceActions from '~/components/skills/hitDiceActions';
 import {
   CLASSES,
+  getArmorClass,
   getExtraHitPoints,
   getItemProficiencies,
   getProficiencyBonus,
@@ -9,7 +10,7 @@ import {
   getStatMod,
   translateClass,
 } from './characters';
-import { increment } from './display';
+import { getAcBreakdown, increment } from './display';
 import { getItem } from './equipment/equipment';
 
 import styles from '~/components/modal/inventoryItem.module.css';
@@ -273,4 +274,33 @@ export const SKILLS_EXPLANATION = {
       </div>
     </>
   ),
+
+  armorClass: (skill, pc) => {
+    const acs = getAcBreakdown(pc);
+
+    return (
+      <div className={styles.hpContainer}>
+        <table className={styles.table}>
+          <thead className={styles.tableHead}>
+            <tr>
+              <th className={styles.tableCellLevel}>{acs.title}</th>
+              {acs.extras.map(extra => (
+                <th className={styles.tableCellLevel}>{extra.title}</th>
+              ))}
+              <th className={styles.tableCellExtra}>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className={styles.tableCellLevel}>{acs.base}</td>
+              {acs.extras.map(extra => (
+                <td className={styles.tableCellLevel}>{extra.ac}</td>
+              ))}
+              <td className={styles.tableCellExtra}>{getArmorClass(pc)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  },
 };

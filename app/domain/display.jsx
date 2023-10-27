@@ -12,7 +12,11 @@ import {
   getAttackBonus,
   getDamageBonus,
   getDamageDice,
+  getItemArmorClass,
+  getStat,
+  getStatMod,
   hasToImproveAbilityScore,
+  translateClass,
   translateSavingThrowStatus,
 } from './characters';
 import {
@@ -41,6 +45,16 @@ import { displayMonkTrait } from './classes/monk/displayMonkTrait';
 import { displayPaladinTrait } from './classes/paladin/displayPaladinTrait';
 import { displayRogueTrait } from './classes/rogue/displayRogueTrait';
 import { isMonkWeapon } from './classes/monk/monk';
+import {
+  getSorcererOrigin,
+  isDraconicBloodline,
+  translateSorcererOrigin,
+} from './classes/sorcerer/sorcerer';
+import {
+  getFightingStyle,
+  translateFightingStyle,
+} from './classes/fighter/fighter';
+import { getPaladinFightingStyle } from './classes/paladin/paladin';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -522,4 +536,79 @@ export function displayTotalHitPointsRolls(pc) {
   if (oneToLastRoll) rolls += `${oneToLastRoll} + `;
   if (lastRoll) rolls += lastRoll;
   return rolls;
+}
+
+export function getAcBreakdown(pc) {
+  const {
+    items: {
+      equipment: { armor: pArmor = {}, shield: pShield = {} },
+    },
+    pClass,
+  } = pc;
+
+  const armor = pArmor && getItem(pArmor.name);
+  const shield = pShield && getItem(pShield.name);
+
+  return pClass === 'barbarian' && !armor
+    ? {
+        title: `${translateClass(pClass)} (sin armadura)`,
+        base: 10,
+        extras: [
+          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
+          { title: 'CON', ac: increment(getStatMod(getStat(pc, 'con'))) },
+        ],
+      }
+    : pClass === 'monk' && !armor && !shield
+    ? {
+        title: `${translateClass(pClass)} (sin armadura ni escudo)`,
+        base: 10,
+        extras: [
+          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
+          { title: 'WIS', ac: increment(getStatMod(getStat(pc, 'wis'))) },
+        ],
+      }
+    : pClass === 'sorcerer' && isDraconicBloodline(pc) && !armor && !shield
+    ? {
+        title: `${translateSorcererOrigin(
+          getSorcererOrigin(pc)
+        )} (sin armadura ni escudo)`,
+        base: 13,
+        extras: [
+          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
+        ],
+      }
+    : armor
+    ? {
+        title: 'Armadura',
+        base: getItemArmorClass(pc, armor.name),
+        extras: [
+          ...(pClass === 'fighter' && getFightingStyle(pc) === 'defense'
+            ? [
+                {
+                  title: `Estilo de Combate: ${translateFightingStyle(
+                    getFightingStyle(pc)
+                  )}`,
+                  ac: increment(1),
+                },
+              ]
+            : []),
+          ...(pClass === 'paladin' && getPaladinFightingStyle(pc) === 'defense'
+            ? [
+                {
+                  title: `Estilo de Combate: ${translateFightingStyle(
+                    getPaladinFightingStyle(pc)
+                  )}`,
+                  ac: increment(1),
+                },
+              ]
+            : []),
+        ],
+      }
+    : {
+        title: 'Sin armadura',
+        base: 10,
+        extras: [
+          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
+        ],
+      };
 }

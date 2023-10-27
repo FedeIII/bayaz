@@ -388,6 +388,7 @@ function PcSummary() {
     monasticTradition: monasticTraditionTraits.map(() => useRef()),
     sacredOath: sacredOathTraits.map(() => useRef()),
     roguishArchetype: roguishArchetypeTraits.map(() => useRef()),
+    ac: [useRef()],
     hp: [useRef()],
     remainingHitDice: [useRef()],
     attackBonus: [useRef(), useRef(), useRef()],

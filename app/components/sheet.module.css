@@ -325,13 +325,15 @@
   justify-content: center;
   align-items: flex-end;
   font-size: 32px;
-  line-height: 0.3;
+  line-height: 1.6;
 }
 
 .extraArmorClass {
   font-size: 14px;
   line-height: 2;
-  margin-right: -10px;
+  position: absolute;
+  top: 0;
+  right: -12px;
 }
 
 .speed {

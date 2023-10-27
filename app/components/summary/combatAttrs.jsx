@@ -68,12 +68,20 @@ function CombatAttrs(props) {
   return (
     <>
       <div className={`${styles.data} ${styles.armorClass}`}>
-        {getArmorClass(pc)}
-        <span className={`${styles.data} ${styles.extraArmorClass}`}>
-          {getExtraArmorClass(pc)
-            ? `(${increment(getExtraArmorClass(pc))})`
-            : null}
-        </span>
+        <SkillItem
+          ref={skillRefs.ac[0]}
+          traitName="armorClass"
+          trait="Clase de Armadura"
+          pc={pc}
+          openModal={openSkillModal('ac', 0)}
+        >
+          {getArmorClass(pc)}
+          <span className={`${styles.data} ${styles.extraArmorClass}`}>
+            {getExtraArmorClass(pc)
+              ? `(${increment(getExtraArmorClass(pc))})`
+              : null}
+          </span>
+        </SkillItem>
       </div>
       <span className={`${styles.data} ${styles.speed}`}>{getSpeed(pc)}m</span>
       <span className={`${styles.data} ${styles.maxHitPoints}`}>

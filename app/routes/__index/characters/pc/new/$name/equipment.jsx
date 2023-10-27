@@ -4,7 +4,7 @@ import { Form, useLoaderData, useTransition } from '@remix-run/react';
 import { getPc, updatePc } from '~/services/pc.server';
 import { EquipmentCombo } from '~/components/equipment/equipmentCombo';
 import { getEquipmentComboData } from '~/components/equipment/getEquipmentComboData';
-import { CLASS_EQUIPMENT } from '~/domain/equipment/equipment';
+import { getClassEquipment } from '~/domain/equipment/equipment';
 import { distributeItems } from '~/domain/characters';
 
 import styles from '~/components/characters.module.css';
@@ -26,7 +26,7 @@ export const action = async ({ request }) => {
 
   const equipment = getEquipmentComboData({
     formData,
-    numberOfEquipmentOptions: CLASS_EQUIPMENT[pClass].length,
+    numberOfEquipmentOptions: getClassEquipment(pClass).length,
     otherInputNames: ['items'],
   });
 
@@ -56,7 +56,7 @@ function PcEquipment() {
 
       <div className={styles.equipmentContainer}>
         <div className={cardStyles.cards}>
-          {(CLASS_EQUIPMENT[pClass] || []).map((combo, comboSection) => (
+          {(getClassEquipment(pClass) || []).map((combo, comboSection) => (
             <div className={cardStyles.card} key={comboSection}>
               <EquipmentCombo
                 pc={pc}

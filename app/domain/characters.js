@@ -2284,8 +2284,8 @@ export function statSavingThrow(stat, statValue, pClass, lvl) {
   return getStatMod(statValue) + bonus;
 }
 
-export function translateClass(race) {
-  switch (race) {
+export function translateClass(pClass) {
+  switch (pClass) {
     case 'barbarian':
       return 'Bárbaro';
     case 'bard':

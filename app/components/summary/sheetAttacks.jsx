@@ -62,9 +62,10 @@ function SheetAttacks(props) {
     skillRefs,
     openSkillModal,
     submit,
-    onFreeTextChange,
   } = props;
-  const { pClass, level, background, playerName, race, subrace, exp } = pc;
+  const {
+    items: { weapons },
+  } = pc;
 
   const [attacks, setAttacks] = useState([noAttack, noAttack, noAttack]);
   useEffect(() => {

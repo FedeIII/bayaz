@@ -124,20 +124,22 @@ export function canBeAlwaysEquipped(item) {
   );
 }
 
-export const CLASS_EQUIPMENT = {
-  barbarian: BARBARIAN_EQUIPMENT,
-  bard: BARD_EQUIPMENT,
-  warlock: WARLOCK_EQUIPMENT,
-  cleric: CLERIC_EQUIPMENT(),
-  druid: DRUID_EQUIPMENT,
-  ranger: RANGER_EQUIPMENT,
-  fighter: FIGHTER_EQUIPMENT,
-  sorcerer: SORCERER_EQUIPMENT,
-  wizard: WIZARD_EQUIPMENT,
-  monk: MONK_EQUIPMENT,
-  paladin: PALADIN_EQUIPMENT,
-  rogue: ROGUE_EQUIPMENT,
-};
+export function getClassEquipment(pClass) {
+  return {
+    barbarian: BARBARIAN_EQUIPMENT,
+    bard: BARD_EQUIPMENT,
+    warlock: WARLOCK_EQUIPMENT,
+    cleric: CLERIC_EQUIPMENT(),
+    druid: DRUID_EQUIPMENT,
+    ranger: RANGER_EQUIPMENT,
+    fighter: FIGHTER_EQUIPMENT,
+    sorcerer: SORCERER_EQUIPMENT,
+    wizard: WIZARD_EQUIPMENT,
+    monk: MONK_EQUIPMENT,
+    paladin: PALADIN_EQUIPMENT,
+    rogue: ROGUE_EQUIPMENT,
+  }[pClass];
+}
 
 export function getEquippedArmor(pc) {
   return pc.items?.equipment?.armor || null;
