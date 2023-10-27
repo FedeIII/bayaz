@@ -115,7 +115,7 @@ export const RANGER_SKILLS_EXPLANATION = {
     </>
   ),
 
-  fightingStyle: (skill, pc) => {
+  rangerFightingStyle: (skill, pc) => {
     const fightingStyle = getRangerFightingStyle(pc);
     return (
       <>

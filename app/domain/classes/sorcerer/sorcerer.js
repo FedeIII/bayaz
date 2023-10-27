@@ -57,12 +57,12 @@ export function getDragonAncestor(pc) {
 export const SORCERER_EQUIPMENT = [
   {
     or: [
-      { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
+      { and: [WEAPONS().lightCrossbow(), TOOLS().crossbowBolts({ amount: 20 })] },
       ...getAllSimpleMelee(),
       ...getAllSimpleRanged(),
     ],
   },
-  { or: [TOOLS.componentPouch(), ...getAllArcaneFocus()] },
+  { or: [TOOLS().componentPouch(), ...getAllArcaneFocus()] },
   { or: [DUNGEONEERS_PACK, EXPLORERS_PACK] },
 ];
 

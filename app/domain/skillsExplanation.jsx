@@ -3,6 +3,8 @@ import HitDiceActions from '~/components/skills/hitDiceActions';
 import {
   CLASSES,
   getArmorClass,
+  getAttackBonus,
+  getAttackClassBonus,
   getExtraHitPoints,
   getItemProficiencies,
   getProficiencyBonus,
@@ -182,12 +184,16 @@ export const SKILLS_EXPLANATION = {
       selectedStat = strMod > dexMod ? 'str' : 'dex';
     else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
       selectedStat = 'str';
-    else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')
+    else if (subtype === 'simpleRanged' || subtype === 'martialRanged')
       selectedStat = 'dex';
+
+    const statMod = getStatMod(getStat(pc, selectedStat));
 
     const proficiencyBonus = getItemProficiencies(pc).includes(weapon.name)
       ? getProficiencyBonus(pc.level)
       : 0;
+
+    const classBonus = getAttackClassBonus(pc, weapon);
 
     return (
       <div className={styles.hpContainer}>
@@ -202,17 +208,25 @@ export const SKILLS_EXPLANATION = {
               >
                 Compentencia en {translation}
               </th>
-              <th className={styles.tableCellLevel}>Total</th>
+              {!!classBonus && (
+                <th className={styles.tableCellLevel}>Bonificación de Clase</th>
+              )}
+              <th className={styles.tableCellExtra}>Total</th>
             </tr>
           </thead>
           <tbody>
             <tr>
+              <td className={styles.tableCellLevel}>{increment(statMod)}</td>
               <td className={styles.tableCellLevel}>
-                {increment(getStatMod(getStat(pc, selectedStat)))}
+                {increment(proficiencyBonus)}
               </td>
-              <td className={styles.tableCellLevel}>{proficiencyBonus}</td>
+              {!!classBonus && (
+                <td className={styles.tableCellLevel}>
+                  {increment(classBonus)}
+                </td>
+              )}
               <td className={styles.tableCellExtra}>
-                {getStatMod(getStat(pc, selectedStat)) + proficiencyBonus}
+                {getAttackBonus(pc, weapon)}
               </td>
             </tr>
           </tbody>

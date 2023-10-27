@@ -11,18 +11,18 @@ import { TOOLS } from '~/domain/equipment/tools';
 import { WEAPONS } from '~/domain/equipment/weapons';
 
 export const ROGUE_EQUIPMENT = [
-  { or: [WEAPONS.rapier(), WEAPONS.shortsword()] },
-  { or: [WEAPONS.rapier(), WEAPONS.shortsword()] },
+  { or: [WEAPONS().rapier(), WEAPONS().shortsword()] },
+  { or: [WEAPONS().rapier(), WEAPONS().shortsword()] },
   {
     or: [
-      { and: [WEAPONS.shortbow(), TOOLS.arrows({ amount: 20 })] },
-      WEAPONS.shortsword(),
+      { and: [WEAPONS().shortbow(), TOOLS().arrows({ amount: 20 })] },
+      WEAPONS().shortsword(),
     ],
   },
   { or: [BURGLARS_PACK, DUNGEONEERS_PACK, EXPLORERS_PACK] },
-  ARMORS.leather(),
-  WEAPONS.dagger({ amount: 2 }),
-  TOOLS.thievesTools(),
+  ARMORS().leather(),
+  WEAPONS().dagger({ amount: 2 }),
+  TOOLS().thievesTools(),
 ];
 
 /* prettier-ignore */
@@ -83,7 +83,7 @@ export function getRogueProficiencies(pc) {
 
   return [
     ...(roguishArchetype === 'assassin'
-      ? [ENTERTAINERS_PACK.items.disguiseKit().name, TOOLS.poisonersKit().name]
+      ? [ENTERTAINERS_PACK.items.disguiseKit().name, TOOLS().poisonersKit().name]
       : []),
   ];
 }

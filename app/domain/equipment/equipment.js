@@ -72,9 +72,9 @@ export function noItem() {
 
 export function getAllItems() {
   return Object.values({
-    ...WEAPONS,
-    ...ARMORS,
-    ...TOOLS,
+    ...WEAPONS(),
+    ...ARMORS(),
+    ...TOOLS(),
     ...getAllPackItems(),
     noItem,
   });

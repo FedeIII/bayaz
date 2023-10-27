@@ -108,11 +108,11 @@ export const BACKGROUNDS = {
     skills: ['insight', 'religion'],
     languages: 2,
     equipment: [
-      TOOLS.holySymbol(),
-      TOOLS.prayerbook(),
+      TOOLS().holySymbol(),
+      TOOLS().prayerbook(),
       PRIESTS_PACK.items.incenseBlocks({ amount: 5 }),
       PRIESTS_PACK.items.vestments(),
-      TOOLS.commonClothes(),
+      TOOLS().commonClothes(),
     ],
     money: [15, 0, 0],
     traits: {
@@ -131,8 +131,8 @@ export const BACKGROUNDS = {
       {
         or: getAllArtisansTools(),
       },
-      TOOLS.guildIntroductionLetter(),
-      TOOLS.commonClothes(),
+      TOOLS().guildIntroductionLetter(),
+      TOOLS().commonClothes(),
     ],
     money: [15, 0, 0],
     select: {
@@ -153,7 +153,7 @@ export const BACKGROUNDS = {
     ],
     equipment: [
       { or: getAllMusicalInstruments() },
-      TOOLS.admirerFavor(),
+      TOOLS().admirerFavor(),
       ENTERTAINERS_PACK.items.disguiseKit(),
     ],
     money: [15, 0, 0],
@@ -172,12 +172,12 @@ export const BACKGROUNDS = {
     skills: ['deception', 'sleight-of-hand'],
     proficientItems: [
       ENTERTAINERS_PACK.items.disguiseKit(),
-      TOOLS.forgeryKit(),
+      TOOLS().forgeryKit(),
     ],
     equipment: [
       DIPLOMATS_PACK.items.fineClothes(),
       ENTERTAINERS_PACK.items.disguiseKit(),
-      TOOLS.conTools(),
+      TOOLS().conTools(),
     ],
     money: [15, 0, 0],
     select: {
@@ -192,8 +192,8 @@ export const BACKGROUNDS = {
   },
   criminal: {
     skills: ['deception', 'stealth'],
-    proficientItems: [TOOLS.gamingSet(), TOOLS.thievesTools()],
-    equipment: [DUNGEONEERS_PACK.items.crowbar(), TOOLS.layLowClothes()],
+    proficientItems: [TOOLS().gamingSet(), TOOLS().thievesTools()],
+    equipment: [DUNGEONEERS_PACK.items.crowbar(), TOOLS().layLowClothes()],
     money: [15, 0, 0],
     select: {
       criminalSpecialty: {
@@ -207,13 +207,13 @@ export const BACKGROUNDS = {
   },
   hermit: {
     skills: ['medicine', 'religion'],
-    proficientItems: [TOOLS.herbalismKit()],
+    proficientItems: [TOOLS().herbalismKit()],
     languages: 1,
     equipment: [
-      TOOLS.scrollCase(),
-      TOOLS.winterBlanket(),
-      TOOLS.commonClothes(),
-      TOOLS.herbalismKit(),
+      TOOLS().scrollCase(),
+      TOOLS().winterBlanket(),
+      TOOLS().commonClothes(),
+      TOOLS().herbalismKit(),
     ],
     money: [5, 0, 0],
     traits: {
@@ -225,10 +225,10 @@ export const BACKGROUNDS = {
     proficientItems: [{ or: getAllMusicalInstruments() }],
     languages: 1,
     equipment: [
-      WEAPONS.quarterstaff(),
-      TOOLS.huntingTrap(),
-      TOOLS.animalTrophy(),
-      TOOLS.commonClothes(),
+      WEAPONS().quarterstaff(),
+      TOOLS().huntingTrap(),
+      TOOLS().animalTrophy(),
+      TOOLS().commonClothes(),
     ],
     money: [10, 0, 0],
     select: {
@@ -246,9 +246,9 @@ export const BACKGROUNDS = {
     proficientItems: [{ or: getAllArtisansTools() }],
     equipment: [
       { or: getAllArtisansTools() },
-      TOOLS.shovel(),
-      TOOLS.ironPot(),
-      TOOLS.commonClothes(),
+      TOOLS().shovel(),
+      TOOLS().ironPot(),
+      TOOLS().commonClothes(),
     ],
     money: [10, 0, 0],
     traits: {
@@ -259,14 +259,14 @@ export const BACKGROUNDS = {
     skills: ['sleight-of-hand', 'stealth'],
     proficientItems: [
       ENTERTAINERS_PACK.items.disguiseKit(),
-      TOOLS.thievesTools(),
+      TOOLS().thievesTools(),
     ],
     equipment: [
-      TOOLS.smallKnife(),
-      TOOLS.cityMap(),
-      TOOLS.petMouse(),
-      TOOLS.parentsToken(),
-      TOOLS.commonClothes(),
+      TOOLS().smallKnife(),
+      TOOLS().cityMap(),
+      TOOLS().petMouse(),
+      TOOLS().parentsToken(),
+      TOOLS().commonClothes(),
     ],
     money: [10, 0, 0],
     traits: {
@@ -275,12 +275,12 @@ export const BACKGROUNDS = {
   },
   sailor: {
     skills: ['athletics', 'preception'],
-    proficientItems: [TOOLS.navigatorsTools()],
+    proficientItems: [TOOLS().navigatorsTools()],
     equipment: [
-      WEAPONS.club(),
-      TOOLS.silkRope({ amount: 15 }),
-      TOOLS.luckyCharm(),
-      TOOLS.commonClothes(),
+      WEAPONS().club(),
+      TOOLS().silkRope({ amount: 15 }),
+      TOOLS().luckyCharm(),
+      TOOLS().commonClothes(),
     ],
     money: [10, 0, 0],
     traits: {
@@ -289,12 +289,12 @@ export const BACKGROUNDS = {
   },
   noble: {
     skills: ['history', 'persuasion'],
-    proficientItems: [TOOLS.gamingSet()],
+    proficientItems: [TOOLS().gamingSet()],
     languages: 1,
     equipment: [
       DIPLOMATS_PACK.items.fineClothes(),
-      TOOLS.signedRing(),
-      TOOLS.pedigreeScroll(),
+      TOOLS().signedRing(),
+      TOOLS().pedigreeScroll(),
     ],
     money: [25, 0, 0],
     traits: {
@@ -307,9 +307,9 @@ export const BACKGROUNDS = {
     equipment: [
       DIPLOMATS_PACK.items.inkBottle(),
       DIPLOMATS_PACK.items.inkPen(),
-      TOOLS.smallKnife(),
-      TOOLS.personalLetter(),
-      TOOLS.commonClothes(),
+      TOOLS().smallKnife(),
+      TOOLS().personalLetter(),
+      TOOLS().commonClothes(),
     ],
     money: [10, 0, 0],
     select: {
@@ -324,12 +324,12 @@ export const BACKGROUNDS = {
   },
   soldier: {
     skills: ['athletics', 'intimidation'],
-    proficientItems: [TOOLS.gamingSet()],
+    proficientItems: [TOOLS().gamingSet()],
     equipment: [
-      TOOLS.rankInsignia(),
-      TOOLS.enemyTrophy(),
-      TOOLS.gamingSet(),
-      TOOLS.commonClothes(),
+      TOOLS().rankInsignia(),
+      TOOLS().enemyTrophy(),
+      TOOLS().gamingSet(),
+      TOOLS().commonClothes(),
     ],
     money: [10, 0, 0],
     select: {

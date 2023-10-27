@@ -72,9 +72,6 @@ npx prisma migrate dev
   - track Ki points
 - Improve spell modal data
 - Free text annotations anywhere in the character sheets (other colors)
-- Copy random spells on the Book:
-  - Warlock bookOfAncientSecrets
-  - Wizard
 - Profiles:
   - User: restrict access to generation screens
   - Admin: add super powers to edit values

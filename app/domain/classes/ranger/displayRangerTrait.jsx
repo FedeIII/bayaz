@@ -55,7 +55,7 @@ export function displayRangerTrait(traitName, trait, pc) {
         </>
       );
 
-    case 'fightingStyle':
+    case 'rangerFightingStyle':
       return (
         <>
           <strong>

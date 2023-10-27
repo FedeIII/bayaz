@@ -49,9 +49,9 @@ function PcDwarfSkills() {
       <p>
         Selecciona herramientas de artesano con las que ser competente
         {[
-          TOOLS.smithsTools(),
-          TOOLS.brewersSupplies(),
-          TOOLS.masonsTools(),
+          TOOLS().smithsTools(),
+          TOOLS().brewersSupplies(),
+          TOOLS().masonsTools(),
         ].map(tool => (
           <label
             htmlFor={tool.name}

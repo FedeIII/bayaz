@@ -12,15 +12,15 @@ import { getSpell } from '~/domain/spells/getSpells';
 export const WARLOCK_EQUIPMENT = [
   {
     or: [
-      { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
+      { and: [WEAPONS().lightCrossbow(), TOOLS().crossbowBolts({ amount: 20 })] },
       { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
     ],
   },
-  { or: [TOOLS.componentPouch(), ...getAllArcaneFocus()] },
+  { or: [TOOLS().componentPouch(), ...getAllArcaneFocus()] },
   { or: [SCHOLARS_PACK, DUNGEONEERS_PACK] },
-  ARMORS.leather(),
+  ARMORS().leather(),
   { or: getAllSimpleMelee() },
-  WEAPONS.dagger({ amount: 2 }),
+  WEAPONS().dagger({ amount: 2 }),
 ];
 
 export function translatePatron(patron) {

@@ -9,11 +9,11 @@ import {
 } from '../../equipment/weapons';
 
 export const DRUID_EQUIPMENT = [
-  { or: [ARMORS.shield(), ...getAllSimpleMelee(), ...getAllSimpleRanged()] },
+  { or: [ARMORS().shield(), ...getAllSimpleMelee(), ...getAllSimpleRanged()] },
   {
-    or: [WEAPONS.scimitar(), ...getAllSimpleMelee()],
+    or: [WEAPONS().scimitar(), ...getAllSimpleMelee()],
   },
-  ARMORS.leather(),
+  ARMORS().leather(),
   EXPLORERS_PACK,
   { or: getAllDruidicFocus() },
 ];

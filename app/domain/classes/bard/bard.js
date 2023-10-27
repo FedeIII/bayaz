@@ -13,11 +13,11 @@ import {
 
 
 export const BARD_EQUIPMENT = [
-  { or: [WEAPONS.rapier(), WEAPONS.longsword(), ...getAllSimpleMelee()] },
+  { or: [WEAPONS().rapier(), WEAPONS().longsword(), ...getAllSimpleMelee()] },
   { or: [DIPLOMATS_PACK, ENTERTAINERS_PACK] },
   { or: getAllMusicalInstruments() },
-  ARMORS.leather(),
-  WEAPONS.dagger(),
+  ARMORS().leather(),
+  WEAPONS().dagger(),
 ];
 
 export function getBardCollege(pc) {

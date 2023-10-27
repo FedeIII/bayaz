@@ -7,7 +7,12 @@ import {
 import { ARMORS } from '../../equipment/armors';
 import { DUNGEONEERS_PACK, EXPLORERS_PACK } from '../../equipment/packs';
 import { TOOLS } from '../../equipment/tools';
-import { getAllMartialMelee, WEAPONS } from '../../equipment/weapons';
+import {
+  getAllMartialMelee,
+  isMeleeWeapon,
+  isRangedWeapon,
+  WEAPONS,
+} from '../../equipment/weapons';
 import { displayTrait } from '~/domain/display';
 
 export const FIGHTING_STYLES = [
@@ -54,26 +59,28 @@ export function getAllFightingStyles(pc) {
 export const FIGHTER_EQUIPMENT = [
   {
     or: [
-      ARMORS.chainMail(),
+      ARMORS().chainMail(),
       {
         and: [
-          ARMORS.leather(),
-          WEAPONS.longbow(),
-          TOOLS.arrows({ amount: 20 }),
+          ARMORS().leather(),
+          WEAPONS().longbow(),
+          TOOLS().arrows({ amount: 20 }),
         ],
       },
     ],
   },
   {
     or: [
-      ...getAllMartialMelee().map(weapon => [weapon, ARMORS.shield()]),
+      ...getAllMartialMelee().map(weapon => [weapon, ARMORS().shield()]),
       ...getAllMartialMelee({ amount: 2 }),
     ],
   },
   {
     or: [
-      { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
-      WEAPONS.handaxe({ amount: 2 }),
+      {
+        and: [WEAPONS().lightCrossbow(), TOOLS().crossbowBolts({ amount: 20 })],
+      },
+      WEAPONS().handaxe({ amount: 2 }),
     ],
   },
   { or: [DUNGEONEERS_PACK, EXPLORERS_PACK] },
@@ -246,4 +253,16 @@ export function getCombatSuperiorityDice(pc) {
 
 export function getStudentOfWar(pc) {
   return pc.classAttrs?.fighter?.studentOfWar || null;
+}
+
+export function getAttackBonusForFightingStyles(pc, weapon) {
+  const fightingStyles = [getFightingStyle(pc), getExtraFightingStyle(pc)];
+
+  if (fightingStyles.includes('archery') && isRangedWeapon(weapon)) return 2;
+  // if (
+  //   fightingStyles.includes('dueling') &&
+  //   isMeleeWeapon(weapon) &&
+  //   !weapon.properties?.twoHanded
+  // ) return 2;
+  return 0;
 }

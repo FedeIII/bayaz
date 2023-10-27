@@ -11,11 +11,11 @@ import { getSpell } from '~/domain/spells/getSpells';
 
 export const MONK_EQUIPMENT = [
   {
-    or: [WEAPONS.shortsword(), ...getAllSimpleMelee(), ...getAllSimpleRanged()],
+    or: [WEAPONS().shortsword(), ...getAllSimpleMelee(), ...getAllSimpleRanged()],
   },
   { or: [DUNGEONEERS_PACK, EXPLORERS_PACK] },
-  WEAPONS.dart({ amount: 10 }),
-  WEAPONS.martialArts({ amount: 1 }),
+  WEAPONS().dart({ amount: 10 }),
+  WEAPONS().martialArts({ amount: 1 }),
 ];
 
 export function isMonkWeapon(weapon) {

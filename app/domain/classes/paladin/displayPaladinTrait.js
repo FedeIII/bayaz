@@ -32,7 +32,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
         </>
       );
 
-    case 'fightingStyle': {
+    case 'paladinFightingStyle': {
       const fightingStyle = getPaladinFightingStyle(pc);
       return (
         <>

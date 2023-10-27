@@ -45,7 +45,11 @@ import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanat
 import { DRUID_SKILLS_EXPLANATION } from './classes/druid/druidSkillsExplanation';
 import { RANGER_SKILLS_EXPLANATION } from './classes/ranger/rangerSkillsExplanation';
 import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExplanation';
-import { getFightingStyle, getStudentOfWar } from './classes/fighter/fighter';
+import {
+  getAttackBonusForFightingStyles,
+  getFightingStyle,
+  getStudentOfWar,
+} from './classes/fighter/fighter';
 import { SORCERER_SKILLS_EXPLANATION } from './classes/sorcerer/sorcererSkillsExplanation';
 import { WIZARD_SKILLS_EXPLANATION } from './classes/wizard/wizardSkillsExplanation';
 import {
@@ -1315,7 +1319,7 @@ export const CLASSES = {
       },
       2: {
         traits: {
-          fightingStyle: 'Estilo de Combate',
+          paladinFightingStyle: 'Estilo de Combate',
           divineSmite: 'Castigo Divino',
         },
       },
@@ -1484,7 +1488,7 @@ export const CLASSES = {
       },
       2: {
         traits: {
-          fightingStyle: 'Estilo de Combate',
+          rangerFightingStyle: 'Estilo de Combate',
         },
       },
       3: {
@@ -2744,12 +2748,20 @@ export function getAttackBonus(pc, weapon) {
     ? getProficiencyBonus(pc.level)
     : 0;
 
-  return statMod + proficiencyBonus;
+  const classBonus = getAttackClassBonus(pc, weapon);
+
+  return statMod + proficiencyBonus + classBonus;
 }
 
-export function getDamageDice(pc, weapon) {
+export function getAttackClassBonus(pc, weapon) {
+  const { pClass } = pc;
+  return pClass === 'fighter' ? getAttackBonusForFightingStyles(pc, weapon) : 0;
+}
+
+export function getDamageDice(pc, w) {
+  const weapon = getItem(w.name);
   const damage = weapon.damage[0];
-  const { pClass, level } = pc;
+  const { pClass } = pc;
 
   if (pClass !== 'monk') {
     return damage;
@@ -2768,9 +2780,9 @@ export function getDamageDice(pc, weapon) {
   return damage;
 }
 
-export function getDamageBonus(pc, weapon) {
+export function getDamageBonus(pc, w) {
   const { pClass } = pc;
-  const { subtype, properties: { finesse } = {} } = weapon;
+  const { subtype, properties: { finesse } = {} } = getItem(w.name);
   let statMod = 0;
 
   const strMod = getStatMod(getStat(pc, 'str'));
@@ -2781,7 +2793,7 @@ export function getDamageBonus(pc, weapon) {
     statMod = strMod > dexMod ? strMod : dexMod;
   else if (subtype === 'simpleMelee' || subtype === 'martialMelee')
     statMod = strMod;
-  else if (subtype === 'simpleRanged' || subtype === 'martiaRanged')
+  else if (subtype === 'simpleRanged' || subtype === 'martialRanged')
     statMod = dexMod;
 
   return statMod;

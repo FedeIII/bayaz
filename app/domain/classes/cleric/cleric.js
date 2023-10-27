@@ -71,32 +71,32 @@ export function CLERIC_EQUIPMENT() {
   return [
     {
       or: [
-        WEAPONS.mace(),
+        WEAPONS().mace(),
         {
-          item: WEAPONS.warhammer(),
+          item: WEAPONS().warhammer(),
           if: pc => getItemProficiencies(pc).includes('warhammer'),
         },
       ],
     },
     {
       or: [
-        ARMORS.scaleMail(),
-        ARMORS.leather(),
+        ARMORS().scaleMail(),
+        ARMORS().leather(),
         {
-          item: ARMORS.chainMail(),
+          item: ARMORS().chainMail(),
           if: pc => getItemProficiencies(pc).includes('chainMail'),
         },
       ],
     },
     {
       or: [
-        { and: [WEAPONS.lightCrossbow(), TOOLS.crossbowBolts({ amount: 20 })] },
+        { and: [WEAPONS().lightCrossbow(), TOOLS().crossbowBolts({ amount: 20 })] },
         { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
       ],
     },
     { or: [PRIESTS_PACK, EXPLORERS_PACK] },
-    ARMORS.shield(),
-    TOOLS.holySymbol(),
+    ARMORS().shield(),
+    TOOLS().holySymbol(),
   ];
 }
 

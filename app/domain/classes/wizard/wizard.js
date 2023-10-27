@@ -6,10 +6,10 @@ import { translateSchool } from '~/domain/spells/spellTranslations';
 import { displayTrait } from '~/domain/display';
 
 export const WIZARD_EQUIPMENT = [
-  { or: [WEAPONS.quarterstaff(), WEAPONS.dagger()] },
-  { or: [TOOLS.componentPouch(), ...getAllArcaneFocus()] },
+  { or: [WEAPONS().quarterstaff(), WEAPONS().dagger()] },
+  { or: [TOOLS().componentPouch(), ...getAllArcaneFocus()] },
   { or: [SCHOLARS_PACK, EXPLORERS_PACK] },
-  TOOLS.spellbook(),
+  TOOLS().spellbook(),
 ];
 
 export function getArcaneTradition(pc) {

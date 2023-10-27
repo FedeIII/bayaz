@@ -9,10 +9,10 @@ import { CLASSES } from '../../characters';
 export const BARBARIAN_EQUIPMENT = [
   { or: getAllMartialMelee() },
   {
-    or: [WEAPONS.handaxe({ amount: 2 }), ...getAllSimpleMelee()],
+    or: [WEAPONS().handaxe({ amount: 2 }), ...getAllSimpleMelee()],
   },
   EXPLORERS_PACK,
-  WEAPONS.javelin({ amount: 4 }),
+  WEAPONS().javelin({ amount: 4 }),
 ];
 
 export function getPrimalPath(pc) {

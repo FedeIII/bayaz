@@ -182,15 +182,15 @@ export function getRangerConclave(pc) {
 }
 
 export const RANGER_EQUIPMENT = [
-  { or: [ARMORS.scaleMail(), ARMORS.leather()] },
+  { or: [ARMORS().scaleMail(), ARMORS().leather()] },
   {
     or: [
-      WEAPONS.shortsword({ amount: 2 }),
+      WEAPONS().shortsword({ amount: 2 }),
       ...getAllSimpleMelee({ amount: 2 }),
     ],
   },
   { or: [DUNGEONEERS_PACK, EXPLORERS_PACK] },
-  { and: [WEAPONS.longbow(), TOOLS.arrows({ amount: 20 })] },
+  { and: [WEAPONS().longbow(), TOOLS().arrows({ amount: 20 })] },
 ];
 
 export const RANGER_FIGHTING_STYLES = [

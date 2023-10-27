@@ -60,7 +60,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
     </>
   ),
 
-  fightingStyle: (skill, pc) => {
+  paladinFightingStyle: (skill, pc) => {
     const fightingStyle = getPaladinFightingStyle(pc);
     return (
       <>
