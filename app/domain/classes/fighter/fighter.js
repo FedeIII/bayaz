@@ -1,5 +1,6 @@
 import {
   CLASSES,
+  getDamageBonus,
   getProficiencyBonus,
   getStat,
   getStatMod,
@@ -9,11 +10,11 @@ import { DUNGEONEERS_PACK, EXPLORERS_PACK } from '../../equipment/packs';
 import { TOOLS } from '../../equipment/tools';
 import {
   getAllMartialMelee,
-  isMeleeWeapon,
   isRangedWeapon,
   WEAPONS,
 } from '../../equipment/weapons';
 import { displayTrait } from '~/domain/display';
+import { getItem } from '~/domain/equipment/equipment';
 
 export const FIGHTING_STYLES = [
   'archery',
@@ -255,14 +256,20 @@ export function getStudentOfWar(pc) {
   return pc.classAttrs?.fighter?.studentOfWar || null;
 }
 
-export function getAttackBonusForFightingStyles(pc, weapon) {
-  const fightingStyles = [getFightingStyle(pc), getExtraFightingStyle(pc)];
+export function getAttackBonusForFightingStyles(pc, weapon, weaponIndex) {
+  const {
+    subtype,
+    properties: { light },
+  } = getItem(weapon.name);
+  const fightingStyles = getAllFightingStyles(pc);
 
   if (fightingStyles.includes('archery') && isRangedWeapon(weapon)) return 2;
-  // if (
-  //   fightingStyles.includes('dueling') &&
-  //   isMeleeWeapon(weapon) &&
-  //   !weapon.properties?.twoHanded
-  // ) return 2;
+  if (
+    fightingStyles.includes('two-weapon-fighting') &&
+    weaponIndex === 1 &&
+    subtype === 'simpleMelee' &&
+    light
+  )
+    return getDamageBonus(pc, weapon);
   return 0;
 }

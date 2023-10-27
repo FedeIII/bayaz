@@ -31,6 +31,7 @@ import {
   getAllSimpleMelee,
   getAllSimpleRanged,
   getAllWeapons,
+  isMeleeWeapon,
 } from './equipment/weapons';
 import { SKILLS_EXPLANATION } from './skillsExplanation';
 import { isDraconicBloodline } from './classes/sorcerer/sorcerer';
@@ -46,6 +47,7 @@ import { DRUID_SKILLS_EXPLANATION } from './classes/druid/druidSkillsExplanation
 import { RANGER_SKILLS_EXPLANATION } from './classes/ranger/rangerSkillsExplanation';
 import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExplanation';
 import {
+  getAllFightingStyles,
   getAttackBonusForFightingStyles,
   getFightingStyle,
   getStudentOfWar,
@@ -71,6 +73,10 @@ import {
 import { ROGUE_SKILLS_EXPLANATION } from './classes/rogue/rogueSkillsExplanation';
 import { getRogueProficiencies } from './classes/rogue/rogue';
 import { getPackItems } from './equipment/packs';
+import {
+  getAttackBonusForRangerFightingStyles,
+  getRangerFightingStyle,
+} from './classes/ranger/ranger';
 
 export const RACES = {
   dwarf: {
@@ -2727,6 +2733,10 @@ export function getArmorClass(pc) {
     extraAC += 1;
   }
 
+  if (pClass === 'ranger' && getRangerFightingStyle(pc) === 'defense') {
+    extraAC += 1;
+  }
+
   if (pClass === 'paladin' && getPaladinFightingStyle(pc) === 'defense') {
     extraAC += 1;
   }
@@ -2741,21 +2751,25 @@ export function getExtraArmorClass(pc) {
   else return 0;
 }
 
-export function getAttackBonus(pc, weapon) {
+export function getAttackBonus(pc, weapon, weaponIndex) {
   const statMod = getDamageBonus(pc, weapon);
 
   const proficiencyBonus = getItemProficiencies(pc).includes(weapon.name)
     ? getProficiencyBonus(pc.level)
     : 0;
 
-  const classBonus = getAttackClassBonus(pc, weapon);
+  const classBonus = getAttackClassBonus(pc, weapon, weaponIndex);
 
   return statMod + proficiencyBonus + classBonus;
 }
 
-export function getAttackClassBonus(pc, weapon) {
+export function getAttackClassBonus(pc, weapon, weaponIndex) {
   const { pClass } = pc;
-  return pClass === 'fighter' ? getAttackBonusForFightingStyles(pc, weapon) : 0;
+  return pClass === 'fighter'
+    ? getAttackBonusForFightingStyles(pc, weapon, weaponIndex)
+    : pClass === 'ranger'
+    ? getAttackBonusForRangerFightingStyles(pc, weapon, weaponIndex)
+    : 0;
 }
 
 export function getDamageDice(pc, w) {
@@ -2780,13 +2794,22 @@ export function getDamageDice(pc, w) {
   return damage;
 }
 
-export function getDamageBonus(pc, w) {
-  const { pClass } = pc;
-  const { subtype, properties: { finesse } = {} } = getItem(w.name);
+export function getDamageBonus(pc, w, weaponIndex) {
+  const {
+    pClass,
+    items: { weapons },
+  } = pc;
+  const { subtype, properties: { finesse, light, twoHanded } = {} } = getItem(
+    w.name
+  );
   let statMod = 0;
 
   const strMod = getStatMod(getStat(pc, 'str'));
   const dexMod = getStatMod(getStat(pc, 'dex'));
+
+  if (weaponIndex === 1 && subtype === 'simpleMelee' && light) {
+    return 0;
+  }
 
   if (finesse) statMod = strMod > dexMod ? strMod : dexMod;
   else if (pClass === 'monk' && isMonkWeapon(weapon))
@@ -2795,6 +2818,16 @@ export function getDamageBonus(pc, w) {
     statMod = strMod;
   else if (subtype === 'simpleRanged' || subtype === 'martialRanged')
     statMod = dexMod;
+
+  if (
+    ((pClass === 'fighter' && getAllFightingStyles(pc).includes('dueling')) ||
+      (pClass === 'ranger' && getRangerFightingStyle(pc) === 'dueling') ||
+      (pClass === 'palading' && getPaladinFightingStyle(pc) === 'dueling')) &&
+    isMeleeWeapon(w) &&
+    !twoHanded &&
+    (!weapons[0] || weapons[0].name === null)
+  )
+    return (statMod += 2);
 
   return statMod;
 }

@@ -171,7 +171,7 @@ export const SKILLS_EXPLANATION = {
     const weapon = weapons[skillIndex];
     const {
       subtype,
-      properties: { finesse } = {},
+      properties: { finesse, light } = {},
       translation,
     } = getItem(weapon.name);
 
@@ -216,7 +216,9 @@ export const SKILLS_EXPLANATION = {
           </thead>
           <tbody>
             <tr>
-              <td className={styles.tableCellLevel}>{increment(statMod)}</td>
+              <td className={styles.tableCellLevel}>
+                {statMod === 0 ? '- (Segunda arma)' : increment(statMod)}
+              </td>
               <td className={styles.tableCellLevel}>
                 {increment(proficiencyBonus)}
               </td>

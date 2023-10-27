@@ -1,8 +1,12 @@
-import { CLASSES } from '~/domain/characters';
+import { CLASSES, getDamageBonus } from '~/domain/characters';
 import { ARMORS } from '../../equipment/armors';
 import { DUNGEONEERS_PACK, EXPLORERS_PACK } from '../../equipment/packs';
 import { TOOLS } from '../../equipment/tools';
-import { getAllSimpleMelee, WEAPONS } from '../../equipment/weapons';
+import {
+  getAllSimpleMelee,
+  isRangedWeapon,
+  WEAPONS,
+} from '../../equipment/weapons';
 
 export const FAVORED_ENEMIES = [
   'aberrations',
@@ -294,4 +298,22 @@ export function translateSuperiorHuntersDefense(defense) {
   if (defense === 'standAgainstTheTide') return 'Contracorriente';
   if (defense === 'uncannyDodge') return 'Esquiva Asombrosa';
   return 'unknown superior hunters defense';
+}
+
+export function getAttackBonusForRangerFightingStyles(pc, weapon, weaponIndex) {
+  const {
+    subtype,
+    properties: { light },
+  } = getItem(weapon.name);
+  const fightingStyle = getRangerFightingStyle(pc);
+
+  if (fightingStyle === 'archery' && isRangedWeapon(weapon)) return 2;
+  if (
+    fightingStyle === 'two-weapon-fighting' &&
+    weaponIndex === 1 &&
+    subtype === 'simpleMelee' &&
+    light
+  )
+    return getDamageBonus(pc, weapon);
+  return 0;
 }

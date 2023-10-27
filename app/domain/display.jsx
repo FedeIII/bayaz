@@ -55,6 +55,10 @@ import {
   translateFightingStyle,
 } from './classes/fighter/fighter';
 import { getPaladinFightingStyle } from './classes/paladin/paladin';
+import {
+  getRangerFightingStyle,
+  translateRangerFightingStyle,
+} from './classes/ranger/ranger';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -176,10 +180,10 @@ export function getItemDisplayList(itemNames) {
   return list;
 }
 
-export function displayDamage(pc, weapon) {
+export function displayDamage(pc, weapon, weaponIndex) {
   const { properties: { versatile } = {} } = weapon;
   const damageDice = getDamageDice(pc, weapon);
-  const damageBonus = getDamageBonus(pc, weapon);
+  const damageBonus = getDamageBonus(pc, weapon, weaponIndex);
   const bonusOperator = damageBonus > 0 ? '+' : '';
 
   if (versatile)
@@ -190,13 +194,13 @@ export function displayDamage(pc, weapon) {
   else return `${damageDice}`;
 }
 
-function getAttackFromWeapon(pc, weapon, specialAttackIndex) {
+function getAttackFromWeapon(pc, weapon, specialAttackIndex, weaponIndex) {
   return weapon?.name
     ? {
         weapon: getItem(weapon.name),
         specialAttackIndex,
-        bonus: getAttackBonus(pc, weapon),
-        damage: displayDamage(pc, weapon),
+        bonus: getAttackBonus(pc, weapon, weaponIndex),
+        damage: displayDamage(pc, weapon, weaponIndex),
         type: `(${translateDamage(weapon.damage[1])})`,
       }
     : {
@@ -216,14 +220,15 @@ export function getAttacks(pc) {
   let specialAttackIndex = 0;
   let weaponSlots = [...weapons, noItem(), noItem(), noItem()];
   weaponSlots = weaponSlots.slice(0, 3).map(w => w || noItem());
-  return weaponSlots.reduce((attacks, pWeapon) => {
+  return weaponSlots.reduce((attacks, pWeapon, weaponIndex) => {
     const weapon = getItem(pWeapon.name);
 
     attacks.push(
       getAttackFromWeapon(
         pc,
         weapon,
-        hasSpecialAttack(weapon, pc) && ++specialAttackIndex
+        hasSpecialAttack(weapon, pc) && ++specialAttackIndex,
+        weaponIndex
       )
     );
 
@@ -587,6 +592,16 @@ export function getAcBreakdown(pc) {
                 {
                   title: `Estilo de Combate: ${translateFightingStyle(
                     getFightingStyle(pc)
+                  )}`,
+                  ac: increment(1),
+                },
+              ]
+            : []),
+          ...(pClass === 'ranger' && getRangerFightingStyle(pc) === 'defense'
+            ? [
+                {
+                  title: `Estilo de Combate: ${translateRangerFightingStyle(
+                    getRangerFightingStyle(pc)
                   )}`,
                   ac: increment(1),
                 },
