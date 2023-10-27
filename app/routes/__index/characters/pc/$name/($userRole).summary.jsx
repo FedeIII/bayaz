@@ -17,6 +17,7 @@ import {
   updateNotes,
   deleteNote,
   updateNotePosition,
+  unequipWeapon,
 } from '~/services/pc.server';
 import {
   CLASSES,
@@ -125,6 +126,13 @@ async function equipWeaponsAction(formData) {
   return await equipWeapons(name, oldWeaponName, newWeaponName);
 }
 
+async function unequipWeaponAction(formData) {
+  const name = formData.get('name');
+  const weaponName = formData.get('weaponName');
+
+  return await unequipWeapon(name, weaponName);
+}
+
 async function reorderWeaponsAction(formData) {
   const name = formData.get('name');
   const weaponName = formData.get('weaponName');
@@ -215,6 +223,8 @@ export const action = async ({ request }) => {
   let pc = null;
   if (action === 'equipWeapons') {
     pc = await equipWeaponsAction(formData);
+  } else if (action === 'unequipWeapon') {
+    pc = await unequipWeaponAction(formData);
   } else if (action === 'reorderWeapons') {
     pc = await reorderWeaponsAction(formData);
   } else if (action === 'equipArmor') {

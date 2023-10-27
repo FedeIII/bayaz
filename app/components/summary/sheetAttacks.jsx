@@ -13,11 +13,16 @@ import itemStyles from '~/components/modal/inventoryItem.module.css';
 const noAttack = { weapon: noItem() };
 
 function WeaponModalContent(props) {
-  const { pc, weapon, onWeaponChange, closeModal } = props;
+  const { pc, weapon, onWeaponChange, onWeaponUnequip, closeModal } = props;
 
   function onEquipClick(e) {
     const newWeaponName = e.target.value;
     onWeaponChange(newWeaponName);
+    closeModal();
+  }
+
+  function onUnequipClick() {
+    onWeaponUnequip();
     closeModal();
   }
 
@@ -43,6 +48,15 @@ function WeaponModalContent(props) {
                 </option>
               ))}
             </select>
+          </li>
+          <li>
+            <button
+              type="button"
+              className={styles.selectAttack}
+              onClick={onUnequipClick}
+            >
+              Desequipar
+            </button>
           </li>
         </ul>
       </div>
@@ -86,6 +100,19 @@ function SheetAttacks(props) {
     };
   }
 
+  function onWeaponUnequip(i) {
+    return () => {
+      submit(
+        {
+          action: 'unequipWeapon',
+          name: pcName,
+          weaponName: weapons[i].name,
+        },
+        { method: 'post' }
+      );
+    };
+  }
+
   function onWeaponClick(itemType, itemIndex = 0) {
     return itemName => {
       const item = getItem(itemName);
@@ -99,6 +126,7 @@ function SheetAttacks(props) {
               pc={pc}
               weapon={item}
               onWeaponChange={onWeaponChange(itemIndex)}
+              onWeaponUnequip={onWeaponUnequip(itemIndex)}
               closeModal={() => setActionModalContent(null)}
             />
           )),

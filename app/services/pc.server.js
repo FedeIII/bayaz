@@ -924,6 +924,17 @@ export async function equipWeapons(
   return updatedPc;
 }
 
+export async function unequipWeapon(name, weaponName) {
+  return await Pc.findOneAndUpdate(
+    { name },
+    {
+      $pull: { 'items.weapons': { name: weaponName } },
+      $push: { 'items.treasure.weapons': { name: weaponName } },
+    },
+    { new: true }
+  );
+}
+
 export async function equipWeaponInSlot(name, weaponToEquipName, slot) {
   const pc = await getPc(name);
   const {
