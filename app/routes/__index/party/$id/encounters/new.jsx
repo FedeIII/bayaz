@@ -374,10 +374,11 @@ function NewEncounter() {
   useTitle('Nuevo encuentro');
 
   const partyMaxLevel = getPartyMaxLevel(pcs);
+  const allMonsters = getMonstersFromEnvironment();
 
   const [xpThreshold, setXpThreshold] = useState(null);
   const [encounterXp, setEncounterXp] = useState(null);
-  const [monsterList, setMonsterList] = useState(getMonstersFromEnvironment());
+  const [monsterList, setMonsterList] = useState(allMonsters);
   const [filteredMonsterList, setFilteredMonsterList] = useState([]);
   const [encounterMonsters, setEncounterMonsters] = useState([]);
   const [filters, setFilters] = useState({ name: '', xp: 0, cr: 0, size: '' });
@@ -427,7 +428,7 @@ function NewEncounter() {
   const groupedFilteredMonsterList = groupByCR(filteredMonsterList);
 
   const [monsterRefs, setMonsterRefs] = useState(
-    monsterList.reduce((refs, m) => ({ ...refs, [m.name]: [useRef()] }), {})
+    allMonsters.reduce((refs, m) => ({ ...refs, [m.name]: [useRef()] }), {})
   );
 
   const [

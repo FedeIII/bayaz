@@ -931,7 +931,7 @@ export async function unequipWeapon(name, weaponName) {
       $pull: { 'items.weapons': { name: weaponName } },
       $push: { 'items.treasure.weapons': { name: weaponName } },
     },
-    { new: true }
+    { new: true, multi: false }
   );
 }
 
