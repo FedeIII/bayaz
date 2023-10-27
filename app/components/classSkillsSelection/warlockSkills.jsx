@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import styles from '~/components/characters.module.css';
 import { translatePatron } from '~/domain/classes/warlock/warlock';
 import { translateSpell } from '~/domain/spells/spells';
 import {
@@ -10,6 +9,9 @@ import {
   isSpellFrom,
   WARLOCK_SPELLS,
 } from '~/domain/spells/warlock';
+
+import styles from '~/components/characters.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 function WarlockSkills(props) {
   const { pc, setSkillsNamespace } = props;

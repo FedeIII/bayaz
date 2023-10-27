@@ -386,3 +386,25 @@
   margin: 0 0 10px -3px;
   padding: 0 16px 0 0;
 }
+
+.copySpell {
+  position: relative;
+  height: fit-content;
+  width: 120px;
+  top: 250px;
+  left: 90px;
+  color: var(--color-blue-ink);
+  border: 1px solid var(--color-blue-ink);
+  border-radius: 5px;
+  padding: 4px 8px;
+  background-color: white;
+  box-shadow: 0px 0px 2px var(--color-blue-ink);
+}
+
+.copySpell:hover {
+  background-color: #eaeaff;
+  color: var(--color-x-blue-ink);
+  border-color: var(--color-x-blue-ink);
+  box-shadow: 0px 0px 4px var(--color-x-blue-ink);
+  cursor: pointer;
+}

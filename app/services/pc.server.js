@@ -190,6 +190,7 @@ const sorcererSchema = new mongoose.Schema({
 const wizardSchema = new mongoose.Schema({
   arcaneTradition: { type: String, enum: SPELL_SCHOOLS },
   improvedMinorIllusion: spellSchema,
+  extraSpells: [spellSchema],
 });
 
 const monkSchema = new mongoose.Schema({
@@ -680,6 +681,34 @@ export async function prepareSpells(pcName, toPrepare) {
         preparedSpells: {
           $each: toPrepare.map(sName => ({ name: sName })),
         },
+      },
+    },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function learnWizardExtraSpell(pcName, spellName) {
+  let updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    {
+      $push: {
+        'classAttrs.wizard.extraSpells': { name: spellName },
+      },
+    },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function learnWarlockExtraSpell(pcName, spellName) {
+  let updatedPc = await Pc.findOneAndUpdate(
+    { name: pcName },
+    {
+      $push: {
+        'classAttrs.warlock.tomeRituals': { name: spellName },
       },
     },
     { new: true, upsert: true }

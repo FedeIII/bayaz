@@ -245,4 +245,32 @@ export const SKILLS_EXPLANATION = {
       </div>
     );
   },
+
+  copySpell: (skill, pc) => (
+    <>
+      <p>
+        Cuando encuentras un conjuro de mago de nivel 1 o superior, puedes
+        añadirlo a tu libro de conjuros si es de un nivel para el cual tienes
+        espacios de conjuros y si puedes conseguir tiempo suficiente para
+        descifrarlo y copiarlo. Copiar un conjuro a un libro implica reproducir
+        la forma básica del conjuro y después descifrar el sistema único de
+        anotación que usó el mago para escribirlo. Debes practicar el conjuro
+        hasta que entiendas los sonidos o gestos requeridos, después
+        transcribirlo a tu libro de conjuros usando tu propia anotación. Por
+        cada nivel del conjuro, el proceso dura 2 horas y requiere 50 po. El
+        coste representa los componentes materiales que gastas en experimentar
+        con el conjuro para dominarlo, así como las delicadas tintas que
+        necesitas para registrarlo. Una vez que has gastado este tiempo y
+        dinero, puedes prepararlo.
+      </p>
+      <div className={styles.modalButtons}>
+        <Link
+          to={`/characters/pc/${pc.name}/leveling/${pc.pClass}/extraSpells`}
+          className={styles.modalButton}
+        >
+          Copiar Conjuro
+        </Link>
+      </div>
+    </>
+  ),
 };

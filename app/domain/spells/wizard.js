@@ -85,7 +85,7 @@ export function hasNewWizardSpells(pc) {
 }
 
 export function getWizardExtraKnownSpells(pc) {
-  const extraSpells = [];
+  const extraSpells = [...(pc.classAttrs?.wizard?.extraSpells || [])];
   const school = getArcaneTradition(pc);
 
   if (school === 'Necromancy' && pc.level >= 6)

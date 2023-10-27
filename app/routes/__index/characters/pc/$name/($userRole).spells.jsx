@@ -7,7 +7,7 @@ import {
   deletePreparedSpell,
   getPc,
 } from '~/services/pc.server';
-import { translateClass } from '~/domain/characters';
+import { canCopySpells, translateClass } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import {
@@ -160,6 +160,7 @@ function PcSpells() {
   const [skillRefs, setSkillRefs] = useState({
     ...spellsByLevel.map(spells => spells.map(useRef)),
     resetSpellSlots: Array.from(Array(10), useRef),
+    copySpell: [useRef()],
   });
 
   const [
@@ -196,6 +197,19 @@ function PcSpells() {
           >
             {skillModalContent}
           </SkillModal>
+        )}
+        {!isForPlayers && canCopySpells(pc) && (
+          <div className={styles.copySpell}>
+            <SkillItem
+              ref={skillRefs.copySpell[0]}
+              pc={pc}
+              traitName="copySpell"
+              trait="Copiar conjuro"
+              openModal={openSkillModal('copySpell', 0)}
+            >
+              Copiar Conjuro
+            </SkillItem>
+          </div>
         )}
         <span className={`${styles.data} ${styles.name}`}>
           {name}

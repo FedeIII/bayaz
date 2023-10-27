@@ -34,7 +34,11 @@ import {
 } from './equipment/weapons';
 import { SKILLS_EXPLANATION } from './skillsExplanation';
 import { isDraconicBloodline } from './classes/sorcerer/sorcerer';
-import { getInvocationsSkills } from './classes/warlock/warlock';
+import {
+  getInvocations,
+  getInvocationsSkills,
+  getPactBoon,
+} from './classes/warlock/warlock';
 import random from '~/domain/random';
 import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExplanation';
 import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanation';
@@ -3133,3 +3137,16 @@ export const ALL_TRAITS = Object.entries(
     []
   )
 );
+
+export function canCopySpells(pc) {
+  const { pClass } = pc;
+  const boon = getPactBoon(pc);
+  const invocations = getInvocations(pc);
+
+  return !!(
+    (pClass === 'warlock' &&
+      boon === 'pactOfTheTome' &&
+      invocations.includes('bookOfAncientSecrets')) ||
+    pClass === 'wizard'
+  );
+}
