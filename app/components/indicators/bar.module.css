@@ -88,3 +88,18 @@
   color: white;
   font-weight: bold;
 }
+
+.multiBar {
+  position: relative;
+  color: var(--color-x-blue-ink);
+}
+
+.barMarker {
+  top: -100%;
+  right: 0;
+  width: fit-content;
+  position: absolute;
+  color: white;
+  font-weight: normal;
+  font-size: 10px;
+}

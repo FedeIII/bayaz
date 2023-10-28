@@ -568,8 +568,8 @@ export function getAcBreakdown(pc) {
         title: `${translateClass(pClass)} (sin armadura ni escudo)`,
         base: 10,
         extras: [
-          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
           { title: 'WIS', ac: increment(getStatMod(getStat(pc, 'wis'))) },
+          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
         ],
       }
     : pClass === 'sorcerer' && isDraconicBloodline(pc) && !armor && !shield
