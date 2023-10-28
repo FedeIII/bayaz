@@ -13,23 +13,29 @@ const charMap = {
   3: '░',
 };
 
+const TOTAL_LENGTH = 20;
+
 export function MultiLevelBar(props) {
   const { levels } = props;
 
-  const total = levels.reduce((l1, l2) => l1.size + l2.size);
+  const totalSize = levels.reduce((total, l) => total + l.size, 0);
 
   return (
     <div className={styles.bar}>
-      {levels.map(level => (
-        <>
-          <span className={styles.multiBar} style={level.style}>
-            {Array(level.size).fill(charMap[level.thickness])}
-            {!!level.tag && (
-              <span className={styles.barMarker}>{level.tag}</span>
-            )}
-          </span>
-        </>
-      ))}
+      {levels
+        .filter(l => l.size)
+        .map(level => (
+          <>
+            <span className={styles.multiBar} style={level.style}>
+              {Array(
+                Math.max(Math.round((level.size * TOTAL_LENGTH) / totalSize), 1)
+              ).fill(charMap[level.thickness])}
+              {!!level.tag && (
+                <span className={styles.barMarker}>{level.tag}</span>
+              )}
+            </span>
+          </>
+        ))}
     </div>
   );
 }
