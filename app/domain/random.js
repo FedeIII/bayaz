@@ -19,6 +19,10 @@ function uniform(min, max) {
   return (max - min) * Math.random() + min;
 }
 
+export function randomInteger(min, max) {
+  return Math.floor(uniform(min, max + 1));
+}
+
 function split(actions) {
   const maxWeight = actions.reduce((total, action) => {
     return total + action[0];

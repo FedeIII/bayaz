@@ -1,6 +1,5 @@
 import { Link } from '@remix-run/react';
 
-import styles from '~/components/characters.module.css';
 import menuStyles from '~/components/menus.module.css';
 
 function CharactersMenu() {
@@ -12,8 +11,8 @@ function CharactersMenu() {
       <Link to="pc/all" className={menuStyles.mainOption}>
         <span className={menuStyles.optionLabel}>Todos los Jugadores</span>
       </Link>
-      <Link to="" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>/</span>
+      <Link to="npc" className={menuStyles.mainOption}>
+        <span className={menuStyles.optionLabel}>Personajes No Jugadores</span>
       </Link>
     </>
   );

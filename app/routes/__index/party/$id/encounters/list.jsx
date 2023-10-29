@@ -8,7 +8,7 @@ import { getEncounters } from '~/services/encounter.server';
 import styles from '~/components/encounterList.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
 import { useTitle } from '~/components/hooks/useTitle';
-import { getMonsters, Monster } from '~/domain/encounters/monsters';
+import { getMonsters } from '~/domain/encounters/monsters';
 import {
   getEncounterChallenge,
   getEncounterDifficulty,

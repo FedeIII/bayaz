@@ -171,41 +171,6 @@ export function translateSize(size) {
   }
 }
 
-export function t(key) {
-  return {
-    Tiny: 'Diminuto',
-    Small: 'Pequeño',
-    Medium: 'Mediano',
-    Large: 'Grande',
-    Huge: 'Enorme',
-    Gargantuan: 'Gigantesco',
-    orc: 'orco',
-    LG: 'Legal bueno',
-    NG: 'Neutral bueno',
-    CG: 'Caótico bueno',
-    LN: 'Legal neutral',
-    N: 'Neutral',
-    CN: 'Caótico neutral',
-    LE: 'Legal malvado',
-    NE: 'Neutral malvado',
-    CE: 'Caótico malvado',
-    Humanoid: 'Humanoide',
-    Fey: 'Feérico',
-    Fiend: 'Infernal',
-    Monstrosity: 'Monstruos',
-    Undead: 'No-muerto',
-    Beast: 'Bestia',
-    Celestial: 'Celestial',
-    Plant: 'Planta',
-    Aberration: 'Aberración',
-    Elemental: 'Elemental',
-    Ooze: 'Cieno',
-    Dragon: 'Dragón',
-    Construct: 'Constructo',
-    Giant: 'Gigante',
-  }[key];
-}
-
 const NON_SPECIAL_SKILLS = [
   'actions',
   'legendaryActions',

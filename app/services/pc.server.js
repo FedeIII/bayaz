@@ -63,6 +63,18 @@ import {
 } from '~/domain/classes/paladin/paladin';
 import { ROGISH_ARCHETYPES } from '~/domain/classes/rogue/rogue';
 
+const backgroundSchema = new mongoose.Schema({
+  name: { type: String, enum: Object.keys(BACKGROUNDS) },
+  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  guild: { type: String, enum: ARTISAN_GUILDS },
+  routines: [{ type: String, enum: ENTERTAINER_ROUTINES }],
+  favoriteScheme: { type: String, enum: CHARLATAN_FAVORITE_SCHEMES },
+  criminalSpecialty: { type: String, enum: CRIMINAL_SPECIALTY },
+  outlanderOrigin: { type: String, enum: OUTLANDER_ORIGIN },
+  sageSpecialty: { type: String, enum: SAGE_SPECIALTY },
+  soldierSpecialty: { type: String, enum: SOLDIER_SPECIALTY },
+});
+
 const statsSchema = new mongoose.Schema({
   ...STATS.reduce(
     (stats, statName) => ({
@@ -235,18 +247,6 @@ const halfElfSchema = new mongoose.Schema({
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 });
 
-const backgroundSchema = mongoose.Schema({
-  name: { type: String, enum: Object.keys(BACKGROUNDS) },
-  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
-  guild: { type: String, enum: ARTISAN_GUILDS },
-  routines: [{ type: String, enum: ENTERTAINER_ROUTINES }],
-  favoriteScheme: { type: String, enum: CHARLATAN_FAVORITE_SCHEMES },
-  criminalSpecialty: { type: String, enum: CRIMINAL_SPECIALTY },
-  outlanderOrigin: { type: String, enum: OUTLANDER_ORIGIN },
-  sageSpecialty: { type: String, enum: SAGE_SPECIALTY },
-  soldierSpecialty: { type: String, enum: SOLDIER_SPECIALTY },
-});
-
 const freeTextSchema = new mongoose.Schema({
   playerName: String,
   personality: String,
@@ -269,6 +269,7 @@ const notesSchema = new mongoose.Schema({
 });
 
 const pcSchema = new mongoose.Schema({
+  // BASIC ATTRS
   name: String,
   race: {
     type: String,
@@ -287,14 +288,6 @@ const pcSchema = new mongoose.Schema({
       'subrace',
     ],
   },
-  age: Number,
-  height: Number,
-  weight: Number,
-  size: {
-    type: String,
-    enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-  },
-  speed: Number,
   pClass: {
     type: String,
     enum: [
@@ -314,18 +307,27 @@ const pcSchema = new mongoose.Schema({
   },
   level: Number,
   exp: Number,
+  background: backgroundSchema,
+  playerName: String,
+  npc: Boolean,
+
+  // STATS
+  stats: statsSchema,
+  extraStats: statsSchema,
+  improvedStatsLevels: [Number],
+
+  // SKILLS
+  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+
+  // COMBAT ATTRS
+  speed: Number,
   totalHitPoints: [Number],
   hitPoints: Number,
   temporaryHitPoints: Number,
   hitDice: Number,
   remainingHitDice: Number,
-  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
-  halfElf: halfElfSchema,
-  classAttrs: classAttrsSchema,
-  stats: statsSchema,
-  extraStats: statsSchema,
-  languages: [{ type: String, enum: [...LANGUAGES, ...EXOTIC_LANGUAGES] }],
-  background: backgroundSchema,
+
+  // EQUIPMENT
   items: {
     weapons: {
       type: [itemSchema],
@@ -344,17 +346,36 @@ const pcSchema = new mongoose.Schema({
     },
   },
   pack: String,
-  proficientItems: [itemSchema],
+  money: [Number, Number, Number],
+
+  // FREETEXT
   freeText: freeTextSchema,
+  notes: [notesSchema],
+
+  // FEATS & TRAITS
+  halfElf: halfElfSchema,
+  classAttrs: classAttrsSchema,
+
+  // PROFICIENCIES & LANGUAGES
+  proficientItems: [itemSchema],
+  languages: [{ type: String, enum: [...LANGUAGES, ...EXOTIC_LANGUAGES] }],
+
+  // ADDITIONAL FEATURES
+  age: Number,
+  height: Number,
+  weight: Number,
+  size: {
+    type: String,
+    enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+  },
+
+  // SPELLS
   magic: {
     hasLearnedSpells: [Boolean],
     spentSpellSlots: [Number],
   },
   spells: [spellSchema],
   preparedSpells: [spellSchema],
-  money: [Number, Number, Number],
-  improvedStatsLevels: [Number],
-  notes: [notesSchema],
 });
 
 function weaponLimit(val) {
@@ -364,7 +385,12 @@ function weaponLimit(val) {
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);
 
 export async function getPcs() {
-  const pcs = await Pc.find();
+  const pcs = await Pc.find({ npc: { $ne: true } });
+  return pcs;
+}
+
+export async function getNpcs() {
+  const pcs = await Pc.find({ npc: true });
   return pcs;
 }
 

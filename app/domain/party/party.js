@@ -1,5 +1,4 @@
 import { getEncounterXp } from '../encounters/encounters';
-import { getMonsters } from '../encounters/monsters';
 
 export function getPartyMaxLevel(pcs) {
   return Math.max(...pcs.map(pc => pc.level));

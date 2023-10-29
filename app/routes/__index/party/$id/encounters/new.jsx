@@ -29,12 +29,12 @@ import {
 import { rollDice } from '~/domain/random';
 import { createEncounter } from '~/services/encounter.server';
 import { useTitle } from '~/components/hooks/useTitle';
-
-import styles from '~/components/newEncounter.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
 import { useCharacterItems } from '~/components/modal/useCharacterItems';
 import { CharacterModal } from '~/components/modal/characterModal';
 import { CharacterItem } from '~/components/modal/characterItem';
+
+import styles from '~/components/newEncounter.module.css';
+import cardStyles from '~/components/cards/cards.module.css';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);

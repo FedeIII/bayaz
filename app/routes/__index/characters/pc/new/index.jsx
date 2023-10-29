@@ -12,7 +12,7 @@ import {
   setLanguages,
 } from '~/domain/characters';
 import { createPc } from '~/services/pc.server';
-import { getSpell } from "~/domain/spells/getSpells";
+import { getSpell } from '~/domain/spells/getSpells';
 
 import styles from '~/components/characters.module.css';
 
@@ -21,6 +21,7 @@ const NUMBER_OF_AGE_MARKS = 5;
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
+  const npc = formData.get('npc');
   const name = formData.get('name');
   const race = formData.get('race');
   const subrace = formData.get('subrace') || 'subrace';
@@ -44,6 +45,7 @@ export const action = async ({ request }) => {
     spells.push(getSpell('dancingLights', 'sorcerer'));
 
   const pc = {
+    npc: npc === 'on',
     name,
     race,
     subrace,
@@ -122,6 +124,11 @@ function PcRace() {
 
   return (
     <Form method="post">
+      <p>
+        <label htmlFor="npc">
+          NPC: <input type="checkbox" name="npc" />
+        </label>
+      </p>
       <p>
         <label>
           Nombre: {errors?.name ? <em>{errors.name}</em> : null}

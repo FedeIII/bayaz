@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
-import { getSpecialSkills, t } from '~/domain/encounters/monsters';
+import { getSpecialSkills } from '~/domain/encounters/monsters';
 import { STATS, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
+import { t } from '~/domain/translations';
 
 import styles from './inventoryItem.module.css';
 import appStyles from '~/components/app.module.css';
