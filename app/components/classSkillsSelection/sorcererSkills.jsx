@@ -14,7 +14,7 @@ import {
 } from '~/domain/spells/sorcerer';
 import { translateSpell } from '~/domain/spells/spells';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
 
 function SorcererSkills(props) {

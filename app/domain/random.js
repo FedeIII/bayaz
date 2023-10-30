@@ -1,3 +1,5 @@
+import { removeItem } from '~/utils/insert';
+
 ///////////
 // TESTS //
 ///////////
@@ -38,6 +40,15 @@ function split(actions) {
   }
 
   throw new Error(`No action was executed`);
+}
+
+function select(actions) {
+  return actions.reduce((selectedActions, action) => {
+    const chance = Math.random() * 100;
+    return chance <= action[0]
+      ? [...selectedActions, action[1]]
+      : selectedActions;
+  }, []);
 }
 
 function linearUniform({ x, y, t }) {
@@ -101,6 +112,28 @@ function monsterDistribution() {
 
 function roundTo(amoutToRoundTo, number) {
   return Math.floor(number * (1 / amoutToRoundTo)) / (1 / amoutToRoundTo);
+}
+
+function extractRandomElement(list) {
+  const randomElement = element(list);
+  return [randomElement, removeItem(el => el === randomElement, list)];
+}
+
+function shuffleList(shuffledList, list) {
+  if (list.length === 0) return shuffledList;
+  const [randomElement, restList] = extractRandomElement(list);
+  const newShuffledList = [...shuffledList, randomElement];
+  if (restList.length === 0) return newShuffledList;
+  return shuffleList(newShuffledList, restList);
+}
+
+function shuffle(list) {
+  return shuffleList([], list);
+}
+
+function element(list) {
+  const randomIndex = randomInteger(0, list.length - 1);
+  return list[randomIndex];
 }
 
 //////////
@@ -229,11 +262,14 @@ export function rollDice(command) {
 
 const API = {
   split,
+  element,
+  select,
   linearUniform,
   invExp,
   uniform,
   monsterDistribution,
   roundTo,
+  shuffle,
   roll: {
     processCommand,
     calculateResult,

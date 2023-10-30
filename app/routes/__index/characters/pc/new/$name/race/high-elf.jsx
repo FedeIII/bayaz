@@ -7,7 +7,7 @@ import { LANGUAGES, RACES, translateLanguage } from '~/domain/characters';
 import { WIZARD_SPELLS } from '~/domain/spells/wizard';
 import { getSpell } from "~/domain/spells/getSpells";
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);

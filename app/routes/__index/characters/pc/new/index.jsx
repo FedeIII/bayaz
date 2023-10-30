@@ -14,7 +14,7 @@ import {
 import { createPc } from '~/services/pc.server';
 import { getSpell } from '~/domain/spells/getSpells';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 const NUMBER_OF_AGE_MARKS = 5;
 

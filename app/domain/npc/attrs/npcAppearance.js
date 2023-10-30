@@ -1,0 +1,166 @@
+export const NPC_EYES = [
+  'Ojos somnolientos',
+  'Mirada de sospecha',
+  'Ojos llorosos',
+  'Brillo en los ojos',
+  'Mirada fría',
+  'Ojos risueños',
+  'Ojos entrecerrados',
+  'Mirada agresiva',
+  'Mirada distante',
+  'Un ojo vago',
+  'Mirada penetrante',
+  'Mirada vigilante',
+  'Mirada sombría',
+  'Cara encapuchada',
+  'Un ojo de cada color',
+  'Pequeña bizquera',
+  'Ojos muy abiertos',
+  'Ojos bonitos',
+  'Ojos pequeños y brillantes',
+  'Mirada misteriosa',
+];
+
+export const NPC_MOUTH = [
+  'Labios gruesos',
+  'Dientes de conejo',
+  'Labios finos',
+  'Dientes podridos',
+  'Dientes torcidos',
+  'Un diente roto',
+  'Labios fruncidos',
+  'Labios secos y agrietados',
+  'Un diente postizo',
+  'Boca entreabierta',
+];
+
+export const NPC_NOSE = [
+  'Nariz torcida',
+  'Nariz bulbosa',
+  'Nariz afilada',
+  'Nariz respingona',
+  'Larga nariz',
+  'Nariz ancha',
+  'Nariz angulosa',
+  'Nariz redondeada',
+  'Nariz rota',
+  'Nariz aguileña',
+  'Nariz amplia',
+  'Nariz delicada',
+];
+
+export const NPC_JAW = [
+  'Barbilla pronunciada',
+  'Mentón hundido',
+  'Hoyuelo en la barbilla',
+  'Barbilla redondeada',
+  'Mandíbula afilada',
+  'Mandíbula cuadrada',
+  'Mandíbula redondeada',
+  'Mandíbula inferior algo echada para alante',
+];
+
+export const NPC_HAIR = [
+  'Espesa melena',
+  'Pelo ralo',
+  'Pelo liso',
+  'Pelo ondulado',
+  'Pelo rizado',
+  'Pelo hirsuto, grueso, de jabalí',
+  'Pelo grasiento',
+  'Cabello exuberante',
+  'Pelo esponjoso',
+  'Largas trenzas',
+  'Trencitas pegadas al cráneo',
+  'Pelo muy largo',
+  'Melena rebelde',
+  'Peinado inusual',
+  'Peinado pasado de moda',
+  'Peinado rebuscado',
+  'Pelo muy corto, al 1 o al 2',
+  'Pelo rapado',
+];
+
+export const NPC_FACE = [
+  'Pómulos altos',
+  'Mejillas perfectamente delineadas',
+  'Mejillas regordetas',
+  'Una cicatriz desagradable',
+  'Un gran lunar',
+  'Una peca',
+  'Pecas',
+  'Grandes cicatrices',
+];
+
+export const NPC_BODY = [
+  'Cuerpo delgado y delicado',
+  'Constitución media',
+  'Constitución musculada',
+  'Con ligero sobrepeso',
+  'Exageradamente obeso',
+  'Cuerpo delgado y larguirucho',
+  'Cuerpo ligero y delgado',
+  'Cuerpo delgado y definido',
+  'Muy musculado',
+  'De aspecto fofo y débil',
+  'Posición encorvada',
+  'Aspecto débil',
+  'Aspecto blando y gordito',
+  'Cuerpo pequeño y ligero',
+  'Cuerpo rechoncho',
+  'Cuerpo grande y ancho',
+  'Aspecto fuerte y robusto',
+  'Cuerpo huesudo',
+  'Constitución ancha y pesada',
+  'Cuerpo cubierto de pelo',
+];
+
+export const NPC_HANDS = [
+  'Manos poderosas',
+  'Manos delicadas',
+  'Manos encayecidas',
+  'Manos suaves',
+  'Gestos amigables',
+  'Gestos solemnes',
+];
+
+export const NPC_JEWELRY = [
+  'Un pendiente',
+  'Dos pendientes',
+  'Alrededor del cuello, una cadena ligera',
+  'Alrededor del cuello, un grueso collar de cadena',
+  'Una ajustada gargantilla',
+  'Un broche',
+  'Un anillo',
+  'Varios anillos',
+  'Un brazalete',
+  'En la nariz, un aro',
+  'Un medallón',
+  'Un cinturón adornado',
+];
+
+export const NPC_JEWELRY_MATERIAL = [
+  'acero',
+  'bronce',
+  'peltre',
+  'plata',
+  'oro',
+  'platino',
+  'cobre',
+  'gemas',
+];
+
+export const NPC_JEWELRY_GEMS = [
+  'amatistas',
+  'cristales',
+  'diamantes',
+  'esperaldas',
+  'jades',
+  'obsidianas',
+  'ópalos',
+  'perlas',
+  'rubíes',
+  'zafiros',
+  'topacios',
+  'turquesas',
+];

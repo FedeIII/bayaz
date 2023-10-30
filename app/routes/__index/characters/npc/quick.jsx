@@ -2,9 +2,10 @@ import { Form } from '@remix-run/react';
 
 import { useRef, useState } from 'react';
 import { createRandomNpc } from '~/domain/npc/npc';
-import { NPC_RACES_LIST } from '~/domain/npc/npcRaces';
+import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
 import { t } from '~/domain/translations';
 import { removeItem } from '~/utils/insert';
+import { CharacterInfo } from '~/components/characters/characterInfo';
 
 import styles from '~/components/filters.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
@@ -78,7 +79,7 @@ function Sidebar(props) {
             <div className={styles.filterOptionsTwoColumns}>
               {NPC_RACES_LIST.map(race => {
                 return (
-                  <label className={styles.filterOption}>
+                  <label className={styles.filterOption} key={race}>
                     <input
                       key={race}
                       type="checkbox"
@@ -146,19 +147,7 @@ function QuickNpc() {
           setFilters={setFilters}
         />
         <div className={styles.results}>
-          {!!npc && (
-            <>
-              <div>
-                <span>Nombre:</span> <span>{npc.name}</span>
-              </div>
-              <div>
-                <span>Raza:</span> <span>{npc.race}</span>
-              </div>
-              <div>
-                <span>Género:</span> <span>{npc.gender}</span>
-              </div>
-            </>
-          )}
+          {!!npc && <CharacterInfo {...npc} />}
         </div>
       </div>
     </Form>

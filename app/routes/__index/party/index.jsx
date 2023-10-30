@@ -1,6 +1,5 @@
 import { Link } from '@remix-run/react';
 
-import styles from '~/components/characters.module.css';
 import menuStyles from '~/components/menus.module.css';
 
 function PartyMenu() {

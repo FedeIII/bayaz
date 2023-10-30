@@ -10,7 +10,7 @@ import {
   FAVORED_ENEMIES_LANGUAGES,
 } from '~/domain/classes/ranger/ranger';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 function RangerSkills(props) {
   const { pc, setSkillsNamespace } = props;

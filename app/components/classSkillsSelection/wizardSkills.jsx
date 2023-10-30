@@ -7,7 +7,7 @@ import {
 } from '~/domain/spells/wizard';
 import { translateSpell } from '~/domain/spells/spells';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 function WizardSkills(props) {
   const { pc, setSkillsNamespace } = props;

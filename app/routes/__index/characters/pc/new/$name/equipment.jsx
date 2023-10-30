@@ -7,7 +7,7 @@ import { getEquipmentComboData } from '~/components/equipment/getEquipmentComboD
 import { getClassEquipment } from '~/domain/equipment/equipment';
 import { distributeItems } from '~/domain/characters';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
 
 export const loader = async ({ params }) => {

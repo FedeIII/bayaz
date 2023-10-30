@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { DRUID_SPELLS, getDruidSpellSlots } from '~/domain/spells/druid';
 import { translateSpell } from '~/domain/spells/spells';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 function DruidSkills(props) {
   const { pc, setSkillsNamespace } = props;

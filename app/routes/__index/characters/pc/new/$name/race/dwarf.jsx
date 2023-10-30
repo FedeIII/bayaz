@@ -6,7 +6,7 @@ import { getPc, updatePc } from '~/services/pc.server';
 import { pcItem, translateItem } from '~/domain/equipment/equipment';
 import { TOOLS } from '~/domain/equipment/tools';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);

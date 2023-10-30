@@ -4,7 +4,7 @@ import {
   getAllMusicalInstruments,
 } from '~/domain/equipment/tools';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 function MonkSkills(props) {
   return (

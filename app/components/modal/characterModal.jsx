@@ -9,7 +9,7 @@ import { t } from '~/domain/translations';
 
 import styles from './inventoryItem.module.css';
 import appStyles from '~/components/app.module.css';
-import charactersStyles from '~/components/characters.module.css';
+import charactersStyles from '~/components/characters/characters.module.css';
 
 export function MonsterContent(props) {
   const { character } = props;

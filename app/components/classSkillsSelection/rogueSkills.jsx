@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { translateSkill } from '~/domain/characters';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 function RogueSkills(props) {
   const { skillsToSelect, setSkillsNamespace } = props;

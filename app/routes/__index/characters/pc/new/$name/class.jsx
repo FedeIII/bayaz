@@ -29,7 +29,7 @@ import {
 } from '~/domain/spells/spells';
 import { getSpell } from '~/domain/spells/getSpells';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 import cardStyles from '~/components/cards/cards.module.css';
 
 export const loader = async ({ params }) => {

@@ -13,7 +13,7 @@ import {
 import { getClericSpellSlots, CLERIC_SPELLS } from '~/domain/spells/cleric';
 import { DRUID_SPELLS } from '~/domain/spells/druid';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 import { translateSpell } from '~/domain/spells/spells';
 
 function getSkillChecked(skillName, skillsToSelect) {

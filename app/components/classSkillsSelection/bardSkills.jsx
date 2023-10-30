@@ -8,7 +8,7 @@ import {
   getBardTotalSpells,
 } from '~/domain/spells/bard';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 import { translateSpell } from '~/domain/spells/spells';
 
 const MAX_INSTRUMENTS = 3;

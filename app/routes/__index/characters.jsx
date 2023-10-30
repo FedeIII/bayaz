@@ -1,6 +1,7 @@
 import { Outlet } from '@remix-run/react';
-import styles from '~/components/characters.module.css';
 import { getCurrentPcPage } from '~/utils/paths';
+
+import styles from '~/components/characters/characters.module.css';
 
 function Characters() {
   const pcName = getCurrentPcPage();

@@ -1,7 +1,7 @@
 import { itemWithAmount } from '~/domain/display';
 import { translateEquipment } from '~/domain/equipment/equipment';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 export function EquipmentCombo(props) {
   const { pc, comboName, combo, logic, comboSection, depth = 0 } = props;

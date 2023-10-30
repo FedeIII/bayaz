@@ -3,7 +3,7 @@ import { useDrag } from 'react-dnd';
 
 import { STATS } from '~/domain/characters';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 export const ItemTypes = {
   ROLL: 'ROLL',

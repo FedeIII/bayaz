@@ -11,7 +11,7 @@ import {
   translateLanguage,
 } from '~/domain/characters';
 
-import styles from '~/components/characters.module.css';
+import styles from '~/components/characters/characters.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);

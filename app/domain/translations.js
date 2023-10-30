@@ -1,4 +1,4 @@
-import { NPC_RACES } from "./npc/npcRaces";
+import { NPC_RACES } from "./npc/attrs/npcRaces";
 
 export function t(key) {
   let translation = {
@@ -13,6 +13,7 @@ export function t(key) {
     NG: 'Neutral bueno',
     CG: 'Caótico bueno',
     LN: 'Legal neutral',
+    NN: 'Neutral',
     N: 'Neutral',
     CN: 'Caótico neutral',
     LE: 'Legal malvado',
