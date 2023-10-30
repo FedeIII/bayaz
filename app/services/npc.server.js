@@ -5,6 +5,7 @@ import {
   SKILLS,
   LANGUAGES,
   EXOTIC_LANGUAGES,
+  CLASSES,
 } from '~/domain/characters';
 import {
   BACKGROUNDS,
@@ -58,6 +59,22 @@ const abilitySchema = new mongoose.Schema({
   name: String,
   description: String,
 });
+
+const faithSchema = new mongoose.Schema({
+  description: String,
+  deity: String,
+  deityName: String,
+});
+
+const spellSchema = new mongoose.Schema({
+  name: String,
+  type: { type: String, enum: Object.keys(CLASSES) },
+  subtype: String,
+});
+
+///////////
+/// NPC ///
+///////////
 
 const quickNpcSchema = new mongoose.Schema({
   // BASIC ATTRS
@@ -157,6 +174,7 @@ const quickNpcSchema = new mongoose.Schema({
     type: String,
     enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
   },
+  faith: faithSchema,
 
   // SPELLS
   spells: [spellSchema],

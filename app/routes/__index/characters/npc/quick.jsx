@@ -3,6 +3,7 @@ import { Form } from '@remix-run/react';
 import { useRef, useState } from 'react';
 import { createRandomNpc } from '~/domain/npc/npc';
 import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
+import { NPC_DEITIES } from '~/domain/npc/attrs/npcFaith';
 import { t } from '~/domain/translations';
 import { removeItem } from '~/utils/insert';
 import { CharacterInfo } from '~/components/characters/characterInfo';
@@ -44,6 +45,25 @@ function Sidebar(props) {
     return setFilters(f => ({ ...f, genders: [...f.genders, gender] }));
   }
 
+  function onDeitySelect(e) {
+    const deity = e.target.value;
+    if (deity === 'all') {
+      setFilters(f => ({
+        ...f,
+        deities: e.target.checked ? NPC_DEITIES.map(([_, deity]) => deity) : [],
+      }));
+    }
+
+    if (filters.deities.includes(deity)) {
+      return setFilters(f => ({
+        ...f,
+        deities: removeItem(r => r === deity, f.deities),
+      }));
+    }
+
+    return setFilters(f => ({ ...f, deities: [...f.deities, deity] }));
+  }
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebarContent}>
@@ -64,7 +84,7 @@ function Sidebar(props) {
         <div className={styles.sidebarSection}>
           <div className={styles.filterVertical}>
             <div className={styles.filterLabel}>
-              Razas:{' '}
+              <span className={styles.filterTitle}>Razas:</span>{' '}
               <label className={styles.filterOption}>
                 <input
                   type="checkbox"
@@ -97,7 +117,9 @@ function Sidebar(props) {
           </div>
 
           <div className={styles.filter}>
-            <span className={styles.filterLabel}>Género:</span>{' '}
+            <span className={`${styles.filterLabel} ${styles.filterTitle}`}>
+              Género:
+            </span>{' '}
             <div className={styles.filterOptionsTwoColumns}>
               <label className={styles.filterOption}>
                 <input
@@ -121,6 +143,40 @@ function Sidebar(props) {
               </label>
             </div>
           </div>
+
+          <div className={styles.filterVertical}>
+            <div className={styles.filterLabel}>
+              <span className={styles.filterTitle}>Dioses:</span>{' '}
+              <label className={styles.filterOption}>
+                <input
+                  type="checkbox"
+                  name="deity[]"
+                  value="all"
+                  className={`${cardStyles.buttonCard}`}
+                  onClick={onDeitySelect}
+                />
+                <span>Todos</span>
+              </label>
+            </div>{' '}
+            <div className={styles.filterOptionsTwoColumns}>
+              {NPC_DEITIES.map(([_, deity]) => {
+                return (
+                  <label className={styles.filterOption} key={deity}>
+                    <input
+                      key={deity}
+                      type="checkbox"
+                      name="deity[]"
+                      value={deity}
+                      checked={filters.deities.includes(deity)}
+                      className={`${cardStyles.buttonCard}`}
+                      onChange={onDeitySelect}
+                    />
+                    <span>{t(deity)}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -136,7 +192,11 @@ function QuickNpc() {
     setNpc(createRandomNpc(filters));
   }
 
-  const [filters, setFilters] = useState({ races: [], genders: [] });
+  const [filters, setFilters] = useState({
+    races: [],
+    genders: [],
+    deities: [],
+  });
 
   return (
     <Form method="post" ref={formRef}>

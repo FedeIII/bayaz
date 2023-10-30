@@ -13,6 +13,11 @@ import {
   NPC_NOSE,
 } from './attrs/npcAppearance';
 import { NPC_CALM, NPC_MOOD, NPC_STRESS } from './attrs/npcBehavior';
+import {
+  NPC_DEITIES,
+  NPC_DEITIES_NAMES,
+  NPC_FAITH_DESCRIPTION,
+} from './attrs/npcFaith';
 import { NPC_NAMES } from './attrs/npcNames';
 import { NPC_RACES, NPC_RACES_LIST } from './attrs/npcRaces';
 
@@ -122,6 +127,21 @@ function getStressBehavior() {
   return random.element(NPC_STRESS);
 }
 
+function getDeity(deitiesFilter) {
+  if (deitiesFilter.length === 0) return random.split(NPC_DEITIES);
+  return random.split(
+    NPC_DEITIES.filter(([_, deity]) => deitiesFilter.includes(deity))
+  );
+}
+
+function getFaithDescription(deity) {
+  return deity === 'None' ? null : random.element(NPC_FAITH_DESCRIPTION);
+}
+
+function getDeityName(deity) {
+  return random.split(NPC_DEITIES_NAMES[deity]);
+}
+
 export function createRandomNpc(filters) {
   const npcRace = getRandomNpcRace(filters.races);
   const npcGender =
@@ -131,6 +151,8 @@ export function createRandomNpc(filters) {
       ? 'Male'
       : 'Female';
   const npcName = getRandomName(npcRace, npcGender);
+  const deity = getDeity(filters.deities);
+
   return {
     race: npcRace,
     gender: npcGender,
@@ -141,6 +163,11 @@ export function createRandomNpc(filters) {
       mood: getMood(),
       calm: getCalmBehavior(),
       stress: getStressBehavior(),
+    },
+    faith: {
+      deity: deity,
+      description: getFaithDescription(deity),
+      deityName: getDeityName(deity),
     },
   };
 }

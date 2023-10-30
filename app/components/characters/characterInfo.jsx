@@ -3,7 +3,7 @@ import { t } from '~/domain/translations';
 import charactersStyles from '~/components//characters/characters.module.css';
 
 export function CharacterInfo(props) {
-  const { name, race, gender, alignment, looks, behavior } = props;
+  const { name, race, gender, alignment, looks, behavior, faith } = props;
 
   return (
     <div className={charactersStyles.container}>
@@ -56,8 +56,33 @@ export function CharacterInfo(props) {
                 {behavior.stress.toLowerCase()}
               </u>
             </div>
+            <div className={charactersStyles.traitTitle}>
+              {!!faith.description && faith.description + ', '}
+              <u className={charactersStyles.traitDescription}>
+                {faith.deityName}
+                {faith.deity !== 'None' && ` (${t(faith.deity)})`}
+              </u>
+            </div>
           </div>
           <div className={charactersStyles.trait}></div>
+        </div>
+      </div>
+
+      <hr className={charactersStyles.sectionDivider} />
+
+      <div className={charactersStyles.attrs}>
+        <h2 className={charactersStyles.attrsTitle}>Fe</h2>
+        <div className={charactersStyles.traits}>
+          {!!faith.description && faith.description + ' de '}
+          {faith.deity === 'None' && faith.deityName}
+          {faith.deity !== 'None' && (
+            <>
+              <u className={charactersStyles.traitDescription}>
+                {faith.deityName}
+              </u>{' '}
+              ({t(faith.deity)})
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -71,6 +71,10 @@
   column-count: 3;
 }
 
+.filterTitle {
+  color: var(--color-x-pale);
+}
+
 .filterOption {
   display: flex;
   align-items: start;

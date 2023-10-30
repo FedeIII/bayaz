@@ -1,4 +1,4 @@
-import { NPC_RACES } from "./npc/attrs/npcRaces";
+import { NPC_RACES } from './npc/attrs/npcRaces';
 
 export function t(key) {
   let translation = {
@@ -35,6 +35,11 @@ export function t(key) {
     Giant: 'Gigante',
     Male: 'Varón',
     Female: 'Hembra',
+    Matter: 'Materia',
+    Energy: 'Energía',
+    Spirit: 'Espiritu',
+    Space: 'Espacio',
+    None: 'Ninguno',
   }[key];
 
   if (translation) return translation;

@@ -25,6 +25,7 @@ export function randomInteger(min, max) {
   return Math.floor(uniform(min, max + 1));
 }
 
+// select one
 function split(actions) {
   const maxWeight = actions.reduce((total, action) => {
     return total + action[0];
@@ -42,6 +43,7 @@ function split(actions) {
   throw new Error(`No action was executed`);
 }
 
+// select multiple
 function select(actions) {
   return actions.reduce((selectedActions, action) => {
     const chance = Math.random() * 100;

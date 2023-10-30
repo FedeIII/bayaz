@@ -23,7 +23,6 @@ export const NPC_EYES = [
 
 export const NPC_MOUTH = [
   'Labios gruesos',
-  'Dientes de conejo',
   'Labios finos',
   'Dientes podridos',
   'Dientes torcidos',
