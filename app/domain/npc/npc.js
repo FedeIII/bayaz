@@ -1,4 +1,5 @@
 import random, { randomInteger } from '../random';
+import { t } from '../translations';
 import {
   NPC_BODY,
   NPC_EYES,
@@ -12,7 +13,13 @@ import {
   NPC_MOUTH,
   NPC_NOSE,
 } from './attrs/npcAppearance';
-import { NPC_CALM, NPC_MOOD, NPC_STRESS } from './attrs/npcBehavior';
+import {
+  NPC_CALM,
+  NPC_FLAWS,
+  NPC_MOOD,
+  NPC_PREJUDICES,
+  NPC_STRESS,
+} from './attrs/npcBehavior';
 import {
   NPC_DEITIES,
   NPC_DEITIES_NAMES,
@@ -71,7 +78,7 @@ function getRandomName(race, gender) {
   return random.element(names).result;
 }
 
-function getAlignment() {
+function getRandomAlignment() {
   const lnc = random.split([
     [40, 'L'],
     [40, 'N'],
@@ -86,7 +93,7 @@ function getAlignment() {
   return [lnc, gne];
 }
 
-function getAppearance() {
+function getRandomAppearance() {
   return [
     ...random.select([
       [60, NPC_HAIR],
@@ -115,31 +122,61 @@ function getAppearance() {
   ].map(attrList => random.element(attrList));
 }
 
-function getMood() {
+function getRandomMood() {
   return random.element(NPC_MOOD);
 }
 
-function getCalmBehavior() {
+function getRandomCalmBehavior() {
   return random.element(NPC_CALM);
 }
 
-function getStressBehavior() {
+function getRandomStressBehavior() {
   return random.element(NPC_STRESS);
 }
 
-function getDeity(deitiesFilter) {
+function getRandomDeity(deitiesFilter) {
   if (deitiesFilter.length === 0) return random.split(NPC_DEITIES);
   return random.split(
     NPC_DEITIES.filter(([_, deity]) => deitiesFilter.includes(deity))
   );
 }
 
-function getFaithDescription(deity) {
+function getRandomFaithDescription(deity) {
   return deity === 'None' ? null : random.element(NPC_FAITH_DESCRIPTION);
 }
 
-function getDeityName(deity) {
+function getRandomDeityName(deity) {
   return random.split(NPC_DEITIES_NAMES[deity]);
+}
+
+function getRandomPrejudice(npcGender) {
+  let prejudice = '';
+  const prejudiceSet = random.element(NPC_PREJUDICES);
+  if (prejudiceSet[0] === 'Género contrario')
+    prejudice += `Prejuicio contra género ${
+      npcGender === 'Male' ? t('Female') : t('Male')
+    }`;
+  if (prejudiceSet[1].length)
+    prejudice += `Prejuicio contra ${random
+      .element(prejudiceSet[1])
+      .toLowerCase()}`;
+
+  return prejudice;
+}
+
+function getRandomFlawDescription() {
+  return random.element(NPC_FLAWS);
+}
+
+function getRandomFlaws(npcGender) {
+  let flaws = '';
+  flaws += getRandomPrejudice(npcGender);
+  if (Math.random() <= 0.5) {
+    flaws += flaws.length ? '. ' : '';
+    flaws += getRandomFlawDescription(npcGender);
+  }
+  flaws += '.';
+  return flaws;
 }
 
 export function createRandomNpc(filters) {
@@ -151,23 +188,24 @@ export function createRandomNpc(filters) {
       ? 'Male'
       : 'Female';
   const npcName = getRandomName(npcRace, npcGender);
-  const deity = getDeity(filters.deities);
+  const deity = getRandomDeity(filters.deities);
 
   return {
     race: npcRace,
     gender: npcGender,
     name: npcName,
-    alignment: getAlignment(),
-    looks: getAppearance(),
+    alignment: getRandomAlignment(),
+    looks: getRandomAppearance(),
     behavior: {
-      mood: getMood(),
-      calm: getCalmBehavior(),
-      stress: getStressBehavior(),
+      mood: getRandomMood(),
+      calm: getRandomCalmBehavior(),
+      stress: getRandomStressBehavior(),
     },
     faith: {
       deity: deity,
-      description: getFaithDescription(deity),
-      deityName: getDeityName(deity),
+      description: getRandomFaithDescription(deity),
+      deityName: getRandomDeityName(deity),
     },
+    flaws: getRandomFlaws(npcGender),
   };
 }

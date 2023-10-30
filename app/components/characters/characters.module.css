@@ -163,5 +163,9 @@
   display: block;
 }
 
+.traitTitle {
+  color: var(--color-x-pale);
+}
+
 .traitDescription {
 }

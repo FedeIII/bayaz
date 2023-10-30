@@ -87,3 +87,71 @@ export const NPC_STRESS = [
   'Compulsiva',
   'Intolerante',
 ];
+
+export const NPC_PREJUDICES = [
+  [null, []],
+  ['Género contrario', []],
+  ['Un grupo de edad', ['Niños', 'Adolescentes', 'Mayores']],
+  [
+    'Una clase social',
+    [
+      'Clase dirigente y figuras autoritarias',
+      'Ricos y poderosos',
+      'Pobres e indigentes',
+    ],
+  ],
+  ['Inadaptados sociales', ['Mendigos', 'Borrachos', 'Drogadictos']],
+  [
+    'Una profesión',
+    [
+      'Granjeros',
+      'Artistas',
+      'Clero',
+      'Soldados',
+      'Pescadores',
+      'Rameras',
+      'Mineros',
+      'Mercaderes',
+      'Eruditos',
+      'Pastores',
+      'Marineros',
+      'Magos',
+    ],
+  ],
+  [
+    'Una raza',
+    [
+      'Enanos',
+      'Elfos',
+      'Gnomos',
+      'Goblins',
+      'Mestizos',
+      'Medianos',
+      'Humanos',
+      'Orcos',
+      'Reptilianos',
+    ],
+  ],
+];
+
+export const NPC_FLAWS = [
+  'Se agita nervioso',
+  'Bebe mucho',
+  'Come mucho',
+  'Maldice',
+  'Higiene pobre',
+  'No puede resistirse a flirtear',
+  'No puede parar de fijar la mirada',
+  'Suda fácil y abundantemente',
+  'Mentiroso compulsivo',
+  'Adorna la verdad',
+  'Exagera detalles',
+  'Tiene mal carácter',
+  'Es melodramático',
+  'Cotilla',
+  'Mastica con la boca abierta',
+  'Se cree todo lo que le digas',
+  'Escéptico con todo',
+  'Deambula constantemente',
+  'No sabe mantener la mirada',
+];

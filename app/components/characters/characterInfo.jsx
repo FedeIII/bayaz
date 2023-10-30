@@ -3,7 +3,8 @@ import { t } from '~/domain/translations';
 import charactersStyles from '~/components//characters/characters.module.css';
 
 export function CharacterInfo(props) {
-  const { name, race, gender, alignment, looks, behavior, faith } = props;
+  const { name, race, gender, alignment, looks, behavior, faith, flaws } =
+    props;
 
   return (
     <div className={charactersStyles.container}>
@@ -44,23 +45,20 @@ export function CharacterInfo(props) {
             <u className={charactersStyles.traitDescription}>{behavior.mood}</u>
           </div>
           <div className={charactersStyles.trait}>
-            <div className={charactersStyles.traitTitle}>
-              En calma, su actitud es{' '}
+            <div>
+              <span className={charactersStyles.traitTitle}>
+                En calma, su actitud es
+              </span>{' '}
               <u className={charactersStyles.traitDescription}>
                 {behavior.calm.toLowerCase()}
               </u>
             </div>
-            <div className={charactersStyles.traitTitle}>
-              En estrés, su actitud es{' '}
+            <div>
+              <span className={charactersStyles.traitTitle}>
+                En estrés, su actitud es
+              </span>{' '}
               <u className={charactersStyles.traitDescription}>
                 {behavior.stress.toLowerCase()}
-              </u>
-            </div>
-            <div className={charactersStyles.traitTitle}>
-              {!!faith.description && faith.description + ', '}
-              <u className={charactersStyles.traitDescription}>
-                {faith.deityName}
-                {faith.deity !== 'None' && ` (${t(faith.deity)})`}
               </u>
             </div>
           </div>
@@ -84,6 +82,22 @@ export function CharacterInfo(props) {
             </>
           )}
         </div>
+      </div>
+
+      <hr className={charactersStyles.sectionDivider} />
+
+      <div className={charactersStyles.attrs}>
+        <h2 className={charactersStyles.attrsTitle}>
+          Ideales, Vínculos y Defectos
+        </h2>
+        {!!flaws && (
+          <div className={charactersStyles.traits}>
+            <div className={charactersStyles.trait}>
+              <span className={charactersStyles.traitTitle}>Defectos:</span>{' '}
+              <span className={charactersStyles.traitDescription}>{flaws}</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
