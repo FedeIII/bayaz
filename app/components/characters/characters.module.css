@@ -137,12 +137,19 @@
 }
 
 .attrs {
+  margin: 0 8%;
+}
+
+.parallelAttrs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .attrsTitle {
   font-size: 18px;
-  margin: 0 8%;
   text-align: start;
+  margin: 0;
   color: var(--color-x-pale);
 }
 
@@ -153,14 +160,28 @@
   margin: 8px 32px;
 }
 
+.traitSections {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .traits {
   display: block;
   text-align: start;
   margin: 8px 32px;
 }
 
+.parallelTraits {
+  display: block;
+  text-align: start;
+  margin: 8px 0;
+  padding: 0 4%;
+}
+
 .trait {
   display: block;
+  text-align: start;
 }
 
 .traitTitle {
@@ -168,4 +189,5 @@
 }
 
 .traitDescription {
+  text-align: start;
 }

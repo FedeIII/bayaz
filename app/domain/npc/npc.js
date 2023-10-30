@@ -14,11 +14,15 @@ import {
   NPC_NOSE,
 } from './attrs/npcAppearance';
 import {
+  NPC_BONDS,
   NPC_CALM,
+  NPC_EXTREME_ABILITIES,
   NPC_FLAWS,
+  NPC_IDEALS,
   NPC_MOOD,
   NPC_PREJUDICES,
   NPC_STRESS,
+  NPC_TALENTS,
 } from './attrs/npcBehavior';
 import {
   NPC_DEITIES,
@@ -118,6 +122,8 @@ function getRandomAppearance() {
           return `${jewelry} de ${material}`;
         }),
       ],
+      [25, NPC_EXTREME_ABILITIES.high],
+      [25, NPC_EXTREME_ABILITIES.low],
     ]),
   ].map(attrList => random.element(attrList));
 }
@@ -179,6 +185,23 @@ function getRandomFlaws(npcGender) {
   return flaws;
 }
 
+function getRandomTalent() {
+  return random.split([
+    [80, null],
+    [20, random.element(NPC_TALENTS)],
+  ]);
+}
+
+function getRandomIdeals(alignment) {
+  return random.element(
+    ...alignment.map(el => [...NPC_IDEALS[el], ...NPC_IDEALS.O])
+  );
+}
+
+function getRandomBonds() {
+  return random.element(NPC_BONDS);
+}
+
 export function createRandomNpc(filters) {
   const npcRace = getRandomNpcRace(filters.races);
   const npcGender =
@@ -189,12 +212,13 @@ export function createRandomNpc(filters) {
       : 'Female';
   const npcName = getRandomName(npcRace, npcGender);
   const deity = getRandomDeity(filters.deities);
+  const npcAlignment = getRandomAlignment();
 
   return {
     race: npcRace,
     gender: npcGender,
     name: npcName,
-    alignment: getRandomAlignment(),
+    alignment: npcAlignment,
     looks: getRandomAppearance(),
     behavior: {
       mood: getRandomMood(),
@@ -206,6 +230,9 @@ export function createRandomNpc(filters) {
       description: getRandomFaithDescription(deity),
       deityName: getRandomDeityName(deity),
     },
+    ideals: getRandomIdeals(npcAlignment),
+    bonds: getRandomBonds(),
     flaws: getRandomFlaws(npcGender),
+    talent: getRandomTalent(),
   };
 }
