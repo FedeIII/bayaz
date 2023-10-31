@@ -1,17 +1,16 @@
 import { NPC_DEITIES, NPC_DEITIES_NAMES } from '../npc/attrs/npcFaith';
 import random from '../random';
 import { t } from '../translations';
-import { VILLAGE } from './places';
+import { VILLAGE, randomInnName } from './places';
 
 const noOp = () => {};
 
 export function getVillageAccommodation(population) {
-  return population > VILLAGE.minPopulationForGuesthouse
-    ? random.split([
-        [50, 'Random guesthouse name'],
-        [50, 'Random inn name'],
-      ])
-    : null;
+  return (
+    population > VILLAGE.minPopulationForGuesthouse
+      ? random.element([null, randomInnName])
+      : null
+  )?.();
 }
 
 export function getVillageGovernment() {

@@ -1,10 +1,13 @@
 import { Link } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 
-import { TOWN, getPopulation } from '~/domain/places/places';
+import {
+  TOWN,
+  getPopulation,
+  randomSettlementName,
+} from '~/domain/places/places';
 import {
   getTownAccommodation,
-  getTownAccommodationTranslation,
   getTownCalamity,
   getTownCommerce,
   getTownGovernment,
@@ -40,29 +43,20 @@ function Town() {
 
   useEffect(() => {
     const population = getPopulation(TOWN);
-    const accommodation = getTownAccommodation(population);
-    const government = getTownGovernment();
-    const security = getTownSecurity(population);
-    const commerce = getTownCommerce();
-    const religion = getTownReligion();
-    const raceRelationships = getTownRaceRelationships();
-    const placeCharacteristics = getTownPlaceCharacteristics();
-    const knownFor = getTownKnownFor();
-    const calamity = getTownCalamity();
 
     setPlace(prevPlace => ({
       ...prevPlace,
-      name: 'Placeholder Name',
+      name: randomSettlementName(),
       population,
-      accommodation,
-      government,
-      security,
-      commerce,
-      religion,
-      raceRelationships,
-      placeCharacteristics,
-      knownFor,
-      calamity,
+      accommodation: getTownAccommodation(population),
+      government: getTownGovernment(),
+      security: getTownSecurity(population),
+      commerce: getTownCommerce(),
+      religion: getTownReligion(),
+      raceRelationships: getTownRaceRelationships(),
+      placeCharacteristics: getTownPlaceCharacteristics(),
+      knownFor: getTownKnownFor(),
+      calamity: getTownCalamity(),
     }));
   }, []);
 
@@ -100,10 +94,14 @@ function Town() {
             <>
               <hr className={styles.sectionDivider} />
               <div className={styles.trait}>
-                <span>
-                  <span className={styles.traitTitle}>Alojamientos:</span>{' '}
-                  {getTownAccommodationTranslation(accommodation)}
-                </span>
+                <span className={styles.traitTitle}>Alojamientos:</span>{' '}
+                <ul className={styles.traitColumns}>
+                  {accommodation.map(innName => (
+                    <li key={innName} className={styles.traitItem}>
+                      {innName}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </>
           )}

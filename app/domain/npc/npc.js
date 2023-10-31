@@ -1,6 +1,16 @@
 import random, { randomInteger } from '../random';
 import { t } from '../translations';
 import {
+  randomDragonbornName,
+  randomDwarfName,
+  randomElfName,
+  randomGnomeName,
+  randomHalflingName,
+  randomHumanName,
+  randomHumanSurname,
+  randomOrcName,
+} from './attrs/comboNpcNames';
+import {
   NPC_BODY,
   NPC_EYES,
   NPC_FACE,
@@ -78,8 +88,55 @@ function getRandomName(race, gender) {
     );
   }
 
+  let randomName;
   const names = random.element(namesGroup).table;
-  return random.element(names).result;
+  randomName = random.element(names).result;
+
+  if (tablesOption === 'Elf') {
+    const surenamesGroup = NPC_NAMES[tablesOption].tables[3];
+    randomName += ' ' + random.element(surenamesGroup.table).result;
+    return random.element([randomName, randomElfName(gender)]);
+  }
+
+  if (tablesOption === 'Dragonborn') {
+    return random.element([randomName, randomDragonbornName()]);
+  }
+
+  if (tablesOption === 'Dwarf') {
+    const surenamesGroup1 = NPC_NAMES[tablesOption].tables[2];
+    const surenamesGroup2 = NPC_NAMES[tablesOption].tables[3];
+    randomName +=
+      ' ' +
+      random.element([...surenamesGroup1.table, surenamesGroup2.table]).result;
+    return random.element([randomName, randomDwarfName(gender)]);
+  }
+
+  if (tablesOption === 'Gnome') {
+    const surenamesGroup = NPC_NAMES[tablesOption].tables[2];
+    randomName += ' ' + random.element(surenamesGroup.table).result;
+    return random.element([randomName, randomGnomeName(gender)]);
+  }
+
+  if (tablesOption === 'Half-Orc') {
+    return random.element([randomName, randomOrcName(gender)]);
+  }
+
+  if (tablesOption === 'Halfling') {
+    const surenamesGroup = NPC_NAMES[tablesOption].tables[2];
+    randomName += ' ' + random.element(surenamesGroup.table).result;
+    return random.element([randomName, randomHalflingName(gender)]);
+  }
+
+  if (tablesOption === 'Human') {
+    const surname = randomHumanSurname();
+    randomName += ' ' + surname;
+    return random.element([
+      randomName,
+      randomHumanName(gender) + ' ' + surname,
+    ]);
+  }
+
+  return randomName;
 }
 
 function getRandomAlignment() {

@@ -8,16 +8,13 @@ import {
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
   TOWN,
+  randomInnName,
 } from './places';
 
 export function getTownAccommodation() {
   const numberOfTaverns = random.invExp(...TOWN.taverns);
 
-  return Array.from(Array(numberOfTaverns), (_, i) => 'Tavern ' + i);
-}
-
-export function getTownAccommodationTranslation(accommodation = []) {
-  return accommodation.join(', ');
+  return Array.from(Array(numberOfTaverns), randomInnName);
 }
 
 export function getTownGovernment() {

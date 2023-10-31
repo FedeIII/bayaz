@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from '@remix-run/react';
 
-import { VILLAGE, getPopulation } from '~/domain/places/places';
+import { VILLAGE, getPopulation, randomSettlementName } from '~/domain/places/places';
 import {
   getVillageAccommodation,
   getVillageGovernment,
@@ -19,9 +19,11 @@ function Village() {
   const [place, setPlace] = useState({});
 
   useEffect(() => {
+    const population = getPopulation(VILLAGE);
+
     setPlace({
-      name: 'Placeholder Name',
-      population: getPopulation(VILLAGE),
+      name: randomSettlementName(),
+      population,
       accommodation: getVillageAccommodation(population),
       government: getVillageGovernment(),
       security: getVillageSecurity(population),

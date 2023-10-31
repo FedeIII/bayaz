@@ -64,6 +64,17 @@
   text-align: start;
 }
 
+.traitColumns {
+  margin: 0;
+  column-count: 2;
+  text-align: start;
+  text-wrap: nowrap;
+}
+
+.traitItem {
+  margin: 0 8px 0 0;
+}
+
 .village {
   background: linear-gradient(
       rgba(200, 200, 200, 0.2),

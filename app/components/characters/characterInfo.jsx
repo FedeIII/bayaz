@@ -1,6 +1,7 @@
 import { t } from '~/domain/translations';
 
 import charactersStyles from '~/components//characters/characters.module.css';
+import { Fragment } from 'react';
 
 export function CharacterInfo(props) {
   const {
@@ -17,13 +18,19 @@ export function CharacterInfo(props) {
     talent,
   } = props;
 
+  const nameParts = name.split(' ');
+
   return (
     <div className={charactersStyles.container}>
       <h1 className={charactersStyles.title}>
-        <span className={charactersStyles.titleCapital}>
-          {name.slice(0, 1)}
-        </span>
-        {name.slice(1)}
+        {nameParts.map(part => (
+          <Fragment key={part}>
+            <span className={charactersStyles.titleCapital}>
+              {part.slice(0, 1)}
+            </span>
+            {part.slice(1)}{' '}
+          </Fragment>
+        ))}
       </h1>
 
       <hr className={charactersStyles.sectionDivider} />
