@@ -6,15 +6,18 @@
   flex-direction: column;
 }
 
+.content {
+}
+
 .verticalSections {
   display: flex;
   flex-direction: row;
 }
 
 .imageContainer {
-  flex-basis: 50%;
-  flex-grow: 1;
-  flex-shrink: 0;
+  float: left;
+  width: 50%;
+  margin: 0 32px 32px 0;
 }
 
 .image {
@@ -24,11 +27,8 @@
 }
 
 .info {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 50%;
-  flex-grow: 0;
   padding: 0 5%;
+  text-align: justify;
 }
 
 .title {
@@ -44,7 +44,6 @@
 
 .sectionDivider {
   border-color: var(--color-x-pale);
-  width: 100%;
 }
 
 .subtitle {

@@ -5,8 +5,12 @@ import { TOWN, getPopulation } from '~/domain/places/places';
 import {
   getTownAccommodation,
   getTownAccommodationTranslation,
+  getTownCalamity,
   getTownCommerce,
   getTownGovernment,
+  getTownKnownFor,
+  getTownPlaceCharacteristics,
+  getTownRaceRelationships,
   getTownReligion,
   getTownSecurity,
   getTownSecurityTranslation,
@@ -28,6 +32,10 @@ function Town() {
     security = {},
     commerce,
     religion = {},
+    raceRelationships,
+    placeCharacteristics,
+    knownFor,
+    calamity,
   } = place;
 
   useEffect(() => {
@@ -37,6 +45,10 @@ function Town() {
     const security = getTownSecurity(population);
     const commerce = getTownCommerce();
     const religion = getTownReligion();
+    const raceRelationships = getTownRaceRelationships();
+    const placeCharacteristics = getTownPlaceCharacteristics();
+    const knownFor = getTownKnownFor();
+    const calamity = getTownCalamity();
 
     setPlace(prevPlace => ({
       ...prevPlace,
@@ -47,6 +59,10 @@ function Town() {
       security,
       commerce,
       religion,
+      raceRelationships,
+      placeCharacteristics,
+      knownFor,
+      calamity,
     }));
   }, []);
 
@@ -55,7 +71,7 @@ function Town() {
       <Link to="../" className={menuStyles.backButton}>
         {'<<'} Volver
       </Link>
-      <div className={styles.verticalSections}>
+      <div className={styles.content}>
         <div className={styles.imageContainer}>
           <a href="/images/places/village/village1.png" target="_blank">
             <img
@@ -96,7 +112,7 @@ function Town() {
           <div className={styles.trait}>
             <span>
               <span className={styles.traitTitle}>Gobierno:</span>{' '}
-              {t(government)}
+              {t(government?.[0])}. {government?.[1]}
             </span>
           </div>
 
@@ -117,42 +133,86 @@ function Town() {
 
           <hr className={styles.sectionDivider} />
           <div className={styles.trait}>
+            <span className={styles.traitTitle}>Religión:</span>{' '}
+            <div className={styles.verticalSections}>
+              {!!religion?.temple && (
+                <ul className={styles.traitList}>
+                  Templos:{' '}
+                  {Array.from(Array(religion.temple), () => {
+                    const deity = random.split(
+                      NPC_DEITIES.filter(d => d[1] !== 'None')
+                    );
+                    return (
+                      <li key={deity}>
+                        {random.split(NPC_DEITIES_NAMES[deity])} ({t(deity)})
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+              {!!religion?.shrine && (
+                <ul className={styles.traitList}>
+                  Santuarios:{' '}
+                  {Array.from(Array(religion.shrine), () => {
+                    const deity = random.split(
+                      NPC_DEITIES.filter(d => d[1] !== 'None')
+                    );
+                    return (
+                      <li key={deity}>
+                        {random.split(NPC_DEITIES_NAMES[deity])} ({t(deity)})
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+          </div>
+
+          <hr className={styles.sectionDivider} />
+          <div className={styles.trait}>
             <span>
-              <span className={styles.traitTitle}>Religión:</span>{' '}
-              <div className={styles.verticalSections}>
-                {!!religion?.temple && (
-                  <ul className={styles.traitList}>
-                    Templos:{' '}
-                    {Array.from(Array(religion.temple), () => {
-                      const deity = random.split(
-                        NPC_DEITIES.filter(d => d[1] !== 'None')
-                      );
-                      return (
-                        <li key={deity}>
-                          {random.split(NPC_DEITIES_NAMES[deity])} ({t(deity)})
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-                {!!religion?.shrine && (
-                  <ul className={styles.traitList}>
-                    Santuarios:{' '}
-                    {Array.from(Array(religion.shrine), () => {
-                      const deity = random.split(
-                        NPC_DEITIES.filter(d => d[1] !== 'None')
-                      );
-                      return (
-                        <li key={deity}>
-                          {random.split(NPC_DEITIES_NAMES[deity])} ({t(deity)})
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
+              <span className={styles.traitTitle}>Relaciones entre razas:</span>{' '}
+              {raceRelationships}
             </span>
           </div>
+
+          {!!placeCharacteristics && (
+            <>
+              <hr className={styles.sectionDivider} />
+              <div className={styles.trait}>
+                <span>
+                  <span className={styles.traitTitle}>
+                    Características destacadas:
+                  </span>{' '}
+                  {placeCharacteristics}
+                </span>
+              </div>
+            </>
+          )}
+
+          {!!knownFor && (
+            <>
+              <hr className={styles.sectionDivider} />
+              <div className={styles.trait}>
+                <span>
+                  <span className={styles.traitTitle}>Conocido por:</span>{' '}
+                  {knownFor}
+                </span>
+              </div>
+            </>
+          )}
+
+          {!!calamity && (
+            <>
+              <hr className={styles.sectionDivider} />
+              <div className={styles.trait}>
+                <span>
+                  <span className={styles.traitTitle}>Desgracia actual:</span>{' '}
+                  {calamity}
+                </span>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

@@ -1,6 +1,15 @@
 import { t } from '~/domain/translations';
 import random from '../random';
-import { CITY, COMMERCE, GOVERNMENTS } from './places';
+import {
+  CITY,
+  COMMERCE,
+  GOVERNMENTS,
+  GOVERNMENT_SITUATION,
+  PLACE_CALAMITY,
+  PLACE_CARACTERISTICS,
+  PLACE_KNOWN_FOR,
+  RACE_RELATIONSHIPS,
+} from './places';
 
 export function getCityAccommodation() {
   const numberOfTaverns = random.invExp(...CITY.taverns);
@@ -13,10 +22,10 @@ export function getCityAccommodationTranslation(accommodation = []) {
 }
 
 export function getCityGovernment() {
-  return random.split(GOVERNMENTS);
+  return [random.split(GOVERNMENTS), random.split(GOVERNMENT_SITUATION)];
 }
 
-export function getTownSecurity(population) {
+export function getCitySecurity(population) {
   return random.roundTo(
     10,
     random.linearUniform({
@@ -59,4 +68,29 @@ export function getCityReligion() {
       [33, 4],
     ]),
   };
+}
+
+export function getCityRaceRelationships() {
+  return random.split(RACE_RELATIONSHIPS);
+}
+
+export function getCityPlaceCharacteristics() {
+  return random.split([
+    [50, null],
+    [50, random.element(PLACE_CARACTERISTICS)],
+  ]);
+}
+
+export function getCityKnownFor() {
+  return random.split([
+    [50, null],
+    [50, random.element(PLACE_KNOWN_FOR)],
+  ]);
+}
+
+export function getCityCalamity() {
+  return random.split([
+    [50, null],
+    [50, random.split(PLACE_CALAMITY)],
+  ]);
 }
