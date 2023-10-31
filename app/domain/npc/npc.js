@@ -1,14 +1,22 @@
 import random, { randomInteger } from '../random';
 import { t } from '../translations';
 import {
+  randomCentaurName,
   randomDragonbornName,
   randomDwarfName,
   randomElfName,
+  randomFairyName,
   randomGnomeName,
+  randomGoblinName,
   randomHalflingName,
   randomHumanName,
   randomHumanSurname,
+  randomKoboldName,
+  randomKoboldSurname,
+  randomMinotaurName,
   randomOrcName,
+  randomSatyrName,
+  randomTieflingSurname,
 } from './attrs/comboNpcNames';
 import {
   NPC_BODY,
@@ -75,7 +83,9 @@ function getRandomName(race, gender) {
     : namesOption;
 
   let namesGroup;
-  if (NPC_NAMES[tablesOption].tables.length === 1) {
+  if (!NPC_NAMES[tablesOption]) {
+    namesGroup == null;
+  } else if (NPC_NAMES[tablesOption].tables.length === 1) {
     namesGroup = NPC_NAMES[tablesOption].tables;
   } else {
     namesGroup = NPC_NAMES[tablesOption].tables.filter(
@@ -89,8 +99,11 @@ function getRandomName(race, gender) {
   }
 
   let randomName;
-  const names = random.element(namesGroup).table;
-  randomName = random.element(names).result;
+
+  if (namesGroup) {
+    const names = random.element(namesGroup).table;
+    randomName = random.element(names).result;
+  }
 
   if (tablesOption === 'Elf') {
     const surenamesGroup = NPC_NAMES[tablesOption].tables[3];
@@ -134,6 +147,39 @@ function getRandomName(race, gender) {
       randomName,
       randomHumanName(gender) + ' ' + surname,
     ]);
+  }
+
+  if (tablesOption === 'Lizardfolk') {
+    randomName.replace(/ \(.+\)/, '');
+    const surname = randomKoboldSurname();
+    return random.element([
+      randomName,
+      randomKoboldName(gender) + ' ' + surname,
+    ]);
+  }
+
+  if (tablesOption === 'Tiefling') {
+    randomName += ' ' + randomTieflingSurname();
+  }
+
+  if (tablesOption === 'Goblin') {
+    return randomGoblinName(gender);
+  }
+
+  if (tablesOption === 'Satyr') {
+    return randomSatyrName(gender);
+  }
+
+  if (tablesOption === 'Fairy') {
+    return randomFairyName(gender);
+  }
+
+  if (tablesOption === 'Minotaur') {
+    return randomMinotaurName(gender);
+  }
+
+  if (tablesOption === 'Centaur') {
+    return randomCentaurName(gender);
   }
 
   return randomName;
