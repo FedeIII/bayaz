@@ -1,79 +1,34 @@
 import { useEffect, useState } from 'react';
 import { Link } from '@remix-run/react';
 
-import random from '~/domain/random';
-import { VILLAGE, getPopulation } from '~/domain/places';
+import { VILLAGE, getPopulation } from '~/domain/places/places';
+import {
+  getVillageAccommodation,
+  getVillageGovernment,
+  getVillageReligion,
+  getVillageReligionTranslation,
+  getVillageSecurity,
+} from '~/domain/places/village';
 
 import styles from '~/components/places.module.css';
 import menuStyles from '~/components/menus.module.css';
 
-const noOp = () => {};
-
-function getAccommodation(population) {
-  return population > VILLAGE.minPopulationForGuesthouse
-    ? random.split([
-        [50, 'Random guesthouse name'],
-        [50, 'Random inn name'],
-      ])
-    : null;
-}
-
-function getSecurity(population) {
-  const security = {};
-
-  const securityAmount = random.roundTo(
-    1,
-    random.linearUniform({
-      x: VILLAGE.population,
-      y: VILLAGE.security,
-      t: population,
-    })
-  );
-
-  random.split([
-    [50, () => (security.guards = securityAmount)],
-    [50, () => (security.militia = securityAmount)],
-  ]);
-
-  return security;
-}
-
-function getReligion() {
-  const religion = {
-    temple: 0,
-    shrine: 0,
-  };
-  random.split([
-    [50, noOp],
-    [25, () => (religion.temple += 1)],
-    [25, () => (religion.shrine += 1)],
-  ]);
-  random.split([
-    [50, noOp],
-    [25, () => (religion.temple += 1)],
-    [25, () => (religion.shrine += 1)],
-  ]);
-  return religion;
-}
-
-function getAccommodationTranslation(accommodation) {
-  return accommodation;
-}
-
-function getReligionTranslation(religion) {
-  const { temple, shrine } = religion;
-
-  return (
-    <>
-      {temple === 2 ? 'Dos templos' : temple === 1 ? 'Un templo' : null}
-      {temple && shrine ? ' y ' : null}
-      {shrine === 2 ? 'Dos santuarios' : shrine === 1 ? 'Un santuario' : null}
-    </>
-  );
-}
+export const links = () => [{ rel: 'stylesheet', href: styles }];
 
 function Village() {
-  const [place, setPlace] = useState({ config: null });
+  const [place, setPlace] = useState({});
+
+  useEffect(() => {
+    setPlace({
+      name: 'Placeholder Name',
+      population: getPopulation(VILLAGE),
+      accommodation: getVillageAccommodation(population),
+      government: getVillageGovernment(),
+      security: getVillageSecurity(population),
+      religion: getVillageReligion(),
+    });
+  }, []);
+
   const {
     name,
     population,
@@ -83,54 +38,79 @@ function Village() {
     religion = {},
   } = place;
 
-  useEffect(() => {
-    const population = getPopulation(VILLAGE);
-    const accommodation = getAccommodation(population);
-    const government = random.split([
-      [50, true],
-      [50, false],
-    ]);
-    const security = getSecurity(population);
-    const religion = getReligion();
-
-    setPlace((prevPlace) => ({
-      ...prevPlace,
-      name: 'Placeholder Name',
-      population,
-      accommodation,
-      government,
-      security,
-      religion,
-    }));
-  }, [setPlace]);
-
   return (
-    <div className={styles.container}>
+    <>
       <Link to="../" className={menuStyles.backButton}>
         {'<<'} Volver
       </Link>
-      <div className={styles.data}>Aldea</div>
-      <div className={styles.data}>{name}</div>
-      <div className={styles.data}>Población: ~{population}</div>
-      {!!accommodation && (
-        <div className={styles.data}>
-          Alojamientos: {getAccommodationTranslation(accommodation)}
+      <div className={styles.verticalSections}>
+        <div className={styles.imageContainer}>
+          <a href="/images/places/village/village1.png" target="_blank">
+            <img
+              src="/images/places/village/village1.png"
+              className={styles.image}
+            />
+          </a>
         </div>
-      )}
-      <div className={styles.data}>
-        Gobierno: Alguacil {!government && 'no '}presente
-      </div>
-      <div className={styles.data}>
-        <span>Seguridad: </span>
-        {security.guards && <span>{security.guards} guardias</span>}
-        {security.militia && <span>{security.militia} milicias</span>}
-      </div>
-      {!!(religion.temple || religion.shrine) && (
-        <div className={styles.data}>
-          Religión: {getReligionTranslation(religion)}
+
+        <div className={styles.info}>
+          <h1 className={styles.title}>
+            <span className={styles.titleCapital}>{name?.slice(0, 1)}</span>
+            {name?.slice(1)}
+          </h1>
+
+          <hr className={styles.sectionDivider} />
+          <div className={styles.subtitle}>
+            <span>Aldea</span>
+            <span>
+              <span className={styles.traitTitle}>Población:</span> ≈
+              {population}
+            </span>
+          </div>
+
+          {!!accommodation && (
+            <>
+              <hr className={styles.sectionDivider} />
+              <div className={styles.trait}>
+                <span>
+                  <span className={styles.traitTitle}>Alojamientos:</span>{' '}
+                  {accommodation}
+                </span>
+              </div>
+            </>
+          )}
+
+          <hr className={styles.sectionDivider} />
+          <div className={styles.trait}>
+            <span>
+              <span className={styles.traitTitle}>Gobierno:</span> Alguacil{' '}
+              {!government && 'no '}presente
+            </span>
+          </div>
+
+          <hr className={styles.sectionDivider} />
+          <div className={styles.trait}>
+            <span>
+              <span className={styles.traitTitle}>Seguridad:</span>{' '}
+              {security.guards && <span>{security.guards} guardias</span>}
+              {security.militia && <span>{security.militia} milicias</span>}
+            </span>
+          </div>
+
+          {!!(religion.temple || religion.shrine) && (
+            <>
+              <hr className={styles.sectionDivider} />
+              <div className={styles.trait}>
+                <span>
+                  <span className={styles.traitTitle}>Religión:</span>{' '}
+                  {getVillageReligionTranslation(religion)}
+                </span>
+              </div>
+            </>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
 

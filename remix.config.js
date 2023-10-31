@@ -1,6 +1,12 @@
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
   serverBuildTarget: 'vercel',
+  // Specify where Remix should look for static assets
+  // Adjust the paths as needed based on your project structure
+  // This is an example assuming your images are in the 'public' folder
+  staticFiles: {
+    include: ['public/**/*'],
+  },
   // When running locally in development mode, we use the built in remix
   // server. This does not understand the vercel lambda module format,
   // so we default back to the standard build output.

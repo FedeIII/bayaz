@@ -40,6 +40,23 @@ export function t(key) {
     Spirit: 'Espiritu',
     Space: 'Espacio',
     None: 'Ninguno',
+    DEMOCRACY: 'Democracia',
+    DICTATORSHIP: 'Dictadura',
+    FEUDALISM: 'Feudal',
+    GERONTOCRACY: 'Gerontocracia',
+    MAGOCRACY: 'Magocracia',
+    MILITOCRACY: 'Militocracia',
+    OLIGARCHY: 'Oligarquía',
+    MERITOCRACY: 'Meritocracia',
+    PLUTOCRACY: 'Plutarquía',
+    REPUBLIC: 'República',
+    TEOCRACY: 'Teocracia',
+    FISHING: 'Pesca',
+    TRADING: 'Bienes manufacturados',
+    WOODWORK: 'Carpintería',
+    STEELWORK: 'Herrería',
+    MAGIC: 'Magia',
+    MINING: 'Minería',
   }[key];
 
   if (translation) return translation;

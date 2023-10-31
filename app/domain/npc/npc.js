@@ -141,7 +141,8 @@ function getRandomStressBehavior() {
 }
 
 function getRandomDeity(deitiesFilter) {
-  if (deitiesFilter.length === 0) return random.split(NPC_DEITIES);
+  if (!deitiesFilter || deitiesFilter.length === 0)
+    return random.split(NPC_DEITIES);
   return random.split(
     NPC_DEITIES.filter(([_, deity]) => deitiesFilter.includes(deity))
   );

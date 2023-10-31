@@ -1,6 +1,68 @@
 .container {
-  width: 80%;
-  margin: auto;
+  width: 80vw;
+  min-height: 90vh;
+  margin: 1% auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.verticalSections {
+  display: flex;
+  flex-direction: row;
+}
+
+.imageContainer {
+  flex-basis: 50%;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  object-position: 25% 25%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  flex-grow: 0;
+  padding: 0 5%;
+}
+
+.title {
+  color: var(--color-x-pale);
+  font-size: 20px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.titleCapital {
+  font-size: 24px;
+}
+
+.sectionDivider {
+  border-color: var(--color-x-pale);
+  width: 100%;
+}
+
+.subtitle {
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.trait {
+  display: flex;
+}
+
+.traitTitle {
+  color: var(--color-x-pale);
+}
+
+.traitList {
+  text-align: start;
 }
 
 .village {
