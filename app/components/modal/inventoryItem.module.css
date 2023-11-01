@@ -6,7 +6,7 @@
   border-color: black;
   border-style: groove;
   border-inline-width: 3px;
-  z-index: 2;
+  z-index: 3;
   border-start-start-radius: 5px;
   border-start-end-radius: 5px;
   border-end-end-radius: 10px;
@@ -22,7 +22,7 @@
   border-color: black;
   border-style: groove;
   border-inline-width: 3px;
-  z-index: 2;
+  z-index: 3;
   border-start-start-radius: 5px;
   border-start-end-radius: 5px;
   border-end-end-radius: 10px;
@@ -39,7 +39,7 @@
   left: 0;
   background-color: var(--color-dark);
   opacity: 0.25;
-  z-index: 2;
+  z-index: 3;
 }
 
 .item {

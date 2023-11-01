@@ -31,20 +31,6 @@ function Note(props) {
       className={styles.note}
       style={{ left: position[0], top: position[1] }}
     >
-      <button
-        type="button"
-        className={styles.handle}
-        onMouseDown={() => onPick(id)}
-      >
-        ░
-      </button>
-      <button
-        type="button"
-        className={styles.close}
-        onClick={() => onDelete(id)}
-      >
-        ✕
-      </button>
       <textarea
         ref={ref}
         className={`${styles.noteText} ${selected && styles.selectedNote}`}
@@ -55,6 +41,21 @@ function Note(props) {
         onChange={e => setText(e.target.value)}
         onInput={textareaCallback}
       ></textarea>
+      <button
+        type="button"
+        className={styles.handle}
+        onMouseDown={() => onPick(id)}
+      >
+        ░
+      </button>
+      <button
+        type="button"
+        className={styles.close}
+        onMouseDown={e => e.preventDefault()}
+        onClick={() => onDelete(id)}
+      >
+        ✕
+      </button>
     </div>
   );
 }

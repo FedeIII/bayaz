@@ -257,7 +257,7 @@ export const SKILLS_EXPLANATION = {
           className={styles.modalButton}
           onClick={onCreateNotesClick}
         >
-          Crear notas
+          Crear nota
         </button>
       </div>
     );

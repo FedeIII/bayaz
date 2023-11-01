@@ -12,8 +12,8 @@
   line-height: 1.73;
   font-family: fantasy;
   hyphens: auto;
-  background-color: white;
-  border: 1px solid var(--color-blue-ink);
+  background-color: transparent;
+  border: none;
   margin: 4px 0px 0px 0px;
   border-radius: 5px;
   width: 100%;
@@ -21,7 +21,12 @@
 }
 
 .noteText:focus {
-  
+  background-color: white;
+  border: 1px solid var(--color-blue-ink);
+}
+
+.noteText:focus ~ button {
+  display: block;
 }
 
 .selectedNote {
@@ -30,7 +35,8 @@
 }
 
 .close {
-  right: -8px;
+  display: none;
+  right: -14px;
   top: -3px;
   position: absolute;
   text-align: right;
@@ -52,6 +58,7 @@
 }
 
 .handle {
+  display: none;
   left: -7px;
   top: -4px;
   position: absolute;
