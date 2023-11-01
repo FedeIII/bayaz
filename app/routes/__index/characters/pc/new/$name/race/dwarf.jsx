@@ -3,8 +3,9 @@ import { Form, useLoaderData, useTransition } from '@remix-run/react';
 import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
-import { pcItem, translateItem } from '~/domain/equipment/equipment';
+import { pcItem } from '~/domain/equipment/equipment';
 import { TOOLS } from '~/domain/equipment/tools';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/characters/characters.module.css';
 
@@ -65,7 +66,7 @@ function PcDwarfSkills() {
               value={tool.name}
               onChange={() => setIsToolSelected(true)}
             />
-            {translateItem(tool.name)}
+            {t(tool.name)}
           </label>
         ))}
       </p>

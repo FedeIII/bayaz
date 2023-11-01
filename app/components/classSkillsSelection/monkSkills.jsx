@@ -1,8 +1,8 @@
-import { translateItem } from '~/domain/equipment/equipment';
 import {
   getAllArtisansTools,
   getAllMusicalInstruments,
 } from '~/domain/equipment/tools';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/characters/characters.module.css';
 
@@ -18,7 +18,7 @@ function MonkSkills(props) {
           className={styles.skillLabel}
         >
           <input type="radio" name="items[]" id={tool.name} value={tool.name} />
-          {translateItem(tool.name)}
+          {t(tool.name)}
         </label>
       ))}
     </p>

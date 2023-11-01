@@ -141,7 +141,6 @@ function ShowStatValues(props) {
 function PcStats() {
   const { pc } = useLoaderData();
   const {
-    pClass,
     name,
     race,
     subrace,
@@ -254,15 +253,16 @@ function PcStats() {
                 {!!totalExtraPoints && (
                   <>
                     <span>{signed(totalExtraPoints)}</span>
-                    {Array(statExtraPoints).fill(
+                    {Array.from(Array(statExtraPoints), (_, i) => (
                       <input
+                        key={i}
                         readOnly
                         type="text"
                         name="extra-points[]"
                         value={stat.name}
                         hidden
                       />
-                    )}
+                    ))}
                   </>
                 )}
                 {showPlus1Button && (

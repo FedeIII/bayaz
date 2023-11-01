@@ -2794,20 +2794,34 @@ export function getDamageDice(pc, w) {
   return damage;
 }
 
+function isTwoWeaponFighterSecondWeapon(pc, weapon, weaponIndex) {
+  const { subtype, properties: { light } = {} } = weapon;
+  return (
+    getAllFightingStyles(pc).includes('two-weapon-fighting') &&
+    weaponIndex === 1 &&
+    subtype === 'simpleMelee' &&
+    light
+  );
+}
+
 export function getDamageBonus(pc, w, weaponIndex) {
   const {
     pClass,
     items: { weapons },
   } = pc;
-  const { subtype, properties: { finesse, light, twoHanded } = {} } = getItem(
-    w.name
-  );
+  const weapon = getItem(w.name);
+  const { subtype, properties: { finesse, light, twoHanded } = {} } = weapon;
   let statMod = 0;
 
   const strMod = getStatMod(getStat(pc, 'str'));
   const dexMod = getStatMod(getStat(pc, 'dex'));
 
-  if (weaponIndex === 1 && subtype === 'simpleMelee' && light) {
+  if (
+    weaponIndex === 1 &&
+    subtype === 'simpleMelee' &&
+    light &&
+    !isTwoWeaponFighterSecondWeapon(pc, weapon, weaponIndex)
+  ) {
     return 0;
   }
 
@@ -2825,9 +2839,10 @@ export function getDamageBonus(pc, w, weaponIndex) {
       (pClass === 'palading' && getPaladinFightingStyle(pc) === 'dueling')) &&
     isMeleeWeapon(w) &&
     !twoHanded &&
-    (!weapons[0] || weapons[0].name === null)
-  )
-    return (statMod += 2);
+    (!weapons?.[0] || weapons[0].name === null)
+  ) {
+    statMod += 2;
+  }
 
   return statMod;
 }
@@ -3138,6 +3153,20 @@ export const BASE_CHARACTER = {
   money: [0, 0, 0],
   classAttrs: {
     skills: [],
+  },
+  items: {
+    weapons: [],
+    equipment: {
+      armor: null,
+      shield: null,
+      ammunition: [],
+      others: [],
+    },
+    treasure: {
+      weapons: [],
+      armors: [],
+      others: [],
+    },
   },
 };
 

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
 import { displayDamage } from '~/domain/display';
-import { translateItem } from '~/domain/equipment/equipment';
+import { t } from '~/domain/translations';
 import { getItemArmorClass, translateMoney } from '~/domain/characters';
 
 import styles from './inventoryItem.module.css';
@@ -12,7 +12,7 @@ import { getSelfLeftX, getSelfTopY } from './modalPosition';
 export function ItemModalContent(props) {
   const { pc, item, isForPlayers } = props;
 
-  const subtypeTranslation = item.subtype && translateItem(item.subtype);
+  const subtypeTranslation = item.subtype && t(item.subtype);
   const isWeapon = item.type === 'weapon';
   const isArmor = item.type === 'armor';
 

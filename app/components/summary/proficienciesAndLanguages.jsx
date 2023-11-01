@@ -4,7 +4,7 @@ import {
   translateLanguage,
 } from '~/domain/characters';
 import { getItemDisplayList } from '~/domain/display';
-import { translateItem } from '~/domain/equipment/equipment';
+import { t } from '~/domain/translations';
 import { unique } from '~/utils/insert';
 
 import styles from '~/components/sheet.module.css';
@@ -27,7 +27,7 @@ function ProficienciesAndLanguages(props) {
         {getItemDisplayList(unique(getItemProficiencies(pc))).map(
           (itemName, i, proficiencies) => (
             <strong className={styles.trait} key={itemName}>
-              {translateItem(itemName)}
+              {t(itemName)}
               {i + 1 < proficiencies.length && ', '}
             </strong>
           )

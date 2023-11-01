@@ -257,19 +257,10 @@ export function getStudentOfWar(pc) {
 }
 
 export function getAttackBonusForFightingStyles(pc, weapon, weaponIndex) {
-  const {
-    subtype,
-    properties: { light },
-  } = getItem(weapon.name);
   const fightingStyles = getAllFightingStyles(pc);
 
-  if (fightingStyles.includes('archery') && isRangedWeapon(weapon)) return 2;
-  if (
-    fightingStyles.includes('two-weapon-fighting') &&
-    weaponIndex === 1 &&
-    subtype === 'simpleMelee' &&
-    light
-  )
-    return getDamageBonus(pc, weapon);
+  if (fightingStyles.includes('archery') && isRangedWeapon(weapon)) {
+    return 2;
+  }
   return 0;
 }

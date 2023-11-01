@@ -2,10 +2,11 @@ import { ALL_TRAITS, BASE_CHARACTER, getSkillExplanation } from './characters';
 import { MONSTERS } from './encounters/monsterList';
 import { translateMonster } from './encounters/monsterTranslations';
 import { Monster, getSpecialSkills } from './encounters/monsters';
-import { getAllItems, translateItem } from './equipment/equipment';
+import { getAllItems } from './equipment/equipment';
 import { SPELL_LIST } from './spells/spellList';
 import { translateSchool } from './spells/spellTranslations';
 import { translateSpell } from './spells/spells';
+import { t } from './translations';
 
 export const MAX_RESULTS = 20;
 
@@ -36,7 +37,7 @@ function isItemMatch(itemBuilder, search) {
     item.type,
     item.subtype,
     item.damage?.[1],
-    translateItem(item.subtype),
+    t(item.subtype),
   ].some(str => str?.toLowerCase().includes(search));
 }
 

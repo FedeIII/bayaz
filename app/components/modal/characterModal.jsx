@@ -24,13 +24,13 @@ export function MonsterContent(props) {
       ['Armor Class']: ac,
       ['Hit Points']: hp,
       Speed,
-      stats,
+      stats = {},
       Skills,
       Senses,
       Languages,
       Challenge,
-      actions,
-      legendaryActions,
+      actions = {},
+      legendaryActions = {},
     },
   } = character;
 
@@ -70,7 +70,8 @@ export function MonsterContent(props) {
                 </strong>
               </div>
               <div>
-                {stats[stat]} ({increment(getStatMod(stats[stat]))})
+                {stats[stat] || '-'} (
+                {!!stats[stat] && increment(getStatMod(stats[stat]))})
               </div>
             </div>
           ))}

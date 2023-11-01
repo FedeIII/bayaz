@@ -13,8 +13,6 @@ import {
 import styles from '~/components/places.module.css';
 import menuStyles from '~/components/menus.module.css';
 
-export const links = () => [{ rel: 'stylesheet', href: styles }];
-
 function Village() {
   const [place, setPlace] = useState({});
 

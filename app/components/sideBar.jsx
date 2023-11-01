@@ -1,5 +1,5 @@
 import { Link } from '@remix-run/react';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from '~/components/app.module.css';
 import MenuContext from '~/components/contexts/menuContext';
 import MonstersContext from '~/components/contexts/monstersContext';
@@ -116,6 +116,7 @@ function getMenuItems(partyContext = {}, monsterContext = {}, isForPlayers) {
 
   return items;
 }
+
 export function SideBar(props) {
   const { isForPlayers } = props;
 
@@ -124,7 +125,11 @@ export function SideBar(props) {
   const monsterContext = useContext(MonstersContext) || {};
   const { hasMenu } = menuContext;
 
-  const menuItems = getMenuItems(partyContext, monsterContext, isForPlayers);
+  const [menuItems, setMenuItems] = useState([]);
+
+  useEffect(() => {
+    setMenuItems(getMenuItems(partyContext, monsterContext, isForPlayers));
+  }, [partyContext, monsterContext, isForPlayers]);
 
   if (!hasMenu) return null;
 

@@ -2,10 +2,11 @@ import { Fragment, useEffect, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { getExtraWeapons, hasExtraWeapons } from '~/domain/characters';
-import { getItem, noItem, translateItem } from '~/domain/equipment/equipment';
+import { getItem, noItem } from '~/domain/equipment/equipment';
 import { getAttacks, getSpecialAttacks, increment } from '~/domain/display';
 import { InventoryItem } from '../modal/inventoryItem';
 import { SkillItem } from '../modal/skillItem';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -44,7 +45,7 @@ function WeaponModalContent(props) {
               <option value={weapon.name}>{weapon.translation}</option>
               {getExtraWeapons(pc).map(extraWeapon => (
                 <option value={extraWeapon.name} key={extraWeapon.name}>
-                  {translateItem(extraWeapon.name)}
+                  {t(extraWeapon.name)}
                 </option>
               ))}
             </select>

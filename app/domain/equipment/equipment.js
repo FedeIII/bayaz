@@ -45,27 +45,6 @@ export function getItem(itemName) {
   return itemBuilder({ amount: 1 });
 }
 
-export function translateItem(itemName) {
-  if (itemName === 'simpleWeapons') return 'Armas simples';
-  if (itemName === 'simpleMelee') return 'Arma simple c/c';
-  if (itemName === 'simpleRanged') return 'Arma simple a distancia';
-  if (itemName === 'martialWeapons') return 'Armas marciales';
-  if (itemName === 'martialMelee') return 'Arma marcial c/c';
-  if (itemName === 'martialRanged') return 'Arma marcial a distancia';
-  if (itemName === 'lightArmors') return 'Armaduras ligeras';
-  if (itemName === 'mediumArmors') return 'Armaduras medias';
-  if (itemName === 'heavyArmors') return 'Armaduras pesadas';
-  if (itemName === 'light') return 'Armadura ligera';
-  if (itemName === 'medium') return 'Armadura media';
-  if (itemName === 'heavy') return 'Armadura pesada';
-
-  const item = getItem(itemName);
-
-  if (item) return item.translation;
-
-  return null;
-}
-
 export function noItem() {
   return { name: null, translation: 'no item' };
 }

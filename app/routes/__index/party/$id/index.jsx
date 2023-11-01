@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
@@ -211,8 +211,16 @@ function PartyInfo() {
     partyContext.deletePcNamesState?.();
   }
 
-  const activeSession = getActiveSession(party);
-  const isActiveSessionFromThisParty = id === partyContext.partyIdState;
+  const [activeSession, setActiveSession] = useState(getActiveSession(party));
+  useEffect(() => {
+    setActiveSession(getActiveSession(party));
+  }, [party]);
+
+  const [isActiveSessionFromThisParty, setIsActiveSessionFromThisParty] =
+    useState(false);
+  useEffect(() => {
+    setIsActiveSessionFromThisParty(id === partyContext.partyIdState);
+  }, [id, partyContext.partyIdState]);
 
   return (
     <Form method="post">

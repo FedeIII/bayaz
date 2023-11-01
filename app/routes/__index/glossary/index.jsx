@@ -35,23 +35,12 @@ function Sidebar(props) {
                 className={`${cardStyles.buttonCard} ${cardStyles.buttonCardBig}`}
                 value={filters.search}
                 onChange={onSearchChange}
-                defaultValue=""
               />
             </label>
           </div>
         </div>
       </div>
     </div>
-  );
-}
-
-function getRefsForResults(searchResults) {
-  return Object.entries(searchResults).reduce(
-    (refs, [resultsGroup, results]) => ({
-      ...refs,
-      [resultsGroup]: results.map(() => []),
-    }),
-    {}
   );
 }
 
@@ -68,21 +57,13 @@ function Glossary() {
 
   const searchResults = useMemo(() => getSearchResults(search), [search]);
 
-  const [itemRefs, setItemRefs] = useState(
-    getRefsForResults(searchResults, refsList)
-  );
-
-  useEffect(() => {
-    setItemRefs(getRefsForResults(searchResults, refsList));
-  }, [searchResults]);
-
   const [
     skillModalContent,
     closeSkillModal,
     openSkillModal,
     selectedSkillRef,
     setSelectedSkillRef,
-  ] = useSkillItems(undefined, itemRefs);
+  ] = useSkillItems(undefined, refsList);
 
   const [
     itemModalContent,
@@ -90,7 +71,7 @@ function Glossary() {
     openItemModal,
     selectedItemRef,
     setSelectedItemRef,
-  ] = useInventoryItems(undefined, itemRefs);
+  ] = useInventoryItems(undefined, refsList);
 
   const [
     characterModalContent,
@@ -98,7 +79,7 @@ function Glossary() {
     openCharacterModal,
     selectedCharacterRef,
     setSelectedCharacterRef,
-  ] = useCharacterItems(itemRefs);
+  ] = useCharacterItems(refsList);
 
   const formRef = useRef(null);
 
@@ -147,7 +128,7 @@ function Glossary() {
                 {searchResults.spells.map((spell, i) => (
                   <li className={styles.sectionItem} key={spell.name}>
                     <SkillItem
-                      ref={itemRefs.spells[i]}
+                      ref={refsList.spells[i]}
                       traitName={spell.name}
                       trait="spell"
                       openModal={openSkillModal('spells', i)}
@@ -168,7 +149,7 @@ function Glossary() {
                 {searchResults.equipment.map((item, i) => (
                   <li className={styles.sectionItem} key={item.name}>
                     <InventoryItem
-                      ref={itemRefs.equipment[i]}
+                      ref={refsList.equipment[i]}
                       pItem={item}
                       isLast
                       openModal={openItemModal('equipment', i)}
@@ -189,7 +170,7 @@ function Glossary() {
                 {searchResults.traits.map(([traitName, trait], i) => (
                   <li className={styles.sectionItem} key={traitName}>
                     <SkillItem
-                      ref={itemRefs.traits[i]}
+                      ref={refsList.traits[i]}
                       traitName={traitName}
                       trait={trait}
                       openModal={openSkillModal('traits', i)}
@@ -209,7 +190,7 @@ function Glossary() {
                 {searchResults.monsters.map((monster, i) => (
                   <li className={styles.sectionItem} key={monster.name}>
                     <CharacterItem
-                      ref={itemRefs.monsters[i]}
+                      ref={refsList.monsters[i]}
                       character={Monster(monster.name)}
                       charSection="monsters"
                       charIndex={i}

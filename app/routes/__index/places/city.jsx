@@ -137,12 +137,12 @@ function City() {
               {!!religion?.temple && (
                 <ul className={styles.traitList}>
                   Templos:{' '}
-                  {Array.from(Array(religion.temple), () => {
+                  {Array.from(Array(religion.temple), (_, i) => {
                     const deity = random.split(
                       NPC_DEITIES.filter(d => d[1] !== 'None')
                     );
                     return (
-                      <li key={deity}>
+                      <li key={i}>
                         {random.split(NPC_DEITIES_NAMES[deity])} ({t(deity)})
                       </li>
                     );
@@ -152,12 +152,12 @@ function City() {
               {!!religion?.shrine && (
                 <ul className={styles.traitList}>
                   Santuarios:{' '}
-                  {Array.from(Array(religion.shrine), () => {
+                  {Array.from(Array(religion.shrine), (_, i) => {
                     const deity = random.split(
                       NPC_DEITIES.filter(d => d[1] !== 'None')
                     );
                     return (
-                      <li key={deity}>
+                      <li key={i}>
                         {random.split(NPC_DEITIES_NAMES[deity])} ({t(deity)})
                       </li>
                     );

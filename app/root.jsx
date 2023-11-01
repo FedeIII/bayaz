@@ -6,7 +6,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import { Analytics } from '@vercel/analytics/react';
 import { cssBundleHref } from '@remix-run/css-bundle';
 
 import { DndProvider } from 'react-dnd';
@@ -105,7 +104,6 @@ export default function App() {
                 <ScrollRestoration />
                 <Scripts />
                 <LiveReload />
-                <Analytics />
               </MonstersContext.Provider>
             </PartyContext.Provider>
           </MenuContext.Provider>

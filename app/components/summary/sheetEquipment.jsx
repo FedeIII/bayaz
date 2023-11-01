@@ -1,6 +1,7 @@
 import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
 import { displayMoneyAmount } from '~/domain/display';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
@@ -33,7 +34,7 @@ function ArmorModalContent(props) {
               <option value={armor.name}>{armor.translation}</option>
               {armors.map(extraArmor => (
                 <option value={extraArmor.name} key={extraArmor.name}>
-                  {translateItem(extraArmor.name)}
+                  {t(extraArmor.name)}
                 </option>
               ))}
             </select>

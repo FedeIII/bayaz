@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { translateItem } from '~/domain/equipment/equipment';
 import { getAllMusicalInstruments } from '~/domain/equipment/tools';
 import {
   getBardSpells,
   getBardSpellSlots,
   getBardTotalSpells,
 } from '~/domain/spells/bard';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/characters/characters.module.css';
 import { translateSpell } from '~/domain/spells/spells';
@@ -61,7 +61,7 @@ function BardSkills(props) {
                 })
               }
             />
-            {translateItem(instrument.name)}
+            {t(instrument.name)}
           </label>
         ))}
       </p>

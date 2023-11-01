@@ -24,7 +24,7 @@ import {
   getAllLightArmors,
   getAllMediumArmors,
 } from './equipment/armors';
-import { getItem, noItem, translateItem } from './equipment/equipment';
+import { getItem, noItem } from './equipment/equipment';
 import {
   getAllMartialMelee,
   getAllMartialRanged,
@@ -59,6 +59,7 @@ import {
   getRangerFightingStyle,
   translateRangerFightingStyle,
 } from './classes/ranger/ranger';
+import { t } from './translations';
 
 import sheetStyles from '~/components/sheet.module.css';
 
@@ -75,10 +76,7 @@ export function signed(num) {
 export function listItems(items) {
   return (
     items
-      .map(
-        item =>
-          (item.amount > 1 ? item.amount + 'x ' : '') + translateItem(item.name)
-      )
+      .map(item => (item.amount > 1 ? item.amount + 'x ' : '') + t(item.name))
       .join(', ') + '.'
   );
 }

@@ -260,6 +260,7 @@ function SelectedMonsters(props) {
               className={cardStyles.buttonCard}
               style={getMonsterPositionStyle(i, all.length)}
               onClick={() => removeMonsterFromEncounter(i)}
+              key={m.name + i}
             >
               {Monster(m).translation}
             </div>
@@ -312,8 +313,8 @@ function MonsterCatalog(props) {
           >
             <span className={styles.crTitle}>CR {crIndex}</span>
             <div className={styles.crColumnHeaders}>
-              {Array.from(Array(monstersByCr.length > 1 ? 2 : 1), () => (
-                <div className={styles.crXpCr}>
+              {Array.from(Array(monstersByCr.length > 1 ? 2 : 1), (_, i) => (
+                <div className={styles.crXpCr} key={i}>
                   <span className={styles.crXp}>xp</span>
                   {crIndex === 0 && <span className={styles.crCr}>CR</span>}
                 </div>
@@ -321,7 +322,7 @@ function MonsterCatalog(props) {
             </div>
           </div>
           <ul className={styles.crMonsters}>
-            {monstersByCr.map(monster => (
+            {monstersByCr.map((monster, i) => (
               <li
                 className={`${styles.monsterButton}`}
                 data-suitable={isMonsterSuitable(
@@ -333,7 +334,7 @@ function MonsterCatalog(props) {
                   partyMaxLevel
                 )}
                 onClick={() => addMonsterToEncounter(monster)}
-                key={monster.name}
+                key={monster.name + i}
               >
                 <div className={styles.monsterInfo}>
                   <span className={styles.monsterName}>
