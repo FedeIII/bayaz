@@ -113,7 +113,7 @@ function monsterDistribution() {
 }
 
 function roundTo(amoutToRoundTo, number) {
-  return Math.floor(number * (1 / amoutToRoundTo)) / (1 / amoutToRoundTo);
+  return Math.round(number * (1 / amoutToRoundTo)) / (1 / amoutToRoundTo);
 }
 
 function extractRandomElement(list) {

@@ -2,22 +2,23 @@ import { Link } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 
 import {
-  CITY,
+  TOWN,
   getPopulation,
   randomSettlementName,
 } from '~/domain/places/places';
 import {
-  getCityAccommodation,
-  getCityCalamity,
-  getCityCommerces,
-  getCityGovernment,
-  getCityKnownFor,
-  getCityPlaceCharacteristics,
-  getCityRaceRelationships,
-  getCityReligion,
-  getCitySecurity,
-  getCitySecurityTranslation,
-} from '~/domain/places/city';
+  getTownAccommodation,
+  getTownCalamity,
+  getTownCommerce,
+  getTownGovernment,
+  getTownKnownFor,
+  getTownMagicShops,
+  getTownPlaceCharacteristics,
+  getTownRaceRelationships,
+  getTownReligion,
+  getTownSecurity,
+  getTownSecurityTranslation,
+} from '~/domain/places/town';
 import { t } from '~/domain/translations';
 import { NPC_DEITIES, NPC_DEITIES_NAMES } from '~/domain/npc/attrs/npcFaith';
 import random from '~/domain/random';
@@ -25,7 +26,7 @@ import random from '~/domain/random';
 import styles from '~/components/places.module.css';
 import menuStyles from '~/components/menus.module.css';
 
-function City() {
+function Town() {
   const [place, setPlace] = useState({});
   const {
     name,
@@ -33,8 +34,9 @@ function City() {
     accommodation,
     government,
     security = {},
-    commerces,
+    commerce,
     religion = {},
+    magicShops,
     raceRelationships,
     placeCharacteristics,
     knownFor,
@@ -42,23 +44,24 @@ function City() {
   } = place;
 
   useEffect(() => {
-    const population = getPopulation(CITY);
+    const population = getPopulation(TOWN);
 
     setPlace(prevPlace => ({
       ...prevPlace,
       name: randomSettlementName(),
       population,
-      accommodation: getCityAccommodation(population),
-      government: getCityGovernment(),
-      security: getCitySecurity(population),
-      commerces: getCityCommerces(),
-      religion: getCityReligion(),
-      raceRelationships: getCityRaceRelationships(),
-      placeCharacteristics: getCityPlaceCharacteristics(),
-      knownFor: getCityKnownFor(),
-      calamity: getCityCalamity(),
+      accommodation: getTownAccommodation(population),
+      government: getTownGovernment(),
+      security: getTownSecurity(population),
+      commerce: getTownCommerce(),
+      religion: getTownReligion(),
+      magicShops: getTownMagicShops(population),
+      raceRelationships: getTownRaceRelationships(),
+      placeCharacteristics: getTownPlaceCharacteristics(),
+      knownFor: getTownKnownFor(),
+      calamity: getTownCalamity(),
     }));
-  }, [setPlace]);
+  }, []);
 
   return (
     <>
@@ -83,14 +86,14 @@ function City() {
 
           <hr className={styles.sectionDivider} />
           <div className={styles.subtitle}>
-            <span>Ciudad</span>
+            <span>Pueblo</span>
             <span>
               <span className={styles.traitTitle}>Población:</span> ≈
               {population}
             </span>
           </div>
 
-          {!!accommodation?.length && (
+          {!!accommodation && (
             <>
               <hr className={styles.sectionDivider} />
               <div className={styles.trait}>
@@ -118,15 +121,14 @@ function City() {
           <div className={styles.trait}>
             <span>
               <span className={styles.traitTitle}>Seguridad:</span>{' '}
-              {getCitySecurityTranslation(security)}
+              {getTownSecurityTranslation(security)}
             </span>
           </div>
 
           <hr className={styles.sectionDivider} />
           <div className={styles.trait}>
             <span>
-              <span className={styles.traitTitle}>Comercio:</span>{' '}
-              {commerces?.map(t).join(', ')}
+              <span className={styles.traitTitle}>Comercio:</span> {t(commerce)}
             </span>
           </div>
 
@@ -166,6 +168,18 @@ function City() {
               )}
             </div>
           </div>
+
+          {!!magicShops && (
+            <>
+              <hr className={styles.sectionDivider} />
+              <div className={styles.trait}>
+                <span>
+                  <span className={styles.traitTitle}>Tiendas arcanas:</span>{' '}
+                  {magicShops}
+                </span>
+              </div>
+            </>
+          )}
 
           <hr className={styles.sectionDivider} />
           <div className={styles.trait}>
@@ -218,4 +232,4 @@ function City() {
   );
 }
 
-export default City;
+export default Town;

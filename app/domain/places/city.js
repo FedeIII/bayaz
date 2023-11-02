@@ -9,13 +9,13 @@ import {
   PLACE_CARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
-  randomInnName,
+  randomInnNames,
 } from './places';
 
 export function getCityAccommodation() {
   const numberOfTaverns = random.invExp(...CITY.taverns);
 
-  return Array.from(Array(numberOfTaverns), randomInnName);
+  return randomInnNames(numberOfTaverns);
 }
 
 export function getCityGovernment() {
@@ -65,6 +65,17 @@ export function getCityReligion() {
       [33, 4],
     ]),
   };
+}
+
+export function getCityMagicShops(population) {
+  return random.roundTo(
+    1,
+    random.linearUniform({
+      x: CITY.population,
+      y: CITY.magicShops,
+      t: population,
+    })
+  );
 }
 
 export function getCityRaceRelationships() {

@@ -1,22 +1,22 @@
-import { Link } from "@remix-run/react";
+import { Link } from '@remix-run/react';
 
-import styles from "~/components/places.module.css";
-import menuStyles from "~/components/menus.module.css";
+import styles from '~/components/places.module.css';
+import menuStyles from '~/components/menus.module.css';
 
-function SizeSelect() {
+function PlacesMenu() {
   return (
     <>
-      <Link to="village" className={`${menuStyles.mainOption} ${styles.village}`}>
-        <span className={menuStyles.optionLabel}>Aldea</span>
+      <Link to="list" className={menuStyles.mainOption}>
+        <span className={menuStyles.optionLabel}>Lista de Lugares</span>
       </Link>
-      <Link to="town" className={`${menuStyles.mainOption} ${styles.town}`}>
-        <span className={menuStyles.optionLabel}>Pueblo</span>
+      <Link to="random" className={menuStyles.mainOption}>
+        <span className={menuStyles.optionLabel}>Generar Lugar</span>
       </Link>
-      <Link to="city" className={`${menuStyles.mainOption} ${styles.city}`}>
-        <span className={menuStyles.optionLabel}>Ciudad</span>
+      <Link to="/" className={menuStyles.mainOption}>
+        <span className={menuStyles.optionLabel}>/</span>
       </Link>
     </>
   );
 }
 
-export default SizeSelect;
+export default PlacesMenu;

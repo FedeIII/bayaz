@@ -1,6 +1,5 @@
 .container {
   width: 80vw;
-  min-height: 90vh;
   margin: 1% auto;
   display: flex;
   flex-direction: column;
@@ -27,7 +26,6 @@
 }
 
 .info {
-  padding: 0 5%;
   text-align: justify;
 }
 

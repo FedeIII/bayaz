@@ -27,29 +27,28 @@ export const VILLAGE = {
   population: [20, 500],
   roundPopulation: 10,
   minPopulationForGuesthouse: 100,
-  security: [2, 25],
+  security: [2, 5],
 };
 
 export const TOWN = {
-  population: [1000, 5000],
+  population: [1000, 3000],
   roundPopulation: 500,
-  security: [25, 150],
-  taverns: [2, 6],
+  security: [10, 25],
+  taverns: [1, 5],
+  magicShops: [0, 1],
 };
 
 export const CITY = {
-  population: [10000, 25000],
-  roundPopulation: 5000,
-  security: [200, 350],
-  taverns: [5, 10],
+  population: [5000, 15000],
+  roundPopulation: 1000,
+  security: [30, 100],
+  taverns: [3, 10],
   commerces: [2, 4],
+  magicShops: [0, 3],
 };
 
 export function getPopulation(PLACE) {
-  const population = random.uniform(
-    PLACE.population[0],
-    PLACE.population[1] + PLACE.roundPopulation
-  );
+  const population = random.uniform(...PLACE.population);
   return random.roundTo(PLACE.roundPopulation, population);
 }
 
@@ -295,6 +294,21 @@ export function randomInnName() {
     isMasculine ? /\/a/ : /o?\/a/,
     isMasculine ? '' : 'a'
   )}`;
+}
+
+export function randomInnNames(number) {
+  const names = [];
+  let newName;
+  while (names.length < number) {
+    newName = randomInnName();
+    if (
+      !names.map(name => name.split(' ')[1]).includes(newName.split(' ')[1]) &&
+      !names.map(name => name.split(' ')[2]).includes(newName.split(' ')[2])
+    ) {
+      names.push(newName);
+    }
+  }
+  return names;
 }
 
 /* prettier-ignore*/

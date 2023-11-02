@@ -2,22 +2,23 @@ import { Link } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 
 import {
-  TOWN,
+  CITY,
   getPopulation,
   randomSettlementName,
 } from '~/domain/places/places';
 import {
-  getTownAccommodation,
-  getTownCalamity,
-  getTownCommerce,
-  getTownGovernment,
-  getTownKnownFor,
-  getTownPlaceCharacteristics,
-  getTownRaceRelationships,
-  getTownReligion,
-  getTownSecurity,
-  getTownSecurityTranslation,
-} from '~/domain/places/town';
+  getCityAccommodation,
+  getCityCalamity,
+  getCityCommerces,
+  getCityGovernment,
+  getCityKnownFor,
+  getCityMagicShops,
+  getCityPlaceCharacteristics,
+  getCityRaceRelationships,
+  getCityReligion,
+  getCitySecurity,
+  getCitySecurityTranslation,
+} from '~/domain/places/city';
 import { t } from '~/domain/translations';
 import { NPC_DEITIES, NPC_DEITIES_NAMES } from '~/domain/npc/attrs/npcFaith';
 import random from '~/domain/random';
@@ -25,7 +26,7 @@ import random from '~/domain/random';
 import styles from '~/components/places.module.css';
 import menuStyles from '~/components/menus.module.css';
 
-function Town() {
+function City() {
   const [place, setPlace] = useState({});
   const {
     name,
@@ -33,8 +34,9 @@ function Town() {
     accommodation,
     government,
     security = {},
-    commerce,
+    commerces,
     religion = {},
+    magicShops,
     raceRelationships,
     placeCharacteristics,
     knownFor,
@@ -42,23 +44,24 @@ function Town() {
   } = place;
 
   useEffect(() => {
-    const population = getPopulation(TOWN);
+    const population = getPopulation(CITY);
 
     setPlace(prevPlace => ({
       ...prevPlace,
       name: randomSettlementName(),
       population,
-      accommodation: getTownAccommodation(population),
-      government: getTownGovernment(),
-      security: getTownSecurity(population),
-      commerce: getTownCommerce(),
-      religion: getTownReligion(),
-      raceRelationships: getTownRaceRelationships(),
-      placeCharacteristics: getTownPlaceCharacteristics(),
-      knownFor: getTownKnownFor(),
-      calamity: getTownCalamity(),
+      accommodation: getCityAccommodation(population),
+      government: getCityGovernment(),
+      security: getCitySecurity(population),
+      commerces: getCityCommerces(),
+      religion: getCityReligion(),
+      magicShops: getCityMagicShops(population),
+      raceRelationships: getCityRaceRelationships(),
+      placeCharacteristics: getCityPlaceCharacteristics(),
+      knownFor: getCityKnownFor(),
+      calamity: getCityCalamity(),
     }));
-  }, []);
+  }, [setPlace]);
 
   return (
     <>
@@ -83,14 +86,14 @@ function Town() {
 
           <hr className={styles.sectionDivider} />
           <div className={styles.subtitle}>
-            <span>Pueblo</span>
+            <span>Ciudad</span>
             <span>
               <span className={styles.traitTitle}>Población:</span> ≈
               {population}
             </span>
           </div>
 
-          {!!accommodation && (
+          {!!accommodation?.length && (
             <>
               <hr className={styles.sectionDivider} />
               <div className={styles.trait}>
@@ -118,14 +121,15 @@ function Town() {
           <div className={styles.trait}>
             <span>
               <span className={styles.traitTitle}>Seguridad:</span>{' '}
-              {getTownSecurityTranslation(security)}
+              {getCitySecurityTranslation(security)}
             </span>
           </div>
 
           <hr className={styles.sectionDivider} />
           <div className={styles.trait}>
             <span>
-              <span className={styles.traitTitle}>Comercio:</span> {t(commerce)}
+              <span className={styles.traitTitle}>Comercio:</span>{' '}
+              {commerces?.map(t).join(', ')}
             </span>
           </div>
 
@@ -136,12 +140,12 @@ function Town() {
               {!!religion?.temple && (
                 <ul className={styles.traitList}>
                   Templos:{' '}
-                  {Array.from(Array(religion.temple), () => {
+                  {Array.from(Array(religion.temple), (_, i) => {
                     const deity = random.split(
                       NPC_DEITIES.filter(d => d[1] !== 'None')
                     );
                     return (
-                      <li key={deity}>
+                      <li key={i}>
                         {random.split(NPC_DEITIES_NAMES[deity])} ({t(deity)})
                       </li>
                     );
@@ -151,12 +155,12 @@ function Town() {
               {!!religion?.shrine && (
                 <ul className={styles.traitList}>
                   Santuarios:{' '}
-                  {Array.from(Array(religion.shrine), () => {
+                  {Array.from(Array(religion.shrine), (_, i) => {
                     const deity = random.split(
                       NPC_DEITIES.filter(d => d[1] !== 'None')
                     );
                     return (
-                      <li key={deity}>
+                      <li key={i}>
                         {random.split(NPC_DEITIES_NAMES[deity])} ({t(deity)})
                       </li>
                     );
@@ -165,6 +169,18 @@ function Town() {
               )}
             </div>
           </div>
+
+          {!!magicShops && (
+            <>
+              <hr className={styles.sectionDivider} />
+              <div className={styles.trait}>
+                <span>
+                  <span className={styles.traitTitle}>Tiendas arcanas:</span>{' '}
+                  {magicShops}
+                </span>
+              </div>
+            </>
+          )}
 
           <hr className={styles.sectionDivider} />
           <div className={styles.trait}>
@@ -217,4 +233,4 @@ function Town() {
   );
 }
 
-export default Town;
+export default City;
