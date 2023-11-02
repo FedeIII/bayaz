@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 import { json, redirect } from '@remix-run/node';
 
@@ -13,16 +13,26 @@ import {
   getVillageReligion,
   getVillageSecurity,
 } from '~/domain/places/village';
-import { createSettlement, getSettlement } from '~/services/settlements.server';
+import {
+  createSettlement,
+  getSettlement,
+  updateSettlement,
+} from '~/services/settlements.server';
 import { replaceAt } from '~/utils/insert';
 
 import styles from '~/components/places.module.css';
 import menuStyles from '~/components/menus.module.css';
 
+function textareaCallback(textareaNode) {
+  textareaNode.target.style.height = '';
+  textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
+}
+
 export const loader = async ({ request }) => {
   let village;
   const url = new URL(request.url);
   const id = url.searchParams.get('id');
+  const rng = url.searchParams.get('rng');
   if (id) {
     village = await getSettlement(id);
     if (!village) {
@@ -30,35 +40,52 @@ export const loader = async ({ request }) => {
     }
   }
 
-  return json({ village, isNew: !id });
+  return json({ village, isNew: !id, rng });
 };
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const name = formData.get('name');
-  const population = formData.get('population');
-  const accommodation = formData.get('accommodation');
-  const guards = formData.get('guards');
-  const militia = formData.get('militia');
-  const temples = formData.getAll('temples[]');
-  const shrines = formData.getAll('shrines[]');
+  const id = formData.get('id');
 
-  const settlement = await createSettlement({
+  const attrs = {
     type: 'village',
-    name,
-    population: parseInt(population, 10),
-    accommodation: [accommodation],
-    guards: parseInt(guards || 0, 10),
-    militia: parseInt(militia || 0, 10),
-    temples,
-    shrines,
-  });
+    name: formData.get('name'),
+    population: parseInt(formData.get('population'), 10),
+    accommodation: [formData.get('accommodation')],
+    guards: parseInt(formData.get('guards') || 0, 10),
+    militia: parseInt(formData.get('militia') || 0, 10),
+    temples: formData.getAll('temples[]'),
+    shrines: formData.getAll('shrines[]'),
+    notes: formData.get('notes'),
+  };
+
+  let settlement;
+  if (id) {
+    settlement = await updateSettlement(id, attrs);
+  } else {
+    settlement = await createSettlement(attrs);
+  }
 
   return redirect(`?id=${settlement.id}`);
 };
 
 function Village() {
-  const { village, isNew } = useLoaderData();
+  const { village, isNew, rng } = useLoaderData();
+
+  const [showNameInput, setShowNameInput] = useState(false);
+  const nameRef = useRef();
+  useEffect(() => {
+    if (showNameInput) {
+      nameRef.current.focus();
+    }
+  }, [showNameInput]);
+
+  const notesRef = useRef();
+  useEffect(() => {
+    if (notesRef.current) {
+      textareaCallback({ target: notesRef.current });
+    }
+  }, [notesRef.current]);
 
   const [place, setPlace] = useState({
     name: '',
@@ -67,6 +94,7 @@ function Village() {
     government: false,
     security: { guards: 0, militia: 0 },
     religion: { temples: [], shrines: [] },
+    notes: '',
   });
 
   useEffect(() => {
@@ -89,9 +117,10 @@ function Village() {
         government: getVillageGovernment(),
         security: { [village.securityType]: village.security },
         religion: village.religion,
+        notes: village.notes,
       });
     }
-  }, [village, isNew]);
+  }, [village, isNew, rng]);
 
   function onNameChange(e) {
     setPlace(p => ({ ...p, name: e.target.value }));
@@ -127,6 +156,10 @@ function Village() {
     }));
   }
 
+  function onNotesChange(e) {
+    setPlace(p => ({ ...p, notes: e.target.value }));
+  }
+
   const {
     name,
     population,
@@ -134,151 +167,182 @@ function Village() {
     government,
     security = {},
     religion = {},
+    notes,
   } = place;
 
   return (
     <Form method="post">
-      <Link to="../" className={menuStyles.backButton}>
-        {'<<'} Volver
-      </Link>
-      <button type="submit">Guardar Aldea</button>
-      <div className={styles.verticalSections}>
-        <div className={styles.imageContainer}>
-          <a href="/images/places/village/village1.png" target="_blank">
-            <img
-              src="/images/places/village/village1.png"
-              className={styles.image}
-            />
-          </a>
-        </div>
+      {!!village && (
+        <input readOnly type="text" name="id" value={village.id} hidden />
+      )}
+      <div className={styles.buttons}>
+        <Link to="../" className={menuStyles.backButton}>
+          ⇦ Volver
+        </Link>
+        <button type="submit" className={styles.save}>
+          ⇧ Guardar Aldea
+        </button>
+        <Link to={`./?rng=${Math.random()}`} className={menuStyles.backButton}>
+          ⇩ Nueva Aldea
+        </Link>
+      </div>
 
-        <div className={styles.info}>
-          <h1 className={styles.title}>
-            {/* <span className={styles.titleCapital}>{name?.slice(0, 1)}</span>
-            {name?.slice(1)} */}
-            <input
-              type="text"
-              name="name"
-              value={name}
-              className={styles.titleInput}
-              onChange={onNameChange}
-            />
-          </h1>
-
-          <hr className={styles.sectionDivider} />
-          <div className={styles.subtitle}>
-            <span>Aldea</span>
-            <span>
-              <span className={styles.traitTitle}>Población:</span> ≈
-              <input
-                type="number"
-                name="population"
-                value={population}
-                onChange={onPopulationChange}
-                className={`${styles.traitInput} ${styles.numberInput3}`}
+      <div className={styles.horizontalSections}>
+        <div className={styles.verticalSections}>
+          <div className={styles.imageContainer}>
+            <a href="/images/places/village/village1.png" target="_blank">
+              <img
+                src="/images/places/village/village1.png"
+                className={styles.image}
               />
-            </span>
+            </a>
           </div>
 
-          {!!accommodation && (
-            <>
-              <hr className={styles.sectionDivider} />
-              <div className={styles.trait}>
-                <span>
-                  <span className={styles.traitTitle}>Alojamientos:</span>{' '}
-                  <input
-                    type="text"
-                    name="accommodation"
-                    value={accommodation}
-                    onChange={onAccommodationChange}
-                    className={styles.traitInput}
-                  />
-                </span>
-              </div>
-            </>
-          )}
+          <div className={styles.info}>
+            <h1 className={styles.title}>
+              <span
+                style={{ display: showNameInput ? 'none' : 'inline' }}
+                onClick={() => setShowNameInput(true)}
+              >
+                <span className={styles.titleCapital}>{name?.slice(0, 1)}</span>
+                {name?.slice(1)}
+              </span>
+              <input
+                ref={nameRef}
+                type="text"
+                name="name"
+                value={name}
+                className={styles.titleInput}
+                style={{ display: showNameInput ? 'inline' : 'none' }}
+                onBlur={() => setShowNameInput(false)}
+                onChange={onNameChange}
+              />
+            </h1>
 
-          <hr className={styles.sectionDivider} />
-          <div className={styles.trait}>
-            <span>
-              <span className={styles.traitTitle}>Gobierno:</span> Alguacil{' '}
-              {!government && 'no '}presente
-            </span>
-          </div>
+            <hr className={styles.sectionDivider} />
+            <div className={styles.subtitle}>
+              <span>Aldea</span>
+              <span>
+                <span className={styles.traitTitle}>Población:</span> ≈
+                <input
+                  type="number"
+                  name="population"
+                  value={population}
+                  onChange={onPopulationChange}
+                  className={`${styles.traitInput} ${styles.numberInput4}`}
+                />
+              </span>
+            </div>
 
-          <hr className={styles.sectionDivider} />
-          <div className={styles.trait}>
-            <span>
-              <span className={styles.traitTitle}>Seguridad:</span>{' '}
-              {security.guards && (
-                <span>
-                  <input
-                    type="number"
-                    name="guards"
-                    value={security.guards}
-                    onChange={onSecurityGuardsChange}
-                    className={`${styles.traitInput} ${styles.numberInput1}`}
-                  />{' '}
-                  guardias
-                </span>
-              )}
-              {security.militia && (
-                <span>
-                  <input
-                    type="number"
-                    name="militia"
-                    value={security.militia}
-                    onChange={onSecurityMilitiaChange}
-                    className={`${styles.traitInput} ${styles.numberInput1}`}
-                  />{' '}
-                  milicias
-                </span>
-              )}
-            </span>
-          </div>
-
-          {!!(religion.temples?.length || religion.shrines?.length) && (
-            <>
-              <hr className={styles.sectionDivider} />
-              <div className={styles.trait}>
-                <span className={styles.traitTitle}>Religión:</span>{' '}
-                <div className={styles.verticalSections}>
-                  {!!religion.temples?.length && (
-                    <ul className={styles.traitList}>
-                      Templos:{' '}
-                      {religion.temples.map((deityName, i) => (
-                        <li key={i}>
-                          <input
-                            type="text"
-                            name="temples[]"
-                            value={deityName}
-                            onChange={e => onTempleNameChange(i, e)}
-                            className={styles.traitInput}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {!!religion.shrines?.length && (
-                    <ul className={styles.traitList}>
-                      Santuarios:{' '}
-                      {religion.shrines.map((deityName, i) => (
-                        <li key={i}>
-                          <input
-                            type="text"
-                            name="shrines[]"
-                            value={deityName}
-                            onChange={e => onShrineNameChange(i, e)}
-                            className={styles.traitInput}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+            {!!accommodation && (
+              <>
+                <hr className={styles.sectionDivider} />
+                <div className={styles.trait}>
+                  <span>
+                    <span className={styles.traitTitle}>Alojamientos:</span>{' '}
+                    <input
+                      type="text"
+                      name="accommodation"
+                      value={accommodation}
+                      onChange={onAccommodationChange}
+                      className={styles.traitInput}
+                    />
+                  </span>
                 </div>
-              </div>
-            </>
-          )}
+              </>
+            )}
+
+            <hr className={styles.sectionDivider} />
+            <div className={styles.traitMultiple}>
+              <span>
+                <span className={styles.traitTitle}>Gobierno:</span> Alguacil{' '}
+                {!government && 'no '}presente
+              </span>
+              <span>
+                <span className={styles.traitTitle}>Seguridad:</span>{' '}
+                {security.guards && (
+                  <span>
+                    <input
+                      type="number"
+                      name="guards"
+                      value={security.guards}
+                      onChange={onSecurityGuardsChange}
+                      className={`${styles.traitInput} ${styles.numberInput1}`}
+                    />{' '}
+                    guardias
+                  </span>
+                )}
+                {security.militia && (
+                  <span>
+                    <input
+                      type="number"
+                      name="militia"
+                      value={security.militia}
+                      onChange={onSecurityMilitiaChange}
+                      className={`${styles.traitInput} ${styles.numberInput1}`}
+                    />{' '}
+                    milicias
+                  </span>
+                )}
+              </span>
+            </div>
+
+            {!!(religion.temples?.length || religion.shrines?.length) && (
+              <>
+                <hr className={styles.sectionDivider} />
+                <div className={styles.trait}>
+                  <span className={styles.traitTitle}>Religión:</span>{' '}
+                  <div className={styles.verticalSections}>
+                    {!!religion.temples?.length && (
+                      <ul className={styles.traitList}>
+                        Templos:{' '}
+                        {religion.temples.map((deityName, i) => (
+                          <li key={i}>
+                            <input
+                              type="text"
+                              name="temples[]"
+                              value={deityName}
+                              onChange={e => onTempleNameChange(i, e)}
+                              className={styles.traitInput}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {!!religion.shrines?.length && (
+                      <ul className={styles.traitList}>
+                        Santuarios:{' '}
+                        {religion.shrines.map((deityName, i) => (
+                          <li key={i}>
+                            <input
+                              type="text"
+                              name="shrines[]"
+                              value={deityName}
+                              onChange={e => onShrineNameChange(i, e)}
+                              className={styles.traitInput}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
+
+            <hr className={styles.sectionDivider} />
+          </div>
+        </div>
+        <div className={styles.notes}>
+          <h2 className={styles.notesTitle}>Notas</h2>
+          <textarea
+            ref={notesRef}
+            name="notes"
+            value={notes}
+            className={styles.notesText}
+            onChange={onNotesChange}
+            onInput={textareaCallback}
+          ></textarea>
         </div>
       </div>
     </Form>

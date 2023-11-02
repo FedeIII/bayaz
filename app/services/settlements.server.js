@@ -4,7 +4,7 @@ import {
   GOVERNMENTS,
   GOVERNMENT_SITUATION,
   PLACE_CALAMITY,
-  PLACE_CARACTERISTICS,
+  PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
 } from '~/domain/places/places';
@@ -34,30 +34,62 @@ const settlementSchema = new mongoose.Schema({
   religion: religionSchema,
   magicShops: Number,
   raceRelationships: { type: String, enum: RACE_RELATIONSHIPS.map(a => a[1]) },
-  placeCharacteristics: { type: String, enum: PLACE_CARACTERISTICS },
+  placeCharacteristics: { type: String, enum: PLACE_CHARACTERISTICS },
   knownFor: { type: String, enum: PLACE_KNOWN_FOR },
   calamity: { type: String, enum: PLACE_CALAMITY.map(a => a[1]) },
+  notes: String,
 });
 
 const Settlement =
   mongoose.models.Settlement || mongoose.model('Settlement', settlementSchema);
 
-export async function createSettlement(attrs) {
-  const newSettlement = await Settlement.create({
-    id: uuid(),
+function attrToSchema(attrs) {
+  return {
     type: attrs.type,
     name: attrs.name,
     population: attrs.population,
     accommodation: attrs.accommodation,
+    government: {
+      type: attrs.governmentType,
+      situation: attrs.governmentSituation,
+    },
     security: attrs.guards || attrs.militia,
     securityType: attrs.guards ? 'guards' : 'militia',
+    commerces: attrs.commerces,
     religion: {
       temples: attrs.temples,
       shrines: attrs.shrines,
     },
+    magicShops: attrs.magicShops,
+    raceRelationships: attrs.raceRelationships
+      ? attrs.raceRelationships
+      : undefined,
+    placeCharacteristics: attrs.placeCharacteristics
+      ? attrs.placeCharacteristics
+      : undefined,
+    knownFor: attrs.knownFor ? attrs.knownFor : undefined,
+    calamity: attrs.calamity ? attrs.calamity : undefined,
+    notes: attrs.notes,
+  };
+}
+
+export async function createSettlement(attrs) {
+  const newSettlement = await Settlement.create({
+    id: uuid(),
+    ...attrToSchema(attrs),
   });
 
   return newSettlement;
+}
+
+export async function updateSettlement(id, attrs) {
+  const updatedSettlement = await Settlement.findOneAndUpdate(
+    { id },
+    { $set: attrToSchema(attrs) },
+    { new: true }
+  ).exec();
+
+  return updatedSettlement;
 }
 
 export async function getSettlements() {

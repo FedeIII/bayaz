@@ -4,10 +4,11 @@ import {
   GOVERNMENTS,
   GOVERNMENT_SITUATION,
   PLACE_CALAMITY,
-  PLACE_CARACTERISTICS,
+  PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
   TOWN,
+  randomDeityName,
   randomInnNames,
 } from './places';
 
@@ -32,24 +33,22 @@ export function getTownSecurity(population) {
   );
 }
 
-export function getTownSecurityTranslation(security) {
-  return security + ' guardias';
-}
-
 export function getTownCommerce() {
   return random.split(COMMERCE);
 }
 
 export function getTownReligion() {
+  const numberOfTemples = random.split([
+    [40, 1],
+    [60, 2],
+  ]);
+  const numberOfShrines = random.split([
+    [40, 1],
+    [60, 2],
+  ]);
   return {
-    temple: random.split([
-      [40, 1],
-      [60, 2],
-    ]),
-    shrine: random.split([
-      [40, 1],
-      [60, 2],
-    ]),
+    temples: Array.from(Array(numberOfTemples), randomDeityName),
+    shrines: Array.from(Array(numberOfShrines), randomDeityName),
   };
 }
 
@@ -70,21 +69,21 @@ export function getTownRaceRelationships() {
 
 export function getTownPlaceCharacteristics() {
   return random.split([
-    [50, null],
-    [50, random.element(PLACE_CARACTERISTICS)],
+    [50, undefined],
+    [50, random.element(PLACE_CHARACTERISTICS)],
   ]);
 }
 
 export function getTownKnownFor() {
   return random.split([
-    [50, null],
+    [50, undefined],
     [50, random.element(PLACE_KNOWN_FOR)],
   ]);
 }
 
 export function getTownCalamity() {
   return random.split([
-    [50, null],
+    [50, undefined],
     [50, random.split(PLACE_CALAMITY)],
   ]);
 }

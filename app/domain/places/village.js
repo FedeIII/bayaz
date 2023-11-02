@@ -6,8 +6,8 @@ const noOp = () => {};
 export function getVillageAccommodation(population) {
   return (
     population > VILLAGE.minPopulationForGuesthouse
-      ? random.element([null, randomInnName])
-      : null
+      ? random.element([undefined, randomInnName])
+      : undefined
   )?.();
 }
 

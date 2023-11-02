@@ -79,7 +79,7 @@ export const GOVERNMENT_SITUATION = [
   [2, 'Líder religioso'],
 ];
 
-export const PLACE_CARACTERISTICS = [
+export const PLACE_CHARACTERISTICS = [
   'Canales en lugar de calles',
   'Estatua o monumento enorme',
   'Templo grandioso',

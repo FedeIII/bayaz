@@ -94,7 +94,7 @@ export function t(key) {
     //Settlements
     village: 'Aldea',
     town: 'Pueblo',
-    ciudad: 'Ciudad',
+    city: 'Ciudad',
   }[key];
 
   if (translation) return translation;

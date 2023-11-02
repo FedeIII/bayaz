@@ -6,9 +6,10 @@ import {
   GOVERNMENTS,
   GOVERNMENT_SITUATION,
   PLACE_CALAMITY,
-  PLACE_CARACTERISTICS,
+  PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
+  randomDeityName,
   randomInnNames,
 } from './places';
 
@@ -53,17 +54,17 @@ export function getCityCommercesTranslation(commerces = []) {
 }
 
 export function getCityReligion() {
+  const numberOfTemples = random.split([
+    [40, 1],
+    [60, 2],
+  ]);
+  const numberOfShrines = random.split([
+    [40, 1],
+    [60, 2],
+  ]);
   return {
-    temple: random.split([
-      [33, 2],
-      [33, 3],
-      [33, 4],
-    ]),
-    shrine: random.split([
-      [33, 2],
-      [33, 3],
-      [33, 4],
-    ]),
+    temples: Array.from(Array(numberOfTemples), randomDeityName),
+    shrines: Array.from(Array(numberOfShrines), randomDeityName),
   };
 }
 
@@ -84,21 +85,21 @@ export function getCityRaceRelationships() {
 
 export function getCityPlaceCharacteristics() {
   return random.split([
-    [50, null],
-    [50, random.element(PLACE_CARACTERISTICS)],
+    [50, undefined],
+    [50, random.element(PLACE_CHARACTERISTICS)],
   ]);
 }
 
 export function getCityKnownFor() {
   return random.split([
-    [50, null],
+    [50, undefined],
     [50, random.element(PLACE_KNOWN_FOR)],
   ]);
 }
 
 export function getCityCalamity() {
   return random.split([
-    [50, null],
+    [50, undefined],
     [50, random.split(PLACE_CALAMITY)],
   ]);
 }
