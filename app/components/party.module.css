@@ -84,6 +84,7 @@
 }
 
 .characterName {
+  text-transform: capitalize;
   font-size: 20px;
   color: white;
   text-decoration: none;

@@ -1,7 +1,5 @@
-import { NPC_DEITIES, NPC_DEITIES_NAMES } from '../npc/attrs/npcFaith';
 import random from '../random';
-import { t } from '../translations';
-import { VILLAGE, randomInnName } from './places';
+import { VILLAGE, randomDeityName, randomInnName } from './places';
 
 const noOp = () => {};
 
@@ -41,41 +39,20 @@ export function getVillageSecurity(population) {
 }
 
 export function getVillageReligion() {
-  const religion = {
-    temple: 0,
-    shrine: 0,
+  let numberOfTemples = 0;
+  let numberOfShrines = 0;
+  random.split([
+    [50, noOp],
+    [25, () => (numberOfTemples += 1)],
+    [25, () => (numberOfShrines += 1)],
+  ]);
+  random.split([
+    [50, noOp],
+    [25, () => (numberOfTemples += 1)],
+    [25, () => (numberOfShrines += 1)],
+  ]);
+  return {
+    temples: Array.from(Array(numberOfTemples), randomDeityName),
+    shrines: Array.from(Array(numberOfShrines), randomDeityName),
   };
-  random.split([
-    [50, noOp],
-    [25, () => (religion.temple += 1)],
-    [25, () => (religion.shrine += 1)],
-  ]);
-  random.split([
-    [50, noOp],
-    [25, () => (religion.temple += 1)],
-    [25, () => (religion.shrine += 1)],
-  ]);
-  return religion;
-}
-
-export function getVillageReligionTranslation(religion) {
-  const { temple, shrine } = religion;
-
-  return (
-    <>
-      {temple === 2 ? 'Dos templos' : temple === 1 ? 'Un templo' : null}
-      {temple && shrine ? ' y ' : null}
-      {shrine === 2
-        ? 'Dos santuarios'
-        : shrine === 1
-        ? 'Un santuario'
-        : null} a{' '}
-      {Array.from(Array(temple + shrine))
-        .map(() => {
-          const deity = random.split(NPC_DEITIES.filter(d => d[1] !== 'None'));
-          return `${random.split(NPC_DEITIES_NAMES[deity])} (${t(deity)})`;
-        })
-        .join(' y ')}
-    </>
-  );
 }

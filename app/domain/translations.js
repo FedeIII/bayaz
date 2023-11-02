@@ -90,10 +90,16 @@ export function t(key) {
     adventure: 'Aventura',
     clothes: 'Ropa',
     equipment: 'Equipamiento',
+
+    //Settlements
+    village: 'Aldea',
+    town: 'Pueblo',
+    ciudad: 'Ciudad',
   }[key];
 
   if (translation) return translation;
 
+  // Races
   translation = NPC_RACES[key]?.translation;
 
   if (translation) return translation;
