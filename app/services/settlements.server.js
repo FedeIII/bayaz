@@ -25,6 +25,7 @@ const settlementSchema = new mongoose.Schema({
   id: String,
   type: { type: String, enum: ['village', 'town', 'city'] },
   name: String,
+  img: String,
   population: Number,
   accommodation: [String],
   government: governmentSchema,
@@ -47,6 +48,7 @@ function attrToSchema(attrs) {
   return {
     type: attrs.type,
     name: attrs.name,
+    img: attrs.img,
     population: attrs.population,
     accommodation: attrs.accommodation,
     government: {

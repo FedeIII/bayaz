@@ -56,3 +56,43 @@ export function getVillageReligion() {
     shrines: Array.from(Array(numberOfShrines), randomDeityName),
   };
 }
+
+export function randomVillageImage(files, population, accommodation, religion) {
+  const size =
+    population < 100
+      ? random.split([
+          [85, 'small'],
+          [15, 'medium'],
+        ])
+      : population < 300
+      ? random.split([
+          [85, 'medium'],
+          [15, 'big'],
+        ])
+      : random.split([
+          [85, 'big'],
+          [15, 'medium'],
+        ]);
+
+  const temple =
+    religion.temples.length > 0
+      ? random.split([
+          [75, 'temple'],
+          [25, ''],
+        ])
+      : '';
+
+  const tavern = accommodation
+    ? random.split([
+        [70, 'tavern'],
+        [30, ''],
+      ])
+    : '';
+
+  return random.element(
+    files.filter(
+      file =>
+        file.includes(size) && file.includes(temple) && file.includes(tavern)
+    )
+  );
+}

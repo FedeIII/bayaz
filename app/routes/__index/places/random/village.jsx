@@ -12,6 +12,7 @@ import {
   getVillageGovernment,
   getVillageReligion,
   getVillageSecurity,
+  randomVillageImage,
 } from '~/domain/places/village';
 import {
   createSettlement,
@@ -33,14 +34,28 @@ export const loader = async ({ request }) => {
   const url = new URL(request.url);
   const id = url.searchParams.get('id');
   const rng = url.searchParams.get('rng');
+  let files;
+
   if (id) {
     village = await getSettlement(id);
     if (!village) {
       throw new Error('Village not found');
     }
+  } else {
+    const path = await import('path');
+    const fs = await import('fs/promises');
+    const publicFolderPath = path.join(
+      process.cwd(),
+      'public/images/places/villages/'
+    );
+    try {
+      files = await fs.readdir(publicFolderPath);
+    } catch (error) {
+      files = [];
+    }
   }
 
-  return json({ village, isNew: !id, rng });
+  return json({ village, files, isNew: !id, rng });
 };
 
 export const action = async ({ request }) => {
@@ -50,6 +65,7 @@ export const action = async ({ request }) => {
   const attrs = {
     type: 'village',
     name: formData.get('name'),
+    img: formData.get('img'),
     population: parseInt(formData.get('population'), 10),
     accommodation: [formData.get('accommodation')],
     guards: parseInt(formData.get('guards') || 0, 10),
@@ -70,7 +86,7 @@ export const action = async ({ request }) => {
 };
 
 function Village() {
-  const { village, isNew, rng } = useLoaderData();
+  const { village, files, isNew, rng } = useLoaderData();
 
   const [showNameInput, setShowNameInput] = useState(false);
   const nameRef = useRef();
@@ -89,6 +105,7 @@ function Village() {
 
   const [place, setPlace] = useState({
     name: '',
+    img: '',
     population: 0,
     accommodation: '',
     government: false,
@@ -100,25 +117,31 @@ function Village() {
   useEffect(() => {
     if (isNew) {
       const population = getPopulation(VILLAGE);
+      const accommodation = getVillageAccommodation(population);
+      const religion = getVillageReligion();
 
-      setPlace({
+      setPlace(old => ({
+        ...old,
         name: randomSettlementName(),
+        img: randomVillageImage(files, population, accommodation, religion),
         population,
-        accommodation: getVillageAccommodation(population),
+        accommodation,
         government: getVillageGovernment(),
         security: getVillageSecurity(population),
-        religion: getVillageReligion(),
-      });
+        religion,
+      }));
     } else if (isNew === false) {
-      setPlace({
+      setPlace(old => ({
+        ...old,
         name: village.name,
+        img: village.img,
         population: village.population,
         accommodation: village.accommodation[0],
         government: getVillageGovernment(),
         security: { [village.securityType]: village.security },
         religion: village.religion,
         notes: village.notes,
-      });
+      }));
     }
   }, [village, isNew, rng]);
 
@@ -162,6 +185,7 @@ function Village() {
 
   const {
     name,
+    img,
     population,
     accommodation,
     government,
@@ -189,14 +213,24 @@ function Village() {
 
       <div className={styles.horizontalSections}>
         <div className={styles.verticalSections}>
-          <div className={styles.imageContainer}>
-            <a href="/images/places/village/village1.png" target="_blank">
-              <img
-                src="/images/places/village/village1.png"
-                className={styles.image}
+          {!!img && (
+            <div className={styles.imageContainer}>
+              <a href={`/images/places/villages/${img}`} target="_blank">
+                <img
+                  src={`/images/places/villages/${img}`}
+                  className={styles.image}
+                  width="100%"
+                />
+              </a>
+              <input
+                readOnly
+                type="text"
+                name="img"
+                value={`/images/places/villages/${img}`}
+                hidden
               />
-            </a>
-          </div>
+            </div>
+          )}
 
           <div className={styles.info}>
             <h1 className={styles.title}>

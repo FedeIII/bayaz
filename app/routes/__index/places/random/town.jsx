@@ -25,6 +25,7 @@ import {
   getTownRaceRelationships,
   getTownReligion,
   getTownSecurity,
+  randomTownImage,
 } from '~/domain/places/town';
 import { t } from '~/domain/translations';
 import { replaceAt } from '~/utils/insert';
@@ -47,14 +48,28 @@ export const loader = async ({ request }) => {
   const url = new URL(request.url);
   const id = url.searchParams.get('id');
   const rng = url.searchParams.get('rng');
+  let files;
+
   if (id) {
     town = await getSettlement(id);
     if (!town) {
       throw new Error('Village not found');
     }
+  } else {
+    const path = await import('path');
+    const fs = await import('fs/promises');
+    const publicFolderPath = path.join(
+      process.cwd(),
+      'public/images/places/towns/'
+    );
+    try {
+      files = await fs.readdir(publicFolderPath);
+    } catch (error) {
+      files = [];
+    }
   }
 
-  return json({ town, isNew: !id, rng });
+  return json({ town, files, isNew: !id, rng });
 };
 
 export const action = async ({ request }) => {
@@ -64,6 +79,7 @@ export const action = async ({ request }) => {
   const attrs = {
     type: 'town',
     name: formData.get('name'),
+    img: formData.get('img'),
     population: parseInt(formData.get('population'), 10),
     accommodation: formData.getAll('accommodation[]'),
     governmentType: formData.get('governmentType'),
@@ -91,7 +107,7 @@ export const action = async ({ request }) => {
 };
 
 function Town() {
-  const { town, isNew, rng } = useLoaderData();
+  const { town, files, isNew, rng } = useLoaderData();
 
   const [showNameInput, setShowNameInput] = useState(false);
   const nameRef = useRef();
@@ -110,6 +126,7 @@ function Town() {
 
   const [place, setPlace] = useState({
     name: '',
+    img: '',
     population: 0,
     accommodation: [],
     government: [],
@@ -126,24 +143,39 @@ function Town() {
   useEffect(() => {
     if (isNew) {
       const population = getPopulation(TOWN);
+      const accommodation = getTownAccommodation(population);
+      const government = getTownGovernment();
+      const commerces = getTownCommerce();
+      const religion = getTownReligion();
+      const placeCharacteristics = getTownPlaceCharacteristics();
 
       setPlace({
         name: randomSettlementName(),
+        img: randomTownImage(
+          files,
+          population,
+          accommodation,
+          government,
+          commerces,
+          religion,
+          placeCharacteristics
+        ),
         population,
-        accommodation: getTownAccommodation(population),
-        government: getTownGovernment(),
+        accommodation,
+        government,
         security: getTownSecurity(population),
-        commerces: getTownCommerce(),
-        religion: getTownReligion(),
+        commerces,
+        religion,
         magicShops: getTownMagicShops(population),
         raceRelationships: getTownRaceRelationships(),
-        placeCharacteristics: getTownPlaceCharacteristics(),
+        placeCharacteristics,
         knownFor: getTownKnownFor(),
         calamity: getTownCalamity(),
       });
     } else if (isNew === false) {
       setPlace({
         name: town.name,
+        img: town.img,
         population: town.population,
         accommodation: town.accommodation,
         government: [town.government.type, town.government.situation],
@@ -237,6 +269,7 @@ function Town() {
 
   const {
     name,
+    img,
     population,
     accommodation,
     government,
@@ -270,14 +303,24 @@ function Town() {
 
       <div className={styles.horizontalSections}>
         <div className={styles.verticalSections}>
-          <div className={styles.imageContainer}>
-            <a href="/images/places/village/village1.png" target="_blank">
-              <img
-                src="/images/places/village/village1.png"
-                className={styles.image}
+          {!!img && (
+            <div className={styles.imageContainer}>
+              <a href={`/images/places/towns/${img}`} target="_blank">
+                <img
+                  src={`/images/places/towns/${img}`}
+                  className={styles.image}
+                  width="100%"
+                />
+              </a>
+              <input
+                readOnly
+                type="text"
+                name="img"
+                value={`/images/places/towns/${img}`}
+                hidden
               />
-            </a>
-          </div>
+            </div>
+          )}
 
           <div className={styles.info}>
             <h1 className={styles.title}>

@@ -2,29 +2,6 @@ import random from '~/domain/random';
 import { NPC_DEITIES, NPC_DEITIES_NAMES } from '../npc/attrs/npcFaith';
 import { t } from '../translations';
 
-export const COMMERCE = [
-  [10, 'FISHING'],
-  [7, 'TRADING'],
-  [5, 'WOODWORK'],
-  [10, 'STEELWORK'],
-  [2, 'MAGIC'],
-  [5, 'MINING'],
-];
-
-export const GOVERNMENTS = [
-  [5, 'DEMOCRACY'],
-  [3, 'DICTATORSHIP'],
-  [20, 'FEUDALISM'],
-  [2, 'GERONTOCRACY'],
-  [5, 'MAGOCRACY'],
-  [10, 'MILITOCRACY'],
-  [4, 'OLIGARCHY'],
-  [3, 'MERITOCRACY'],
-  [2, 'PLUTOCRACY'],
-  [8, 'REPUBLIC'],
-  [10, 'TEOCRACY'],
-];
-
 export const VILLAGE = {
   population: [20, 500],
   roundPopulation: 10,
@@ -53,6 +30,29 @@ export function getPopulation(PLACE) {
   const population = random.uniform(...PLACE.population);
   return random.roundTo(PLACE.roundPopulation, population);
 }
+
+export const COMMERCE = [
+  [10, 'FISHING'],
+  [7, 'TRADING'],
+  [5, 'WOODWORK'],
+  [10, 'STEELWORK'],
+  [2, 'MAGIC'],
+  [5, 'MINING'],
+];
+
+export const GOVERNMENTS = [
+  [5, 'DEMOCRACY'],
+  [3, 'DICTATORSHIP'],
+  [20, 'FEUDALISM'],
+  [2, 'GERONTOCRACY'],
+  [5, 'MAGOCRACY'],
+  [10, 'MILITOCRACY'],
+  [4, 'OLIGARCHY'],
+  [3, 'MERITOCRACY'],
+  [2, 'PLUTOCRACY'],
+  [8, 'REPUBLIC'],
+  [10, 'TEOCRACY'],
+];
 
 export const RACE_RELATIONSHIPS = [
   [10, 'Armonía'],
