@@ -107,20 +107,20 @@ export function getCityCalamity() {
 }
 
 function randomSizeComponent(population) {
-  return (population <= 7000
+  return population <= 7000
     ? random.split([
-        [85, 'small'],
-        [15, 'medium'],
+        [70, 'small'],
+        [30, 'medium'],
       ])
     : population < 11000
     ? random.split([
-        [85, 'medium'],
-        [15, 'big'],
+        [70, 'medium'],
+        [30, 'big'],
       ])
     : random.split([
-        [85, 'big'],
-        [15, 'medium'],
-      ]));
+        [70, 'big'],
+        [30, 'medium'],
+      ]);
 }
 
 function randomTavernComponent(accommodation, commerces, placeCharacteristics) {
@@ -131,8 +131,8 @@ function randomTavernComponent(accommodation, commerces, placeCharacteristics) {
       'Centro del comercio de un bien en concreto',
     ].includes(placeCharacteristics)
     ? random.split([
-        [70, 'tavern'],
-        [30, ''],
+        [60, 'tavern'],
+        [40, ''],
       ])
     : '';
 }
@@ -157,8 +157,8 @@ function randomCastleComponent(government, placeCharacteristics) {
       'Academia o biblioteca reputadas',
     ].includes(placeCharacteristics)
     ? random.split([
-        [85, 'castle'],
-        [15, ''],
+        [70, 'castle'],
+        [30, ''],
       ])
     : '';
 }
@@ -178,8 +178,8 @@ function randomWaterComponent(commerces, placeCharacteristics) {
     )
   ) {
     random.split([
-      [85, () => water.push('river')],
-      [15, noOp],
+      [70, () => water.push('river')],
+      [30, noOp],
     ]);
   }
   return water;
@@ -196,8 +196,8 @@ function randomTempleComponent(religion, government, placeCharacteristics) {
       'Cementerio o mausoleo importante',
     ].includes(placeCharacteristics)
     ? random.split([
-        [70, 'temple'],
-        [30, ''],
+        [60, 'temple'],
+        [40, ''],
       ])
     : '';
 }
@@ -229,10 +229,13 @@ function randomCityImageOnce(
     files.filter(
       file =>
         file.includes(size) &&
-        file.includes(tavern) &&
-        file.includes(temple) &&
-        file.includes(water) &&
-        file.includes(castle)
+        (file.includes(tavern) ||
+          file.includes(temple) ||
+          water.reduce(
+            (inc, waterSource) => inc || file.includes(waterSource),
+            false
+          ) ||
+          file.includes(castle))
     )
   );
 }
