@@ -57,7 +57,7 @@ export function getVillageReligion() {
   };
 }
 
-export function randomVillageImage(files, population, accommodation, religion) {
+function randomVillageImageOnce(files, population, accommodation, religion) {
   const size =
     population < 100
       ? random.split([
@@ -95,4 +95,13 @@ export function randomVillageImage(files, population, accommodation, religion) {
         file.includes(size) && (file.includes(temple) || file.includes(tavern))
     )
   );
+}
+
+export function randomVillageImage(...args) {
+  let image;
+  while (!image) {
+    image = randomVillageImageOnce(...args);
+  }
+
+  return image;
 }
