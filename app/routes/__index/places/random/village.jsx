@@ -119,11 +119,17 @@ function Village() {
       const population = getPopulation(VILLAGE);
       const accommodation = getVillageAccommodation(population);
       const religion = getVillageReligion();
+      const img = randomVillageImage(
+        files,
+        population,
+        accommodation,
+        religion
+      );
 
       setPlace(old => ({
         ...old,
         name: randomSettlementName(),
-        img: randomVillageImage(files, population, accommodation, religion),
+        img,
         population,
         accommodation,
         government: getVillageGovernment(),

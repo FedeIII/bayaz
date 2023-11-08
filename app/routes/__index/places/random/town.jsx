@@ -148,18 +148,19 @@ function Town() {
       const commerces = getTownCommerce();
       const religion = getTownReligion();
       const placeCharacteristics = getTownPlaceCharacteristics();
+      const img = randomTownImage(
+        files,
+        population,
+        accommodation,
+        government,
+        commerces,
+        religion,
+        placeCharacteristics
+      );
 
       setPlace({
         name: randomSettlementName(),
-        img: randomTownImage(
-          files,
-          population,
-          accommodation,
-          government,
-          commerces,
-          religion,
-          placeCharacteristics
-        ),
+        img,
         population,
         accommodation,
         government,

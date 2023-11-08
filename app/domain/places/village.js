@@ -57,42 +57,51 @@ export function getVillageReligion() {
   };
 }
 
-export function randomVillageImage(files, population, accommodation, religion) {
+function randomVillageImageOnce(files, population, accommodation, religion) {
   const size =
     population < 100
       ? random.split([
-          [85, 'small'],
-          [15, 'medium'],
+          [70, 'small'],
+          [30, 'medium'],
         ])
       : population < 300
       ? random.split([
-          [85, 'medium'],
-          [15, 'big'],
+          [70, 'medium'],
+          [30, 'big'],
         ])
       : random.split([
-          [85, 'big'],
-          [15, 'medium'],
+          [70, 'big'],
+          [30, 'medium'],
         ]);
 
   const temple =
     religion.temples.length > 0
       ? random.split([
-          [75, 'temple'],
-          [25, ''],
+          [60, 'temple'],
+          [40, ''],
         ])
       : '';
 
   const tavern = accommodation
     ? random.split([
-        [70, 'tavern'],
-        [30, ''],
+        [60, 'tavern'],
+        [40, ''],
       ])
     : '';
 
   return random.element(
     files.filter(
       file =>
-        file.includes(size) && file.includes(temple) && file.includes(tavern)
+        file.includes(size) && (file.includes(temple) || file.includes(tavern))
     )
   );
+}
+
+export function randomVillageImage(...args) {
+  let image;
+  while (!image) {
+    image = randomVillageImageOnce(...args);
+  }
+
+  return image;
 }

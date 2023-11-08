@@ -107,99 +107,80 @@ export function getCityCalamity() {
 }
 
 function randomSizeComponent(population) {
-  return (population <= 7000
+  return population <= 7000
     ? random.split([
-        [85, 'small'],
-        [15, 'medium'],
+        [70, 'small'],
+        [30, 'medium'],
       ])
     : population < 11000
     ? random.split([
-        [85, 'medium'],
-        [15, 'big'],
+        [70, 'medium'],
+        [30, 'big'],
       ])
     : random.split([
-        [85, 'big'],
-        [15, 'medium'],
-      ]));
+        [70, 'big'],
+        [30, 'medium'],
+      ]);
 }
 
 function randomTavernComponent(accommodation, commerces, placeCharacteristics) {
-  return accommodation.length > 5 ||
-    commerces.includes('TRADING') ||
+  return [
+    accommodation.length > 5,
+    commerces.includes('TRADING'),
     [
       'Importante núcleo comercial',
       'Centro del comercio de un bien en concreto',
-    ].includes(placeCharacteristics)
-    ? random.split([
-        [70, 'tavern'],
-        [30, ''],
-      ])
-    : '';
+    ].includes(placeCharacteristics),
+  ].filter(v => v).length;
 }
 
 function randomCastleComponent(government, placeCharacteristics) {
   return [
-    'DICTATORSHIP',
-    'FEUDALISM',
-    'MAGOCRACY',
-    'MILITOCRACY',
-    'PLUTOCRACY',
-  ].includes(government[0]) ||
+    [
+      'DICTATORSHIP',
+      'FEUDALISM',
+      'MAGOCRACY',
+      'MILITOCRACY',
+      'PLUTOCRACY',
+    ].includes(government[0]),
     [
       'Tirano temido',
       'Dominados o controlados por un monstruo poderoso',
       'Cábala que se hizo con el poder abiertamente',
       'En su lecho de muerte, los herederos compiten por el poder',
-    ].includes(government[1]) ||
+    ].includes(government[1]),
     [
       'Gran fortaleza',
       'Biblioteca o archivos de importancia',
       'Academia o biblioteca reputadas',
-    ].includes(placeCharacteristics)
-    ? random.split([
-        [85, 'castle'],
-        [15, ''],
-      ])
-    : '';
+    ].includes(placeCharacteristics),
+  ].filter(v => v).length;
 }
 
 function randomWaterComponent(commerces, placeCharacteristics) {
-  const water = [];
-  if (commerces.includes('FISHING')) {
-    random.split([
-      [50, () => water.push('coast')],
-      [50, noOp],
-    ]);
-  }
-  if (
-    commerces.includes('FISHING') ||
-    ['Canales en lugar de calles', 'Un río divide la población'].includes(
-      placeCharacteristics
-    )
-  ) {
-    random.split([
-      [85, () => water.push('river')],
-      [15, noOp],
-    ]);
-  }
-  return water;
+  return {
+    coast: commerces.includes('FISHING') ? 1 : 0,
+    river: [
+      commerces.includes('FISHING'),
+      ['Canales en lugar de calles', 'Un río divide la población'].includes(
+        placeCharacteristics
+      ),
+    ].filter(v => v).length,
+  };
 }
 
 function randomTempleComponent(religion, government, placeCharacteristics) {
-  return religion.temples.length === 2 ||
-    government[0] === 'TEOCRACY' ||
+  return [
+    religion.temples.length === 2,
+    government[0] === 'TEOCRACY',
     [
       'Templo grandioso',
       'Lugar en el que se produjo un evento mítico o mágico',
       'Biblioteca o archivos de importancia',
       'Academia o biblioteca reputadas',
       'Cementerio o mausoleo importante',
-    ].includes(placeCharacteristics)
-    ? random.split([
-        [70, 'temple'],
-        [30, ''],
-      ])
-    : '';
+    ].includes(placeCharacteristics),
+  ].filter(v => v).length;
 }
 
 function randomCityImageOnce(
@@ -229,10 +210,36 @@ function randomCityImageOnce(
     files.filter(
       file =>
         file.includes(size) &&
-        file.includes(tavern) &&
-        file.includes(temple) &&
-        file.includes(water) &&
-        file.includes(castle)
+        (file.includes(
+          random.split([
+            [tavern, 'tavern'],
+            [1, ''],
+          ])
+        ) ||
+          file.includes(
+            random.split([
+              [temple, 'temple'],
+              [1, ''],
+            ])
+          ) ||
+          file.includes(
+            random.split([
+              [water.coast, 'coast'],
+              [1, ''],
+            ])
+          ) ||
+          file.includes(
+            random.split([
+              [water.river, 'river'],
+              [1, ''],
+            ])
+          ) ||
+          file.includes(
+            random.split([
+              [castle, 'castle'],
+              [1, ''],
+            ])
+          ))
     )
   );
 }
