@@ -250,5 +250,5 @@ export function randomCityImage(...args) {
     image = randomCityImageOnce(...args);
   }
 
-  return image;
+  return 'city/' + image;
 }

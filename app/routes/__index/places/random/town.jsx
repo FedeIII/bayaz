@@ -60,7 +60,7 @@ export const loader = async ({ request }) => {
     const fs = await import('fs/promises');
     const publicFolderPath = path.join(
       process.cwd(),
-      'public/images/places/towns/'
+      'public/images/places/town/'
     );
     try {
       files = await fs.readdir(publicFolderPath);
@@ -103,7 +103,7 @@ export const action = async ({ request }) => {
     settlement = await createSettlement(attrs);
   }
 
-  return redirect(`?id=${settlement.id}`);
+  return redirect(`/places/${settlement.id}`);
 };
 
 function Town() {
@@ -306,20 +306,14 @@ function Town() {
         <div className={styles.verticalSections}>
           {!!img && (
             <div className={styles.imageContainer}>
-              <a href={`/images/places/towns/${img}`} target="_blank">
+              <a href={`/images/places/${img}`} target="_blank">
                 <img
-                  src={`/images/places/towns/${img}`}
+                  src={`/images/places/${img}`}
                   className={styles.image}
                   width="100%"
                 />
               </a>
-              <input
-                readOnly
-                type="text"
-                name="img"
-                value={`/images/places/towns/${img}`}
-                hidden
-              />
+              <input readOnly type="text" name="img" value={img} hidden />
             </div>
           )}
 

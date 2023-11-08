@@ -60,6 +60,8 @@ export function getVillageReligion() {
 function randomVillageImageOnce(files, population, accommodation, religion) {
   const size =
     population < 100
+      ? 'small'
+      : population < 200
       ? random.split([
           [70, 'small'],
           [30, 'medium'],
@@ -103,5 +105,5 @@ export function randomVillageImage(...args) {
     image = randomVillageImageOnce(...args);
   }
 
-  return image;
+  return 'village/' + image;
 }

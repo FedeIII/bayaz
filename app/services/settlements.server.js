@@ -45,34 +45,37 @@ const Settlement =
   mongoose.models.Settlement || mongoose.model('Settlement', settlementSchema);
 
 function attrToSchema(attrs) {
-  return {
-    type: attrs.type,
-    name: attrs.name,
-    img: attrs.img,
-    population: attrs.population,
-    accommodation: attrs.accommodation,
-    government: {
+  const newAttrs = {};
+  if (attrs.type) newAttrs.type = attrs.type;
+  if (attrs.name) newAttrs.name = attrs.name;
+  if (attrs.img) newAttrs.img = attrs.img;
+  if (attrs.population) newAttrs.population = attrs.population;
+  if (attrs.accommodation) newAttrs.accommodation = attrs.accommodation;
+  if (attrs.governmentType)
+    newAttrs.government = {
       type: attrs.governmentType,
       situation: attrs.governmentSituation,
-    },
-    security: attrs.guards || attrs.militia,
-    securityType: attrs.guards ? 'guards' : 'militia',
-    commerces: attrs.commerces,
-    religion: {
+    };
+  if (attrs.guards || attrs.militia)
+    newAttrs.security = attrs.guards || attrs.militia;
+  if (attrs.guards) newAttrs.securityType = 'guards';
+  if (attrs.militia) newAttrs.securityType = 'militia';
+  if (attrs.commerces) newAttrs.commerces = attrs.commerces;
+  if (attrs.temples || attrs.shrines)
+    newAttrs.religion = {
       temples: attrs.temples,
       shrines: attrs.shrines,
-    },
-    magicShops: attrs.magicShops,
-    raceRelationships: attrs.raceRelationships
-      ? attrs.raceRelationships
-      : undefined,
-    placeCharacteristics: attrs.placeCharacteristics
-      ? attrs.placeCharacteristics
-      : undefined,
-    knownFor: attrs.knownFor ? attrs.knownFor : undefined,
-    calamity: attrs.calamity ? attrs.calamity : undefined,
-    notes: attrs.notes,
-  };
+    };
+  if (attrs.magicShops) newAttrs.magicShops = attrs.magicShops;
+  if (attrs.raceRelationships)
+    newAttrs.raceRelationships = attrs.raceRelationships;
+  if (attrs.placeCharacteristics)
+    newAttrs.placeCharacteristics = attrs.placeCharacteristics;
+  if (attrs.knownFor) newAttrs.knownFor = attrs.knownFor;
+  if (attrs.calamity) newAttrs.calamity = attrs.calamity;
+  if (attrs.notes) newAttrs.notes = attrs.notes;
+
+  return newAttrs;
 }
 
 export async function createSettlement(attrs) {

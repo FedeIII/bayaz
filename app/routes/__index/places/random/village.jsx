@@ -46,7 +46,7 @@ export const loader = async ({ request }) => {
     const fs = await import('fs/promises');
     const publicFolderPath = path.join(
       process.cwd(),
-      'public/images/places/villages/'
+      'public/images/places/village/'
     );
     try {
       files = await fs.readdir(publicFolderPath);
@@ -67,7 +67,7 @@ export const action = async ({ request }) => {
     name: formData.get('name'),
     img: formData.get('img'),
     population: parseInt(formData.get('population'), 10),
-    accommodation: [formData.get('accommodation')],
+    accommodation: formData.getAll('accommodation[]'),
     guards: parseInt(formData.get('guards') || 0, 10),
     militia: parseInt(formData.get('militia') || 0, 10),
     temples: formData.getAll('temples[]'),
@@ -82,7 +82,7 @@ export const action = async ({ request }) => {
     settlement = await createSettlement(attrs);
   }
 
-  return redirect(`?id=${settlement.id}`);
+  return redirect(`/places/${settlement.id}`);
 };
 
 function Village() {
@@ -221,20 +221,12 @@ function Village() {
         <div className={styles.verticalSections}>
           {!!img && (
             <div className={styles.imageContainer}>
-              <a href={`/images/places/villages/${img}`} target="_blank">
-                <img
-                  src={`/images/places/villages/${img}`}
-                  className={styles.image}
-                  width="100%"
-                />
-              </a>
-              <input
-                readOnly
-                type="text"
-                name="img"
-                value={`/images/places/villages/${img}`}
-                hidden
+              <img
+                src={`/images/places/${img}`}
+                className={styles.image}
+                width="100%"
               />
+              <input readOnly type="text" name="img" value={img} hidden />
             </div>
           )}
 
@@ -282,7 +274,7 @@ function Village() {
                     <span className={styles.traitTitle}>Alojamientos:</span>{' '}
                     <input
                       type="text"
-                      name="accommodation"
+                      name="accommodation[]"
                       value={accommodation}
                       onChange={onAccommodationChange}
                       className={styles.traitInput}

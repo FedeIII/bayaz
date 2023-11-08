@@ -234,5 +234,5 @@ export function randomTownImage(...args) {
     image = randomTownImageOnce(...args);
   }
 
-  return image;
+  return 'town/' + image;
 }
