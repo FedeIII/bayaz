@@ -4,6 +4,8 @@ import { getItem } from '~/domain/equipment/equipment';
 
 import styles from './inventoryItem.module.css';
 
+const noOp = () => {};
+
 export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
   const {
     pItem,
@@ -28,8 +30,8 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
         ref={ref}
         className={`${styles.item} ${className}`}
         onClick={openModalOnClick ? openModalForItem : onClickForItem}
-        onMouseOver={!openModalOnClick && openModalForItem}
-        onMouseOut={!openModalOnClick && closeModal}
+        onMouseOver={openModalOnClick ? noOp : openModalForItem}
+        onMouseOut={openModalOnClick ? noOp : closeModal}
       >
         {itemWithAmount(item.translation, pItem.amount)}
       </strong>

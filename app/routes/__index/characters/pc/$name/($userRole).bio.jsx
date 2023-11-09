@@ -12,6 +12,9 @@ import {
   getPc,
   updatePc,
   switchArmor,
+  dropTreasureWeapon,
+  dropTreasureArmor,
+  dropTreasureItem,
 } from '~/services/pc.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { getPackItems } from '~/domain/equipment/packs';
@@ -25,12 +28,12 @@ import random from '~/domain/random';
 import { ItemModal } from '~/components/modal/itemModal';
 import { InventoryItem } from '~/components/modal/inventoryItem';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
-
-import styles from '~/components/bio.module.css';
-import itemStyles from '~/components/modal/inventoryItem.module.css';
 import { GrowBar } from '~/components/indicators/growBar';
 import { getSearchResults } from '~/domain/search';
 import { addItemToTreasure } from '~/domain/characterMutations';
+
+import styles from '~/components/bio.module.css';
+import itemStyles from '~/components/modal/inventoryItem.module.css';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -48,11 +51,32 @@ async function equipWeaponAction(formData) {
   await equipWeaponInSlot(name, weaponName, weaponSlot);
 }
 
+async function dropWeaponAction(formData) {
+  const name = formData.get('name');
+  const weaponName = formData.get('weaponName');
+
+  await dropTreasureWeapon(name, weaponName);
+}
+
 async function equipArmorAction(formData) {
   const name = formData.get('name');
   const armorName = formData.get('armorName');
 
   await switchArmor(name, armorName);
+}
+
+async function dropArmorAction(formData) {
+  const name = formData.get('name');
+  const armorName = formData.get('armorName');
+
+  await dropTreasureArmor(name, armorName);
+}
+
+async function dropItemAction(formData) {
+  const name = formData.get('name');
+  const itemName = formData.get('itemName');
+
+  await dropTreasureItem(name, itemName);
 }
 
 async function addItemToTreasureAction(formData) {
@@ -95,9 +119,18 @@ export const action = async ({ request }) => {
   if (action === 'equipWeapon') {
     await equipWeaponAction(formData);
     return redirect(`/characters/pc/${name}/summary`);
+  } else if (action === 'dropWeapon') {
+    await dropWeaponAction(formData);
+    return null;
   } else if (action === 'equipArmor') {
     await equipArmorAction(formData);
     return redirect(`/characters/pc/${name}/summary`);
+  } else if (action === 'dropArmor') {
+    await dropArmorAction(formData);
+    return null;
+  } else if (action === 'dropItem') {
+    await dropItemAction(formData);
+    return null;
   } else if (action === 'addItemToTreasure') {
     await addItemToTreasureAction(formData);
   } else {
@@ -107,8 +140,41 @@ export const action = async ({ request }) => {
   return null;
 };
 
+function ItemModalContent(props) {
+  const { item, dropItem, closeModal } = props;
+
+  function onDropClick(e) {
+    const itemName = e.target.value;
+    dropItem(itemName);
+    closeModal();
+  }
+
+  return (
+    <>
+      <h3 className={itemStyles.actionModalTitle}>{item.translation}</h3>
+      <span className={itemStyles.modalClose} onClick={closeModal}>
+        ⨉
+      </span>
+      <div className={itemStyles.modalContent}>
+        <ul className={itemStyles.modalOptions}>
+          <li>
+            <button
+              type="button"
+              className={styles.dropItemButton}
+              value={item.name}
+              onClick={onDropClick}
+            >
+              Tirar {item.translation}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+}
+
 function WeaponModalContent(props) {
-  const { pc, weapon, equipWeapon, closeModal } = props;
+  const { pc, weapon, equipWeapon, dropWeapon, closeModal } = props;
   const {
     items: { weapons },
   } = pc;
@@ -116,6 +182,12 @@ function WeaponModalContent(props) {
   function onEquipClick(e) {
     const slot = e.target.value;
     equipWeapon(weapon.name, slot);
+    closeModal();
+  }
+
+  function onDropClick(e) {
+    const weaponName = e.target.value;
+    dropWeapon(weaponName);
     closeModal();
   }
 
@@ -128,7 +200,7 @@ function WeaponModalContent(props) {
       <div className={itemStyles.modalContent}>
         <ul className={itemStyles.modalOptions}>
           <li>
-            <div>Equipar en </div>
+            <span>Equipar en </span>
             <select className={styles.weaponSelect} onChange={onEquipClick}>
               <option value="">Escoge hueco</option>
               {Array.from(Array(3), (_, i) => (
@@ -138,6 +210,16 @@ function WeaponModalContent(props) {
               ))}
             </select>
           </li>
+          <li>
+            <button
+              type="button"
+              className={styles.dropItemButton}
+              value={weapon.name}
+              onClick={onDropClick}
+            >
+              Tirar {weapon.translation}
+            </button>
+          </li>
         </ul>
       </div>
     </>
@@ -145,7 +227,7 @@ function WeaponModalContent(props) {
 }
 
 function ArmorModalContent(props) {
-  const { pc, armor, equipArmor, closeModal } = props;
+  const { pc, armor, equipArmor, dropArmor, closeModal } = props;
   const {
     items: {
       equipment: { armor: pArmor },
@@ -154,6 +236,12 @@ function ArmorModalContent(props) {
 
   function onEquipClick() {
     equipArmor(armor.name);
+    closeModal();
+  }
+
+  function onDropClick(e) {
+    const armorName = e.target.value;
+    dropArmor(armorName);
     closeModal();
   }
 
@@ -184,6 +272,16 @@ function ArmorModalContent(props) {
                 Equipar
               </button>
             )}
+          </li>
+          <li>
+            <button
+              type="button"
+              className={styles.dropItemButton}
+              value={armor.name}
+              onClick={onDropClick}
+            >
+              Tirar {armor.translation}
+            </button>
           </li>
         </ul>
       </div>
@@ -252,12 +350,45 @@ function PcBio() {
     );
   }
 
+  function dropWeapon(weaponName) {
+    submit(
+      {
+        action: 'dropWeapon',
+        name,
+        weaponName,
+      },
+      { method: 'post' }
+    );
+  }
+
   function equipArmor(armorName) {
     submit(
       {
         action: 'equipArmor',
         name,
         armorName,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function dropArmor(armorName) {
+    submit(
+      {
+        action: 'dropArmor',
+        name,
+        armorName,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function dropItem(itemName) {
+    submit(
+      {
+        action: 'dropItem',
+        name,
+        itemName,
       },
       { method: 'post' }
     );
@@ -311,10 +442,19 @@ function PcBio() {
   });
 
   useEffect(() => {
+    if (treasure.weapons.length) {
+      itemRefs.weapons.current = treasure.weapons.map(createRef);
+    }
+    if (itemResults.length) {
+      itemRefs.armors.current = treasure.armors.map(createRef);
+    }
+    if (itemResults.length) {
+      itemRefs.others.current = treasure.others.map(createRef);
+    }
     if (itemResults.length) {
       itemRefs.inventorySearchResults.current = itemResults.map(createRef);
     }
-  }, [itemResults]);
+  }, [treasure.weapons, treasure.armors, treasure.others, itemResults]);
 
   const [
     itemModalContent,
@@ -333,24 +473,35 @@ function PcBio() {
       setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
 
       let content;
-      if (item.type === 'weapon')
+      if (itemType === 'others') {
+        content = props => (
+          <ItemModalContent
+            item={item}
+            dropItem={dropItem}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
+      } else if (item.type === 'weapon') {
         content = props => (
           <WeaponModalContent
             pc={pc}
             weapon={item}
             equipWeapon={equipWeapon}
+            dropWeapon={dropWeapon}
             closeModal={() => setActionModalContent(null)}
           />
         );
-      if (item.type === 'armor')
+      } else if (item.type === 'armor') {
         content = props => (
           <ArmorModalContent
             pc={pc}
             armor={item}
             equipArmor={equipArmor}
+            dropArmor={dropArmor}
             closeModal={() => setActionModalContent(null)}
           />
         );
+      }
 
       setTimeout(() => setActionModalContent(() => content), 0);
     };
@@ -541,6 +692,7 @@ function PcBio() {
                     ref={itemRefs.others.current[i]}
                     pItem={treasureItem}
                     isLast={i === treasure.others.length - 1}
+                    onItemClick={onItemClick('others', i)}
                     openModal={openItemModal('others', i)}
                     closeModal={closeItemModal}
                     key={treasureItem.name}

@@ -1018,6 +1018,36 @@ export async function equipWeaponInSlot(name, weaponToEquipName, slot) {
   return updatedPc;
 }
 
+export async function dropTreasureWeapon(name, weaponName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name },
+    { $pull: { 'items.treasure.weapons': { name: weaponName } } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
+export async function dropTreasureArmor(name, armorName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name },
+    { $pull: { 'items.treasure.armors': { name: armorName } } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
+export async function dropTreasureItem(name, itemName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name },
+    { $pull: { 'items.treasure.others': { name: itemName } } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function reorderWeapons(name, weaponName, destinationSlot) {
   const pc = await getPc(name);
   const weapons = pc.items.weapons.slice();
