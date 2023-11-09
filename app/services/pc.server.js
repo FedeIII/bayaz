@@ -1065,6 +1065,31 @@ export async function switchArmor(name, armorName) {
   });
 }
 
+export async function addItemToTreasureSection(name, item, section) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name },
+    { $push: { [`items.treasure.${section}`]: item } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
+export async function increaseTreasureItemAmount(
+  name,
+  itemName,
+  section,
+  amount
+) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name, [`items.treasure.${section}.name`]: itemName },
+    { $inc: { [`items.treasure.${section}.$.amount`]: amount } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function addLevelHitPoints(name, extraHitPoints) {
   const updatedPc = await Pc.findOneAndUpdate(
     { name: name },

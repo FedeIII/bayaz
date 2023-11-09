@@ -100,20 +100,30 @@ function findMonsters(search) {
     .slice(0, MAX_RESULTS);
 }
 
-export function getSearchResults(search) {
-  const lowercaseSearch = search?.toLowerCase();
-  if (!search)
-    return {
-      spells: [],
-      equipment: [],
-      traits: [],
-      monsters: [],
-    };
+const finders = {
+  spells: findSpells,
+  equipment: findEquipment,
+  traits: findTraits,
+  monsters: findMonsters,
+};
 
-  return {
-    spells: findSpells(lowercaseSearch),
-    equipment: findEquipment(lowercaseSearch),
-    traits: findTraits(lowercaseSearch),
-    monsters: findMonsters(lowercaseSearch),
-  };
+export function getSearchResults(
+  search,
+  searchSections = ['spells', 'equipment', 'traits', 'monsters']
+) {
+  const lowercaseSearch = search?.toLowerCase();
+  if (!search) {
+    return searchSections.reduce(
+      (res, element) => ({ ...res, [element]: [] }),
+      {}
+    );
+  }
+
+  return searchSections.reduce(
+    (res, element) => ({
+      ...res,
+      [element]: finders[element](lowercaseSearch),
+    }),
+    {}
+  );
 }

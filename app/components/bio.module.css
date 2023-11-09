@@ -216,6 +216,11 @@
   list-style: circle;
 }
 
+.treasureList {
+  margin: 0;
+  padding: 0;
+}
+
 .treasureItem {
   max-width: 49%;
   margin: 0px 0 0 8px;
@@ -226,6 +231,69 @@
   position: absolute;
   bottom: 0;
   right: -4px;
+}
+
+.treasureMenu {
+  position: absolute;
+  right: -22px;
+  top: -20px;
+}
+
+.openTreasureScreen {
+  background: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--color-blue-ink);
+}
+
+.openTreasureScreen:hover {
+  background-color: var(--color-x-gray);
+  color: var(--color-x-blue-ink);
+  border-color: var(--color-x-blue-ink);
+  transform: scale(1.1);
+}
+
+.closeTreasureScreen {
+  background: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--color-blue-ink);
+}
+
+.closeTreasureScreen:hover {
+  background-color: var(--color-x-gray);
+  color: var(--color-x-blue-ink);
+  border-color: var(--color-x-blue-ink);
+  transform: scale(1.1);
+}
+
+.treasureScreen {
+  grid-area: tre;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  column-gap: 23px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.36;
+  hyphens: auto;
+  margin: 15px;
+  padding: 0 22px 0 12px;
+  background-color: white;
+  border: 8px double black;
+  box-shadow: black 0px 0px 10px 0px;
+  border-radius: 10px;
+  border-block-start: 2px solid black;
+  border-block-end: 2px solid black;
 }
 
 /*  */

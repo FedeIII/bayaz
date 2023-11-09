@@ -123,3 +123,11 @@ export function getClassEquipment(pClass) {
 export function getEquippedArmor(pc) {
   return pc.items?.equipment?.armor || null;
 }
+
+export function isWeapon(item) {
+  return item.type === 'weapon';
+}
+
+export function isArmor(item) {
+  return item.type === 'armor';
+}

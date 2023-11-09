@@ -5,7 +5,7 @@ import {
   useSubmit,
   useTransition,
 } from '@remix-run/react';
-import { useRef, useState } from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 
 import {
   equipWeaponInSlot,
@@ -29,6 +29,8 @@ import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import styles from '~/components/bio.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
 import { GrowBar } from '~/components/indicators/growBar';
+import { getSearchResults } from '~/domain/search';
+import { addItemToTreasure } from '~/domain/characterMutations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -51,6 +53,13 @@ async function equipArmorAction(formData) {
   const armorName = formData.get('armorName');
 
   await switchArmor(name, armorName);
+}
+
+async function addItemToTreasureAction(formData) {
+  const name = formData.get('name');
+  const itemName = formData.get('itemName');
+
+  await addItemToTreasure(name, itemName);
 }
 
 async function updateFreeTextsAction(formData) {
@@ -89,6 +98,8 @@ export const action = async ({ request }) => {
   } else if (action === 'equipArmor') {
     await equipArmorAction(formData);
     return redirect(`/characters/pc/${name}/summary`);
+  } else if (action === 'addItemToTreasure') {
+    await addItemToTreasureAction(formData);
   } else {
     await updateFreeTextsAction(formData);
   }
@@ -252,6 +263,17 @@ function PcBio() {
     );
   }
 
+  function addToTreasure(itemName) {
+    submit(
+      {
+        action: 'addItemToTreasure',
+        name,
+        itemName,
+      },
+      { method: 'post' }
+    );
+  }
+
   useAddMenuItems('/characters', [
     { name, url: `/characters/pc/${name}/summary`, level: 1 },
     {
@@ -268,12 +290,31 @@ function PcBio() {
 
   const [actionModalContent, setActionModalContent] = useState(null);
 
+  const [itemSearch, setItemSearch] = useState('');
+  function onSearchChange(e) {
+    setItemSearch(e.target.value);
+  }
+
+  const [itemResults, setItemResults] = useState([]);
+  useEffect(() => {
+    if (itemSearch.length > 2) {
+      setItemResults(getSearchResults(itemSearch, ['equipment']).equipment);
+    }
+  }, [itemSearch]);
+
   const [itemRefs, setItemRefs] = useState({
-    weapons: treasure.weapons.map(() => useRef()),
-    armors: treasure.armors.map(() => useRef()),
-    others: treasure.others.map(() => useRef()),
-    pack: getPackItems(pack).map(() => useRef()),
+    weapons: useRef(treasure.weapons.map(createRef)),
+    armors: useRef(treasure.armors.map(createRef)),
+    others: useRef(treasure.others.map(createRef)),
+    pack: useRef(getPackItems(pack).map(createRef)),
+    inventorySearchResults: useRef(itemResults.map(createRef)),
   });
+
+  useEffect(() => {
+    if (itemResults.length) {
+      itemRefs.inventorySearchResults.current = itemResults.map(createRef);
+    }
+  }, [itemResults]);
 
   const [
     itemModalContent,
@@ -289,7 +330,7 @@ function PcBio() {
     return itemName => {
       const item = getItem(itemName);
 
-      setSelectedItemRef(itemRefs[itemType][itemIndex]);
+      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
 
       let content;
       if (item.type === 'weapon')
@@ -313,6 +354,14 @@ function PcBio() {
 
       setTimeout(() => setActionModalContent(() => content), 0);
     };
+  }
+
+  const [isTreasureScreenOpen, setIsTreasureScreenOpen] = useState(false);
+  function openTreasureScreen() {
+    setIsTreasureScreenOpen(true);
+  }
+  function closeTreasureScreen() {
+    setIsTreasureScreenOpen(false);
   }
 
   const equipmentWeight = random.roundTo(0.1, getEquipmentWeight(pc));
@@ -451,69 +500,71 @@ function PcBio() {
         )}
 
         {/* TREASURE */}
-        <ul className={`${styles.data} ${styles.treasure}`}>
-          {!!treasure.weapons.length && (
-            <li className={styles.treasureItem}>
-              <u>Armas:</u>{' '}
-              {treasure.weapons.map((treasureWeapon, i) => (
-                <InventoryItem
-                  ref={itemRefs.weapons[i]}
-                  pItem={treasureWeapon}
-                  isLast={i === treasure.weapons.length - 1}
-                  onItemClick={onItemClick('weapons', i)}
-                  openModal={openItemModal('weapons', i)}
-                  closeModal={closeItemModal}
-                  key={treasureWeapon.name}
-                />
-              ))}
-            </li>
-          )}
-          {!!treasure.armors.length && (
-            <li className={styles.treasureItem}>
-              <u>Armaduras:</u>{' '}
-              {treasure.armors.map((treasureArmor, i) => (
-                <InventoryItem
-                  ref={itemRefs.armors[i]}
-                  pItem={treasureArmor}
-                  isLast={i === treasure.armors.length - 1}
-                  onItemClick={onItemClick('armors', i)}
-                  openModal={openItemModal('armors', i)}
-                  closeModal={closeItemModal}
-                  key={treasureArmor.name}
-                />
-              ))}
-            </li>
-          )}
-          {!!treasure.others.length && (
-            <li className={styles.treasureItem}>
-              {treasure.others.map((treasureItem, i) => (
-                <InventoryItem
-                  ref={itemRefs.others[i]}
-                  pItem={treasureItem}
-                  isLast={i === treasure.others.length - 1}
-                  openModal={openItemModal('others', i)}
-                  closeModal={closeItemModal}
-                  key={treasureItem.name}
-                />
-              ))}
-            </li>
-          )}
-          {pack && (
-            <li className={styles.treasureItem}>
-              <u>{translatePack(pack) + ':'}</u>{' '}
-              {getPackItems(pack).map((packItem, i, packItems) => (
-                <InventoryItem
-                  ref={itemRefs.pack[i]}
-                  pItem={packItem}
-                  isLast={i === packItems.length - 1}
-                  openModal={openItemModal('pack', i)}
-                  closeModal={closeItemModal}
-                  key={packItem.name}
-                />
-              ))}
-            </li>
-          )}
-          <li className={styles.totalTreasure}>
+        <div className={`${styles.data} ${styles.treasure}`}>
+          <ul className={styles.treasureList}>
+            {!!treasure.weapons.length && (
+              <li className={styles.treasureItem}>
+                <u>Armas:</u>{' '}
+                {treasure.weapons.map((treasureWeapon, i) => (
+                  <InventoryItem
+                    ref={itemRefs.weapons.current[i]}
+                    pItem={treasureWeapon}
+                    isLast={i === treasure.weapons.length - 1}
+                    onItemClick={onItemClick('weapons', i)}
+                    openModal={openItemModal('weapons', i)}
+                    closeModal={closeItemModal}
+                    key={treasureWeapon.name}
+                  />
+                ))}
+              </li>
+            )}
+            {!!treasure.armors.length && (
+              <li className={styles.treasureItem}>
+                <u>Armaduras:</u>{' '}
+                {treasure.armors.map((treasureArmor, i) => (
+                  <InventoryItem
+                    ref={itemRefs.armors.current[i]}
+                    pItem={treasureArmor}
+                    isLast={i === treasure.armors.length - 1}
+                    onItemClick={onItemClick('armors', i)}
+                    openModal={openItemModal('armors', i)}
+                    closeModal={closeItemModal}
+                    key={treasureArmor.name}
+                  />
+                ))}
+              </li>
+            )}
+            {!!treasure.others.length && (
+              <li className={styles.treasureItem}>
+                {treasure.others.map((treasureItem, i) => (
+                  <InventoryItem
+                    ref={itemRefs.others.current[i]}
+                    pItem={treasureItem}
+                    isLast={i === treasure.others.length - 1}
+                    openModal={openItemModal('others', i)}
+                    closeModal={closeItemModal}
+                    key={treasureItem.name}
+                  />
+                ))}
+              </li>
+            )}
+            {pack && (
+              <li className={styles.treasureItem}>
+                <u>{translatePack(pack) + ':'}</u>{' '}
+                {getPackItems(pack).map((packItem, i, packItems) => (
+                  <InventoryItem
+                    ref={itemRefs.pack.current[i]}
+                    pItem={packItem}
+                    isLast={i === packItems.length - 1}
+                    openModal={openItemModal('pack', i)}
+                    closeModal={closeItemModal}
+                    key={packItem.name}
+                  />
+                ))}
+              </li>
+            )}
+          </ul>
+          <div className={styles.totalTreasure}>
             Peso (kg):{' '}
             <GrowBar
               cursorPos={equipmentWeightPos}
@@ -523,8 +574,53 @@ function PcBio() {
               hardLimit={heavyEncumbrancePos}
               hardValue={heavyEncumbrance}
             />
-          </li>
-        </ul>
+          </div>
+          <div className={styles.treasureMenu}>
+            {!isTreasureScreenOpen && (
+              <button
+                type="button"
+                className={styles.openTreasureScreen}
+                onClick={openTreasureScreen}
+              >
+                +
+              </button>
+            )}
+            {isTreasureScreenOpen && (
+              <button
+                type="button"
+                className={styles.closeTreasureScreen}
+                onClick={closeTreasureScreen}
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </div>
+        {isTreasureScreenOpen && (
+          <div className={`${styles.data} ${styles.treasureScreen}`}>
+            Buscar Items:{' '}
+            <input
+              className={``}
+              value={itemSearch}
+              onChange={onSearchChange}
+            />
+            <ul className={styles.sectionItems}>
+              {itemResults.map((item, i) => (
+                <li className={styles.sectionItem} key={item.name}>
+                  <InventoryItem
+                    ref={itemRefs.inventorySearchResults.current[i]}
+                    pItem={item}
+                    isLast
+                    openModalOnClick
+                    openModal={openItemModal('inventorySearchResults', i)}
+                    actions={{ addToTreasure: () => addToTreasure(item.name) }}
+                    key={item.name}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </Form>
     </>
   );

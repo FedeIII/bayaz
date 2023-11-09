@@ -6,9 +6,16 @@ import {
   getStatMod,
   getStat,
 } from '~/domain/characters';
-import { getPc, healPc, updatePc } from '~/services/pc.server';
+import {
+  addItemToTreasureSection,
+  getPc,
+  healPc,
+  increaseTreasureItemAmount,
+  updatePc,
+} from '~/services/pc.server';
 import { rollDice } from '~/domain/random';
 import { getSpellSlots } from './spells/spells';
+import { getItem, isArmor, isWeapon } from './equipment/equipment';
 
 export async function setPcStats(pcParams) {
   const {
@@ -170,4 +177,21 @@ export async function damagePc(pcName, damage) {
   }
 
   return pc;
+}
+
+export async function addItemToTreasure(name, itemName) {
+  const pc = await getPc(name);
+  const item = getItem(itemName);
+  const section = isWeapon(item)
+    ? 'weapons'
+    : isArmor(item)
+    ? 'armors'
+    : 'others';
+
+  if (pc.items.treasure[section].find(item => item.name === itemName)) {
+    return await increaseTreasureItemAmount(name, itemName, section, 1);
+  }
+
+  const pItem = { name: itemName };
+  return await addItemToTreasureSection(name, pItem, section);
 }

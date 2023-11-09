@@ -14,16 +14,21 @@ export function useInventoryItems(
   const closeItemModal = () => setItemModalContent(null);
 
   function openItemModal(sectionName, itemIndex = 0) {
-    return itemName => {
+    return (itemName, actions) => {
       const item = getItem(itemName);
 
       if (!otherModalContent) {
-        setSelectedItemRef(itemRefs[sectionName][itemIndex]);
+        setSelectedItemRef(itemRefs[sectionName].current[itemIndex]);
 
         setTimeout(
           () =>
             setItemModalContent(() => props => (
-              <ItemModalContent pc={pc} item={item} {...props} />
+              <ItemModalContent
+                pc={pc}
+                item={item}
+                actions={actions}
+                {...props}
+              />
             )),
           0
         );

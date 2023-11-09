@@ -284,3 +284,24 @@
 .tableCellSmall {
   width: 33%;
 }
+
+.addItemButton {
+  position: absolute;
+  right: 0;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--color-blue-ink);
+  width: 20px;
+  height: calc(100% - 8px);
+  margin: 0 4px;
+  padding: 0;
+  line-height: 0;
+  background-color: var(--color-x-gray);
+}
+
+.addItemButton:hover {
+  background-color: var(--color-x-pale);
+  transform: scale(1.1);
+}

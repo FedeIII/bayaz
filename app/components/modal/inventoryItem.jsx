@@ -11,20 +11,25 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
     onItemClick,
     openModal,
     closeModal,
+    actions = {},
     className = '',
+    openModalOnClick,
   } = props;
   const item = getItem(pItem.name);
 
   if (!item?.name) return null;
+
+  const openModalForItem = () => openModal(pItem.name, actions);
+  const onClickForItem = () => onItemClick?.(pItem.name);
 
   return (
     <>
       <strong
         ref={ref}
         className={`${styles.item} ${className}`}
-        onClick={() => onItemClick?.(pItem.name)}
-        onMouseOver={() => openModal(pItem.name)}
-        onMouseOut={closeModal}
+        onClick={openModalOnClick ? openModalForItem : onClickForItem}
+        onMouseOver={!openModalOnClick && openModalForItem}
+        onMouseOut={!openModalOnClick && closeModal}
       >
         {itemWithAmount(item.translation, pItem.amount)}
       </strong>

@@ -4,13 +4,13 @@ import OutsideAlerter from '~/components/HOCs/outsideAlerter';
 import { displayDamage } from '~/domain/display';
 import { t } from '~/domain/translations';
 import { getItemArmorClass, translateMoney } from '~/domain/characters';
-
-import styles from './inventoryItem.module.css';
 import { translateDamage } from '~/domain/equipment/weapons';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
 
+import styles from './inventoryItem.module.css';
+
 export function ItemModalContent(props) {
-  const { pc, item, isForPlayers } = props;
+  const { pc, item, actions = {}, isForPlayers } = props;
 
   const subtypeTranslation = item.subtype && t(item.subtype);
   const isWeapon = item.type === 'weapon';
@@ -18,7 +18,18 @@ export function ItemModalContent(props) {
 
   return (
     <>
-      <h3 className={styles.modalTitle}>{item.translation}</h3>
+      <h3 className={styles.modalTitle}>
+        {item.translation}{' '}
+        {!!actions.addToTreasure && (
+          <button
+            type="button"
+            className={styles.addItemButton}
+            onClick={actions.addToTreasure}
+          >
+            +
+          </button>
+        )}
+      </h3>
       <div className={styles.modalContent}>
         <ul className={styles.modalOptionsLeft}>
           {subtypeTranslation && (
