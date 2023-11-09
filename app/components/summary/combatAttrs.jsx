@@ -69,7 +69,7 @@ function CombatAttrs(props) {
     <>
       <div className={`${styles.data} ${styles.armorClass}`}>
         <SkillItem
-          ref={skillRefs.ac[0]}
+          ref={skillRefs.ac.current[0]}
           traitName="armorClass"
           trait="Clase de Armadura"
           pc={pc}
@@ -86,7 +86,7 @@ function CombatAttrs(props) {
       <span className={`${styles.data} ${styles.speed}`}>{getSpeed(pc)}m</span>
       <span className={`${styles.data} ${styles.maxHitPoints}`}>
         <SkillItem
-          ref={skillRefs.hp[0]}
+          ref={skillRefs.hp.current[0]}
           traitName="maxHitPoints"
           trait="Puntos de Golpe máximos"
           pc={pc}
@@ -120,7 +120,7 @@ function CombatAttrs(props) {
       </span>
       <span className={`${styles.data} ${styles.remainingHitDice}`}>
         <SkillItem
-          ref={skillRefs.remainingHitDice[0]}
+          ref={skillRefs.remainingHitDice.current[0]}
           traitName="remainingHitDice"
           trait="Dados de golpe"
           pc={pc}

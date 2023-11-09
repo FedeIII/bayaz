@@ -201,7 +201,7 @@ function SheetAttacks(props) {
             {!!(attack.bonus || attack.bonus === 0) && (
               <span className={`${styles.data} ${styles['attackBonus-' + i]}`}>
                 <SkillItem
-                  ref={skillRefs.attackBonus[i]}
+                  ref={skillRefs.attackBonus.current[i]}
                   traitName="attackBonus"
                   trait="Bonificador de ataque"
                   pc={pc}

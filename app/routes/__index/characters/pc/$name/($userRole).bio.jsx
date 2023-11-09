@@ -526,10 +526,10 @@ function PcBio() {
     if (treasure.weapons.length) {
       itemRefs.weapons.current = treasure.weapons.map(createRef);
     }
-    if (itemResults.length) {
+    if (treasure.armors.length) {
       itemRefs.armors.current = treasure.armors.map(createRef);
     }
-    if (itemResults.length) {
+    if (treasure.others.length) {
       itemRefs.others.current = treasure.others.map(createRef);
     }
     if (itemResults.length) {

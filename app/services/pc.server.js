@@ -1103,6 +1103,12 @@ export async function switchArmor(name, armorName) {
       {
         $set: { 'items.equipment.armor': { name: armorName } },
         $pull: { 'items.treasure.armors': { name: armorName } },
+      },
+      { new: true }
+    );
+    updatedPc = await Pc.findOneAndUpdate(
+      { name },
+      {
         $push: { 'items.treasure.armors': { name: pArmor.name } },
       },
       { new: true }

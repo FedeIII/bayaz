@@ -363,6 +363,13 @@ function PcSummary() {
     others: useRef(equipment.others.map(createRef)),
   });
 
+  useEffect(() => {
+    if (equipment.ammunition.length)
+      itemRefs.ammunition.current = equipment.ammunition.map(createRef);
+    if (equipment.others.length)
+      itemRefs.others.current = equipment.others.map(createRef);
+  }, [equipment.ammunition, equipment.others, itemRefs]);
+
   const [
     itemModalContent,
     closeItemModal,
@@ -388,32 +395,68 @@ function PcSummary() {
   const roguishArchetypeTraits = getRoguishArchetypeTraits(pc);
 
   const [skillRefs, setSkillRefs] = useState({
-    levelUp: [useRef()],
-    spells: [useRef()],
-    traits: traits.map(() => useRef()),
-    primalPath: primalPathTraits.map(() => useRef()),
-    bardCollege: bardCollegeTraits.map(() => useRef()),
-    invocations: invocations.map(() => useRef()),
-    patron: patronTraits.map(() => useRef()),
-    divineDomain: divineDomainTraits.map(() => useRef()),
-    channelDivinity: (() => {
-      const refs = channelDivinityTraits.map(() => useRef());
-      refs.main = useRef();
-      return refs;
-    })(),
-    druidCircle: druidCircleTraits.map(() => useRef()),
-    martialArchetype: martialArchetypeTraits.map(() => useRef()),
-    sorcererOrigin: sorcererOriginTraits.map(() => useRef()),
-    arcaneTradition: arcaneTradicionTraits.map(() => useRef()),
-    monasticTradition: monasticTraditionTraits.map(() => useRef()),
-    sacredOath: sacredOathTraits.map(() => useRef()),
-    roguishArchetype: roguishArchetypeTraits.map(() => useRef()),
-    ac: [useRef()],
-    hp: [useRef()],
-    remainingHitDice: [useRef()],
-    attackBonus: [useRef(), useRef(), useRef()],
-    movingModal: [useRef()],
+    levelUp: useRef([createRef()]),
+    spells: useRef([createRef()]),
+    traits: useRef(traits.map(createRef)),
+    primalPath: useRef(primalPathTraits.map(createRef)),
+    bardCollege: useRef(bardCollegeTraits.map(createRef)),
+    invocations: useRef(invocations.map(createRef)),
+    patron: useRef(patronTraits.map(createRef)),
+    divineDomain: useRef(divineDomainTraits.map(createRef)),
+    channelDivinity: useRef(
+      (() => {
+        const refs = channelDivinityTraits.map(createRef);
+        refs.main = createRef();
+        return refs;
+      })()
+    ),
+    druidCircle: useRef(druidCircleTraits.map(createRef)),
+    martialArchetype: useRef(martialArchetypeTraits.map(createRef)),
+    sorcererOrigin: useRef(sorcererOriginTraits.map(createRef)),
+    arcaneTradition: useRef(arcaneTradicionTraits.map(createRef)),
+    monasticTradition: useRef(monasticTraditionTraits.map(createRef)),
+    sacredOath: useRef(sacredOathTraits.map(createRef)),
+    roguishArchetype: useRef(roguishArchetypeTraits.map(createRef)),
+    ac: useRef([createRef()]),
+    hp: useRef([createRef()]),
+    remainingHitDice: useRef([createRef()]),
+    attackBonus: useRef([createRef(), createRef(), createRef()]),
+    movingModal: useRef([createRef()]),
   });
+
+  /* prettier-ignore */
+  useEffect(() => {
+    if (traits.length) skillRefs.traits.current = traits.map(createRef);
+    if (primalPathTraits.length) skillRefs.primalPathTraits.current = primalPathTraits.map(createRef);
+    if (bardCollegeTraits.length) skillRefs.bardCollegeTraits.current = bardCollegeTraits.map(createRef);
+    if (invocations.length) skillRefs.invocations.current = invocations.map(createRef);
+    if (patronTraits.length) skillRefs.patronTraits.current = patronTraits.map(createRef);
+    if (divineDomainTraits.length) skillRefs.divineDomainTraits.current = divineDomainTraits.map(createRef);
+    if (channelDivinityTraits.length) skillRefs.channelDivinityTraits.current = channelDivinityTraits.map(createRef);
+    if (druidCircleTraits.length) skillRefs.druidCircleTraits.current = druidCircleTraits.map(createRef);
+    if (martialArchetypeTraits.length) skillRefs.martialArchetypeTraits.current = martialArchetypeTraits.map(createRef);
+    if (sorcererOriginTraits.length) skillRefs.sorcererOriginTraits.current = sorcererOriginTraits.map(createRef);
+    if (arcaneTradicionTraits.length) skillRefs.arcaneTradicionTraits.current = arcaneTradicionTraits.map(createRef);
+    if (monasticTraditionTraits.length) skillRefs.monasticTraditionTraits.current = monasticTraditionTraits.map(createRef);
+    if (sacredOathTraits.length) skillRefs.sacredOathTraits.current = sacredOathTraits.map(createRef);
+    if (roguishArchetypeTraits.length) skillRefs.roguishArchetypeTraits.current = roguishArchetypeTraits.map(createRef);
+  }, [
+    traits,
+    primalPathTraits,
+    bardCollegeTraits,
+    invocations,
+    patronTraits,
+    divineDomainTraits,
+    channelDivinityTraits,
+    druidCircleTraits,
+    martialArchetypeTraits,
+    sorcererOriginTraits,
+    arcaneTradicionTraits,
+    monasticTraditionTraits,
+    sacredOathTraits,
+    roguishArchetypeTraits,
+    skillRefs,
+  ]);
 
   const [
     skillModalContent,
@@ -453,7 +496,7 @@ function PcSummary() {
         }}
       />
       <SkillItem
-        ref={skillRefs.movingModal[0]}
+        ref={skillRefs.movingModal.current[0]}
         traitName="notes"
         trait="Notas"
         pc={pc}
@@ -619,7 +662,7 @@ function PcSummary() {
           {hasLeveledUp(pc) && (
             <li className={styles.traitLabel}>
               <SkillItem
-                ref={skillRefs.levelUp[0]}
+                ref={skillRefs.levelUp.current[0]}
                 traitName="levelUp"
                 trait="+Puntos de Golpe"
                 pc={pc}
@@ -631,7 +674,7 @@ function PcSummary() {
           {!hasLearnedSpellsForCurrentLevel(pc) && getDeltaSpells(pc) > 0 && (
             <li className={styles.traitLabel}>
               <SkillItem
-                ref={skillRefs.spells[0]}
+                ref={skillRefs.spells.current[0]}
                 traitName="newSpells"
                 trait="Escoge nuevos conjuros"
                 pc={pc}
@@ -643,7 +686,7 @@ function PcSummary() {
           {traits.map(([traitName, trait], i) => (
             <li className={styles.traitLabel} key={traitName}>
               <SkillItem
-                ref={skillRefs.traits[i]}
+                ref={skillRefs.traits.current[i]}
                 traitName={traitName}
                 trait={trait}
                 pc={pc}
@@ -661,7 +704,7 @@ function PcSummary() {
                 {primalPathTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.primalPath[i]}
+                      ref={skillRefs.primalPath.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -682,7 +725,7 @@ function PcSummary() {
                 {bardCollegeTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.bardCollege[i]}
+                      ref={skillRefs.bardCollege.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -703,7 +746,7 @@ function PcSummary() {
                 {invocations.map((invocationName, i) => (
                   <li className={styles.traitLabel} key={invocationName}>
                     <SkillItem
-                      ref={skillRefs.invocations[i]}
+                      ref={skillRefs.invocations.current[i]}
                       traitName={invocationName}
                       trait="invocation"
                       pc={pc}
@@ -724,7 +767,7 @@ function PcSummary() {
                 {patronTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.patron[i]}
+                      ref={skillRefs.patron.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -745,7 +788,7 @@ function PcSummary() {
                 {divineDomainTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.divineDomain[i]}
+                      ref={skillRefs.divineDomain.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -761,7 +804,7 @@ function PcSummary() {
             <li className={styles.traitLabel}>
               <strong className={styles.trait}>
                 <SkillItem
-                  ref={skillRefs.channelDivinity.main}
+                  ref={skillRefs.channelDivinity.current.main}
                   traitName="channelDivinity"
                   trait={CLASSES.cleric.leveling[2].traits.channelDivinity}
                   pc={pc}
@@ -772,7 +815,7 @@ function PcSummary() {
                 {channelDivinityTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.channelDivinity[i]}
+                      ref={skillRefs.channelDivinity.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -793,7 +836,7 @@ function PcSummary() {
                 {druidCircleTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.druidCircle[i]}
+                      ref={skillRefs.druidCircle.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -814,7 +857,7 @@ function PcSummary() {
                 {rangerConclaveTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.rangerConclave[i]}
+                      ref={skillRefs.rangerConclave.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -835,7 +878,7 @@ function PcSummary() {
                 {martialArchetypeTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.martialArchetype[i]}
+                      ref={skillRefs.martialArchetype.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -856,7 +899,7 @@ function PcSummary() {
                 {sorcererOriginTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.sorcererOrigin[i]}
+                      ref={skillRefs.sorcererOrigin.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -878,7 +921,7 @@ function PcSummary() {
                 {arcaneTradicionTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.arcaneTradition[i]}
+                      ref={skillRefs.arcaneTradition.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -899,7 +942,7 @@ function PcSummary() {
                 {monasticTraditionTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.monasticTradition[i]}
+                      ref={skillRefs.monasticTradition.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -920,7 +963,7 @@ function PcSummary() {
                 {sacredOathTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.sacredOath[i]}
+                      ref={skillRefs.sacredOath.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
@@ -941,7 +984,7 @@ function PcSummary() {
                 {roguishArchetypeTraits.map(([traitName, trait], i) => (
                   <li className={styles.traitLabel} key={traitName}>
                     <SkillItem
-                      ref={skillRefs.roguishArchetype[i]}
+                      ref={skillRefs.roguishArchetype.current[i]}
                       traitName={traitName}
                       trait={trait}
                       pc={pc}
