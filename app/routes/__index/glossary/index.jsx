@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { createRef, useEffect, useMemo, useRef, useState } from 'react';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import { SkillModal } from '~/components/modal/skillModal';
-import { MAX_RESULTS, getSearchResults } from '~/domain/search';
+import { getSearchResults } from '~/domain/search';
 import { InventoryItem } from '~/components/modal/inventoryItem';
 import { ItemModal } from '~/components/modal/itemModal';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
@@ -48,14 +48,32 @@ function Glossary() {
   const [filters, setFilters] = useState({ search: '' });
   const { search } = filters;
 
-  const refsList = {
-    spells: Array.from(Array(MAX_RESULTS), () => useRef()),
-    equipment: Array.from(Array(MAX_RESULTS), () => useRef()),
-    traits: Array.from(Array(MAX_RESULTS), () => useRef()),
-    monsters: Array.from(Array(MAX_RESULTS), () => useRef()),
-  };
+  const searchResults = useMemo(
+    () => (search.length > 2 ? getSearchResults(search) : getSearchResults('')),
+    [search]
+  );
 
-  const searchResults = useMemo(() => getSearchResults(search), [search]);
+  const [refsList, setRefsList] = useState({
+    spells: useRef(searchResults.spells.map(createRef)),
+    equipment: useRef(searchResults.equipment.map(createRef)),
+    traits: useRef(searchResults.traits.map(createRef)),
+    monsters: useRef(searchResults.monsters.map(createRef)),
+  });
+
+  useEffect(() => {
+    if (searchResults.spells.length) {
+      refsList.spells.current = searchResults.spells.map(createRef);
+    }
+    if (searchResults.equipment.length) {
+      refsList.equipment.current = searchResults.equipment.map(createRef);
+    }
+    if (searchResults.traits.length) {
+      refsList.traits.current = searchResults.traits.map(createRef);
+    }
+    if (searchResults.monsters.length) {
+      refsList.monsters.current = searchResults.monsters.map(createRef);
+    }
+  }, [searchResults, refsList]);
 
   const [
     skillModalContent,
@@ -128,7 +146,7 @@ function Glossary() {
                 {searchResults.spells.map((spell, i) => (
                   <li className={styles.sectionItem} key={spell.name}>
                     <SkillItem
-                      ref={refsList.spells[i]}
+                      ref={refsList.spells.current[i]}
                       traitName={spell.name}
                       trait="spell"
                       openModal={openSkillModal('spells', i)}
@@ -149,7 +167,7 @@ function Glossary() {
                 {searchResults.equipment.map((item, i) => (
                   <li className={styles.sectionItem} key={item.name}>
                     <InventoryItem
-                      ref={refsList.equipment[i]}
+                      ref={refsList.equipment.current[i]}
                       pItem={item}
                       isLast
                       openModal={openItemModal('equipment', i)}
@@ -170,7 +188,7 @@ function Glossary() {
                 {searchResults.traits.map(([traitName, trait], i) => (
                   <li className={styles.sectionItem} key={traitName}>
                     <SkillItem
-                      ref={refsList.traits[i]}
+                      ref={refsList.traits.current[i]}
                       traitName={traitName}
                       trait={trait}
                       openModal={openSkillModal('traits', i)}
@@ -190,7 +208,7 @@ function Glossary() {
                 {searchResults.monsters.map((monster, i) => (
                   <li className={styles.sectionItem} key={monster.name}>
                     <CharacterItem
-                      ref={refsList.monsters[i]}
+                      ref={refsList.monsters.current[i]}
                       character={Monster(monster.name)}
                       charSection="monsters"
                       charIndex={i}

@@ -118,7 +118,7 @@ function SheetAttacks(props) {
     return itemName => {
       const item = getItem(itemName);
 
-      setSelectedItemRef(itemRefs[itemType][itemIndex]);
+      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
 
       setTimeout(
         () =>
@@ -181,7 +181,7 @@ function SheetAttacks(props) {
               >
                 <span className={styles.attackHandlerCharacter}>░</span>
                 <InventoryItem
-                  ref={itemRefs.weapons[i]}
+                  ref={itemRefs.weapons.current[i]}
                   pItem={attack.weapon}
                   isLast
                   onItemClick={onWeaponClick('weapons', i)}

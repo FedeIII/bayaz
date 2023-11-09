@@ -21,7 +21,7 @@ export function useSkillItems(pc = BASE_CHARACTER, skillRefs, submit = noOp) {
 
   function openSkillModal(sectionName, skillIndex = 0) {
     return (skillName, skill, bigModal, position) => {
-      setSelectedSkillRef(skillRefs[sectionName][skillIndex]);
+      setSelectedSkillRef(skillRefs[sectionName].current[skillIndex]);
 
       setTimeout(() => {
         const setModalContent = bigModal

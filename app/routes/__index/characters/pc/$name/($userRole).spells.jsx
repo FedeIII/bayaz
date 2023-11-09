@@ -1,6 +1,6 @@
 import { json } from '@remix-run/node';
 import { Form, useLoaderData, useSubmit } from '@remix-run/react';
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, createRef, useRef, useState } from 'react';
 
 import {
   addPreparedSpell,
@@ -158,9 +158,9 @@ function PcSpells() {
   }
 
   const [skillRefs, setSkillRefs] = useState({
-    ...spellsByLevel.map(spells => spells.map(useRef)),
-    resetSpellSlots: Array.from(Array(10), useRef),
-    copySpell: [useRef()],
+    ...spellsByLevel.map(spells => useRef(spells.map(createRef))),
+    resetSpellSlots: useRef(Array.from(Array(10), createRef)),
+    copySpell: useRef([createRef()]),
   });
 
   const [
@@ -201,7 +201,7 @@ function PcSpells() {
         {!isForPlayers && canCopySpells(pc) && (
           <div className={styles.copySpell}>
             <SkillItem
-              ref={skillRefs.copySpell[0]}
+              ref={skillRefs.copySpell.current[0]}
               pc={pc}
               traitName="copySpell"
               trait="Copiar conjuro"
@@ -234,7 +234,7 @@ function PcSpells() {
                 className={`${styles.data} ${styles[`totalSpaces-${level}`]}`}
               >
                 <SkillItem
-                  ref={skillRefs.resetSpellSlots[level]}
+                  ref={skillRefs.resetSpellSlots.current[level]}
                   pc={pc}
                   traitName="resetSpellSlots"
                   trait={level}
@@ -303,7 +303,7 @@ function PcSpells() {
                   )}
                   <span>
                     <SkillItem
-                      ref={skillRefs[level][i]}
+                      ref={skillRefs[level].current[i]}
                       traitName={spell.name}
                       trait="spell"
                       openModal={openSkillModal(level, i)}

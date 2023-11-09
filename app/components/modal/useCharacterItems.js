@@ -11,7 +11,7 @@ export function useCharacterItems(characterRefs) {
 
   function openCharacterModal(character, charSection, charIndex = 0) {
     return () => {
-      setSelectedCharacterRef(characterRefs[charSection][charIndex]);
+      setSelectedCharacterRef(characterRefs[charSection].current[charIndex]);
 
       setTimeout(() => {
         setCharacterModalContent(() => props => {

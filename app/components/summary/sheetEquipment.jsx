@@ -76,7 +76,7 @@ function SheetEquipment(props) {
     return itemName => {
       const item = getItem(itemName);
 
-      setSelectedItemRef(itemRefs[itemType][itemIndex]);
+      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
 
       setTimeout(
         () =>
@@ -100,7 +100,7 @@ function SheetEquipment(props) {
           <li>
             <u>Armadura:</u>{' '}
             <InventoryItem
-              ref={itemRefs.armor[0]}
+              ref={itemRefs.armor.current[0]}
               pItem={equipment.armor}
               isLast
               onItemClick={!!treasure.armors.length && onArmorClick('armor')}
@@ -114,7 +114,7 @@ function SheetEquipment(props) {
           <li>
             <u>Escudo:</u>{' '}
             <InventoryItem
-              ref={itemRefs.shield[0]}
+              ref={itemRefs.shield.current[0]}
               pItem={equipment.shield}
               isLast
               openModal={openItemModal('shield')}
@@ -128,7 +128,7 @@ function SheetEquipment(props) {
             <u>Proyectiles:</u>{' '}
             {equipment.ammunition.map((ammo, i) => (
               <InventoryItem
-                ref={itemRefs.ammunition[i]}
+                ref={itemRefs.ammunition.current[i]}
                 pItem={ammo}
                 isLast={i === equipment.ammunition.length - 1}
                 openModal={openItemModal('ammunition', i)}
@@ -142,7 +142,7 @@ function SheetEquipment(props) {
           <li>
             {equipment.others.map((otherItem, i) => (
               <InventoryItem
-                ref={itemRefs.others[i]}
+                ref={itemRefs.others.current[i]}
                 pItem={otherItem}
                 isLast={i === equipment.others.length - 1}
                 openModal={openItemModal('others', i)}

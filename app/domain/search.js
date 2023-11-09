@@ -8,8 +8,6 @@ import { translateSchool } from './spells/spellTranslations';
 import { translateSpell } from './spells/spells';
 import { t } from './translations';
 
-export const MAX_RESULTS = 20;
-
 // SPELLS //
 function isSpellMatch(spell, search) {
   return [
@@ -22,10 +20,7 @@ function isSpellMatch(spell, search) {
 }
 
 function findSpells(search) {
-  return SPELL_LIST.filter(spell => isSpellMatch(spell, search)).slice(
-    0,
-    MAX_RESULTS
-  );
+  return SPELL_LIST.filter(spell => isSpellMatch(spell, search));
 }
 
 // EQUIPMENT //
@@ -44,8 +39,7 @@ function isItemMatch(itemBuilder, search) {
 function findEquipment(search) {
   return getAllItems()
     .filter(itemBuilder => isItemMatch(itemBuilder, search))
-    .map(i => i?.())
-    .slice(0, MAX_RESULTS);
+    .map(i => i?.());
 }
 
 // TRAITS //
@@ -75,7 +69,7 @@ function isTraitMatch(traitName, trait, search) {
 function findTraits(search) {
   return ALL_TRAITS.filter(([traitName, trait]) =>
     isTraitMatch(traitName, trait, search)
-  ).slice(0, MAX_RESULTS);
+  );
 }
 
 // MONSTERS
@@ -95,9 +89,9 @@ function isMonsterMatch(monsterName, search) {
 }
 
 function findMonsters(search) {
-  return Object.values(MONSTERS)
-    .filter(monster => isMonsterMatch(monster.name, search))
-    .slice(0, MAX_RESULTS);
+  return Object.values(MONSTERS).filter(monster =>
+    isMonsterMatch(monster.name, search)
+  );
 }
 
 const finders = {

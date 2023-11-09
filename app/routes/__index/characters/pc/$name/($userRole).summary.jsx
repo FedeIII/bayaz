@@ -5,7 +5,7 @@ import {
   useSubmit,
   useTransition,
 } from '@remix-run/react';
-import { useEffect, useRef, useState } from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 
 import {
   getPc,
@@ -346,11 +346,11 @@ function PcSummary() {
   const [actionModalContent, setActionModalContent] = useState(null);
 
   const [itemRefs, setItemRefs] = useState({
-    weapons: [useRef(), useRef(), useRef()],
-    armor: [useRef()],
-    shield: [useRef()],
-    ammunition: equipment.ammunition.map(() => useRef()),
-    others: equipment.others.map(() => useRef()),
+    weapons: useRef([createRef(), createRef(), createRef()]),
+    armor: useRef([createRef()]),
+    shield: useRef([createRef()]),
+    ammunition: useRef(equipment.ammunition.map(createRef)),
+    others: useRef(equipment.others.map(createRef)),
   });
 
   const [
