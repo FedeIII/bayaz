@@ -1061,6 +1061,16 @@ export async function dropTreasureItem(name, itemName) {
   return updatedPc;
 }
 
+export async function changeTreasureItemAmount(name, itemName, itemAmount) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name, 'items.treasure.others.name': itemName },
+    { $set: { 'items.treasure.others.$.amount': parseInt(itemAmount, 10) } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function reorderWeapons(name, weaponName, destinationSlot) {
   const pc = await getPc(name);
   const weapons = pc.items.weapons.slice();

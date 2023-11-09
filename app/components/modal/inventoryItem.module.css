@@ -224,6 +224,10 @@
   max-width: 40px;
 }
 
+.amountInput {
+  width: 45px;
+}
+
 .modalContentTitle {
   margin: 0;
 }

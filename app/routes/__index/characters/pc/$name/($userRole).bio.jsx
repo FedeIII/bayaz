@@ -15,6 +15,7 @@ import {
   dropTreasureWeapon,
   dropTreasureArmor,
   dropTreasureItem,
+  changeTreasureItemAmount,
 } from '~/services/pc.server';
 import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { getPackItems } from '~/domain/equipment/packs';
@@ -79,11 +80,20 @@ async function dropItemAction(formData) {
   await dropTreasureItem(name, itemName);
 }
 
+async function changeAmountAction(formData) {
+  const name = formData.get('name');
+  const itemName = formData.get('itemName');
+  const itemAmount = formData.get('itemAmount');
+
+  await changeTreasureItemAmount(name, itemName, itemAmount);
+}
+
 async function addItemToTreasureAction(formData) {
   const name = formData.get('name');
   const itemName = formData.get('itemName');
+  const itemAmount = formData.get('itemAmount');
 
-  await addItemToTreasure(name, itemName);
+  await addItemToTreasure(name, itemName, itemAmount);
 }
 
 async function updateFreeTextsAction(formData) {
@@ -131,6 +141,9 @@ export const action = async ({ request }) => {
   } else if (action === 'dropItem') {
     await dropItemAction(formData);
     return null;
+  } else if (action === 'changeAmount') {
+    await changeAmountAction(formData);
+    return null;
   } else if (action === 'addItemToTreasure') {
     await addItemToTreasureAction(formData);
   } else {
@@ -141,11 +154,26 @@ export const action = async ({ request }) => {
 };
 
 function ItemModalContent(props) {
-  const { item, dropItem, closeModal } = props;
+  const { item, dropItem, changeAmount, addToTreasure, closeModal } = props;
 
   function onDropClick(e) {
     const itemName = e.target.value;
     dropItem(itemName);
+    closeModal();
+  }
+
+  const [amount, setAmount] = useState(item.amount);
+  function onAmountChange(e) {
+    setAmount(e.target.value);
+  }
+
+  function onChangeAmountClick() {
+    changeAmount(item.name, amount);
+    closeModal();
+  }
+
+  function onAddToTreasureClick() {
+    addToTreasure(item.name, amount);
     closeModal();
   }
 
@@ -157,16 +185,56 @@ function ItemModalContent(props) {
       </span>
       <div className={itemStyles.modalContent}>
         <ul className={itemStyles.modalOptions}>
-          <li>
-            <button
-              type="button"
-              className={itemStyles.dropItemButton}
-              value={item.name}
-              onClick={onDropClick}
-            >
-              Tirar {item.translation}
-            </button>
-          </li>
+          {!!addToTreasure && (
+            <li>
+              <button
+                type="button"
+                className={itemStyles.dropItemButton}
+                onClick={onAddToTreasureClick}
+              >
+                Añadir items
+              </button>{' '}
+              <input
+                type="number"
+                name="amount"
+                min="1"
+                value={amount}
+                onChange={onAmountChange}
+                className={`${itemStyles.amountInput}`}
+              />
+            </li>
+          )}
+          {!!changeAmount && (
+            <li>
+              <button
+                type="button"
+                className={itemStyles.dropItemButton}
+                onClick={onChangeAmountClick}
+              >
+                Cambiar cantidad
+              </button>{' '}
+              <input
+                type="number"
+                name="amount"
+                min="1"
+                value={amount}
+                onChange={onAmountChange}
+                className={`${itemStyles.amountInput}`}
+              />
+            </li>
+          )}
+          {!!dropItem && (
+            <li>
+              <button
+                type="button"
+                className={itemStyles.dropItemButton}
+                value={item.name}
+                onClick={onDropClick}
+              >
+                Tirar {item.translation}
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </>
@@ -394,12 +462,25 @@ function PcBio() {
     );
   }
 
-  function addToTreasure(itemName) {
+  function changeAmount(itemName, itemAmount) {
+    submit(
+      {
+        action: 'changeAmount',
+        name,
+        itemName,
+        itemAmount,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function addToTreasure(itemName, itemAmount) {
     submit(
       {
         action: 'addItemToTreasure',
         name,
         itemName,
+        itemAmount,
       },
       { method: 'post' }
     );
@@ -478,6 +559,15 @@ function PcBio() {
           <ItemModalContent
             item={item}
             dropItem={dropItem}
+            changeAmount={changeAmount}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
+      } else if (itemType === 'inventorySearchResults') {
+        content = props => (
+          <ItemModalContent
+            item={item}
+            addToTreasure={addToTreasure}
             closeModal={() => setActionModalContent(null)}
           />
         );
@@ -750,12 +840,14 @@ function PcBio() {
         </div>
         {isTreasureScreenOpen && (
           <div className={`${styles.data} ${styles.treasureScreen}`}>
-            Buscar Items:{' '}
-            <input
-              className={``}
-              value={itemSearch}
-              onChange={onSearchChange}
-            />
+            <div className={styles.treasureSearcher}>
+              Buscar Items:{' '}
+              <input
+                className={``}
+                value={itemSearch}
+                onChange={onSearchChange}
+              />
+            </div>
             <ul className={styles.sectionItems}>
               {itemResults.map((item, i) => (
                 <li className={styles.sectionItem} key={item.name}>
@@ -763,9 +855,9 @@ function PcBio() {
                     ref={itemRefs.inventorySearchResults.current[i]}
                     pItem={item}
                     isLast
-                    openModalOnClick
+                    onItemClick={onItemClick('inventorySearchResults', i)}
                     openModal={openItemModal('inventorySearchResults', i)}
-                    actions={{ addToTreasure: () => addToTreasure(item.name) }}
+                    closeModal={closeItemModal}
                     key={item.name}
                   />
                 </li>

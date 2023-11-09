@@ -179,7 +179,7 @@ export async function damagePc(pcName, damage) {
   return pc;
 }
 
-export async function addItemToTreasure(name, itemName) {
+export async function addItemToTreasure(name, itemName, itemAmount) {
   const pc = await getPc(name);
   const item = getItem(itemName);
   const section = isWeapon(item)
@@ -189,9 +189,14 @@ export async function addItemToTreasure(name, itemName) {
     : 'others';
 
   if (pc.items.treasure[section].find(item => item.name === itemName)) {
-    return await increaseTreasureItemAmount(name, itemName, section, 1);
+    return await increaseTreasureItemAmount(
+      name,
+      itemName,
+      section,
+      itemAmount
+    );
   }
 
-  const pItem = { name: itemName };
+  const pItem = { name: itemName, amount: itemAmount };
   return await addItemToTreasureSection(name, pItem, section);
 }

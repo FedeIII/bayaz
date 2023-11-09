@@ -279,7 +279,6 @@
 .treasureScreen {
   grid-area: tre;
   flex-direction: column;
-  flex-wrap: wrap;
   align-items: flex-start;
   column-gap: 23px;
   text-align: left;
@@ -287,13 +286,30 @@
   line-height: 1.36;
   hyphens: auto;
   margin: 15px;
-  padding: 0 22px 0 12px;
+  padding: 8px 8px 0px 8px;
   background-color: white;
   border: 8px double black;
   box-shadow: black 0px 0px 10px 0px;
   border-radius: 10px;
   border-block-start: 2px solid black;
   border-block-end: 2px solid black;
+  background: var(--color-x-gray);
+}
+
+.treasureSearcher {
+}
+
+.sectionItems {
+  flex-grow: 1;
+  align-self: stretch;
+  column-count: 3;
+  overflow-y: scroll;
+  margin: 8px 0;
+  padding: 8px 24px;
+  border: 1px solid black;
+  border-inline: 4px double black;
+  border-radius: 10px;
+  background: white;
 }
 
 /*  */
