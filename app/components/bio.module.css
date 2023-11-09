@@ -355,17 +355,3 @@
 .equipArmor:hover {
   background-color: var(--color-gray);
 }
-
-.dropItemButton {
-  border: none;
-  background: transparent;
-  font-family: fantasy;
-  font-size: 16px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.dropItemButton:hover {
-  background-color: var(--color-x-gray);
-  color: var(--color-x-blue-ink);
-}

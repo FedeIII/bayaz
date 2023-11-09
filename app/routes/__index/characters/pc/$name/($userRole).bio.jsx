@@ -160,7 +160,7 @@ function ItemModalContent(props) {
           <li>
             <button
               type="button"
-              className={styles.dropItemButton}
+              className={itemStyles.dropItemButton}
               value={item.name}
               onClick={onDropClick}
             >
@@ -213,7 +213,7 @@ function WeaponModalContent(props) {
           <li>
             <button
               type="button"
-              className={styles.dropItemButton}
+              className={itemStyles.dropItemButton}
               value={weapon.name}
               onClick={onDropClick}
             >
@@ -276,7 +276,7 @@ function ArmorModalContent(props) {
           <li>
             <button
               type="button"
-              className={styles.dropItemButton}
+              className={itemStyles.dropItemButton}
               value={armor.name}
               onClick={onDropClick}
             >

@@ -6,8 +6,10 @@ import { t } from '~/domain/translations';
 import styles from '~/components/sheet.module.css';
 import itemStyles from '~/components/modal/inventoryItem.module.css';
 
+const noOp = () => {};
+
 function ArmorModalContent(props) {
-  const { pc, armor, onArmorChange, closeModal } = props;
+  const { pc, armor, onArmorChange, unequipArmor, closeModal } = props;
   const {
     items: {
       treasure: { armors },
@@ -17,6 +19,12 @@ function ArmorModalContent(props) {
   function onEquipClick(e) {
     const newArmorName = e.target.value;
     onArmorChange(newArmorName);
+    closeModal();
+  }
+
+  function onUnequipClick(e) {
+    const armorName = e.target.value;
+    unequipArmor(armorName);
     closeModal();
   }
 
@@ -38,6 +46,16 @@ function ArmorModalContent(props) {
                 </option>
               ))}
             </select>
+          </li>
+          <li>
+            <button
+              type="button"
+              className={itemStyles.dropItemButton}
+              value={armor.name}
+              onClick={onUnequipClick}
+            >
+              Desequipar {armor.translation}
+            </button>
           </li>
         </ul>
       </div>
@@ -72,6 +90,17 @@ function SheetEquipment(props) {
     );
   }
 
+  function unequipArmor(armorName) {
+    submit(
+      {
+        action: 'unequipArmor',
+        name: pcName,
+        armorName,
+      },
+      { method: 'post' }
+    );
+  }
+
   function onArmorClick(itemType, itemIndex = 0) {
     return itemName => {
       const item = getItem(itemName);
@@ -85,6 +114,7 @@ function SheetEquipment(props) {
               pc={pc}
               armor={item}
               onArmorChange={onArmorChange}
+              unequipArmor={unequipArmor}
               closeModal={() => setActionModalContent(null)}
             />
           )),
@@ -103,7 +133,9 @@ function SheetEquipment(props) {
               ref={itemRefs.armor.current[0]}
               pItem={equipment.armor}
               isLast
-              onItemClick={!!treasure.armors.length && onArmorClick('armor')}
+              onItemClick={
+                !!treasure.armors.length ? onArmorClick('armor') : noOp
+              }
               openModal={openItemModal('armor')}
               closeModal={closeItemModal}
               key={equipment.armor.name}

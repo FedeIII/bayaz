@@ -18,6 +18,7 @@ import {
   deleteNote,
   updateNotePosition,
   unequipWeapon,
+  unequipArmor,
 } from '~/services/pc.server';
 import {
   CLASSES,
@@ -148,6 +149,13 @@ async function switchArmorAction(formData) {
   return await switchArmor(name, newArmorName);
 }
 
+async function unequipArmorAction(formData) {
+  const name = formData.get('name');
+  const armorName = formData.get('armorName');
+
+  return await unequipArmor(name, armorName);
+}
+
 async function spendHitDieAction(formData) {
   const name = formData.get('name');
   const diceAmount = formData.get('diceAmount');
@@ -229,6 +237,8 @@ export const action = async ({ request }) => {
     pc = await reorderWeaponsAction(formData);
   } else if (action === 'equipArmor') {
     pc = await switchArmorAction(formData);
+  } else if (action === 'unequipArmor') {
+    pc = await unequipArmorAction(formData);
   } else if (action === 'spendHitDie') {
     pc = await spendHitDieAction(formData);
   } else if (action === 'spendRealHitDie') {

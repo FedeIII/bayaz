@@ -1018,6 +1018,19 @@ export async function equipWeaponInSlot(name, weaponToEquipName, slot) {
   return updatedPc;
 }
 
+export async function unequipArmor(name, armorName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name },
+    {
+      $unset: { 'items.equipment.armor': '' },
+      $push: { 'items.treasure.armors': { name: armorName } },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function dropTreasureWeapon(name, weaponName) {
   const updatedPc = await Pc.findOneAndUpdate(
     { name },
@@ -1072,27 +1085,30 @@ export async function switchArmor(name, armorName) {
   const pc = await getPc(name);
 
   const { armor: pArmor } = pc.items.equipment;
-  const equipment = {
-    ...pc.items.equipment,
-    armor: pcItem(armorName),
-  };
-  const treasureArmors = pc.items.treasure.armors.slice();
-  const armorIndex = treasureArmors.findIndex(
-    armor => armor.name === armorName
-  );
-  if (armorIndex >= 0) treasureArmors[armorIndex] = pArmor;
 
-  return updatePc({
-    name,
-    items: {
-      ...pc.items,
-      equipment,
-      treasure: {
-        ...pc.items.treasure,
-        armors: treasureArmors,
+  let updatedPc;
+  if (pArmor) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name },
+      {
+        $set: { 'items.equipment.armor': { name: armorName } },
+        $pull: { 'items.treasure.armors': { name: armorName } },
+        $push: { 'items.treasure.armors': { name: pArmor.name } },
       },
-    },
-  });
+      { new: true }
+    );
+  } else {
+    updatedPc = await Pc.findOneAndUpdate(
+      { name },
+      {
+        $set: { 'items.equipment.armor': { name: armorName } },
+        $pull: { 'items.treasure.armors': { name: armorName } },
+      },
+      { new: true }
+    );
+  }
+
+  return updatedPc;
 }
 
 export async function addItemToTreasureSection(name, item, section) {
