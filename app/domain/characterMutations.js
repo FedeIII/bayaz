@@ -7,15 +7,15 @@ import {
   getStat,
 } from '~/domain/characters';
 import {
-  addItemToTreasureSection,
+  addItemToSection,
   getPc,
   healPc,
-  increaseTreasureItemAmount,
+  increaseItemAmount,
   updatePc,
 } from '~/services/pc.server';
 import { rollDice } from '~/domain/random';
 import { getSpellSlots } from './spells/spells';
-import { getItem, isArmor, isWeapon } from './equipment/equipment';
+import { getItem, isAmmo, isArmor, isWeapon } from './equipment/equipment';
 
 export async function setPcStats(pcParams) {
   const {
@@ -182,21 +182,25 @@ export async function damagePc(pcName, damage) {
 export async function addItemToTreasure(name, itemName, itemAmount) {
   const pc = await getPc(name);
   const item = getItem(itemName);
-  const section = isWeapon(item)
+  const section = isAmmo(item) ? 'equipment' : 'treasure';
+  const subsection = isAmmo(item)
+    ? 'ammunition'
+    : isWeapon(item)
     ? 'weapons'
     : isArmor(item)
     ? 'armors'
     : 'others';
 
-  if (pc.items.treasure[section].find(item => item.name === itemName)) {
-    return await increaseTreasureItemAmount(
+  if (pc.items[section][subsection].find(item => item.name === itemName)) {
+    return await increaseItemAmount(
       name,
       itemName,
       section,
+      subsection,
       itemAmount
     );
   }
 
   const pItem = { name: itemName, amount: itemAmount };
-  return await addItemToTreasureSection(name, pItem, section);
+  return await addItemToSection(name, pItem, section, subsection);
 }

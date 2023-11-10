@@ -1155,25 +1155,26 @@ export async function switchArmor(name, armorName) {
   return updatedPc;
 }
 
-export async function addItemToTreasureSection(name, item, section) {
+export async function addItemToSection(name, item, section, subsection) {
   const updatedPc = await Pc.findOneAndUpdate(
     { name },
-    { $push: { [`items.treasure.${section}`]: item } },
+    { $push: { [`items.${section}.${subsection}`]: item } },
     { new: true }
   );
 
   return updatedPc;
 }
 
-export async function increaseTreasureItemAmount(
+export async function increaseItemAmount(
   name,
   itemName,
   section,
+  subsection,
   amount
 ) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name, [`items.treasure.${section}.name`]: itemName },
-    { $inc: { [`items.treasure.${section}.$.amount`]: amount } },
+    { name, [`items.${section}.${subsection}.name`]: itemName },
+    { $inc: { [`items.${section}.${subsection}.$.amount`]: amount } },
     { new: true }
   );
 

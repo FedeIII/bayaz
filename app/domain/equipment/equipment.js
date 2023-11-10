@@ -131,3 +131,7 @@ export function isWeapon(item) {
 export function isArmor(item) {
   return item.type === 'armor';
 }
+
+export function isAmmo(item) {
+  return item.subtype === 'ammunition';
+}

@@ -843,7 +843,7 @@ function PcBio() {
             <div className={styles.treasureSearcher}>
               Buscar Items:{' '}
               <input
-                className={``}
+                className={styles.treasureSearcherInput}
                 value={itemSearch}
                 onChange={onSearchChange}
               />
