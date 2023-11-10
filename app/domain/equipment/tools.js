@@ -7,7 +7,7 @@ export function TOOLS() {
         translation: 'Caramillo',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [2, 0, 0],
+        price: { gp: 2, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -18,7 +18,7 @@ export function TOOLS() {
         translation: 'Cuerno',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [3, 0, 0],
+        price: { gp: 3, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -29,7 +29,7 @@ export function TOOLS() {
         translation: 'Dulcimer',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [25, 0, 0],
+        price: { gp: 25, sp: 0, cp: 0 },
         weight: 5,
         ...props,
       };
@@ -40,7 +40,7 @@ export function TOOLS() {
         translation: 'Flauta',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [2, 0, 0],
+        price: { gp: 2, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -51,7 +51,7 @@ export function TOOLS() {
         translation: 'Flauta de pan',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [12, 0, 0],
+        price: { gp: 12, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -62,7 +62,7 @@ export function TOOLS() {
         translation: 'Gaita',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [30, 0, 0],
+        price: { gp: 30, sp: 0, cp: 0 },
         weight: 3,
         ...props,
       };
@@ -73,7 +73,7 @@ export function TOOLS() {
         translation: 'Laúd',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [35, 0, 0],
+        price: { gp: 35, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -84,7 +84,7 @@ export function TOOLS() {
         translation: 'Lira',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [30, 0, 0],
+        price: { gp: 30, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -95,7 +95,7 @@ export function TOOLS() {
         translation: 'Tambor',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [6, 0, 0],
+        price: { gp: 6, sp: 0, cp: 0 },
         weight: 1.5,
         ...props,
       };
@@ -106,7 +106,7 @@ export function TOOLS() {
         translation: 'Viola',
         type: 'tool',
         subtype: 'musicalInstruments',
-        price: [30, 0, 0],
+        price: { gp: 30, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -119,7 +119,7 @@ export function TOOLS() {
         translation: 'Materiales alquímicos',
         type: 'tools',
         subtype: 'artisansTools',
-        price: [50, 0, 0],
+        price: { gp: 50, sp: 0, cp: 0 },
         weight: 4,
         ...props,
       };
@@ -130,7 +130,7 @@ export function TOOLS() {
         translation: 'Materiales de cervecería',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [20, 0, 0],
+        price: { gp: 20, sp: 0, cp: 0 },
         weight: 4.5,
         ...props,
       };
@@ -141,7 +141,7 @@ export function TOOLS() {
         translation: 'Materiales de caligrafía',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -152,7 +152,7 @@ export function TOOLS() {
         translation: 'Herramientas de carpintero',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [8, 0, 0],
+        price: { gp: 8, sp: 0, cp: 0 },
         weight: 3,
         ...props,
       };
@@ -163,7 +163,7 @@ export function TOOLS() {
         translation: 'Herramientas de cartógrafo',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [15, 0, 0],
+        price: { gp: 15, sp: 0, cp: 0 },
         weight: 3,
         ...props,
       };
@@ -174,7 +174,7 @@ export function TOOLS() {
         translation: 'Herramientas de zapatero',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -185,7 +185,7 @@ export function TOOLS() {
         translation: 'Utensilios de cocina',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 4,
         ...props,
       };
@@ -196,7 +196,7 @@ export function TOOLS() {
         translation: 'Herramientas de soplador de vidrio',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [30, 0, 0],
+        price: { gp: 30, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -207,7 +207,7 @@ export function TOOLS() {
         translation: 'Herramientas de joyero',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [25, 0, 0],
+        price: { gp: 25, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -218,7 +218,7 @@ export function TOOLS() {
         translation: 'Herramientas de peletero',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -229,7 +229,7 @@ export function TOOLS() {
         translation: 'Herramientas de albañil',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 4,
         ...props,
       };
@@ -240,7 +240,7 @@ export function TOOLS() {
         translation: 'Materiales de pintor',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -251,7 +251,7 @@ export function TOOLS() {
         translation: 'Herramientas de alfarero',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 1.5,
         ...props,
       };
@@ -262,7 +262,7 @@ export function TOOLS() {
         translation: 'Herramientas de herrero',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [20, 0, 0],
+        price: { gp: 20, sp: 0, cp: 0 },
         weight: 4,
         ...props,
       };
@@ -273,7 +273,7 @@ export function TOOLS() {
         translation: 'Herramientas de hojalatero',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [50, 0, 0],
+        price: { gp: 50, sp: 0, cp: 0 },
         weight: 5,
         ...props,
       };
@@ -284,7 +284,7 @@ export function TOOLS() {
         translation: 'Herramientas de tejedor',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -295,7 +295,7 @@ export function TOOLS() {
         translation: 'Herramientas de tallista',
         type: 'tool',
         subtype: 'artisansTools',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -308,7 +308,7 @@ export function TOOLS() {
         translation: 'Cetro (Foco arcano)',
         type: 'tool',
         subtype: 'arcaneFocus',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -319,7 +319,7 @@ export function TOOLS() {
         translation: 'Cristal (Foco arcano)',
         type: 'tool',
         subtype: 'arcaneFocus',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -330,7 +330,7 @@ export function TOOLS() {
         translation: 'Orbe (Foco arcano)',
         type: 'tool',
         subtype: 'arcaneFocus',
-        price: [20, 0, 0],
+        price: { gp: 20, sp: 0, cp: 0 },
         weight: 1.5,
         ...props,
       };
@@ -341,7 +341,7 @@ export function TOOLS() {
         translation: 'Vara (Foco arcano)',
         type: 'tool',
         subtype: 'arcaneFocus',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 2,
         ...props,
       };
@@ -352,7 +352,7 @@ export function TOOLS() {
         translation: 'Varita (Foco arcano)',
         type: 'tool',
         subtype: 'arcaneFocus',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -365,7 +365,7 @@ export function TOOLS() {
         translation: 'Ramita de muérdago (Foco druídico)',
         type: 'tool',
         subtype: 'druidicFocus',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 0,
         ...props,
       };
@@ -376,7 +376,7 @@ export function TOOLS() {
         translation: 'Tótem (Foco druídico)',
         type: 'tool',
         subtype: 'druidicFocus',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 0,
         ...props,
       };
@@ -387,7 +387,7 @@ export function TOOLS() {
         translation: 'Vara de madera (Foco druídico)',
         type: 'tool',
         subtype: 'druidicFocus',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 2,
         ...props,
       };
@@ -398,7 +398,7 @@ export function TOOLS() {
         translation: 'Varita de tejo (Foco druídico)',
         type: 'tool',
         subtype: 'druidicFocus',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -411,7 +411,7 @@ export function TOOLS() {
         translation: 'Virotes',
         type: 'tool',
         subtype: 'ammunition',
-        price: [0, 0, 5],
+        price: { gp: 0, sp: 0, cp: 5 },
         weight: 0.03,
         ...props,
       };
@@ -422,7 +422,7 @@ export function TOOLS() {
         translation: 'Flechas',
         type: 'tool',
         subtype: 'ammunition',
-        price: [0, 0, 5],
+        price: { gp: 0, sp: 0, cp: 5 },
         weight: 0.05,
         ...props,
       };
@@ -435,7 +435,7 @@ export function TOOLS() {
         translation: 'Carta de presentación de tu gremio',
         type: 'tool',
         subtype: 'adventure',
-        price: [50, 0, 0],
+        price: { gp: 50, sp: 0, cp: 0 },
         weight: 0.1,
         ...props,
       };
@@ -446,7 +446,7 @@ export function TOOLS() {
         translation: 'Favor de un admirador',
         type: 'tool',
         subtype: 'adventure',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 0.1,
         ...props,
       };
@@ -457,7 +457,7 @@ export function TOOLS() {
         translation: 'Kit de falsificación',
         type: 'tool',
         subtype: 'adventure',
-        price: [15, 0, 0],
+        price: { gp: 15, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -468,7 +468,7 @@ export function TOOLS() {
         translation: 'Herramientas de estafa',
         type: 'tool',
         subtype: 'adventure',
-        price: [50, 0, 0],
+        price: { gp: 50, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -479,7 +479,7 @@ export function TOOLS() {
         translation: 'Set de juego',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 0.2,
         ...props,
       };
@@ -490,7 +490,7 @@ export function TOOLS() {
         translation: 'Ropa oscura con capucha',
         type: 'tool',
         subtype: 'clothes',
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 0.2,
         ...props,
       };
@@ -501,7 +501,7 @@ export function TOOLS() {
         translation: 'Rollo de pergamino con notas',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 1, 0],
+        price: { gp: 0, sp: 1, cp: 0 },
         weight: 0.1,
         ...props,
       };
@@ -512,7 +512,7 @@ export function TOOLS() {
         translation: 'Manta de invierno',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 1.5,
         ...props,
       };
@@ -523,7 +523,7 @@ export function TOOLS() {
         translation: 'Trampa de caza',
         type: 'tool',
         subtype: 'adventure',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 12,
         ...props,
       };
@@ -534,7 +534,7 @@ export function TOOLS() {
         translation: 'Trofeo de caza',
         type: 'tool',
         subtype: 'adventure',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -545,7 +545,7 @@ export function TOOLS() {
         translation: 'Pala',
         type: 'tool',
         subtype: 'adventure',
-        price: [2, 0, 0],
+        price: { gp: 2, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -556,7 +556,7 @@ export function TOOLS() {
         translation: 'Olla de hierro',
         type: 'tool',
         subtype: 'adventure',
-        price: [2, 0, 0],
+        price: { gp: 2, sp: 0, cp: 0 },
         weight: 5,
         ...props,
       };
@@ -567,7 +567,7 @@ export function TOOLS() {
         translation: 'Cuchillo pequeño',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 0, 0],
+        price: { gp: 0, sp: 0, cp: 0 },
         weight: 0,
         ...props,
       };
@@ -578,7 +578,7 @@ export function TOOLS() {
         translation: 'Mapa de ciudad',
         type: 'tool',
         subtype: 'adventure',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 0,
         ...props,
       };
@@ -589,7 +589,7 @@ export function TOOLS() {
         translation: 'Ratón mascota',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 0, 0],
+        price: { gp: 0, sp: 0, cp: 0 },
         weight: 0.1,
         ...props,
       };
@@ -600,7 +600,7 @@ export function TOOLS() {
         translation: 'Símbolo para recordar a tus padres',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 0, 0],
+        price: { gp: 0, sp: 0, cp: 0 },
         weight: 0,
         ...props,
       };
@@ -611,7 +611,7 @@ export function TOOLS() {
         translation: 'Herramientas de navegación',
         type: 'tool',
         subtype: 'adventure',
-        price: [25, 0, 0],
+        price: { gp: 25, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -622,7 +622,7 @@ export function TOOLS() {
         translation: 'Cuerda de seda',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 7, 0],
+        price: { gp: 0, sp: 7, cp: 0 },
         weight: 0.1,
         ...props,
       };
@@ -633,7 +633,7 @@ export function TOOLS() {
         translation: 'Amuleto de la suerte',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 1, 0],
+        price: { gp: 0, sp: 1, cp: 0 },
         weight: 0.2,
         ...props,
       };
@@ -644,7 +644,7 @@ export function TOOLS() {
         translation: 'Anillo con sello',
         type: 'tool',
         subtype: 'adventure',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 0,
         ...props,
       };
@@ -655,7 +655,7 @@ export function TOOLS() {
         translation: 'Pergamino con genealogía',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 1, 0],
+        price: { gp: 0, sp: 1, cp: 0 },
         weight: 0,
         ...props,
       };
@@ -666,7 +666,7 @@ export function TOOLS() {
         translation: 'Carta personal',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 0, 0],
+        price: { gp: 0, sp: 0, cp: 0 },
         weight: 0,
         ...props,
       };
@@ -677,7 +677,7 @@ export function TOOLS() {
         translation: 'Insignia con rango',
         type: 'tool',
         subtype: 'adventure',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 0,
         ...props,
       };
@@ -688,7 +688,7 @@ export function TOOLS() {
         translation: 'Trofeo de enemigo caído',
         type: 'tool',
         subtype: 'adventure',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -701,7 +701,7 @@ export function TOOLS() {
         translation: 'Bolsa de componentes',
         type: 'tool',
         subtype: 'equipment',
-        price: [25, 0, 0],
+        price: { gp: 25, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -712,7 +712,7 @@ export function TOOLS() {
         translation: 'Símbolo sagrado',
         type: 'tool',
         subtype: 'adventure',
-        price: [0, 0, 0],
+        price: { gp: 0, sp: 0, cp: 0 },
         weight: 0.1,
         ...props,
       };
@@ -723,7 +723,7 @@ export function TOOLS() {
         translation: 'Kit de herbolistería',
         type: 'tool',
         subtype: 'adventure',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 1.5,
         ...props,
       };
@@ -734,7 +734,7 @@ export function TOOLS() {
         translation: 'Libro de conjuros',
         type: 'tool',
         subtype: 'adventure',
-        price: [50, 0, 0],
+        price: { gp: 50, sp: 0, cp: 0 },
         weight: 1.5,
         ...props,
       };
@@ -745,7 +745,7 @@ export function TOOLS() {
         translation: 'Herramientas de ladrón',
         type: 'tool',
         subtype: 'adventure',
-        price: [25, 0, 0],
+        price: { gp: 25, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -756,7 +756,7 @@ export function TOOLS() {
         translation: 'Libro de oraciones',
         type: 'tool',
         subtype: 'adventure',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -767,7 +767,7 @@ export function TOOLS() {
         translation: 'Conjunto de ropa común',
         type: 'tool',
         subtype: 'clothes',
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -778,7 +778,7 @@ export function TOOLS() {
         translation: 'Kit de envenenador',
         type: 'tool',
         subtype: 'adventure',
-        price: [50, 0, 0],
+        price: { gp: 50, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };

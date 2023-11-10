@@ -456,38 +456,6 @@ function PcSummary() {
   });
 
   /* prettier-ignore */
-  useEffect(() => {
-    if (traits.length) skillRefs.traits.current = traits.map(createRef);
-    if (primalPathTraits.length) skillRefs.primalPathTraits.current = primalPathTraits.map(createRef);
-    if (bardCollegeTraits.length) skillRefs.bardCollegeTraits.current = bardCollegeTraits.map(createRef);
-    if (invocations.length) skillRefs.invocations.current = invocations.map(createRef);
-    if (patronTraits.length) skillRefs.patronTraits.current = patronTraits.map(createRef);
-    if (divineDomainTraits.length) skillRefs.divineDomainTraits.current = divineDomainTraits.map(createRef);
-    if (channelDivinityTraits.length) skillRefs.channelDivinityTraits.current = channelDivinityTraits.map(createRef);
-    if (druidCircleTraits.length) skillRefs.druidCircleTraits.current = druidCircleTraits.map(createRef);
-    if (martialArchetypeTraits.length) skillRefs.martialArchetypeTraits.current = martialArchetypeTraits.map(createRef);
-    if (sorcererOriginTraits.length) skillRefs.sorcererOriginTraits.current = sorcererOriginTraits.map(createRef);
-    if (arcaneTradicionTraits.length) skillRefs.arcaneTradicionTraits.current = arcaneTradicionTraits.map(createRef);
-    if (monasticTraditionTraits.length) skillRefs.monasticTraditionTraits.current = monasticTraditionTraits.map(createRef);
-    if (sacredOathTraits.length) skillRefs.sacredOathTraits.current = sacredOathTraits.map(createRef);
-    if (roguishArchetypeTraits.length) skillRefs.roguishArchetypeTraits.current = roguishArchetypeTraits.map(createRef);
-  }, [
-    traits,
-    primalPathTraits,
-    bardCollegeTraits,
-    invocations,
-    patronTraits,
-    divineDomainTraits,
-    channelDivinityTraits,
-    druidCircleTraits,
-    martialArchetypeTraits,
-    sorcererOriginTraits,
-    arcaneTradicionTraits,
-    monasticTraditionTraits,
-    sacredOathTraits,
-    roguishArchetypeTraits,
-    skillRefs,
-  ]);
 
   const [
     skillModalContent,

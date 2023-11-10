@@ -2884,11 +2884,11 @@ export function translateMoney(money) {
   if (!money) return '-';
   return Object.entries(money)
     .map(([coin, amount]) => {
-      if (coin && coin === 'cp') return amount + ' Cobre';
-      if (coin && coin === 'sp') return amount + ' Plata';
-      if (coin && coin === 'ep') return amount + ' Electrum';
-      if (coin && coin === 'gp') return amount + ' Oro';
-      if (coin && coin === 'pp') return amount + ' Platino';
+      if (amount && coin === 'cp') return amount + ' Cobre';
+      if (amount && coin === 'sp') return amount + ' Plata';
+      if (amount && coin === 'ep') return amount + ' Electrum';
+      if (amount && coin === 'gp') return amount + ' Oro';
+      if (amount && coin === 'pp') return amount + ' Platino';
     })
     .filter(v => v)
     .join(', ');

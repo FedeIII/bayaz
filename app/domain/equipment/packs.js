@@ -3,7 +3,7 @@ function backpack(props) {
     name: 'backpack',
     translation: 'Mochila',
     type: 'adventure',
-    price: [2, 0, 0],
+    price: { gp: 2, sp: 0, cp: 0 },
     weight: 2.5,
     ...props,
   };
@@ -14,7 +14,7 @@ function bedroll(props) {
     name: 'bedroll',
     translation: 'Saco',
     type: 'adventure',
-    price: [1, 0, 0],
+    price: { gp: 1, sp: 0, cp: 0 },
     weight: 3.5,
     ...props,
   };
@@ -25,7 +25,7 @@ function tinderbox(props) {
     name: 'tinderbox',
     translation: 'Yesquero',
     type: 'adventure',
-    price: [0, 5, 0],
+    price: { gp: 0, sp: 5, cp: 0 },
     weight: 0.5,
     ...props,
   };
@@ -47,7 +47,7 @@ function waterskin(props) {
     name: 'waterskin',
     translation: 'Odre',
     type: 'adventure',
-    price: [0, 2, 0],
+    price: { gp: 0, sp: 2, cp: 0 },
     weight: 2.5,
     ...props,
   };
@@ -59,7 +59,7 @@ function hempenRope(props) {
     translation: 'Cuerda de cáñamo',
     type: 'adventure',
     amount: 15,
-    price: [0, 0, 5],
+    price: { gp: 0, sp: 0, cp: 5 },
     weight: 0.3,
     ...props,
   };
@@ -70,7 +70,7 @@ function crowbar(props) {
     name: 'crowbar',
     translation: 'Palanca',
     type: 'adventure',
-    price: [2, 0, 0],
+    price: { gp: 2, sp: 0, cp: 0 },
     weight: 2.5,
     ...props,
   };
@@ -81,7 +81,7 @@ function hammer(props) {
     name: 'hammer',
     translation: 'Martillo',
     type: 'adventure',
-    price: [1, 0, 0],
+    price: { gp: 1, sp: 0, cp: 0 },
     weight: 1.5,
     ...props,
   };
@@ -93,14 +93,14 @@ function pitons(props) {
     translation: 'Pitones',
     type: 'adventure',
     amount: 10,
-    price: [0, 0, 5],
+    price: { gp: 0, sp: 0, cp: 5 },
     weight: 0.2,
     ...props,
   };
 }
 
 export const EXPLORERS_PACK = {
-  price: [10, 0, 0],
+  price: { gp: 10, sp: 0, cp: 0 },
   packName: 'explorers-pack',
   translation: 'Equipo de Explorador',
   items: {
@@ -123,7 +123,7 @@ export const EXPLORERS_PACK = {
         translation: 'Raciones',
         type: 'adventure',
         amount: 10,
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -134,7 +134,7 @@ export const EXPLORERS_PACK = {
 };
 
 export const DIPLOMATS_PACK = {
-  price: [39, 0, 0],
+  price: { gp: 39, sp: 0, cp: 0 },
   packName: 'diplomats-pack',
   translation: 'Equipo de Diplomático',
   items: {
@@ -143,7 +143,7 @@ export const DIPLOMATS_PACK = {
         name: 'chest',
         translation: 'Cofre',
         type: 'adventure',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 12,
         ...props,
       };
@@ -154,7 +154,7 @@ export const DIPLOMATS_PACK = {
         translation: 'Estuches de mapas y pergaminos',
         type: 'adventure',
         amount: 2,
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -165,7 +165,7 @@ export const DIPLOMATS_PACK = {
         translation: 'Conjunto de ropa fina',
         type: 'adventure',
         subtype: 'clothes',
-        price: [15, 0, 0],
+        price: { gp: 15, sp: 0, cp: 0 },
         weight: 3,
         ...props,
       };
@@ -175,7 +175,7 @@ export const DIPLOMATS_PACK = {
         name: 'inkBottle',
         translation: 'Frasco de tinta',
         type: 'adventure',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         ...props,
       };
     },
@@ -184,7 +184,7 @@ export const DIPLOMATS_PACK = {
         name: 'inkPen',
         translation: 'Pluma',
         type: 'adventure',
-        price: [0, 0, 2],
+        price: { gp: 0, sp: 0, cp: 2 },
         ...props,
       };
     },
@@ -193,7 +193,7 @@ export const DIPLOMATS_PACK = {
         name: 'lamp',
         translation: 'Lámpara',
         type: 'adventure',
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -204,7 +204,7 @@ export const DIPLOMATS_PACK = {
         translation: 'Frascos de aceite',
         type: 'adventure',
         amount: 2,
-        price: [0, 1, 0],
+        price: { gp: 0, sp: 1, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -215,7 +215,7 @@ export const DIPLOMATS_PACK = {
         translation: 'Hojas de papel',
         type: 'adventure',
         amount: 5,
-        price: [0, 2, 0],
+        price: { gp: 0, sp: 2, cp: 0 },
         ...props,
       };
     },
@@ -224,7 +224,7 @@ export const DIPLOMATS_PACK = {
         name: 'perfumeVial',
         translation: 'Frasco de perfume',
         type: 'adventure',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         ...props,
       };
     },
@@ -233,7 +233,7 @@ export const DIPLOMATS_PACK = {
         name: 'sealingWax',
         translation: 'Lacre',
         type: 'adventure',
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         ...props,
       };
     },
@@ -242,7 +242,7 @@ export const DIPLOMATS_PACK = {
         name: 'soap',
         translation: 'Jabón',
         type: 'adventure',
-        price: [0, 0, 2],
+        price: { gp: 0, sp: 0, cp: 2 },
         ...props,
       };
     },
@@ -250,7 +250,7 @@ export const DIPLOMATS_PACK = {
 };
 
 export const ENTERTAINERS_PACK = {
-  price: [40, 0, 0],
+  price: { gp: 40, sp: 0, cp: 0 },
   packName: 'entertainers-pack',
   translation: 'Equipo de Actor',
   items: {
@@ -262,7 +262,7 @@ export const ENTERTAINERS_PACK = {
         translation: 'Trajes',
         type: 'adventure',
         amount: 2,
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 2,
         ...props,
       };
@@ -273,7 +273,7 @@ export const ENTERTAINERS_PACK = {
         translation: 'velas',
         type: 'adventure',
         amount: 5,
-        price: [0, 0, 1],
+        price: { gp: 0, sp: 0, cp: 1 },
         ...props,
       };
     },
@@ -283,7 +283,7 @@ export const ENTERTAINERS_PACK = {
         translation: 'Raciones',
         type: 'adventure',
         amount: 5,
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -295,7 +295,7 @@ export const ENTERTAINERS_PACK = {
         translation: 'Kit de disfraz',
         type: 'adventure',
         subtype: 'clothes',
-        price: [25, 0, 0],
+        price: { gp: 25, sp: 0, cp: 0 },
         weight: 1.5,
         ...props,
       };
@@ -304,7 +304,7 @@ export const ENTERTAINERS_PACK = {
 };
 
 export const SCHOLARS_PACK = {
-  price: [40, 0, 0],
+  price: { gp: 40, sp: 0, cp: 0 },
   packName: 'scholars-pack',
   translation: 'Equipo de Erudito',
   items: {
@@ -314,7 +314,7 @@ export const SCHOLARS_PACK = {
         name: 'loreBook',
         translation: 'Libro de conocimiento',
         type: 'adventure',
-        price: [25, 0, 0],
+        price: { gp: 25, sp: 0, cp: 0 },
         weight: 2.5,
         ...props,
       };
@@ -324,7 +324,7 @@ export const SCHOLARS_PACK = {
         name: 'inkBottle',
         translation: 'Frasco de tinta',
         type: 'adventure',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         ...props,
       };
     },
@@ -333,7 +333,7 @@ export const SCHOLARS_PACK = {
         name: 'inkPen',
         translation: 'Pluma',
         type: 'adventure',
-        price: [0, 0, 2],
+        price: { gp: 0, sp: 0, cp: 2 },
         ...props,
       };
     },
@@ -343,7 +343,7 @@ export const SCHOLARS_PACK = {
         translation: 'Estuches de mapas y pergaminos',
         type: 'adventure',
         amount: 10,
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -360,7 +360,7 @@ export const SCHOLARS_PACK = {
 };
 
 export const DUNGEONEERS_PACK = {
-  price: [12, 0, 0],
+  price: { gp: 12, sp: 0, cp: 0 },
   packName: 'dungeoneers-pack',
   translation: 'Equipo para Dungeons',
   items: {
@@ -376,7 +376,7 @@ export const DUNGEONEERS_PACK = {
         translation: 'Raciones',
         type: 'adventure',
         amount: 10,
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -387,7 +387,7 @@ export const DUNGEONEERS_PACK = {
 };
 
 export const PRIESTS_PACK = {
-  price: [19, 0, 0],
+  price: { gp: 19, sp: 0, cp: 0 },
   packName: 'priests-pack',
   translation: 'Equipo de Sacerdote',
   items: {
@@ -397,7 +397,7 @@ export const PRIESTS_PACK = {
         name: 'blanket',
         translation: 'Manta',
         type: 'adventure',
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 1.5,
         ...props,
       };
@@ -408,7 +408,7 @@ export const PRIESTS_PACK = {
         translation: 'Velas',
         type: 'adventure',
         amount: 10,
-        price: [0, 0, 1],
+        price: { gp: 0, sp: 0, cp: 1 },
         ...props,
       };
     },
@@ -444,7 +444,7 @@ export const PRIESTS_PACK = {
         translation: 'Raciones',
         type: 'adventure',
         amount: 2,
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -454,7 +454,7 @@ export const PRIESTS_PACK = {
 };
 
 export const BURGLARS_PACK = {
-  price: [16, 0, 0],
+  price: { gp: 16, sp: 0, cp: 0 },
   packName: 'burglars-pack',
   translation: 'Equipo de Ladrón',
   items: {
@@ -465,7 +465,7 @@ export const BURGLARS_PACK = {
         translation: 'Bola de rodamientos',
         type: 'adventure',
         amount: 1000,
-        price: [0, 0, 1],
+        price: { gp: 0, sp: 0, cp: 1 },
         ...props,
       };
     },
@@ -483,7 +483,7 @@ export const BURGLARS_PACK = {
         name: 'bell',
         translation: 'Campana',
         type: 'adventure',
-        price: [1, 0, 0],
+        price: { gp: 1, sp: 0, cp: 0 },
         ...props,
       };
     },
@@ -493,7 +493,7 @@ export const BURGLARS_PACK = {
         translation: 'Velas',
         type: 'adventure',
         amount: 10,
-        price: [0, 0, 1],
+        price: { gp: 0, sp: 0, cp: 1 },
         ...props,
       };
     },
@@ -505,7 +505,7 @@ export const BURGLARS_PACK = {
         name: 'hoodedLantern',
         translation: 'Linterna con capucha',
         type: 'adventure',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 1,
         ...props,
       };
@@ -516,7 +516,7 @@ export const BURGLARS_PACK = {
         translation: 'Frascos de aceite',
         type: 'adventure',
         amount: 10,
-        price: [0, 1, 0],
+        price: { gp: 0, sp: 1, cp: 0 },
         weight: 0.5,
         ...props,
       };
@@ -527,7 +527,7 @@ export const BURGLARS_PACK = {
         translation: 'Raciones',
         type: 'adventure',
         amount: 5,
-        price: [0, 5, 0],
+        price: { gp: 0, sp: 5, cp: 0 },
         weight: 0.5,
         ...props,
       };

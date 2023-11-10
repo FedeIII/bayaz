@@ -8,7 +8,7 @@ export function ARMORS() {
         translation: 'Armadura acolchada',
         type: 'armor',
         subtype: 'light',
-        price: [5, 0, 0],
+        price: { gp: 5, sp: 0, cp: 0 },
         weight: 4,
         properties: {
           AC: ({ dex }) => 11 + getStatMod(dex),
@@ -22,7 +22,7 @@ export function ARMORS() {
         translation: 'Armadura de cuero',
         type: 'armor',
         subtype: 'light',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 5,
         properties: {
           AC: ({ dex }) => 11 + getStatMod(dex),
@@ -35,7 +35,7 @@ export function ARMORS() {
         translation: 'Armadura de cuero tachonado',
         type: 'armor',
         subtype: 'light',
-        price: [45, 0, 0],
+        price: { gp: 45, sp: 0, cp: 0 },
         weight: 6.5,
         properties: {
           AC: ({ dex }) => 12 + getStatMod(dex),
@@ -48,7 +48,7 @@ export function ARMORS() {
         translation: 'Armadura de pieles',
         type: 'armor',
         subtype: 'medium',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 6,
         properties: {
           AC: ({ dex }) => 12 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
@@ -61,7 +61,7 @@ export function ARMORS() {
         translation: 'Camisote de mallas',
         type: 'armor',
         subtype: 'medium',
-        price: [50, 0, 0],
+        price: { gp: 50, sp: 0, cp: 0 },
         weight: 10,
         properties: {
           AC: ({ dex }) => 13 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
@@ -74,7 +74,7 @@ export function ARMORS() {
         translation: 'Cota de escamas',
         type: 'armor',
         subtype: 'medium',
-        price: [50, 0, 0],
+        price: { gp: 50, sp: 0, cp: 0 },
         weight: 22,
         properties: {
           AC: ({ dex }) => 14 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
@@ -88,7 +88,7 @@ export function ARMORS() {
         translation: 'Coraza',
         type: 'armor',
         subtype: 'medium',
-        price: [400, 0, 0],
+        price: { gp: 400, sp: 0, cp: 0 },
         weight: 10,
         properties: {
           AC: ({ dex }) => 14 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
@@ -101,7 +101,7 @@ export function ARMORS() {
         translation: 'Semiplacas',
         type: 'armor',
         subtype: 'medium',
-        price: [750, 0, 0],
+        price: { gp: 750, sp: 0, cp: 0 },
         weight: 20,
         properties: {
           AC: ({ dex }) => 15 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
@@ -115,7 +115,7 @@ export function ARMORS() {
         translation: 'Cota de anillas',
         type: 'armor',
         subtype: 'heavy',
-        price: [30, 0, 0],
+        price: { gp: 30, sp: 0, cp: 0 },
         weight: 20,
         properties: {
           AC: () => 14,
@@ -129,7 +129,7 @@ export function ARMORS() {
         translation: 'Cota de mallas',
         type: 'armor',
         subtype: 'heavy',
-        price: [75, 0, 0],
+        price: { gp: 75, sp: 0, cp: 0 },
         weight: 25,
         properties: {
           AC: () => 16,
@@ -144,7 +144,7 @@ export function ARMORS() {
         translation: 'Armadura de bandas',
         type: 'armor',
         subtype: 'heavy',
-        price: [200, 0, 0],
+        price: { gp: 200, sp: 0, cp: 0 },
         weight: 30,
         properties: {
           AC: () => 17,
@@ -159,7 +159,7 @@ export function ARMORS() {
         translation: 'Armadura de placas',
         type: 'armor',
         subtype: 'heavy',
-        price: [1500, 0, 0],
+        price: { gp: 1500, sp: 0, cp: 0 },
         weight: 32,
         properties: {
           AC: () => 18,
@@ -174,7 +174,7 @@ export function ARMORS() {
         translation: 'Escudo',
         type: 'armor',
         subtype: 'shield',
-        price: [10, 0, 0],
+        price: { gp: 10, sp: 0, cp: 0 },
         weight: 3,
         properties: {
           AC: () => 2,
