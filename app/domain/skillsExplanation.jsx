@@ -293,6 +293,11 @@ export const SKILLS_EXPLANATION = {
 
   armorClass: (skill, pc) => {
     const acs = getAcBreakdown(pc);
+    const {
+      items: {
+        equipment: { shield },
+      },
+    } = pc;
 
     return (
       <div className={styles.hpContainer}>
@@ -312,7 +317,10 @@ export const SKILLS_EXPLANATION = {
               {acs.extras.map(extra => (
                 <td className={styles.tableCellLevel}>{extra.ac}</td>
               ))}
-              <td className={styles.tableCellExtra}>{getArmorClass(pc)}</td>
+              <td className={styles.tableCellExtra}>
+                {getArmorClass(pc)}
+                {shield ? ' (+2)' : ''}
+              </td>
             </tr>
           </tbody>
         </table>

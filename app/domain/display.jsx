@@ -547,76 +547,84 @@ export function getAcBreakdown(pc) {
   const armor = pArmor && getItem(pArmor.name);
   const shield = pShield && getItem(pShield.name);
 
-  return pClass === 'barbarian' && !armor
-    ? {
-        title: `${translateClass(pClass)} (sin armadura)`,
-        base: 10,
-        extras: [
-          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
-          { title: 'CON', ac: increment(getStatMod(getStat(pc, 'con'))) },
-        ],
-      }
-    : pClass === 'monk' && !armor && !shield
-    ? {
-        title: `${translateClass(pClass)} (sin armadura ni escudo)`,
-        base: 10,
-        extras: [
-          { title: 'WIS', ac: increment(getStatMod(getStat(pc, 'wis'))) },
-          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
-        ],
-      }
-    : pClass === 'sorcerer' && isDraconicBloodline(pc) && !armor && !shield
-    ? {
-        title: `${translateSorcererOrigin(
-          getSorcererOrigin(pc)
-        )} (sin armadura ni escudo)`,
-        base: 13,
-        extras: [
-          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
-        ],
-      }
-    : armor
-    ? {
-        title: 'Armadura',
-        base: getItemArmorClass(pc, armor.name),
-        extras: [
-          ...(pClass === 'fighter' && getFightingStyle(pc) === 'defense'
-            ? [
-                {
-                  title: `Estilo de Combate: ${translateFightingStyle(
-                    getFightingStyle(pc)
-                  )}`,
-                  ac: increment(1),
-                },
-              ]
-            : []),
-          ...(pClass === 'ranger' && getRangerFightingStyle(pc) === 'defense'
-            ? [
-                {
-                  title: `Estilo de Combate: ${translateRangerFightingStyle(
-                    getRangerFightingStyle(pc)
-                  )}`,
-                  ac: increment(1),
-                },
-              ]
-            : []),
-          ...(pClass === 'paladin' && getPaladinFightingStyle(pc) === 'defense'
-            ? [
-                {
-                  title: `Estilo de Combate: ${translateFightingStyle(
-                    getPaladinFightingStyle(pc)
-                  )}`,
-                  ac: increment(1),
-                },
-              ]
-            : []),
-        ],
-      }
-    : {
-        title: 'Sin armadura',
-        base: 10,
-        extras: [
-          { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
-        ],
-      };
+  const acBreakdown =
+    pClass === 'barbarian' && !armor
+      ? {
+          title: `${translateClass(pClass)} (sin armadura)`,
+          base: 10,
+          extras: [
+            { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
+            { title: 'CON', ac: increment(getStatMod(getStat(pc, 'con'))) },
+          ],
+        }
+      : pClass === 'monk' && !armor && !shield
+      ? {
+          title: `${translateClass(pClass)} (sin armadura ni escudo)`,
+          base: 10,
+          extras: [
+            { title: 'WIS', ac: increment(getStatMod(getStat(pc, 'wis'))) },
+            { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
+          ],
+        }
+      : pClass === 'sorcerer' && isDraconicBloodline(pc) && !armor && !shield
+      ? {
+          title: `${translateSorcererOrigin(
+            getSorcererOrigin(pc)
+          )} (sin armadura ni escudo)`,
+          base: 13,
+          extras: [
+            { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
+          ],
+        }
+      : armor
+      ? {
+          title: 'Armadura',
+          base: getItemArmorClass(pc, armor.name),
+          extras: [
+            ...(pClass === 'fighter' && getFightingStyle(pc) === 'defense'
+              ? [
+                  {
+                    title: `Estilo de Combate: ${translateFightingStyle(
+                      getFightingStyle(pc)
+                    )}`,
+                    ac: increment(1),
+                  },
+                ]
+              : []),
+            ...(pClass === 'ranger' && getRangerFightingStyle(pc) === 'defense'
+              ? [
+                  {
+                    title: `Estilo de Combate: ${translateRangerFightingStyle(
+                      getRangerFightingStyle(pc)
+                    )}`,
+                    ac: increment(1),
+                  },
+                ]
+              : []),
+            ...(pClass === 'paladin' &&
+            getPaladinFightingStyle(pc) === 'defense'
+              ? [
+                  {
+                    title: `Estilo de Combate: ${translateFightingStyle(
+                      getPaladinFightingStyle(pc)
+                    )}`,
+                    ac: increment(1),
+                  },
+                ]
+              : []),
+          ],
+        }
+      : {
+          title: 'Sin armadura',
+          base: 10,
+          extras: [
+            { title: 'DEX', ac: increment(getStatMod(getStat(pc, 'dex'))) },
+          ],
+        };
+
+  if (shield) {
+    acBreakdown.extras.push({ title: 'Escudo', ac: `(+2)` });
+  }
+
+  return acBreakdown;
 }
