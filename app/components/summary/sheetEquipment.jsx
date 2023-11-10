@@ -1,6 +1,5 @@
 import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
-import { displayMoneyAmount } from '~/domain/display';
 import { t } from '~/domain/translations';
 
 import styles from '~/components/sheet.module.css';
@@ -101,6 +100,18 @@ function SheetEquipment(props) {
     );
   }
 
+  function onMoneyChange(coin, amount) {
+    submit(
+      {
+        action: 'changeMoney',
+        name: pcName,
+        coin,
+        amount,
+      },
+      { method: 'post' }
+    );
+  }
+
   function onArmorClick(itemType, itemIndex = 0) {
     return itemName => {
       const item = getItem(itemName);
@@ -187,13 +198,49 @@ function SheetEquipment(props) {
       </ul>
 
       <div className={`${styles.data} ${styles.copper}`}>
-        {displayMoneyAmount(money[2])}
+        <input
+          type="number"
+          defaultValue={money.cp}
+          min="0"
+          className={styles.coinInput}
+          onChange={e => onMoneyChange('cp', e.target.value)}
+        />
       </div>
       <div className={`${styles.data} ${styles.silver}`}>
-        {displayMoneyAmount(money[1])}
+        <input
+          type="number"
+          defaultValue={money.sp}
+          min="0"
+          className={styles.coinInput}
+          onChange={e => onMoneyChange('sp', e.target.value)}
+        />
+      </div>
+      <div className={`${styles.data} ${styles.electrum}`}>
+        <input
+          type="number"
+          defaultValue={money.ep}
+          min="0"
+          className={styles.coinInput}
+          onChange={e => onMoneyChange('ep', e.target.value)}
+        />
       </div>
       <div className={`${styles.data} ${styles.gold}`}>
-        {displayMoneyAmount(money[0])}
+        <input
+          type="number"
+          defaultValue={money.gp}
+          min="0"
+          className={styles.coinInput}
+          onChange={e => onMoneyChange('gp', e.target.value)}
+        />
+      </div>
+      <div className={`${styles.data} ${styles.platinum}`}>
+        <input
+          type="number"
+          defaultValue={money.pp}
+          min="0"
+          className={styles.coinInput}
+          onChange={e => onMoneyChange('pp', e.target.value)}
+        />
       </div>
     </>
   );

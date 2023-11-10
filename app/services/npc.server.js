@@ -158,7 +158,13 @@ const quickNpcSchema = new mongoose.Schema({
       others: [itemSchema],
     },
   },
-  money: [Number, Number, Number],
+  money: {
+    cp: Number,
+    sp: Number,
+    ep: Number,
+    gp: Number,
+    pp: Number,
+  },
 
   // FREETEXT
   freeText: freeTextSchema,

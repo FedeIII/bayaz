@@ -2882,11 +2882,13 @@ export function getTraits(pc) {
 
 export function translateMoney(money) {
   if (!money) return '-';
-  return money
-    .map((coin, i) => {
-      if (i === 0 && coin) return coin + ' Oro';
-      if (i === 1 && coin) return coin + ' Plata';
-      if (i === 2 && coin) return coin + ' Cobre';
+  return Object.entries(money)
+    .map(([coin, amount]) => {
+      if (coin && coin === 'cp') return amount + ' Cobre';
+      if (coin && coin === 'sp') return amount + ' Plata';
+      if (coin && coin === 'ep') return amount + ' Electrum';
+      if (coin && coin === 'gp') return amount + ' Oro';
+      if (coin && coin === 'pp') return amount + ' Platino';
     })
     .filter(v => v)
     .join(', ');
@@ -3150,7 +3152,7 @@ export const BASE_CHARACTER = {
     cha: 10,
   },
   languages: ['common'],
-  money: [0, 0, 0],
+  money: {},
   classAttrs: {
     skills: [],
   },

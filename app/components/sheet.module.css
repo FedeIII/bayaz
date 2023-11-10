@@ -81,12 +81,12 @@
     /* 69 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 69 */
     /* 70 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 70 */
     /* 71 */ '.   CnL CnL CnL CnL slv .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 71 */
-    /* 72 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 72 */
+    /* 72 */ '.   CnL CnL CnL CnL ele .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 72 */
     /* 73 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 73 */
     /* 74 */ '.   CnL CnL CnL CnL .   .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 74 */
     /* 75 */ '.   CnL CnL CnL CnL gld .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 75 */
     /* 76 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 76 */
-    /* 77 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 77 */
+    /* 77 */ '.   .   .   .   .   ptm .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 77 */
     /* 78 */ '.   .   .   .   .   .   .   equ equ equ equ equ .   FnT FnT FnT FnT' /* 78 */
     /* 79 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  '; /* 79 */
   /*********  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12  13  14  15  16  17 */
@@ -776,28 +776,42 @@
   list-style: none;
 }
 
+.coinInput {
+  font-size: 18px;
+  font-family: fantasy;
+  color: var(--color-blue-ink);
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: -8px;
+  left: 0;
+}
+
 .copper {
   grid-area: cpr;
-  justify-content: center;
-  align-items: flex-start;
-  font-size: 18px;
-  margin: 0 10px 0 0;
+  margin: 0 0 0 0;
 }
 
 .silver {
   grid-area: slv;
-  justify-content: center;
-  align-items: flex-start;
-  font-size: 18px;
-  margin: 0 10px 0 0;
+  margin: 0 0 0 0;
+}
+
+.electrum {
+  grid-area: ele;
+  margin: 18px 0 0 0;
 }
 
 .gold {
   grid-area: gld;
-  justify-content: center;
-  align-items: flex-start;
-  font-size: 18px;
-  margin: 0 10px 0 0;
+  margin: 0 0 0 0;
+}
+
+.platinum {
+  grid-area: ptm;
+  margin: -2px 0 0 0;
 }
 
 .featsAndTraits {

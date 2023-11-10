@@ -114,7 +114,7 @@ export const BACKGROUNDS = {
       PRIESTS_PACK.items.vestments(),
       TOOLS().commonClothes(),
     ],
-    money: [15, 0, 0],
+    money: { gp: 15 },
     traits: {
       shelterOfTheFaithful: 'Refugio de los Fieles',
     },
@@ -134,7 +134,7 @@ export const BACKGROUNDS = {
       TOOLS().guildIntroductionLetter(),
       TOOLS().commonClothes(),
     ],
-    money: [15, 0, 0],
+    money: { gp: 15 },
     select: {
       guild: {
         items: ARTISAN_GUILDS,
@@ -156,7 +156,7 @@ export const BACKGROUNDS = {
       TOOLS().admirerFavor(),
       ENTERTAINERS_PACK.items.disguiseKit(),
     ],
-    money: [15, 0, 0],
+    money: { gp: 15 },
     select: {
       routines: {
         items: ENTERTAINER_ROUTINES,
@@ -179,7 +179,7 @@ export const BACKGROUNDS = {
       ENTERTAINERS_PACK.items.disguiseKit(),
       TOOLS().conTools(),
     ],
-    money: [15, 0, 0],
+    money: { gp: 15 },
     select: {
       favoriteScheme: {
         items: CHARLATAN_FAVORITE_SCHEMES,
@@ -194,7 +194,7 @@ export const BACKGROUNDS = {
     skills: ['deception', 'stealth'],
     proficientItems: [TOOLS().gamingSet(), TOOLS().thievesTools()],
     equipment: [DUNGEONEERS_PACK.items.crowbar(), TOOLS().layLowClothes()],
-    money: [15, 0, 0],
+    money: { gp: 15 },
     select: {
       criminalSpecialty: {
         items: CRIMINAL_SPECIALTY,
@@ -215,7 +215,7 @@ export const BACKGROUNDS = {
       TOOLS().commonClothes(),
       TOOLS().herbalismKit(),
     ],
-    money: [5, 0, 0],
+    money: { gp: 5 },
     traits: {
       discovery: 'Descubrimiento',
     },
@@ -230,7 +230,7 @@ export const BACKGROUNDS = {
       TOOLS().animalTrophy(),
       TOOLS().commonClothes(),
     ],
-    money: [10, 0, 0],
+    money: { gp: 10 },
     select: {
       outlanderOrigin: {
         items: OUTLANDER_ORIGIN,
@@ -250,7 +250,7 @@ export const BACKGROUNDS = {
       TOOLS().ironPot(),
       TOOLS().commonClothes(),
     ],
-    money: [10, 0, 0],
+    money: { gp: 10 },
     traits: {
       rusticHospitality: 'Hospitalidad Rústica',
     },
@@ -268,7 +268,7 @@ export const BACKGROUNDS = {
       TOOLS().parentsToken(),
       TOOLS().commonClothes(),
     ],
-    money: [10, 0, 0],
+    money: { gp: 10 },
     traits: {
       citySecrets: 'Secretos de la Ciudad',
     },
@@ -282,7 +282,7 @@ export const BACKGROUNDS = {
       TOOLS().luckyCharm(),
       TOOLS().commonClothes(),
     ],
-    money: [10, 0, 0],
+    money: { gp: 10 },
     traits: {
       shipsPassage: 'Pasage Marítimo',
     },
@@ -296,7 +296,7 @@ export const BACKGROUNDS = {
       TOOLS().signedRing(),
       TOOLS().pedigreeScroll(),
     ],
-    money: [25, 0, 0],
+    money: { gp: 25 },
     traits: {
       positionOfPrivilege: 'Posición de Privilegio',
     },
@@ -311,7 +311,7 @@ export const BACKGROUNDS = {
       TOOLS().personalLetter(),
       TOOLS().commonClothes(),
     ],
-    money: [10, 0, 0],
+    money: { gp: 10 },
     select: {
       sageSpecialty: {
         items: SAGE_SPECIALTY,
@@ -331,7 +331,7 @@ export const BACKGROUNDS = {
       TOOLS().gamingSet(),
       TOOLS().commonClothes(),
     ],
-    money: [10, 0, 0],
+    money: { gp: 10 },
     select: {
       soldierSpecialty: {
         items: SOLDIER_SPECIALTY,

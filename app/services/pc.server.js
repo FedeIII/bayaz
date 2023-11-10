@@ -32,7 +32,7 @@ import {
   SUPERIOR_HUNTERS_DEFENSE,
 } from '~/domain/classes/ranger/ranger';
 import { DIVINE_DOMAINS } from '~/domain/classes/cleric/cleric';
-import { getItem, pcItem } from '~/domain/equipment/equipment';
+import { getItem } from '~/domain/equipment/equipment';
 import {
   SPELL_SCHOOLS,
   getExtraPreparedSpells,
@@ -346,7 +346,13 @@ const pcSchema = new mongoose.Schema({
     },
   },
   pack: String,
-  money: [Number, Number, Number],
+  money: {
+    cp: Number,
+    sp: Number,
+    ep: Number,
+    gp: Number,
+    pp: Number,
+  },
 
   // FREETEXT
   freeText: freeTextSchema,

@@ -519,11 +519,6 @@ export function displayTrait(traitName, trait, pc) {
   return trait;
 }
 
-export function displayMoneyAmount(coins) {
-  if (coins < 1000) return coins;
-  else return `${Math.floor(coins / 1000)}.${Math.floor(coins % 1000)}`;
-}
-
 export function displayTotalHitPointsRolls(pc) {
   const { totalHitPoints } = pc;
   const [

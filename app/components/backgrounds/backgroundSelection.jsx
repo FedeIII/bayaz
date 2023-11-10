@@ -113,7 +113,9 @@ function BackgroundSelection(props) {
                   readOnly
                   type="text"
                   name="money"
-                  value={BACKGROUNDS[backgroundName].money.join(',')}
+                  value={Object.entries(BACKGROUNDS[backgroundName].money)
+                    .map(entry => entry.join(':'))
+                    .join(',')}
                   hidden
                 />
               </div>

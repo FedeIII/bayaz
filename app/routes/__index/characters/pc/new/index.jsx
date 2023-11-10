@@ -58,7 +58,7 @@ export const action = async ({ request }) => {
     exp: 0,
     languages: setLanguages(race, subrace, pClass),
     spells,
-    money: [0, 0, 0],
+    money: {},
   };
 
   await createPc(pc);

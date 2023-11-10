@@ -207,6 +207,14 @@ async function updateNoteTextAction(formData) {
   return await updateNotes(name, id, text);
 }
 
+async function changeMoneyAction(formData) {
+  const name = formData.get('name');
+  const coin = formData.get('coin');
+  const amount = formData.get('amount');
+
+  return await updatePc({ name, [`money.${coin}`]: amount });
+}
+
 async function updateFreeTexts(formData) {
   const name = formData.get('name');
   const playerName = formData.get('playerName');
@@ -253,6 +261,8 @@ export const action = async ({ request }) => {
     pc = await updateNotePositionAction(formData);
   } else if (action === 'updateNoteText') {
     pc = await updateNoteTextAction(formData);
+  } else if (action === 'changeMoney') {
+    pc = await changeMoneyAction(formData);
   } else {
     pc = await updateFreeTexts(formData);
   }

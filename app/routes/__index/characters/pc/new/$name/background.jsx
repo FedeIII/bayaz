@@ -4,7 +4,10 @@ import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 
-import { BACKGROUNDS, translateBackground } from '~/domain/backgrounds/backgrounds';
+import {
+  BACKGROUNDS,
+  translateBackground,
+} from '~/domain/backgrounds/backgrounds';
 import BackgroundSelection from '~/components/backgrounds/backgroundSelection';
 import { getEquipmentComboData } from '~/components/equipment/getEquipmentComboData';
 import { distributeItems } from '~/domain/characters';
@@ -37,7 +40,14 @@ export const action = async ({ request }) => {
     comboName: 'equipment',
     otherInputNames: ['items'],
   });
-  const money = formData.get('money')?.split(',');
+  const moneyString = formData.get('money') || '';
+  const money = moneyString.split(',').reduce(
+    (m, mString) => ({
+      ...m,
+      [mString.split(':')[0]]: parseInt(mString.split(':')[1], 10),
+    }),
+    {}
+  );
   const thingsFromTopics = Object.entries(
     BACKGROUNDS[background]?.select || {}
   ).reduce(
@@ -59,7 +69,13 @@ export const action = async ({ request }) => {
     languages: [...pc.languages, ...languages],
     proficientItems: [...pc.proficientItems, ...proficiencies],
     items: distributeItems(pc, equipment),
-    money: pc.money.map((coin, i) => coin + parseInt(money[i], 0)),
+    money: {
+      cp: (pc.money.cp || 0) + (money.cp || 0),
+      sp: (pc.money.sp || 0) + (money.sp || 0),
+      ep: (pc.money.ep || 0) + (money.ep || 0),
+      gp: (pc.money.gp || 0) + (money.gp || 0),
+      pp: (pc.money.pp || 0) + (money.pp || 0),
+    },
   });
 
   return redirect(`/characters/pc/new/${name}/equipment`);
