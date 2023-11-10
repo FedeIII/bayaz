@@ -19,6 +19,8 @@ import {
   updateNotePosition,
   unequipWeapon,
   unequipArmor,
+  dropEquipmentAmmo,
+  changeEquipmentAmmoAmount,
 } from '~/services/pc.server';
 import {
   CLASSES,
@@ -207,6 +209,21 @@ async function updateNoteTextAction(formData) {
   return await updateNotes(name, id, text);
 }
 
+async function dropAmmoAction(formData) {
+  const name = formData.get('name');
+  const itemName = formData.get('itemName');
+
+  await dropEquipmentAmmo(name, itemName);
+}
+
+async function changeAmmoAmountAction(formData) {
+  const name = formData.get('name');
+  const itemName = formData.get('itemName');
+  const itemAmount = formData.get('itemAmount');
+
+  await changeEquipmentAmmoAmount(name, itemName, itemAmount);
+}
+
 async function changeMoneyAction(formData) {
   const name = formData.get('name');
   const coin = formData.get('coin');
@@ -261,6 +278,10 @@ export const action = async ({ request }) => {
     pc = await updateNotePositionAction(formData);
   } else if (action === 'updateNoteText') {
     pc = await updateNoteTextAction(formData);
+  } else if (action === 'dropAmmo') {
+    pc = await dropAmmoAction(formData);
+  } else if (action === 'changeAmmoAmount') {
+    pc = await changeAmmoAmountAction(formData);
   } else if (action === 'changeMoney') {
     pc = await changeMoneyAction(formData);
   } else {

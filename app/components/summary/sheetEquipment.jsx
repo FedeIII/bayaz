@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
 import { t } from '~/domain/translations';
@@ -62,6 +64,70 @@ function ArmorModalContent(props) {
   );
 }
 
+function ItemModalContent(props) {
+  const { item, dropItem, changeAmount, closeModal } = props;
+
+  function onDropClick(e) {
+    const itemName = e.target.value;
+    dropItem(itemName);
+    closeModal();
+  }
+
+  const [amount, setAmount] = useState(item.amount);
+  function onAmountChange(e) {
+    setAmount(e.target.value);
+  }
+
+  function onChangeAmountClick() {
+    changeAmount(item.name, amount);
+    closeModal();
+  }
+
+  return (
+    <>
+      <h3 className={itemStyles.actionModalTitle}>{item.translation}</h3>
+      <span className={itemStyles.modalClose} onClick={closeModal}>
+        ⨉
+      </span>
+      <div className={itemStyles.modalContent}>
+        <ul className={itemStyles.modalOptions}>
+          {!!changeAmount && (
+            <li>
+              <button
+                type="button"
+                className={itemStyles.dropItemButton}
+                onClick={onChangeAmountClick}
+              >
+                Cambiar cantidad
+              </button>{' '}
+              <input
+                type="number"
+                name="amount"
+                min="1"
+                value={amount}
+                onChange={onAmountChange}
+                className={`${itemStyles.amountInput}`}
+              />
+            </li>
+          )}
+          {!!dropItem && (
+            <li>
+              <button
+                type="button"
+                className={itemStyles.dropItemButton}
+                value={item.name}
+                onClick={onDropClick}
+              >
+                Tirar {item.translation}
+              </button>
+            </li>
+          )}
+        </ul>
+      </div>
+    </>
+  );
+}
+
 function SheetEquipment(props) {
   const {
     pc,
@@ -112,6 +178,29 @@ function SheetEquipment(props) {
     );
   }
 
+  function dropAmmo(itemName) {
+    submit(
+      {
+        action: 'dropAmmo',
+        name: pc.name,
+        itemName,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function changeAmmoAmount(itemName, itemAmount) {
+    submit(
+      {
+        action: 'changeAmmoAmount',
+        name: pc.name,
+        itemName,
+        itemAmount,
+      },
+      { method: 'post' }
+    );
+  }
+
   function onArmorClick(itemType, itemIndex = 0) {
     return itemName => {
       const item = getItem(itemName);
@@ -126,6 +215,27 @@ function SheetEquipment(props) {
               armor={item}
               onArmorChange={onArmorChange}
               unequipArmor={unequipArmor}
+              closeModal={() => setActionModalContent(null)}
+            />
+          )),
+        0
+      );
+    };
+  }
+
+  function onAmmoClick(itemType, itemIndex = 0) {
+    return itemName => {
+      const item = getItem(itemName);
+
+      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+
+      setTimeout(
+        () =>
+          setActionModalContent(() => props => (
+            <ItemModalContent
+              item={item}
+              dropItem={dropAmmo}
+              changeAmount={changeAmmoAmount}
               closeModal={() => setActionModalContent(null)}
             />
           )),
@@ -174,6 +284,7 @@ function SheetEquipment(props) {
                 ref={itemRefs.ammunition.current[i]}
                 pItem={ammo}
                 isLast={i === equipment.ammunition.length - 1}
+                onItemClick={onAmmoClick('ammunition', i)}
                 openModal={openItemModal('ammunition', i)}
                 closeModal={closeItemModal}
                 key={ammo.name}

@@ -1077,6 +1077,28 @@ export async function changeTreasureItemAmount(name, itemName, itemAmount) {
   return updatedPc;
 }
 
+export async function dropEquipmentAmmo(name, itemName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name },
+    { $pull: { 'items.equipment.ammunition': { name: itemName } } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
+export async function changeEquipmentAmmoAmount(name, itemName, itemAmount) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name, 'items.equipment.ammunition.name': itemName },
+    {
+      $set: { 'items.equipment.ammunition.$.amount': parseInt(itemAmount, 10) },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function reorderWeapons(name, weaponName, destinationSlot) {
   const pc = await getPc(name);
   const weapons = pc.items.weapons.slice();
