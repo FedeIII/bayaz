@@ -548,8 +548,8 @@ function PcBio() {
   const formRef = useRef(null);
 
   function onItemClick(itemType, itemIndex) {
-    return itemName => {
-      const item = getItem(itemName);
+    return pItem => {
+      const item = getItem(pItem);
 
       setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
 

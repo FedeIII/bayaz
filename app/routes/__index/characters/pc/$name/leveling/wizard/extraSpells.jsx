@@ -10,6 +10,8 @@ import { Card } from '~/components/cards/card';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
+import { getAllPcSpells } from '~/domain/spells/getSpells';
+import { SkillItem } from '~/components/modal/skillItem';
 
 import styles from '~/components/checkbox.module.css';
 import appStyles from '~/components/app.module.css';

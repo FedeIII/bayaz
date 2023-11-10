@@ -31,8 +31,11 @@ export function translateEquipment(type) {
   }
 }
 
-export function getItem(itemName) {
-  if (!itemName) return null;
+export function getItem(item) {
+  if (!item) return null;
+
+  const itemName = typeof item === 'string' ? item : item.name;
+  const itemAmount = typeof item === 'string' ? 1 : item.amount;
 
   const allItems = getAllItems();
   const itemBuilder = allItems.find(item => item().name === itemName);
@@ -42,7 +45,7 @@ export function getItem(itemName) {
     return null;
   }
 
-  return itemBuilder({ amount: 1 });
+  return itemBuilder({ amount: itemAmount });
 }
 
 export function noItem() {

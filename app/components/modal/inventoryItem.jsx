@@ -17,12 +17,12 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
     className = '',
     openModalOnClick,
   } = props;
-  const item = getItem(pItem.name);
+  const item = getItem(pItem);
 
   if (!item?.name) return null;
 
   const openModalForItem = () => openModal(pItem.name, actions);
-  const onClickForItem = () => onItemClick?.(pItem.name);
+  const onClickForItem = () => onItemClick?.(pItem);
 
   return (
     <>
