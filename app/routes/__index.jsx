@@ -16,7 +16,7 @@ export default function Index() {
   const { hasMenu, menuTitle } = menuContext;
 
   return (
-    <div className={styles.app}>
+    <div className="app">
       {hasMenu && <header className={styles.header}>{menuTitle}</header>}
       <div className={hasMenu ? styles.body : styles.bodyFullScreen}>
         <SideBar isForPlayers={isForPlayers} />

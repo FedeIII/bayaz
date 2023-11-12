@@ -23,6 +23,7 @@ import MonstersContext from './components/contexts/monstersContext';
 
 import styles from '~/styles/global.css';
 import appStyles from '~/components/app.module.css';
+import appStylesNotModule from '~/components/app.css';
 import bioStyles from '~/components/bio.module.css';
 import checkboxStyles from '~/components/checkbox.module.css';
 import diceStyles from '~/components/dice.module.css';
@@ -54,6 +55,7 @@ export const links = () => {
     ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
     { rel: 'stylesheet', href: styles },
     { rel: 'stylesheet', href: appStyles },
+    { rel: 'stylesheet', href: appStylesNotModule },
     { rel: 'stylesheet', href: bioStyles },
     { rel: 'stylesheet', href: checkboxStyles },
     { rel: 'stylesheet', href: diceStyles },
