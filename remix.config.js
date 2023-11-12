@@ -19,7 +19,6 @@ module.exports = {
   future: {
     v2_dev: true,
     unstable_cssModules: true,
-    unstable_cssSideEffectImports: true,
   },
   serverDependenciesToBundle: [
     'react-dnd',
