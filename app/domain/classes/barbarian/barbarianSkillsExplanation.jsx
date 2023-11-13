@@ -6,7 +6,10 @@ import {
   getTotemicAttunement,
 } from './barbarian';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const BARBARIAN_SKILLS_EXPLANATION = {
   rage: () => (
@@ -86,10 +89,10 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
         el 14.
       </p>
 
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/barbarian/primalPath`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Escoge Senda Primaria
         </Link>
@@ -131,10 +134,10 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
           ojos se vuelven de un amarillo brillante.
         </p>
         {!totemType && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/barbarian/totemSpirit`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Tótem
             </Link>
@@ -209,10 +212,10 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
           uno distinto.
         </p>
         {!totemType && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/barbarian/aspectOfTheBeast`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Tótem
             </Link>
@@ -358,10 +361,10 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
           uno distinto.
         </p>
         {!totemType && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/barbarian/totemicAttunement`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Tótem
             </Link>

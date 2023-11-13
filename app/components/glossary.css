@@ -1,0 +1,156 @@
+.glossary {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 16px;
+  --header-padding-top: 8px;
+  --header-height: 62px;
+  --header-padding-bottom: 16px;
+  --header-border-height: 1px;
+  --card-height: 42.5px;
+}
+
+.glossary__sidebar {
+  flex-basis: 33%;
+  flex-shrink: 0;
+}
+
+.glossary__sidebar-content {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  row-gap: 16px;
+  flex-basis: 30%;
+}
+
+.glossary__sidebar-section {
+  background-color: #232d40;
+  padding: 16px;
+  width: calc(100% - 32px);
+}
+
+.glossary__filter {
+  padding: 0;
+  margin: 0 0 16px;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.glossary__filter-vertical {
+  padding: 0;
+  margin: 0 0 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  column-gap: 16px;
+}
+
+.glossary__filter-label {
+  display: block;
+  text-align: center;
+  margin: 0 0 8px 0;
+}
+
+.glossary__filter-label-inline {
+  display: inline-block;
+  text-align: start;
+}
+
+.glossary__filter-options {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.glossary__filters {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.glossary__filter-item {
+  flex-basis: 45%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 8px;
+}
+
+.glossary__filter-name {
+  flex-basis: 50%;
+}
+
+.glossary__filter-input {
+  width: 50%;
+}
+
+.glossary__filter-select {
+  width: 70%;
+}
+
+.glossary__glossary-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.glossary__results {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0 0 16px 16px;
+}
+
+.glossary__results-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.glossary__section-header {
+  width: 100%;
+  text-align: left;
+  position: sticky;
+  /* top: calc(
+    var(--header-padding-top) + var(--header-height) +
+      var(--header-padding-bottom) + var(--header-border-height)
+  ); */
+  background-color: #13151c;
+  padding: 8px 0 8px 0;
+  margin: 0 0 0 0;
+}
+
+.glossary__header-title {
+  border-bottom: 1px solid white;
+  width: 100%;
+  display: inline-block;
+}
+
+.glossary__section-items {
+  list-style: circle;
+  column-count: 3;
+  width: 100%;
+  margin: 0 0 16px 0;
+  padding: 0 0 0 25px;
+}
+
+.glossary__section-item {
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  margin: 0 32px 0 0;
+}

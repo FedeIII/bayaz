@@ -5,7 +5,10 @@ import { getSpellSavingThrow, translateSpell } from '~/domain/spells/spells';
 import { increment } from '~/domain/display';
 import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const WIZARD_SKILLS_EXPLANATION = {
   arcaneRecovery: (skill, pc) => (
@@ -33,10 +36,10 @@ export const WIZARD_SKILLS_EXPLANATION = {
         proporciona rasgos de la escuela elegida en el nivel 2, y otra vez en
         los niveles 6, 10 y 14
       </p>
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/wizard/arcaneTradition`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Escoge Escuela
         </Link>
@@ -170,10 +173,10 @@ export const WIZARD_SKILLS_EXPLANATION = {
         ilusión menor generas tanto sonido como imagen en un único lanzamiento
       </p>
       {!getImprovedMinorIllusionSpell(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/wizard/improvedMinorIllusion`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Truco de Ilusión
           </Link>

@@ -15,7 +15,10 @@ import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { getItem } from '~/domain/equipment/equipment';
 import { increment } from '~/domain/display';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const FIGHTER_SKILLS_EXPLANATION = {
   secondWind: (skill, pc) => (
@@ -39,27 +42,27 @@ export const FIGHTER_SKILLS_EXPLANATION = {
         </p>
 
         {fightingStyles.includes('archery') && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('archery')}</h3>
             Ganas un bonificador de +2 a las tiradas de ataque que hagas con
             armas a distancia.
           </div>
         )}
         {fightingStyles.includes('defense') && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('defense')}</h3>
             Mientras lleves puesta una armadura ganas un +1 la CA
           </div>
         )}
         {fightingStyles.includes('dueling') && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('dueling')}</h3>
             Cuando llevas un arma cuerpo a cuerpo en una mano y ningún arma más,
             ganas un bonificador de +2 a las tiradas de daño con esa arma.
           </div>
         )}
         {fightingStyles.includes('great-Weapon-fighting') && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('great-Weapon-fighting')}</h3>
             Cuando obtienes un 1 o un 2 en un dado de daño con un arma a dos
             manos, puedes volver a realizar la tirada de daño y debiendo usar la
@@ -69,7 +72,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
           </div>
         )}
         {fightingStyles.includes('protection') && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('protection')}</h3>
             Cuando una criatura que puedes ver ataca a un objetivo que no eres
             tú y está a 5 pies o menos de ti, puedes usar tu reacción para hacer
@@ -78,7 +81,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
           </div>
         )}
         {fightingStyles.includes('two-weapon-fighting') && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('two-weapon-fighting')}</h3>
             Cuando luchas con el estilo de lucha de dos armas, puedes añadir tu
             modificador de característica al daño del segundo ataque.
@@ -113,10 +116,10 @@ export const FIGHTER_SKILLS_EXPLANATION = {
         descripción de la clase. Tu arquetipo te otorga rasgos a nivel 3 y de
         nuevo a nivel 7, 10, 15 y 18.
       </p>
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/fighter/martialArchetype`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Escoge Arquetipo Marcial
         </Link>
@@ -154,10 +157,10 @@ export const FIGHTER_SKILLS_EXPLANATION = {
       </p>
 
       {hasToLearnKnightSpell(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/fighter/knightSpells`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Nuevo Conjuro
           </Link>
@@ -234,10 +237,10 @@ export const FIGHTER_SKILLS_EXPLANATION = {
           <div></div>
         </p>
         {hasToLearnCombatSuperiorityManeuvers(pc) && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/fighter/combatSuperiority`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Maniobras
             </Link>
@@ -265,10 +268,10 @@ export const FIGHTER_SKILLS_EXPLANATION = {
       </p>
 
       {!getStudentOfWar(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/fighter/studentOfWar`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Herramientas de Artesano
           </Link>
@@ -384,10 +387,10 @@ export const FIGHTER_SKILLS_EXPLANATION = {
         Combate.
       </p>
 
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/fighter/extraFightingStyle`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Escoge Estilo de Combate Adicional
         </Link>

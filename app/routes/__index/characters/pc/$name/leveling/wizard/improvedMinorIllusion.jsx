@@ -11,10 +11,6 @@ import { getKnownCantrips } from '~/domain/spells/getSpells';
 import { getImprovedMinorIllusionSpell } from '~/domain/classes/wizard/wizard';
 import { getClassSpells } from '~/domain/spells/spells';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -77,14 +73,14 @@ function ImprovedMinorIllusionSpell() {
         <input readOnly type="text" name="name" value={pc.name} hidden />
         <input readOnly type="text" name="spell" value="minorIllusion" hidden />
 
-        <h2 className={appStyles.paleText}>Truco de Ilusión</h2>
-        <p className={appStyles.paragraph}>
+        <h2 className="app__pale-text">Truco de Ilusión</h2>
+        <p className="app__paragraph">
           Cuando escoges esta escuela en nivel 2, aprendes el truco ilusión
           menor. El truco no cuenta para tu límite de trucos conocidos.
         </p>
 
         <p>
-          <button type="submit" className={cardStyles.buttonCard}>
+          <button type="submit" className="cards__button-card">
             Aprender Ilusión Menor
           </button>
         </p>
@@ -106,21 +102,21 @@ function ImprovedMinorIllusionSpell() {
         </SkillModal>
       )}
 
-      <h2 className={appStyles.paleText}>Truco de Ilusión</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Truco de Ilusión</h2>
+      <p className="app__paragraph">
         Cuando escoges esta escuela en nivel 2, aprendes el truco ilusión menor.
         Si ya conocías este truco, aprendes otro truco de mago de tu elección.
         El truco no cuenta para tu límite de trucos conocidos.
       </p>
 
       <p>
-        <div className={`${cardStyles.cards}`}>
+        <div className="cards">
           <Card
             title="Trucos de mago"
-            className={cardStyles.scrollCard}
+            className="cards__scroll-card"
             singleCard
           >
-            <ul className={cardStyles.cardList}>
+            <ul className="cards__card-list">
               {wizardCantrips
                 .filter(
                   spell => !knownCantrips.map(s => s.name).includes(spell.name)
@@ -130,9 +126,9 @@ function ImprovedMinorIllusionSpell() {
                     <li key={spell.name}>
                       <label
                         htmlFor={spell.name}
-                        className={`${styles.toSelect} ${
+                        className={`checkbox__toSelect ${
                           selectedSpell === spell.name &&
-                          styles.selectedToSelect
+                          'checkbox__selectedToSelect'
                         }`}
                       >
                         <input
@@ -161,7 +157,7 @@ function ImprovedMinorIllusionSpell() {
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Truco
         </button>
       </p>
@@ -174,15 +170,15 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Cuando escoges esta escuela en nivel 2, aprendes el truco ilusión menor.
         Si ya conocías este truco, aprendes otro truco de mago de tu elección.
         El truco no cuenta para tu límite de trucos conocidos.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

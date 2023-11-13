@@ -4,9 +4,6 @@ import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
 import { t } from '~/domain/translations';
 
-import styles from '~/components/sheet.module.css';
-import itemStyles from '~/components/modal/inventoryItem.module.css';
-
 const noOp = () => {};
 
 function ArmorModalContent(props) {
@@ -31,15 +28,17 @@ function ArmorModalContent(props) {
 
   return (
     <>
-      <h3 className={itemStyles.actionModalTitle}>{armor.translation}</h3>
-      <span className={itemStyles.modalClose} onClick={closeModal}>
+      <h3 className="inventory-item__action-modal-title">
+        {armor.translation}
+      </h3>
+      <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
-      <div className={itemStyles.modalContent}>
-        <ul className={itemStyles.modalOptions}>
+      <div className="inventory-item__modal-content">
+        <ul className="inventory-item__modal-options">
           <li>
             Cambiar por:{' '}
-            <select className={styles.selectAttack} onChange={onEquipClick}>
+            <select className="sheet__select-attack" onChange={onEquipClick}>
               <option value={armor.name}>{armor.translation}</option>
               {armors.map(extraArmor => (
                 <option value={extraArmor.name} key={extraArmor.name}>
@@ -51,7 +50,7 @@ function ArmorModalContent(props) {
           <li>
             <button
               type="button"
-              className={itemStyles.dropItemButton}
+              className="inventory-item__drop-item-button"
               value={armor.name}
               onClick={onUnequipClick}
             >
@@ -85,17 +84,17 @@ function ItemModalContent(props) {
 
   return (
     <>
-      <h3 className={itemStyles.actionModalTitle}>{item.translation}</h3>
-      <span className={itemStyles.modalClose} onClick={closeModal}>
+      <h3 className="inventory-item__action-modal-title">{item.translation}</h3>
+      <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
-      <div className={itemStyles.modalContent}>
-        <ul className={itemStyles.modalOptions}>
+      <div className="inventory-item__modal-content">
+        <ul className="inventory-item__modal-options">
           {!!changeAmount && (
             <li>
               <button
                 type="button"
-                className={itemStyles.dropItemButton}
+                className="inventory-item__drop-item-button"
                 onClick={onChangeAmountClick}
               >
                 Cambiar cantidad
@@ -106,7 +105,7 @@ function ItemModalContent(props) {
                 min="1"
                 value={amount}
                 onChange={onAmountChange}
-                className={`${itemStyles.amountInput}`}
+                className="inventory-item__amount-input"
               />
             </li>
           )}
@@ -114,7 +113,7 @@ function ItemModalContent(props) {
             <li>
               <button
                 type="button"
-                className={itemStyles.dropItemButton}
+                className="inventory-item__drop-item-button"
                 value={item.name}
                 onClick={onDropClick}
               >
@@ -246,7 +245,7 @@ function SheetEquipment(props) {
 
   return (
     <>
-      <ul className={`${styles.data} ${styles.equipment}`}>
+      <ul className="sheet__data sheet__equipment">
         {!!equipment.armor && (
           <li>
             <u>Armadura:</u>{' '}
@@ -308,48 +307,48 @@ function SheetEquipment(props) {
         )}
       </ul>
 
-      <div className={`${styles.data} ${styles.copper}`}>
+      <div className="sheet__data sheet__copper">
         <input
           type="number"
           defaultValue={money.cp}
           min="0"
-          className={styles.coinInput}
+          className="sheet__coin-input"
           onChange={e => onMoneyChange('cp', e.target.value)}
         />
       </div>
-      <div className={`${styles.data} ${styles.silver}`}>
+      <div className="sheet__data sheet__silver">
         <input
           type="number"
           defaultValue={money.sp}
           min="0"
-          className={styles.coinInput}
+          className="sheet__coin-input"
           onChange={e => onMoneyChange('sp', e.target.value)}
         />
       </div>
-      <div className={`${styles.data} ${styles.electrum}`}>
+      <div className="sheet__data sheet__electrum">
         <input
           type="number"
           defaultValue={money.ep}
           min="0"
-          className={styles.coinInput}
+          className="sheet__coin-input"
           onChange={e => onMoneyChange('ep', e.target.value)}
         />
       </div>
-      <div className={`${styles.data} ${styles.gold}`}>
+      <div className="sheet__data sheet__gold">
         <input
           type="number"
           defaultValue={money.gp}
           min="0"
-          className={styles.coinInput}
+          className="sheet__coin-input"
           onChange={e => onMoneyChange('gp', e.target.value)}
         />
       </div>
-      <div className={`${styles.data} ${styles.platinum}`}>
+      <div className="sheet__data sheet__platinum">
         <input
           type="number"
           defaultValue={money.pp}
           min="0"
-          className={styles.coinInput}
+          className="sheet__coin-input"
           onChange={e => onMoneyChange('pp', e.target.value)}
         />
       </div>

@@ -8,9 +8,6 @@ import {
   translateHuntersPrey,
 } from '~/domain/classes/ranger/ranger';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -48,19 +45,19 @@ function HuntersPrey() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Presa del Cazador</h2>
+      <h2 className="app__pale-text">Presa del Cazador</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         A nivel 3 ganas uno de los siguientes rasgos de tu elección.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Presa del Cazador</span>
+          <span className="app__pale-text">Escoge Presa del Cazador</span>
           <br />
           <select
             name="huntersPrey"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
           >
             <option value="" disabled></option>
             {HUNTERS_PREY.map(prey => (
@@ -72,35 +69,35 @@ function HuntersPrey() {
         </label>
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateHuntersPrey('colossusSlayer')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Tu tenacidad puede desgastar hasta a los enemigos más potentes. Cuando
         golpees a una criatura con un arma, ésta sufre un 1d8 adicional de daño
         si está por debajo de su máximo de Puntos de Golpe. Puedes causar este
         daño extra sólo una vez por turno.
       </p>
 
-      <h3 className={styles.paleText}>{translateHuntersPrey('giantKiller')}</h3>
-      <p className={styles.paragraph}>
+      <h3 className="app__pale-text">{translateHuntersPrey('giantKiller')}</h3>
+      <p className="app__paragraph">
         Cuando una criatura Grande o más grande que tú, a una distancia máxima
         de 5 pies de ti, te golpea o falla con su ataque contra ti, puedes
         utilizar tu reacción para atacar a esa criatura inmediatamente después
         de su ataque, mientras puedas verla.
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateHuntersPrey('hordeBreaker')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Una vez por turno, cuando hagas un ataque con armas, puedes realizar
         otro ataque con la misma arma contra una criatura diferente que esté a
         menos de 5 pies del objetivo original y dentro del rango de tu arma.
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Presa
         </button>
       </p>
@@ -113,13 +110,13 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         A nivel 3 ganas uno de los siguientes rasgos de tu elección.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

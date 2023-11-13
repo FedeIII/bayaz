@@ -1,5 +1,4 @@
 import { increment } from '~/domain/display';
-import styles from './bar.module.css';
 
 // ████▓▓▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░
 // ██████████████████████████▒▒▒▒▒▓▓▓▓▓▓
@@ -13,7 +12,6 @@ export function ShrinkBar(props) {
     maxValue,
     midValue,
     lowValue,
-    color,
   } = props;
 
   const total = 20;
@@ -27,16 +25,16 @@ export function ShrinkBar(props) {
   const barStyle =
     cursorPos < midValue
       ? cursorPos < lowValue
-        ? styles.redBar
-        : styles.orangeBar
-      : styles.greenBar;
+        ? 'bar__redBar'
+        : 'bar__orangeBar'
+      : 'bar__greenBar';
 
   return (
-    <div className={styles.bar}>
+    <div className="bar">
       <span className={barStyle}>{Array(filled).fill('▓')}</span>
-      <span className={styles.xBlueBar}>{Array(extra).fill('▓')}</span>
+      <span className="bar__xBlueBar">{Array(extra).fill('▓')}</span>
       <span className={barStyle}>{Array(empty).fill('░')}</span>
-      <span className={styles.cursorOverlay}>
+      <span className="bar__cursorOverlay">
         {cursorPos}/{maxValue} {!!extraValue && `(${increment(extraValue)})`}
       </span>
     </div>

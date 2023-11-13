@@ -11,8 +11,16 @@ import { CharacterModal } from '~/components/modal/characterModal';
 import { CharacterItem } from '~/components/modal/characterItem';
 import { Monster } from '~/domain/encounters/monsters';
 
-import styles from '~/components/glossary.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
+import styles from '~/components/glossary.css';
+import charactersStyles from '~/components/characters/characters.css';
+import itemStyles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [
+    { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: charactersStyles },
+    { rel: 'stylesheet', href: itemStyles },
+  ];
+};
 
 const ITEM_HEIGHT = 67;
 
@@ -25,14 +33,14 @@ function Sidebar(props) {
   }
 
   return (
-    <div className={styles.glossarySidebar}>
-      <div className={styles.sidebarContent}>
-        <div className={styles.sidebarSection}>
-          <div className={styles.filter}>
-            <label className={styles.filterLabelInline}>
+    <div className="glossary__sidebar">
+      <div className="glossary__sidebar-content">
+        <div className="glossary__sidebar-section">
+          <div className="glossary__filter">
+            <label className="glossary__filter-label-inline">
               Búsqueda:{' '}
               <input
-                className={`${cardStyles.buttonCard} ${cardStyles.buttonCardBig}`}
+                className="cards__button-card cards__button-card-big"
                 value={filters.search}
                 onChange={onSearchChange}
               />
@@ -102,7 +110,7 @@ function Glossary() {
   const formRef = useRef(null);
 
   return (
-    <div className={styles.glossary} ref={formRef}>
+    <div className="glossary" ref={formRef}>
       {skillModalContent && (
         <SkillModal
           elRef={selectedSkillRef}
@@ -135,16 +143,16 @@ function Glossary() {
       )}
 
       <Sidebar filters={filters} setFilters={setFilters} />
-      <div className={styles.glossaryList}>
-        <div className={styles.results}>
+      <div className="glossary__list">
+        <div className="glossary__results">
           {!!searchResults.spells.length && (
-            <div className={styles.resultsSection}>
-              <div className={styles.sectionHeader}>
-                <span className={styles.headerTitle}>Conjuros</span>
+            <div className="glossary__results-section">
+              <div className="glossary__section-header">
+                <span className="glossary__header-title">Conjuros</span>
               </div>
-              <ul className={styles.sectionItems}>
+              <ul className="glossary__section-items">
                 {searchResults.spells.map((spell, i) => (
-                  <li className={styles.sectionItem} key={spell.name}>
+                  <li className="glossary__section-item" key={spell.name}>
                     <SkillItem
                       ref={refsList.spells.current[i]}
                       traitName={spell.name}
@@ -159,13 +167,13 @@ function Glossary() {
           )}
 
           {!!searchResults.equipment.length && (
-            <div className={styles.resultsSection}>
-              <div className={styles.sectionHeader}>
-                <span className={styles.headerTitle}>Objetos</span>
+            <div className="glossary__results-section">
+              <div className="glossary__section-header">
+                <span className="glossary__header-title">Objetos</span>
               </div>
-              <ul className={styles.sectionItems}>
+              <ul className="glossary__section-items">
                 {searchResults.equipment.map((item, i) => (
-                  <li className={styles.sectionItem} key={item.name}>
+                  <li className="glossary__section-item" key={item.name}>
                     <InventoryItem
                       ref={refsList.equipment.current[i]}
                       pItem={item}
@@ -180,13 +188,13 @@ function Glossary() {
           )}
 
           {!!searchResults.traits.length && (
-            <div className={styles.resultsSection}>
-              <div className={styles.sectionHeader}>
-                <span className={styles.headerTitle}>Rasgos y Atributos</span>
+            <div className="glossary__results-section">
+              <div className="glossary__section-header">
+                <span className="glossary__header-title">Rasgos y Atributos</span>
               </div>
-              <ul className={styles.sectionItems}>
+              <ul className="glossary__section-items">
                 {searchResults.traits.map(([traitName, trait], i) => (
-                  <li className={styles.sectionItem} key={traitName}>
+                  <li className="glossary__section-item" key={traitName}>
                     <SkillItem
                       ref={refsList.traits.current[i]}
                       traitName={traitName}
@@ -200,13 +208,13 @@ function Glossary() {
           )}
 
           {!!searchResults.monsters.length && (
-            <div className={styles.resultsSection}>
-              <div className={styles.sectionHeader}>
-                <span className={styles.headerTitle}>Enemigos</span>
+            <div className="glossary__results-section">
+              <div className="glossary__section-header">
+                <span className="glossary__header-title">Enemigos</span>
               </div>
-              <ul className={styles.sectionItems}>
+              <ul className="glossary__section-items">
                 {searchResults.monsters.map((monster, i) => (
-                  <li className={styles.sectionItem} key={monster.name}>
+                  <li className="glossary__section-item" key={monster.name}>
                     <CharacterItem
                       ref={refsList.monsters.current[i]}
                       character={Monster(monster.name)}

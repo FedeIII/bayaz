@@ -9,8 +9,10 @@ import {
 import { displayTrait } from '~/domain/display';
 import { EquipmentCombo } from '../equipment/equipmentCombo';
 
-import styles from '~/components/characters/characters.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
+import styles from '~/components/cards/cards.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 function BackgroundSelection(props) {
   const { pc, backgroundName, setCanContinue } = props;
@@ -52,7 +54,7 @@ function BackgroundSelection(props) {
             <label
               htmlFor={language}
               key={language}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"
@@ -73,10 +75,10 @@ function BackgroundSelection(props) {
       {!!BACKGROUNDS[backgroundName].proficientItems && (
         <div>
           Eres competente con:{' '}
-          <div className={cardStyles.cards}>
+          <div className="cards">
             {BACKGROUNDS[backgroundName].proficientItems.map(
               (combo, comboSection) => (
-                <div className={cardStyles.card} key={comboSection}>
+                <div className="card" key={comboSection}>
                   <EquipmentCombo
                     pc={pc}
                     comboName="proficiency"
@@ -93,10 +95,10 @@ function BackgroundSelection(props) {
       {!!BACKGROUNDS[backgroundName].equipment && (
         <div>
           Añades a tu equipo:{' '}
-          <div className={cardStyles.cards}>
+          <div className="cards">
             {BACKGROUNDS[backgroundName].equipment.map(
               (combo, comboSection) => (
-                <div className={cardStyles.card} key={comboSection}>
+                <div className="card" key={comboSection}>
                   <EquipmentCombo
                     pc={pc}
                     comboName="equipment"
@@ -107,7 +109,7 @@ function BackgroundSelection(props) {
               )
             )}
             {!!BACKGROUNDS[backgroundName].money && (
-              <div className={cardStyles.card}>
+              <div className="card">
                 <li>{translateMoney(BACKGROUNDS[backgroundName].money)}</li>
                 <input
                   readOnly
@@ -133,7 +135,7 @@ function BackgroundSelection(props) {
                 <label
                   htmlFor={thing}
                   key={thing}
-                  className={styles.skillLabel}
+                  className="characters__skill-label"
                 >
                   <input
                     type={thingsToSelect.amount > 1 ? 'checkbox' : 'radio'}

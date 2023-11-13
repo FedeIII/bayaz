@@ -5,9 +5,6 @@ import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import { getPrimalPath } from '~/domain/classes/barbarian/barbarian';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -46,8 +43,8 @@ function PrimalPath() {
   return (
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
-      <h2 className={styles.paleText}>Senda Primaria</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Senda Primaria</h2>
+      <p className="app__paragraph">
         La furia arde en el corazón de cada bárbaro como una fragua que forja su
         destino hacia la grandeza. Aun así, diferentes bárbaros atribuyen su
         furia a diversas fuentes. Para algunos, es una reserva interior donde el
@@ -57,12 +54,12 @@ function PrimalPath() {
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Senda Primaria</span>
+          <span className="app__pale-text">Escoge Senda Primaria</span>
           <br />
           <select
             name="primal-path"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setPath(e.target.value)}
           >
             <option value="" disabled></option>
@@ -73,8 +70,8 @@ function PrimalPath() {
       </p>
       {path === 'berserker' && (
         <>
-          <h3 className={styles.paleText}>Senda del Berserker</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Senda del Berserker</h3>
+          <p className="app__paragraph">
             Para algunos bárbaros, la furia es un medio para un fin, que
             generalmente es la propia violencia. La Senda del Berserker es un
             camino de furia desatada repleto de sangre. Cuando entras en la
@@ -85,14 +82,14 @@ function PrimalPath() {
       )}
       {path === 'totem-warrior' && (
         <>
-          <h3 className={styles.paleText}>Senda del Guerrero Totémico</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Senda del Guerrero Totémico</h3>
+          <p className="app__paragraph">
             La Senda del Guerrero Totémico es un camino espiritual; el bárbaro
             acepta el espíritu animal como guía, protector e inspiración. En la
             batalla, el espíritu de tu tótem te inunda con un poder
             sobrenatural, añadiendo fuerza mágica a tu furia de bárbaro.
           </p>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             La mayoría de las tribus bárbaras consideran que un tótem animal se
             relaciona con un clan en particular. En esos casos, es inusual que
             un individuo tenga más de un espíritu tótem animal, aunque existen
@@ -101,7 +98,7 @@ function PrimalPath() {
         </>
       )}
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -114,9 +111,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         La furia arde en el corazón de cada bárbaro como una fragua que forja su
         destino hacia la grandeza. Aun así, diferentes bárbaros atribuyen su
         furia a diversas fuentes. Para algunos, es una reserva interior donde el
@@ -125,7 +122,7 @@ export function ErrorBoundary({ error }) {
         animal.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

@@ -1,7 +1,5 @@
 import { forwardRef } from 'react';
 
-import styles from './inventoryItem.module.css';
-
 export const CharacterItem = forwardRef(function CharacterItem(props, ref) {
   const { character, openModal, openOnRightClick } = props;
 
@@ -9,7 +7,7 @@ export const CharacterItem = forwardRef(function CharacterItem(props, ref) {
     <>
       <span
         ref={ref}
-        className={styles.item}
+        className="inventory-item"
         onClick={() => !openOnRightClick && openModal()}
         onContextMenu={e => {
           if (openOnRightClick) {

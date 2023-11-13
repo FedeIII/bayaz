@@ -1,18 +1,16 @@
 import { Link } from '@remix-run/react';
 
-import menuStyles from '~/components/menus.module.css';
-
 function PartyMenu() {
   return (
     <>
-      <Link to="new" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Nueva Party</span>
+      <Link to="new" className="menus__main-option">
+        <span className="menus__option-label">Nueva Party</span>
       </Link>
-      <Link to="list" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Parties</span>
+      <Link to="list" className="menus__main-option">
+        <span className="menus__option-label">Parties</span>
       </Link>
-      <Link to="" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>/</span>
+      <Link to="" className="menus__main-option">
+        <span className="menus__option-label">/</span>
       </Link>
     </>
   );

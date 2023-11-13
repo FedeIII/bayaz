@@ -15,7 +15,10 @@ import {
 import { getAcBreakdown, increment } from './display';
 import { getItem } from './equipment/equipment';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const SKILLS_EXPLANATION = {
   levelUp: (skill, pc) => {
@@ -30,10 +33,10 @@ export const SKILLS_EXPLANATION = {
           hacia arriba).
         </p>
 
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/levelUp`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Gana Puntos de Golpe
           </Link>
@@ -57,10 +60,10 @@ export const SKILLS_EXPLANATION = {
           este procedimiento.
         </p>
 
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/abilityScoreImprovement`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge puntos de caracterísitica
           </Link>
@@ -72,10 +75,10 @@ export const SKILLS_EXPLANATION = {
   newSpells: (skill, pc) => (
     <>
       <p>Aprendes nuevos trucos y/o conjuros de {translateClass(pc.pClass)}</p>
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/newSpells`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Escoge conjuros
         </Link>
@@ -90,29 +93,33 @@ export const SKILLS_EXPLANATION = {
     const extraHp = extraHitPoints - conHp * level;
 
     return (
-      <div className={styles.hpContainer}>
-        <table className={styles.table}>
-          <thead className={styles.tableHead}>
+      <div className="inventory-item__hp-container">
+        <table className="inventory-item__table">
+          <thead className="inventory-item__table-head">
             <tr>
-              <th className={styles.tableCell}>Nivel</th>
+              <th className="inventory-item__table-cell">Nivel</th>
               {totalHitPoints.map((roll, i) => (
-                <th className={styles.tableCellLevel}>{i + 1}</th>
+                <th className="inventory-item__table-cell-level">{i + 1}</th>
               ))}
-              <th className={styles.tableCellExtra}>Con</th>
-              {!!extraHp && <th className={styles.tableCellExtra}>Extra HP</th>}
+              <th className="inventory-item__table-cell-extra">Con</th>
+              {!!extraHp && (
+                <th className="inventory-item__table-cell-extra">Extra HP</th>
+              )}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className={styles.tableCell}>HP</td>
+              <td className="inventory-item__table-cell">HP</td>
               {totalHitPoints.map(roll => (
-                <td className={styles.tableCellLevel}>{increment(roll)}</td>
+                <td className="inventory-item__table-cell-level">
+                  {increment(roll)}
+                </td>
               ))}
-              <td className={styles.tableCellExtra}>
+              <td className="inventory-item__table-cell-extra">
                 {increment(conHp)} x {level}
               </td>
               {!!extraHp && (
-                <td className={styles.tableCellExtra}>{extraHp}</td>
+                <td className="inventory-item__table-cell-extra">{extraHp}</td>
               )}
             </tr>
           </tbody>
@@ -146,11 +153,11 @@ export const SKILLS_EXPLANATION = {
     }
 
     return (
-      <div className={styles.hpContainer}>
-        <div className={styles.modalButtons}>
+      <div className="inventory-item__hp-container">
+        <div className="inventory-item__modal-buttons">
           <button
             type="button"
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
             onClick={onResetSlotsClick}
           >
             Reiniciar espacios
@@ -196,38 +203,38 @@ export const SKILLS_EXPLANATION = {
     const classBonus = getAttackClassBonus(pc, weapon);
 
     return (
-      <div className={styles.hpContainer}>
-        <table className={styles.table}>
-          <thead className={styles.tableHead}>
+      <div className="inventory-item__hp-container">
+        <table className="inventory-item__table">
+          <thead className="inventory-item__table-head">
             <tr>
-              <th className={styles.tableCellLevel}>
+              <th className="inventory-item__table-cell-level">
                 {selectedStat.toUpperCase()}
               </th>
-              <th
-                className={`${styles.tableCellLevel} ${styles.tableCellSmall}`}
-              >
+              <th className="inventory-item__table-cell-level inventory-item__table-cell-small">
                 Compentencia en {translation}
               </th>
               {!!classBonus && (
-                <th className={styles.tableCellLevel}>Bonificación de Clase</th>
+                <th className="inventory-item__table-cell-level">
+                  Bonificación de Clase
+                </th>
               )}
-              <th className={styles.tableCellExtra}>Total</th>
+              <th className="inventory-item__table-cell-extra">Total</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className={styles.tableCellLevel}>
+              <td className="inventory-item__table-cell-level">
                 {statMod === 0 ? '- (Segunda arma)' : increment(statMod)}
               </td>
-              <td className={styles.tableCellLevel}>
+              <td className="inventory-item__table-cell-level">
                 {increment(proficiencyBonus)}
               </td>
               {!!classBonus && (
-                <td className={styles.tableCellLevel}>
+                <td className="inventory-item__table-cell-level">
                   {increment(classBonus)}
                 </td>
               )}
-              <td className={styles.tableCellExtra}>
+              <td className="inventory-item__table-cell-extra">
                 {getAttackBonus(pc, weapon)}
               </td>
             </tr>
@@ -251,10 +258,10 @@ export const SKILLS_EXPLANATION = {
     }
 
     return (
-      <div className={styles.hpContainer}>
+      <div className="inventory-item__hp-container">
         <button
           type="button"
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
           onClick={onCreateNotesClick}
         >
           Crear nota
@@ -280,10 +287,10 @@ export const SKILLS_EXPLANATION = {
         necesitas para registrarlo. Una vez que has gastado este tiempo y
         dinero, puedes prepararlo.
       </p>
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/${pc.pClass}/extraSpells`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Copiar Conjuro
         </Link>
@@ -300,24 +307,26 @@ export const SKILLS_EXPLANATION = {
     } = pc;
 
     return (
-      <div className={styles.hpContainer}>
-        <table className={styles.table}>
-          <thead className={styles.tableHead}>
+      <div className="inventory-item__hp-container">
+        <table className="inventory-item__table">
+          <thead className="inventory-item__table-head">
             <tr>
-              <th className={styles.tableCellLevel}>{acs.title}</th>
+              <th className="inventory-item__table-cell-level">{acs.title}</th>
               {acs.extras.map(extra => (
-                <th className={styles.tableCellLevel}>{extra.title}</th>
+                <th className="inventory-item__table-cell-level">
+                  {extra.title}
+                </th>
               ))}
-              <th className={styles.tableCellExtra}>Total</th>
+              <th className="inventory-item__table-cell-extra">Total</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className={styles.tableCellLevel}>{acs.base}</td>
+              <td className="inventory-item__table-cell-level">{acs.base}</td>
               {acs.extras.map(extra => (
-                <td className={styles.tableCellLevel}>{extra.ac}</td>
+                <td className="inventory-item__table-cell-level">{extra.ac}</td>
               ))}
-              <td className={styles.tableCellExtra}>
+              <td className="inventory-item__table-cell-extra">
                 {getArmorClass(pc)}
                 {shield ? ' (+2)' : ''}
               </td>

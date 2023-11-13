@@ -3,8 +3,6 @@ import { useDrag } from 'react-dnd';
 
 import { STATS } from '~/domain/characters';
 
-import styles from '~/components/characters/characters.module.css';
-
 const MAX_POINTS = 27;
 
 export const ItemTypes = {
@@ -57,7 +55,7 @@ export function CustomStatValues(props) {
   return (
     <>
       <p>Puntos restantes: {MAX_POINTS - usedPoints}</p>
-      <p className={styles.statValues}>
+      <p className="characters__stat-values">
         {STATS.map((statName, index) => {
           const canDrag = !usedRolls[index];
 
@@ -80,7 +78,7 @@ export function CustomStatValues(props) {
               value={stats[statName]}
               onChange={onStatChange(statName)}
               onkeydown="return false"
-              className={styles.statValue}
+              className="characters__stat-value"
               disabled={!canDrag}
             />
           );

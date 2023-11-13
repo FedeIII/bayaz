@@ -9,7 +9,10 @@ import {
 } from './sorcerer';
 import { WILD_MAGIC_SURGE_TABLE } from './WILD_MAGIC_SURGE_TABLE';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const SORCERER_SKILLS_EXPLANATION = {
   dragonAncestor: (skill, pc) => (
@@ -213,10 +216,10 @@ export const SORCERER_SKILLS_EXPLANATION = {
         a menos que se indique lo contrario.
       </p>
       {hasToLearnMetamagic(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/sorcerer/metamagic`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Metamagia
           </Link>

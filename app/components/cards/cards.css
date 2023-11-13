@@ -14,7 +14,7 @@
   flex-grow: 1;
 }
 
-.singleCard {
+.cards__single-card {
   border: 1px solid white;
   background-color: var(--color-base);
   border-radius: 10px;
@@ -23,13 +23,7 @@
   width: fit-content;
 }
 
-.cardTitle {
-}
-
-.cardBody {
-}
-
-.buttonCard {
+.cards__button-card {
   background-color: var(--color-base);
   padding: 8px 16px;
   color: white;
@@ -40,37 +34,37 @@
   cursor: pointer;
 }
 
-.buttonCard:hover {
+.cards__button-card:hover {
   background-color: var(--color-light);
 }
 
-.buttonCard[data-selected='true'] {
+.cards__button-card[data-selected='true'] {
   background-color: var(--color-light);
 }
 
-.buttonCard[disabled] {
+.cards__button-card[disabled] {
   background-color: var(--color-gray);
   color: var(--color-pale);
   cursor: initial;
 }
 
-.buttonCardBig {
+.cards__button-card-big {
   font-size: 18px;
   padding: 8px 8px 4px 8px;
 }
 
-.cardList {
+.cards__card-list {
   padding: 0 0 0 20px;
   text-align: left;
   list-style: square;
 }
 
-.scrollList {
+.cards__scroll-list {
   flex-wrap: nowrap;
   overflow: scroll;
   padding-left: 270px;
 }
 
-.scrollCard {
+.cards__scroll-card {
   min-width: 24%;
 }

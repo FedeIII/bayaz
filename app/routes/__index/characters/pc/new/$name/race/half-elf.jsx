@@ -11,8 +11,6 @@ import {
   translateLanguage,
 } from '~/domain/characters';
 
-import styles from '~/components/characters/characters.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -89,7 +87,7 @@ function PcHalfElfSkills() {
           <label
             htmlFor={language}
             key={language}
-            className={styles.skillLabel}
+            className="characters__skill-label"
           >
             <input
               type="radio"
@@ -109,7 +107,7 @@ function PcHalfElfSkills() {
           <label
             htmlFor={skill.name}
             key={skill.name}
-            className={styles.skillLabel}
+            className="characters__skill-label"
           >
             <input
               type="checkbox"

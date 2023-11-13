@@ -61,7 +61,10 @@ import {
 } from './classes/ranger/ranger';
 import { t } from './translations';
 
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 const noOp = () => {};
 
@@ -486,7 +489,7 @@ export function displayTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          <span className={sheetStyles.pendingTrait}>(!)</span>
+          <span className="sheet__pending-trait">(!)</span>
         </>
       );
 
@@ -497,7 +500,7 @@ export function displayTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          <span className={sheetStyles.pendingTrait}>(!)</span>
+          <span className="sheet__pending-trait">(!)</span>
         </>
       );
 
@@ -505,7 +508,7 @@ export function displayTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          <span className={sheetStyles.pendingTrait}>(!)</span>
+          <span className="sheet__pending-trait">(!)</span>
         </>
       );
 

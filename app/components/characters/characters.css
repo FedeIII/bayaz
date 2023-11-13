@@ -1,4 +1,4 @@
-.container {
+.characters__container {
   width: 95%;
   height: fit-content;
   padding: 8px 0;
@@ -6,60 +6,60 @@
   position: relative;
 }
 
-.rangeMarks {
+.characters__range-marks {
   color: white;
 }
 
-.statsRoll {
+.characters__stats-roll {
   margin-right: 8px;
 }
 
-.canDrag {
+.characters__can-drag {
   color: greenyellow;
 }
 
-.cannotDrag {
+.characters__cannot-drag {
   color: red;
 }
 
-.skillLabel {
+.characters__skill-label {
   display: block;
 }
 
-.statValues {
+.characters__stat-values {
   display: flex;
   justify-content: center;
 }
 
-.statValue {
+.characters__stat-value {
   width: 32px;
   margin: 0 8px;
   font-weight: bold;
   background-color: #a3ffa3;
 }
 
-.statValue:disabled {
+.characters__stat-value:disabled {
   background-color: #ffaaaa;
 }
 
-.equipmentContainer {
+.characters__equipment-container {
   display: flex;
   flex-direction: column;
 }
 
-.equipmentItem {
+.characters__equipment-item {
   display: block;
 }
 
-.actionModal {
+.characters__action-modal {
   background-color: var(--color-x-pale);
 }
 
-.name {
+.characters__name {
   background-color: var(--color-x-pale);
 }
 
-.characterContent {
+.characters__character-content {
   position: relative;
   border-color: black;
   border-inline-style: groove;
@@ -77,48 +77,48 @@
   color: white;
 }
 
-.section {
+.characters__section {
   display: flex;
   flex-direction: column;
 }
 
-.sectionTitle {
+.characters__section-title {
   margin: 16px 0 0;
   color: var(--color-x-pale);
 }
 
-.actionsDivider {
+.characters__actions-divider {
   margin: 0 0 8px;
   border-color: var(--color-x-pale);
 }
 
-.sectionDivider {
+.characters__section-divider {
   border-color: var(--color-x-pale);
 }
 
-.attrSection {
+.characters__attr-section {
   display: flex;
   flex-direction: row;
   column-gap: 16px;
   padding: 0 16px;
 }
 
-.attrBlock {
+.characters__attr-block {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.bold {
+.characters__bold {
   font-weight: bolder;
   color: var(--color-x-pale);
 }
 
-.p {
+.characters__p {
   margin: 12px 0 0;
 }
 
-.title {
+.characters__title {
   color: var(--color-x-pale);
   font-size: 20px;
   text-transform: uppercase;
@@ -126,69 +126,69 @@
   font-weight: bolder;
 }
 
-.titleCapital {
+.characters__title-capital {
   font-size: 24px;
 }
 
-.subtitle {
+.characters__subtitle {
   font-size: 14px;
   display: flex;
   justify-content: space-between;
   margin: 0 10%;
 }
 
-.attrs {
+.characters__attrs {
   margin: 0 8%;
 }
 
-.parallelAttrs {
+.characters__parallel-attrs {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
-.attrsTitle {
+.characters__attrs-title {
   font-size: 18px;
   text-align: start;
   margin: 0;
   color: var(--color-x-pale);
 }
 
-.traitColumns {
+.characters__trait-columns {
   column-count: 2;
   display: block;
   text-align: start;
   margin: 8px 32px;
 }
 
-.traitSections {
+.characters__trait-sections {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.traits {
+.characters__traits {
   display: block;
   text-align: start;
   margin: 8px 32px;
 }
 
-.parallelTraits {
+.characters__parallel-traits {
   display: block;
   text-align: start;
   margin: 8px 0;
   padding: 0 4%;
 }
 
-.trait {
+.characters__trait {
   display: block;
   text-align: start;
 }
 
-.traitTitle {
+.characters__trait-title {
   color: var(--color-x-pale);
 }
 
-.traitDescription {
+.characters__trait-description {
   text-align: start;
 }

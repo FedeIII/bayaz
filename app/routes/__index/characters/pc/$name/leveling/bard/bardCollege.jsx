@@ -5,9 +5,6 @@ import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import { getBardCollege } from '~/domain/classes/bard/bard';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -46,8 +43,8 @@ function BardCollege() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Colegio de Bardo</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Colegio de Bardo</h2>
+      <p className="app__paragraph">
         El camino de un bardo es sociable. Los bardos se buscan los unos a los
         otros para intercambiar canciones e historias, presumir de sus logros y
         compartir su conocimiento. Forman agrupaciones poco definidas, a las que
@@ -56,12 +53,12 @@ function BardCollege() {
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Colegio de Bardo</span>
+          <span className="app__pale-text">Escoge Colegio de Bardo</span>
           <br />
           <select
             name="bard-college"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setCollege(e.target.value)}
           >
             <option value="" disabled></option>
@@ -72,13 +69,13 @@ function BardCollege() {
       </p>
       {college === 'lore' && (
         <>
-          <h3 className={styles.paleText}>Colegio del Conocimiento</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Colegio del Conocimiento</h3>
+          <p className="app__paragraph">
             Los bardos del Colegio del Conocimiento conocen algo sobre la
             mayoría de las cosas, coleccionando fragmentos de saber de fuentes
             tan diversas como tomos de eruditos y cuentos de aldeanos.
           </p>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             Ya sea cantando baladas populares en tabernas o elaboradas
             composiciones en cortes reales, estos bardos usan sus dones para
             mantener a sus audiencias fascinadas. Cuando los aplausos se apagan,
@@ -86,21 +83,21 @@ function BardCollege() {
             que tenían como cierto, desde su fe en el sacerdocio local hasta su
             lealtad hacia el rey.
           </p>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             La lealtad de estos bardos está depositada en la búsqueda de la
             belleza y la verdad, no en el vasallaje de un monarca o en seguir
             las doctrinas de una deidad. Un noble que mantiene uno de estos
             bardos como heraldo o consejero sabe que dicho bardo es más honesto
             que correcto.
           </p>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             La lealtad de estos bardos está depositada en la búsqueda de la
             belleza y la verdad, no en el vasallaje de un monarca o en seguir
             las doctrinas de una deidad. Un noble que mantiene uno de estos
             bardos como heraldo o consejero sabe que dicho bardo es más honesto
             que correcto.
           </p>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             Los miembros de este colegio se reúnen en bibliotecas y a veces en
             verdaderos colegios, llenos de aulas y dormitorios, para compartir
             sus conocimientos con otros. Incluso se encuentran en festivales o
@@ -108,14 +105,14 @@ function BardCollege() {
             desenmarañar mentiras y meterse con prepotentes figuras de la
             autoridad
           </p>
-          <div className={styles.paragraph}>
-            <h4 className={styles.h4}>Competencias Adicionales</h4>
-            <p className={styles.paragraph}>
+          <div className="app__paragraph">
+            <h4 className="app__h4">Competencias Adicionales</h4>
+            <p className="app__paragraph">
               Cuando te unes al Colegio del Conocimiento en el nivel 3, ganas
               competencia con tres habilidades de tu elección.
             </p>
-            <h4 className={styles.h4}>Palabras Hirientes</h4>
-            <p className={styles.paragraph}>
+            <h4 className="app__h4">Palabras Hirientes</h4>
+            <p className="app__paragraph">
               En el nivel 3 también aprendes cómo usar tu ingenio para distraer,
               confundir y minar la confianza y competencia de otros. Cuando una
               criatura que puedes ver en un rango de 60 pies (18 metros) realiza
@@ -134,8 +131,8 @@ function BardCollege() {
       )}
       {college === 'valor' && (
         <>
-          <h3 className={styles.paleText}>Colegio del Valor</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Colegio del Valor</h3>
+          <p className="app__paragraph">
             Los bardos del Colegio de Valor son osados poetas cuyos cuentos
             mantienen viva la memoria de los grandes héroes del pasado, y de
             este modo inspiran a una nueva generación de héroes. Estos bardos se
@@ -146,14 +143,14 @@ function BardCollege() {
             abandone este mundo. Con sus canciones, inspiran a otros a al-
             canzar logros de las mismas dimensiones que los héroes de antaño.
           </p>
-          <div className={styles.paragraph}>
-            <h4 className={styles.h4}>Competencias Adicionales</h4>
-            <p className={styles.paragraph}>
+          <div className="app__paragraph">
+            <h4 className="app__h4">Competencias Adicionales</h4>
+            <p className="app__paragraph">
               Cuando te unes al Colegio del Valor en el nivel 3, ganas com-
               petencia con armadura media, escudos y armas marciales.
             </p>
-            <h4 className={styles.h4}>Inspiración de Combate</h4>
-            <p className={styles.paragraph}>
+            <h4 className="app__h4">Inspiración de Combate</h4>
+            <p className="app__paragraph">
               En el nivel 3 también aprendes a inspirar a otros en la batalla.
               Una criatura que tiene un dado de Inspiración de Bardo tuyo puede
               tirar ese dado y agregarlo a una tirada de daño. Alternativamente,
@@ -166,7 +163,7 @@ function BardCollege() {
         </>
       )}
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -179,9 +176,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         El camino de un bardo es sociable. Los bardos se buscan los unos a los
         otros para intercambiar canciones e historias, presumir de sus logros y
         compartir su conocimiento. Forman agrupaciones poco definidas, a las que
@@ -189,7 +186,7 @@ export function ErrorBoundary({ error }) {
         tradiciones.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

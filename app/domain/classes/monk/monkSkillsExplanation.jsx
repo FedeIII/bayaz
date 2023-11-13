@@ -11,7 +11,10 @@ import {
   translateElementalDisciplines,
 } from './monk';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const MONK_SKILLS_EXPLANATION = {
   unarmoredDefense: (skill, pc) => (
@@ -159,10 +162,10 @@ export const MONK_SKILLS_EXPLANATION = {
         Cuatro Elementos, todos detallados al final de la descripción de clase.
         Tu tradición te otorga rasgos en los niveles 3, 6, 11 y 17.
       </p>
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/monk/monasticTradition`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Escoge Tradición
         </Link>
@@ -227,10 +230,10 @@ export const MONK_SKILLS_EXPLANATION = {
         <strong>Puntos Ki Máximos por Conjuro:</strong> {getMaxKiPerSpell(pc)}
       </p>
       {hasToLearnElementalDiscipline(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/monk/elementalDisciplines`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Disciplinas Elementales
           </Link>

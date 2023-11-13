@@ -1,8 +1,6 @@
 import { itemWithAmount } from '~/domain/display';
 import { translateEquipment } from '~/domain/equipment/equipment';
 
-import styles from '~/components/characters/characters.module.css';
-
 export function EquipmentCombo(props) {
   const { pc, comboName, combo, logic, comboSection, depth = 0 } = props;
 
@@ -32,7 +30,7 @@ export function EquipmentCombo(props) {
       return (
         <label
           htmlFor={`${combo.name}-${comboSection}`}
-          className={styles.equipmentItem}
+          className="characters__equipment-item"
           key={combo.name}
         >
           <input
@@ -94,7 +92,7 @@ export function EquipmentCombo(props) {
       return (
         <label
           htmlFor={`${combo.map(i => i.name).join('-')}-${comboSection}`}
-          className={styles.equipmentItem}
+          className="characters__equipment-item"
         >
           <input
             type="radio"
@@ -130,7 +128,7 @@ export function EquipmentCombo(props) {
       return (
         <label
           htmlFor={`${combo.name}-${comboSection}`}
-          className={styles.equipmentItem}
+          className="characters__equipment-item"
         >
           <input
             type="radio"
@@ -150,7 +148,7 @@ export function EquipmentCombo(props) {
         <>
           <label
             htmlFor={`${combo.packName}-${comboSection}`}
-            className={styles.equipmentItem}
+            className="characters__equipment-item"
           >
             <input
               type="radio"

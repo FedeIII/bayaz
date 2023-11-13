@@ -10,10 +10,12 @@ import {
 } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import { SkillItem } from '../modal/skillItem';
-
-import styles from '~/components/sheet.module.css';
-import barStyles from '~/components/indicators/bar.module.css';
 import DeathSavingThrows from './deathSavingThrows';
+
+import styles from '~/components/indicators/bar.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 function CombatAttrs(props) {
   const { pc, skillRefs, openSkillModal, onFreeTextChange, isForPlayers } =
@@ -26,9 +28,9 @@ function CombatAttrs(props) {
   const hitPointsStyle =
     hitPointsState < maxHitPoints / 2
       ? hitPointsState < maxHitPoints / 5
-        ? barStyles.redBar
-        : barStyles.orangeBar
-      : barStyles.blueBar;
+        ? 'bar__redBar'
+        : 'bar__orangeBar'
+      : 'bar__blueBar';
 
   function animateHitPoints(addExtraHitPoints, i) {
     setTimeout(() => {
@@ -67,7 +69,7 @@ function CombatAttrs(props) {
 
   return (
     <>
-      <div className={`${styles.data} ${styles.armorClass}`}>
+      <div className="sheet__data sheet__armor-class">
         <SkillItem
           ref={skillRefs.ac.current[0]}
           traitName="armorClass"
@@ -76,15 +78,15 @@ function CombatAttrs(props) {
           openModal={openSkillModal('ac', 0)}
         >
           {getArmorClass(pc)}
-          <span className={`${styles.data} ${styles.extraArmorClass}`}>
+          <span className="sheet__data sheet__extra-armor-class">
             {getExtraArmorClass(pc)
               ? `(${increment(getExtraArmorClass(pc))})`
               : null}
           </span>
         </SkillItem>
       </div>
-      <span className={`${styles.data} ${styles.speed}`}>{getSpeed(pc)}m</span>
-      <span className={`${styles.data} ${styles.maxHitPoints}`}>
+      <span className="sheet__data sheet__speed">{getSpeed(pc)}m</span>
+      <span className="sheet__data sheet__max-hit-points">
         <SkillItem
           ref={skillRefs.hp.current[0]}
           traitName="maxHitPoints"
@@ -95,30 +97,28 @@ function CombatAttrs(props) {
           {maxHitPoints}
         </SkillItem>
       </span>
-      <span className={`${styles.data} ${styles.hitPoints} ${hitPointsStyle}`}>
+      <span className={`sheet__data sheet__hit-points ${hitPointsStyle}`}>
         {hitPointsState}
         {!!extraHitPoints && (
-          <span className={`${styles.data} ${styles.extraHitPoints}`}>
+          <span className="sheet__data sheet__extra-hit-points">
             {increment(extraHitPoints)}
           </span>
         )}
       </span>
-      <span className={`${styles.data} ${styles.temporaryHitPoints}`}>
+      <span className="sheet__data sheet__temporary-hit-points">
         <input
           type="number"
           name="temporaryHitPoints"
           min="0"
           onChange={onFreeTextChange}
           defaultValue={temporaryHitPoints || ''}
-          className={styles.temporaryHitPointsInput}
+          className="sheet__temporary-hit-points-input"
           disabled={isForPlayers}
         />
       </span>
 
-      <span className={`${styles.data} ${styles.hitDice}`}>
-        {getHitDice(pc)}
-      </span>
-      <span className={`${styles.data} ${styles.remainingHitDice}`}>
+      <span className="sheet__data sheet__hit-dice">{getHitDice(pc)}</span>
+      <span className="sheet__data sheet__remaining-hit-dice">
         <SkillItem
           ref={skillRefs.remainingHitDice.current[0]}
           traitName="remainingHitDice"

@@ -8,9 +8,6 @@ import { InventoryItem } from '../modal/inventoryItem';
 import { SkillItem } from '../modal/skillItem';
 import { t } from '~/domain/translations';
 
-import styles from '~/components/sheet.module.css';
-import itemStyles from '~/components/modal/inventoryItem.module.css';
-
 const noAttack = { weapon: noItem() };
 
 function WeaponModalContent(props) {
@@ -29,16 +26,18 @@ function WeaponModalContent(props) {
 
   return (
     <>
-      <h3 className={itemStyles.actionModalTitle}>{weapon.translation}</h3>
-      <span className={itemStyles.modalClose} onClick={closeModal}>
+      <h3 className="inventory-item__action-modal-title">
+        {weapon.translation}
+      </h3>
+      <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
-      <div className={itemStyles.modalContent}>
-        <ul className={itemStyles.modalOptions}>
+      <div className="inventory-item__modal-content">
+        <ul className="inventory-item__modal-options">
           <li>
             Cambiar por:{' '}
             <select
-              className={styles.selectAttack}
+              className="sheet__select-attack"
               disabled={!hasExtraWeapons(pc)}
               onChange={onEquipClick}
             >
@@ -53,7 +52,7 @@ function WeaponModalContent(props) {
           <li>
             <button
               type="button"
-              className={styles.selectAttack}
+              className="sheet__select-attack"
               onClick={onUnequipClick}
             >
               Desequipar
@@ -171,15 +170,15 @@ function SheetAttacks(props) {
 
         return (
           <Fragment key={i}>
-            <div className={`${styles.data} ${styles['attackName-' + i]}`}>
+            <div className={`sheet__data sheet__attack-name-${i}`}>
               <label
-                className={styles.attackHandler}
+                className="sheet__attack-handler"
                 ref={el => {
                   drag(el);
                   drop(el);
                 }}
               >
-                <span className={styles.attackHandlerCharacter}>░</span>
+                <span className="sheet__attack-handler-character">░</span>
                 <InventoryItem
                   ref={itemRefs.weapons.current[i]}
                   pItem={attack.weapon}
@@ -187,19 +186,19 @@ function SheetAttacks(props) {
                   onItemClick={onWeaponClick('weapons', i)}
                   openModal={openItemModal('weapons', i)}
                   closeModal={closeItemModal}
-                  className={itemStyles.centeredItem}
+                  className="inventory-item__centered-item"
                   key={attack.weapon.name}
                 />
               </label>
 
               {!!attack.specialAttackIndex && (
-                <sup className={styles.superscript}>
+                <sup className="sheet__superscript">
                   {attack.specialAttackIndex}
                 </sup>
               )}
             </div>
             {!!(attack.bonus || attack.bonus === 0) && (
-              <span className={`${styles.data} ${styles['attackBonus-' + i]}`}>
+              <span className={`sheet__data sheet__attack-bonus-${i}`}>
                 <SkillItem
                   ref={skillRefs.attackBonus.current[i]}
                   traitName="attackBonus"
@@ -212,7 +211,7 @@ function SheetAttacks(props) {
               </span>
             )}
             {!!attack.damage && (
-              <span className={`${styles.data} ${styles['attackType-' + i]}`}>
+              <span className={`sheet__data sheet__attack-type-${i}`}>
                 {attack.damage}
                 <br />
                 {attack.type}
@@ -221,9 +220,9 @@ function SheetAttacks(props) {
           </Fragment>
         );
       })}
-      <ul className={`${styles.data} ${styles.specialAttacks}`}>
+      <ul className="sheet__data sheet__special-attacks">
         {getSpecialAttacks(pc).map((specialAttack, i) => (
-          <li className={styles.specialAttack} key={i}>
+          <li className="sheet__special-attack" key={i}>
             {specialAttack}
           </li>
         ))}

@@ -5,7 +5,7 @@
   background-color: #12151c;
 }
 
-.header {
+.app__header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -16,22 +16,19 @@
   font-size: 22px;
 }
 
-.body {
+.app__body {
   display: flex;
   flex-direction: row;
   justify-content: center;
   height: 92vh;
 }
 
-.bodyFullScreen {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+.app__body--full-screen {
   width: 100vw;
   height: 100vh;
 }
 
-.sidebar {
+.app__sidebar {
   display: flex;
   flex-direction: column;
   width: 10vw;
@@ -42,7 +39,7 @@
   overflow-y: scroll;
 }
 
-.content {
+.app__content {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -51,15 +48,13 @@
   overflow-y: scroll;
 }
 
-.contentFullScreen {
-  display: flex;
+.app__content--fullscreen {
   align-items: center;
-  justify-content: center;
   width: 100vw;
-  color: white;
+  overflow-y: none;
 }
 
-.mainButton {
+.app__main-button {
   min-height: 32px;
   margin: 8px 0 8px;
   width: 100%;
@@ -73,7 +68,7 @@
   overflow: hidden;
 }
 
-.secondaryButton {
+.app__secondary-button {
   min-height: 24px;
   margin: 0 0 8px 16px;
   width: 80%;
@@ -87,7 +82,7 @@
   overflow: hidden;
 }
 
-.tertiaryButton {
+.app__tertiary-button {
   min-height: 20px;
   margin: 0 0 8px 16px;
   width: 65%;
@@ -101,7 +96,7 @@
   overflow: hidden;
 }
 
-.container {
+.app__container {
   width: 95%;
   height: fit-content;
   padding: 0;
@@ -109,28 +104,28 @@
   position: relative;
 }
 
-.containerFullScreen {
+.app__container-full-screen {
   width: 100%;
   height: 100%;
   margin: auto;
   position: relative;
 }
 
-.paragraph {
+.app__paragraph {
   width: 75%;
   margin: 16px auto;
   text-align: left;
 }
 
-.paleText {
+.app__pale-text {
   color: var(--color-x-pale);
 }
 
-.errorText {
+.app__error-text {
   color: var(--color-red);
 }
 
-.errorStack {
+.app__error-stack {
   text-align: left;
   color: var(--color-x-red);
   width: 90%;
@@ -143,7 +138,7 @@
   font-size: 15px;
 }
 
-.h4 {
+.app__h4 {
   text-transform: uppercase;
   color: var(--color-x-pale);
   text-align: left;
@@ -152,40 +147,40 @@
   padding: 0 0 0 32px;
 }
 
-.buttons {
+.app__buttons {
   display: flex;
   flex-direction: row;
   justify-content: center;
   column-gap: 16px;
 }
 
-.buttonBig {
+.app__button-big {
   font-size: 18px;
 }
 
-.bigText {
+.app__big-text {
   font-size: 24px;
 }
 
-.smallText {
+.app__small-text {
   font-size: 14px;
 }
 
-.tinyText {
+.app__tiny-text {
   font-size: 12px;
 }
 
-.filter {
+.app__filter {
   display: inline-block;
   margin: 16px 16px;
 }
 
-.inputButton {
+.app__input-button {
   display: flex;
   flex-direction: column;
 }
 
-.inputButtonRow {
+.app__input-button-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -194,7 +189,7 @@
   align-items: center;
 }
 
-.inputButtonColumn {
+.app__input-button-column {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -203,6 +198,6 @@
   align-items: center;
 }
 
-.inputWithTag {
+.app__input-with-tag {
   margin: 0 0 8px;
 }

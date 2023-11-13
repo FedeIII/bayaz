@@ -9,9 +9,6 @@ import {
   translateMartialArchetype,
 } from '~/domain/classes/fighter/fighter';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -51,21 +48,21 @@ function MartialAchetype() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Arquetipo Marcial</h2>
+      <h2 className="app__pale-text">Arquetipo Marcial</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Diferentes guerreros escogen diferentes caminos para perfeccionar sus
         habilidades de combate. El arquetipo marcial que escojas definirá la
         forma de enfocar a tu guerrero.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Arquetipo Marcial</span>
+          <span className="app__pale-text">Escoge Arquetipo Marcial</span>
           <br />
           <select
             name="martialArchetype"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setArchetype(e.target.value)}
           >
             <option value="" disabled></option>
@@ -78,8 +75,8 @@ function MartialAchetype() {
         </label>
       </p>
       {archetype === 'eldritchKnight' && (
-        <p className={styles.paragraph}>
-          <h3 className={styles.paleText}>
+        <p className="app__paragraph">
+          <h3 className="app__pale-text">
             {translateMartialArchetype(archetype)}
           </h3>
           El arquetipo de Caballero Arcano combina la maestría marcial común en
@@ -95,8 +92,8 @@ function MartialAchetype() {
         </p>
       )}
       {archetype === 'champion' && (
-        <p className={styles.paragraph}>
-          <h3 className={styles.paleText}>
+        <p className="app__paragraph">
+          <h3 className="app__pale-text">
             {translateMartialArchetype(archetype)}
           </h3>
           El arquetipo de Campeón se centra en el desarrollo de la fuerza bruta,
@@ -106,8 +103,8 @@ function MartialAchetype() {
         </p>
       )}
       {archetype === 'battleMaster' && (
-        <p className={styles.paragraph}>
-          <h3 className={styles.paleText}>
+        <p className="app__paragraph">
+          <h3 className="app__pale-text">
             {translateMartialArchetype(archetype)}
           </h3>
           Aquellos que escojan el arquetipo Maestro de Batalla emplean técnicas
@@ -121,7 +118,7 @@ function MartialAchetype() {
         </p>
       )}
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Arquetipo
         </button>
       </p>
@@ -134,15 +131,15 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Diferentes guerreros escogen diferentes caminos para perfeccionar sus
         habilidades de combate. El arquetipo marcial que escojas definirá la
         forma de enfocar a tu guerrero.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

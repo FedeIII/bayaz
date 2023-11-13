@@ -9,9 +9,6 @@ import {
   translateDruidCircle,
 } from '~/domain/classes/druid/druid';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -50,8 +47,8 @@ function DruidCircle() {
   return (
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
-      <h2 className={styles.paleText}>Círculo Druídico</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Círculo Druídico</h2>
+      <p className="app__paragraph">
         Aunque su organización es invisible para la mayoría de los forasteros,
         los druidas son parte de una sociedad que se extiende por la tierra,
         haciendo caso omiso de las fronteras políticas. Todos los druidas son
@@ -62,19 +59,19 @@ function DruidCircle() {
         que las criaturas salvajes, los druidas a veces compiten, o incluso unos
         se aprovechan de otros.
       </p>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         A escala local, los druidas se organizan en círculos que comparten
         ciertas perspectivas sobre la naturaleza, el equilibrio y su camino como
         druidas.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Círculo Druídico</span>
+          <span className="app__pale-text">Escoge Círculo Druídico</span>
           <br />
           <select
             name="druidCircle"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setCircle(e.target.value)}
           >
             <option value="" disabled></option>
@@ -88,8 +85,8 @@ function DruidCircle() {
       </p>
       {circle === 'land' && (
         <>
-          <h3 className={styles.paleText}>EL Círculo de la Tierra</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">EL Círculo de la Tierra</h3>
+          <p className="app__paragraph">
             El Círculo de la Tierra está formado por los místicos y los sabios
             que salvaguardan los conocimientos y ritos antiguos a través de una
             extensa tradición oral. Estos druidas se reúnen dentro de círculos
@@ -104,15 +101,15 @@ function DruidCircle() {
       )}
       {circle === 'moon' && (
         <>
-          <h3 className={styles.paleText}>El Círculo de la Luna</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">El Círculo de la Luna</h3>
+          <p className="app__paragraph">
             Los druidas del Círculo de la Luna son fieros guardianes de lo
             salvaje. Su orden se reúne bajo la luna llena para compartir
             noticias y posibles peligros. Se adentran en los lugares más
             profundos de la naturaleza, donde podrían pasar semanas antes de
             cruzarse con otra criatura humanoide, y mucho menos con otro druida.
           </p>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             Cambiantes como la luna, un druida de este círculo podría acechar
             como un gran gato una noche, elevarse sobre las copas de los árboles
             como un águila al día siguiente, y abalanzarse a través de la maleza
@@ -122,7 +119,7 @@ function DruidCircle() {
         </>
       )}
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Círculo
         </button>
       </p>
@@ -135,9 +132,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Aunque su organización es invisible para la mayoría de los forasteros,
         los druidas son parte de una sociedad que se extiende por la tierra,
         haciendo caso omiso de las fronteras políticas. Todos los druidas son
@@ -154,7 +151,7 @@ export function ErrorBoundary({ error }) {
         druidas.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

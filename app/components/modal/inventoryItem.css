@@ -1,4 +1,4 @@
-.actionModal {
+.inventory-item__action-modal {
   color: black;
   position: absolute;
   padding: 8px 4px 0px 4px;
@@ -14,7 +14,7 @@
   max-width: 50%;
 }
 
-.actionModalBig {
+.inventory-item__action-modal-big {
   color: black;
   position: absolute;
   padding: 8px 4px 0px 4px;
@@ -31,7 +31,7 @@
   right: 32px;
 }
 
-.modalShadow {
+.inventory-item__modal-shadow {
   position: absolute;
   top: 0;
   right: 0;
@@ -42,22 +42,22 @@
   z-index: 3;
 }
 
-.item {
+.inventory-item {
   cursor: pointer;
   height: 100%;
 }
 
-.centeredItem {
+.inventory-item__centered-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.item:hover {
+.inventory-item:hover {
   color: var(--color-x-blue-ink);
 }
 
-.actionModalTitle {
+.inventory-item__action-modal-title {
   position: relative;
   top: 0px;
   margin: -18px 0 0 0;
@@ -70,7 +70,7 @@
   z-index: 1;
 }
 
-.modalTitle {
+.inventory-item__modal-title {
   position: relative;
   top: 0px;
   margin: -18px 0 0 0;
@@ -83,7 +83,7 @@
   z-index: 1;
 }
 
-.modalClose {
+.inventory-item__modal-close {
   position: absolute;
   top: -4px;
   right: 10px;
@@ -95,11 +95,11 @@
   z-index: 1;
 }
 
-.modalClose:hover {
+.inventory-item__modal-close:hover {
   color: rgb(97, 97, 97);
 }
 
-.modalContent {
+.inventory-item__modal-content {
   position: relative;
   border-color: black;
   border-inline-style: groove;
@@ -112,7 +112,7 @@
   background-color: white;
 }
 
-.modalContentText {
+.inventory-item__modal-content-text {
   position: relative;
   border-color: black;
   border-inline-style: groove;
@@ -128,7 +128,7 @@
   max-height: 50vh;
 }
 
-.modalBigContentText {
+.inventory-item__modal-big-content-text {
   position: relative;
   border-color: black;
   border-inline-style: groove;
@@ -144,11 +144,11 @@
   max-height: 80vh;
 }
 
-.modalContentTextPadding {
+.inventory-item__modal-content-text-padding {
   padding: 30px 12px 12px 12px;
 }
 
-.modalOptions {
+.inventory-item__modal-options {
   list-style: none;
   padding: 0;
   margin: 8px 0 0 0;
@@ -158,7 +158,7 @@
   row-gap: 8px;
 }
 
-.modalOptionsLeft {
+.inventory-item__modal-options-left {
   padding: 0 0 0 0px;
   margin: 8px auto 0;
   text-align: left;
@@ -168,31 +168,31 @@
   border-spacing: 8px 0px;
 }
 
-.modalItem {
+.inventory-item__modal-item {
   display: table-row;
 }
 
-.modalRowTitle {
+.inventory-item__modal-row-title {
   font-size: 12px;
   display: table-cell;
 }
 
-.modalRowValue {
+.inventory-item__modal-row-value {
   display: table-cell;
 }
 
-.modalButtons {
+.inventory-item__modal-buttons {
   display: flex;
   justify-content: center;
 }
 
-.modalButtonsColumn {
+.inventory-item__modal-buttons-column {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 }
 
-.modalButton {
+.inventory-item__modal-button {
   background-color: var(--color-gray);
   color: black;
   text-decoration: none;
@@ -203,11 +203,11 @@
   font-family: fantasy;
 }
 
-.modalButton:hover {
+.inventory-item__modal-button:hover {
   background-color: var(--color-x-gray);
 }
 
-.modalInput {
+.inventory-item__modal-input {
   background-color: var(--color-gray);
   color: black;
   text-decoration: none;
@@ -218,83 +218,83 @@
   margin: 0 0 0 12px;
 }
 
-.modalInputSmall {
+.inventory-item__modal-input-small {
   margin: 0 8px 0;
   padding: 8px;
   max-width: 40px;
 }
 
-.amountInput {
+.inventory-item__amount-input {
   width: 45px;
   font-family: fantasy;
 }
 
-.modalContentTitle {
+.inventory-item__modal-content-title {
   margin: 0;
 }
 
-.hpContainer {
+.inventory-item__hp-container {
   margin: 16px 8px 0 8px;
 }
 
-.withTable {
+.inventory-item__with-table {
   display: flex;
   flex-direction: row;
   column-gap: 24px;
   justify-content: space-evenly;
 }
 
-.withTable .table {
+.inventory-item__with-table .inventory-item__table {
   font-size: 12px;
   line-height: 1;
   height: 0;
 }
 
-.table {
+.inventory-item__table {
   border-collapse: collapse;
 }
 
-.tableHead {
+.inventory-item__table-head {
   border-bottom: 1px solid black;
   color: gray;
 }
 
-.tableRow {
+.inventory-item__table-row {
   border-top: 1px solid lightgray;
 }
 
-.tableCell {
+.inventory-item__table-cell {
   text-align: right;
   vertical-align: top;
   padding: 4px 8px 4px 8px;
 }
 
-.noWrap {
+.inventory-item__no-wrap {
   vertical-align: top;
   white-space: nowrap;
 }
 
-.left {
+.inventory-item__left {
   text-align: left;
 }
 
-.tableCellLevel {
+.inventory-item__table-cell-level {
   text-align: center;
   padding: 4px 8px 4px 8px;
   border-left: 1px solid lightgray;
 }
 
-.tableCellExtra {
+.inventory-item__table-cell-extra {
   text-align: center;
   padding: 4px 8px 4px 8px;
   border-left: 1px solid black;
 }
 
-.tableCellSmall {
+.inventory-item__table-cell-small {
   width: 33%;
 }
 
-.addItemButton {
+.inventory-item__add-item-button {
   position: absolute;
   right: 0;
   border: 1px solid black;
@@ -310,12 +310,12 @@
   background-color: var(--color-x-gray);
 }
 
-.addItemButton:hover {
+.inventory-item__add-item-button:hover {
   background-color: var(--color-x-pale);
   transform: scale(1.1);
 }
 
-.dropItemButton {
+.inventory-item__drop-item-button {
   border: none;
   background: transparent;
   font-family: fantasy;
@@ -324,7 +324,7 @@
   cursor: pointer;
 }
 
-.dropItemButton:hover {
+.inventory-item__drop-item-button:hover {
   background-color: var(--color-x-gray);
   color: var(--color-x-blue-ink);
 }

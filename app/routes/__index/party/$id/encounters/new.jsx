@@ -33,8 +33,10 @@ import { useCharacterItems } from '~/components/modal/useCharacterItems';
 import { CharacterModal } from '~/components/modal/characterModal';
 import { CharacterItem } from '~/components/modal/characterItem';
 
-import styles from '~/components/newEncounter.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
+import styles from '~/components/newEncounter.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -78,14 +80,14 @@ function Sidebar(props) {
   } = props;
 
   return (
-    <div className={styles.encounterSidebar}>
-      <div className={styles.sidebarContent}>
-        <div className={styles.sidebarSection}>
-          <div className={styles.filterVertical}>
-            <span className={styles.filterLabel}>Party:</span>{' '}
-            <div className={styles.filterOptions}>
+    <div className="encounter__sidebar">
+      <div className="encounter__sidebar-content">
+        <div className="encounter__sidebar-section">
+          <div className="encounter__filter-vertical">
+            <span className="encounter__filter-label">Party:</span>{' '}
+            <div className="encounter__filter-options">
               {pcs.map(pc => (
-                <span className={`${cardStyles.buttonCard}`} key={pc.name}>
+                <span className="cards__button-card" key={pc.name}>
                   {pc.name}
                   <br />
                   Nivel {pc.level}
@@ -94,16 +96,16 @@ function Sidebar(props) {
             </div>
           </div>
         </div>
-        <div className={styles.sidebarSection}>
-          <div className={styles.filterVertical}>
-            <span className={styles.filterLabel}>Dificultad:</span>{' '}
-            <div className={styles.filterOptions}>
+        <div className="encounter__sidebar-section">
+          <div className="encounter__filter-vertical">
+            <span className="encounter__filter-label">Dificultad:</span>{' '}
+            <div className="encounter__filter-options">
               {DIFFICULTIES.map(difficulty => {
                 const difficultyXp = getPartyXpThreshold(pcs, difficulty);
                 return (
                   <button
                     type="button"
-                    className={`${cardStyles.buttonCard}`}
+                    className="cards__button-card"
                     onClick={() => selectDifficulty(difficulty)}
                     key={difficulty}
                     data-selected={xpThreshold === difficultyXp}
@@ -116,17 +118,17 @@ function Sidebar(props) {
               })}
             </div>
           </div>
-          <div className={styles.filter}>
-            <span className={styles.filterLabelInline}>Entorno:</span>{' '}
+          <div className="encounter__filter">
+            <span className="encounter__filter-label-inline">Entorno:</span>{' '}
             <select
-              className={`${cardStyles.buttonCard} ${cardStyles.buttonCardBig}`}
+              className="cards__button-card cards__button-card-big"
               onChange={e => selectEnvironment(e.target.value)}
               defaultValue="-"
             >
               <option value="">Todos</option>
               {ENVIRONMENTS.map(env => (
                 <option
-                  className={styles.environmentButton}
+                  className="encounter__environment-button"
                   value={env}
                   key={env}
                 >
@@ -135,28 +137,28 @@ function Sidebar(props) {
               ))}
             </select>
           </div>
-          <div className={styles.filterGroup}>
-            <span className={styles.filterLabel}>Filtros</span>
-            <div className={styles.filters}>
-              <label htmlFor="name" className={styles.filterItem}>
-                <span className={styles.filterName}>Nombre: </span>
+          <div className="encounter__filter-group">
+            <span className="encounter__filter-label">Filtros</span>
+            <div className="encounter__filter">
+              <label htmlFor="name" className="encounter__filter-item">
+                <span className="encounter__filter-name">Nombre: </span>
                 <input
                   type="text"
                   name="name"
                   value={filters.name}
-                  className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                  className="encounter__filter-input cards__button-card"
                   onChange={e =>
                     setFilters(f => ({ ...f, name: e.target.value }))
                   }
                 />
               </label>
-              <label htmlFor="xp" className={styles.filterItem}>
-                <span className={styles.filterName}>xp {'<='} </span>
+              <label htmlFor="xp" className="encounter__filter-item">
+                <span className="encounter__filter-name">xp {'<='} </span>
                 <input
                   type="number"
                   name="xp"
                   value={filters.xp}
-                  className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                  className="encounter__filter-input cards__button-card"
                   onChange={e =>
                     setFilters(f => ({
                       ...f,
@@ -165,13 +167,13 @@ function Sidebar(props) {
                   }
                 />
               </label>
-              <label htmlFor="cr" className={styles.filterItem}>
-                <span className={styles.filterName}>CR {'<='} </span>
+              <label htmlFor="cr" className="encounter__filter-item">
+                <span className="encounter__filter-name">CR {'<='} </span>
                 <input
                   type="number"
                   name="cr"
                   value={filters.cr}
-                  className={`${styles.filterInput} ${cardStyles.buttonCard}`}
+                  className="encounter__filter-input cards__button-card"
                   onChange={e =>
                     setFilters(f => ({
                       ...f,
@@ -180,13 +182,13 @@ function Sidebar(props) {
                   }
                 />
               </label>
-              <label htmlFor="size" className={styles.filterItem}>
-                <span className={styles.filterName}>Tamaño</span>
+              <label htmlFor="size" className="encounter__filter-item">
+                <span className="encounter__filter-name">Tamaño</span>
                 <select
                   type="number"
                   name="size"
                   value={filters.size}
-                  className={`${styles.filterSelect} ${cardStyles.buttonCard}`}
+                  className="encounter__filter-select cards__button-card"
                   onChange={e =>
                     setFilters(f => ({
                       ...f,
@@ -222,18 +224,18 @@ function SelectedMonsters(props) {
   const encounterChallenge = getEncounterChallenge(encounterMonsters);
 
   return (
-    <div className={styles.selectedMonsters}>
-      <h3 className={styles.selectedMonstersTitle}>
+    <div className="encounter__selected-monsters">
+      <h3 className="encounter__selected-monsters-title">
         Monstruos seleccionados{' '}
-        <div className={styles.encounterStats}>
+        <div className="encounter__encounter-stats">
           (
           <span
             className={
               encounterXp > xpThreshold
-                ? styles.encounterMetricWarning
+                ? 'encounter__metric-warning'
                 : encounterXp === xpThreshold
-                ? styles.encounterMetricFit
-                : styles.encounterMetric
+                ? 'encounter__metric-fit'
+                : 'encounter__metric'
             }
           >
             {encounterXp} xp
@@ -242,10 +244,10 @@ function SelectedMonsters(props) {
           <span
             className={
               encounterChallenge > partyMaxLevel
-                ? styles.encounterMetricWarning
+                ? 'encounter__metric-warning'
                 : encounterChallenge === partyMaxLevel
-                ? styles.encounterMetricFit
-                : styles.encounterMetric
+                ? 'encounter__metric-fit'
+                : 'encounter__metric'
             }
           >
             CR {encounterChallenge}
@@ -254,10 +256,10 @@ function SelectedMonsters(props) {
         </div>
       </h3>
       {!!encounterMonsters.length && (
-        <div className={`${cardStyles.cards} ${styles.encounterMonsters}`}>
+        <div className="cards encounter__monsters">
           {sortByXp(encounterMonsters).map((m, i, all) => (
             <div
-              className={cardStyles.buttonCard}
+              className="cards__button-card"
               style={getMonsterPositionStyle(i, all.length)}
               onClick={() => removeMonsterFromEncounter(i)}
               key={m.name + i}
@@ -277,8 +279,8 @@ function SelectedMonsters(props) {
         />
       )}
       {!!encounterMonsters.length && (
-        <div className={styles.submit}>
-          <button type="submit" className={cardStyles.buttonCard}>
+        <div className="encounter__submit">
+          <button type="submit" className="cards__button-card">
             Crear
           </button>
         </div>
@@ -301,30 +303,30 @@ function MonsterCatalog(props) {
   } = props;
 
   return (
-    <div className={styles.monsters}>
+    <div className="encounter__monsters">
       {monsterList.map((monstersByCr, crIndex) => (
-        <div className={styles.crGroup} key={crIndex}>
+        <div className="encounter__cr-group" key={crIndex}>
           <div
             className={
               !!encounterMonsters.length
-                ? `${styles.crHeader} ${styles.crHeaderDown}`
-                : styles.crHeader
+                ? 'encounter__cr-header encounter__cr-header-down'
+                : 'encounter__cr-header'
             }
           >
-            <span className={styles.crTitle}>CR {crIndex}</span>
-            <div className={styles.crColumnHeaders}>
+            <span className="encounter__cr-title">CR {crIndex}</span>
+            <div className="encounter__cr-column-headers">
               {Array.from(Array(monstersByCr.length > 1 ? 2 : 1), (_, i) => (
-                <div className={styles.crXpCr} key={i}>
-                  <span className={styles.crXp}>xp</span>
-                  {crIndex === 0 && <span className={styles.crCr}>CR</span>}
+                <div className="encounter__cr-xp-cr" key={i}>
+                  <span className="encounter__cr-xp">xp</span>
+                  {crIndex === 0 && <span className="encounter__cr-cr">CR</span>}
                 </div>
               ))}
             </div>
           </div>
-          <ul className={styles.crMonsters}>
+          <ul className="encounter__cr-monsters">
             {monstersByCr.map((monster, i) => (
               <li
-                className={`${styles.monsterButton}`}
+                className="encounter__monster-button"
                 data-suitable={isMonsterSuitable(
                   monster,
                   encounterMonsters.length,
@@ -336,8 +338,8 @@ function MonsterCatalog(props) {
                 onClick={() => addMonsterToEncounter(monster)}
                 key={monster.name + i}
               >
-                <div className={styles.monsterInfo}>
-                  <span className={styles.monsterName}>
+                <div className="encounter__monster-info">
+                  <span className="encounter__monster-name">
                     <CharacterItem
                       ref={monsterRefs[Monster(monster).name][0]}
                       character={Monster(monster)}
@@ -349,12 +351,12 @@ function MonsterCatalog(props) {
                       openOnRightClick
                     />
                   </span>{' '}
-                  <div className={styles.monsterStats}>
-                    <span className={styles.monsterXp}>
+                  <div className="encounter__monster-stats">
+                    <span className="encounter__monster-xp">
                       {Monster(monster).xp}
                     </span>
                     {crIndex === 0 && (
-                      <span className={styles.monsterCr}>
+                      <span className="encounter__monster-cr">
                         {Monster(monster).challenge}
                       </span>
                     )}
@@ -456,7 +458,7 @@ function NewEncounter() {
         </CharacterModal>
       )}
 
-      <div className={styles.newEncounter}>
+      <div className="encounter">
         <Sidebar
           pcs={pcs}
           selectDifficulty={selectDifficulty}
@@ -465,7 +467,7 @@ function NewEncounter() {
           filters={filters}
           setFilters={setFilters}
         />
-        <div className={styles.encounterBody}>
+        <div className="encounter__body">
           <SelectedMonsters
             xpThreshold={xpThreshold}
             partyMaxLevel={partyMaxLevel}

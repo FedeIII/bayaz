@@ -4,9 +4,6 @@ import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { getSpiritTotem } from '~/domain/classes/barbarian/barbarian';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -49,8 +46,8 @@ function TotemSpirit() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Espíritu Tótem</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Espíritu Tótem</h2>
+      <p className="app__paragraph">
         Al nivel 3, cuando adoptas esta senda, eliges un tótem animal y obtienes
         sus características. Debes hacer o adquirir un objeto como tótem físico
         (un amuleto u otro adorno similar) que contenga pelo, plumas, garras,
@@ -62,11 +59,11 @@ function TotemSpirit() {
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge tipo de Tótem</span>{' '}
+          <span className="app__pale-text">Escoge tipo de Tótem</span>{' '}
           <select
             name="spirit-totem"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setTotem(e.target.value)}
           >
             <option value="" disabled></option>
@@ -79,8 +76,8 @@ function TotemSpirit() {
 
       {totem === 'bear' && (
         <>
-          <h3 className={styles.paleText}>Oso</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Oso</h3>
+          <p className="app__paragraph">
             Mientras estás en furia, tienes resistencia a todos los daños salvo
             el daño psíquico. El espíritu del oso te hace lo suficientemente
             duro para resistir cualquier castigo.
@@ -90,8 +87,8 @@ function TotemSpirit() {
 
       {totem === 'eagle' && (
         <>
-          <h3 className={styles.paleText}>Águila</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Águila</h3>
+          <p className="app__paragraph">
             Mientras estés en furia y no estés usando armadura pesada, las demás
             criaturas tienen desventaja en los ataques de oportunidad contra ti,
             y puedes usar la acción de Carrera como acción adicional en tu
@@ -103,8 +100,8 @@ function TotemSpirit() {
 
       {totem === 'wolf' && (
         <>
-          <h3 className={styles.paleText}>Lobo</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Lobo</h3>
+          <p className="app__paragraph">
             Mientras estés en furia, tus aliados tienen ventaja en las tiradas
             de ataque cuerpo a cuerpo contra cualquier criatura a 5 pies (1,5
             metros) de ti que sea hostil hacia ti. El espíritu del lobo te
@@ -115,20 +112,20 @@ function TotemSpirit() {
 
       <br />
       <br />
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Tu tótem animal puede ser un animal relacionado con los listados aquí,
         pero más apropiado para tu tierra natal. Por ejemplo, podrías elegir un
         halcón o un buitre en lugar de un águila.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge animal</span>{' '}
-          <input type="text" name="animal" className={cardStyles.buttonCard} />
+          <span className="app__pale-text">Escoge animal</span>{' '}
+          <input type="text" name="animal" className="cards__button-card" />
         </label>
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -141,9 +138,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Al nivel 3, cuando adoptas esta senda, eliges un tótem animal y obtienes
         sus características. Debes hacer o adquirir un objeto como tótem físico
         (un amuleto u otro adorno similar) que contenga pelo, plumas, garras,
@@ -154,7 +151,7 @@ export function ErrorBoundary({ error }) {
         de un amarillo brillante.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

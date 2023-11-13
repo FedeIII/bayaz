@@ -1,11 +1,9 @@
 import { Link, Outlet } from '@remix-run/react';
 
-import menuStyles from '~/components/menus.module.css';
-
 function NewPC() {
   return (
     <>
-      <Link to="../" className={menuStyles.backButton}>
+      <Link to="../" className="menus__back-button">
         {'<<'} Volver
       </Link>
 

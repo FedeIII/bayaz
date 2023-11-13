@@ -3,8 +3,6 @@ import { useDrag } from 'react-dnd';
 
 import { STATS } from '~/domain/characters';
 
-import styles from '~/components/characters/characters.module.css';
-
 export const ItemTypes = {
   ROLL: 'ROLL',
 };
@@ -35,7 +33,7 @@ export function RealDiceStatValues(props) {
 
   return (
     <>
-      <p className={styles.statValues}>
+      <p className="characters__stat-values">
         {STATS.map((statName, index) => {
           const canDrag = !usedRolls[index];
 
@@ -58,7 +56,7 @@ export function RealDiceStatValues(props) {
               value={stats[statName]}
               onChange={onStatChange(statName)}
               onkeydown="return false"
-              className={styles.statValue}
+              className="characters__stat-value"
               disabled={!canDrag}
             />
           );

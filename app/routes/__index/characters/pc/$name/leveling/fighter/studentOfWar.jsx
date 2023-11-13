@@ -8,9 +8,6 @@ import {
 } from '~/domain/classes/fighter/fighter';
 import { getAllArtisansTools } from '~/domain/equipment/tools';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -52,22 +49,22 @@ function StudentOfWarTools() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Herramientas de Maestro de Batalla</h2>
+      <h2 className="app__pale-text">Herramientas de Maestro de Batalla</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         En el nivel 3 ganas competencia con un tipo de herramientas de artesano
         de tu elección
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>
+          <span className="app__pale-text">
             Escoge Herramientas de Artesano
           </span>
           <br />
           <select
             name="tools"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
           >
             <option value="" disabled></option>
             {getAllArtisansTools().map(tool => (
@@ -80,7 +77,7 @@ function StudentOfWarTools() {
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Herramientas
         </button>
       </p>
@@ -93,14 +90,14 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         En el nivel 3 ganas competencia con un tipo de herramientas de artesano
         de tu elección
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

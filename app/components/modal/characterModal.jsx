@@ -7,10 +7,6 @@ import { STATS, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import { t } from '~/domain/translations';
 
-import styles from './inventoryItem.module.css';
-import appStyles from '~/components/app.module.css';
-import charactersStyles from '~/components/characters/characters.module.css';
-
 export function MonsterContent(props) {
   const { character } = props;
 
@@ -36,36 +32,36 @@ export function MonsterContent(props) {
 
   return (
     <>
-      <h3 className={`${styles.modalTitle} ${charactersStyles.name}`}>
+      <h3 className="inventory-item__modal-title characters__name">
         {name.toUpperCase()}
       </h3>
 
-      <div className={charactersStyles.characterContent}>
-        <span className={appStyles.tinyText}>
+      <div className="characters__character-content">
+        <span className="app__tiny-text">
           {t(type)} {t(size)} {tags && `(${tags})`}, {t(alignment)}
         </span>
 
-        <hr className={charactersStyles.sectionDivider} />
+        <hr className="characters__section-divider" />
 
-        <div className={charactersStyles.section}>
+        <div className="characters__section">
           <span>
-            <o className={charactersStyles.bold}>AC:</o> {ac}
+            <o className="characters__bold">AC:</o> {ac}
           </span>
           <span>
-            <o className={charactersStyles.bold}>HP:</o> {hp}
+            <o className="characters__bold">HP:</o> {hp}
           </span>
           <span>
-            <o className={charactersStyles.bold}>Velocidad:</o> {Speed}
+            <o className="characters__bold">Velocidad:</o> {Speed}
           </span>
         </div>
 
-        <hr className={charactersStyles.sectionDivider} />
+        <hr className="characters__section-divider" />
 
-        <div className={charactersStyles.attrSection}>
+        <div className="characters__attr-section">
           {STATS.map(stat => (
-            <div key={stat} className={charactersStyles.attrBlock}>
+            <div key={stat} className="characters__attr-block">
               <div>
-                <strong className={charactersStyles.bold}>
+                <strong className="characters__bold">
                   {stat.toUpperCase()}
                 </strong>
               </div>
@@ -77,38 +73,38 @@ export function MonsterContent(props) {
           ))}
         </div>
 
-        <hr className={charactersStyles.sectionDivider} />
+        <hr className="characters__section-divider" />
 
-        <div className={charactersStyles.section}>
+        <div className="characters__section">
           {Skills && (
             <span>
-              <o className={charactersStyles.bold}>Habilidades:</o> {Skills}
+              <o className="characters__bold">Habilidades:</o> {Skills}
             </span>
           )}
           {Senses && (
             <span>
-              <o className={charactersStyles.bold}>Sentidos:</o> {Senses}
+              <o className="characters__bold">Sentidos:</o> {Senses}
             </span>
           )}
           {Languages && (
             <span>
-              <o className={charactersStyles.bold}>Idiomas:</o> {Languages}
+              <o className="characters__bold">Idiomas:</o> {Languages}
             </span>
           )}
           {Challenge && (
             <span>
-              <o className={charactersStyles.bold}>CR:</o> {Challenge}
+              <o className="characters__bold">CR:</o> {Challenge}
             </span>
           )}
         </div>
 
-        <hr className={charactersStyles.sectionDivider} />
+        <hr className="characters__section-divider" />
 
-        <div className={charactersStyles.section}>
+        <div className="characters__section">
           {Object.entries(getSpecialSkills(character)).map(
             ([skill, description]) => (
-              <p className={charactersStyles.p}>
-                <o className={charactersStyles.bold}>{skill}.</o>{' '}
+              <p className="characters__p">
+                <o className="characters__bold">{skill}.</o>{' '}
                 <span
                   dangerouslySetInnerHTML={{
                     __html: description,
@@ -121,15 +117,15 @@ export function MonsterContent(props) {
 
         {!!Object.keys(actions).length && (
           <>
-            <h4 className={charactersStyles.sectionTitle}>
-              A<span className={appStyles.tinyText}>CCIONES</span>
+            <h4 className="characters__section-title">
+              A<span className="app__tiny-text">CCIONES</span>
             </h4>
-            <hr className={charactersStyles.actionsDivider} />
+            <hr className="characters__actions-divider" />
 
-            <div className={charactersStyles.section}>
+            <div className="characters__section">
               {Object.entries(actions).map(([action, description]) => (
-                <p className={charactersStyles.p}>
-                  <o className={charactersStyles.bold}>{action}.</o>{' '}
+                <p className="characters__p">
+                  <o className="characters__bold">{action}.</o>{' '}
                   <span
                     dangerouslySetInnerHTML={{
                       __html: description,
@@ -143,18 +139,18 @@ export function MonsterContent(props) {
 
         {!!Object.keys(legendaryActions).length && (
           <>
-            <h4 className={charactersStyles.sectionTitle}>
-              A<span className={appStyles.tinyText}>CCIONES</span> L
-              <span className={appStyles.tinyText}>EGENDARIAS</span>
+            <h4 className="characters__section-title">
+              A<span className="app__tiny-text">CCIONES</span> L
+              <span className="app__tiny-text">EGENDARIAS</span>
             </h4>
-            <hr className={charactersStyles.actionsDivider} />
+            <hr className="characters__actions-divider" />
 
-            <div className={charactersStyles.section}>
+            <div className="characters__section">
               {Object.entries(legendaryActions).map(([action, description]) => (
-                <p className={charactersStyles.p}>
+                <p className="characters__p">
                   {action !== 'description' && (
                     <>
-                      <o className={charactersStyles.bold}>{action}.</o>{' '}
+                      <o className="characters__bold">{action}.</o>{' '}
                     </>
                   )}
                   <span
@@ -194,9 +190,9 @@ export function CharacterModal(props) {
 
   return (
     <>
-      <div className={styles.modalShadow} />
+      <div className="inventory-item__modal-shadow" />
       <div
-        className={`${styles.actionModal} ${charactersStyles.actionModal}`}
+        className="inventory-item__action-modal characters__action-modal"
         style={{
           top: selfTopY + 'px',
           left: selfLeftX + 'px',

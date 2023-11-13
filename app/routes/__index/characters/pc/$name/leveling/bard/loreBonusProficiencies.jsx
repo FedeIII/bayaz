@@ -6,11 +6,10 @@ import { useTitle } from '~/components/hooks/useTitle';
 import { getSkills, SKILLS, translateSkill } from '~/domain/characters';
 import { removeItem } from '~/utils/insert';
 import { Card } from '~/components/cards/card';
-import { BARD_COLLEGES, getLoreCollegeProficiencies } from '~/domain/classes/bard/bard';
-
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
+import {
+  BARD_COLLEGES,
+  getLoreCollegeProficiencies,
+} from '~/domain/classes/bard/bard';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -67,28 +66,29 @@ function LoreBonusProficiencies() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={appStyles.paleText}>Competencias Adicionales</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Competencias Adicionales</h2>
+      <p className="app__paragraph">
         Cuando te unes al Colegio del Conocimiento en el nivel 3, ganas
         competencia con tres habilidades de tu elección.
       </p>
       <p>
-        <h3 className={appStyles.paleText}>
+        <h3 className="app__pale-text">
           Escoge {BARD_COLLEGES.lore.pickSkills} habilidades en las que ser
           competente
         </h3>
-        <div className={cardStyles.cards}>
+        <div className="cards">
           <Card title="Habilidades" singleCard>
-            <ul className={cardStyles.cardList}>
+            <ul className="cards__card-list">
               {SKILLS.map(skill => (
                 <li key={skill.name}>
                   <label
                     htmlFor={skill.name}
-                    className={`${styles.toSelect} ${
-                      skills.includes(skill.name) && styles.selectedToSelect
+                    className={`checkbox__toSelect ${
+                      skills.includes(skill.name) &&
+                      'checkbox__selectedToSelect'
                     } ${
                       proficientSkills.includes(skill.name) &&
-                      styles.disabledToSelect
+                      'checkbox__disabledToSelect'
                     }`}
                   >
                     <input
@@ -113,7 +113,7 @@ function LoreBonusProficiencies() {
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -126,14 +126,14 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Cuando te unes al Colegio del Conocimiento en el nivel 3, ganas
         competencia con tres habilidades de tu elección.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

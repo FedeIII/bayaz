@@ -1,6 +1,9 @@
-import sheetStyles from '~/components/sheet.module.css';
 import { getPrimalPath, getSpiritTotem, getAspectOfTheBeast, getTotemicAttunement } from './barbarian';
 
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displayBarbarianTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -9,7 +12,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
         !getPrimalPath(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );
@@ -19,7 +22,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
       return (
         <>
           {trait}
-          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
+          {!totemType && <span className="sheet__pending-trait">(!)</span>}
           {!!animal && (
             <>
               {': '}
@@ -35,7 +38,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
+          {!totemType && <span className="sheet__pending-trait">(!)</span>}
           {!!animal && (
             <>
               {': '}
@@ -61,7 +64,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          {!totemType && <span className={sheetStyles.pendingTrait}>(!)</span>}
+          {!totemType && <span className="sheet__pending-trait">(!)</span>}
           {!!animal && (
             <>
               {': '}

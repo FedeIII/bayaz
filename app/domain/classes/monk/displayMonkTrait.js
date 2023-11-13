@@ -11,8 +11,10 @@ import {
 } from './monk';
 import { increment } from '~/domain/display';
 
-import appStyles from '~/components/app.module.css';
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displayMonkTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -22,7 +24,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             AC{' '}
             {10 +
               getStatMod(getStat(pc, 'dex')) +
@@ -37,7 +39,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {getMartialArtsDice(pc)}. Ataque sin armas como una acción adicional
           </span>
         </>
@@ -49,7 +51,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>{getKiPoints(pc)} Ki</span>
+          <span className="app__small-text">{getKiPoints(pc)} Ki</span>
         </>
       );
 
@@ -59,7 +61,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>1 Ki</span>
+          <span className="app__small-text">1 Ki</span>
         </>
       );
 
@@ -69,7 +71,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>1 Ki</span>
+          <span className="app__small-text">1 Ki</span>
         </>
       );
 
@@ -79,7 +81,7 @@ export function displayMonkTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>1 Ki</span>
+          <span className="app__small-text">1 Ki</span>
         </>
       );
 
@@ -92,7 +94,7 @@ export function displayMonkTrait(traitName, trait, pc) {
               {pc.level >= 9 ? ' Mejorado.' : '.'}
             </u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {increment(getExtraUnarmoredMovement(pc))}m
           </span>
         </>
@@ -103,7 +105,7 @@ export function displayMonkTrait(traitName, trait, pc) {
         !getMonasticTradition(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__peding-trait">(!)</span>
           </>
         )
       );
@@ -113,14 +115,14 @@ export function displayMonkTrait(traitName, trait, pc) {
         <>
           <u>{trait}.</u>{' '}
           {hasToLearnElementalDiscipline(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__peding-trait">(!)</span>
           )}
           {!!getElementalDisciplines(pc).length && (
-            <ul className={appStyles.smallText}>
+            <ul className="app__small-text">
               {getElementalDisciplines(pc).map(discipline => (
                 <li key={discipline}>
                   {translateElementalDisciplines(discipline)}.{' '}
-                  <span className={appStyles.smallText}>
+                  <span className="app__small-text">
                     {displayElementalDisciplineKi(discipline)}
                   </span>
                 </li>
@@ -134,7 +136,7 @@ export function displayMonkTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {increment(-10 - getStatMod(getStat(pc, 'dex')) - pc.level)} daño
           </span>
         </>
@@ -144,7 +146,7 @@ export function displayMonkTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {increment(-pc.level * 5)} daño
           </span>
         </>
@@ -153,7 +155,7 @@ export function displayMonkTrait(traitName, trait, pc) {
     case 'stunningStrike':
       return (
         <>
-          <u>{trait}.</u> <span className={appStyles.smallText}>1 Ki</span>
+          <u>{trait}.</u> <span className="app__small-text">1 Ki</span>
         </>
       );
 
@@ -161,7 +163,7 @@ export function displayMonkTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {increment(pc.level * 3)} HP
           </span>
         </>
@@ -171,7 +173,7 @@ export function displayMonkTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             DC{' '}
             {8 + getStatMod(getStat(pc, 'wis')) + getProficiencyBonus(pc.level)}
           </span>
@@ -181,14 +183,14 @@ export function displayMonkTrait(traitName, trait, pc) {
     case 'diamondSoul':
       return (
         <>
-          <u>{trait}.</u> <span className={appStyles.smallText}>1 Ki</span>
+          <u>{trait}.</u> <span className="app__small-text">1 Ki</span>
         </>
       );
 
     case 'quiveringPalm':
       return (
         <>
-          <u>{trait}.</u> <span className={appStyles.smallText}>3 Ki</span>
+          <u>{trait}.</u> <span className="app__small-text">3 Ki</span>
         </>
       );
 
@@ -196,14 +198,14 @@ export function displayMonkTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
-          <span className={appStyles.smallText}>4 Ki / 8 Ki</span>
+          <span className="app__small-text">4 Ki / 8 Ki</span>
         </>
       );
 
     case 'perfectSelf':
       return (
         <>
-          <u>{trait}.</u> <span className={appStyles.smallText}>+4 Ki</span>
+          <u>{trait}.</u> <span className="app__small-text">+4 Ki</span>
         </>
       );
 

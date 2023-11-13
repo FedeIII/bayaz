@@ -1,4 +1,4 @@
-.newEncounter {
+.encounter {
   display: flex;
   flex-direction: row;
   --header-padding-top: 8px;
@@ -8,12 +8,12 @@
   --card-height: 42.5px;
 }
 
-.encounterSidebar {
+.encounter__sidebar {
   flex-basis: 33%;
   flex-shrink: 0;
 }
 
-.sidebarContent {
+.encounter__sidebar-content {
   position: sticky;
   top: 8px;
   display: flex;
@@ -25,13 +25,13 @@
   margin: 8px 0 0 0;
 }
 
-.sidebarSection {
+.encounter__sidebar-section {
   background-color: #232d40;
   padding: 16px;
   width: calc(100% - 32px);
 }
 
-.filter {
+.encounter__filter {
   padding: 0;
   margin: 0 0 16px;
   width: 100%;
@@ -41,7 +41,7 @@
   column-gap: 16px;
 }
 
-.filterVertical {
+.encounter__filter-vertical {
   padding: 0;
   margin: 0 0 16px;
   width: 100%;
@@ -52,28 +52,25 @@
   column-gap: 16px;
 }
 
-.filterLabel {
+.encounter__filter-label {
   display: block;
   text-align: center;
   margin: 0 0 8px 0;
 }
 
-.filterLabelInline {
+.encounter__filter-label-inline {
   display: inline-block;
   text-align: start;
   flex-basis: 70px;
 }
 
-.filterOptions {
+.encounter__filter-options {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.filterGroup {
-}
-
-.filters {
+.encounter__filters {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -82,7 +79,7 @@
   gap: 8px;
 }
 
-.filterItem {
+.encounter__filter-item {
   flex-basis: 45%;
   display: flex;
   flex-direction: row;
@@ -91,25 +88,25 @@
   gap: 8px;
 }
 
-.filterName {
+.encounter__filter-name {
   flex-basis: 50%;
 }
 
-.filterInput {
+.encounter__filter-input {
   width: 50%;
 }
 
-.filterSelect {
+.encounter__filter-select {
   width: 70%;
 }
 
-.encounterBody {
+.encounter__body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-.monsters {
+.encounter__monsters {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -117,14 +114,14 @@
   padding: 0 0 16px 16px;
 }
 
-.crGroup {
+.encounter__cr-group {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
-.crHeader {
+.encounter__cr-header {
   width: 100%;
   text-align: left;
   position: sticky;
@@ -137,7 +134,7 @@
   margin: 0 0 0 0;
 }
 
-.crHeaderDown {
+.encounter__cr-header-down {
   top: calc(
     var(--header-padding-top) + var(--header-height) +
       var(--header-padding-bottom) + var(--header-border-height) +
@@ -145,17 +142,17 @@
   );
 }
 
-.crGroup:first-child .crHeader {
+.encounter__cr-group:first-child .encounter__cr-header {
   margin: 0;
 }
 
-.crTitle {
+.encounter__cr-title {
   border-bottom: 1px solid white;
   width: 100%;
   display: inline-block;
 }
 
-.crColumnHeaders {
+.encounter__cr-column-headers {
   position: absolute;
   display: flex;
   justify-content: space-between;
@@ -164,7 +161,7 @@
   width: 100%;
 }
 
-.crXpCr {
+.encounter__cr-xp-cr {
   width: 50%;
   text-align: end;
   font-size: 12px;
@@ -174,13 +171,7 @@
   margin: 0 8px 0 0;
 }
 
-.crXp {
-}
-
-.crCr {
-}
-
-.crMonsters {
+.encounter__cr-monsters {
   list-style: circle;
   column-count: 2;
   width: 100%;
@@ -188,18 +179,18 @@
   padding: 0 0 0 25px;
 }
 
-.monsterInfo {
+.encounter__monster-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.monsterName {
+.encounter__monster-name {
   font-size: 18px;
   font-weight: bold;
 }
 
-.monsterStats {
+.encounter__monster-stats {
   margin: 0 32px 0 0;
   font-size: 12px;
   text-align: right;
@@ -208,28 +199,22 @@
   column-gap: 16px;
 }
 
-.monsterXp {
-}
-
-.monsterCr {
-}
-
-.monsterButton {
+.encounter__monster-button {
   width: 100%;
   cursor: pointer;
   text-align: left;
   margin: 0 32px 0 0;
 }
 
-.monsterButton[data-suitable='false'] {
+.encounter__monster-button[data-suitable='false'] {
   color: var(--color-red);
 }
 
-.monsterButton:hover {
+.encounter__monster-button:hover {
   background-color: #232d40;
 }
 
-.selectedMonsters {
+.encounter__selected-monsters {
   position: sticky;
   top: 0;
   background-color: #13151c;
@@ -239,38 +224,32 @@
   border-bottom: var(--header-border-height) solid white;
 }
 
-.selectedMonstersTitle {
+.encounter__selected-monsters-title {
   margin: 0 0 16px 16px;
   padding: 8px 0px;
   border-bottom: 1px solid white;
 }
 
-.encounterStats {
+.encounter__stats {
   display: inline-block;
 }
 
-.encounterMetric {
-}
-
-.encounterMetricFit {
+.encounter__metric-fit {
   color: #2b8c47;
 }
 
-.encounterMetricWarning {
+.encounter__metric-warning {
   color: #d84343;
 }
 
-.encounterMonsters {
+.encounter__monsters {
   justify-content: center;
   flex-wrap: wrap;
   row-gap: 15px;
 }
 
-.submit {
+.encounter__submit {
   position: absolute;
   right: 64px;
   top: 8px;
-}
-
-.submitButton {
 }

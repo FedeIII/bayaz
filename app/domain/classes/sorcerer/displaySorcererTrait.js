@@ -8,8 +8,10 @@ import {
 } from './sorcerer';
 import { getSorcereryPoints } from '~/domain/spells/sorcerer';
 
-import appStyles from '~/components/app.module.css';
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displaySorcererTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -19,7 +21,7 @@ export function displaySorcererTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {translateDragonAncestor(getDragonAncestor(pc))}
           </span>
         </>
@@ -32,7 +34,7 @@ export function displaySorcererTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             Sin armadura: AC {13 + getStatMod(getStat(pc, 'dex'))}
           </span>
         </>
@@ -44,7 +46,7 @@ export function displaySorcererTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             1 vez entre descansos prolongados.
           </span>
         </>
@@ -56,7 +58,7 @@ export function displaySorcererTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {getSorcereryPoints(pc)} Puntos de Hechicería
           </span>
         </>
@@ -69,10 +71,10 @@ export function displaySorcererTrait(traitName, trait, pc) {
             <u>{trait}</u>
           </strong>{' '}
           {hasToLearnMetamagic(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!hasToLearnMetamagic(pc) && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               {getMetamagic(pc).map(translateMetamagic).join(', ')}
             </span>
           )}

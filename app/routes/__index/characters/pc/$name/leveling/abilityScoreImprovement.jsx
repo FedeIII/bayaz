@@ -17,9 +17,10 @@ import {
 import { useTitle } from '~/components/hooks/useTitle';
 import { increment } from '~/domain/display';
 
-import styles from '~/components/stats.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
+import styles from '~/components/stats.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -108,55 +109,45 @@ function AbilityScoreImprovement() {
         hidden
       />
 
-      <h2 className={appStyles.paleText}>
-        Escoge puntos extra de caracterísitica
-      </h2>
+      <h2 className="app__pale-text">Escoge puntos extra de caracterísitica</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Incrementa una puntuación de característica de tu elección en 2 puntos,
         o dos puntuaciones de característica de tu elección en 1 punto. Como es
         habitual, no puedes incrementar una puntuación de característica por
         encima de 20 usando este procedimiento.
       </p>
 
-      <div className={`${styles.stats} ${cardStyles.card}`}>
+      <div className="stats card">
         {STATS.map(statName => (
-          <div key={statName} className={styles.stat}>
-            <div
-              className={`${styles.cell} ${styles.leftCell} ${appStyles.bigText}`}
-            >
-              <span className={`${styles.statName}`}>
-                {translateStat(statName)}
-              </span>
-              <span className={`${styles.statValue} ${cardStyles.card}`}>
-                {stats[statName]}
-              </span>
+          <div key={statName} className="stat">
+            <div className="stats__cell stats__leftCell app__big-text">
+              <span className="stats__statName">{translateStat(statName)}</span>
+              <span className="stats__statValue card">{stats[statName]}</span>
             </div>
             {!!(pExtraStats?.[statName] || halfElfExtraStats?.[statName]) && (
               <>
-                <span className={`${styles.cell} ${appStyles.bigText}`}>+</span>
-                <span className={`${styles.cell} ${appStyles.bigText}`}>
+                <span className="stats__cell app__big-text">+</span>
+                <span className="stats__cell app__big-text">
                   {(pExtraStats?.[statName] || 0) +
                     (halfElfExtraStats?.[statName] || 0)}
                 </span>
               </>
             )}
-            <span className={`${styles.cell} ${appStyles.bigText}`}>+</span>
-            <span
-              className={`${styles.cell} ${styles.rightCell} ${appStyles.bigText}`}
-            >
+            <span className="stats__cell app__big-text">+</span>
+            <span className="stats__cell stats__rightCell app__big-text">
               <input
                 type="number"
                 id={statName}
                 name={statName}
                 value={extraStats[statName]}
                 readOnly
-                className={`${styles.statInput}`}
+                className="stats__statInput"
               />
               <button
                 type="button"
                 disabled={increaseDisabled(statName)}
-                className={styles.statButton}
+                className="stats__statButton"
                 onClick={() => increaseStat(statName)}
               >
                 +
@@ -164,13 +155,13 @@ function AbilityScoreImprovement() {
               <button
                 type="button"
                 disabled={!extraStats[statName]}
-                className={styles.statButton}
+                className="stats__statButton"
                 onClick={() => decreaseStat(statName)}
               >
                 -
               </button>
             </span>
-            <span className={`${styles.cell} ${styles.rightCell}`}>
+            <span className="stats__cell stats__rightCell">
               (
               {increment(
                 getStatMod(
@@ -184,7 +175,7 @@ function AbilityScoreImprovement() {
       </div>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -197,16 +188,16 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Incrementa una puntuación de característica de tu elección en 2 puntos,
         o dos puntuaciones de característica de tu elección en 1 punto. Como es
         habitual, no puedes incrementar una puntuación de característica por
         encima de 20 usando este procedimiento.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

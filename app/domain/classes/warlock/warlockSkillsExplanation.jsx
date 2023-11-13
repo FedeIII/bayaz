@@ -16,8 +16,10 @@ import {
   translatePactBoon,
 } from './warlock';
 
-import styles from '~/components/modal/inventoryItem.module.css';
-import appStyles from '~/components/app.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const WARLOCK_SKILLS_EXPLANATION = {
   feyPresence: (skill, pc) => (
@@ -81,10 +83,10 @@ export const WARLOCK_SKILLS_EXPLANATION = {
         </p>
 
         {hasToSelectInvocations(pc) && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/warlock/invocations`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Invocaciones
             </Link>
@@ -117,10 +119,10 @@ export const WARLOCK_SKILLS_EXPLANATION = {
         {!!boon && <h3>{translatePactBoon(boon)}</h3>}
 
         {!boon && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/warlock/pactBoon`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Don del Pacto
             </Link>
@@ -129,16 +131,16 @@ export const WARLOCK_SKILLS_EXPLANATION = {
 
         {boon === 'pactOfTheChain' && (
           <>
-            <p className={appStyles.paragraph}>
+            <p className="app__paragraph">
               Aprendes el conjuro encontrar familiar y puedes lanzarlo como
               ritual. El conjuro no cuenta para tu número de conjuros conocidos.
             </p>
-            <p className={appStyles.paragraph}>
+            <p className="app__paragraph">
               Cuando lanzas el conjuro, puedes elegir una de las formas
               habituales para tu familiar o una de las siguientes formas
               especiales: diablillo, pseudodragón, quasit o duende.
             </p>
-            <p className={appStyles.paragraph}>
+            <p className="app__paragraph">
               Adicionalmente, cuando realizas la acción de Atacar, puedes
               sustituir uno de tus ataques para permitir que tu familiar haga
               uno de los suyos.
@@ -147,7 +149,7 @@ export const WARLOCK_SKILLS_EXPLANATION = {
         )}
         {boon === 'pactOfTheBlade' && (
           <>
-            <p className={appStyles.paragraph}>
+            <p className="app__paragraph">
               Puedes usar tu acción para crear un arma de pacto en tu mano
               vacía. Puedes elegir la forma que el arma cuerpo a cuerpo toma
               cada vez que la creas (mira el Capítulo 5 para ver las opciones de
@@ -155,13 +157,13 @@ export const WARLOCK_SKILLS_EXPLANATION = {
               cuenta como mágica para el propósito de traspasar resistencias e
               inmunidades contra ataques y daño no mágicos.
             </p>
-            <p className={appStyles.paragraph}>
+            <p className="app__paragraph">
               Tu arma de pacto desaparece si está a más de 5 pies (1,5 metros)
               de distancia de ti durante un minuto o más. También desaparece si
               usas este rasgo de nuevo, si descartas el arma (no requiere una
               acción), o si mueres.
             </p>
-            <p className={appStyles.paragraph}>
+            <p className="app__paragraph">
               Puedes transformar un arma mágica en tu arma de pacto haciendo un
               ritual especial mientras sostienes tu arma. Llevas a cabo el
               ritual durante una hora, que puede ser realizado durante un
@@ -178,13 +180,13 @@ export const WARLOCK_SKILLS_EXPLANATION = {
         )}
         {boon === 'pactOfTheTome' && (
           <>
-            <p className={appStyles.paragraph}>
+            <p className="app__paragraph">
               Tu patrón te da un grimorio llamado Libro de las Sombras. Cuando
               ganas este rasgo, elige tres trucos de la lista de cualquier
               clase. Mientras el libro está contigo, puedes lanzar estos tres
               trucos a voluntad. No cuentan para tu número de trucos conocidos.
             </p>
-            <p className={appStyles.paragraph}>
+            <p className="app__paragraph">
               Si pierdes tu Libro de las Sombras, puedes llevar a cabo una
               ceremonia de una hora para recibir un reemplazo de tu patrón. Esta
               ceremonia puede ser realizada durante un descanso corto o
@@ -192,10 +194,10 @@ export const WARLOCK_SKILLS_EXPLANATION = {
               cenizas cuando mueres.
             </p>
             {hasToLearnTomeSpells(pc) && (
-              <div className={styles.modalButtons}>
+              <div className="inventory-item__modal-buttons">
                 <Link
                   to={`/characters/pc/${pc.name}/leveling/warlock/tomeSpells`}
-                  className={styles.modalButton}
+                  className="inventory-item__modal-button"
                 >
                   Escoge Trucos
                 </Link>
@@ -318,10 +320,10 @@ export const WARLOCK_SKILLS_EXPLANATION = {
         </p>
 
         {hasToLearnArcanum(pc) && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/warlock/arcanum`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Elige Conjuro
             </Link>
@@ -520,10 +522,10 @@ export function getInvocationExplanation(invocationName, invocationTitle, pc) {
           </p>
 
           {hasToLearnTomeRituals(pc) && (
-            <div className={styles.modalButtons}>
+            <div className="inventory-item__modal-buttons">
               <Link
                 to={`/characters/pc/${pc.name}/leveling/warlock/tomeRituals`}
-                className={styles.modalButton}
+                className="inventory-item__modal-button"
               >
                 Escoge Rituales
               </Link>

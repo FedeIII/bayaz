@@ -3,8 +3,10 @@ import { getPaladinFightingStyle, getSacredOath } from './paladin';
 import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
 
-import appStyles from '~/components/app.module.css';
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displayPaladinTrait(traitName, trait, pc) {
   const chaMod = getStatMod(getStat(pc, 'cha'));
@@ -16,7 +18,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             18m, {chaMod + 1} veces al día
           </span>
         </>
@@ -28,7 +30,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>{pc.level * 5} HP</span>
+          <span className="app__small-text">{pc.level * 5} HP</span>
         </>
       );
 
@@ -40,10 +42,10 @@ export function displayPaladinTrait(traitName, trait, pc) {
             <u>{trait}.</u>
           </strong>{' '}
           {!fightingStyle && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!!fightingStyle && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               {translateFightingStyle(fightingStyle)}
             </span>
           )}
@@ -56,7 +58,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
         !getSacredOath(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );
@@ -65,7 +67,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
       return (
         <>
           {trait}.{' '}
-          <span className={appStyles.smallText}>1 vez entre descansos</span>
+          <span className="app__small-text">1 vez entre descansos</span>
         </>
       );
 
@@ -73,7 +75,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}.</strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {pc.level >= 18 ? '9m' : '3m'}. {increment(chaMod > 0 ? chaMod : 1)}
           </span>
         </>
@@ -85,7 +87,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
       return (
         <>
           {trait}.{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {pc.level >= 18 ? '9m' : '3m'}
           </span>
         </>
@@ -98,7 +100,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
       return (
         <>
           {trait}.{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {chaMod > 0 ? chaMod : 1} veces
           </span>
         </>

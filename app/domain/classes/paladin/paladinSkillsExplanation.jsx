@@ -5,7 +5,10 @@ import { getPaladinFightingStyle, getSacredOath } from './paladin';
 import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const PALADIN_SKILLS_EXPLANATION = {
   divineSense: (skill, pc) => (
@@ -71,10 +74,10 @@ export const PALADIN_SKILLS_EXPLANATION = {
         </p>
 
         {!fightingStyle && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/paladin/fightingStyle`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Estilo de Combate
             </Link>
@@ -82,20 +85,20 @@ export const PALADIN_SKILLS_EXPLANATION = {
         )}
 
         {fightingStyle === 'defense' && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('defense')}</h3>
             Mientras lleves puesta una armadura ganas un +1 la CA
           </div>
         )}
         {fightingStyle === 'dueling' && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('dueling')}</h3>
             Cuando llevas un arma cuerpo a cuerpo en una mano y ningún arma más,
             ganas un bonificador de +2 a las tiradas de daño con esa arma.
           </div>
         )}
         {fightingStyle === 'great-Weapon-fighting' && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('great-Weapon-fighting')}</h3>
             Cuando obtienes un 1 o un 2 en un dado de daño con un arma a dos
             manos, puedes volver a realizar la tirada de daño y debiendo usar la
@@ -105,7 +108,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
           </div>
         )}
         {fightingStyle === 'protection' && (
-          <div className={styles.paragraph}>
+          <div className="app__paragraph">
             <h3>{translateFightingStyle('protection')}</h3>
             Cuando una criatura que puedes ver ataca a un objetivo que no eres
             tú y está a 5 pies o menos de ti, puedes usar tu reacción para hacer
@@ -167,10 +170,10 @@ export const PALADIN_SKILLS_EXPLANATION = {
           7, 15 y 20. Estos rasgos incluyen conjuros de juramento y el rasgo
           Canalizar Divinidad.
         </p>
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/paladin/sacredOath`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Juramento
           </Link>

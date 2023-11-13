@@ -8,9 +8,6 @@ import {
   translateHunterMultiattack,
 } from '~/domain/classes/ranger/ranger';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -47,18 +44,18 @@ function HunterMultiattack() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Ataque Múltiple</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Ataque Múltiple</h2>
+      <p className="app__paragraph">
         A nivel 11 ganas uno de los siguientes rasgos de tu elección.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Ataque Múltiple</span>
+          <span className="app__pale-text">Escoge Ataque Múltiple</span>
           <br />
           <select
             name="multiattack"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
           >
             <option value="" disabled></option>
             {HUNTER_MULTIATTACK.map(multiattack => (
@@ -70,10 +67,10 @@ function HunterMultiattack() {
         </label>
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateHunterMultiattack('volley')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Puedes utilizar tu acción para hacer un ataque a distancia contra
         cualquier número de criaturas en torno a 10 pies (3 metros) de un punto
         que puedas ver (siempre dentro del alcance de tu arma). Debes tener
@@ -81,17 +78,17 @@ function HunterMultiattack() {
         ataque por separado para cada uno de ellos.
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateHunterMultiattack('whirlwindAttack')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Puedes utilizar tu acción para realizar un ataque cuerpo a cuerpo contra
         cualquier número de criaturas que estén a 5 pies (1,5 metros) de ti,
         realizando una tirada de ataque separada para cada uno de ellos.
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Ataque
         </button>
       </p>
@@ -104,13 +101,13 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         A nivel 11 ganas uno de los siguientes rasgos de tu elección.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

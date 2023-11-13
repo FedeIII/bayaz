@@ -16,10 +16,6 @@ import {
   isBattleMaster,
 } from '~/domain/classes/fighter/fighter';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -127,10 +123,8 @@ function CombatSuperiorityManeuvers() {
         </SkillModal>
       )}
 
-      <h2 className={appStyles.paleText}>
-        Maniobras de Superioridad de Combate
-      </h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Maniobras de Superioridad de Combate</h2>
+      <p className="app__paragraph">
         Aprendes tres maniobras de tu elección, las cuales están detalladas más
         abajo. Muchas maniobras mejoran un ataque de alguna manera. Solo puedes
         usar una maniobra por ataque.
@@ -144,16 +138,16 @@ function CombatSuperiorityManeuvers() {
             Cada vez que aprendes una nueva maniobra, puedes reemplazar otra
             maniobra ya conocida por otra.
           </p>
-          <div className={`${cardStyles.cards}`}>
+          <div className="cards">
             <Card title="Maniobras conocidas" singleCard>
-              <ul className={cardStyles.cardList}>
+              <ul className="cards__card-list">
                 {maneuvers.map((maneuverName, i) => (
                   <li key={maneuverName}>
                     <label
                       htmlFor={maneuverName}
-                      className={`${styles.toRemove} ${
+                      className={`checkbox__toRemove ${
                         maneuverToForget === maneuverName &&
-                        styles.selectedToRemove
+                        'checkbox__selectedToRemove'
                       }`}
                     >
                       <input
@@ -184,12 +178,12 @@ function CombatSuperiorityManeuvers() {
       {/* // Known Maneuvers */}
 
       <p>
-        <h3 className={appStyles.paleText}>
+        <h3 className="app__pale-text">
           Escoge {numberOfManeuversToSelect} maniobras
         </h3>
-        <div className={`${cardStyles.cards}`}>
+        <div className="cards">
           <Card title="Maniobras" singleCard>
-            <ul className={cardStyles.cardList}>
+            <ul className="cards__card-list">
               {COMBAT_SUPERIORITY_MANEUVERS.filter(
                 maneuverName => !maneuvers.includes(maneuverName)
               ).map((maneuverName, i) => {
@@ -197,9 +191,9 @@ function CombatSuperiorityManeuvers() {
                   <li key={maneuverName}>
                     <label
                       htmlFor={maneuverName}
-                      className={`${styles.toSelect} ${
+                      className={`checkbox__toSelect ${
                         selectedManeuvers.includes(maneuverName) &&
-                        styles.selectedToSelect
+                        'checkbox__selectedToSelect'
                       }`}
                     >
                       <input
@@ -228,7 +222,7 @@ function CombatSuperiorityManeuvers() {
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Maniobra
         </button>
       </p>
@@ -241,15 +235,15 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Si una invocación sobrenatural tiene prerrequisitos, debes cumplirlos
         para aprenderla. Puedes aprender la invocación en el mismo momento en
         que cumples sus prerrequisitos.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

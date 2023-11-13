@@ -1,4 +1,4 @@
-.summary {
+.sheet__summary {
   width: 100%;
   position: absolute;
   top: 4px;
@@ -92,13 +92,13 @@
   /*********  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12  13  14  15  16  17 */
 }
 
-.sheetBackground {
+.sheet__background {
   width: 100%;
   z-index: 0;
   position: relative;
 }
 
-.sheetNotes {
+.sheet__notes {
   position: absolute;
   top: 0;
   right: 0;
@@ -107,14 +107,14 @@
   z-index: 1;
 }
 
-.annotation {
+.sheet__annotation {
   font-size: 10px;
   position: absolute;
   top: -5px;
   left: 30px;
 }
 
-.data {
+.sheet__data {
   color: #0000d4;
   font-size: 18px;
   z-index: 1;
@@ -125,7 +125,7 @@
   position: relative;
 }
 
-.submit {
+.sheet__submit {
   grid-area: mit;
   margin: -28px 90px 14px -30px;
   font-family: fantasy;
@@ -133,20 +133,20 @@
   cursor: pointer;
 }
 
-.name {
+.sheet__name {
   font-size: 28px;
   grid-area: nam;
 }
 
-.pClass {
+.sheet__pClass {
   grid-area: pCl;
 }
 
-.background {
+.sheet__background {
   grid-area: bgd;
 }
 
-.playerName {
+.sheet__player-name {
   grid-area: pNa;
   resize: none;
   background-color: transparent;
@@ -156,53 +156,53 @@
   hyphens: auto;
 }
 
-.race {
+.sheet__race {
   grid-area: rac;
 }
 
-.exp {
+.sheet__exp {
   grid-area: exp;
   justify-content: flex-end;
 }
 
-.str {
+.sheet__str {
   grid-area: str;
   justify-content: center;
   font-size: 32px;
 }
 
-.strMod {
+.sheet__strMod {
   grid-area: stM;
   justify-content: center;
 }
 
-.dex {
+.sheet__dex {
   grid-area: dex;
   justify-content: center;
   line-height: 1;
   font-size: 32px;
 }
 
-.dexMod {
+.sheet__dexMod {
   grid-area: deM;
   justify-content: center;
   align-items: flex-start;
 }
 
-.con {
+.sheet__con {
   grid-area: con;
   justify-content: center;
   align-items: center;
   font-size: 32px;
 }
 
-.conMod {
+.sheet__conMod {
   grid-area: coM;
   justify-content: center;
   align-items: center;
 }
 
-.int {
+.sheet__int {
   grid-area: int;
   justify-content: center;
   align-items: center;
@@ -210,117 +210,117 @@
   font-size: 32px;
 }
 
-.intMod {
+.sheet__intMod {
   grid-area: inM;
   justify-content: center;
   align-items: flex-start;
 }
 
-.wis {
+.sheet__wis {
   grid-area: wis;
   justify-content: center;
   align-items: center;
   font-size: 32px;
 }
 
-.wisMod {
+.sheet__wisMod {
   grid-area: wiM;
   justify-content: center;
 }
 
-.cha {
+.sheet__cha {
   grid-area: cha;
   justify-content: center;
   align-items: center;
   font-size: 32px;
 }
 
-.chaMod {
+.sheet__chaMod {
   grid-area: chM;
   justify-content: center;
   align-items: flex-start;
 }
 
-.proficiencyBonus {
+.sheet__proficiency-bonus {
   grid-area: pro;
   justify-content: center;
   align-items: center;
   font-size: 28px;
 }
 
-.strProf {
+.sheet__strProf {
   grid-area: stP;
   transform: rotate(45deg);
   margin: 6px 0px 0px 4px;
   align-items: flex-start;
 }
 
-.strSaving {
+.sheet__strSaving {
   grid-area: stS;
   align-items: center;
 }
 
-.dexProf {
+.sheet__dexProf {
   grid-area: deP;
   transform: rotate(45deg);
   margin: 6px 0px 0px 4px;
   align-items: flex-start;
 }
 
-.dexSaving {
+.sheet__dexSaving {
   grid-area: deS;
   align-items: center;
 }
 
-.conProf {
+.sheet__conProf {
   grid-area: coP;
   transform: rotate(45deg);
   margin: 6px 0px 0px 4px;
   align-items: flex-start;
 }
 
-.conSaving {
+.sheet__conSaving {
   grid-area: coS;
   align-items: center;
 }
 
-.intProf {
+.sheet__intProf {
   grid-area: inP;
   transform: rotate(45deg);
   margin: 3px 0px 0px 5px;
   align-items: flex-start;
 }
 
-.intSaving {
+.sheet__intSaving {
   grid-area: inS;
   align-items: center;
 }
 
-.wisProf {
+.sheet__wisProf {
   grid-area: wiP;
   transform: rotate(45deg);
   margin: 4px 0px 0px 4px;
   align-items: flex-start;
 }
 
-.wisSaving {
+.sheet__wisSaving {
   grid-area: wiS;
   align-items: center;
 }
 
-.chaProf {
+.sheet__chaProf {
   grid-area: chP;
   transform: rotate(45deg);
   margin: 3px 0px 0px 4px;
   align-items: flex-start;
 }
 
-.chaSaving {
+.sheet__chaSaving {
   grid-area: chS;
   align-items: center;
 }
 
-.armorClass {
+.sheet__armor-class {
   grid-area: pAC;
   justify-content: center;
   align-items: flex-end;
@@ -328,7 +328,7 @@
   line-height: 1.6;
 }
 
-.extraArmorClass {
+.sheet__extra-armor-class {
   font-size: 14px;
   line-height: 2;
   position: absolute;
@@ -336,7 +336,7 @@
   right: -12px;
 }
 
-.speed {
+.sheet__speed {
   grid-area: spe;
   justify-content: center;
   align-items: flex-end;
@@ -344,7 +344,7 @@
   line-height: 0.5;
 }
 
-.maxHitPoints {
+.sheet__max-hit-points {
   grid-area: mhp;
   justify-content: flex-end;
   align-items: flex-start;
@@ -352,14 +352,14 @@
   padding: 0 0 0 42px;
 }
 
-.hitPoints {
+.sheet__hit-points {
   grid-area: hps;
   justify-content: center;
   align-items: center;
   font-size: 44px;
 }
 
-.extraHitPoints {
+.sheet__extra-hit-points {
   position: absolute;
   left: calc(50% + 22px);
   font-size: 44px;
@@ -377,14 +377,14 @@
   }
 }
 
-.temporaryHitPoints {
+.sheet__temporary-hit-points {
   grid-area: thp;
   justify-content: center;
   align-items: center;
   font-size: 44px;
 }
 
-.temporaryHitPointsInput {
+.sheet__temporary-hit-points-input {
   background-color: transparent;
   border: none;
   margin: 4px 0px 0px 0px;
@@ -395,19 +395,19 @@
   text-align: center;
 }
 
-.hitDice {
+.sheet__hit-dice {
   grid-area: hiD;
   justify-content: flex-end;
 }
 
-.remainingHitDice {
+.sheet__remaining-hit-dice {
   grid-area: exH;
   font-size: 24px;
   justify-content: center;
   padding: 12px 0 0;
 }
 
-.deathSavingThrowSuccess {
+.sheet__death-saving-throw-success {
   grid-area: dsS;
   position: absolute;
   font-size: 24px;
@@ -415,7 +415,7 @@
   padding: 12px 0 0;
 }
 
-.deathSavingThrowFailure {
+.sheet__death-saving-throw-failure {
   grid-area: dsF;
   position: absolute;
   font-size: 24px;
@@ -423,7 +423,7 @@
   padding: 12px 0 0;
 }
 
-.attackName-0 {
+.sheet__attack-name-0 {
   grid-area: aN0;
   font-size: 14px;
   justify-content: center;
@@ -431,14 +431,14 @@
   width: 120%;
 }
 
-.attackBonus-0 {
+.sheet__attack-bonus-0 {
   grid-area: aB0;
   justify-content: center;
   margin-right: -16px;
   line-height: 1.6;
 }
 
-.attackType-0 {
+.sheet__attack-type-0 {
   grid-area: aT0;
   font-size: 14px;
   justify-content: center;
@@ -446,7 +446,7 @@
   margin-bottom: -8px;
 }
 
-.attackName-1 {
+.sheet__attack-name-1 {
   grid-area: aN1;
   font-size: 14px;
   justify-content: center;
@@ -454,14 +454,14 @@
   width: 120%;
 }
 
-.attackBonus-1 {
+.sheet__attack-bonus-1 {
   grid-area: aB1;
   justify-content: center;
   margin-right: -16px;
   line-height: 1.6;
 }
 
-.attackType-1 {
+.sheet__attack-type-1 {
   grid-area: aT1;
   font-size: 14px;
   justify-content: center;
@@ -469,7 +469,7 @@
   margin-bottom: -8px;
 }
 
-.attackName-2 {
+.sheet__attack-name-2 {
   grid-area: aN2;
   font-size: 14px;
   justify-content: center;
@@ -477,14 +477,14 @@
   width: 120%;
 }
 
-.attackBonus-2 {
+.sheet__attack-bonus-2 {
   grid-area: aB2;
   justify-content: center;
   margin-right: -16px;
   line-height: 1.6;
 }
 
-.attackType-2 {
+.sheet__attack-type-2 {
   grid-area: aT2;
   font-size: 14px;
   justify-content: center;
@@ -492,7 +492,7 @@
   margin-bottom: -8px;
 }
 
-.attackHandler {
+.sheet__attack-handler {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -501,7 +501,7 @@
   padding: 0 0 0 8px;
 }
 
-.attackHandlerCharacter {
+.sheet__attack-handler-character {
   color: #0000d44d;
   cursor: pointer;
   font-size: 16px;
@@ -511,7 +511,7 @@
   margin-top: -4px;
 }
 
-.selectAttack {
+.sheet__select-attack {
   font-size: 14px;
   font-family: fantasy;
   color: #0000d4;
@@ -524,21 +524,21 @@
   cursor: pointer;
 }
 
-.selectAttack:hover {
+.sheet__select-attack:hover {
   color: var(--color-x-blue-ink);
 }
 
-.selectAttack:focus-visible {
+.sheet__select-attack:focus-visible {
   outline: none;
 }
 
-.superscript {
+.sheet__superscript {
   position: absolute;
   right: 2px;
   top: 2px;
 }
 
-.specialAttacks {
+.sheet__special-attacks {
   grid-area: sAt;
   flex-direction: column;
   justify-content: flex-start;
@@ -552,209 +552,209 @@
   hyphens: auto;
 }
 
-.specialAttack {
+.sheet__special-attack {
   text-align: left;
 }
 
-.acrobaticsProf {
+.sheet__acrobaticsProf {
   grid-area: sP1;
   transform: rotate(45deg);
   margin: 0px 0px -4px 3px;
   line-height: 0.6;
 }
 
-.acrobaticsSaving {
+.sheet__acrobaticsSaving {
   grid-area: sS1;
 }
 
-.athleticsProf {
+.sheet__athleticsProf {
   grid-area: sP2;
   transform: rotate(45deg);
   margin: 0px 0px -3px 3px;
   line-height: 0.6;
 }
 
-.athleticsSaving {
+.sheet__athleticsSaving {
   grid-area: sS2;
 }
 
-.arcanaProf {
+.sheet__arcanaProf {
   grid-area: sP3;
   transform: rotate(45deg);
   margin: 0px 0px -2px 3px;
   line-height: 0.6;
 }
 
-.arcanaSaving {
+.sheet__arcanaSaving {
   grid-area: sS3;
 }
 
-.deceptionProf {
+.sheet__deceptionProf {
   grid-area: sP4;
   transform: rotate(45deg);
   margin: 0px 0px -2px 3px;
   line-height: 0.6;
 }
 
-.deceptionSaving {
+.sheet__deceptionSaving {
   grid-area: sS4;
 }
 
-.historyProf {
+.sheet__historyProf {
   grid-area: sP5;
   transform: rotate(45deg);
   margin: 0px 0px -2px 3px;
   line-height: 0.6;
 }
 
-.historySaving {
+.sheet__historySaving {
   grid-area: sS5;
 }
 
-.performanceProf {
+.sheet__performanceProf {
   grid-area: sP6;
   transform: rotate(45deg);
   margin: 0px 0px -2px 2px;
   line-height: 0.6;
 }
 
-.performanceSaving {
+.sheet__performanceSaving {
   grid-area: sS6;
 }
 
-.intimidationProf {
+.sheet__intimidationProf {
   grid-area: sP7;
   transform: rotate(45deg);
   margin: 0px 0px -2px 2px;
   line-height: 0.6;
 }
 
-.intimidationSaving {
+.sheet__intimidationSaving {
   grid-area: sS7;
 }
 
-.investigationProf {
+.sheet__investigationProf {
   grid-area: sP8;
   transform: rotate(45deg);
   margin: 0px 0px -4px 1px;
   line-height: 1;
 }
 
-.investigationSaving {
+.sheet__investigationSaving {
   grid-area: sS8;
 }
 
-.sleight-of-handProf {
+.sheet__sleight-of-handProf {
   grid-area: sP9;
   transform: rotate(45deg);
   margin: 0px 0px -5px 0px;
   line-height: 1;
 }
 
-.sleight-of-handSaving {
+.sheet__sleight-of-handSaving {
   grid-area: sS9;
 }
 
-.medicineProf {
+.sheet__medicineProf {
   grid-area: sP0;
   transform: rotate(45deg);
   margin: 0px 0px -4px 1px;
   line-height: 1;
 }
 
-.medicineSaving {
+.sheet__medicineSaving {
   grid-area: sS0;
 }
 
-.natureProf {
+.sheet__natureProf {
   grid-area: sPA;
   transform: rotate(45deg);
   margin: 0px 0px -3px 0px;
   line-height: 1;
 }
 
-.natureSaving {
+.sheet__natureSaving {
   grid-area: sSA;
 }
 
-.perceptionProf {
+.sheet__perceptionProf {
   grid-area: sPB;
   transform: rotate(45deg);
   margin: 0px 0px -3px 0px;
   line-height: 1;
 }
 
-.perceptionSaving {
+.sheet__perceptionSaving {
   grid-area: sSB;
 }
 
-.insightProf {
+.sheet__insightProf {
   grid-area: sPC;
   transform: rotate(45deg);
   margin: 0px 0px -3px 0px;
   line-height: 1;
 }
 
-.insightSaving {
+.sheet__insightSaving {
   grid-area: sSC;
 }
 
-.persuasionProf {
+.sheet__persuasionProf {
   grid-area: sPD;
   transform: rotate(45deg);
   margin: 0px 0px -4px 0px;
   line-height: 1;
 }
 
-.persuasionSaving {
+.sheet__persuasionSaving {
   grid-area: sSD;
 }
 
-.religionProf {
+.sheet__religionProf {
   grid-area: sPE;
   transform: rotate(45deg);
   margin: 0px 0px -3px 0px;
   line-height: 1;
 }
 
-.religionSaving {
+.sheet__religionSaving {
   grid-area: sSE;
 }
 
-.stealthProf {
+.sheet__stealthProf {
   grid-area: sPF;
   transform: rotate(45deg);
   margin: 0px 0px -2px 0px;
   line-height: 1;
 }
 
-.stealthSaving {
+.sheet__stealthSaving {
   grid-area: sSF;
 }
 
-.survivalProf {
+.sheet__survivalProf {
   grid-area: sPG;
   transform: rotate(45deg);
   margin: 0px 0px -1px 0px;
   line-height: 1;
 }
 
-.survivalSaving {
+.sheet__survivalSaving {
   grid-area: sSG;
 }
 
-.animal-handlingProf {
+.sheet__animal-handlingProf {
   grid-area: sPH;
   transform: rotate(45deg);
   margin: 0px 0px -2px 0px;
   line-height: 1;
 }
 
-.animal-handlingSaving {
+.sheet__animal-handlingSaving {
   grid-area: sSH;
 }
 
-.passivePerception {
+.sheet__passive-perception {
   grid-area: per;
   justify-content: flex-end;
   align-items: flex-start;
@@ -762,7 +762,7 @@
   margin-right: -5px;
 }
 
-.equipment {
+.sheet__equipment {
   grid-area: equ;
   flex-direction: column;
   align-items: flex-start;
@@ -776,7 +776,7 @@
   list-style: none;
 }
 
-.coinInput {
+.sheet__coin-input {
   font-size: 18px;
   font-family: fantasy;
   color: var(--color-blue-ink);
@@ -789,32 +789,32 @@
   left: 0;
 }
 
-.copper {
+.sheet__copper {
   grid-area: cpr;
   margin: 0 0 0 0;
 }
 
-.silver {
+.sheet__silver {
   grid-area: slv;
   margin: 0 0 0 0;
 }
 
-.electrum {
+.sheet__electrum {
   grid-area: ele;
   margin: 18px 0 0 0;
 }
 
-.gold {
+.sheet__gold {
   grid-area: gld;
   margin: 0 0 0 0;
 }
 
-.platinum {
+.sheet__platinum {
   grid-area: ptm;
   margin: -2px 0 0 0;
 }
 
-.featsAndTraits {
+.sheet__feats-and-traits {
   grid-area: FnT;
   justify-content: flex-start;
   align-items: flex-start;
@@ -825,7 +825,7 @@
   hyphens: auto;
 }
 
-.personality {
+.sheet__personality {
   grid-area: ity;
   resize: none;
   background-color: transparent;
@@ -837,7 +837,7 @@
   hyphens: auto;
 }
 
-.ideals {
+.sheet__ideals {
   grid-area: ide;
   resize: none;
   background-color: transparent;
@@ -849,7 +849,7 @@
   hyphens: auto;
 }
 
-.bonds {
+.sheet__bonds {
   grid-area: bnd;
   resize: none;
   background-color: transparent;
@@ -861,7 +861,7 @@
   hyphens: auto;
 }
 
-.flaws {
+.sheet__flaws {
   grid-area: flw;
   resize: none;
   background-color: transparent;
@@ -873,7 +873,7 @@
   hyphens: auto;
 }
 
-.competencesAndLanguages {
+.sheet__competences-and-languages {
   grid-area: CnL;
   justify-content: flex-start;
   align-items: flex-start;
@@ -885,29 +885,29 @@
 
 /*  */
 
-.traitLabel {
+.sheet__trait-label {
   font-size: 14px;
   margin: 0;
   padding: 0;
   text-align: left;
 }
 
-.traitTitle {
+.sheet__trait-title {
   text-decoration: underline;
 }
 
-.trait {
+.sheet__trait {
   font-weight: bolder;
   font-size: 16px;
 }
 
-.traitItem {
+.sheet__trait-item {
   font-weight: bolder;
   font-size: 16px;
   margin-left: 32px;
 }
 
-.pendingTrait {
+.sheet__pending-trait {
   position: absolute;
   font-size: 20px;
   font-weight: bold;

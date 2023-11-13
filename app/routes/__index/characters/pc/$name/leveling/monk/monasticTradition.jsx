@@ -9,9 +9,6 @@ import {
   translateMonasticTradition,
 } from '~/domain/classes/monk/monk';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -57,8 +54,8 @@ function MonasticTradition() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Tradición Monástica</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Tradición Monástica</h2>
+      <p className="app__paragraph">
         Tres tradiciones de búsqueda son comunes en los monasterios repartidos
         por el multiverso. En la mayoría de los monasterios practican sólo una
         tradición, pero algunos honran las tres tradiciones y entrenan a sus
@@ -70,12 +67,12 @@ function MonasticTradition() {
 
       <div>
         <label>
-          <span className={styles.paleText}>Escoge Tradición Monástica</span>
+          <span className="app__pale-text">Escoge Tradición Monástica</span>
           <br />
           <select
             name="monasticTradition"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setSelectedTradition(e.target.value)}
           >
             <option value="" disabled></option>
@@ -90,10 +87,10 @@ function MonasticTradition() {
 
       {selectedTradition === 'wayOfTheFourElements' && (
         <>
-          <h3 className={styles.paleText}>
+          <h3 className="app__pale-text">
             {translateMonasticTradition(selectedTradition)}
           </h3>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             Sigues una tradición monástica que te enseña cómo emplear los
             elementos. Cuando concentras tu ki, puedes alinear tu ser con las
             fuerzas de la creación y manipular los elementos a voluntad, como si
@@ -101,24 +98,24 @@ function MonasticTradition() {
             tradición dedican su vida a un solo elemento, pero otros entrelazan
             varios elementos.
           </p>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             Muchos monjes de esta tradición se tatúan sus cuerpos con
             representaciones de su poder con el ki, generalmente como dragones
             enroscados, pero también como aves fénix, peces, plantas, montañas y
             olas.
           </p>
 
-          <h4 className={styles.paleText}>Discípulo de los Elementos</h4>
-          <p className={styles.paragraph}>
+          <h4 className="app__pale-text">Discípulo de los Elementos</h4>
+          <p className="app__paragraph">
             Cuando eliges esta tradición en el nivel 3 aprendes disciplinas
             mágicas que emplean el poder de los cuatro elementos. Una disciplina
             requiere que gastes puntos ki cada vez que la usas.
           </p>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             Conoces la disciplina de Sintonía Elemental y otra disciplina
             elemental de tu elección.
           </p>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             Cuando aprendas una nueva disciplina elemental, puedes reemplazar
             una disciplina elemental que ya conozcas por otra.
           </p>
@@ -127,10 +124,10 @@ function MonasticTradition() {
 
       {selectedTradition === 'openHand' && (
         <>
-          <h3 className={styles.paleText}>
+          <h3 className="app__pale-text">
             {translateMonasticTradition(selectedTradition)}
           </h3>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             Los monjes del camino de la mano abierta son los más grandes
             maestros del combate con artes marciales, ya sea con armas o sin
             ellas. Aprenden técnicas para empujar y derribar a sus oponentes,
@@ -138,15 +135,15 @@ function MonasticTradition() {
             meditación avanzada, que puede protegerlos del daño.
           </p>
 
-          <h4 className={styles.paleText}>Técnica de la Mano Abierta</h4>
-          <p className={styles.paragraph}>
+          <h4 className="app__pale-text">Técnica de la Mano Abierta</h4>
+          <p className="app__paragraph">
             Comenzando cuando eliges esta tradición en el nivel 3 puedes
             manipular el ki del oponente al mismo tiempo que utilizas el tuyo.
             Cuando golpeas a una criatura con uno de los ataques otorgados por
             tu ráfaga de golpes, puedes aplicar alguno de los siguientes efectos
             en el objetivo:
           </p>
-          <ul className={styles.paragraph}>
+          <ul className="app__paragraph">
             <li>
               Debe tener éxito en una tirada de salvación de Destreza o ser
               tumbado.
@@ -164,10 +161,10 @@ function MonasticTradition() {
 
       {selectedTradition === 'wayOfShadow' && (
         <>
-          <h3 className={styles.paleText}>
+          <h3 className="app__pale-text">
             {translateMonasticTradition(selectedTradition)}
           </h3>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             Los monjes del camino de la sombra siguen una tradición que valora
             el sigilo y el subterfugio. Estos monjes pueden ser conocidos como
             ninjas o danzarines sombríos, ya que sirven como espías y asesinos.
@@ -180,8 +177,8 @@ function MonasticTradition() {
             incuestionable obediencia por parte de sus estudiantes.
           </p>
 
-          <h4 className={styles.paleText}>Artes Sombrías</h4>
-          <p className={styles.paragraph}>
+          <h4 className="app__pale-text">Artes Sombrías</h4>
+          <p className="app__paragraph">
             Cuando eliges esta tradición en el nivel 3 puedes usar tu ki para
             duplicar el efecto de ciertos conjuros. Como una acción, puedes
             gastar 2 puntos ki para <u>lanzar oscuridad</u>,{' '}
@@ -194,7 +191,7 @@ function MonasticTradition() {
       )}
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Tradición
         </button>
       </p>
@@ -207,9 +204,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Tres tradiciones de búsqueda son comunes en los monasterios repartidos
         por el multiverso. En la mayoría de los monasterios practican sólo una
         tradición, pero algunos honran las tres tradiciones y entrenan a sus
@@ -219,7 +216,7 @@ export function ErrorBoundary({ error }) {
         hasta alcanzar el nivel 3 de experiencia.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

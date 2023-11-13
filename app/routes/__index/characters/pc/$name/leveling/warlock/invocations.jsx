@@ -16,10 +16,6 @@ import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillModal } from '~/components/modal/skillModal';
 import { SkillItem } from '~/components/modal/skillItem';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -131,8 +127,8 @@ function EldritchInvocations() {
         </SkillModal>
       )}
 
-      <h2 className={appStyles.paleText}>Invocaciones Sobrenaturales</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Invocaciones Sobrenaturales</h2>
+      <p className="app__paragraph">
         Si una invocación sobrenatural tiene prerrequisitos, debes cumplirlos
         para aprenderla. Puedes aprender la invocación en el mismo momento en
         que cumples sus prerrequisitos.
@@ -144,16 +140,16 @@ function EldritchInvocations() {
         Puedes elegir una invocación que conozcas y reemplazarla con otra
         invocación que puedas aprender a ese nivel.
       </p>
-      <div className={`${cardStyles.cards}`}>
+      <div className="cards">
         <Card title="Invocaciones conocidas" singleCard>
-          <ul className={cardStyles.cardList}>
+          <ul className="cards__card-list">
             {invocations.map((invocationName, i) => (
               <li key={invocationName}>
                 <label
                   htmlFor={invocationName}
-                  className={`${styles.toRemove} ${
+                  className={`checkbox__toRemove ${
                     invocationToForget === invocationName &&
-                    styles.selectedToRemove
+                    'checkbox__selectedToRemove'
                   }`}
                 >
                   <input
@@ -182,12 +178,12 @@ function EldritchInvocations() {
       {/* // Known Invocations */}
 
       <p>
-        <h3 className={appStyles.paleText}>
+        <h3 className="app__pale-text">
           Escoge {numberOfInvocationsToSelect} invocaciones
         </h3>
-        <div className={`${cardStyles.cards}`}>
+        <div className="cards">
           <Card title={`Invocaciones nivel ${pc.level}`} singleCard>
-            <ul className={cardStyles.cardList}>
+            <ul className="cards__card-list">
               {Object.keys(INVOCATIONS)
                 .filter(invocationName =>
                   isInvocationAvailable(pc, invocationName)
@@ -198,9 +194,9 @@ function EldritchInvocations() {
                     <li key={invocationName}>
                       <label
                         htmlFor={invocationName}
-                        className={`${styles.toSelect} ${
+                        className={`checkbox__toSelect ${
                           selectedInvocations.includes(invocationName) &&
-                          styles.selectedToSelect
+                          'checkbox__selectedToSelect'
                         }`}
                       >
                         <input
@@ -229,7 +225,7 @@ function EldritchInvocations() {
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -242,15 +238,15 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Si una invocación sobrenatural tiene prerrequisitos, debes cumplirlos
         para aprenderla. Puedes aprender la invocación en el mismo momento en
         que cumples sus prerrequisitos.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

@@ -10,8 +10,6 @@ import {
   FAVORED_ENEMIES_LANGUAGES,
 } from '~/domain/classes/ranger/ranger';
 
-import styles from '~/components/characters/characters.module.css';
-
 function RangerSkills(props) {
   const { pc, setSkillsNamespace } = props;
 
@@ -33,7 +31,7 @@ function RangerSkills(props) {
           <label
             htmlFor={enemyType}
             key={enemyType}
-            className={styles.skillLabel}
+            className="characters__skill-label"
           >
             <input
               type="radio"
@@ -57,7 +55,7 @@ function RangerSkills(props) {
           <label
             htmlFor={enemyType}
             key={enemyType}
-            className={styles.skillLabel}
+            className="characters__skill-label"
           >
             <input
               type="checkbox"
@@ -95,7 +93,7 @@ function RangerSkills(props) {
               <label
                 htmlFor={language}
                 key={language}
-                className={styles.skillLabel}
+                className="characters__skill-label"
               >
                 <input
                   type="radio"
@@ -112,7 +110,7 @@ function RangerSkills(props) {
       <p>
         Escoge terreno predilecto:{' '}
         {FAVORED_TERRAINS.map(terrain => (
-          <label htmlFor={terrain} key={terrain} className={styles.skillLabel}>
+          <label htmlFor={terrain} key={terrain} className="characters__skill-label">
             <input
               type="radio"
               name="favored-terrain"

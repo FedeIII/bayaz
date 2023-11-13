@@ -33,8 +33,10 @@ import { GrowBar } from '~/components/indicators/growBar';
 import { getSearchResults } from '~/domain/search';
 import { addItemToTreasure } from '~/domain/characterMutations';
 
-import styles from '~/components/bio.module.css';
-import itemStyles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/bio.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -179,17 +181,17 @@ function ItemModalContent(props) {
 
   return (
     <>
-      <h3 className={itemStyles.actionModalTitle}>{item.translation}</h3>
-      <span className={itemStyles.modalClose} onClick={closeModal}>
+      <h3 className="inventory-item__action-modal-title">{item.translation}</h3>
+      <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
-      <div className={itemStyles.modalContent}>
-        <ul className={itemStyles.modalOptions}>
+      <div className="inventory-item__modal-content">
+        <ul className="inventory-item__modal-options">
           {!!addToTreasure && (
             <li>
               <button
                 type="button"
-                className={itemStyles.dropItemButton}
+                className="inventory-item__drop-item-button"
                 onClick={onAddToTreasureClick}
               >
                 Añadir items
@@ -200,7 +202,7 @@ function ItemModalContent(props) {
                 min="1"
                 value={amount}
                 onChange={onAmountChange}
-                className={`${itemStyles.amountInput}`}
+                className="inventory-item__amount-input"
               />
             </li>
           )}
@@ -208,7 +210,7 @@ function ItemModalContent(props) {
             <li>
               <button
                 type="button"
-                className={itemStyles.dropItemButton}
+                className="inventory-item__drop-item-button"
                 onClick={onChangeAmountClick}
               >
                 Cambiar cantidad
@@ -219,7 +221,7 @@ function ItemModalContent(props) {
                 min="1"
                 value={amount}
                 onChange={onAmountChange}
-                className={`${itemStyles.amountInput}`}
+                className="inventory-item__amount-input"
               />
             </li>
           )}
@@ -227,7 +229,7 @@ function ItemModalContent(props) {
             <li>
               <button
                 type="button"
-                className={itemStyles.dropItemButton}
+                className="inventory-item__drop-item-button"
                 value={item.name}
                 onClick={onDropClick}
               >
@@ -261,15 +263,17 @@ function WeaponModalContent(props) {
 
   return (
     <>
-      <h3 className={itemStyles.actionModalTitle}>{weapon.translation}</h3>
-      <span className={itemStyles.modalClose} onClick={closeModal}>
+      <h3 className="inventory-item__action-modal-title">
+        {weapon.translation}
+      </h3>
+      <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
-      <div className={itemStyles.modalContent}>
-        <ul className={itemStyles.modalOptions}>
+      <div className="inventory-item__modal-content">
+        <ul className="inventory-item__modal-options">
           <li>
             <span>Equipar en </span>
-            <select className={styles.weaponSelect} onChange={onEquipClick}>
+            <select className="bio__weapon-select" onChange={onEquipClick}>
               <option value="">Escoge hueco</option>
               {Array.from(Array(3), (_, i) => (
                 <option value={i} key={i}>
@@ -281,7 +285,7 @@ function WeaponModalContent(props) {
           <li>
             <button
               type="button"
-              className={itemStyles.dropItemButton}
+              className="inventory-item__drop-item-button"
               value={weapon.name}
               onClick={onDropClick}
             >
@@ -315,17 +319,19 @@ function ArmorModalContent(props) {
 
   return (
     <>
-      <h3 className={itemStyles.actionModalTitle}>{armor.translation}</h3>
-      <span className={itemStyles.modalClose} onClick={closeModal}>
+      <h3 className="inventory-item__action-modal-title">
+        {armor.translation}
+      </h3>
+      <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
-      <div className={itemStyles.modalContent}>
-        <ul className={itemStyles.modalOptions}>
+      <div className="inventory-item__modal-content">
+        <ul className="inventory-item__modal-options">
           <li>
             {!!pArmor && (
               <button
                 type="button"
-                className={styles.equipArmor}
+                className="bio__equip-armor"
                 onClick={onEquipClick}
               >
                 Equipar en lugar de {getItem(pArmor.name).translation}
@@ -334,7 +340,7 @@ function ArmorModalContent(props) {
             {!pArmor && (
               <button
                 type="button"
-                className={styles.equipArmor}
+                className="bio__equip-armor"
                 onClick={onEquipClick}
               >
                 Equipar
@@ -344,7 +350,7 @@ function ArmorModalContent(props) {
           <li>
             <button
               type="button"
-              className={itemStyles.dropItemButton}
+              className="inventory-item__drop-item-button"
               value={armor.name}
               onClick={onDropClick}
             >
@@ -617,13 +623,8 @@ function PcBio() {
 
   return (
     <>
-      <img src="/images/sheet2.jpg" className={styles.sheetBackground} />
-      <Form
-        method="post"
-        className={styles.summary}
-        onSubmit={onFormSubmit}
-        ref={formRef}
-      >
+      <img src="/images/sheet2.jpg" className="bio__background" />
+      <Form method="post" className="bio" onSubmit={onFormSubmit} ref={formRef}>
         <input readOnly type="text" name="name" value={name} hidden />
 
         {/* MODALS */}
@@ -651,26 +652,26 @@ function PcBio() {
         )}
 
         {/* BASIC ATTRS */}
-        <span className={`${styles.data} ${styles.name}`}>{name}</span>
-        <span className={`${styles.data} ${styles.age}`}>{age} años</span>
-        <span className={`${styles.data} ${styles.height}`}>{height} cm</span>
-        <span className={`${styles.data} ${styles.weight}`}>{weight} kg</span>
+        <span className="bio__data bio__name">{name}</span>
+        <span className="bio__data bio__age">{age} años</span>
+        <span className="bio__data bio__height">{height} cm</span>
+        <span className="bio__data bio__weight">{weight} kg</span>
 
         {/* FREE TEXT ATTRS */}
         <textarea
-          className={`${styles.data} ${styles.eyes}`}
+          className="bio__data bio__eyes"
           name="eyes"
           defaultValue={eyes}
           onChange={onStatsChange}
         ></textarea>
         <textarea
-          className={`${styles.data} ${styles.skin}`}
+          className="bio__data bio__skin"
           name="skin"
           defaultValue={skin}
           onChange={onStatsChange}
         ></textarea>
         <textarea
-          className={`${styles.data} ${styles.hair}`}
+          className="bio__data bio__hair"
           name="hair"
           defaultValue={hair}
           onChange={onStatsChange}
@@ -679,7 +680,7 @@ function PcBio() {
           <button
             type="submit"
             disabled={isCreating}
-            className={`${styles.data} ${styles.submitStats}`}
+            className="bio__data bio__submit-stats"
           >
             Actualizar
           </button>
@@ -687,7 +688,7 @@ function PcBio() {
 
         {/* FREE TEXT */}
         <textarea
-          className={`${styles.data} ${styles.allies}`}
+          className="bio__data bio__allies"
           name="allies"
           defaultValue={allies}
           onChange={onAlliesChange}
@@ -696,14 +697,14 @@ function PcBio() {
           <button
             type="submit"
             disabled={isCreating}
-            className={`${styles.data} ${styles.submitAllies}`}
+            className="bio__data bio__submit-allies"
           >
             Actualizar
           </button>
         )}
 
         <textarea
-          className={`${styles.data} ${styles.backstory}`}
+          className="bio__data bio__backstory"
           name="backstory"
           defaultValue={backstory}
           onChange={onBackstoryChange}
@@ -712,20 +713,20 @@ function PcBio() {
           <button
             type="submit"
             disabled={isCreating}
-            className={`${styles.data} ${styles.submitBackstory}`}
+            className="bio__data bio__submit-backstory"
           >
             Actualizar
           </button>
         )}
 
         <textarea
-          className={`${styles.data} ${styles.extraTraits1}`}
+          className="bio__data bio__extra-traits1"
           name="extraTraits1"
           defaultValue={extraTraits1}
           onChange={onTraitsChange}
         ></textarea>
         <textarea
-          className={`${styles.data} ${styles.extraTraits2}`}
+          className="bio__data bio__extra-traits2"
           name="extraTraits2"
           defaultValue={extraTraits2}
           onChange={onTraitsChange}
@@ -734,17 +735,17 @@ function PcBio() {
           <button
             type="submit"
             disabled={isCreating}
-            className={`${styles.data} ${styles.submitTraits}`}
+            className="bio__data bio__submit-traits"
           >
             Actualizar
           </button>
         )}
 
         {/* TREASURE */}
-        <div className={`${styles.data} ${styles.treasure}`}>
-          <ul className={styles.treasureList}>
+        <div className="bio__data bio__treasure">
+          <ul className="bio__treasure-list">
             {!!treasure.weapons.length && (
-              <li className={styles.treasureItem}>
+              <li className="bio__treasure-item">
                 <u>Armas:</u>{' '}
                 {treasure.weapons.map((treasureWeapon, i) => (
                   <InventoryItem
@@ -760,7 +761,7 @@ function PcBio() {
               </li>
             )}
             {!!treasure.armors.length && (
-              <li className={styles.treasureItem}>
+              <li className="bio__treasure-item">
                 <u>Armaduras:</u>{' '}
                 {treasure.armors.map((treasureArmor, i) => (
                   <InventoryItem
@@ -776,7 +777,7 @@ function PcBio() {
               </li>
             )}
             {!!treasure.others.length && (
-              <li className={styles.treasureItem}>
+              <li className="bio__treasure-item">
                 {treasure.others.map((treasureItem, i) => (
                   <InventoryItem
                     ref={itemRefs.others.current[i]}
@@ -791,7 +792,7 @@ function PcBio() {
               </li>
             )}
             {pack && (
-              <li className={styles.treasureItem}>
+              <li className="bio__treasure-item">
                 <u>{translatePack(pack) + ':'}</u>{' '}
                 {getPackItems(pack).map((packItem, i, packItems) => (
                   <InventoryItem
@@ -806,7 +807,7 @@ function PcBio() {
               </li>
             )}
           </ul>
-          <div className={styles.totalTreasure}>
+          <div className="bio__total-treasure">
             Peso (kg):{' '}
             <GrowBar
               cursorPos={equipmentWeightPos}
@@ -817,11 +818,11 @@ function PcBio() {
               hardValue={heavyEncumbrance}
             />
           </div>
-          <div className={styles.treasureMenu}>
+          <div className="bio__treasure-menu">
             {!isTreasureScreenOpen && (
               <button
                 type="button"
-                className={styles.openTreasureScreen}
+                className="bio__open-treasure-screen"
                 onClick={openTreasureScreen}
               >
                 +
@@ -830,7 +831,7 @@ function PcBio() {
             {isTreasureScreenOpen && (
               <button
                 type="button"
-                className={styles.closeTreasureScreen}
+                className="bio__close-treasure-screen"
                 onClick={closeTreasureScreen}
               >
                 ✕
@@ -839,18 +840,18 @@ function PcBio() {
           </div>
         </div>
         {isTreasureScreenOpen && (
-          <div className={`${styles.data} ${styles.treasureScreen}`}>
-            <div className={styles.treasureSearcher}>
+          <div className="bio__data bio__treasure-screen">
+            <div className="bio__treasure-searcher">
               Buscar Items:{' '}
               <input
-                className={styles.treasureSearcherInput}
+                className="bio__treasure-searcher-input"
                 value={itemSearch}
                 onChange={onSearchChange}
               />
             </div>
-            <ul className={styles.sectionItems}>
+            <ul className="bio__section-items">
               {itemResults.map((item, i) => (
-                <li className={styles.sectionItem} key={item.name}>
+                <li className="bio__section-item" key={item.name}>
                   <InventoryItem
                     ref={itemRefs.inventorySearchResults.current[i]}
                     pItem={item}

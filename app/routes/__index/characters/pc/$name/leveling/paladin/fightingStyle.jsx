@@ -8,9 +8,6 @@ import {
   getPaladinFightingStyle,
 } from '~/domain/classes/paladin/paladin';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -48,21 +45,21 @@ function PaladinFightingStyle() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Estilo de Combate</h2>
+      <h2 className="app__pale-text">Estilo de Combate</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Adoptas un estilo particular de combate como especialidad. Elige una de
         las siguientes opciones. No puedes escoger un Estilo de Combate más de
         una vez, incluso si tienes la opción de escoger otro más adelante.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Estilo de Combate</span>
+          <span className="app__pale-text">Escoge Estilo de Combate</span>
           <br />
           <select
             name="fightingStyle"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
           >
             <option value="" disabled></option>
             {PALADIN_FIGHTING_STYLES.map(fightingStyle => (
@@ -74,19 +71,19 @@ function PaladinFightingStyle() {
         </label>
       </p>
 
-      <div className={styles.paragraph}>
-        <h3 className={styles.paleText}>{translateFightingStyle('defense')}</h3>
+      <div className="app__paragraph">
+        <h3 className="app__pale-text">{translateFightingStyle('defense')}</h3>
         Mientras lleves puesta una armadura ganas un +1 la CA.
       </div>
 
-      <div className={styles.paragraph}>
-        <h3 className={styles.paleText}>{translateFightingStyle('dueling')}</h3>
+      <div className="app__paragraph">
+        <h3 className="app__pale-text">{translateFightingStyle('dueling')}</h3>
         Cuando llevas un arma cuerpo a cuerpo en una mano y ningún arma más,
         ganas un bonificador de +2 a las tiradas de daño con esa arma.
       </div>
 
-      <div className={styles.paragraph}>
-        <h3 className={styles.paleText}>
+      <div className="app__paragraph">
+        <h3 className="app__pale-text">
           {translateFightingStyle('great-Weapon-fighting')}
         </h3>
         Cuando obtienes un 1 o un 2 en un dado de daño con un arma a dos manos,
@@ -95,8 +92,8 @@ function PaladinFightingStyle() {
         dos manos o tener la propiedad versátil para ganar este beneficio.
       </div>
 
-      <div className={styles.paragraph}>
-        <h3 className={styles.paleText}>
+      <div className="app__paragraph">
+        <h3 className="app__pale-text">
           {translateFightingStyle('protection')}
         </h3>
         Cuando una criatura que puedes ver ataca a un objetivo que no eres tú y
@@ -106,7 +103,7 @@ function PaladinFightingStyle() {
       </div>
 
       <div>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Estilo de Combate
         </button>
       </div>
@@ -119,15 +116,15 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Adoptas un estilo particular de combate como especialidad. Elige una de
         las siguientes opciones. No puedes escoger un Estilo de Combate más de
         una vez, incluso si tienes la opción de escoger otro más adelante.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

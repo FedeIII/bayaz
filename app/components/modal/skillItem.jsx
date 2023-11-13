@@ -6,8 +6,6 @@ import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fi
 import { translateElementalDisciplines } from '~/domain/classes/monk/monk';
 import { BASE_CHARACTER } from '~/domain/characters';
 
-import styles from './inventoryItem.module.css';
-
 export const SkillItem = forwardRef(function SkillItem(props, ref) {
   const {
     traitName,
@@ -42,7 +40,7 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
     <>
       <span
         ref={ref}
-        className={styles.item}
+        className="inventory-item"
         style={style}
         onClick={() =>
           !disabled &&

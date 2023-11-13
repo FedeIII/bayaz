@@ -20,8 +20,10 @@ import {
 import { getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 
-import appStyles from '~/components/app.module.css';
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displayRangerTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -31,11 +33,11 @@ export function displayRangerTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {getFavoredEnemies(pc).map(translateFavoredEnemy).join(', ')}
           </span>
           {hasToPickFavoredEnemies(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );
@@ -46,11 +48,11 @@ export function displayRangerTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {getFavoredTerrains(pc).map(translateFavoredTerrain).join(', ')}
           </span>
           {hasToPickFavoredTerrain(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );
@@ -62,10 +64,10 @@ export function displayRangerTrait(traitName, trait, pc) {
             <u>{trait}.</u>
           </strong>{' '}
           {!getRangerFightingStyle(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!!getRangerFightingStyle(pc) && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               {translateRangerFightingStyle(getRangerFightingStyle(pc))}
             </span>
           )}
@@ -77,7 +79,7 @@ export function displayRangerTrait(traitName, trait, pc) {
         !getRangerConclave(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );
@@ -90,10 +92,10 @@ export function displayRangerTrait(traitName, trait, pc) {
           </strong>
           .{' '}
           {!getHuntersPrey(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!!getHuntersPrey(pc) && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               {translateHuntersPrey(getHuntersPrey(pc))}
             </span>
           )}
@@ -108,10 +110,10 @@ export function displayRangerTrait(traitName, trait, pc) {
           </strong>
           .{' '}
           {!getHunterDefensiveTactics(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!!getHunterDefensiveTactics(pc) && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               {translateHuntersDefensiveTactics(getHunterDefensiveTactics(pc))}
             </span>
           )}
@@ -126,10 +128,10 @@ export function displayRangerTrait(traitName, trait, pc) {
           </strong>
           .{' '}
           {!getHunterMultiattack(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!!getHunterMultiattack(pc) && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               {translateHunterMultiattack(getHunterMultiattack(pc))}
             </span>
           )}
@@ -144,10 +146,10 @@ export function displayRangerTrait(traitName, trait, pc) {
           </strong>
           .{' '}
           {!getSuperiorHuntersDefense(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!!getSuperiorHuntersDefense(pc) && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               {translateSuperiorHuntersDefense(getSuperiorHuntersDefense(pc))}
             </span>
           )}
@@ -161,7 +163,7 @@ export function displayRangerTrait(traitName, trait, pc) {
             <u>{trait}</u>
           </strong>
           .{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {increment(getStatMod(getStat(pc, 'wis')))}
           </span>
         </>

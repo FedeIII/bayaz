@@ -4,9 +4,6 @@ import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -49,19 +46,19 @@ function TotemicAttunement() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Sintonía Totémica</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Sintonía Totémica</h2>
+      <p className="app__paragraph">
         En el nivel 14, ganas un beneficio mágico basado en el tótem animal de
         tu elección. Puedes elegir el mismo animal que elegiste previamente o
         uno distinto.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge tipo de Tótem</span>{' '}
+          <span className="app__pale-text">Escoge tipo de Tótem</span>{' '}
           <select
             name="totemic-attunement"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setTotem(e.target.value)}
           >
             <option value="" disabled></option>
@@ -74,8 +71,8 @@ function TotemicAttunement() {
 
       {totem === 'bear' && (
         <>
-          <h3 className={styles.paleText}>Oso</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Oso</h3>
+          <p className="app__paragraph">
             Mientras estás en furia, las criaturas a 5 pies (1,5 metros) de ti
             que te sean hostiles tienen desventaja en las tiradas de ataque
             contra cualquier otro que no seas tú u otro personaje con este
@@ -87,8 +84,8 @@ function TotemicAttunement() {
 
       {totem === 'eagle' && (
         <>
-          <h3 className={styles.paleText}>Águila</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Águila</h3>
+          <p className="app__paragraph">
             Mientras estás en furia, tienes una velocidad de vuelo igual a tu
             velocidad de movimiento actual. Este beneficio sólo funciona en
             breves intervalos de tiempo; caes si terminas tu turno en el aire y
@@ -99,8 +96,8 @@ function TotemicAttunement() {
 
       {totem === 'wolf' && (
         <>
-          <h3 className={styles.paleText}>Lobo</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Lobo</h3>
+          <p className="app__paragraph">
             Mientras estás en furia, puedes usar una acción adicional en tu
             turno para tumbar a una criatura Grande o más pequeña cuando
             impactas con un ataque cuerpo a cuerpo.
@@ -110,20 +107,20 @@ function TotemicAttunement() {
 
       <br />
       <br />
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Tu tótem animal puede ser un animal relacionado con los listados aquí,
         pero más apropiado para tu tierra natal. Por ejemplo, podrías elegir un
         halcón o un buitre en lugar de un águila.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge animal</span>{' '}
-          <input type="text" name="animal" className={cardStyles.buttonCard} />
+          <span className="app__pale-text">Escoge animal</span>{' '}
+          <input type="text" name="animal" className="cards__button-card" />
         </label>
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -136,15 +133,15 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         En el nivel 14, ganas un beneficio mágico basado en el tótem animal de
         tu elección. Puedes elegir el mismo animal que elegiste previamente o
         uno distinto.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

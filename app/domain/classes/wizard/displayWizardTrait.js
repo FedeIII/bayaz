@@ -3,8 +3,10 @@ import { translateSchool } from '~/domain/spells/spellTranslations';
 import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 
-import appStyles from '~/components/app.module.css';
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displayWizardTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -14,7 +16,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}. </u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             Recupera un nivel combinado de {Math.ceil(pc.level / 2)} en
             hechizos.
           </span>
@@ -26,7 +28,7 @@ export function displayWizardTrait(traitName, trait, pc) {
         !getArcaneTradition(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );
@@ -44,7 +46,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {pc.level * 2 + getStatMod(getStat(pc, 'int'))} HP
           </span>
         </>
@@ -56,7 +58,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{pc.level >= 14 ? 'Portento Mayor' : trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {pc.level >= 14 ? '3' : '2'}d20 para reemplazar entre descansos
             prolongados
           </span>
@@ -69,7 +71,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             1 + {'<'}nivel de conjuro{'>'} objetivos.
           </span>
         </>
@@ -80,7 +82,7 @@ export function displayWizardTrait(traitName, trait, pc) {
         <>
           <span>{trait}</span>
           {!getImprovedMinorIllusionSpell(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );
@@ -91,7 +93,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             Recuperas HP cuando matas criaturas con conjuros.
           </span>
         </>
@@ -103,7 +105,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             Recuperas espacios de conjuro al lanzar conjuros de Adivinación.
           </span>
         </>
@@ -115,7 +117,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             Teletransporte a 10 metros.
           </span>
         </>
@@ -127,7 +129,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {increment(pc.level)} HP, {increment(getProficiencyBonus(pc.level))}{' '}
             daño con armas.
           </span>
@@ -140,7 +142,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {increment(getStatMod(getStat(pc, 'int')))} daño por conjuros de
             Evocación
           </span>
@@ -153,7 +155,7 @@ export function displayWizardTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             Todas las invocaciones tienen 30 HP temporales
           </span>
         </>

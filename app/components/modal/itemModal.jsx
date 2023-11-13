@@ -7,8 +7,6 @@ import { getItemArmorClass, translateMoney } from '~/domain/characters';
 import { translateDamage } from '~/domain/equipment/weapons';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
 
-import styles from './inventoryItem.module.css';
-
 export function ItemModalContent(props) {
   const { pc, item, actions = {}, isForPlayers } = props;
 
@@ -18,55 +16,55 @@ export function ItemModalContent(props) {
 
   return (
     <>
-      <h3 className={styles.modalTitle}>
+      <h3 className="inventory-item__modal-title">
         {item.translation}{' '}
         {!!actions.addToTreasure && (
           <button
             type="button"
-            className={styles.addItemButton}
+            className="inventory-item__add-item-button"
             onClick={actions.addToTreasure}
           >
             +
           </button>
         )}
       </h3>
-      <div className={styles.modalContent}>
-        <ul className={styles.modalOptionsLeft}>
+      <div className="inventory-item__modal-content">
+        <ul className="inventory-item__modal-options-left">
           {subtypeTranslation && (
-            <li className={styles.modalItem}>
-              <span className={styles.modalRowTitle}>Tipo:</span>{' '}
-              <strong className={styles.modalRowValue}>
+            <li className="inventory-item__modal-item">
+              <span className="inventory-item__modal-row-title">Tipo:</span>{' '}
+              <strong className="inventory-item__modal-row-value">
                 {subtypeTranslation}
               </strong>
             </li>
           )}
           {isWeapon && (
-            <li className={styles.modalItem}>
-              <span className={styles.modalRowTitle}>Daño:</span>{' '}
-              <strong className={styles.modalRowValue}>
+            <li className="inventory-item__modal-item">
+              <span className="inventory-item__modal-row-title">Daño:</span>{' '}
+              <strong className="inventory-item__modal-row-value">
                 {displayDamage(pc, item)} ({translateDamage(item.damage[1])})
               </strong>
             </li>
           )}
           {isArmor && (
-            <li className={styles.modalItem}>
-              <span className={styles.modalRowTitle}>AC:</span>{' '}
-              <strong className={styles.modalRowValue}>
+            <li className="inventory-item__modal-item">
+              <span className="inventory-item__modal-row-title">AC:</span>{' '}
+              <strong className="inventory-item__modal-row-value">
                 {getItemArmorClass(pc, item.name)}
               </strong>
             </li>
           )}
           {!isForPlayers && (
-            <li className={styles.modalItem}>
-              <span className={styles.modalRowTitle}>Coste:</span>{' '}
-              <strong className={styles.modalRowValue}>
+            <li className="inventory-item__modal-item">
+              <span className="inventory-item__modal-row-title">Coste:</span>{' '}
+              <strong className="inventory-item__modal-row-value">
                 {translateMoney(item.price)}
               </strong>
             </li>
           )}
-          <li className={styles.modalItem}>
-            <span className={styles.modalRowTitle}>Peso:</span>{' '}
-            <strong className={styles.modalRowValue}>
+          <li className="inventory-item__modal-item">
+            <span className="inventory-item__modal-row-title">Peso:</span>{' '}
+            <strong className="inventory-item__modal-row-value">
               {item.weight ? item.weight + ' kg' : '-'}
             </strong>
           </li>
@@ -112,9 +110,9 @@ export function ItemModal(props) {
 
   return (
     <>
-      {dropShadow && <div className={styles.modalShadow} />}
+      {dropShadow && <div className="inventory-item__modal-shadow" />}
       <div
-        className={styles.actionModal}
+        className="inventory-item__action-modal"
         style={{
           top: selfTopY + 'px',
           left: selfLeftX + 'px',

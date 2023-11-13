@@ -12,8 +12,6 @@ import {
 } from '~/domain/classes/cleric/cleric';
 import { getClericSpellSlots, CLERIC_SPELLS } from '~/domain/spells/cleric';
 import { DRUID_SPELLS } from '~/domain/spells/druid';
-
-import styles from '~/components/characters/characters.module.css';
 import { translateSpell } from '~/domain/spells/spells';
 
 function getSkillChecked(skillName, skillsToSelect) {
@@ -138,7 +136,7 @@ function ClericSkills(props) {
             <label
               htmlFor={skillName}
               key={skillName}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"
@@ -164,7 +162,7 @@ function ClericSkills(props) {
             <label
               htmlFor={language}
               key={language}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"
@@ -190,7 +188,7 @@ function ClericSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"
@@ -227,7 +225,7 @@ function ClericSkills(props) {
               <label
                 htmlFor={spell.name}
                 key={spell.name}
-                className={styles.skillLabel}
+                className="characters__skill-label"
               >
                 <input
                   type="radio"

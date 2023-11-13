@@ -8,9 +8,6 @@ import {
   translateHuntersDefensiveTactics,
 } from '~/domain/classes/ranger/ranger';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -47,18 +44,18 @@ function HunterDefensiveTactics() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Táctica Defensiva</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Táctica Defensiva</h2>
+      <p className="app__paragraph">
         A nivel 7 ganas uno de los siguientes rasgos de tu elección.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Táctica Defensiva</span>
+          <span className="app__pale-text">Escoge Táctica Defensiva</span>
           <br />
           <select
             name="defensiveTactics"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
           >
             <option value="" disabled></option>
             {HUNTER_DEFENSIVE_TACTICS.map(defensiveTactics => (
@@ -70,31 +67,31 @@ function HunterDefensiveTactics() {
         </label>
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateHuntersDefensiveTactics('escapeTheHorde')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Los ataques de oportunidad contra ti se hacen con desventaja.
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateHuntersDefensiveTactics('multiattackDefense')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Cuando una criatura te golpea con un ataque, ganas un bonificador +4 a
         la CA contra todos los ataques posteriores realizados por esa criatura
         durante el resto del turno.
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateHuntersDefensiveTactics('steelWill')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Tienes ventaja en tiradas de salvación contra miedo.
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Táctica
         </button>
       </p>
@@ -107,13 +104,13 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         A nivel 7 ganas uno de los siguientes rasgos de tu elección.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

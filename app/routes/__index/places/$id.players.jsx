@@ -6,8 +6,6 @@ import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
 import { getSettlement } from '~/services/settlements.server';
 import random from '~/domain/random';
 
-import styles from '~/components/places.module.css';
-
 export const loader = async ({ params }) => {
   const place = await getSettlement(params.id);
 
@@ -104,9 +102,9 @@ function PlaceForPlayers() {
 
   return (
     <>
-      <h1 className={`${styles.title} ${styles.titleFloat}`}>
+      <h1 className="places__title places__title--float">
         <span>
-          <span className={styles.titleCapital}>{name?.slice(0, 1)}</span>
+          <span className="places__title-capital">{name?.slice(0, 1)}</span>
           {name?.slice(1)}
         </span>
       </h1>
@@ -120,20 +118,20 @@ function PlaceForPlayers() {
           Your browser does not support the audio element.
         </audio>
       )}
-      <div className={`${styles.imageContainerFloat}`}>
+      <div className="places__image-container-float">
         <img
           src={`/images/places/${img}`}
-          className={`${styles.image} ${styles.imageFloat}`}
+          className="places__image places__image--float"
           width="100%"
           height="100%"
           onClick={startAudio}
         />
       </div>
-      <div className={styles.volumeControls}>
+      <div className="places__volume-controls">
         <input
           type="range"
           id="volume"
-          className={styles.volumeSlider}
+          className="places__volume-slider"
           min="0"
           max="2"
           value={volume}

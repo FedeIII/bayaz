@@ -13,9 +13,6 @@ import { increment } from '~/domain/display';
 import { getExtraPreparedSpells } from '~/domain/spells/spells';
 import { substract } from '~/utils/insert';
 
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -69,9 +66,9 @@ function LevelUp() {
     <Form method="post">
       <input readOnly type="text" name="name" value={name} hidden />
 
-      <h2 className={appStyles.paleText}>Gana Puntos de Golpe</h2>
+      <h2 className="app__pale-text">Gana Puntos de Golpe</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Cada vez que ganas un nivel, ganas 1 Dado de Golpe adicional. Lanza el
         Dado de Golpe, añade tu modificador de Constitución a la tirada y añade
         el total a tu máximo de Puntos de Golpe. Opcionalmente, puedes utilizar
@@ -82,12 +79,12 @@ function LevelUp() {
 
       <h3>Dado de Golpe: {CLASSES[pClass].hitDice}</h3>
 
-      <div className={appStyles.buttons}>
+      <div className="app__buttons">
         <button
           type="submit"
           name="hitPoints"
           value="random"
-          className={`${cardStyles.buttonCard} ${appStyles.buttonBig}`}
+          className="cards__button-card app__button-big"
         >
           Lanzar Dado ({CLASSES[pClass].hitDice})
         </button>
@@ -95,11 +92,11 @@ function LevelUp() {
           type="submit"
           name="hitPoints"
           value={getFixedHealthForLevelUp(pc)}
-          className={`${cardStyles.buttonCard} ${appStyles.buttonBig}`}
+          className="cards__button-card app__button-big"
         >
           Utilizar valor fijo ({increment(getFixedHealthForLevelUp(pc))})
         </button>
-        <label htmlFor="realDice" className={appStyles.inputButton}>
+        <label htmlFor="realDice" className="app__input-button">
           <input
             type="number"
             id="realDice"
@@ -110,7 +107,7 @@ function LevelUp() {
           />
           <button
             type="submit"
-            className={`${cardStyles.buttonCard} ${appStyles.buttonBig}`}
+            className="cards__button-card app__button-big"
           >
             Lanzar Dado Real ({CLASSES[pClass].hitDice})
           </button>
@@ -125,9 +122,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Cada vez que ganas un nivel, ganas 1 Dado de Golpe adicional. Lanza el
         Dado de Golpe, añade tu modificador de Constitución a la tirada y añade
         el total a tu máximo de Puntos de Golpe. Opcionalmente, puedes utilizar
@@ -136,7 +133,7 @@ export function ErrorBoundary({ error }) {
         arriba).
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

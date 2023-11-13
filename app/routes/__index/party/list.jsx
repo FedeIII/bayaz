@@ -1,10 +1,8 @@
 import { json } from '@remix-run/node';
+import { useContext } from 'react';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
 import { getParties } from '~/services/party.server';
-
-import styles from '~/components/party.module.css';
-import { useContext } from 'react';
 import PartyContext from '~/components/contexts/partyContext';
 
 export const loader = async ({ params }) => {
@@ -29,20 +27,20 @@ function PartyList() {
     <Form method="post">
       <h2>Parties</h2>
 
-      <ul className={styles.partyList}>
+      <ul className="party__party-list">
         {parties.map(party => (
-          <li className={styles.party} key={party.id}>
+          <li className="party" key={party.id}>
             <Link
               to={`/party/${party.id}`}
-              className={styles.partyLink}
+              className="party__party-link"
               data-selected={party.id === partyContext.partyIdState}
             >
-              <h3 className={styles.partySessionTitle}>
+              <h3 className="party__party-session-title">
                 {party.id === partyContext.partyIdState && 'Sesión activa'}
               </h3>
-              <ul className={styles.partyMembers}>
+              <ul className="party__party-members">
                 {party.players.map(playerName => (
-                  <li className={styles.partyMember} key={playerName}>
+                  <li className="party__party-member" key={playerName}>
                     {playerName}
                   </li>
                 ))}

@@ -1,5 +1,3 @@
-import styles from './bar.module.css';
-
 // ████░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓
 // ██████████████████████████▒▒▒▒▒▓▓▓▓▓▓
 // ██████████████████████████████████▓▓▓
@@ -36,33 +34,33 @@ export function GrowBar(props) {
   }
 
   return (
-    <div className={styles.bar}>
-      <span className={styles.blueBar}>
+    <div className="bar">
+      <span className="bar__blueBar">
         {/* {Array(blue).fill('▓')} */}
         {Array(blue).fill('▒')}
         {/* {Array(blue).fill('█')} */}
       </span>
-      <span className={styles.orangeBar}>
+      <span className="bar__orangeBar">
         {/* {Array(orange).fill('▓')} */}
         {Array(orange).fill('▒')}
         {/* {Array(orange).fill('█')} */}
       </span>
-      <span className={styles.redBar}>
+      <span className="bar__redBar">
         {/* {Array(red).fill('▓')} */}
         {Array(red).fill('▒')}
         {/* {Array(red).fill('█')} */}
       </span>
-      <span className={styles.blueBar}>{Array(empty).fill('░')}</span>
-      <span className={styles.blueBar}>
+      <span className="bar__blueBar">{Array(empty).fill('░')}</span>
+      <span className="bar__blueBar">
         {Array(light).fill('░')}
         {/* {Array(light).fill('▒')} */}
       </span>
-      <span className={styles.blueBar}>
+      <span className="bar__blueBar">
         {Array(heavy).fill('░')}
         {/* {Array(heavy).fill('▓')} */}
       </span>
       <span
-        className={styles.cursorValue}
+        className="bar__cursorValue"
         style={{
           left: `calc(${cursorPos}% - 4px)`,
           color:
@@ -76,13 +74,13 @@ export function GrowBar(props) {
         {cursorValue}
       </span>
       <span
-        className={styles.softLimit}
+        className="bar__softLimit"
         style={{ left: `calc(${softLimit}% - 4px)` }}
       >
         {softValue}
       </span>
       <span
-        className={styles.hardLimit}
+        className="bar__hardLimit"
         style={{ left: `calc(${hardLimit}% - 4px)` }}
       >
         {hardValue}

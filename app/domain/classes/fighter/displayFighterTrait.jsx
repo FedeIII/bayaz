@@ -14,8 +14,10 @@ import { getItem } from '~/domain/equipment/equipment';
 import { increment } from '~/domain/display';
 import { getStat, getStatMod } from '~/domain/characters';
 
-import appStyles from '~/components/app.module.css';
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displayFighterTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -34,10 +36,10 @@ export function displayFighterTrait(traitName, trait, pc) {
             <u>{trait}.</u>
           </strong>{' '}
           {!getAllFightingStyles(pc).length && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!!getAllFightingStyles(pc).length && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               {getAllFightingStyles(pc).map(translateFightingStyle).join(', ')}
             </span>
           )}
@@ -59,7 +61,7 @@ export function displayFighterTrait(traitName, trait, pc) {
         !getMartialArchetype(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );
@@ -69,7 +71,7 @@ export function displayFighterTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {hasToLearnKnightSpell(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );
@@ -78,7 +80,7 @@ export function displayFighterTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             Crits con {pc.level >= 15 ? '18' : '19'} y 20
           </span>
         </>
@@ -88,14 +90,14 @@ export function displayFighterTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}.</u>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {getCombatSuperiorityDice(pc)}
           </span>
           {hasToLearnCombatSuperiorityManeuvers(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!!getCombatSuperiorityManeuvers(pc).length && (
-            <ul className={appStyles.smallText}>
+            <ul className="app__small-text">
               {getCombatSuperiorityManeuvers(pc).map(maneuver => (
                 <li key={maneuver}>
                   {translateCombatSuperiorityManeuvers(maneuver)}
@@ -111,10 +113,10 @@ export function displayFighterTrait(traitName, trait, pc) {
         <>
           <u>{trait}.</u>{' '}
           {!getStudentOfWar(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
           {!!getStudentOfWar(pc) && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               {getItem(getStudentOfWar(pc).name).translation}
             </span>
           )}
@@ -127,7 +129,7 @@ export function displayFighterTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {pc.level >= 20 ? '4' : pc.level >= 11 ? '3' : '2'} ataques
           </span>
         </>
@@ -147,7 +149,7 @@ export function displayFighterTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {pc.level >= 17 ? '3' : pc.level >= 13 ? '2' : '1'} ve
             {pc.level >= 13 ? 'ces' : 'z'} entre descansos prolongados.
           </span>
@@ -160,7 +162,7 @@ export function displayFighterTrait(traitName, trait, pc) {
         !getExtraFightingStyle(pc) && (
           <>
             <u>{trait}.</u>{' '}
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );
@@ -171,7 +173,7 @@ export function displayFighterTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>Teletransporte a 9m</span>
+          <span className="app__small-text">Teletransporte a 9m</span>
         </>
       );
 
@@ -181,7 +183,7 @@ export function displayFighterTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {increment(5 + getStatMod(getStat(pc, 'con')))} HP/turno
           </span>
         </>

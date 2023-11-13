@@ -35,9 +35,6 @@ import {
   updateSettlement,
 } from '~/services/settlements.server';
 
-import styles from '~/components/places.module.css';
-import menuStyles from '~/components/menus.module.css';
-
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
   textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
@@ -290,26 +287,26 @@ function Town() {
       {!!town && (
         <input readOnly type="text" name="id" value={town.id} hidden />
       )}
-      <div className={styles.buttons}>
-        <Link to="../" className={menuStyles.backButton}>
+      <div className="places__buttons">
+        <Link to="../" className="menus__back-button">
           ⇦ Volver
         </Link>
-        <button type="submit" className={styles.save}>
+        <button type="submit" className="places__save">
           ⇧ Guardar Pueblo
         </button>
-        <Link to={`./?rng=${Math.random()}`} className={menuStyles.backButton}>
+        <Link to={`./?rng=${Math.random()}`} className="menus__back-button">
           ⇩ Nuevo Pueblo
         </Link>
       </div>
 
-      <div className={styles.horizontalSections}>
-        <div className={styles.verticalSections}>
+      <div className="places__horizontal-sections">
+        <div className="places__vertical-sections">
           {!!img && (
-            <div className={styles.imageContainer}>
+            <div className="places__image-container">
               <a href={`/images/places/${img}`} target="_blank">
                 <img
                   src={`/images/places/${img}`}
-                  className={styles.image}
+                  className="places__image"
                   width="100%"
                 />
               </a>
@@ -317,13 +314,15 @@ function Town() {
             </div>
           )}
 
-          <div className={styles.info}>
-            <h1 className={styles.title}>
+          <div className="places__info">
+            <h1 className="places__title">
               <span
                 style={{ display: showNameInput ? 'none' : 'inline' }}
                 onClick={() => setShowNameInput(true)}
               >
-                <span className={styles.titleCapital}>{name?.slice(0, 1)}</span>
+                <span className="places__title-capital">
+                  {name?.slice(0, 1)}
+                </span>
                 {name?.slice(1)}
               </span>
               <input
@@ -331,42 +330,42 @@ function Town() {
                 type="text"
                 name="name"
                 value={name}
-                className={styles.titleInput}
+                className="places__title-input"
                 style={{ display: showNameInput ? 'inline' : 'none' }}
                 onBlur={() => setShowNameInput(false)}
                 onChange={onNameChange}
               />
             </h1>
 
-            <hr className={styles.sectionDivider} />
-            <div className={styles.subtitle}>
+            <hr className="places__section-divider" />
+            <div className="places__subtitle">
               <span>Pueblo</span>
               <span>
-                <span className={styles.traitTitle}>Población:</span> ≈
+                <span className="places__trait-title">Población:</span> ≈
                 <input
                   type="number"
                   name="population"
                   value={population}
                   onChange={onPopulationChange}
-                  className={`${styles.traitInput} ${styles.numberInput4}`}
+                  className="places__trait-input places__trait-input--number-4"
                 />
               </span>
             </div>
 
             {!!accommodation && (
               <>
-                <hr className={styles.sectionDivider} />
-                <div className={styles.trait}>
-                  <span className={styles.traitTitle}>Alojamientos:</span>{' '}
-                  <ul className={styles.traitColumns}>
+                <hr className="places__section-divider" />
+                <div className="places__trait">
+                  <span className="places__trait-title">Alojamientos:</span>{' '}
+                  <ul className="places__trait-columns">
                     {accommodation.map((innName, i) => (
-                      <li key={innName} className={styles.traitItem}>
+                      <li key={innName} className="places__trait-item">
                         <input
                           type="text"
                           name="accommodation[]"
                           value={accommodation[i]}
                           onChange={e => onAccommodationChange(i, e)}
-                          className={styles.traitInput}
+                          className="places__trait-input"
                         />
                       </li>
                     ))}
@@ -375,15 +374,15 @@ function Town() {
               </>
             )}
 
-            <hr className={styles.sectionDivider} />
-            <div className={styles.trait}>
-              <span className={styles.traitTitle}>Gobierno:</span>{' '}
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span className="places__trait-title">Gobierno:</span>{' '}
               <select
                 type="text"
                 name="governmentType"
                 value={government[0]}
                 onChange={onGovernmentTypeChange}
-                className={styles.traitSelect}
+                className="places__trait-select"
               >
                 <option value="">-</option>
                 {GOVERNMENTS.map(([_, govType]) => (
@@ -397,7 +396,7 @@ function Town() {
                 name="governmentSituation"
                 value={government[1]}
                 onChange={onGovernmentSituationChange}
-                className={styles.traitSelect}
+                className="places__trait-select"
               >
                 <option value="">-</option>
                 {GOVERNMENT_SITUATION.map(([_, govSituation]) => (
@@ -408,16 +407,16 @@ function Town() {
               </select>
             </div>
 
-            <hr className={styles.sectionDivider} />
-            <div className={styles.traitMultiple}>
+            <hr className="places__section-divider" />
+            <div className="places__trait-multiple">
               <span>
-                <span className={styles.traitTitle}>Comercio:</span>{' '}
+                <span className="places__trait-title">Comercio:</span>{' '}
                 <select
                   type="text"
                   name="commerces"
                   value={commerces}
                   onChange={onCommerceChange}
-                  className={styles.traitSelect}
+                  className="places__trait-select"
                 >
                   <option value="">-</option>
                   {COMMERCE.map(([_, com]) => (
@@ -429,35 +428,35 @@ function Town() {
               </span>
               {!!magicShops && (
                 <span>
-                  <span className={styles.traitTitle}>Tiendas:</span>{' '}
+                  <span className="places__trait-title">Tiendas:</span>{' '}
                   <input
                     type="number"
                     name="magicShops"
                     value={magicShops}
                     onChange={onMagicShopsChange}
-                    className={`${styles.traitInput} ${styles.numberInput1}`}
+                    className="places__trait-input places__trait-input--number-1"
                   />
                 </span>
               )}
               <span>
-                <span className={styles.traitTitle}>Seguridad:</span>{' '}
+                <span className="places__trait-title">Seguridad:</span>{' '}
                 <input
                   type="number"
                   name="security"
                   value={security}
                   onChange={onSecurityChange}
-                  className={`${styles.traitInput} ${styles.numberInput2}`}
+                  className="places__trait-input places__trait-input--number-2"
                 />{' '}
                 guardias
               </span>
             </div>
 
-            <hr className={styles.sectionDivider} />
-            <div className={styles.trait}>
-              <span className={styles.traitTitle}>Religión:</span>{' '}
-              <div className={styles.verticalSections}>
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span className="places__trait-title">Religión:</span>{' '}
+              <div className="places__vertical-sections">
                 {!!religion.temples?.length && (
-                  <ul className={styles.traitList}>
+                  <ul className="places__trait-list">
                     Templos:{' '}
                     {religion.temples.map((deityName, i) => (
                       <li key={i}>
@@ -466,14 +465,14 @@ function Town() {
                           name="temples[]"
                           value={deityName}
                           onChange={e => onTempleNameChange(i, e)}
-                          className={styles.traitInput}
+                          className="places__trait-input"
                         />
                       </li>
                     ))}
                   </ul>
                 )}
                 {!!religion.shrines?.length && (
-                  <ul className={styles.traitList}>
+                  <ul className="places__trait-list">
                     Santuarios:{' '}
                     {religion.shrines.map((deityName, i) => (
                       <li key={i}>
@@ -482,7 +481,7 @@ function Town() {
                           name="shrines[]"
                           value={deityName}
                           onChange={e => onShrineNameChange(i, e)}
-                          className={styles.traitInput}
+                          className="places__trait-input"
                         />
                       </li>
                     ))}
@@ -491,10 +490,10 @@ function Town() {
               </div>
             </div>
 
-            <hr className={styles.sectionDivider} />
-            <div className={styles.trait}>
+            <hr className="places__section-divider" />
+            <div className="places__trait">
               <span>
-                <span className={styles.traitTitle}>
+                <span className="places__trait-title">
                   Relaciones entre razas:
                 </span>{' '}
                 <select
@@ -502,7 +501,7 @@ function Town() {
                   name="raceRelationships"
                   value={raceRelationships}
                   onChange={onRaceRelationshipsChange}
-                  className={styles.traitSelect}
+                  className="places__trait-select"
                 >
                   <option value="">-</option>
                   {RACE_RELATIONSHIPS.map(([_, raceRel]) => (
@@ -516,10 +515,10 @@ function Town() {
 
             {!!placeCharacteristics && (
               <>
-                <hr className={styles.sectionDivider} />
-                <div className={styles.trait}>
+                <hr className="places__section-divider" />
+                <div className="places__trait">
                   <span>
-                    <span className={styles.traitTitle}>
+                    <span className="places__trait-title">
                       Características destacadas:
                     </span>{' '}
                     <select
@@ -527,7 +526,7 @@ function Town() {
                       name="placeCharacteristics"
                       value={placeCharacteristics}
                       onChange={onPlaceCharacteristicsChange}
-                      className={styles.traitSelect}
+                      className="places__trait-select"
                     >
                       <option value="">-</option>
                       {PLACE_CHARACTERISTICS.map(placeChar => (
@@ -543,16 +542,16 @@ function Town() {
 
             {!!knownFor && (
               <>
-                <hr className={styles.sectionDivider} />
-                <div className={styles.trait}>
+                <hr className="places__section-divider" />
+                <div className="places__trait">
                   <span>
-                    <span className={styles.traitTitle}>Conocido por:</span>{' '}
+                    <span className="places__trait-title">Conocido por:</span>{' '}
                     <select
                       type="text"
                       name="knownFor"
                       value={knownFor}
                       onChange={onKnownForChange}
-                      className={styles.traitSelect}
+                      className="places__trait-select"
                     >
                       <option value="">-</option>
                       {PLACE_KNOWN_FOR.map(kF => (
@@ -568,16 +567,18 @@ function Town() {
 
             {!!calamity && (
               <>
-                <hr className={styles.sectionDivider} />
-                <div className={styles.trait}>
+                <hr className="places__section-divider" />
+                <div className="places__trait">
                   <span>
-                    <span className={styles.traitTitle}>Desgracia actual:</span>{' '}
+                    <span className="places__trait-title">
+                      Desgracia actual:
+                    </span>{' '}
                     <select
                       type="text"
                       name="calamity"
                       value={calamity}
                       onChange={onCalamityChange}
-                      className={styles.traitSelect}
+                      className="places__trait-select"
                     >
                       <option value="">-</option>
                       {PLACE_CALAMITY.map(([_, calam]) => (
@@ -593,13 +594,13 @@ function Town() {
           </div>
         </div>
 
-        <div className={styles.notes}>
-          <h2 className={styles.notesTitle}>Notas</h2>
+        <div className="places__notes">
+          <h2 className="places__notes-title">Notas</h2>
           <textarea
             ref={notesRef}
             name="notes"
             value={notes}
-            className={styles.notesText}
+            className="places__notes-text"
             onChange={onNotesChange}
             onInput={textareaCallback}
           ></textarea>

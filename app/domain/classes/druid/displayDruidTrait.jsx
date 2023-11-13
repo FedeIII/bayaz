@@ -1,6 +1,9 @@
 import { getBonusCantrip, getDruidCircle, getDruidLandCircle } from './druid';
 
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displayDruidTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -32,7 +35,7 @@ export function displayDruidTrait(traitName, trait, pc) {
         !getDruidCircle(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );
@@ -42,7 +45,7 @@ export function displayDruidTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {!getBonusCantrip(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );
@@ -52,7 +55,7 @@ export function displayDruidTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {!getDruidLandCircle(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );

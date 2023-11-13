@@ -14,10 +14,6 @@ import {
 } from '~/domain/classes/sorcerer/sorcerer';
 import { METAMAGIC_EXPLANATION } from '~/domain/classes/sorcerer/sorcererSkillsExplanation';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -81,8 +77,8 @@ function Metamagic() {
         hidden
       />
 
-      <h2 className={appStyles.paleText}>Opciones Metamágicas</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Opciones Metamágicas</h2>
+      <p className="app__paragraph">
         A nivel 3 ganas la habilidad de moldear tus conjuros para que se adapten
         a tus necesidades. Ganas dos de las siguientes opciones metamágicas a tu
         elección. Ganas una más al nivel 10 y al nivel 17.
@@ -92,23 +88,23 @@ function Metamagic() {
         a menos que se indique lo contrario.
       </p>
 
-      <div className={`${cardStyles.cards}`}>
+      <div className="cards">
         <Card
           title={`Escoge ${selectAmount} opci${
             selectAmount > 1 ? 'ones' : 'ón'
           } metamágica${selectAmount > 1 ? 's' : ''}`}
           singleCard
         >
-          <ul className={cardStyles.cardList}>
+          <ul className="cards__card-list">
             {METAMAGIC.filter(metamagic => !pMetamagic.includes(metamagic)).map(
               (metamagic, i) => {
                 return (
                   <li key={metamagic}>
                     <label
                       htmlFor={metamagic}
-                      className={`${styles.toSelect} ${
+                      className={`checkbox__toSelect ${
                         selectedMetamagic.includes(metamagic) &&
-                        styles.selectedToSelect
+                        'checkbox__selectedToSelect'
                       }`}
                     >
                       <input
@@ -130,11 +126,11 @@ function Metamagic() {
         </Card>
       </div>
 
-      <div className={appStyles.paragraph}>
+      <div className="app__paragraph">
         {Object.entries(METAMAGIC_EXPLANATION).map(
           ([metamagic, explanation]) => (
             <div>
-              <h3 className={appStyles.paleText}>
+              <h3 className="app__pale-text">
                 {translateMetamagic(metamagic)}
                 {pMetamagic.includes(metamagic) ? ' (Conocido)' : ''}
               </h3>
@@ -145,7 +141,7 @@ function Metamagic() {
       </div>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Maniobra
         </button>
       </p>
@@ -158,15 +154,15 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Si una invocación sobrenatural tiene prerrequisitos, debes cumplirlos
         para aprenderla. Puedes aprender la invocación en el mismo momento en
         que cumples sus prerrequisitos.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

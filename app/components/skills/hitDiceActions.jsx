@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { CLASSES, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 
-import styles from '~/components/modal/inventoryItem.module.css';
-import appStyles from '~/components/app.module.css';
-
 function HitDiceActions(props) {
   const { skill, pc, submit, closeModal } = props;
   const { pClass, remainingHitDice, hitDice } = pc;
@@ -58,10 +55,13 @@ function HitDiceActions(props) {
     hitDice / 2 >= 1 ? Math.floor(hitDice / 2) : 1;
 
   return (
-    <div className={styles.hpContainer}>
-      <div className={styles.modalButtonsColumn}>
-        <h3 className={styles.modalContentTitle}>Acción</h3>
-        <label htmlFor="isRealDice" className={appStyles.inputButtonRow}>
+    <div className="inventory-item__hp-container">
+      <div className="inventory-item__modal-buttons-column">
+        <h3 className="inventory-item__modal-content-title">Acción</h3>
+        <label
+          htmlFor="isRealDice"
+          className="inventory-item__input-button-row"
+        >
           <select
             name="isRealDice"
             id="isRealDice"
@@ -75,7 +75,10 @@ function HitDiceActions(props) {
           </select>
         </label>
         {['virtualDice', 'realDice'].includes(action) && (
-          <label htmlFor="diceAmount" className={appStyles.inputButtonRow}>
+          <label
+            htmlFor="diceAmount"
+            className="inventory-item__input-button-row"
+          >
             <span>Gastar</span>{' '}
             <input
               type="number"
@@ -86,17 +89,20 @@ function HitDiceActions(props) {
               min="0"
               value={amountOfDice}
               onChange={e => setAmountOfDice(e.target.value)}
-              className={`${styles.modalInput} ${styles.modalInputSmall}`}
+              className="inventory-item__modal-input inventory-item__modal-input-small"
             />{' '}
             <span>dado{amountOfDice !== 1 ? 's' : ''}:</span>
           </label>
         )}
         {action === 'virtualDice' && (
-          <label htmlFor="virtualDie" className={appStyles.inputButtonRow}>
+          <label
+            htmlFor="virtualDie"
+            className="inventory-item__input-button-row"
+          >
             <button
               type="button"
               id="virtualDie"
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
               onClick={onVirtualDieClick}
             >
               Tirar {hpRecoveredNotation}
@@ -104,8 +110,8 @@ function HitDiceActions(props) {
           </label>
         )}
         {action === 'realDice' && (
-          <label htmlFor="realDie" className={appStyles.inputButtonColumn}>
-            <div className={appStyles.inputWithTag}>
+          <label htmlFor="realDie" className="app__input-button-column">
+            <div className="app__input-with-tag">
               <span>Valor de los dados:</span>{' '}
               <input
                 type="number"
@@ -115,13 +121,13 @@ function HitDiceActions(props) {
                 min="0"
                 value={realDie}
                 onChange={e => setRealDie(e.target.value)}
-                className={`${styles.modalInput} ${styles.modalInputSmall}`}
+                className="inventory-item__modal-input inventory-item__modal-input-small"
               />
             </div>
             <button
               type="button"
               id="virtualDie"
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
               onClick={onRealDieClick}
             >
               Gastar {hpRecoveredNotation} {'=>'} +
@@ -130,11 +136,14 @@ function HitDiceActions(props) {
           </label>
         )}
         {action === 'longRest' && (
-          <label htmlFor="longRest" className={appStyles.inputButtonRow}>
+          <label
+            htmlFor="longRest"
+            className="inventory-item__input-button-row"
+          >
             <button
               type="button"
               id="longRest"
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
               onClick={onLongRestClick}
             >
               Recuperar HP, {hitDiceRecoveredForLongRest} dados de golpe, y

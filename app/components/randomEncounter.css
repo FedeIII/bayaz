@@ -2,7 +2,7 @@
   font-family: fantasy;
 }
 
-.encounterDifficultyList {
+.encounters__difficulty-list {
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.encounterDifficultyItem {
+.encounters__difficulty-item {
   font-family: fantasy;
   padding: 16px 32px;
   background-color: #252937;
@@ -22,25 +22,25 @@
   cursor: pointer;
 }
 
-.encounterDifficultyItem:hover {
+.encounters__difficulty-item:hover {
   background-color: #3d414f;
 }
 
-.encounterDifficultyItem[data-selected='true'] {
+.encounters__difficulty-item[data-selected='true'] {
   background-color: #3d414f;
 }
 
-.encounterDifficulty {
+.encounters__difficulty {
   color: white;
   text-decoration: none;
 }
 
-.encounterContainer {
+.encounters__container {
   display: flex;
   flex-direction: column;
 }
 
-.encounterContainerFullScreen {
+.encounters__container-full-screen {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -52,7 +52,7 @@
   padding: 0 0 0 0;
 }
 
-.environmentButton {
+.encounters__environment-button {
   background-color: #252937;
   color: white;
   border: 1px solid white;
@@ -62,53 +62,53 @@
   cursor: pointer;
 }
 
-.environmentButton:hover {
+.encounters__environment-button:hover {
   background-color: #3d414f;
 }
 
-.environmentButton[data-suitable='false'] {
+.encounters__environment-button[data-suitable='false'] {
   background-color: #875757;
 }
 
-.environmentButton[data-suitable='false']:hover {
+.encounters__environment-button[data-suitable='false']:hover {
   background-color: #9f7373;
 }
 
-.environmentButton[data-selected='true'] {
+.encounters__environment-button[data-selected='true'] {
   background-color: #3d414f;
 }
 
-.buttonsRow {
+.encounters__buttons-row {
   display: flex;
   justify-content: space-evenly;
   width: 80%;
   margin: 16px auto;
 }
 
-.monsterList {
+.encounters__monster-list {
   flex-wrap: wrap;
 }
 
-.death {
+.encounters__death {
   font-size: 20px;
   color: #d94243;
 }
 
-.deathIcon {
+.encounters__death-icon {
   font-size: 40px;
   vertical-align: sub;
 }
 
-.buttonContainer {
+.encounters__button-container {
   display: flex;
   justify-content: space-evenly;
 }
 
-.damageInput {
+.encounters__damage-input {
   width: 24px;
 }
 
-.monstersList {
+.encounters__monsters-list {
   display: flex;
   justify-content: space-evenly;
   list-style: none;
@@ -118,7 +118,7 @@
   flex-wrap: wrap;
 }
 
-.monstersItem {
+.encounters__monsters-item {
   display: block;
   flex-basis: 16%;
   flex-shrink: 1.05;
@@ -129,42 +129,36 @@
   max-width: 30%;
 }
 
-.dead {
+.encounters__dead {
   color: var(--color-red);
   text-decoration: line-through;
 }
 
-.deadImage {
+.encounters__dead-image {
   mix-blend-mode: soft-light;
 }
 
-.badlyHurt {
+.encounters__badly-hurt {
   color: var(--color-red);
 }
 
-.hurt {
+.encounters__hurt {
   color: var(--color-orange);
 }
 
-.alive {
+.encounters__alive {
   color: white;
 }
 
-.monsterImage {
+.encounters__monster-image {
   width: 100%;
   margin: 16px 0 0 0;
 }
 
-.encounterSidebar {
-}
-
-.encounterBody {
-}
-
-.title {
+.encounters__title {
   margin: 48px auto 16px;
 }
 
-.bar {
+.encounters__bar {
   margin: 8px 0;
 }

@@ -6,7 +6,10 @@ import {
 } from '../../characters';
 import { getBardCollege, getLoreCollegeProficiencies, getLoreSpells, hasToLearnMagicalSecretsSpells } from './bard';
 
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displayBardTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -50,7 +53,7 @@ export function displayBardTrait(traitName, trait, pc) {
         !getBardCollege(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );
@@ -60,7 +63,7 @@ export function displayBardTrait(traitName, trait, pc) {
         <>
           {trait}
           {!getLoreCollegeProficiencies(pc).length && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );
@@ -70,7 +73,7 @@ export function displayBardTrait(traitName, trait, pc) {
         <>
           {trait}
           {hasToSelectExpertSkills(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );
@@ -83,7 +86,7 @@ export function displayBardTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {!getLoreSpells(pc).length && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );
@@ -93,7 +96,7 @@ export function displayBardTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {hasToLearnMagicalSecretsSpells(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );

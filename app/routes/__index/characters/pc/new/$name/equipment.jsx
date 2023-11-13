@@ -7,9 +7,6 @@ import { getEquipmentComboData } from '~/components/equipment/getEquipmentComboD
 import { getClassEquipment } from '~/domain/equipment/equipment';
 import { distributeItems } from '~/domain/characters';
 
-import styles from '~/components/characters/characters.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -54,10 +51,10 @@ function PcEquipment() {
       <input readOnly type="text" name="name" value={name} hidden />
       <input readOnly type="text" name="pClass" value={pClass} hidden />
 
-      <div className={styles.equipmentContainer}>
-        <div className={cardStyles.cards}>
+      <div className="characters__equipment-container">
+        <div className="cards">
           {(getClassEquipment(pClass) || []).map((combo, comboSection) => (
-            <div className={cardStyles.card} key={comboSection}>
+            <div className="cards__card" key={comboSection}>
               <EquipmentCombo
                 pc={pc}
                 combo={combo}

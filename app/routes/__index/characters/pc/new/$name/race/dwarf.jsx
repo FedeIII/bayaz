@@ -7,8 +7,6 @@ import { pcItem } from '~/domain/equipment/equipment';
 import { TOOLS } from '~/domain/equipment/tools';
 import { t } from '~/domain/translations';
 
-import styles from '~/components/characters/characters.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -57,7 +55,7 @@ function PcDwarfSkills() {
           <label
             htmlFor={tool.name}
             key={tool.name}
-            className={styles.skillLabel}
+            className="characters__skill-label"
           >
             <input
               type="radio"

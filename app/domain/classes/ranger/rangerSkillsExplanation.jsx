@@ -20,7 +20,10 @@ import {
 import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const RANGER_SKILLS_EXPLANATION = {
   favoredEnemy: (skill, pc) => (
@@ -51,10 +54,10 @@ export const RANGER_SKILLS_EXPLANATION = {
       </strong>
 
       {hasToPickFavoredEnemies(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/ranger/favoredEnemies`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Enemigo Predilecto
           </Link>
@@ -103,10 +106,10 @@ export const RANGER_SKILLS_EXPLANATION = {
       </strong>
 
       {hasToPickFavoredTerrain(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/ranger/favoredTerrains`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Terreno Predilecto
           </Link>
@@ -126,10 +129,10 @@ export const RANGER_SKILLS_EXPLANATION = {
           escoger otro más adelante.
         </p>
         {!fightingStyle && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/ranger/fightingStyle`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Estilo
             </Link>
@@ -140,24 +143,24 @@ export const RANGER_SKILLS_EXPLANATION = {
           <>
             <h3>{translateRangerFightingStyle(fightingStyle)}</h3>
             {fightingStyle === 'archery' && (
-              <p className={styles.paragraph}>
+              <p className="app__paragraph">
                 Ganas un bonificador de +2 a las tiradas de ataque que hagas con
                 armas a distancia
               </p>
             )}
             {fightingStyle === 'defense' && (
-              <p className={styles.paragraph}>
+              <p className="app__paragraph">
                 Mientras lleves puesta una armadura ganas un +1 a la CA.
               </p>
             )}
             {fightingStyle === 'dueling' && (
-              <p className={styles.paragraph}>
+              <p className="app__paragraph">
                 Cuando llevas un arma en una mano y ningún arma más, ganas un
                 bonificador de +2 a las tiradas de daño con esa arma.
               </p>
             )}
             {fightingStyle === 'twoWeaponFighting' && (
-              <p className={styles.paragraph}>
+              <p className="app__paragraph">
                 Cuando luchas con el estilo de lucha de dos armas, puedes añadir
                 tu modificador de característica al daño del segundo ataque
               </p>
@@ -177,10 +180,10 @@ export const RANGER_SKILLS_EXPLANATION = {
         niveles 7, 11, y 15.
       </p>
 
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/ranger/rangerConclave`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Escoge Arquetipo
         </Link>
@@ -195,10 +198,10 @@ export const RANGER_SKILLS_EXPLANATION = {
         <p>A nivel 3 ganas uno de los siguientes rasgos de tu elección.</p>
 
         {!huntersPrey && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/ranger/huntersPrey`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Presa del Cazador
             </Link>
@@ -284,10 +287,10 @@ export const RANGER_SKILLS_EXPLANATION = {
         <p>A nivel 7 ganas uno de los siguientes rasgos de tu elección</p>
 
         {!defensiveTactics && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/ranger/defensiveTactics`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Táctica Defensiva
             </Link>
@@ -365,10 +368,10 @@ export const RANGER_SKILLS_EXPLANATION = {
         <p>A nivel 11 ganas uno de los siguientes rasgos de tu elección.</p>
 
         {!multiattack && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/ranger/multiattack`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Ataque Múltiple
             </Link>
@@ -422,10 +425,10 @@ export const RANGER_SKILLS_EXPLANATION = {
         <p>A nivel 15 ganas uno de los siguientes rasgos de tu elección.</p>
 
         {!superiorHuntersDefense && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/ranger/superiorHuntersDefense`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Defensa Superior
             </Link>

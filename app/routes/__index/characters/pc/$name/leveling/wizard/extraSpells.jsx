@@ -13,10 +13,6 @@ import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
 import { getAllPcSpells } from '~/domain/spells/getSpells';
 import { SkillItem } from '~/components/modal/skillItem';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -85,7 +81,7 @@ function ExtraSpells() {
       <input readOnly type="text" name="name" value={name} hidden />
       <input readOnly type="text" name="level" value={level} hidden />
 
-      <h2 className={appStyles.paleText}>Copia un conjuro a tu libro</h2>
+      <h2 className="app__pale-text">Copia un conjuro a tu libro</h2>
 
       {skillModalContent && (
         <SkillModal
@@ -97,17 +93,17 @@ function ExtraSpells() {
         </SkillModal>
       )}
 
-      <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
+      <div className="cards cards__scroll-list">
         {spellsByLevel.map((spellsOfLevel, i) => {
           const spellLevel = i + 1;
           return (
             <Card
               title={`Conjuros nivel ${spellLevel}`}
-              className={cardStyles.scrollCard}
+              className="cards__scroll-card"
               singleCard={spellsByLevel.length === 1}
               key={spellLevel}
             >
-              <ul className={cardStyles.cardList}>
+              <ul className="cards__card-list">
                 {spellsOfLevel
                   .filter(
                     spell => !knownSpells.map(s => s.name).includes(spell.name)
@@ -116,8 +112,8 @@ function ExtraSpells() {
                     <li key={spell.name}>
                       <label
                         htmlFor={spell.name}
-                        className={`${styles.toSelect} ${
-                          toLearn === spell.name && styles.selectedToSelect
+                        className={`checkbox__toSelect ${
+                          toLearn === spell.name && 'checkbox__selectedToSelect'
                         }`}
                       >
                         <input
@@ -148,7 +144,7 @@ function ExtraSpells() {
       </div>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -161,9 +157,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Cuando encuentras un conjuro de mago de nivel 1 o superior, puedes
         añadirlo a tu libro de conjuros si es de un nivel para el cual tienes
         espacios de conjuros y si puedes conseguir tiempo suficiente para
@@ -179,7 +175,7 @@ export function ErrorBoundary({ error }) {
         dinero, puedes prepararlo.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

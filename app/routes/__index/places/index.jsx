@@ -1,19 +1,16 @@
 import { Link } from '@remix-run/react';
 
-import styles from '~/components/places.module.css';
-import menuStyles from '~/components/menus.module.css';
-
 function PlacesMenu() {
   return (
     <>
-      <Link to="list" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Lista de Lugares</span>
+      <Link to="list" className="menus__main-option">
+        <span className="menus__option-label">Lista de Lugares</span>
       </Link>
-      <Link to="random" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Generar Lugar</span>
+      <Link to="random" className="menus__main-option">
+        <span className="menus__option-label">Generar Lugar</span>
       </Link>
-      <Link to="/" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>/</span>
+      <Link to="/" className="menus__main-option">
+        <span className="menus__option-label">/</span>
       </Link>
     </>
   );

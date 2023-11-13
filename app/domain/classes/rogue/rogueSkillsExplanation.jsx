@@ -4,7 +4,10 @@ import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { hasToLearnArcaneTricksterSpell } from '~/domain/spells/rogue';
 import { getSpellSavingThrow, translateSpell } from '~/domain/spells/spells';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const ROGUE_SKILLS_EXPLANATION = {
   sneakAttack: (skill, pc) => (
@@ -43,10 +46,10 @@ export const ROGUE_SKILLS_EXPLANATION = {
           arquetipo te ofrecerá rasgos a nivel 3 y de nuevo en los niveles 9, 13
           y 17.
         </p>
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/rogue/roguishArchetype`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Arquetipo
           </Link>
@@ -63,10 +66,10 @@ export const ROGUE_SKILLS_EXPLANATION = {
       </p>
 
       {hasToLearnArcaneTricksterSpell(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/rogue/spellcasting`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Nuevo Conjuro
           </Link>

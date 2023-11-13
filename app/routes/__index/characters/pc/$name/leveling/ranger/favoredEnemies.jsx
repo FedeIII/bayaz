@@ -12,10 +12,6 @@ import {
   translateFavoredEnemy,
 } from '~/domain/classes/ranger/ranger';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -61,8 +57,8 @@ function FavoredEnemies() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={appStyles.paleText}>Enemigo Predilecto</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Enemigo Predilecto</h2>
+      <p className="app__paragraph">
         Eliges un enemigo predilecto adicional, así como un lenguaje asociado,
         en el nivel 6 y en el 14. Conforme ganas niveles, tus elecciones
         deberían reflejar los tipos de monstruos que has encontrado en tus
@@ -70,12 +66,10 @@ function FavoredEnemies() {
       </p>
 
       <p>
-        <h3 className={appStyles.paleText}>
-          Escoge un nuevo Enemigo Predilecto
-        </h3>
-        <div className={`${cardStyles.cards}`}>
+        <h3 className="app__pale-text">Escoge un nuevo Enemigo Predilecto</h3>
+        <div className="cards">
           <Card title="Tipos de criaturas">
-            <ul className={cardStyles.cardList}>
+            <ul className="cards__card-list">
               {FAVORED_ENEMIES.filter(
                 enemy => !favoredEnemies.includes(enemy)
               ).map(enemy => {
@@ -83,8 +77,8 @@ function FavoredEnemies() {
                   <li key={enemy}>
                     <label
                       htmlFor={enemy}
-                      className={`${styles.toSelect} ${
-                        selectedEnemy === enemy && styles.selectedToSelect
+                      className={`checkbox__toSelect ${
+                        selectedEnemy === enemy && 'checkbox__selectedToSelect'
                       }`}
                     >
                       <input
@@ -104,7 +98,7 @@ function FavoredEnemies() {
             </ul>
           </Card>
           <Card title="Tipos de humanoides">
-            <ul className={cardStyles.cardList}>
+            <ul className="cards__card-list">
               {FAVORED_ENEMIES_HUMANOIDS.filter(
                 enemy => !favoredEnemies.includes(enemy)
               ).map(enemy => {
@@ -112,8 +106,8 @@ function FavoredEnemies() {
                   <li key={enemy}>
                     <label
                       htmlFor={enemy}
-                      className={`${styles.toSelect} ${
-                        selectedEnemy === enemy && styles.selectedToSelect
+                      className={`checkbox__toSelect ${
+                        selectedEnemy === enemy && 'checkbox__selectedToSelect'
                       }`}
                     >
                       <input
@@ -136,7 +130,7 @@ function FavoredEnemies() {
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger nuevo Enemigo
         </button>
       </p>
@@ -149,16 +143,16 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Eliges un enemigo predilecto adicional, así como un lenguaje asociado,
         en el nivel 6 y en el 14. Conforme ganas niveles, tus elecciones
         deberían reflejar los tipos de monstruos que has encontrado en tus
         aventuras.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

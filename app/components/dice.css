@@ -1,4 +1,4 @@
-.terminal {
+.dice__terminal {
   width: 90%;
   height: 90%;
   display: flex;
@@ -7,7 +7,7 @@
   color: black;
 }
 
-.history {
+.dice__history {
   height: calc(100vh - 16px);
   overflow-y: auto;
   display: flex;
@@ -20,7 +20,7 @@
   height: 1px;
 }
 
-.command {
+.dice__command {
   width: calc(100% - 36px);
   height: 32px;
   text-align: end;
@@ -28,11 +28,11 @@
   padding: 0 16px;
 }
 
-.submitCommand {
+.dice__submit-command {
   display: none;
 }
 
-.roll {
+.dice__roll {
   opacity: 0.5;
   width: 18px;
   height: 18px;
@@ -43,31 +43,31 @@
   margin: 0 2px;
 }
 
-.roll.disabled {
+.dice__roll.disabled {
   background-color: rgb(200, 200, 200);
   color: rgb(114, 114, 114);
 }
 
-.roll.high {
+.dice__roll.high {
   font-weight: bold;
   color: rgb(20, 155, 15);
 }
 
-.roll.low {
+.dice__roll.low {
   font-weight: bold;
   color: rgb(155, 15, 15);
 }
 
-.modifier {
+.dice__modifier {
   opacity: 0.5;
 }
 
-.historyLineTotal {
+.dice__history-line-total {
   font-size: 16px;
   font-weight: bold;
 }
 
-.historyLine {
+.dice__history-line {
   margin: 0 16px 16px;
   text-align: end;
   overflow-anchor: none;
@@ -76,9 +76,6 @@
   justify-content: space-between;
 }
 
-.historyLineCommand {
+.dice__history-line-command {
   color: gray;
-}
-
-.historyLineRolls {
 }

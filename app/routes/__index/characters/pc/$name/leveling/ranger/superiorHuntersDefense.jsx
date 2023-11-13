@@ -8,9 +8,6 @@ import {
   translateSuperiorHuntersDefense,
 } from '~/domain/classes/ranger/ranger';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -49,20 +46,20 @@ function SuperiorHuntersDefense() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Defensa Superior del Cazador</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Defensa Superior del Cazador</h2>
+      <p className="app__paragraph">
         A nivel 15 ganas uno de los siguientes rasgos de tu elección.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>
+          <span className="app__pale-text">
             Escoge Defensa Superior del Cazador
           </span>
           <br />
           <select
             name="superiorHuntersDefense"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
           >
             <option value="" disabled></option>
             {SUPERIOR_HUNTERS_DEFENSE.map(superiorHuntersDefense => (
@@ -77,10 +74,10 @@ function SuperiorHuntersDefense() {
         </label>
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateSuperiorHuntersDefense('evasion')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Puedes esquivar ágilmente algunos efectos de área, como por ejemplo el
         ardiente aliento de un dragón rojo o un conjuro de rayo relampagueante.
         Cuando estés sujeto a un efecto que te permite hacer una tirada de
@@ -89,25 +86,25 @@ function SuperiorHuntersDefense() {
         la mitad de daño si fallas la tirada.
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateSuperiorHuntersDefense('standAgainstTheTide')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Cuando una criatura hostil falla su ataque cuerpo a cuerpo sobre ti,
         puedes utilizar tu reacción para obligarla a repetir el mismo ataque
         contra otra criatura (que no sea sobre sí misma) de tu elección.
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateSuperiorHuntersDefense('uncannyDodge')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Cuando un atacante que puedas ver te golpea, puedes utilizar tu reacción
         para reducir a la mitad el daño de los ataques recibidos.
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Defensa
         </button>
       </p>
@@ -120,13 +117,13 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         A nivel 15 ganas uno de los siguientes rasgos de tu elección.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

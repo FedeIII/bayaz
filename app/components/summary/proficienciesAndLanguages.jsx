@@ -7,26 +7,24 @@ import { getItemDisplayList } from '~/domain/display';
 import { t } from '~/domain/translations';
 import { unique } from '~/utils/insert';
 
-import styles from '~/components/sheet.module.css';
-
 function ProficienciesAndLanguages(props) {
   const { pc } = props;
   const { pClass, languages } = pc;
 
   return (
-    <ul className={`${styles.data} ${styles.competencesAndLanguages}`}>
-      <li className={styles.traitLabel}>
-        <span className={styles.traitTitle}>Idiomas:</span>{' '}
-        <strong className={styles.trait}>
+    <ul className="sheet__data sheet__competences-and-languages">
+      <li className="sheet__trait-label">
+        <span className="sheet_trait-title">Idiomas:</span>{' '}
+        <strong className="sheet__trait">
           {languages.map(language => translateLanguage(language)).join(', ')}
         </strong>
       </li>
 
-      <li className={styles.traitLabel}>
-        <span className={styles.traitTitle}>Competente con:</span>{' '}
+      <li className="sheet__trait-label">
+        <span className="sheet_trait-title">Competente con:</span>{' '}
         {getItemDisplayList(unique(getItemProficiencies(pc))).map(
           (itemName, i, proficiencies) => (
-            <strong className={styles.trait} key={itemName}>
+            <strong className="sheet__trait" key={itemName}>
               {t(itemName)}
               {i + 1 < proficiencies.length && ', '}
             </strong>
@@ -37,9 +35,9 @@ function ProficienciesAndLanguages(props) {
       {CLASSES[pClass].proficiencies &&
         Object.entries(CLASSES[pClass].proficiencies).map(
           ([profName, profValue]) => (
-            <li className={styles.traitLabel} key={profName}>
+            <li className="sheet__trait-label" key={profName}>
               {profName}:{' '}
-              <strong className={styles.trait}>{profValue(pc)}</strong>
+              <strong className="sheet__trait">{profValue(pc)}</strong>
             </li>
           )
         )}

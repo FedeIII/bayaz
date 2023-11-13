@@ -1,4 +1,4 @@
-.mainOption {
+.menus__main-option {
   color: rgb(255 255 255 / 50%);
   text-decoration: none;
   min-height: 21.5vh;
@@ -11,7 +11,7 @@
   cursor: pointer;
 }
 
-.optionLabel {
+.menus__option-label {
   color: rgb(255 255 255 / 50%);
   text-decoration: none;
   font-size: 40px;
@@ -21,7 +21,7 @@
   backdrop-filter: blur(10px);
 }
 
-.backButton {
+.menus__back-button {
   color: var(--color-x-pale);
   text-decoration: none;
   display: flex;
@@ -33,7 +33,7 @@
   padding: 4px 4px 2px;
 }
 
-.backButton:hover {
+.menus__back-button:hover {
   cursor: pointer;
   background-color: var(--color-pale);
   color: white;

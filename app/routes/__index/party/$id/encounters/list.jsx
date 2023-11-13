@@ -5,8 +5,6 @@ import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
 import { getEncounters } from '~/services/encounter.server';
 
-import styles from '~/components/encounterList.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
 import { useTitle } from '~/components/hooks/useTitle';
 import { getMonsters } from '~/domain/encounters/monsters';
 import {
@@ -17,6 +15,11 @@ import {
   translateDifficulty,
 } from '~/domain/encounters/encounters';
 import { getPartyMaxLevel } from '~/domain/party/party';
+
+import styles from '~/components/encounterList.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const loader = async ({ params }) => {
   const [party, encounters] = await Promise.all([
@@ -49,12 +52,12 @@ function EncounterList() {
   useTitle('Lista de encuentros');
 
   return (
-    <div className={styles.encounterList}>
-      <div className={styles.party}>
-        <h3 className={styles.partyLabel}>Party</h3>{' '}
-        <div className={styles.partyMembers}>
+    <div className="encounterList">
+      <div className="encounterList__party">
+        <h3 className="encounterList__party-label">Party</h3>{' '}
+        <div className="encounterList__party-members">
           {pcs.map(pc => (
-            <span className={`${cardStyles.buttonCard}`} key={pc.name}>
+            <span className="cards__button-card" key={pc.name}>
               {pc.name}
               <br />
               Nivel {pc.level}
@@ -62,7 +65,7 @@ function EncounterList() {
           ))}
         </div>
       </div>
-      <div className={`${cardStyles.cards} ${styles.encounters}`}>
+      <div className="cards encounterList__encounters">
         {encounters.map(encounter => {
           const difficulty = getEncounterDifficulty(
             getMonsters(encounter.monsters),
@@ -75,24 +78,24 @@ function EncounterList() {
           return (
             <Link
               to={`/party/${partyId}/encounters/${encounter.id}`}
-              className={`${cardStyles.buttonCard} ${styles.encounter}`}
+              className="cards__button-card encounterList__encounter"
               key={encounter.id}
             >
-              <div className={styles.encounterMonsters}>
+              <div className="encounterList__monsters">
                 {groupMonsters(monsters)}
               </div>
-              <div className={styles.encounterSection}>
-                <span className={styles[difficulty]}>
+              <div className="encounterList__section">
+                <span className={`encounterList__${difficulty}`}>
                   {translateDifficulty(difficulty)} (
                   {getEncounterXp(monsters, pcs.length)} xp)
                 </span>
                 <span
                   className={
                     partyMaxLevel < challenge
-                      ? styles.deadly
+                      ? 'encounterList__deadly'
                       : partyMaxLevel === challenge
-                      ? styles.medium
-                      : styles.easy
+                      ? 'encounterList__medium'
+                      : 'encounterList__easy'
                   }
                 >
                   CR {challenge}

@@ -8,7 +8,10 @@ import {
   translateDifficulty,
 } from '~/domain/encounters/encounters';
 
-import styles from '~/components/randomEncounter.module.css';
+import styles from '~/components/randomEncounter.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -30,12 +33,12 @@ function RandomEncounter() {
   const { party, pcs } = useLoaderData();
 
   return (
-    <div className={styles.encounters}>
+    <div className="encounters">
       <h2>Encuentro aleatorio</h2>
       Generar encuentro:
-      <ul className={styles.encounterDifficultyList}>
-        <li className={styles.encounterDifficultyItem}>
-          <Link to="easy" className={styles.encounterDifficulty}>
+      <ul className="encounters__difficulty-list">
+        <li className="encounters__difficulty-item">
+          <Link to="easy" className="encounters__difficulty">
             {translateDifficulty('easy')} (
             {pcs.reduce(
               (xp, pc) => xp + getCharacterXpThreshold(pc, 'easy'),
@@ -44,8 +47,8 @@ function RandomEncounter() {
             xp)
           </Link>
         </li>
-        <li className={styles.encounterDifficultyItem}>
-          <Link to="medium" className={styles.encounterDifficulty}>
+        <li className="encounters__difficulty-item">
+          <Link to="medium" className="encounters__difficulty">
             {translateDifficulty('medium')} (
             {pcs.reduce(
               (xp, pc) => xp + getCharacterXpThreshold(pc, 'medium'),
@@ -54,8 +57,8 @@ function RandomEncounter() {
             xp)
           </Link>
         </li>
-        <li className={styles.encounterDifficultyItem}>
-          <Link to="hard" className={styles.encounterDifficulty}>
+        <li className="encounters__difficulty-item">
+          <Link to="hard" className="encounters__difficulty">
             {translateDifficulty('hard')} (
             {pcs.reduce(
               (xp, pc) => xp + getCharacterXpThreshold(pc, 'hard'),
@@ -64,8 +67,8 @@ function RandomEncounter() {
             xp)
           </Link>
         </li>
-        <li className={styles.encounterDifficultyItem}>
-          <Link to="deadly" className={styles.encounterDifficulty}>
+        <li className="encounters__difficulty-item">
+          <Link to="deadly" className="encounters__difficulty">
             {translateDifficulty('deadly')} (
             {pcs.reduce(
               (xp, pc) => xp + getCharacterXpThreshold(pc, 'deadly'),

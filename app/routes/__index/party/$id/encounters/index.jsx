@@ -4,8 +4,6 @@ import { Link, useLoaderData } from '@remix-run/react';
 import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
 
-import menuStyles from '~/components/menus.module.css';
-
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
   if (!party) {
@@ -27,14 +25,14 @@ function PartyEncounters() {
 
   return (
     <>
-      <Link to="random" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Encuentro aleatorio</span>
+      <Link to="random" className="menus__main-option">
+        <span className="menus__option-label">Encuentro aleatorio</span>
       </Link>
-      <Link to="new" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Crear encuentro</span>
+      <Link to="new" className="menus__main-option">
+        <span className="menus__option-label">Crear encuentro</span>
       </Link>
-      <Link to="list" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Lista de encuentros</span>
+      <Link to="list" className="menus__main-option">
+        <span className="menus__option-label">Lista de encuentros</span>
       </Link>
     </>
   );

@@ -1,7 +1,5 @@
 import { Fragment } from 'react';
 
-import styles from './bar.module.css';
-
 // ████▓▓▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░
 // ██████████████████████████▒▒▒▒▒▓▓▓▓▓▓
 // ██████████████████████████████████▓▓▓
@@ -23,17 +21,17 @@ export function MultiLevelBar(props) {
   const totalSize = levels.reduce((total, l) => total + l.size, 0);
 
   return (
-    <div className={styles.bar}>
+    <div className="bar">
       {levels
         .filter(l => l.size)
         .map((level, i) => (
           <Fragment key={`${level.thickness}-${level.size}-${level.tag}`}>
-            <span className={styles.multiBar} style={level.style}>
+            <span className="bar__multiBar" style={level.style}>
               {Array(
                 Math.max(Math.round((level.size * TOTAL_LENGTH) / totalSize), 1)
               ).fill(charMap[level.thickness])}
               {!!level.tag && (
-                <span className={styles.barMarker}>{level.tag}</span>
+                <span className="bar__barMarker">{level.tag}</span>
               )}
             </span>
           </Fragment>

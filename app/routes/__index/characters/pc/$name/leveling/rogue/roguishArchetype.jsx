@@ -13,9 +13,6 @@ import {
   translateRoguishArchetype,
 } from '~/domain/classes/rogue/rogue';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -60,9 +57,9 @@ function RoguishArchetype() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Arquetipo de Pícaro</h2>
+      <h2 className="app__pale-text">Arquetipo de Pícaro</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Los pícaros tienen muchos rasgos en común, incluyendo su énfasis en
         perfeccionar sus habilidades, su preciso y mortífero acercamiento en
         combate, y sus cada vez más rápidos reflejos. Sin embargo, cada pícaro
@@ -74,12 +71,12 @@ function RoguishArchetype() {
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Arquetipo</span>
+          <span className="app__pale-text">Escoge Arquetipo</span>
           <br />
           <select
             name="roguishArchetype"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
           >
             <option value="" disabled></option>
             {ROGISH_ARCHETYPES.map(roguishArchetype => (
@@ -91,8 +88,8 @@ function RoguishArchetype() {
         </label>
       </p>
 
-      <div className={styles.paragraph}>
-        <h3 className={styles.paleText}>
+      <div className="app__paragraph">
+        <h3 className="app__pale-text">
           {translateRoguishArchetype('arcaneTrickster')}
         </h3>
         Algunos pícaros potencian sus refinadas habilidades de sigilo y agilidad
@@ -101,8 +98,8 @@ function RoguishArchetype() {
         y un número significativo de aventureros.
       </div>
 
-      <div className={styles.paragraph}>
-        <h3 className={styles.paleText}>
+      <div className="app__paragraph">
+        <h3 className="app__pale-text">
           {translateRoguishArchetype('assassin')}
         </h3>
         Concentras tu entrenamiento en el macabro arte de la muerte. Aquellos
@@ -112,8 +109,8 @@ function RoguishArchetype() {
         y el disfraz te ayudan a eliminar a tus enemigos con eficacia mortal.
       </div>
 
-      <div className={styles.paragraph}>
-        <h3 className={styles.paleText}>
+      <div className="app__paragraph">
+        <h3 className="app__pale-text">
           {translateRoguishArchetype('thief')}
         </h3>
         Perfeccionas tus habilidades en las artes del robo. Ladrones, bandidos,
@@ -127,7 +124,7 @@ function RoguishArchetype() {
       </div>
 
       <div>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Arquetipo
         </button>
       </div>
@@ -140,9 +137,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Los pícaros tienen muchos rasgos en común, incluyendo su énfasis en
         perfeccionar sus habilidades, su preciso y mortífero acercamiento en
         combate, y sus cada vez más rápidos reflejos. Sin embargo, cada pícaro
@@ -153,7 +150,7 @@ export function ErrorBoundary({ error }) {
         preferidas.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

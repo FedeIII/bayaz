@@ -9,9 +9,6 @@ import {
   translateSacredOath,
 } from '~/domain/classes/paladin/paladin';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -51,9 +48,9 @@ function SacredOath() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Juramento Sagrado</h2>
+      <h2 className="app__pale-text">Juramento Sagrado</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Convertirse en paladín requiere tomar votos que comprometen al paladín
         con la causa de la rectitud, una forma activa de luchar contra la
         maldad. El juramento final, llevado a cabo cuando se alcanza el nivel 3,
@@ -66,7 +63,7 @@ function SacredOath() {
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Juramento Sagrado</span>
+          <span className="app__pale-text">Escoge Juramento Sagrado</span>
           <br />
           <select
             name="sacredOath"
@@ -82,8 +79,8 @@ function SacredOath() {
         </label>
       </p>
 
-      <div className={styles.paragraph}>
-        <h3 className={styles.paleText}>
+      <div className="app__paragraph">
+        <h3 className="app__pale-text">
           {translateSacredOath(selectedSacredOath)}
         </h3>
 
@@ -236,7 +233,7 @@ function SacredOath() {
       </div>
 
       <div>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Juramento Sagrado
         </button>
       </div>
@@ -249,9 +246,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Convertirse en paladín requiere tomar votos que comprometen al paladín
         con la causa de la rectitud, una forma activa de luchar contra la
         maldad. El juramento final, llevado a cabo cuando se alcanza el nivel 3,
@@ -263,7 +260,7 @@ export function ErrorBoundary({ error }) {
         paladín
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

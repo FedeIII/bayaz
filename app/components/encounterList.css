@@ -3,18 +3,15 @@
   flex-direction: column;
 }
 
-.encounters {
+.encounterList__encounters {
   flex-wrap: wrap;
 }
 
-.encounter {
-}
-
-.encounterMonster {
+.encounterList__monster {
   display: block;
 }
 
-.party {
+.encounterList__party {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -24,47 +21,44 @@
   border-bottom: 1px solid white;
 }
 
-.partyLabel {
-}
-
-.partyMembers {
+.encounterList__party-members {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   column-gap: 16px;
 }
 
-.encounterMonsters {
+.encounterList__monsters {
   margin: 8px 0 0 0;
   font-size: 18px;
   font-weight: bold;
   border-bottom: 1px solid white;
 }
 
-.encounterSection {
+.encounterList__section {
   margin: 8px 0;
   display: flex;
   justify-content: space-between;
   column-gap: 16px;
 }
 
-.easy {
+.encounterList__easy {
   color: var(--color-green);
 }
 
-.medium {
+.encounterList__medium {
   color: white;
 }
 
-.hard {
+.encounterList__hard {
   color: var(--color-orange);
 }
 
-.deadly {
+.encounterList__deadly {
   color: var(--color-red);
 }
 
-.impossible {
+.encounterList__impossible {
   animation: impossible_color 0.2s infinite alternate;
 }
 

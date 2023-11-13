@@ -7,7 +7,10 @@ import {
   translateDruidLandCircle,
 } from './druid';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const DRUID_SKILLS_EXPLANATION = {
   wildShape: (skill, pc) => (
@@ -129,10 +132,10 @@ export const DRUID_SKILLS_EXPLANATION = {
         nivel 2 y de nuevo al nivel 6, 10 y 14.
       </p>
 
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/druid/druidCircle`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Escoge Círculo Druídico
         </Link>
@@ -148,10 +151,10 @@ export const DRUID_SKILLS_EXPLANATION = {
       </p>
 
       {!getBonusCantrip(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/druid/bonusCantrip`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Truco Adicional
           </Link>
@@ -230,10 +233,10 @@ export const DRUID_SKILLS_EXPLANATION = {
       </p>
 
       {!getDruidLandCircle(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/druid/landCircle`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge Círculo de la Tierra
           </Link>

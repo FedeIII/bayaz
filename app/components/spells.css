@@ -46,18 +46,18 @@
   /*********  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12  13  14  15  16  17 */
 }
 
-.sheetBackground {
+.spells__background {
   width: 100%;
 }
 
-.annotation {
+.spells__annotation {
   font-size: 10px;
   position: absolute;
   top: -5px;
   left: 30px;
 }
 
-.data {
+.spells__data {
   color: #0000d4;
   font-size: 18px;
   z-index: 1;
@@ -68,7 +68,7 @@
   position: relative;
 }
 
-.submit {
+.spells__submit {
   grid-area: mit;
   margin: -28px 90px 14px -30px;
   font-family: fantasy;
@@ -76,14 +76,14 @@
   cursor: pointer;
 }
 
-.name {
+.spells__name {
   font-size: 28px;
   grid-area: nam;
   justify-content: center;
   margin: 0 0 4px 0;
 }
 
-.spellAbility {
+.spells__ability {
   grid-area: spA;
   justify-content: center;
   align-items: center;
@@ -91,7 +91,7 @@
   margin: 12px 0 0 0;
 }
 
-.savingThrow {
+.spells__saving-throw {
   grid-area: sTh;
   justify-content: center;
   align-items: center;
@@ -99,7 +99,7 @@
   margin: 12px 0 0 0;
 }
 
-.attackBonus {
+.spells__attack-bonus {
   grid-area: atB;
   justify-content: center;
   align-items: center;
@@ -107,7 +107,7 @@
   margin: 12px 0 0 0;
 }
 
-.spentSpaces {
+.spells__spent-spaces {
   justify-content: center;
   align-items: center;
   font-size: 32px;
@@ -115,11 +115,11 @@
   cursor: pointer;
 }
 
-.spentSpaces:hover {
+.spells__spent-spaces:hover {
   color: var(--color-x-blue-ink);
 }
 
-.spells-0 {
+.spells__0 {
   grid-area: sp0;
   flex-direction: column;
   flex-wrap: wrap;
@@ -128,7 +128,7 @@
   padding: 0 0 0 0px;
 }
 
-.totalSpaces-1 {
+.spells__total-spaces-1 {
   grid-area: tS1;
   justify-content: center;
   align-items: center;
@@ -136,11 +136,11 @@
   margin: 8px 0 0 0;
 }
 
-.spentSpaces-1 {
+.spells__spent-spaces-1 {
   grid-area: sS1;
 }
 
-.spellsLevel {
+.spells__level {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -151,12 +151,12 @@
   position: relative;
 }
 
-.spells-1 {
+.spells__1 {
   grid-area: sp1;
   margin: 10px 0 -20px 0px;
 }
 
-.totalSpaces-2 {
+.spells__total-spaces-2 {
   grid-area: tS2;
   justify-content: center;
   align-items: center;
@@ -164,16 +164,16 @@
   margin: 8px 0 0 0;
 }
 
-.spentSpaces-2 {
+.spells__spent-spaces-2 {
   grid-area: sS2;
 }
 
-.spells-2 {
+.spells__2 {
   grid-area: sp2;
   margin: -13px 0 -20px 0px;
 }
 
-.totalSpaces-3 {
+.spells__total-spaces-3 {
   grid-area: tS3;
   justify-content: center;
   align-items: center;
@@ -181,16 +181,16 @@
   margin: 8px 0 0 0;
 }
 
-.spentSpaces-3 {
+.spells__spent-spaces-3 {
   grid-area: sS3;
 }
 
-.spells-3 {
+.spells__3 {
   grid-area: sp3;
   margin: -10px 0px -20px -2px;
 }
 
-.totalSpaces-4 {
+.spells__total-spaces-4 {
   grid-area: tS4;
   justify-content: center;
   align-items: center;
@@ -198,16 +198,16 @@
   margin: 8px 0 0 0;
 }
 
-.spentSpaces-4 {
+.spells__spent-spaces-4 {
   grid-area: sS4;
 }
 
-.spells-4 {
+.spells__4 {
   grid-area: sp4;
   margin: -12px 0px -20px -2px;
 }
 
-.totalSpaces-5 {
+.spells__total-spaces-5 {
   grid-area: tS5;
   justify-content: center;
   align-items: center;
@@ -215,16 +215,16 @@
   margin: 8px 0 0 0;
 }
 
-.spentSpaces-5 {
+.spells__spent-spaces-5 {
   grid-area: sS5;
 }
 
-.spells-5 {
+.spells__5 {
   grid-area: sp5;
   margin: -11px 0 -20px -2px;
 }
 
-.totalSpaces-6 {
+.spells__total-spaces-6 {
   grid-area: tS6;
   justify-content: center;
   align-items: center;
@@ -232,16 +232,16 @@
   margin: 8px 0 0 0;
 }
 
-.spentSpaces-6 {
+.spells__spent-spaces-6 {
   grid-area: sS6;
 }
 
-.spells-6 {
+.spells__6 {
   grid-area: sp6;
   margin: -10px 0 -20px -1px;
 }
 
-.totalSpaces-7 {
+.spells__total-spaces-7 {
   grid-area: tS7;
   justify-content: center;
   align-items: center;
@@ -249,16 +249,16 @@
   margin: 8px 0 0 0;
 }
 
-.spentSpaces-7 {
+.spells__spent-spaces-7 {
   grid-area: sS7;
 }
 
-.spells-7 {
+.spells__7 {
   grid-area: sp7;
   margin: -10px 0 -20px -1px;
 }
 
-.totalSpaces-8 {
+.spells__total-spaces-8 {
   grid-area: tS8;
   justify-content: center;
   align-items: center;
@@ -266,16 +266,16 @@
   margin: 8px 0 0 0;
 }
 
-.spentSpaces-8 {
+.spells__spent-spaces-8 {
   grid-area: sS8;
 }
 
-.spells-8 {
+.spells__8 {
   grid-area: sp8;
   margin: -10px 0 -20px -1px;
 }
 
-.totalSpaces-9 {
+.spells__total-spaces-9 {
   grid-area: tS9;
   justify-content: center;
   align-items: center;
@@ -283,16 +283,16 @@
   margin: 8px 0 0 0;
 }
 
-.spentSpaces-9 {
+.spells__spent-spaces-9 {
   grid-area: sS9;
 }
 
-.spells-9 {
+.spells__9 {
   grid-area: sp9;
   margin: -10px 0 -20px -1px;
 }
 
-.cantrip {
+.spells__cantrip {
   font-size: 16px;
   text-align: left;
   margin: 0 0 0px 0;
@@ -301,7 +301,7 @@
   max-width: 50%;
 }
 
-.spell {
+.spells__spell {
   font-size: 16px;
   text-align: left;
   margin: 0 0 0px 0;
@@ -310,16 +310,16 @@
   max-width: 43.9%;
 }
 
-.preparedSpells {
+.spells__prepared-spells {
   font-size: 16px;
   margin: 0 0 0 8px;
 }
 
-.preparedSpell {
+.spells__prepared-spell {
   display: none;
 }
 
-.preparedSpellNotChecked {
+.spells__prepared-spell-not-checked {
   height: 10px;
   width: 10px;
   display: inline-block;
@@ -333,11 +333,11 @@
   left: 0;
 }
 
-.preparedSpellNotChecked:hover {
+.spells__prepared-spell-not-checked:hover {
   background-color: #d0d0ef;
 }
 
-.preparedSpellChecked {
+.spells__prepared-spell-checked {
   height: 12px;
   width: 12px;
   display: inline-block;
@@ -350,27 +350,27 @@
   font-size: 22px;
 }
 
-.preparedSpellChecked:hover {
+.spells__prepared-spell-checked:hover {
   color: rgb(128, 128, 225);
 }
 
-.preparedSpell ~ .preparedSpellChecked {
+.spells__prepared-spell ~ .spells__prepared-spell-checked {
   display: none;
 }
 
-.preparedSpell ~ .preparedSpellNotChecked {
+.spells__prepared-spell ~ .spells__prepared-spell-not-checked {
   display: inline;
 }
 
-.preparedSpell:checked ~ .preparedSpellChecked {
+.spells__prepared-spell:checked ~ .spells__prepared-spell-checked {
   display: inline;
 }
 
-.preparedSpell:checked ~ .preparedSpellNotChecked {
+.spells__prepared-spell:checked ~ .spells__prepared-spell-not-checked {
   display: none;
 }
 
-.hideNextBullet {
+.spells__hide-next-bullet {
   position: absolute;
   width: 14px;
   height: 16px;
@@ -380,14 +380,14 @@
   z-index: -1;
 }
 
-.hideCircles {
+.spells__hide-circles {
   flex-grow: 1;
   background-color: white;
   margin: 0 0 10px -3px;
   padding: 0 16px 0 0;
 }
 
-.copySpell {
+.spells__copy-spell {
   position: relative;
   height: fit-content;
   width: 120px;
@@ -401,7 +401,7 @@
   box-shadow: 0px 0px 2px var(--color-blue-ink);
 }
 
-.copySpell:hover {
+.spells__copy-spell:hover {
   background-color: #eaeaff;
   color: var(--color-x-blue-ink);
   border-color: var(--color-x-blue-ink);

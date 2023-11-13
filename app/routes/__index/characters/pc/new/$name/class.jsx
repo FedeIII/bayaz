@@ -29,9 +29,6 @@ import {
 } from '~/domain/spells/spells';
 import { getSpell } from '~/domain/spells/getSpells';
 
-import styles from '~/components/characters/characters.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -293,7 +290,7 @@ function PcClassSkills() {
           <label
             htmlFor={skillName}
             key={skillName}
-            className={styles.skillLabel}
+            className="characters__skill-label"
           >
             <input
               type="checkbox"
@@ -321,7 +318,7 @@ function PcClassSkills() {
       <p>
         <button
           type="submit"
-          className={cardStyles.buttonCard}
+          className="cards__button-card"
           disabled={isCreating || !canContinue}
         >
           {canContinue ? 'Continuar' : 'Elige habilidades'}

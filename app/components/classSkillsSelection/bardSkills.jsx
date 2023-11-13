@@ -7,8 +7,6 @@ import {
   getBardTotalSpells,
 } from '~/domain/spells/bard';
 import { t } from '~/domain/translations';
-
-import styles from '~/components/characters/characters.module.css';
 import { translateSpell } from '~/domain/spells/spells';
 
 const MAX_INSTRUMENTS = 3;
@@ -45,7 +43,7 @@ function BardSkills(props) {
           <label
             htmlFor={instrument.name}
             key={instrument.name}
-            className={styles.skillLabel}
+            className="characters__skill-label"
           >
             <input
               type="checkbox"
@@ -74,7 +72,7 @@ function BardSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"
@@ -103,7 +101,7 @@ function BardSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"

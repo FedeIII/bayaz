@@ -11,10 +11,6 @@ import { SkillItem } from '~/components/modal/skillItem';
 import { hasToLearnArcanum } from '~/domain/classes/warlock/warlock';
 import { WARLOCK_SPELLS } from '~/domain/spells/warlock';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
 
@@ -86,7 +82,7 @@ function MysticArcanum() {
     <Form method="post" ref={formRef}>
       <input readOnly type="text" name="name" value={name} hidden />
 
-      <h2 className={appStyles.paleText}>Escoge Conjuro de Arcanum Místico</h2>
+      <h2 className="app__pale-text">Escoge Conjuro de Arcanum Místico</h2>
 
       {skillModalContent && (
         <SkillModal
@@ -102,15 +98,15 @@ function MysticArcanum() {
         Aprendes un Conjuro de brujo de nivel {spellLevel} como Arcanum Místico
       </h3>
 
-      <div className={`${cardStyles.cards}`}>
+      <div className="cards">
         <Card title={`Conjuros nivel ${spellLevel}`} singleCard>
-          <ul className={cardStyles.cardList}>
+          <ul className="cards__card-list">
             {arcanumOptions.map((spell, spellIndex) => (
               <li key={spell.name}>
                 <label
                   htmlFor={spell.name}
-                  className={`${styles.toSelect} ${
-                    toLearn[spellIndex] && styles.selectedToSelect
+                  className={`checkbox__toSelect ${
+                    toLearn[spellIndex] && 'checkbox__selectedToSelect'
                   }`}
                 >
                   <input
@@ -139,7 +135,7 @@ function MysticArcanum() {
       </div>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Arcanum
         </button>
       </p>
@@ -152,13 +148,13 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Aprendes un Conjuro de brujo como Arcanum Místico
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

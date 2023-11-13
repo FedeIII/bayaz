@@ -16,11 +16,17 @@ import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fi
 import { displayManeuver } from '~/domain/classes/fighter/fighterSkillsExplanation';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
 
-import styles from './inventoryItem.module.css';
-
 export function SkillModalContent(props) {
-  const { pc, skillName, skill, bigModal, submit, closeModal, skillIndex, position } =
-    props;
+  const {
+    pc,
+    skillName,
+    skill,
+    bigModal,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+  } = props;
 
   const skillExplanation = getSkillExplanation(
     skillName,
@@ -39,10 +45,12 @@ export function SkillModalContent(props) {
 
   return (
     <>
-      <h3 className={styles.modalTitle}>{skillTitle}</h3>
+      <h3 className="inventory-item__modal-title">{skillTitle}</h3>
       <div
         className={
-          bigModal ? styles.modalBigContentText : styles.modalContentText
+          bigModal
+            ? 'inventory-item__modal-big-content-text'
+            : 'inventory-item__modal-content-text'
         }
       >
         {skillExplanation}
@@ -58,10 +66,10 @@ export function SpellModalContent(props) {
 
   return (
     <>
-      <h3 className={styles.modalTitle}>{translateSpell(spellName)}</h3>
-      <div
-        className={`${styles.modalContentText} ${styles.modalContentTextPadding}`}
-      >
+      <h3 className="inventory-item__modal-title">
+        {translateSpell(spellName)}
+      </h3>
+      <div className="inventory-item__modal-content-text inventory-item__modal-content-text-padding">
         <div>
           <strong>Nivel: </strong>
           {spell.level === 0 ? 'Truco' : spell.level}
@@ -156,8 +164,10 @@ export function InvocationModalContent(props) {
 
   return (
     <>
-      <h3 className={styles.modalTitle}>{invocationTitle}</h3>
-      <div className={styles.modalContentText}>{invocationExplanation}</div>
+      <h3 className="inventory-item__modal-title">{invocationTitle}</h3>
+      <div className="inventory-item__modal-content-text">
+        {invocationExplanation}
+      </div>
     </>
   );
 }
@@ -170,8 +180,10 @@ export function ManeuverModalContent(props) {
 
   return (
     <>
-      <h3 className={styles.modalTitle}>{maneuverTitle}</h3>
-      <div className={styles.modalContentText}>{maneuverExplanation}</div>
+      <h3 className="inventory-item__modal-title">{maneuverTitle}</h3>
+      <div className="inventory-item__modal-content-text">
+        {maneuverExplanation}
+      </div>
     </>
   );
 }
@@ -200,9 +212,13 @@ export function SkillModal(props) {
 
   return (
     <>
-      <div className={styles.modalShadow} />
+      <div className="inventory-item__modal-shadow" />
       <div
-        className={bigModal ? styles.actionModalBig : styles.actionModal}
+        className={
+          bigModal
+            ? 'inventory-item__action-modal-big'
+            : 'inventory-item__action-modal'
+        }
         style={
           bigModal
             ? { top: selfTopY + 'px' }

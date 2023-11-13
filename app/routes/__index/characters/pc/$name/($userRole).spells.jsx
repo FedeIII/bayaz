@@ -35,7 +35,10 @@ import {
 } from '~/domain/classes/bard/bard';
 import { resetSpellSlots, spendSpellSlot } from '~/domain/characterMutations';
 
-import styles from '~/components/spells.module.css';
+import styles from '~/components/spells.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -182,10 +185,10 @@ function PcSpells() {
 
   return (
     <>
-      <img src="/images/spells.jpg" className={styles.sheetBackground} />
+      <img src="/images/spells.jpg" className="spells__background" />
       <Form
         method="post"
-        className={styles.spells}
+        className="spells"
         onSubmit={onFormSubmit}
         ref={formRef}
       >
@@ -199,7 +202,7 @@ function PcSpells() {
           </SkillModal>
         )}
         {!isForPlayers && canCopySpells(pc) && (
-          <div className={styles.copySpell}>
+          <div className="spells__copy-spell">
             <SkillItem
               ref={skillRefs.copySpell.current[0]}
               pc={pc}
@@ -211,28 +214,26 @@ function PcSpells() {
             </SkillItem>
           </div>
         )}
-        <span className={`${styles.data} ${styles.name}`}>
+        <span className="spells__data spells__name">
           {name}
           {' ('}
           {translateClass(pClass)}
           {')'}
         </span>
-        <span className={`${styles.data} ${styles.spellAbility}`}>
+        <span className="spells__data spells__spell-ability">
           {getSpellcastingAbility(pc).toUpperCase()}
         </span>
-        <span className={`${styles.data} ${styles.savingThrow}`}>
+        <span className="spells__data spells__saving-throw">
           {getSpellSavingThrow(pc)}
         </span>
-        <span className={`${styles.data} ${styles.attackBonus}`}>
+        <span className="spells__data spells__attack-bonus">
           {increment(getSpellAttackBonus(pc))}
         </span>
 
         {spellsByLevel.map((spells, level) => (
           <Fragment key={level}>
             {level > 0 && (
-              <span
-                className={`${styles.data} ${styles[`totalSpaces-${level}`]}`}
-              >
+              <span className={`spells__data spells__total-spaces-${level}`}>
                 <SkillItem
                   ref={skillRefs.resetSpellSlots.current[level]}
                   pc={pc}
@@ -247,9 +248,7 @@ function PcSpells() {
             )}
             {level > 0 && (
               <div
-                className={`${styles.data} ${styles.spentSpaces} ${
-                  styles[`spentSpaces-${level}`]
-                }`}
+                className={`spells__data spells__spent-spaces spells__spent-spaces-${level}`}
                 onClick={() => onSpentSpacesClick(level)}
               >
                 {magic.spentSpellSlots[level] || 0}
@@ -257,7 +256,7 @@ function PcSpells() {
                   <>
                     {' '}
                     /
-                    <span className={styles.preparedSpells}>
+                    <span className="spells__prepared-spells">
                       {preparedSpells.length}/{getMaxPreparedSpells(pc)}{' '}
                       preparados
                     </span>
@@ -266,14 +265,12 @@ function PcSpells() {
               </div>
             )}
             <ul
-              className={`${styles.data} ${styles.spellsLevel} ${
-                styles[`spells-${level}`]
-              }`}
+              className={`spells__data spells__level spells__${level}`}
             >
               {spells.map((spell, i) => (
                 <li
-                  className={`${styles.data} ${
-                    level === 0 ? styles.cantrip : styles.spell
+                  className={`spells__data ${
+                    level === 0 ? 'spells__cantrip' : 'spells__spell'
                   }`}
                   key={spell.name}
                 >
@@ -284,21 +281,21 @@ function PcSpells() {
                         name="preparedSpells[]"
                         id={spell.name}
                         value={spell.name}
-                        className={`${styles.data} ${styles.preparedSpell}`}
+                        className="spells__data spells__prepared-spell"
                         onChange={onPrepareSpellClick(spell)}
                         checked={isPreparedSpell(pc, spell.name)}
                       />
                       <label
                         htmlFor={spell.name}
-                        className={styles.preparedSpellNotChecked}
+                        className="spells__prepared-spell-not-checked"
                       />
                       <label
                         htmlFor={spell.name}
-                        className={styles.preparedSpellChecked}
+                        className="spells__prepared-spell-checked"
                       >
                         ◍
                       </label>
-                      <span className={styles.hideNextBullet} />
+                      <span className="spells__hide-nect-bullet" />
                     </>
                   )}
                   <span>
@@ -325,7 +322,7 @@ function PcSpells() {
                   </span>
                 </li>
               ))}
-              <span className={styles.hideCircles} />
+              <span className="spells__hide-circles" />
             </ul>
           </Fragment>
         ))}

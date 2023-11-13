@@ -2,8 +2,6 @@ import { getSpellSavingThrow } from '~/domain/spells/spells';
 import { getStat, getStatMod, translateSkill } from '../../characters';
 import { increment } from '~/domain/display';
 
-import styles from '~/components/modal/inventoryItem.module.css';
-
 export const CLERIC_SKILLS_EXPLANATION = {
   blessingsOfKnowledge: (skill, pc) => (
     <>

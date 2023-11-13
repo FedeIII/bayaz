@@ -1,8 +1,6 @@
 import { useDrag } from 'react-dnd';
 import classnames from 'classnames';
 
-import styles from '~/components/characters/characters.module.css';
-
 export const ItemTypes = {
   ROLL: 'ROLL',
 };
@@ -22,9 +20,9 @@ export function StatRoll(props) {
     [roll, index, canDrag]
   );
 
-  const className = classnames(styles.statsRoll, {
-    [styles.canDrag]: canDrag && roll,
-    [styles.cannotDrag]: !canDrag && roll,
+  const className = classnames('characters__stats-roll', {
+    ['characters__can-drag']: canDrag && roll,
+    ['characters__cannot-drag']: !canDrag && roll,
   });
 
   return (

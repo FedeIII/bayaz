@@ -111,7 +111,16 @@ import SheetAttacks from '~/components/summary/sheetAttacks';
 import SheetEquipment from '~/components/summary/sheetEquipment';
 import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLanguages';
 
-import styles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+import spellsStyles from '~/components/spells.css';
+import noteStyles from '~/components/note/note.css';
+export const links = () => {
+  return [
+    { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: spellsStyles },
+    { rel: 'stylesheet', href: noteStyles },
+  ];
+};
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -484,9 +493,9 @@ function PcSummary() {
 
   return (
     <>
-      <img src="/images/sheet1.jpg" className={styles.sheetBackground} />
+      <img src="/images/sheet1.jpg" className="sheet__background" />
       <div
-        className={styles.sheetNotes}
+        className="sheet__notes"
         onClick={onNotesClick}
         onContextMenu={onNotesRightClick}
         onMouseUp={onDropNote}
@@ -504,7 +513,7 @@ function PcSummary() {
       />
       <Form
         method="post"
-        className={styles.summary}
+        className="sheet__summary"
         onSubmit={onFormSubmit}
         ref={formRef}
       >
@@ -561,7 +570,7 @@ function PcSummary() {
           <button
             type="submit"
             disabled={isCreating}
-            className={`${styles.data} ${styles.submit}`}
+            className="sheet__data sheet__submit"
           >
             Actualizar
           </button>
@@ -632,34 +641,34 @@ function PcSummary() {
 
         {/* FREETEXT */}
         <textarea
-          className={`${styles.data} ${styles.personality}`}
+          className="sheet__data sheet__personality"
           name="personality"
           defaultValue={personality}
           onChange={onFreeTextChange}
         ></textarea>
         <textarea
-          className={`${styles.data} ${styles.ideals}`}
+          className="sheet__data sheet__ideals"
           name="ideals"
           defaultValue={ideals}
           onChange={onFreeTextChange}
         ></textarea>
         <textarea
-          className={`${styles.data} ${styles.bonds}`}
+          className="sheet__data sheet__bonds"
           name="bonds"
           defaultValue={bonds}
           onChange={onFreeTextChange}
         ></textarea>
         <textarea
-          className={`${styles.data} ${styles.flaws}`}
+          className="sheet__data sheet__flaws"
           name="flaws"
           defaultValue={flaws}
           onChange={onFreeTextChange}
         ></textarea>
 
         {/* FEATS & TRAITS */}
-        <ul className={`${styles.data} ${styles.featsAndTraits}`}>
+        <ul className="sheet__data sheet__feats-and-traits">
           {hasLeveledUp(pc) && (
-            <li className={styles.traitLabel}>
+            <li className="sheet__trait-label">
               <SkillItem
                 ref={skillRefs.levelUp.current[0]}
                 traitName="levelUp"
@@ -671,7 +680,7 @@ function PcSummary() {
           )}
 
           {!hasLearnedSpellsForCurrentLevel(pc) && getDeltaSpells(pc) > 0 && (
-            <li className={styles.traitLabel}>
+            <li className="sheet__trait-label">
               <SkillItem
                 ref={skillRefs.spells.current[0]}
                 traitName="newSpells"
@@ -683,7 +692,7 @@ function PcSummary() {
           )}
 
           {traits.map(([traitName, trait], i) => (
-            <li className={styles.traitLabel} key={traitName}>
+            <li className="sheet__trait-label" key={traitName}>
               <SkillItem
                 ref={skillRefs.traits.current[i]}
                 traitName={traitName}
@@ -695,13 +704,13 @@ function PcSummary() {
           ))}
 
           {!!getPrimalPath(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 Senda del {translatePrimalPath(getPrimalPath(pc))}
               </strong>
               <ul>
                 {primalPathTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.primalPath.current[i]}
                       traitName={traitName}
@@ -716,13 +725,13 @@ function PcSummary() {
           )}
 
           {!!getBardCollege(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 Colegio del {translateBardCollege(getBardCollege(pc))}
               </strong>
               <ul>
                 {bardCollegeTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.bardCollege.current[i]}
                       traitName={traitName}
@@ -737,13 +746,13 @@ function PcSummary() {
           )}
 
           {!!invocations.length && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 Invocaciones Sobrenaturales{' '}
               </strong>
               <ul>
                 {invocations.map((invocationName, i) => (
-                  <li className={styles.traitLabel} key={invocationName}>
+                  <li className="sheet__trait-label" key={invocationName}>
                     <SkillItem
                       ref={skillRefs.invocations.current[i]}
                       traitName={invocationName}
@@ -758,13 +767,13 @@ function PcSummary() {
           )}
 
           {!!getWarlockPatron(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 Pacto con {translatePatron(getWarlockPatron(pc))}
               </strong>
               <ul>
                 {patronTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.patron.current[i]}
                       traitName={traitName}
@@ -779,13 +788,13 @@ function PcSummary() {
           )}
 
           {!!getDivineDomain(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 Dominio de {translateDivineDomain(getDivineDomain(pc))}
               </strong>
               <ul>
                 {divineDomainTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.divineDomain.current[i]}
                       traitName={traitName}
@@ -800,8 +809,8 @@ function PcSummary() {
           )}
 
           {hasChannelDivinity(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 <SkillItem
                   ref={skillRefs.channelDivinity.current.main}
                   traitName="channelDivinity"
@@ -812,7 +821,7 @@ function PcSummary() {
               </strong>
               <ul>
                 {channelDivinityTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.channelDivinity.current[i]}
                       traitName={traitName}
@@ -827,13 +836,13 @@ function PcSummary() {
           )}
 
           {!!getDruidCircle(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 {translateDruidCircle(getDruidCircle(pc))}
               </strong>
               <ul>
                 {druidCircleTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.druidCircle.current[i]}
                       traitName={traitName}
@@ -848,13 +857,13 @@ function PcSummary() {
           )}
 
           {!!getRangerConclave(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 Arquetipo del {translateRangerConclave(getRangerConclave(pc))}
               </strong>
               <ul>
                 {rangerConclaveTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.rangerConclave.current[i]}
                       traitName={traitName}
@@ -869,13 +878,13 @@ function PcSummary() {
           )}
 
           {!!getMartialArchetype(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 {translateMartialArchetype(getMartialArchetype(pc))}
               </strong>
               <ul>
                 {martialArchetypeTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.martialArchetype.current[i]}
                       traitName={traitName}
@@ -890,13 +899,13 @@ function PcSummary() {
           )}
 
           {!!getSorcererOrigin(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 {translateSorcererOrigin(getSorcererOrigin(pc))}
               </strong>
               <ul>
                 {sorcererOriginTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.sorcererOrigin.current[i]}
                       traitName={traitName}
@@ -912,13 +921,13 @@ function PcSummary() {
           )}
 
           {!!getArcaneTradition(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 {translateArcaneTradition(getArcaneTradition(pc))}
               </strong>
               <ul>
                 {arcaneTradicionTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.arcaneTradition.current[i]}
                       traitName={traitName}
@@ -933,13 +942,13 @@ function PcSummary() {
           )}
 
           {!!getMonasticTradition(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 {translateMonasticTradition(getMonasticTradition(pc))}
               </strong>
               <ul>
                 {monasticTraditionTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.monasticTradition.current[i]}
                       traitName={traitName}
@@ -954,13 +963,13 @@ function PcSummary() {
           )}
 
           {!!getSacredOath(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 {translateSacredOath(getSacredOath(pc))}
               </strong>
               <ul>
                 {sacredOathTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.sacredOath.current[i]}
                       traitName={traitName}
@@ -975,13 +984,13 @@ function PcSummary() {
           )}
 
           {!!getRoguishArchetype(pc) && (
-            <li className={styles.traitLabel}>
-              <strong className={styles.trait}>
+            <li className="sheet__trait-label">
+              <strong className="sheet__trait">
                 {translateRoguishArchetype(getRoguishArchetype(pc))}
               </strong>
               <ul>
                 {roguishArchetypeTraits.map(([traitName, trait], i) => (
-                  <li className={styles.traitLabel} key={traitName}>
+                  <li className="sheet__trait-label" key={traitName}>
                     <SkillItem
                       ref={skillRefs.roguishArchetype.current[i]}
                       traitName={traitName}

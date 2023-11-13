@@ -14,7 +14,10 @@ import {
   hasToLearnMagicalSecretsSpells,
 } from './bard';
 
-import styles from '~/components/modal/inventoryItem.module.css';
+import styles from '~/components/modal/inventoryItem.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const BARD_SKILLS_EXPLANATION = {
   bardicInspiration: (skill, pc) => (
@@ -97,10 +100,10 @@ export const BARD_SKILLS_EXPLANATION = {
         rasgos en el nivel 3 y nuevamente en el nivel 6 y en el 14.
       </p>
 
-      <div className={styles.modalButtons}>
+      <div className="inventory-item__modal-buttons">
         <Link
           to={`/characters/pc/${pc.name}/leveling/bard/bardCollege`}
-          className={styles.modalButton}
+          className="inventory-item__modal-button"
         >
           Escoge Colegio de Bardo
         </Link>
@@ -119,10 +122,10 @@ export const BARD_SKILLS_EXPLANATION = {
         </p>
 
         {!loreCollegeProficiencies.length && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/bard/loreBonusProficiencies`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge habilidades
             </Link>
@@ -191,10 +194,10 @@ export const BARD_SKILLS_EXPLANATION = {
       </p>
 
       {hasToSelectExpertSkills(pc) && (
-        <div className={styles.modalButtons}>
+        <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.name}/leveling/bard/expertSkills`}
-            className={styles.modalButton}
+            className="inventory-item__modal-button"
           >
             Escoge habilidades
           </Link>
@@ -243,10 +246,10 @@ export const BARD_SKILLS_EXPLANATION = {
         </p>
 
         {!loreSpells.length && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/bard/loreSpells`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Conjuros
             </Link>
@@ -298,10 +301,10 @@ export const BARD_SKILLS_EXPLANATION = {
         </p>
 
         {hasToLearnMagicalSecretsSpells(pc) && (
-          <div className={styles.modalButtons}>
+          <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.name}/leveling/bard/magicalSecrets`}
-              className={styles.modalButton}
+              className="inventory-item__modal-button"
             >
               Escoge Conjuros
             </Link>

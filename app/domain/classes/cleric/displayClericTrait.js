@@ -1,7 +1,5 @@
 import { getStat, getStatMod, translateSkill } from '../../characters';
 
-import appStyles from '~/components/app.module.css';
-
 export function displayClericTrait(traitName, trait, pc) {
   switch (traitName) {
     case 'blessingsOfKnowledge': {
@@ -65,7 +63,7 @@ export function displayClericTrait(traitName, trait, pc) {
       return (
         <>
           {trait}.{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {pc.level >= 18 ? '3 veces' : pc.level >= 6 ? '2 veces' : '1 vez'}{' '}
             entre descansos
           </span>
@@ -77,7 +75,7 @@ export function displayClericTrait(traitName, trait, pc) {
         <>
           {pc.level < 5 ? trait : 'Destruir Muertos Vivientes'}.{' '}
           {pc.level >= 5 && (
-            <span className={appStyles.smallText}>
+            <span className="app__small-text">
               CR{' '}
               {pc.level >= 17
                 ? '4'
@@ -109,7 +107,7 @@ export function displayClericTrait(traitName, trait, pc) {
       return (
         <>
           {trait}.{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {pc.level >= 14 ? '+2d8' : '+1d8'}
           </span>
         </>
@@ -119,7 +117,7 @@ export function displayClericTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}</u>.{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {pc.level >= 20 ? 'Éxito automático' : `1d100 <= ${pc.level}`}
           </span>
         </>
@@ -129,7 +127,7 @@ export function displayClericTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}</u>.{' '}
-          <span className={appStyles.smallText}>{getStat(pc, 'wis')} min.</span>
+          <span className="app__small-text">{getStat(pc, 'wis')} min.</span>
         </>
       );
 

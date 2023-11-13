@@ -1,19 +1,23 @@
-import { useState, Fragment, useMemo } from 'react';
-import styles from '~/components/dice.module.css';
+import { useState, Fragment } from 'react';
 import random from '~/domain/random';
 import { signed } from '~/domain/display';
 
+import styles from '~/components/dice.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
+
 function rollLevel(value, faces, isAccounted) {
   if (!isAccounted) {
-    return styles.disabled;
+    return 'disabled';
   }
 
   if (value === faces) {
-    return styles.high;
+    return 'high';
   }
 
   if (value === 1) {
-    return styles.low;
+    return 'low';
   }
 
   return null;
@@ -26,7 +30,7 @@ function SingleRoll(props) {
   } = props;
 
   return (
-    <span className={`${styles.roll} ${rollLevel(value, faces, isAccounted)}`}>
+    <span className={`dice__roll ${rollLevel(value, faces, isAccounted)}`}>
       {value}
     </span>
   );
@@ -45,7 +49,7 @@ function AllRolls(props) {
           </Fragment>
         ))}
         {!!modifier && (
-          <span className={styles.modifier}>{signed(modifier)}</span>
+          <span className="dice__modifier">{signed(modifier)}</span>
         )}
       </>
     );
@@ -58,7 +62,7 @@ function TotalRoll(props) {
   const { roll } = props;
 
   return (
-    <span className={styles.historyLineTotal}>
+    <span className="dice__history-line-command">
       {random.roll.calculateResult(roll)}
     </span>
   );
@@ -68,9 +72,9 @@ function Line(props) {
   const { command, result } = props;
 
   return (
-    <div className={styles.historyLine} key={command}>
-      <span className={styles.historyLineCommand}>/{command}</span>
-      <div className={styles.historyLineRolls}>
+    <div className="dice__history-line" key={command}>
+      <span className="dice__history-line-command">/{command}</span>
+      <div className="dice__history-line-rolls">
         <AllRolls
           {...result}
           usedIndices={random.roll.getUsedIndices(result)}
@@ -101,20 +105,20 @@ function RollDice() {
   };
 
   return (
-    <div className={styles.terminal}>
-      <div className={styles.history}>
+    <div className="dice__terminal">
+      <div className="dice__history">
         {history.map((line, index) => (
           <Line {...line} key={index} />
         ))}
-        <div id={styles.historyAnchor} />
+        <div id="historyAnchor" />
       </div>
       <form onSubmit={onCommandSubmit}>
         <input
-          className={styles.command}
+          className="dice__command"
           value={command}
           onChange={onCommandChange}
         />
-        <input type="submit" className={styles.submitCommand} />
+        <input type="submit" className="dice__submit-command" />
       </form>
     </div>
   );

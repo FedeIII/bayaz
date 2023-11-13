@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import { DRUID_SPELLS, getDruidSpellSlots } from '~/domain/spells/druid';
 import { translateSpell } from '~/domain/spells/spells';
 
-import styles from '~/components/characters/characters.module.css';
-
 function DruidSkills(props) {
   const { pc, setSkillsNamespace } = props;
 
@@ -29,7 +27,7 @@ function DruidSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"

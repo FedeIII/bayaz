@@ -15,8 +15,6 @@ import { createEncounter } from '~/services/encounter.server';
 import { getMonsterHitPoints, getMonsters } from '~/domain/encounters/monsters';
 import { rollDice } from '~/domain/random';
 
-import styles from '~/components/randomEncounter.module.css';
-
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
   if (!party) {
@@ -64,15 +62,15 @@ function RandomEncounterDifficulty() {
   return (
     <Form method="post">
       <input readOnly type="text" name="partyId" value={id} hidden />
-      <div className={styles.encounterContainer}>
+      <div className="encounters__container">
         <h2>Encuentro {translateDifficulty(difficulty)}</h2>
         <div>
           <h3>Entorno:</h3>
-          <ul className={styles.encounterDifficultyList}>
+          <ul className="encounters__difficulty-list">
             {ENVIRONMENTS.map(env => (
-              <li className={styles.environment} key={env}>
+              <li className="encounters__environment" key={env}>
                 <button
-                  className={styles.environmentButton}
+                  className="encounters__environment-button"
                   type="button"
                   onClick={selectEnvironment(env)}
                 >

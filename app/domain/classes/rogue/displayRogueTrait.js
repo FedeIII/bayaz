@@ -1,8 +1,10 @@
 import { SNEAK_ATTACK_DAMAGE, getRoguishArchetype } from './rogue';
 import { hasToLearnArcaneTricksterSpell } from '~/domain/spells/rogue';
 
-import appStyles from '~/components/app.module.css';
-import sheetStyles from '~/components/sheet.module.css';
+import styles from '~/components/sheet.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export function displayRogueTrait(traitName, trait, pc) {
   switch (traitName) {
@@ -12,7 +14,7 @@ export function displayRogueTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className={appStyles.smallText}>
+          <span className="app__small-text">
             {SNEAK_ATTACK_DAMAGE[pc.level]}
           </span>
         </>
@@ -23,7 +25,7 @@ export function displayRogueTrait(traitName, trait, pc) {
         !getRoguishArchetype(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );
@@ -33,7 +35,7 @@ export function displayRogueTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {hasToLearnArcaneTricksterSpell(pc) && (
-            <span className={sheetStyles.pendingTrait}>(!)</span>
+            <span className="sheet__pending-trait">(!)</span>
           )}
         </>
       );

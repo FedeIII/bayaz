@@ -14,10 +14,6 @@ import {
   hasToLearnTomeSpells,
 } from '~/domain/classes/warlock/warlock';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
 
@@ -52,7 +48,7 @@ export const action = async ({ request }) => {
 
 function TomeSpells() {
   const { pc } = useLoaderData();
-  const { name, pClass, level } = pc;
+  const { name, level } = pc;
 
   const tomeSpells = getTomeSpells(pc);
   const numberOfSpellsToLearn = 3 - tomeSpells.length;
@@ -97,7 +93,7 @@ function TomeSpells() {
         hidden
       />
 
-      <h2 className={appStyles.paleText}>Escoge Trucos del Pacto del Tomo</h2>
+      <h2 className="app__pale-text">Escoge Trucos del Pacto del Tomo</h2>
 
       {skillModalContent && (
         <SkillModal
@@ -111,15 +107,15 @@ function TomeSpells() {
 
       <h3>Aprendes {numberOfSpellsToLearn} nuevos Trucos de cualquier clase</h3>
 
-      <div className={`${cardStyles.cards}`}>
+      <div className="cards">
         <Card title="Trucos" singleCard>
-          <ul className={cardStyles.cardList}>
+          <ul className="cards__card-list">
             {allCantrips.map((spell, spellIndex) => (
               <li key={spell.name}>
                 <label
                   htmlFor={spell.name}
-                  className={`${styles.toSelect} ${
-                    toLearn[spellIndex] && styles.selectedToSelect
+                  className={`checkbox__toSelect ${
+                    toLearn[spellIndex] && 'checkbox__selectedToSelect'
                   }`}
                 >
                   <input
@@ -148,7 +144,7 @@ function TomeSpells() {
       </div>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Trucos
         </button>
       </p>
@@ -161,13 +157,13 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Aprendes 3 nuevos Trucos de cualquier clase
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

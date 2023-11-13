@@ -9,9 +9,6 @@ import {
   translatePactBoon,
 } from '~/domain/classes/warlock/warlock';
 
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -48,8 +45,8 @@ function PactBoon() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={appStyles.paleText}>Escoge Don del Pacto</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Escoge Don del Pacto</h2>
+      <p className="app__paragraph">
         A partir del nivel 3 tu Patrón de Otro Mundo te recompensa con un don
         por tus leales servicios. Ganas uno de los siguientes rasgos a tu
         elección.
@@ -59,7 +56,7 @@ function PactBoon() {
           <select
             name="pactBoon"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setSelectedBoon(e.target.value)}
           >
             <option value="" disabled></option>
@@ -73,17 +70,17 @@ function PactBoon() {
       </p>
       {selectedBoon === 'pactOfTheChain' && (
         <>
-          <h3 className={appStyles.paleText}>Pacto de la Cadena</h3>
-          <p className={appStyles.paragraph}>
+          <h3 className="app__pale-text">Pacto de la Cadena</h3>
+          <p className="app__paragraph">
             Aprendes el conjuro encontrar familiar y puedes lanzarlo como
             ritual. El conjuro no cuenta para tu número de conjuros conocidos.
           </p>
-          <p className={appStyles.paragraph}>
+          <p className="app__paragraph">
             Cuando lanzas el conjuro, puedes elegir una de las formas habituales
             para tu familiar o una de las siguientes formas especiales:
             diablillo, pseudodragón, quasit o duende.
           </p>
-          <p className={appStyles.paragraph}>
+          <p className="app__paragraph">
             Adicionalmente, cuando realizas la acción de Atacar, puedes
             sustituir uno de tus ataques para permitir que tu familiar haga uno
             de los suyos.
@@ -92,8 +89,8 @@ function PactBoon() {
       )}
       {selectedBoon === 'pactOfTheBlade' && (
         <>
-          <h3 className={appStyles.paleText}>Pacto de la Espada</h3>
-          <p className={appStyles.paragraph}>
+          <h3 className="app__pale-text">Pacto de la Espada</h3>
+          <p className="app__paragraph">
             Puedes usar tu acción para crear un arma de pacto en tu mano vacía.
             Puedes elegir la forma que el arma cuerpo a cuerpo toma cada vez que
             la creas (mira el Capítulo 5 para ver las opciones de armas). Eres
@@ -101,13 +98,13 @@ function PactBoon() {
             mágica para el propósito de traspasar resistencias e inmunidades
             contra ataques y daño no mágicos.
           </p>
-          <p className={appStyles.paragraph}>
+          <p className="app__paragraph">
             Tu arma de pacto desaparece si está a más de 5 pies (1,5 metros) de
             distancia de ti durante un minuto o más. También desaparece si usas
             este rasgo de nuevo, si descartas el arma (no requiere una acción),
             o si mueres.
           </p>
-          <p className={appStyles.paragraph}>
+          <p className="app__paragraph">
             Puedes transformar un arma mágica en tu arma de pacto haciendo un
             ritual especial mientras sostienes tu arma. Llevas a cabo el ritual
             durante una hora, que puede ser realizado durante un descanso corto.
@@ -124,14 +121,14 @@ function PactBoon() {
       )}
       {selectedBoon === 'pactOfTheTome' && (
         <>
-          <h3 className={appStyles.paleText}>Pacto del Tomo</h3>
-          <p className={appStyles.paragraph}>
+          <h3 className="app__pale-text">Pacto del Tomo</h3>
+          <p className="app__paragraph">
             Tu patrón te da un grimorio llamado Libro de las Sombras. Cuando
             ganas este rasgo, elige tres trucos de la lista de cualquier clase.
             Mientras el libro está contigo, puedes lanzar estos tres trucos a
             voluntad. No cuentan para tu número de trucos conocidos.
           </p>
-          <p className={appStyles.paragraph}>
+          <p className="app__paragraph">
             Si pierdes tu Libro de las Sombras, puedes llevar a cabo una
             ceremonia de una hora para recibir un reemplazo de tu patrón. Esta
             ceremonia puede ser realizada durante un descanso corto o
@@ -142,7 +139,7 @@ function PactBoon() {
       )}
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Don del Pacto
         </button>
       </p>
@@ -155,15 +152,15 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         A partir del nivel 3 tu Patrón de Otro Mundo te recompensa con un don
         por tus leales servicios. Ganas uno de los siguientes rasgos a tu
         elección.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { Link } from '@remix-run/react';
 import { useContext, useEffect, useState } from 'react';
-import styles from '~/components/app.module.css';
 import MenuContext from '~/components/contexts/menuContext';
 import MonstersContext from '~/components/contexts/monstersContext';
 import PartyContext from '~/components/contexts/partyContext';
@@ -134,16 +133,16 @@ export function SideBar(props) {
   if (!hasMenu) return null;
 
   return (
-    <div className={styles.sidebar}>
+    <div className="app__sidebar">
       {menuItems.map(button => (
         <Link
           to={button.url}
           className={`${
             button.level === 0
-              ? styles.mainButton
+              ? "app__main-button"
               : button.level === 1
-              ? styles.secondaryButton
-              : styles.tertiaryButton
+              ? "app__secondary-button"
+              : "app__tertiary-button"
           }`}
           key={button.url}
         >

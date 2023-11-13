@@ -16,10 +16,6 @@ import { removeItem } from '~/utils/insert';
 import { Card } from '~/components/cards/card';
 import { increment } from '~/domain/display';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -80,37 +76,37 @@ function ExpertSkills() {
         hidden
       />
 
-      <h2 className={appStyles.paleText}>Experto</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Experto</h2>
+      <p className="app__paragraph">
         A partir del nivel 3 eliges dos de tus habilidades en las que seas
         competente. Tu bonificador de competencia para esas habilidades se
         duplica para cualquier prueba de habilidad que realices con ellas.
       </p>
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Al nivel 10 eliges otras dos habilidades en las que seas com- petente
         que ganarán este beneficio.
       </p>
       <p>
-        <h3 className={appStyles.paleText}>
+        <h3 className="app__pale-text">
           Escoge 2 habilidades en las que ser experto
         </h3>
-        <div className={cardStyles.cards}>
+        <div className="cards">
           <Card title="Habilidades" singleCard>
             <>
               <h4>
                 Bonificador por competencia{' '}
                 {increment(getProficiencyBonus(pc.level))}
               </h4>
-              <ul className={cardStyles.cardList}>
+              <ul className="cards__card-list">
                 {proficientSkills.map(skillName => (
                   <li key={skillName}>
                     <label
                       htmlFor={skillName}
-                      className={`${styles.toSelect} ${
-                        skills.includes(skillName) && styles.selectedToSelect
+                      className={`checkbox__toSelect ${
+                        skills.includes(skillName) && 'checkboxselectedToSelect'
                       } ${
                         expertSkills.includes(skillName) &&
-                        styles.disabledToSelect
+                        'checkbox__disabledToSelect'
                       }`}
                     >
                       <input
@@ -143,7 +139,7 @@ function ExpertSkills() {
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -156,19 +152,19 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         A partir del nivel 3 eliges dos de tus habilidades en las que seas
         competente. Tu bonificador de competencia para esas habilidades se
         duplica para cualquier prueba de habilidad que realices con ellas.
       </p>
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Al nivel 10 eliges otras dos habilidades en las que seas com- petente
         que ganarán este beneficio.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

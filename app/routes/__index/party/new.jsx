@@ -5,9 +5,6 @@ import { getPcs } from '~/services/pc.server';
 import { createParty } from '~/services/party.server';
 import { translateClass, translateRace } from '~/domain/characters';
 
-import styles from '~/components/party.module.css';
-import menuStyles from '~/components/menus.module.css';
-
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
@@ -31,17 +28,17 @@ function NewParty() {
 
   return (
     <>
-      <Link to="../" className={menuStyles.backButton}>
+      <Link to="../" className="menus__back-button">
         {'<<'} Volver
       </Link>
 
       <Form method="post">
         Escoge personajes:
-        <div className={styles.characterList}>
+        <div className="party__character-list">
           {pcs.map(pc => (
             <label
               htmlFor={pc.name}
-              className={styles.selectCharacter}
+              className="party__select-character"
               key={pc.name}
             >
               <input
@@ -49,17 +46,17 @@ function NewParty() {
                 name="pcs[]"
                 value={pc.name}
                 id={pc.name}
-                className={styles.characterCheck}
+                className="party__character-check"
               />
-              <div className={styles.characterName}>{pc.name}</div>
-              <div className={styles.partyData}>
+              <div className="party__character-name">{pc.name}</div>
+              <div className="party__party-data">
                 {translateRace(pc.race)}
                 {pc.subrace !== 'subrace' && ` - ${translateRace(pc.subrace)}`}
               </div>
-              <div className={styles.partyData}>
+              <div className="party__party-data">
                 {translateClass(pc.pClass)}
               </div>
-              <div className={styles.partyData}>Nivel {pc.level}</div>
+              <div className="party__party-data">Nivel {pc.level}</div>
             </label>
           ))}
         </div>

@@ -38,10 +38,6 @@ import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
 import { getKnightSpells } from '~/domain/classes/fighter/fighter';
 import { getArcaneTricksterSpells } from '~/domain/classes/rogue/rogue';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -351,7 +347,7 @@ function NewSpells() {
       />
       {/* // Arcane Trickster Spells */}
 
-      <h2 className={appStyles.paleText}>Escoge nuevos Conjuros</h2>
+      <h2 className="app__pale-text">Escoge nuevos Conjuros</h2>
 
       {skillModalContent && (
         <SkillModal
@@ -369,15 +365,16 @@ function NewSpells() {
             Aprendes {newCantripsNumber} nuevo{newCantripsNumber > 1 ? 's' : ''}{' '}
             Truco{newCantripsNumber > 1 ? 's' : ''}
           </h3>
-          <div className={cardStyles.cards}>
+          <div className="cards">
             <Card title="Trucos" singleCard>
-              <ul className={cardStyles.cardList}>
+              <ul className="cards__card-list">
                 {allCantrips.map((spell, cantripIndex) => (
                   <li key={spell.name}>
                     <label
                       htmlFor={spell.name}
-                      className={`${styles.toSelect} ${
-                        cantripsToLearn[cantripIndex] && styles.selectedToSelect
+                      className={`checkbox__toSelect ${
+                        cantripsToLearn[cantripIndex] &&
+                        'checkbox__selectedToSelect'
                       }`}
                     >
                       <input
@@ -416,26 +413,26 @@ function NewSpells() {
             conoces y reemplazarlo por otro de la lista de conjuros del{' '}
             {translateClass(pClass)} de hasta nivel {newSpellsMaxLevel}
           </p>
-          <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
+          <div className="cards cards__scrollList">
             {knownSpellsByLevel.map((spells, spellLevelIndex) => {
               const spellLevel = spellLevelIndex + 1;
               const slots = getSpellSlots(pc)[pc.level];
               return (
                 <Card
                   title={`Conjuros nivel ${spellLevel}`}
-                  className={cardStyles.scrollCard}
+                  className="cards__scroll-card"
                   singleCard={knownSpellsByLevel.length === 1}
                   key={spellLevel}
                 >
                   {Array.isArray(slots) && <h4>({slots} Huecos)</h4>}
-                  <ul className={cardStyles.cardList}>
+                  <ul className="cards__card-list">
                     {spells.map((spell, spellIndex) => (
                       <li key={spell.name}>
                         <label
                           htmlFor={spell.name}
-                          className={`${styles.toRemove} ${
+                          className={`checkbox__toRemove ${
                             toForget[spellLevel - 1]?.[spellIndex] &&
-                            styles.selectedToRemove
+                            'checkbox__selectedToRemove'
                           }`}
                         >
                           <input
@@ -487,17 +484,17 @@ function NewSpells() {
                 Conjuro{newSpellsNumber > 1 ? 's' : ''} de hasta nivel{' '}
                 {newSpellsMaxLevel}
               </h3>
-              <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
+              <div className="cards cards__scrollList">
                 {spellsByLevel.map((spellsOfLevel, i) => {
                   const spellLevel = i + 1;
                   return (
                     <Card
                       title={`Conjuros nivel ${spellLevel}`}
-                      className={cardStyles.scrollCard}
+                      className="cards__scroll-card"
                       singleCard={spellsByLevel.length === 1}
                       key={spellLevel}
                     >
-                      <ul className={cardStyles.cardList}>
+                      <ul className="cards__card-list">
                         {spellsOfLevel
                           .filter(
                             spell =>
@@ -507,9 +504,9 @@ function NewSpells() {
                             <li key={spell.name}>
                               <label
                                 htmlFor={spell.name}
-                                className={`${styles.toSelect} ${
+                                className={`checkbox__toSelect ${
                                   toLearn[spellLevel - 1][spellIndex] &&
-                                  styles.selectedToSelect
+                                  'checkbox__selectedToSelect'
                                 }`}
                               >
                                 <input
@@ -564,17 +561,17 @@ function NewSpells() {
                 Aprendes 1 nuevo Conjuro de mago de hasta nivel{' '}
                 {newSpellsMaxLevel}
               </h3>
-              <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
+              <div className="cards cards__scrollList">
                 {wizardSpellsByLevel.map((spellsOfLevel, i) => {
                   const spellLevel = i + 1;
                   return (
                     <Card
                       title={`Conjuros de mago nivel ${spellLevel}`}
-                      className={cardStyles.scrollCard}
+                      className="cards__scroll-card"
                       singleCard={wizardSpellsByLevel.length === 1}
                       key={spellLevel}
                     >
-                      <ul className={cardStyles.cardList}>
+                      <ul className="cards__card-list">
                         {spellsOfLevel
                           .filter(
                             spell =>
@@ -584,9 +581,9 @@ function NewSpells() {
                             <li key={spell.name}>
                               <label
                                 htmlFor={`w-${spell.name}`}
-                                className={`${styles.toSelect} ${
+                                className={`checkbox__toSelect ${
                                   toLearnWizard[spellLevel - 1][spellIndex] &&
-                                  styles.selectedToSelect
+                                  'checkbox__selectedToSelect'
                                 }`}
                               >
                                 {pClass === 'fighter' && (
@@ -690,7 +687,7 @@ function NewSpells() {
       )}
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -703,14 +700,14 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Puedes elegir uno de los conjuros que conoces y reemplazarlo por otro de
         la lista de conjuros de tu clase
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

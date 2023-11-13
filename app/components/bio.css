@@ -1,4 +1,4 @@
-.summary {
+.bio {
   width: 100%;
   position: absolute;
   top: 4px;
@@ -29,18 +29,18 @@
   /*********  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12 */
 }
 
-.sheetBackground {
+.bio__background {
   width: 100%;
 }
 
-.annotation {
+.bio__annotation {
   font-size: 10px;
   position: absolute;
   top: -5px;
   left: 30px;
 }
 
-.data {
+.bio__data {
   color: #0000d4;
   font-size: 18px;
   z-index: 1;
@@ -51,7 +51,7 @@
   position: relative;
 }
 
-.submitStats {
+.bio__submit-stats {
   grid-area: suS;
   margin: 0 0 0 -3px;
   height: 25px;
@@ -63,7 +63,7 @@
   cursor: pointer;
 }
 
-.submitAllies {
+.bio__submit-allies {
   grid-area: suA;
   margin: 8px 0 0 0;
   height: 25px;
@@ -75,7 +75,7 @@
   justify-self: center;
 }
 
-.submitBackstory {
+.bio__submit-backstory {
   grid-area: suL;
   margin: 8px 50px 0 0;
   height: 25px;
@@ -87,7 +87,7 @@
   justify-self: flex-end;
 }
 
-.submitTraits {
+.bio__submit-traits {
   grid-area: suT;
   margin: 8px 0 0 70px;
   height: 25px;
@@ -99,32 +99,32 @@
   justify-self: flex-start;
 }
 
-.name {
+.bio__name {
   grid-area: nam;
   font-size: 28px;
   justify-content: center;
   margin: 0 40px 0 0;
 }
 
-.age {
+.bio__age {
   grid-area: age;
   margin: 0 0 -4px 0;
   font-size: 22px;
 }
 
-.height {
+.bio__height {
   grid-area: hei;
   margin: 0 0 -4px 0;
   font-size: 22px;
 }
 
-.weight {
+.bio__weight {
   grid-area: wei;
   margin: 0 0 -4px 0;
   font-size: 22px;
 }
 
-.eyes {
+.bio__eyes {
   grid-area: eye;
   background-color: transparent;
   border: none;
@@ -135,7 +135,7 @@
   hyphens: auto;
 }
 
-.skin {
+.bio__skin {
   grid-area: ski;
   background-color: transparent;
   border: none;
@@ -146,7 +146,7 @@
   hyphens: auto;
 }
 
-.hair {
+.bio__hair {
   grid-area: hai;
   background-color: transparent;
   border: none;
@@ -157,7 +157,7 @@
   hyphens: auto;
 }
 
-.allies {
+.bio__allies {
   grid-area: ali;
   background-color: transparent;
   border: none;
@@ -168,7 +168,7 @@
   hyphens: auto;
 }
 
-.backstory {
+.bio__backstory {
   grid-area: bst;
   background-color: transparent;
   border: none;
@@ -179,7 +179,7 @@
   hyphens: auto;
 }
 
-.extraTraits1 {
+.bio__extra-traits1 {
   grid-area: eT1;
   background-color: transparent;
   border: none;
@@ -190,7 +190,7 @@
   hyphens: auto;
 }
 
-.extraTraits2 {
+.bio__extra-traits2 {
   grid-area: eT2;
   background-color: transparent;
   border: none;
@@ -201,7 +201,7 @@
   hyphens: auto;
 }
 
-.treasure {
+.bio__treasure {
   grid-area: tre;
   flex-direction: column;
   flex-wrap: wrap;
@@ -216,30 +216,30 @@
   list-style: circle;
 }
 
-.treasureList {
+.bio__treasure-list {
   margin: 0;
   padding: 0;
 }
 
-.treasureItem {
+.bio__treasure-item {
   max-width: 49%;
   margin: 0px 0 0 8px;
 }
 
-.totalTreasure {
+.bio__total-treasure {
   list-style: none;
   position: absolute;
   bottom: 0;
   right: -4px;
 }
 
-.treasureMenu {
+.bio__treasure-menu {
   position: absolute;
   right: -22px;
   top: -20px;
 }
 
-.openTreasureScreen {
+.bio__open-treasure-screen {
   background: white;
   border: 1px solid black;
   border-radius: 5px;
@@ -250,14 +250,14 @@
   color: var(--color-blue-ink);
 }
 
-.openTreasureScreen:hover {
+.bio__open-treasure-screen:hover {
   background-color: var(--color-x-gray);
   color: var(--color-x-blue-ink);
   border-color: var(--color-x-blue-ink);
   transform: scale(1.1);
 }
 
-.closeTreasureScreen {
+.bio__close-treasure-screen {
   background: white;
   border: 1px solid black;
   border-radius: 5px;
@@ -269,14 +269,14 @@
   color: var(--color-blue-ink);
 }
 
-.closeTreasureScreen:hover {
+.bio__close-treasure-screen:hover {
   background-color: var(--color-x-gray);
   color: var(--color-x-blue-ink);
   border-color: var(--color-x-blue-ink);
   transform: scale(1.1);
 }
 
-.treasureScreen {
+.bio__treasure-screen {
   grid-area: tre;
   flex-direction: column;
   align-items: flex-start;
@@ -296,14 +296,11 @@
   background: var(--color-x-gray);
 }
 
-.treasureSearcher {
-}
-
-.treasureSearcherInput {
+.bio__treasure-searcher-input {
   font-family: fantasy;
 }
 
-.sectionItems {
+.bio__section-items {
   flex-grow: 1;
   align-self: stretch;
   column-count: 3;
@@ -318,29 +315,29 @@
 
 /*  */
 
-.traitLabel {
+.bio__trait-label {
   font-size: 14px;
   margin: 0;
   padding: 0;
   text-align: left;
 }
 
-.traitTitle {
+.bio__trait-title {
   text-decoration: underline;
 }
 
-.trait {
+.bio__trait {
   font-weight: bolder;
   font-size: 16px;
 }
 
-.traitItem {
+.bio__trait-item {
   font-weight: bolder;
   font-size: 16px;
   margin-left: 32px;
 }
 
-.weaponSelect {
+.bio__weapon-select {
   font-family: fantasy;
   border: none;
   display: inline-flex;
@@ -349,16 +346,16 @@
   cursor: pointer;
 }
 
-.weaponSelect:hover {
+.bio__weapon-select:hover {
   background-color: var(--color-x-gray);
   color: var(--color-x-blue-ink);
 }
 
-.weaponSelect:focus-visible {
+.bio__weapon-select:focus-visible {
   outline: none;
 }
 
-.equipArmor {
+.bio__equip-armor {
   max-width: 160px;
   font-family: fantasy;
   font-size: 16px;
@@ -372,6 +369,6 @@
   padding: 4px 0 0 0;
 }
 
-.equipArmor:hover {
+.bio__equip-armor:hover {
   background-color: var(--color-gray);
 }

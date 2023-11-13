@@ -10,9 +10,6 @@ import {
   WARLOCK_SPELLS,
 } from '~/domain/spells/warlock';
 
-import styles from '~/components/characters/characters.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 function WarlockSkills(props) {
   const { pc, setSkillsNamespace } = props;
 
@@ -36,13 +33,13 @@ function WarlockSkills(props) {
     <>
       <p>
         <label>
-          <span className={styles.paleText}>
+          <span className="app__pale-text">
             Firma un pacto con un ser de otro mundo:
           </span>{' '}
           <select
             name="patron"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setSelectedPatron(e.target.value)}
           >
             <option value="" disabled></option>
@@ -109,7 +106,7 @@ function WarlockSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"
@@ -142,7 +139,7 @@ function WarlockSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"

@@ -6,7 +6,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import { cssBundleHref } from '@remix-run/css-bundle';
 
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -22,27 +21,11 @@ import {
 import MonstersContext from './components/contexts/monstersContext';
 
 import styles from '~/styles/global.css';
-import appStyles from '~/components/app.module.css';
-import appStylesNotModule from '~/components/app.css';
-import bioStyles from '~/components/bio.module.css';
-import checkboxStyles from '~/components/checkbox.module.css';
-import diceStyles from '~/components/dice.module.css';
-import encounterListStyles from '~/components/encounterList.module.css';
-import filtersStyles from '~/components/filters.module.css';
-import glossaryStyles from '~/components/glossary.module.css';
-import menusStyles from '~/components/menus.module.css';
-import newEncounterStyles from '~/components/newEncounter.module.css';
-import partyStyles from '~/components/party.module.css';
-import placesStyles from '~/components/places.module.css';
-import randomEncounterStyles from '~/components/randomEncounter.module.css';
-import sheetStyles from '~/components/sheet.module.css';
-import spellsStyles from '~/components/spells.module.css';
-import statsStyles from '~/components/stats.module.css';
-import cardsStyles from '~/components/cards/cards.module.css';
-import charactersStyles from '~/components/characters/characters.module.css';
-import barStyles from '~/components/indicators/bar.module.css';
-import inventoryItemStyles from '~/components/modal/inventoryItem.module.css';
-import noteStyles from '~/components/note/note.module.css';
+import menuStyles from '~/components/menus.css';
+import cardStyles from '~/components/cards/cards.css';
+import itemStyles from '~/components/modal/inventoryItem.css';
+import barStyles from '~/components/indicators/bar.css';
+import checkboxStyles from '~/components/checkbox.css';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -52,29 +35,12 @@ export const meta = () => ({
 
 export const links = () => {
   return [
-    ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
     { rel: 'stylesheet', href: styles },
-    { rel: 'stylesheet', href: appStyles },
-    { rel: 'stylesheet', href: appStylesNotModule },
-    { rel: 'stylesheet', href: bioStyles },
-    { rel: 'stylesheet', href: checkboxStyles },
-    { rel: 'stylesheet', href: diceStyles },
-    { rel: 'stylesheet', href: encounterListStyles },
-    { rel: 'stylesheet', href: filtersStyles },
-    { rel: 'stylesheet', href: glossaryStyles },
-    { rel: 'stylesheet', href: menusStyles },
-    { rel: 'stylesheet', href: newEncounterStyles },
-    { rel: 'stylesheet', href: partyStyles },
-    { rel: 'stylesheet', href: placesStyles },
-    { rel: 'stylesheet', href: randomEncounterStyles },
-    { rel: 'stylesheet', href: sheetStyles },
-    { rel: 'stylesheet', href: spellsStyles },
-    { rel: 'stylesheet', href: statsStyles },
-    { rel: 'stylesheet', href: cardsStyles },
-    { rel: 'stylesheet', href: charactersStyles },
+    { rel: 'stylesheet', href: menuStyles },
+    { rel: 'stylesheet', href: cardStyles },
+    { rel: 'stylesheet', href: itemStyles },
     { rel: 'stylesheet', href: barStyles },
-    { rel: 'stylesheet', href: inventoryItemStyles },
-    { rel: 'stylesheet', href: noteStyles },
+    { rel: 'stylesheet', href: checkboxStyles },
   ];
 };
 

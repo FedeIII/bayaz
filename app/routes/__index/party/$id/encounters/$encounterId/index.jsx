@@ -28,8 +28,10 @@ import { damagePc } from '~/domain/characterMutations';
 import { MultiLevelBar } from '~/components/indicators/multiLevelBar';
 import { getAcBreakdown } from '~/domain/display';
 
-import styles from '~/components/randomEncounter.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
+import styles from '~/components/randomEncounter.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -144,11 +146,7 @@ function PartyCombat() {
   }
 
   return (
-    <Form
-      method="post"
-      className={styles.encounterContainer}
-      onSubmit={onSubmit}
-    >
+    <Form method="post" className="encounters__container" onSubmit={onSubmit}>
       <input
         readOnly
         type="text"
@@ -159,7 +157,7 @@ function PartyCombat() {
       <input readOnly type="text" name="partyId" value={partyId} hidden />
 
       <h2>Enemigos</h2>
-      <div className={`${cardStyles.cards} ${styles.monsterList}`}>
+      <div className="cards encounters__monster-list">
         {sortByXp(monsters)?.map((monster, i, all) => {
           const { hp, maxHp, id: monsterId } = monstersStats[i] || {};
           const isAlive = hp > 0;
@@ -182,30 +180,30 @@ function PartyCombat() {
                 </div>
               )}
               {!isAlive && (
-                <div className={styles.death}>
-                  <span className={styles.deathIcon}>☠</span> Muerto
+                <div className="encounters__death">
+                  <span className="encounters__death-icon">☠</span> Muerto
                 </div>
               )}
               {isAlive && (
-                <div className={styles.buttonContainer}>
+                <div className="encounters__button-container">
                   <button name="damage" value={monsterId}>
                     Daño
                   </button>
                   <input
                     type="text"
                     name={`damage-${monsterId}`}
-                    className={styles.damageInput}
+                    className="encounters__damage-input"
                   />
                 </div>
               )}
-              <div className={styles.buttonContainer}>
+              <div className="encounters__button-container">
                 <button name="heal" value={monsterId}>
                   Curación
                 </button>
                 <input
                   type="text"
                   name={`heal-${monsterId}`}
-                  className={styles.damageInput}
+                  className="encounters__damage-input"
                 />
               </div>
             </Card>
@@ -214,7 +212,7 @@ function PartyCombat() {
       </div>
 
       <h2>PCs</h2>
-      <div className={`${cardStyles.cards} ${styles.monsterList}`}>
+      <div className="cards encounters__monster-list">
         {pcs.map((pc, pcIndex, all) => {
           const maxHitPoints = getMaxHitPoints(pc);
           const isAlive = pc.hitPoints > -maxHitPoints;
@@ -278,7 +276,7 @@ function PartyCombat() {
               {isAlive && (
                 <>
                   {' '}
-                  <div className={styles.bar}>
+                  <div className="encounters__bar">
                     HP:{' '}
                     <ShrinkBar
                       cursorPos={pc.hitPoints}
@@ -288,34 +286,34 @@ function PartyCombat() {
                       lowValue={maxHitPoints / 5}
                     />
                   </div>
-                  <div className={styles.bar}>
+                  <div className="encounters__bar">
                     AC: <MultiLevelBar levels={levels} />
                   </div>
-                  <div className={styles.buttonContainer}>
+                  <div className="encounters__button-container">
                     <button name="pc-damage" value={pc.name}>
                       Daño
                     </button>
                     <input
                       type="text"
                       name={`pc-damage-${pc.name}`}
-                      className={styles.damageInput}
+                      className="encounters__damage-input"
                     />
                   </div>
                 </>
               )}
               {!isAlive && (
-                <div className={styles.death}>
-                  <span className={styles.deathIcon}>☠</span> Muerto
+                <div className="encounters__death">
+                  <span className="encounters__death-icon">☠</span> Muerto
                 </div>
               )}
-              <div className={styles.buttonContainer}>
+              <div className="encounters__button-container">
                 <button name="pc-heal" value={pc.name}>
                   Curación
                 </button>
                 <input
                   type="text"
                   name={`pc-heal-${pc.name}`}
-                  className={styles.damageInput}
+                  className="encounters__damage-input"
                 />
               </div>
             </Card>
@@ -323,15 +321,19 @@ function PartyCombat() {
         })}
       </div>
 
-      <p className={styles.buttonsRow}>
+      <p className="encounters__buttons-row">
         <Link
           to={`/party/${partyId}/encounters/${encounterId}/players`}
-          className={cardStyles.buttonCard}
+          className="cards__button-card"
           target="_blank"
         >
           Mostrar Combate
         </Link>
-        <button name="endCombat" value="true" className={cardStyles.buttonCard}>
+        <button
+          name="endCombat"
+          value="true"
+          className="cards__button-card"
+        >
           Terminar Combate
         </button>
       </p>

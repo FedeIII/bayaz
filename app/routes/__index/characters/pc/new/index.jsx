@@ -14,8 +14,6 @@ import {
 import { createPc } from '~/services/pc.server';
 import { getSpell } from '~/domain/spells/getSpells';
 
-import styles from '~/components/characters/characters.module.css';
-
 const NUMBER_OF_AGE_MARKS = 5;
 
 export const action = async ({ request }) => {
@@ -196,7 +194,7 @@ function PcRace() {
             max={getMaxAttr(race, subrace, 'age')}
             step={1}
             list="ageMarkers"
-            className={styles.rangeMarks}
+            className="characters__range-marks"
           />
           <datalist id="ageMarkers">
             {getMarkers(race, subrace, 'age')}
@@ -228,7 +226,7 @@ function PcRace() {
             max={getMaxAttr(race, subrace, 'height')}
             step={1}
             list="heightMarkers"
-            className={styles.rangeMarks}
+            className="characters__range-marks"
           />
           <datalist id="heightMarkers">
             {getMarkers(race, subrace, 'height')}
@@ -260,7 +258,7 @@ function PcRace() {
             max={getMaxAttr(race, subrace, 'weight')}
             step={1}
             list="weightMarkers"
-            className={styles.rangeMarks}
+            className="characters__range-marks"
           />
           <datalist id="weightMarkers">
             {getMarkers(race, subrace, 'weight')}

@@ -7,8 +7,6 @@ import {
 } from '~/domain/characters';
 import { increment } from '~/domain/display';
 
-import styles from '~/components/sheet.module.css';
-
 function SheetSkills(props) {
   const { pc } = props;
 
@@ -21,7 +19,7 @@ function SheetSkills(props) {
         skill =>
           allSkills.includes(skill.name) && (
             <span
-              className={`${styles.data} ${styles[`${skill.name}Prof`]}`}
+              className={`sheet__data sheet__${skill.name}Prof`}
               key={skill.name}
             >
               ◍
@@ -30,12 +28,12 @@ function SheetSkills(props) {
       )}
       {SKILLS.map(skill => (
         <span
-          className={`${styles.data} ${styles[`${skill.name}Saving`]}`}
+          className={`sheet__data sheet__${skill.name}Saving`}
           key={skill.name}
         >
           {increment(skillCheckBonus(pc, skill.name))}
           {Object.keys(conditionalSkills).includes(skill.name) && (
-            <span className={styles.annotation}>
+            <span className="sheet__annotation">
               ({increment(conditionalSkills[skill.name](pc)[0])}{' '}
               {conditionalSkills[skill.name](pc)[1]})
             </span>
@@ -43,7 +41,7 @@ function SheetSkills(props) {
         </span>
       ))}
 
-      <span className={`${styles.data} ${styles.passivePerception}`}>
+      <span className="sheet__data sheet__passive-perception">
         {getPassivePerception(pc)}
       </span>
     </>

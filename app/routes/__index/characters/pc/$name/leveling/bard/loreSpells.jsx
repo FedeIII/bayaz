@@ -25,10 +25,6 @@ import { getLoreSpells } from '~/domain/classes/bard/bard';
 import { SPELL_LIST } from '~/domain/spells/spellList';
 import { translateSchool } from '~/domain/spells/spellTranslations';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
 
@@ -125,7 +121,7 @@ function LoreSpells() {
       <input readOnly type="text" name="name" value={name} hidden />
       <input readOnly type="text" name="pClass" value={pClass} hidden />
 
-      <h2 className={appStyles.paleText}>Escoge nuevos Conjuros</h2>
+      <h2 className="app__pale-text">Escoge nuevos Conjuros</h2>
 
       {skillModalContent && (
         <SkillModal
@@ -139,23 +135,26 @@ function LoreSpells() {
 
       {/* // Known Spells */}
       <h3>{totalSpellsNumber} conjuros conocidos</h3>
-      <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
+      <div className="cards cards__scroll-list">
         {spellSlots.map((slots, spellLevelIndex) => {
           const spellLevel = spellLevelIndex + 1;
           return (
             <Card
               title={`Conjuros nivel ${spellLevel}`}
-              className={cardStyles.scrollCard}
+              className="cards__scroll-card"
               singleCard={kwnonSpellLevels.length === 1}
               key={spellLevel}
             >
               <h4>({slots} Huecos)</h4>
-              <ul className={cardStyles.cardList}>
+              <ul className="cards__card-list">
                 {knownSpells.map((spell, spellIndex) => {
                   if (spell.level !== spellLevel) return null;
                   return (
                     <li key={spell.name}>
-                      <label htmlFor={spell.name} className={styles.toRemove}>
+                      <label
+                        htmlFor={spell.name}
+                        className="checkbox__toRemove"
+                      >
                         <SkillItem
                           ref={skillRefs.known[spellIndex]}
                           traitName={spell.name}
@@ -177,12 +176,12 @@ function LoreSpells() {
         Aprendes 2 nuevos Conjuros de hasta nivel {newSpellsMaxLevel} de
         cualquier clase
       </h3>
-      <div className={cardStyles.cards}>
+      <div className="cards">
         <Card title="Filtros" singleCard>
-          <span className={appStyles.filter}>
+          <span className="app__filter">
             Clase:{' '}
             <select
-              className={cardStyles.buttonCard}
+              className="cards__button-card"
               value={fClass}
               onChange={e => setFClass(e.target.value)}
             >
@@ -194,10 +193,10 @@ function LoreSpells() {
               ))}
             </select>
           </span>
-          <span className={appStyles.filter}>
+          <span className="app__filter">
             Escuela:{' '}
             <select
-              className={cardStyles.buttonCard}
+              className="cards__button-card"
               value={fSchool}
               onChange={e => setFSchool(e.target.value)}
             >
@@ -212,7 +211,7 @@ function LoreSpells() {
         </Card>
       </div>
       <br />
-      <div className={cardStyles.cards}>
+      <div className="cards">
         {spellsByLevel.map((spellsOfLevel, i) => {
           const spellLevel = i + 1;
           return (
@@ -221,7 +220,7 @@ function LoreSpells() {
               singleCard={spellsByLevel.length === 1}
               key={spellLevel}
             >
-              <ul className={cardStyles.cardList}>
+              <ul className="cards__card-list">
                 {spellsOfLevel
                   .filter(
                     spell => !knownSpells.map(s => s.name).includes(spell.name)
@@ -232,9 +231,9 @@ function LoreSpells() {
                     <li key={spell.name}>
                       <label
                         htmlFor={spell.name}
-                        className={`${styles.toSelect} ${
+                        className={`checkbox__toSelect ${
                           toLearn[spellLevel - 1][spellIndex] &&
-                          styles.selectedToSelect
+                          'checkbox__selectedToSelect'
                         }`}
                       >
                         <input
@@ -269,7 +268,7 @@ function LoreSpells() {
       </div>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Conjuros
         </button>
       </p>
@@ -282,13 +281,13 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Aprendes 2 nuevos Conjuros de cualquier clase.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

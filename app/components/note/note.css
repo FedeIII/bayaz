@@ -3,7 +3,7 @@
   z-index: 2;
 }
 
-.noteText {
+.note__text {
   color: #0000d4;
   font-size: 14px;
   display: flex;
@@ -20,21 +20,21 @@
   height: 100%;
 }
 
-.noteText:focus {
+.note__text:focus {
   background-color: white;
   border: 1px solid var(--color-blue-ink);
 }
 
-.noteText:focus ~ button {
+.note__text:focus ~ button {
   display: block;
 }
 
-.selectedNote {
+.note__selectedNote {
   background-color: var(--color-x-blue-ink);
   opacity: 0.5;
 }
 
-.close {
+.note__close {
   display: none;
   right: -14px;
   top: -3px;
@@ -52,12 +52,12 @@
   background-color: white;
 }
 
-.close:hover {
+.note__close:hover {
   border-color: var(--color-x-blue-ink);
   color: var(--color-x-blue-ink);
 }
 
-.handle {
+.note__handle {
   display: none;
   left: -7px;
   top: -4px;

@@ -1,18 +1,21 @@
 import { Link } from '@remix-run/react';
 
-import menuStyles from '~/components/menus.module.css';
+import styles from '~/components/characters/characters.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 function CharactersMenu() {
   return (
     <>
-      <Link to="pc/new" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Nuevo Jugador</span>
+      <Link to="pc/new" className="menus__main-option">
+        <span className="menus__option-label">Nuevo Jugador</span>
       </Link>
-      <Link to="pc/all" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Todos los Jugadores</span>
+      <Link to="pc/all" className="menus__main-option">
+        <span className="menus__option-label">Todos los Jugadores</span>
       </Link>
-      <Link to="npc" className={menuStyles.mainOption}>
-        <span className={menuStyles.optionLabel}>Personajes No Jugadores</span>
+      <Link to="npc" className="menus__main-option">
+        <span className="menus__option-label">Personajes No Jugadores</span>
       </Link>
     </>
   );

@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { translateSkill } from '~/domain/characters';
 
-import styles from '~/components/characters/characters.module.css';
-
 function RogueSkills(props) {
   const { skillsToSelect, setSkillsNamespace } = props;
   const skills = [
@@ -33,7 +31,7 @@ function RogueSkills(props) {
           <label
             htmlFor={`${skillName}-expert`}
             key={skillName}
-            className={styles.skillLabel}
+            className="characters__skill-label"
           >
             <input
               type="checkbox"

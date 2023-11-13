@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 
-import styles from './note.module.css';
-
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
   textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
@@ -28,12 +26,12 @@ function Note(props) {
 
   return (
     <div
-      className={styles.note}
+      className="note"
       style={{ left: position[0], top: position[1] }}
     >
       <textarea
         ref={ref}
-        className={`${styles.noteText} ${selected && styles.selectedNote}`}
+        className={`note__text ${selected && 'note__selectedNote'}`}
         name={`note-${id}`}
         value={text}
         rows="1"
@@ -43,14 +41,14 @@ function Note(props) {
       ></textarea>
       <button
         type="button"
-        className={styles.handle}
+        className="note__handle"
         onMouseDown={() => onPick(id)}
       >
         ░
       </button>
       <button
         type="button"
-        className={styles.close}
+        className="note__close"
         onMouseDown={e => e.preventDefault()}
         onClick={() => onDelete(id)}
       >

@@ -9,10 +9,6 @@ import { SPELL_SCHOOLS } from '~/domain/spells/spells';
 import { translateSchool } from '~/domain/spells/spellTranslations';
 import { SCHOOL_EXPLANATION } from '~/domain/classes/wizard/wizardSkillsExplanation';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -52,14 +48,14 @@ function ArcaneTradition() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={appStyles.paleText}>Colegios de Magia</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Colegios de Magia</h2>
+      <p className="app__paragraph">
         El estudio de la hechicería es antiguo; se remonta a los primeros
         descubrimientos de los mortales. Esto está fielmente representado en los
         mundos de Dungeons & Dragons con varias tradiciones dedicadas a su
         complejo estudio.
       </p>
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Las tradiciones arcanas más comunes en el multiverso giran en torno a
         las escuelas de magia. A través de las eras los magos han catalogado
         miles de conjuros, agrupándolos en ocho categorías llamadas Escuelas,
@@ -74,16 +70,16 @@ function ArcaneTradition() {
         diferentes técnicas.
       </p>
 
-      <div className={`${cardStyles.cards}`}>
+      <div className="cards">
         <Card title={`Escoge 1 escuela de magia`} singleCard>
-          <ul className={cardStyles.cardList}>
+          <ul className="cards__card-list">
             {SPELL_SCHOOLS.map((school, i) => {
               return (
                 <li key={school}>
                   <label
                     htmlFor={school}
-                    className={`${styles.toSelect} ${
-                      selectedSchool === school && styles.selectedToSelect
+                    className={`checkbox__toSelect ${
+                      selectedSchool === school && 'checkbox__selectedToSelect'
                     }`}
                   >
                     <input
@@ -105,14 +101,14 @@ function ArcaneTradition() {
       </div>
 
       {!!selectedSchool && (
-        <div className={appStyles.paragraph}>
+        <div className="app__paragraph">
           <div>
-            <h3 className={appStyles.paleText}>
+            <h3 className="app__pale-text">
               {translateSchool(selectedSchool)}
             </h3>
             {SCHOOL_EXPLANATION[selectedSchool]}
           </div>
-          <h4 className={appStyles.paleText}>
+          <h4 className="app__pale-text">
             Erudito de {translateSchool(selectedSchool)}
           </h4>
           <p>
@@ -125,7 +121,7 @@ function ArcaneTradition() {
       )}
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Colegio
         </button>
       </p>
@@ -138,16 +134,16 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         El estudio de la hechicería es antiguo; se remonta a los primeros
         descubrimientos de los mortales. Esto está fielmente representado en los
         mundos de Dungeons & Dragons con varias tradiciones dedicadas a su
         complejo estudio.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

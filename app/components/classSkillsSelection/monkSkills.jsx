@@ -4,8 +4,6 @@ import {
 } from '~/domain/equipment/tools';
 import { t } from '~/domain/translations';
 
-import styles from '~/components/characters/characters.module.css';
-
 function MonkSkills(props) {
   return (
     <p>
@@ -15,7 +13,7 @@ function MonkSkills(props) {
         <label
           htmlFor={tool.name}
           key={tool.name}
-          className={styles.skillLabel}
+          className="characters__skill-label"
         >
           <input type="radio" name="items[]" id={tool.name} value={tool.name} />
           {t(tool.name)}

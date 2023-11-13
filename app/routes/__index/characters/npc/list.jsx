@@ -4,8 +4,10 @@ import { Link, useLoaderData } from '@remix-run/react';
 import { getNpcs } from '~/services/pc.server';
 import { translateClass, translateRace } from '~/domain/characters';
 
-import styles from '~/components/party.module.css';
-import menuStyles from '~/components/menus.module.css';
+import styles from '~/components/party.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const loader = async ({ params }) => {
   const npcs = await getNpcs();
@@ -20,27 +22,27 @@ function NpcList() {
 
   return (
     <>
-      <Link to="../" className={menuStyles.backButton}>
+      <Link to="../" className="menus__back-button">
         {'<<'} Volver
       </Link>
 
-      <ul className={styles.characterList}>
+      <ul className="party__character-list">
         {npcs.map(npc => (
-          <li className={styles.character} key={npc.name}>
+          <li className="party__character" key={npc.name}>
             <Link
               to={`/characters/pc/${npc.name}/summary`}
-              className={styles.pcLink}
+              className="party__pc-link"
             >
-              <div className={styles.characterName}>{npc.name}</div>
-              <div className={styles.partyData}>
+              <div className="party__character-name">{npc.name}</div>
+              <div className="party__party-data">
                 {translateRace(npc.race)}
                 {npc.subrace !== 'subrace' &&
                   ` - ${translateRace(npc.subrace)}`}
               </div>
-              <div className={styles.partyData}>
+              <div className="party__party-data">
                 {translateClass(npc.pClass)}
               </div>
-              <div className={styles.partyData}>Nivel {npc.level}</div>
+              <div className="party__party-data">Nivel {npc.level}</div>
             </Link>
           </li>
         ))}

@@ -9,9 +9,6 @@ import {
   translateRangerConclave,
 } from '~/domain/classes/ranger/ranger';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -53,22 +50,22 @@ function RangerConclave() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Arquetipo del Cazador</h2>
+      <h2 className="app__pale-text">Arquetipo del Cazador</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         El ideal del explorador tiene dos vertientes clásicas: el Cazador y el
         Señor de las Bestias.
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>
+          <span className="app__pale-text">
             Escoge Arquetipo de Explorador
           </span>
           <br />
           <select
             name="rangerConclave"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setConclave(e.target.value)}
           >
             <option value="" disabled></option>
@@ -82,8 +79,8 @@ function RangerConclave() {
       </p>
       {conclave === 'hunter' && (
         <>
-          <h3 className={styles.paleText}>Arquetipo del Cazador</h3>
-          <p className={styles.paragraph}>
+          <h3 className="app__pale-text">Arquetipo del Cazador</h3>
+          <p className="app__paragraph">
             Asumir el arquetipo del Cazador implica aceptar tu papel como
             baluarte defensivo entre la civilización y el terror de las tierras
             salvajes. Al elegir la senda del Cazador, aprendes técnicas
@@ -95,10 +92,10 @@ function RangerConclave() {
       )}
       {conclave === 'beastMaster' && (
         <>
-          <h3 className={styles.paleText}>
+          <h3 className="app__pale-text">
             Arquetipo del Señor de las Bestias
           </h3>
-          <p className={styles.paragraph}>
+          <p className="app__paragraph">
             El arquetipo de Señor de las Bestias encarna la amistad entre las
             razas civilizadas y las bestias del mundo. Concentrados en un mismo
             objetivo, explorador y bestia se unen para luchar contra los
@@ -110,7 +107,7 @@ function RangerConclave() {
         </>
       )}
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Arquetipo
         </button>
       </p>
@@ -123,14 +120,14 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         El ideal del explorador tiene dos vertientes clásicas: el Cazador y el
         Señor de las Bestias.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

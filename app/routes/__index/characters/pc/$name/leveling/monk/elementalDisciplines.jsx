@@ -8,10 +8,6 @@ import { Card } from '~/components/cards/card';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillModal } from '~/components/modal/skillModal';
 import { SkillItem } from '~/components/modal/skillItem';
-
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
 import {
   ELEMENTAL_DISCIPLINES,
   getElementalDisciplines,
@@ -129,8 +125,8 @@ function ElementalDisciplines() {
         </SkillModal>
       )}
 
-      <h2 className={appStyles.paleText}>Disciplinas Elementales</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Disciplinas Elementales</h2>
+      <p className="app__paragraph">
         Aprendes una disciplina elemental adicional de tu elección a los niveles
         6, 11 y 17.
       </p>
@@ -143,17 +139,19 @@ function ElementalDisciplines() {
             Cuando aprendas una nueva disciplina elemental, puedes reemplazar
             una disciplina elemental que ya conozcas por otra.
           </p>
-          <div className={`${cardStyles.cards}`}>
+          <div className="cards">
             <Card title="Disciplinas conocidas" singleCard>
-              <ul className={cardStyles.cardList}>
+              <ul className="cards__card-list">
                 {disciplines.map((disciplineName, i) => (
                   <li key={disciplineName}>
                     <label
                       htmlFor={disciplineName}
-                      className={`${styles.toRemove} ${
+                      className={`checkbox__toRemove ${
                         disciplinesToForget === disciplineName &&
-                        styles.selectedToRemove
-                      } ${disciplines.length === 1 && styles.disabledToSelect}`}
+                        'checkbox__selectedToRemove'
+                      } ${
+                        disciplines.length === 1 && 'checkbox__disabledToSelect'
+                      }`}
                     >
                       <input
                         hidden
@@ -184,12 +182,12 @@ function ElementalDisciplines() {
       {/* // Known Disciplines */}
 
       <p>
-        <h3 className={appStyles.paleText}>
+        <h3 className="app__pale-text">
           Escoge {numberOfDisciplinesToSelect} disciplinas
         </h3>
-        <div className={`${cardStyles.cards}`}>
+        <div className="cards">
           <Card title="Disciplinas" singleCard>
-            <ul className={cardStyles.cardList}>
+            <ul className="cards__card-list">
               {Object.values(ELEMENTAL_DISCIPLINES)
                 .filter(discipline => !disciplines.includes(discipline.name))
                 .map((discipline, i) => {
@@ -197,11 +195,12 @@ function ElementalDisciplines() {
                     <li key={discipline.name}>
                       <label
                         htmlFor={discipline.name}
-                        className={`${styles.toSelect} ${
+                        className={`checkbox__toSelect ${
                           selectedDisciplines.includes(discipline.name) &&
-                          styles.selectedToSelect
+                          'checkbox__selectedToSelect'
                         } ${
-                          pc.level < discipline.level && styles.disabledToSelect
+                          pc.level < discipline.level &&
+                          'checkbox__disabledToSelect'
                         }`}
                       >
                         <input
@@ -234,7 +233,7 @@ function ElementalDisciplines() {
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger disciplina
         </button>
       </p>
@@ -247,14 +246,14 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         Aprendes una disciplina elemental adicional de tu elección a los niveles
         6, 11 y 17.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

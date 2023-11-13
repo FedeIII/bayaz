@@ -20,10 +20,6 @@ import {
 } from '~/domain/spells/rogue';
 import { getAllPcSpells } from '~/domain/spells/getSpells';
 
-import styles from '~/components/checkbox.module.css';
-import appStyles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -151,8 +147,8 @@ function ArcaneTricksterSpells() {
         </SkillModal>
       )}
 
-      <h2 className={appStyles.paleText}>Conjuros de Bribón Arcano</h2>
-      <p className={appStyles.paragraph}>
+      <h2 className="app__pale-text">Conjuros de Bribón Arcano</h2>
+      <p className="app__paragraph">
         En los niveles 3, 8, 14 y 20 aprendes un conjuro que puede ser de
         cualquier escuela de magia.
       </p>
@@ -166,15 +162,16 @@ function ArcaneTricksterSpells() {
             reemplazarla con otro conjuro de mago que puedas aprender a ese
             nivel.
           </p>
-          <div className={`${cardStyles.cards}`}>
+          <div className="cards">
             <Card title="Conjuros conocidas" singleCard>
-              <ul className={cardStyles.cardList}>
+              <ul className="cards__card-list">
                 {arcaneTricksterSpells.map((spellName, i) => (
                   <li key={spellName}>
                     <label
                       htmlFor={spellName}
-                      className={`${styles.toRemove} ${
-                        spellToForet === spellName && styles.selectedToRemove
+                      className={`checkbox__toRemove ${
+                        spellToForet === spellName &&
+                        'checkbox__selectedToRemove'
                       }`}
                     >
                       <input
@@ -205,22 +202,22 @@ function ArcaneTricksterSpells() {
       {/* // Known Spells */}
 
       <p>
-        <h3 className={appStyles.paleText}>
+        <h3 className="app__pale-text">
           Escoge {numberOfSpellsToSelect} conjuros
         </h3>
-        <div className={`${cardStyles.cards} ${cardStyles.scrollList}`}>
+        <div className="cards cards__scroll-list">
           {spellsByLevel.map((spells, spellLevelIndex) => {
             const spellLevel = spellLevelIndex + 1;
             const slots = getSpellSlots(pc)[pc.level];
             return (
               <Card
                 title={`Conjuros nivel ${spellLevel}`}
-                className={cardStyles.scrollCard}
+                className="cards__scroll-card"
                 singleCard={spellsByLevel.length === 1}
                 key={spellLevel}
               >
                 {Array.isArray(slots) && <h4>({slots} Huecos)</h4>}
-                <ul className={cardStyles.cardList}>
+                <ul className="cards__card-list">
                   {spells
                     .filter(
                       spell =>
@@ -231,9 +228,9 @@ function ArcaneTricksterSpells() {
                         <li key={spell.name}>
                           <label
                             htmlFor={spell.name}
-                            className={`${styles.toSelect} ${
+                            className={`checkbox__toSelect ${
                               selectedSpells.includes(spell.name) &&
-                              styles.selectedToSelect
+                              'checkbox__selectedToSelect'
                             }`}
                           >
                             <input
@@ -267,7 +264,7 @@ function ArcaneTricksterSpells() {
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger
         </button>
       </p>
@@ -280,14 +277,14 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={appStyles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={appStyles.paragraph}>
+      <p className="app__paragraph">
         En los niveles 3, 8, 14 y 20 aprendes un conjuro que puede ser de
         cualquier escuela de magia.
       </p>
 
-      <p className={appStyles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

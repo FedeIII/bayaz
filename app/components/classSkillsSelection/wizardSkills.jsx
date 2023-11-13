@@ -7,8 +7,6 @@ import {
 } from '~/domain/spells/wizard';
 import { translateSpell } from '~/domain/spells/spells';
 
-import styles from '~/components/characters/characters.module.css';
-
 function WizardSkills(props) {
   const { pc, setSkillsNamespace } = props;
 
@@ -36,7 +34,7 @@ function WizardSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"
@@ -65,7 +63,7 @@ function WizardSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"

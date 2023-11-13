@@ -7,8 +7,6 @@ import { LANGUAGES, RACES, translateLanguage } from '~/domain/characters';
 import { WIZARD_SPELLS } from '~/domain/spells/wizard';
 import { getSpell } from "~/domain/spells/getSpells";
 
-import styles from '~/components/characters/characters.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -54,7 +52,7 @@ function PcElfSkills() {
           <label
             htmlFor={spell.name}
             key={spell.name}
-            className={styles.skillLabel}
+            className="characters__skill-label"
           >
             <input
               type="radio"
@@ -75,7 +73,7 @@ function PcElfSkills() {
             <label
               htmlFor={language}
               key={language}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="radio"

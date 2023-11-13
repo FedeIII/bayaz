@@ -8,9 +8,6 @@ import {
   translateDruidLandCircle,
 } from '~/domain/classes/druid/druid';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -44,8 +41,8 @@ function LandCircle() {
   return (
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
-      <h2 className={styles.paleText}>Círculo de la Tierra</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Círculo de la Tierra</h2>
+      <p className="app__paragraph">
         Tu conexión mística con la tierra te imbuye con la habilidad de lanzar
         ciertos conjuros. Al nivel 3, 5, 7 y 9 accedes a conjuros del círculo
         relacionados con la tierra en la que te convertiste en un druida. Elige
@@ -60,12 +57,12 @@ function LandCircle() {
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Círculo de la Tierra</span>
+          <span className="app__pale-text">Escoge Círculo de la Tierra</span>
           <br />
           <select
             name="landCircle"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
           >
             <option value="" disabled></option>
             {LAND_CIRCLES.map(circle => (
@@ -77,7 +74,7 @@ function LandCircle() {
         </label>
       </p>
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Círculo
         </button>
       </p>
@@ -90,9 +87,9 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Tu conexión mística con la tierra te imbuye con la habilidad de lanzar
         ciertos conjuros. Al nivel 3, 5, 7 y 9 accedes a conjuros del círculo
         relacionados con la tierra en la que te convertiste en un druida. Elige
@@ -100,7 +97,7 @@ export function ErrorBoundary({ error }) {
         pantano, o prado— y consulta la lista de conjuros asociados.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

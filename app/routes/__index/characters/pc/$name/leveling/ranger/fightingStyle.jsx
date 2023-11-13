@@ -8,9 +8,6 @@ import {
   translateRangerFightingStyle,
 } from '~/domain/classes/ranger/ranger';
 
-import styles from '~/components/app.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
@@ -49,8 +46,8 @@ function RangerFightingStyle() {
     <Form method="post">
       <input readOnly type="text" name="name" value={pc.name} hidden />
 
-      <h2 className={styles.paleText}>Estilo de Combate</h2>
-      <p className={styles.paragraph}>
+      <h2 className="app__pale-text">Estilo de Combate</h2>
+      <p className="app__paragraph">
         A partir del nivel 2 adoptas un estilo particular de combate como
         especialidad. Elige una de las siguientes opciones. No puedes elegir un
         Estilo de Combate más de una vez, incluso si tienes la opción de escoger
@@ -58,12 +55,12 @@ function RangerFightingStyle() {
       </p>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Estilo de Combate</span>
+          <span className="app__pale-text">Escoge Estilo de Combate</span>
           <br />
           <select
             name="fightingStyle"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
           >
             <option value="" disabled></option>
             {RANGER_FIGHTING_STYLES.map(fightingStyle => (
@@ -75,39 +72,39 @@ function RangerFightingStyle() {
         </label>
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateRangerFightingStyle('archery')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Ganas un bonificador de +2 a las tiradas de ataque que hagas con armas a
         distancia
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateRangerFightingStyle('defense')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Mientras lleves puesta una armadura ganas un +1 a la CA.
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateRangerFightingStyle('dueling')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Cuando llevas un arma en una mano y ningún arma más, ganas un
         bonificador de +2 a las tiradas de daño con esa arma.
       </p>
 
-      <h3 className={styles.paleText}>
+      <h3 className="app__pale-text">
         {translateRangerFightingStyle('twoWeaponFighting')}
       </h3>
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         Cuando luchas con el estilo de lucha de dos armas, puedes añadir tu
         modificador de característica al daño del segundo ataque
       </p>
 
       <p>
-        <button type="submit" className={cardStyles.buttonCard}>
+        <button type="submit" className="cards__button-card">
           Escoger Estilo
         </button>
       </p>
@@ -120,16 +117,16 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className={styles.errorText}>{error.message}</h2>
+      <h2 className="app__error-text">{error.message}</h2>
 
-      <p className={styles.paragraph}>
+      <p className="app__paragraph">
         A partir del nivel 2 adoptas un estilo particular de combate como
         especialidad. Elige una de las siguientes opciones. No puedes elegir un
         Estilo de Combate más de una vez, incluso si tienes la opción de escoger
         otro más adelante.
       </p>
 
-      <p className={styles.errorStack}>{error.stack}</p>
+      <p className="app__error-stack">{error.stack}</p>
     </div>
   );
 }

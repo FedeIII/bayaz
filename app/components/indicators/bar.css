@@ -6,27 +6,27 @@
   display: inline-block;
 }
 
-.greenBar {
+.bar__greenBar {
   color: var(--color-green);
 }
 
-.blueBar {
+.bar__blueBar {
   color: var(--color-blue-ink);
 }
 
-.orangeBar {
+.bar__orangeBar {
   color: var(--color-orange);
 }
 
-.redBar {
+.bar__redBar {
   color: var(--color-red);
 }
 
-.xBlueBar {
+.bar__xBlueBar {
   color: var(--color-x-blue-ink);
 }
 
-.cursorValue {
+.bar__cursorValue {
   position: absolute;
   top: -16px;
   font-family: fantasy;
@@ -36,14 +36,14 @@
   justify-content: flex-end;
 }
 
-.cursorValue::after {
+.bar__cursorValue::after {
   content: '|';
   position: absolute;
   top: 5px;
   right: -5px;
 }
 
-.softLimit {
+.bar__softLimit {
   color: orange;
   position: absolute;
   top: 20px;
@@ -54,7 +54,7 @@
   justify-content: flex-end;
 }
 
-.softLimit::after {
+.bar__softLimit::after {
   color: #daa645;
   content: '|';
   position: absolute;
@@ -62,7 +62,7 @@
   right: -5px;
 }
 
-.hardLimit {
+.bar__hardLimit {
   color: red;
   position: absolute;
   top: 20px;
@@ -73,7 +73,7 @@
   justify-content: flex-end;
 }
 
-.hardLimit::after {
+.bar__hardLimit::after {
   color: #d84343;
   content: '|';
   position: absolute;
@@ -81,7 +81,7 @@
   right: -5px;
 }
 
-.cursorOverlay {
+.bar__cursorOverlay {
   position: absolute;
   top: -100%;
   left: 80%;
@@ -89,12 +89,12 @@
   font-weight: bold;
 }
 
-.multiBar {
+.bar__multiBar {
   position: relative;
   color: var(--color-x-blue-ink);
 }
 
-.barMarker {
+.bar__barMarker {
   top: -100%;
   right: 0;
   width: fit-content;

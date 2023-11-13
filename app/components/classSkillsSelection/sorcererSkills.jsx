@@ -14,9 +14,6 @@ import {
 } from '~/domain/spells/sorcerer';
 import { translateSpell } from '~/domain/spells/spells';
 
-import styles from '~/components/characters/characters.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
-
 function SorcererSkills(props) {
   const { pc, setSkillsNamespace } = props;
   const initSorcererOrigin = getSorcererOrigin(pc) || 'draconic-bloodline';
@@ -40,12 +37,12 @@ function SorcererSkills(props) {
     <>
       <p>
         <label>
-          <span className={styles.paleText}>Escoge Origen de Hechicero</span>
+          <span className="app__pale-text">Escoge Origen de Hechicero</span>
           <br />
           <select
             name="sorcerer-origin"
             defaultValue=""
-            className={cardStyles.buttonCard}
+            className="cards__button-card"
             onChange={e => setSorcererOrigin(e.target.value)}
           >
             <option value="" disabled></option>
@@ -61,12 +58,12 @@ function SorcererSkills(props) {
       {sorcererOrigin === 'draconicBloodline' && (
         <p>
           <label>
-            <span className={styles.paleText}>Escoge Ancestro Dragon</span>
+            <span className="app__pale-text">Escoge Ancestro Dragon</span>
             <br />
             <select
               name="dragon-ancestor"
               defaultValue=""
-              className={cardStyles.buttonCard}
+              className="cards__button-card"
             >
               <option value="" disabled></option>
               {DRAGON_ANCESTORS.map(ancestor => (
@@ -87,7 +84,7 @@ function SorcererSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"
@@ -116,7 +113,7 @@ function SorcererSkills(props) {
             <label
               htmlFor={spell.name}
               key={spell.name}
-              className={styles.skillLabel}
+              className="characters__skill-label"
             >
               <input
                 type="checkbox"

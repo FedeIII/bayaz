@@ -9,10 +9,12 @@ import { getMonsterImage } from '~/domain/encounters/monsters';
 import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
 import { translateMonster } from '~/domain/encounters/monsterTranslations';
 import MonstersContext from '~/components/contexts/monstersContext';
-
-import styles from '~/components/randomEncounter.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
 import { getMonsterPositionStyle } from '~/domain/encounters/encounters';
+
+import styles from '~/components/randomEncounter.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 export const loader = async ({ params }) => {
   const [party, encounter] = await Promise.all([
@@ -47,26 +49,26 @@ function PartyCombatForPlayers() {
   const { monstersState } = monstersContext;
 
   return (
-    <div className={styles.encounterContainerFullScreen}>
-      <h2 className={`${cardStyles.singleCard} ${styles.title}`}>Combate</h2>
-      <ul className={styles.monstersList}>
+    <div className="encounters__container-full-screen">
+      <h2 className="cards__single-card encounters__title">Combate</h2>
+      <ul className="encounters__monsters-list">
         {monstersState?.map((monster, i, all) => {
           const imgUrl = getMonsterImage(monster.name);
           return (
             <li
-              className={styles.monstersItem}
+              className="encounters__monsters-item"
               style={getMonsterPositionStyle(i, all.length)}
             >
               <span
-                className={`${cardStyles.singleCard} ${styles[monster.health]}`}
+                className={`cards__single-card encounters__${monster.health}`}
               >
                 {translateMonster(monster.name)}
               </span>
               {imgUrl && (
                 <img
                   src={imgUrl}
-                  className={`${styles.monsterImage} ${
-                    styles[monster.health + 'Image']
+                  className={`encounters__monster-image encounters__${
+                    monster.health + 'Image'
                   }`}
                 />
               )}

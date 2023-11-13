@@ -1,39 +1,39 @@
-.toRemove {
+.checkbox__toRemove {
   cursor: pointer;
 }
 
-.toRemove:hover {
+.checkbox__toRemove:hover {
   color: var(--color-x-pale);
 }
 
-.selectedToRemove {
+.checkbox__selectedToRemove {
   text-decoration: line-through;
 }
 
-.toSelect {
+.checkbox__toSelect {
   cursor: pointer;
   padding: 4px 8px 0px;
 }
 
-.toSelect:hover {
+.checkbox__toSelect:hover {
   color: var(--color-x-pale);
 }
 
-.toSelect:has(input[type='radio']:checked) {
+.checkbox__toSelect:has(input[type='radio']:checked) {
   border: 1px solid white;
   border-radius: 5px;
 }
 
-.selectedToSelect {
+.checkbox__selectedToSelect {
   border: 1px solid white;
   border-radius: 5px;
 }
 
-.disabledToSelect {
+.checkbox__disabledToSelect {
   color: var(--color-pale);
   cursor: initial;
 }
 
-.disabledToSelect:hover {
+.checkbox__disabledToSelect:hover {
   color: var(--color-pale);
 }

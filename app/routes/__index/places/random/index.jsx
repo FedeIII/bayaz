@@ -1,19 +1,16 @@
-import { Link } from "@remix-run/react";
-
-import styles from "~/components/places.module.css";
-import menuStyles from "~/components/menus.module.css";
+import { Link } from '@remix-run/react';
 
 function SizeSelect() {
   return (
     <>
-      <Link to="village" className={`${menuStyles.mainOption} ${styles.village}`}>
-        <span className={menuStyles.optionLabel}>Aldea</span>
+      <Link to="village" className="menus__main-option places__village">
+        <span className="menus__option-label">Aldea</span>
       </Link>
-      <Link to="town" className={`${menuStyles.mainOption} ${styles.town}`}>
-        <span className={menuStyles.optionLabel}>Pueblo</span>
+      <Link to="town" className="menus__main-option places__town">
+        <span className="menus__option-label">Pueblo</span>
       </Link>
-      <Link to="city" className={`${menuStyles.mainOption} ${styles.city}`}>
-        <span className={menuStyles.optionLabel}>Ciudad</span>
+      <Link to="city" className="menus__main-option places__city">
+        <span className="menus__option-label">Ciudad</span>
       </Link>
     </>
   );

@@ -8,8 +8,10 @@ import { t } from '~/domain/translations';
 import { removeItem } from '~/utils/insert';
 import { CharacterInfo } from '~/components/characters/characterInfo';
 
-import styles from '~/components/filters.module.css';
-import cardStyles from '~/components/cards/cards.module.css';
+import styles from '~/components/filters.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 function Sidebar(props) {
   const { onCreateRandomClick, filters, setFilters } = props;
@@ -65,14 +67,14 @@ function Sidebar(props) {
   }
 
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.sidebarContent}>
-        <div className={styles.sidebarSection}>
-          <div className={styles.filterVertical}>
-            <div className={styles.filterOptions}>
+    <div className="filters__sidebar">
+      <div className="filters__sidebarContent">
+        <div className="filters__sidebarSection">
+          <div className="filters__filterVertical">
+            <div className="filters__filterOptions">
               <button
                 type="button"
-                className={`${cardStyles.buttonCard}`}
+                className="cards__button-card"
                 onClick={onCreateRandomClick}
               >
                 Crear Random NPC
@@ -81,32 +83,32 @@ function Sidebar(props) {
           </div>
         </div>
 
-        <div className={styles.sidebarSection}>
-          <div className={styles.filterVertical}>
-            <div className={styles.filterLabel}>
-              <span className={styles.filterTitle}>Razas:</span>{' '}
-              <label className={styles.filterOption}>
+        <div className="filters__sidebarSection">
+          <div className="filters__filterVertical">
+            <div className="filters__filterLabel">
+              <span className="filters__filterTitle">Razas:</span>{' '}
+              <label className="filters__filterOption">
                 <input
                   type="checkbox"
                   name="race[]"
                   value="all"
-                  className={`${cardStyles.buttonCard}`}
+                  className="cards__button-card"
                   onClick={onRaceSelect}
                 />
                 <span>Todas</span>
               </label>
             </div>{' '}
-            <div className={styles.filterOptionsTwoColumns}>
+            <div className="filters__filterOptionsTwoColumns">
               {NPC_RACES_LIST.map(race => {
                 return (
-                  <label className={styles.filterOption} key={race}>
+                  <label className="filters__filterOption" key={race}>
                     <input
                       key={race}
                       type="checkbox"
                       name="race[]"
                       value={race}
                       checked={filters.races.includes(race)}
-                      className={`${cardStyles.buttonCard}`}
+                      className="cards__button-card"
                       onChange={onRaceSelect}
                     />
                     <span>{t(race)}</span>
@@ -116,27 +118,27 @@ function Sidebar(props) {
             </div>
           </div>
 
-          <div className={styles.filter}>
-            <span className={`${styles.filterLabel} ${styles.filterTitle}`}>
+          <div className="filters__filter">
+            <span className={`$"filters__filterLabel" $"filters__filterTitle"`}>
               Género:
             </span>{' '}
-            <div className={styles.filterOptionsTwoColumns}>
-              <label className={styles.filterOption}>
+            <div className="filters__filterOptionsTwoColumns">
+              <label className="filters__filterOption">
                 <input
                   type="checkbox"
                   name="gender[]"
                   value="Male"
-                  className={`${cardStyles.buttonCard}`}
+                  className="cards__button-card"
                   onClick={onGenderSelect}
                 />
                 <span>{t('Male')}</span>
               </label>
-              <label className={styles.filterOption}>
+              <label className="filters__filterOption">
                 <input
                   type="checkbox"
                   name="gender[]"
                   value="Female"
-                  className={`${cardStyles.buttonCard}`}
+                  className="cards__button-card"
                   onClick={onGenderSelect}
                 />
                 <span>{t('Female')}</span>
@@ -144,31 +146,31 @@ function Sidebar(props) {
             </div>
           </div>
 
-          <div className={styles.filterVertical}>
-            <div className={styles.filterLabel}>
-              <span className={styles.filterTitle}>Dioses:</span>{' '}
-              <label className={styles.filterOption}>
+          <div className="filters__filterVertical">
+            <div className="filters__filterLabel">
+              <span className="filters__filterTitle">Dioses:</span>{' '}
+              <label className="filters__filterOption">
                 <input
                   type="checkbox"
                   name="deity[]"
                   value="all"
-                  className={`${cardStyles.buttonCard}`}
+                  className="cards__button-card"
                   onClick={onDeitySelect}
                 />
                 <span>Todos</span>
               </label>
             </div>{' '}
-            <div className={styles.filterOptionsTwoColumns}>
+            <div className="filters__filterOptionsTwoColumns">
               {NPC_DEITIES.map(([_, deity]) => {
                 return (
-                  <label className={styles.filterOption} key={deity}>
+                  <label className="filters__filterOption" key={deity}>
                     <input
                       key={deity}
                       type="checkbox"
                       name="deity[]"
                       value={deity}
                       checked={filters.deities.includes(deity)}
-                      className={`${cardStyles.buttonCard}`}
+                      className="cards__button-card"
                       onChange={onDeitySelect}
                     />
                     <span>{t(deity)}</span>
@@ -200,13 +202,13 @@ function QuickNpc() {
 
   return (
     <Form method="post" ref={formRef}>
-      <div className={styles.container}>
+      <div className="filters__container">
         <Sidebar
           onCreateRandomClick={onCreateRandomClick}
           filters={filters}
           setFilters={setFilters}
         />
-        <div className={styles.results}>
+        <div className="filters__results">
           {!!npc && <CharacterInfo {...npc} />}
         </div>
       </div>
