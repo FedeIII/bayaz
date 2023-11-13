@@ -1,8 +1,11 @@
 .glossary {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 16px;
+  right: 16px;
   display: flex;
   flex-direction: row;
-  width: 100%;
-  margin: 16px;
   --header-padding-top: 8px;
   --header-height: 62px;
   --header-padding-bottom: 16px;
