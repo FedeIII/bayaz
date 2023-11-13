@@ -220,7 +220,7 @@ function PcSpells() {
           {translateClass(pClass)}
           {')'}
         </span>
-        <span className="spells__data spells__spell-ability">
+        <span className="spells__data spells__ability">
           {getSpellcastingAbility(pc).toUpperCase()}
         </span>
         <span className="spells__data spells__saving-throw">

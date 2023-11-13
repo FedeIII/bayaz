@@ -54,7 +54,7 @@ function PcEquipment() {
       <div className="characters__equipment-container">
         <div className="cards">
           {(getClassEquipment(pClass) || []).map((combo, comboSection) => (
-            <div className="cards__card" key={comboSection}>
+            <div className="card" key={comboSection}>
               <EquipmentCombo
                 pc={pc}
                 combo={combo}
