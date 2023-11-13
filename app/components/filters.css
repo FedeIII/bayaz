@@ -13,6 +13,16 @@
   flex-shrink: 0;
 }
 
+.filters__sidebar--float {
+  float: left;
+}
+
+.filters__sidebar--horizontal {
+  display: flex;
+  flex-direction: row;
+  column-gap: 32px;
+}
+
 .filters__sidebarContent {
   position: sticky;
   top: 8px;

@@ -52,7 +52,8 @@ npx prisma migrate dev
 ```
 
 ## TO DOs
-
+- Review more player options in sheets
+- Reroll settlement image
 - Background: {trait}
 - put hit dice roll on level up in the modal
 - Ranger:

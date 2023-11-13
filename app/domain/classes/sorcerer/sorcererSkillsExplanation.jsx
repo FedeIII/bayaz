@@ -58,19 +58,19 @@ export const SORCERER_SKILLS_EXPLANATION = {
 
       <div>
         <h3>Oleada de Magia Salvaje</h3>
-        <table className={styles.table}>
-          <thead className={styles.tableHead}>
+        <table className="inventory-item__table">
+          <thead className="inventory-item__table-head">
             <tr>
-              <th className={styles.tableCell}>
+              <th className="inventory-item__table-cell">
                 <strong>d100</strong>
               </th>
-              <th className={`${styles.tableCell} ${styles.left}`}>
+              <th className="inventory-item__table-cell inventory-item__left">
                 <strong>Efecto</strong>
               </th>
-              <th className={styles.tableCell}>
+              <th className="inventory-item__table-cell">
                 <strong>d100</strong>
               </th>
-              <th className={`${styles.tableCell} ${styles.left}`}>
+              <th className="inventory-item__table-cell inventory-item__left">
                 <strong>Efecto</strong>
               </th>
             </tr>
@@ -81,17 +81,17 @@ export const SORCERER_SKILLS_EXPLANATION = {
                 i < WILD_MAGIC_SURGE_TABLE.length - 2 && i % 2 === 0
                   ? [
                       ...rows,
-                      <tr className={styles.tableRow}>
-                        <td className={`${styles.tableCell} ${styles.noWrap}`}>
+                      <tr className="inventory-item__table-row">
+                        <td className="inventory-item__table-cell inventory-item__no-wrap">
                           {row.dice}
                         </td>
-                        <td className={`${styles.tableCell} ${styles.left}`}>
+                        <td className="inventory-item__table-cell inventory-item__left">
                           {row.effect}
                         </td>
-                        <td className={`${styles.tableCell} ${styles.noWrap}`}>
+                        <td className="inventory-item__table-cell inventory-item__no-wrap">
                           {WILD_MAGIC_SURGE_TABLE[i + 1].dice}
                         </td>
-                        <td className={`${styles.tableCell} ${styles.left}`}>
+                        <td className="inventory-item__table-cell inventory-item__left">
                           {WILD_MAGIC_SURGE_TABLE[i + 1].effect}
                         </td>
                       </tr>,
@@ -144,7 +144,7 @@ export const SORCERER_SKILLS_EXPLANATION = {
         hechicería. Aprendes nuevas formas de usar tus puntos de hechicería al
         alcanzar niveles superiores.
       </p>
-      <div className={styles.withTable}>
+      <div className="inventory-item__with-table">
         <p>
           <strong>
             <em>
@@ -158,35 +158,37 @@ export const SORCERER_SKILLS_EXPLANATION = {
           superior al 5.
         </p>
 
-        <table className={styles.table}>
-          <thead className={styles.tableHead}>
+        <table className="inventory-item__table">
+          <thead className="inventory-item__table-head">
             <tr>
-              <th className={styles.tableCell}>Nivel de espacio de conjuro</th>
-              <th className={styles.tableCell}>
+              <th className="inventory-item__table-cell">
+                Nivel de espacio de conjuro
+              </th>
+              <th className="inventory-item__table-cell">
                 Coste en Puntos de Hechicería
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className={styles.tableRow}>
-              <td className={styles.tableCell}>1</td>
-              <td className={styles.tableCell}>2</td>
+            <tr className="inventory-item__table-row">
+              <td className="inventory-item__table-cell">1</td>
+              <td className="inventory-item__table-cell">2</td>
             </tr>
-            <tr className={styles.tableRow}>
-              <td className={styles.tableCell}>2</td>
-              <td className={styles.tableCell}>3</td>
+            <tr className="inventory-item__table-row">
+              <td className="inventory-item__table-cell">2</td>
+              <td className="inventory-item__table-cell">3</td>
             </tr>
-            <tr className={styles.tableRow}>
-              <td className={styles.tableCell}>3</td>
-              <td className={styles.tableCell}>5</td>
+            <tr className="inventory-item__table-row">
+              <td className="inventory-item__table-cell">3</td>
+              <td className="inventory-item__table-cell">5</td>
             </tr>
-            <tr className={styles.tableRow}>
-              <td className={styles.tableCell}>4</td>
-              <td className={styles.tableCell}>6</td>
+            <tr className="inventory-item__table-row">
+              <td className="inventory-item__table-cell">4</td>
+              <td className="inventory-item__table-cell">6</td>
             </tr>
-            <tr className={styles.tableRow}>
-              <td className={styles.tableCell}>5</td>
-              <td className={styles.tableCell}>7</td>
+            <tr className="inventory-item__table-row">
+              <td className="inventory-item__table-cell">5</td>
+              <td className="inventory-item__table-cell">7</td>
             </tr>
           </tbody>
         </table>

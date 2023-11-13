@@ -3,6 +3,7 @@ import { Form, Link, useLoaderData } from '@remix-run/react';
 import { json, redirect } from '@remix-run/node';
 
 import {
+  CITY,
   COMMERCE,
   GOVERNMENTS,
   GOVERNMENT_SITUATION,
@@ -10,23 +11,22 @@ import {
   PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
-  TOWN,
   getPopulation,
   randomSettlementName,
 } from '~/domain/places/places';
 import {
-  getTownAccommodation,
-  getTownCalamity,
-  getTownCommerce,
-  getTownGovernment,
-  getTownKnownFor,
-  getTownMagicShops,
-  getTownPlaceCharacteristics,
-  getTownRaceRelationships,
-  getTownReligion,
-  getTownSecurity,
-  randomTownImage,
-} from '~/domain/places/town';
+  getCityAccommodation,
+  getCityCalamity,
+  getCityCommerces,
+  getCityGovernment,
+  getCityKnownFor,
+  getCityMagicShops,
+  getCityPlaceCharacteristics,
+  getCityRaceRelationships,
+  getCityReligion,
+  getCitySecurity,
+  randomCityImage,
+} from '~/domain/places/city';
 import { t } from '~/domain/translations';
 import { replaceAt } from '~/utils/insert';
 import {
@@ -41,40 +41,30 @@ function textareaCallback(textareaNode) {
 }
 
 export const loader = async ({ request }) => {
-  let town;
   const url = new URL(request.url);
-  const id = url.searchParams.get('id');
   const rng = url.searchParams.get('rng');
   let files;
 
-  if (id) {
-    town = await getSettlement(id);
-    if (!town) {
-      throw new Error('Village not found');
-    }
-  } else {
-    const path = await import('path');
-    const fs = await import('fs/promises');
-    const publicFolderPath = path.join(
-      process.cwd(),
-      'public/images/places/town/'
-    );
-    try {
-      files = await fs.readdir(publicFolderPath);
-    } catch (error) {
-      files = [];
-    }
+  const path = await import('path');
+  const fs = await import('fs/promises');
+  const publicFolderPath = path.join(
+    process.cwd(),
+    'public/images/places/city/'
+  );
+  try {
+    files = await fs.readdir(publicFolderPath);
+  } catch (error) {
+    files = [];
   }
 
-  return json({ town, files, isNew: !id, rng });
+  return json({ files, rng });
 };
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const id = formData.get('id');
 
   const attrs = {
-    type: 'town',
+    type: 'city',
     name: formData.get('name'),
     img: formData.get('img'),
     population: parseInt(formData.get('population'), 10),
@@ -82,7 +72,7 @@ export const action = async ({ request }) => {
     governmentType: formData.get('governmentType'),
     governmentSituation: formData.get('governmentSituation'),
     guards: parseInt(formData.get('security') || 0, 10),
-    commerces: [formData.get('commerces')],
+    commerces: formData.getAll('commerces[]'),
     temples: formData.getAll('temples[]'),
     shrines: formData.getAll('shrines[]'),
     magicShops: parseInt(formData.get('magicShops'), 10),
@@ -93,18 +83,13 @@ export const action = async ({ request }) => {
     notes: formData.get('notes'),
   };
 
-  let settlement;
-  if (id) {
-    settlement = await updateSettlement(id, attrs);
-  } else {
-    settlement = await createSettlement(attrs);
-  }
+  const settlement = await createSettlement(attrs);
 
-  return redirect(`/places/${settlement.id}`);
+  return redirect(`/places/settlement/${settlement.id}`);
 };
 
-function Town() {
-  const { town, files, isNew, rng } = useLoaderData();
+function City() {
+  const { files, rng } = useLoaderData();
 
   const [showNameInput, setShowNameInput] = useState(false);
   const nameRef = useRef();
@@ -128,7 +113,7 @@ function Town() {
     accommodation: [],
     government: [],
     security: 0,
-    commerces: '',
+    commerces: [],
     religion: { temples: [], shrines: [] },
     magicShops: 0,
     raceRelationships: '',
@@ -138,57 +123,38 @@ function Town() {
   });
 
   useEffect(() => {
-    if (isNew) {
-      const population = getPopulation(TOWN);
-      const accommodation = getTownAccommodation(population);
-      const government = getTownGovernment();
-      const commerces = getTownCommerce();
-      const religion = getTownReligion();
-      const placeCharacteristics = getTownPlaceCharacteristics();
-      const img = randomTownImage(
-        files,
-        population,
-        accommodation,
-        government,
-        commerces,
-        religion,
-        placeCharacteristics
-      );
+    const population = getPopulation(CITY);
+    const accommodation = getCityAccommodation(population);
+    const government = getCityGovernment();
+    const commerces = getCityCommerces();
+    const religion = getCityReligion();
+    const placeCharacteristics = getCityPlaceCharacteristics();
+    const img = randomCityImage(
+      files,
+      population,
+      accommodation,
+      government,
+      commerces,
+      religion,
+      placeCharacteristics
+    );
 
-      setPlace({
-        name: randomSettlementName(),
-        img,
-        population,
-        accommodation,
-        government,
-        security: getTownSecurity(population),
-        commerces,
-        religion,
-        magicShops: getTownMagicShops(population),
-        raceRelationships: getTownRaceRelationships(),
-        placeCharacteristics,
-        knownFor: getTownKnownFor(),
-        calamity: getTownCalamity(),
-      });
-    } else if (isNew === false) {
-      setPlace({
-        name: town.name,
-        img: town.img,
-        population: town.population,
-        accommodation: town.accommodation,
-        government: [town.government.type, town.government.situation],
-        security: town.security,
-        commerces: town.commerces?.[0],
-        religion: town.religion,
-        magicShops: town.magicShops,
-        raceRelationships: town.raceRelationships,
-        placeCharacteristics: town.placeCharacteristics,
-        knownFor: town.knownFor,
-        calamity: town.calamity,
-        notes: town.notes,
-      });
-    }
-  }, [town, isNew, rng]);
+    setPlace({
+      name: randomSettlementName(),
+      img,
+      population,
+      accommodation,
+      government,
+      security: getCitySecurity(population),
+      commerces,
+      religion,
+      magicShops: getCityMagicShops(population),
+      raceRelationships: getCityRaceRelationships(),
+      placeCharacteristics,
+      knownFor: getCityKnownFor(),
+      calamity: getCityCalamity(),
+    });
+  }, [rng]);
 
   function onNameChange(e) {
     setPlace(p => ({ ...p, name: e.target.value }));
@@ -223,8 +189,11 @@ function Town() {
     setPlace(p => ({ ...p, security: e.target.value }));
   }
 
-  function onCommerceChange(e) {
-    setPlace(p => ({ ...p, commerces: e.target.value }));
+  function onCommerceChange(i, e) {
+    setPlace(p => ({
+      ...p,
+      commerces: replaceAt(i, p.commerces, e.target.value),
+    }));
   }
 
   function onTempleNameChange(i, e) {
@@ -284,25 +253,22 @@ function Town() {
 
   return (
     <Form method="post">
-      {!!town && (
-        <input readOnly type="text" name="id" value={town.id} hidden />
-      )}
       <div className="places__buttons">
         <Link to="../" className="menus__back-button">
           ⇦ Volver
         </Link>
         <button type="submit" className="places__save">
-          ⇧ Guardar Pueblo
+          ⇧ Guardar Ciudad
         </button>
         <Link to={`./?rng=${Math.random()}`} className="menus__back-button">
-          ⇩ Nuevo Pueblo
+          ⇩ Nueva Ciudad
         </Link>
       </div>
 
       <div className="places__horizontal-sections">
         <div className="places__vertical-sections">
           {!!img && (
-            <div className="places__image-container">
+            <div className="places__image">
               <a href={`/images/places/${img}`} target="_blank">
                 <img
                   src={`/images/places/${img}`}
@@ -339,7 +305,7 @@ function Town() {
 
             <hr className="places__section-divider" />
             <div className="places__subtitle">
-              <span>Pueblo</span>
+              <span>Ciudad</span>
               <span>
                 <span className="places__trait-title">Población:</span> ≈
                 <input
@@ -409,25 +375,30 @@ function Town() {
 
             <hr className="places__section-divider" />
             <div className="places__trait-multiple">
-              <span>
+              <span className="places__trait-multiple">
                 <span className="places__trait-title">Comercio:</span>{' '}
-                <select
-                  type="text"
-                  name="commerces"
-                  value={commerces}
-                  onChange={onCommerceChange}
-                  className="places__trait-select"
-                >
-                  <option value="">-</option>
-                  {COMMERCE.map(([_, com]) => (
-                    <option key={com} value={com}>
-                      {t(com)}
-                    </option>
+                <div className="places__commerce-list">
+                  {commerces.map((commerce, i) => (
+                    <select
+                      key={i}
+                      type="text"
+                      name="commerces[]"
+                      value={commerce}
+                      onChange={e => onCommerceChange(i, e)}
+                      className="places__trait-select"
+                    >
+                      <option value="">-</option>
+                      {COMMERCE.map(([_, com]) => (
+                        <option key={com} value={com}>
+                          {t(com)}
+                        </option>
+                      ))}
+                    </select>
                   ))}
-                </select>
+                </div>
               </span>
               {!!magicShops && (
-                <span>
+                <span className="places__shared-trait-greedy">
                   <span className="places__trait-title">Tiendas:</span>{' '}
                   <input
                     type="number"
@@ -438,7 +409,7 @@ function Town() {
                   />
                 </span>
               )}
-              <span>
+              <span className="places__shared-trait-greedy">
                 <span className="places__trait-title">Seguridad:</span>{' '}
                 <input
                   type="number"
@@ -610,4 +581,4 @@ function Town() {
   );
 }
 
-export default Town;
+export default City;

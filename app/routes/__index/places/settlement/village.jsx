@@ -14,11 +14,7 @@ import {
   getVillageSecurity,
   randomVillageImage,
 } from '~/domain/places/village';
-import {
-  createSettlement,
-  getSettlement,
-  updateSettlement,
-} from '~/services/settlements.server';
+import { createSettlement } from '~/services/settlements.server';
 import { replaceAt } from '~/utils/insert';
 
 function textareaCallback(textareaNode) {
@@ -27,37 +23,27 @@ function textareaCallback(textareaNode) {
 }
 
 export const loader = async ({ request }) => {
-  let village;
   const url = new URL(request.url);
-  const id = url.searchParams.get('id');
   const rng = url.searchParams.get('rng');
   let files;
 
-  if (id) {
-    village = await getSettlement(id);
-    if (!village) {
-      throw new Error('Village not found');
-    }
-  } else {
-    const path = await import('path');
-    const fs = await import('fs/promises');
-    const publicFolderPath = path.join(
-      process.cwd(),
-      'public/images/places/village/'
-    );
-    try {
-      files = await fs.readdir(publicFolderPath);
-    } catch (error) {
-      files = [];
-    }
+  const path = await import('path');
+  const fs = await import('fs/promises');
+  const publicFolderPath = path.join(
+    process.cwd(),
+    'public/images/places/village/'
+  );
+  try {
+    files = await fs.readdir(publicFolderPath);
+  } catch (error) {
+    files = [];
   }
 
-  return json({ village, files, isNew: !id, rng });
+  return json({ files, rng });
 };
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const id = formData.get('id');
 
   const attrs = {
     type: 'village',
@@ -72,18 +58,13 @@ export const action = async ({ request }) => {
     notes: formData.get('notes'),
   };
 
-  let settlement;
-  if (id) {
-    settlement = await updateSettlement(id, attrs);
-  } else {
-    settlement = await createSettlement(attrs);
-  }
+  const settlement = await createSettlement(attrs);
 
-  return redirect(`/places/${settlement.id}`);
+  return redirect(`/places/settlement/${settlement.id}`);
 };
 
 function Village() {
-  const { village, files, isNew, rng } = useLoaderData();
+  const { files, rng } = useLoaderData();
 
   const [showNameInput, setShowNameInput] = useState(false);
   const nameRef = useRef();
@@ -112,41 +93,22 @@ function Village() {
   });
 
   useEffect(() => {
-    if (isNew) {
-      const population = getPopulation(VILLAGE);
-      const accommodation = getVillageAccommodation(population);
-      const religion = getVillageReligion();
-      const img = randomVillageImage(
-        files,
-        population,
-        accommodation,
-        religion
-      );
+    const population = getPopulation(VILLAGE);
+    const accommodation = getVillageAccommodation(population);
+    const religion = getVillageReligion();
+    const img = randomVillageImage(files, population, accommodation, religion);
 
-      setPlace(old => ({
-        ...old,
-        name: randomSettlementName(),
-        img,
-        population,
-        accommodation,
-        government: getVillageGovernment(),
-        security: getVillageSecurity(population),
-        religion,
-      }));
-    } else if (isNew === false) {
-      setPlace(old => ({
-        ...old,
-        name: village.name,
-        img: village.img,
-        population: village.population,
-        accommodation: village.accommodation[0],
-        government: getVillageGovernment(),
-        security: { [village.securityType]: village.security },
-        religion: village.religion,
-        notes: village.notes,
-      }));
-    }
-  }, [village, isNew, rng]);
+    setPlace(old => ({
+      ...old,
+      name: randomSettlementName(),
+      img,
+      population,
+      accommodation,
+      government: getVillageGovernment(),
+      security: getVillageSecurity(population),
+      religion,
+    }));
+  }, [rng]);
 
   function onNameChange(e) {
     setPlace(p => ({ ...p, name: e.target.value }));
@@ -199,9 +161,6 @@ function Village() {
 
   return (
     <Form method="post">
-      {!!village && (
-        <input readOnly type="text" name="id" value={village.id} hidden />
-      )}
       <div className="places__buttons">
         <Link to="../" className="menus__back-button">
           ⇦ Volver

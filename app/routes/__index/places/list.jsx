@@ -32,7 +32,7 @@ function PlacesList() {
         {settlements.map(settlement => (
           <li className="party__character" key={settlement.name}>
             <Link
-              to={`/places/random/${settlement.type}?id=${settlement.id}`}
+              to={`/places/settlement/${settlement.id}`}
               className="party__pc-link"
             >
               <div className="party__character-name">{settlement.name}</div>

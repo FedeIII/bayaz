@@ -10,29 +10,42 @@ import {
   PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
+  TOWN,
+  getPopulation,
+  randomSettlementName,
 } from '~/domain/places/places';
-import { getSettlement, updateSettlement } from '~/services/settlements.server';
-import { replaceAt } from '~/utils/insert';
+import {
+  getTownAccommodation,
+  getTownCalamity,
+  getTownCommerce,
+  getTownGovernment,
+  getTownKnownFor,
+  getTownMagicShops,
+  getTownPlaceCharacteristics,
+  getTownRaceRelationships,
+  getTownReligion,
+  getTownSecurity,
+  randomTownImage,
+} from '~/domain/places/town';
 import { t } from '~/domain/translations';
+import { replaceAt } from '~/utils/insert';
+import { createSettlement } from '~/services/settlements.server';
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
   textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
 }
 
-export const loader = async ({ params }) => {
-  let place;
+export const loader = async ({ request }) => {
+  const url = new URL(request.url);
+  const rng = url.searchParams.get('rng');
   let files;
-  place = await getSettlement(params.id);
-  if (!place) {
-    throw new Error('Village not found');
-  }
 
   const path = await import('path');
   const fs = await import('fs/promises');
   const publicFolderPath = path.join(
     process.cwd(),
-    `public/images/places/${place.type}/`
+    'public/images/places/town/'
   );
   try {
     files = await fs.readdir(publicFolderPath);
@@ -40,14 +53,14 @@ export const loader = async ({ params }) => {
     files = [];
   }
 
-  return json({ place, files });
+  return json({ files, rng });
 };
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const id = formData.get('id');
 
   const attrs = {
+    type: 'town',
     name: formData.get('name'),
     img: formData.get('img'),
     population: parseInt(formData.get('population'), 10),
@@ -55,7 +68,7 @@ export const action = async ({ request }) => {
     governmentType: formData.get('governmentType'),
     governmentSituation: formData.get('governmentSituation'),
     guards: parseInt(formData.get('security') || 0, 10),
-    commerces: formData.getAll('commerces[]'),
+    commerces: [formData.get('commerces')],
     temples: formData.getAll('temples[]'),
     shrines: formData.getAll('shrines[]'),
     magicShops: parseInt(formData.get('magicShops'), 10),
@@ -66,13 +79,13 @@ export const action = async ({ request }) => {
     notes: formData.get('notes'),
   };
 
-  const settlement = await updateSettlement(id, attrs);
+  const settlement = await createSettlement(attrs);
 
-  return redirect(`/places/${settlement.id}`);
+  return redirect(`/places/settlement/${settlement.id}`);
 };
 
-function PlaceScreen() {
-  const { place, files } = useLoaderData();
+function Town() {
+  const { files, rng } = useLoaderData();
 
   const [showNameInput, setShowNameInput] = useState(false);
   const nameRef = useRef();
@@ -89,15 +102,14 @@ function PlaceScreen() {
     }
   }, [notesRef.current]);
 
-  const [placeState, setPlaceState] = useState({
+  const [place, setPlace] = useState({
     name: '',
     img: '',
     population: 0,
     accommodation: [],
     government: [],
-    securityType: undefined,
     security: 0,
-    commerces: [],
+    commerces: '',
     religion: { temples: [], shrines: [] },
     magicShops: 0,
     raceRelationships: '',
@@ -107,25 +119,38 @@ function PlaceScreen() {
   });
 
   useEffect(() => {
-    setPlaceState(old => ({
-      ...old,
-      name: place.name,
-      img: place.img,
-      population: place.population,
-      accommodation: place.accommodation,
-      government: [place.government?.type, place.government?.situation],
-      securityType: place.securityType,
-      security: place.security,
-      commerces: place.commerces,
-      religion: place.religion,
-      magicShops: place.magicShops,
-      raceRelationships: place.raceRelationships,
-      placeCharacteristics: place.placeCharacteristics,
-      knownFor: place.knownFor,
-      calamity: place.calamity,
-      notes: place.notes,
-    }));
-  }, [place]);
+    const population = getPopulation(TOWN);
+    const accommodation = getTownAccommodation(population);
+    const government = getTownGovernment();
+    const commerces = getTownCommerce();
+    const religion = getTownReligion();
+    const placeCharacteristics = getTownPlaceCharacteristics();
+    const img = randomTownImage(
+      files,
+      population,
+      accommodation,
+      government,
+      commerces,
+      religion,
+      placeCharacteristics
+    );
+
+    setPlace({
+      name: randomSettlementName(),
+      img,
+      population,
+      accommodation,
+      government,
+      security: getTownSecurity(population),
+      commerces,
+      religion,
+      magicShops: getTownMagicShops(population),
+      raceRelationships: getTownRaceRelationships(),
+      placeCharacteristics,
+      knownFor: getTownKnownFor(),
+      calamity: getTownCalamity(),
+    });
+  }, [rng]);
 
   function onNameChange(e) {
     setPlace(p => ({ ...p, name: e.target.value }));
@@ -160,11 +185,8 @@ function PlaceScreen() {
     setPlace(p => ({ ...p, security: e.target.value }));
   }
 
-  function onCommerceChange(i, e) {
-    setPlace(p => ({
-      ...p,
-      commerces: replaceAt(i, p.commerces, e.target.value),
-    }));
+  function onCommerceChange(e) {
+    setPlace(p => ({ ...p, commerces: e.target.value }));
   }
 
   function onTempleNameChange(i, e) {
@@ -211,7 +233,6 @@ function PlaceScreen() {
     population,
     accommodation,
     government,
-    securityType,
     security,
     commerces,
     religion = {},
@@ -221,26 +242,19 @@ function PlaceScreen() {
     knownFor,
     calamity,
     notes,
-  } = placeState;
+  } = place;
 
   return (
     <Form method="post">
-      <input readOnly type="text" name="id" value={place.id} hidden />
       <div className="places__buttons">
         <Link to="../" className="menus__back-button">
           ⇦ Volver
         </Link>
         <button type="submit" className="places__save">
-          ⇧ Guardar
+          ⇧ Guardar Pueblo
         </button>
-        <Link
-          to={`/places/random/${place.type}`}
-          className="menus__back-button"
-        >
-          ⇩ Nuevo
-        </Link>
-        <Link to={`players`} target="_blank" className="places__save">
-          ⇨ Presentar
+        <Link to={`./?rng=${Math.random()}`} className="menus__back-button">
+          ⇩ Nuevo Pueblo
         </Link>
       </div>
 
@@ -248,11 +262,13 @@ function PlaceScreen() {
         <div className="places__vertical-sections">
           {!!img && (
             <div className="places__image-container">
-              <img
-                src={`/images/places/${img}`}
-                className="places__image"
-                width="100%"
-              />
+              <a href={`/images/places/${img}`} target="_blank">
+                <img
+                  src={`/images/places/${img}`}
+                  className="places__image"
+                  width="100%"
+                />
+              </a>
               <input readOnly type="text" name="img" value={img} hidden />
             </div>
           )}
@@ -263,7 +279,9 @@ function PlaceScreen() {
                 style={{ display: showNameInput ? 'none' : 'inline' }}
                 onClick={() => setShowNameInput(true)}
               >
-                <span className="places__title-capital">{name?.slice(0, 1)}</span>
+                <span className="places__title-capital">
+                  {name?.slice(0, 1)}
+                </span>
                 {name?.slice(1)}
               </span>
               <input
@@ -280,7 +298,7 @@ function PlaceScreen() {
 
             <hr className="places__section-divider" />
             <div className="places__subtitle">
-              <span>Ciudad</span>
+              <span>Pueblo</span>
               <span>
                 <span className="places__trait-title">Población:</span> ≈
                 <input
@@ -293,7 +311,7 @@ function PlaceScreen() {
               </span>
             </div>
 
-            {!!accommodation?.length && (
+            {!!accommodation && (
               <>
                 <hr className="places__section-divider" />
                 <div className="places__trait">
@@ -315,77 +333,60 @@ function PlaceScreen() {
               </>
             )}
 
-            {!!(government.length && government[0]) && (
-              <>
-                <hr className="places__section-divider" />
-                <div className="places__trait">
-                  <span className="places__trait-title">Gobierno:</span>{' '}
-                  <select
-                    type="text"
-                    name="governmentType"
-                    value={government[0]}
-                    onChange={onGovernmentTypeChange}
-                    className="places__trait-select"
-                  >
-                    <option value="">-</option>
-                    {GOVERNMENTS.map(([_, govType]) => (
-                      <option key={govType} value={govType}>
-                        {t(govType)}
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    type="text"
-                    name="governmentSituation"
-                    value={government[1]}
-                    onChange={onGovernmentSituationChange}
-                    className="places__trait-select"
-                  >
-                    <option value="">-</option>
-                    {GOVERNMENT_SITUATION.map(([_, govSituation]) => (
-                      <option key={govSituation} value={govSituation}>
-                        {govSituation}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </>
-            )}
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span className="places__trait-title">Gobierno:</span>{' '}
+              <select
+                type="text"
+                name="governmentType"
+                value={government[0]}
+                onChange={onGovernmentTypeChange}
+                className="places__trait-select"
+              >
+                <option value="">-</option>
+                {GOVERNMENTS.map(([_, govType]) => (
+                  <option key={govType} value={govType}>
+                    {t(govType)}
+                  </option>
+                ))}
+              </select>
+              <select
+                type="text"
+                name="governmentSituation"
+                value={government[1]}
+                onChange={onGovernmentSituationChange}
+                className="places__trait-select"
+              >
+                <option value="">-</option>
+                {GOVERNMENT_SITUATION.map(([_, govSituation]) => (
+                  <option key={govSituation} value={govSituation}>
+                    {govSituation}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <hr className="places__section-divider" />
             <div className="places__trait-multiple">
-              {!!commerces?.length && (
-                <span className="places__trait-multiple">
-                  <span className="places__trait-title">Comercio:</span>{' '}
-                  <div className="places__commerce-list">
-                    {commerces.map((commerce, i) => (
-                      <select
-                        key={i}
-                        type="text"
-                        name="commerces[]"
-                        value={commerce}
-                        onChange={e => onCommerceChange(i, e)}
-                        className="places__trait-select"
-                      >
-                        <option value="">-</option>
-                        {COMMERCE.map(([_, com]) => (
-                          <option key={com} value={com}>
-                            {t(com)}
-                          </option>
-                        ))}
-                      </select>
-                    ))}
-                  </div>
-                </span>
-              )}
-              {!commerces && (
-                <span>
-                  <span className="places__trait-title">Gobierno:</span> Alguacil{' '}
-                  {Math.random() > 0.5 && 'no '}presente
-                </span>
-              )}
+              <span>
+                <span className="places__trait-title">Comercio:</span>{' '}
+                <select
+                  type="text"
+                  name="commerces"
+                  value={commerces}
+                  onChange={onCommerceChange}
+                  className="places__trait-select"
+                >
+                  <option value="">-</option>
+                  {COMMERCE.map(([_, com]) => (
+                    <option key={com} value={com}>
+                      {t(com)}
+                    </option>
+                  ))}
+                </select>
+              </span>
               {!!magicShops && (
-                <span className="places__shared-trait-greedy">
+                <span>
                   <span className="places__trait-title">Tiendas:</span>{' '}
                   <input
                     type="number"
@@ -396,7 +397,7 @@ function PlaceScreen() {
                   />
                 </span>
               )}
-              <span className="places__shared-trait-greedy">
+              <span>
                 <span className="places__trait-title">Seguridad:</span>{' '}
                 <input
                   type="number"
@@ -405,79 +406,71 @@ function PlaceScreen() {
                   onChange={onSecurityChange}
                   className="places__trait-input places__trait-input--number-2"
                 />{' '}
-                {securityType === 'militia' ? 'milicias' : 'guardias'}
+                guardias
               </span>
             </div>
 
-            {!!(religion.temples?.length || religion.shrines?.length) && (
-              <>
-                <hr className="places__section-divider" />
-                <div className="places__trait">
-                  <span className="places__trait-title">Religión:</span>{' '}
-                  <div className="places__vertical-sections">
-                    {!!religion.temples?.length && (
-                      <ul className="places__trait-list">
-                        Templos:{' '}
-                        {religion.temples.map((deityName, i) => (
-                          <li key={i}>
-                            <input
-                              type="text"
-                              name="temples[]"
-                              value={deityName}
-                              onChange={e => onTempleNameChange(i, e)}
-                              className="places__trait-input"
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    {!!religion.shrines?.length && (
-                      <ul className="places__trait-list">
-                        Santuarios:{' '}
-                        {religion.shrines.map((deityName, i) => (
-                          <li key={i}>
-                            <input
-                              type="text"
-                              name="shrines[]"
-                              value={deityName}
-                              onChange={e => onShrineNameChange(i, e)}
-                              className="places__trait-input"
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </div>
-              </>
-            )}
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span className="places__trait-title">Religión:</span>{' '}
+              <div className="places__vertical-sections">
+                {!!religion.temples?.length && (
+                  <ul className="places__trait-list">
+                    Templos:{' '}
+                    {religion.temples.map((deityName, i) => (
+                      <li key={i}>
+                        <input
+                          type="text"
+                          name="temples[]"
+                          value={deityName}
+                          onChange={e => onTempleNameChange(i, e)}
+                          className="places__trait-input"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {!!religion.shrines?.length && (
+                  <ul className="places__trait-list">
+                    Santuarios:{' '}
+                    {religion.shrines.map((deityName, i) => (
+                      <li key={i}>
+                        <input
+                          type="text"
+                          name="shrines[]"
+                          value={deityName}
+                          onChange={e => onShrineNameChange(i, e)}
+                          className="places__trait-input"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
 
-            {!!raceRelationships && (
-              <>
-                <hr className="places__section-divider" />
-                <div className="places__trait">
-                  <span>
-                    <span className="places__trait-title">
-                      Relaciones entre razas:
-                    </span>{' '}
-                    <select
-                      type="text"
-                      name="raceRelationships"
-                      value={raceRelationships}
-                      onChange={onRaceRelationshipsChange}
-                      className="places__trait-select"
-                    >
-                      <option value="">-</option>
-                      {RACE_RELATIONSHIPS.map(([_, raceRel]) => (
-                        <option key={raceRel} value={raceRel}>
-                          {raceRel}
-                        </option>
-                      ))}
-                    </select>
-                  </span>
-                </div>
-              </>
-            )}
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span>
+                <span className="places__trait-title">
+                  Relaciones entre razas:
+                </span>{' '}
+                <select
+                  type="text"
+                  name="raceRelationships"
+                  value={raceRelationships}
+                  onChange={onRaceRelationshipsChange}
+                  className="places__trait-select"
+                >
+                  <option value="">-</option>
+                  {RACE_RELATIONSHIPS.map(([_, raceRel]) => (
+                    <option key={raceRel} value={raceRel}>
+                      {raceRel}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            </div>
 
             {!!placeCharacteristics && (
               <>
@@ -536,7 +529,9 @@ function PlaceScreen() {
                 <hr className="places__section-divider" />
                 <div className="places__trait">
                   <span>
-                    <span className="places__trait-title">Desgracia actual:</span>{' '}
+                    <span className="places__trait-title">
+                      Desgracia actual:
+                    </span>{' '}
                     <select
                       type="text"
                       name="calamity"
@@ -574,4 +569,4 @@ function PlaceScreen() {
   );
 }
 
-export default PlaceScreen;
+export default Town;

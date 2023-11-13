@@ -95,6 +95,13 @@ export function t(key) {
     village: 'Aldea',
     town: 'Pueblo',
     city: 'Ciudad',
+
+    //Buildings
+    residence: 'Residencia',
+    religious: 'Religioso',
+    tavern: 'Taverna',
+    warehouse: 'Almacén',
+    shop: 'Tienda',
   }[key];
 
   if (translation) return translation;
