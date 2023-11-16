@@ -28,7 +28,9 @@ export default function Index() {
     <Form method="post">
       {welcome || 'Welcome'} {user.name}
       <input readOnly type="text" name="email" value={user.email} hidden />
-      <input type="text" name="name" defaultValue={user.name} />
+      <div>
+        <input type="text" name="name" defaultValue={user.name} />
+      </div>
       <button type="submit">Guardar</button>
     </Form>
   );
