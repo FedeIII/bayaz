@@ -114,6 +114,7 @@ import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLang
 import styles from '~/components/sheet.css';
 import spellsStyles from '~/components/spells.css';
 import noteStyles from '~/components/note/note.css';
+import { getSessionUser } from '~/services/session.server';
 export const links = () => {
   return [
     { rel: 'stylesheet', href: styles },
@@ -122,12 +123,20 @@ export const links = () => {
   ];
 };
 
-export const loader = async ({ params }) => {
+export const loader = async ({ request, params }) => {
   const pc = await getPc(params.name);
+
   if (!pc) {
     throw new Error('pc not found');
   }
-  return json({ pc, isForPlayers: params.userRole === 'players' });
+
+  const user = await getSessionUser(request);
+
+  return json({
+    pc,
+    playerName: user.name,
+    isForPlayers: params.userRole === 'players',
+  });
 };
 
 async function equipWeaponsAction(formData) {
@@ -301,7 +310,7 @@ export const action = async ({ request }) => {
 };
 
 function PcSummary() {
-  const { pc, isForPlayers } = useLoaderData();
+  const { pc, playerName, isForPlayers } = useLoaderData();
   const {
     name,
     items: { equipment },
@@ -595,6 +604,7 @@ function PcSummary() {
         <BasicAttrs
           pc={pc}
           pcName={pcName}
+          playerName={playerName}
           onFreeTextChange={onFreeTextChange}
         />
 

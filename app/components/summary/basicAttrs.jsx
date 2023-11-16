@@ -2,8 +2,8 @@ import { translateBackground } from '~/domain/backgrounds/backgrounds';
 import { translateClass, translateRace } from '~/domain/characters';
 
 function BasicAttrs(props) {
-  const { pc, pcName, onFreeTextChange } = props;
-  const { pClass, level, background, playerName, race, subrace, exp } = pc;
+  const { pc, pcName, playerName, onFreeTextChange } = props;
+  const { pClass, level, background, race, subrace, exp } = pc;
 
   return (
     <>

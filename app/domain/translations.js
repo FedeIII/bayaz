@@ -101,6 +101,10 @@ export function t(key) {
     tavern: 'Taverna',
     warehouse: 'Almacén',
     shop: 'Tienda',
+
+    //Users
+    dm: 'Dungeon Master',
+    player: 'Player',
   }[key];
 
   if (translation) return translation;

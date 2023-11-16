@@ -308,7 +308,7 @@ const pcSchema = new mongoose.Schema({
   level: Number,
   exp: Number,
   background: backgroundSchema,
-  playerName: String,
+  userId: String,
   npc: Boolean,
 
   // STATS
@@ -397,6 +397,11 @@ export async function getPcs() {
 
 export async function getNpcs() {
   const pcs = await Pc.find({ npc: true });
+  return pcs;
+}
+
+export async function getUserPcs(userId) {
+  const pcs = await Pc.find({ userId });
   return pcs;
 }
 

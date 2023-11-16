@@ -1,14 +1,29 @@
 import { json } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form, Link, useLoaderData } from '@remix-run/react';
+import { Title, links as titleLinks } from '~/components/form/title';
 
-import { getSession } from '~/services/session.server';
-import { getUser, updateUser } from '~/services/user.server';
+import { getSessionUser } from '~/services/session.server';
+import { updateUser } from '~/services/user.server';
+import { getUserPcs } from '~/services/pc.server';
+import { t } from '~/domain/translations';
+
+import styles from '~/components/profile.css';
+import cardStyles from '~/components/cards/cards.css';
+import partyStyles from '~/components/party.css';
+import { translateClass, translateRace } from '~/domain/characters';
+export const links = () => [
+  ...titleLinks(),
+  { rel: 'stylesheet', href: styles },
+  { rel: 'stylesheet', href: cardStyles },
+  { rel: 'stylesheet', href: partyStyles },
+];
 
 export const loader = async ({ request }) => {
-  const session = await getSession(request.headers.get('Cookie'));
-  const user = await getUser({ email: session.data.user.email });
+  const user = await getSessionUser(request);
 
-  return json({ user });
+  const pcs = await getUserPcs(user.id);
+
+  return json({ user, pcs });
 };
 
 export const action = async ({ request }) => {
@@ -22,16 +37,66 @@ export const action = async ({ request }) => {
 };
 
 export default function Index() {
-  const { welcome, user } = useLoaderData();
+  const { user, pcs } = useLoaderData();
 
   return (
-    <Form method="post">
-      {welcome || 'Welcome'} {user.name}
+    <Form method="post" className="profile">
       <input readOnly type="text" name="email" value={user.email} hidden />
-      <div>
-        <input type="text" name="name" defaultValue={user.name} />
+
+      <div className="profile__prop-row">
+        <div className="profile__prop">
+          <span className="profile__prop-label">Nombre</span>
+          <hr className="profile__prop-separator" />
+          <Title
+            inputName="name"
+            defaultValue={user.name}
+            className="profile__title"
+            inputClass="profile__input"
+          />
+        </div>
+
+        <div className="profile__prop">
+          <span className="profile__prop-label">Roles</span>
+          <hr className="profile__prop-separator" />
+          <div>
+            {user.roles.map(role => (
+              <span>{t(role)}</span>
+            ))}
+          </div>
+        </div>
       </div>
-      <button type="submit">Guardar</button>
+
+      <div className="profile__prop-row profile__prop-row--single">
+        <div className="profile__prop">
+          <span className="profile__prop-label">Personajes</span>
+          <hr className="profile__prop-separator" />
+          <ul className="party__character-list">
+            {pcs.map(pc => (
+              <li className="party__character" key={pc.name}>
+                <Link
+                  to={`/characters/pc/${pc.name}/summary`}
+                  className="party__pc-link"
+                >
+                  <div className="party__character-name">{pc.name}</div>
+                  <div className="party__party-data">
+                    {translateRace(pc.race)}
+                    {pc.subrace !== 'subrace' &&
+                      ` - ${translateRace(pc.subrace)}`}
+                  </div>
+                  <div className="party__party-data">
+                    {translateClass(pc.pClass)}
+                  </div>
+                  <div className="party__party-data">Nivel {pc.level}</div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <button type="submit" className="profile__button cards__button-card">
+        Guardar
+      </button>
     </Form>
   );
 }

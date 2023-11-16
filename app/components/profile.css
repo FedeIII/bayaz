@@ -1,0 +1,48 @@
+.profile {
+  width: 100%;
+  display: flex;
+  padding: 32px;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.profile__prop-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 10%;
+}
+
+.profile__prop-row--single {
+  justify-content: start;
+}
+
+.profile__prop {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  flex-grow: 1;
+  flex-basis: 50%;
+}
+
+.profile__prop-label {
+  color: var(--color-x-pale);
+}
+
+.profile__prop-separator {
+  width: 100%;
+  margin: 0 0 8px;
+  border-bottom: 1px solid var(--color-x-pale);
+}
+
+.profile__title {
+  color: white !important;
+}
+
+.profile__input {
+  color: white !important;
+}
+
+.profile__button {
+  margin: auto;
+}

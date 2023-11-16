@@ -1,5 +1,7 @@
 import { createCookieSessionStorage } from '@remix-run/node';
 
+import { getUser } from './user.server';
+
 // export the whole sessionStorage object
 export let sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -14,3 +16,10 @@ export let sessionStorage = createCookieSessionStorage({
 
 // you can also export the methods individually for your own usage
 export let { getSession, commitSession, destroySession } = sessionStorage;
+
+export async function getSessionUser(request) {
+  const session = await getSession(request.headers.get('Cookie'));
+  const user = await getUser({ email: session.data.user.email });
+
+  return user;
+}

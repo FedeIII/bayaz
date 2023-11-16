@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Title } from '../form/title';
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
@@ -43,27 +44,13 @@ function BuildingDetails(props) {
         <input readOnly type="text" name="id" value={building.id} hidden />
       )}
       <input readOnly type="text" name="type" value={building.type} hidden />
-      <h1 className="places__title">
-        <span
-          style={{ display: showTypeInput ? 'none' : 'inline' }}
-          onClick={() => setShowTypeInput(true)}
-        >
-          <span className="places__title-capital">
-            {building.typeTranslation?.slice(0, 1)}
-          </span>
-          {building.typeTranslation?.slice(1)}
-        </span>
-        <input
-          ref={typeRef}
-          type="text"
-          name="typeTranslation"
-          value={building.typeTranslation}
-          className="places__title-input"
-          style={{ display: showTypeInput ? 'inline' : 'none' }}
-          onBlur={() => setShowTypeInput(false)}
-          onChange={onTypeChange}
-        />
-      </h1>
+
+      <Title
+        inputName="typeTranslation"
+        value={building.typeTranslation}
+        onChange={onTypeChange}
+      />
+
       <div className="places__image-container">
         <>
           <img

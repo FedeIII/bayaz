@@ -281,27 +281,7 @@ function City() {
           )}
 
           <div className="places__info">
-            <h1 className="places__title">
-              <span
-                style={{ display: showNameInput ? 'none' : 'inline' }}
-                onClick={() => setShowNameInput(true)}
-              >
-                <span className="places__title-capital">
-                  {name?.slice(0, 1)}
-                </span>
-                {name?.slice(1)}
-              </span>
-              <input
-                ref={nameRef}
-                type="text"
-                name="name"
-                value={name}
-                className="places__title-input"
-                style={{ display: showNameInput ? 'inline' : 'none' }}
-                onBlur={() => setShowNameInput(false)}
-                onChange={onNameChange}
-              />
-            </h1>
+            <Title inputName="name" value={name} onChange={onNameChange} />
 
             <hr className="places__section-divider" />
             <div className="places__subtitle">

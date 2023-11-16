@@ -110,7 +110,6 @@
 
 .places__title-input {
   color: var(--color-x-pale);
-  text-transform: uppercase;
   font-size: var(--font-size-xl);
   background: transparent;
   border: none;
