@@ -1,16 +1,23 @@
-import { json } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { useContext } from 'react';
 
 import MenuContext from '~/components/contexts/menuContext';
 import { SideBar } from '~/components/sideBar';
+import { getSession } from '~/services/session.server';
 
 import appStyles from '~/components/app.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: appStyles }];
 };
 
-export const loader = async ({ params }) => {
+export const loader = async ({ params, request }) => {
+  const session = await getSession(request.headers.get('Cookie'));
+
+  if (!session.data.user) {
+    return redirect('/login');
+  }
+
   return json({ isForPlayers: params.userRole === 'players' });
 };
 

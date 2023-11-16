@@ -7,6 +7,7 @@ import { insertAfter } from '~/utils/insert';
 import { getCurrentPcPage, PATHS } from '~/utils/paths';
 
 const mainLinks = [
+  { name: 'Perfil', url: '/', level: 0 },
   { name: 'Dados', url: '/dice', level: 0 },
   { name: 'Lugares', url: '/places', level: 0 },
   { name: 'Personajes', url: '/characters', level: 0 },
@@ -139,10 +140,10 @@ export function SideBar(props) {
           to={button.url}
           className={`${
             button.level === 0
-              ? "app__main-button"
+              ? 'app__main-button'
               : button.level === 1
-              ? "app__secondary-button"
-              : "app__tertiary-button"
+              ? 'app__secondary-button'
+              : 'app__tertiary-button'
           }`}
           key={button.url}
         >

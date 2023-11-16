@@ -6,9 +6,7 @@ import { getUser, updateUser } from '~/services/user.server';
 
 export const loader = async ({ request }) => {
   const session = await getSession(request.headers.get('Cookie'));
-  const { email } = session.data.user;
-
-  const user = await getUser({ email });
+  const user = await getUser({ email: session.data.user.email });
 
   return json({ user });
 };
