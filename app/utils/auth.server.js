@@ -9,10 +9,10 @@ export const authenticator = new Authenticator(sessionStorage);
 
 let auth0Strategy = new Auth0Strategy(
   {
-    callbackURL: 'http://localhost:3000/auth/auth0/callback',
+    callbackURL: process.env.AUTH0_CALLBACK_URL,
     clientID: process.env.BACKEND_AUTH0_CLIENT_ID,
     clientSecret: process.env.BACKEND_AUTH0_CLIENT_SECRET,
-    domain: 'dev-x2huz64cpy7s7i22.eu.auth0.com',
+    domain: process.env.AUTH0_DOMAIN,
   },
   async ({ accessToken, refreshToken, extraParams, profile }) => {
     // Get the user data from your DB or API using the tokens and profile
