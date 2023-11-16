@@ -6,10 +6,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useEffect, useState } from 'react';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 import MenuContext from './components/contexts/menuContext';
 import PartyContext from './components/contexts/partyContext';
@@ -78,6 +78,8 @@ export default function App() {
     setHasMenu(true);
   }, []);
 
+  const globalContext = typeof window !== 'undefined' ? window : null;
+
   return (
     <html lang="es-ES">
       <head>
@@ -85,38 +87,46 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <DndProvider backend={HTML5Backend}>
-          <MenuContext.Provider
-            value={{ hasMenu, setHasMenu, menuTitle, setMenuTitle }}
-          >
-            <PartyContext.Provider
-              value={{
-                partyIdState,
-                setPartyIdState,
-                deletePartyIdState,
-                pcNamesState,
-                setPcNamesState,
-                deletePcNamesState,
-              }}
+        <Auth0Provider
+          domain="dev-x2huz64cpy7s7i22.eu.auth0.com"
+          clientId="s8hJ6pxykxktnct0UnU8IcyRPiPz4iOk"
+          authorizationParams={{
+            redirect_uri: globalContext?.location.origin,
+          }}
+        >
+          <DndProvider backend={HTML5Backend}>
+            <MenuContext.Provider
+              value={{ hasMenu, setHasMenu, menuTitle, setMenuTitle }}
             >
-              <MonstersContext.Provider
+              <PartyContext.Provider
                 value={{
-                  monstersState,
-                  setMonstersState,
-                  deleteMonstersState,
-                  encounterIdState,
-                  setEncounterIdState,
-                  deleteEncounterIdState,
+                  partyIdState,
+                  setPartyIdState,
+                  deletePartyIdState,
+                  pcNamesState,
+                  setPcNamesState,
+                  deletePcNamesState,
                 }}
               >
-                <Outlet />
-                <ScrollRestoration />
-                <Scripts />
-                <LiveReload />
-              </MonstersContext.Provider>
-            </PartyContext.Provider>
-          </MenuContext.Provider>
-        </DndProvider>
+                <MonstersContext.Provider
+                  value={{
+                    monstersState,
+                    setMonstersState,
+                    deleteMonstersState,
+                    encounterIdState,
+                    setEncounterIdState,
+                    deleteEncounterIdState,
+                  }}
+                >
+                  <Outlet />
+                  <ScrollRestoration />
+                  <Scripts />
+                  <LiveReload />
+                </MonstersContext.Provider>
+              </PartyContext.Provider>
+            </MenuContext.Provider>
+          </DndProvider>
+        </Auth0Provider>
       </body>
     </html>
   );
