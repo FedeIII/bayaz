@@ -58,6 +58,8 @@ export function getVillageReligion() {
 }
 
 function randomVillageImageOnce(files, population, accommodation, religion) {
+  if (!files?.length) return 'no-image';
+
   const size =
     population < 100
       ? 'small'

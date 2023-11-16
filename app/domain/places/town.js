@@ -176,6 +176,8 @@ function randomTownImageOnce(
   religion,
   placeCharacteristics
 ) {
+  if (!files?.length) return 'no-image';
+
   const size = randomSizeComponent(population);
   const tavern = randomTavernComponent(
     accommodation,
