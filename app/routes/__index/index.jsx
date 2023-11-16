@@ -1,12 +1,37 @@
 import { json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { Form, useLoaderData } from '@remix-run/react';
 
-export const loader = async () => {
-  return json({ welcome: process.env.TEST_DEV });
+import { getSession } from '~/services/session.server';
+import { getUser, updateUser } from '~/services/user.server';
+
+export const loader = async ({ request }) => {
+  const session = await getSession(request.headers.get('Cookie'));
+  const { email } = session.data.user;
+
+  const user = await getUser({ email });
+
+  return json({ user });
+};
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const email = formData.get('email');
+  const name = formData.get('name');
+
+  await updateUser(email, { name });
+
+  return null;
 };
 
 export default function Index() {
-  const { welcome } = useLoaderData();
+  const { welcome, user } = useLoaderData();
 
-  return <p>{welcome || 'Welcome'}</p>;
+  return (
+    <Form method="post">
+      {welcome || 'Welcome'} {user.name}
+      <input readOnly type="text" name="email" value={user.email} hidden />
+      <input type="text" name="name" defaultValue={user.name} />
+      <button type="submit">Guardar</button>
+    </Form>
+  );
 }

@@ -85,7 +85,6 @@ export function t(key) {
     artisansTools: 'Herramientas artesanales',
     arcaneFocus: 'Foco arcano',
     druidicFocus: 'Foco druídico',
-    druidicFocus: 'Foco druídico',
     ammunition: 'Munición',
     adventure: 'Aventura',
     clothes: 'Ropa',
