@@ -3,7 +3,7 @@
   position: absolute;
   top: 4px;
   bottom: 4px;
-  font-family: fantasy;
+  font-family: var(--font-family);
   display: grid;
   grid-template-columns: 6% 1% 2% 7% 2% 15% 3.5% 1% 2% 2% 5% 2% 8% 6.5% 3.5% 1% 2% 3% 4% 2% 1% 10% 3%;
   grid-template-rows: 8% 1% 2% 0.7% 7% 3% 1.5% 12.5% 2% 2% 2.5% 1.7% 0.5% 2% 3% 1.5% 7.5% 2% 3% 1.2% 0.6% 2% 3% 1.5% 0.5% 2% 1.5% 1.3% 0.8% 0.6% 2% 1.4% 11%;
@@ -51,7 +51,7 @@
 }
 
 .spells__annotation {
-  font-size: 10px;
+  font-size: var(--font-size-xxs);
   position: absolute;
   top: -5px;
   left: 30px;
@@ -59,7 +59,7 @@
 
 .spells__data {
   color: #0000d4;
-  font-size: 18px;
+  font-size: var(--font-size-l);
   z-index: 1;
   display: flex;
   justify-content: flex-start;
@@ -71,13 +71,13 @@
 .spells__submit {
   grid-area: mit;
   margin: -28px 90px 14px -30px;
-  font-family: fantasy;
+  font-family: var(--font-family);
   border-radius: 5px;
   cursor: pointer;
 }
 
 .spells__name {
-  font-size: 28px;
+  font-size: var(--font-size-big);
   grid-area: nam;
   justify-content: center;
   margin: 0 0 4px 0;
@@ -87,7 +87,7 @@
   grid-area: spA;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 12px 0 0 0;
 }
 
@@ -95,7 +95,7 @@
   grid-area: sTh;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 12px 0 0 0;
 }
 
@@ -103,14 +103,14 @@
   grid-area: atB;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 12px 0 0 0;
 }
 
 .spells__spent-spaces {
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px -12px 0 0px;
   cursor: pointer;
 }
@@ -132,7 +132,7 @@
   grid-area: tS1;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px 0 0 0;
 }
 
@@ -160,7 +160,7 @@
   grid-area: tS2;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px 0 0 0;
 }
 
@@ -177,7 +177,7 @@
   grid-area: tS3;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px 0 0 0;
 }
 
@@ -194,7 +194,7 @@
   grid-area: tS4;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px 0 0 0;
 }
 
@@ -211,7 +211,7 @@
   grid-area: tS5;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px 0 0 0;
 }
 
@@ -228,7 +228,7 @@
   grid-area: tS6;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px 0 0 0;
 }
 
@@ -245,7 +245,7 @@
   grid-area: tS7;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px 0 0 0;
 }
 
@@ -262,7 +262,7 @@
   grid-area: tS8;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px 0 0 0;
 }
 
@@ -279,7 +279,7 @@
   grid-area: tS9;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   margin: 8px 0 0 0;
 }
 
@@ -293,7 +293,7 @@
 }
 
 .spells__cantrip {
-  font-size: 16px;
+  font-size: var(--font-size-m);
   text-align: left;
   margin: 0 0 0px 0;
   padding: 0 0 0 0;
@@ -302,7 +302,7 @@
 }
 
 .spells__spell {
-  font-size: 16px;
+  font-size: var(--font-size-m);
   text-align: left;
   margin: 0 0 0px 0;
   padding: 0 0 0 20px;
@@ -311,7 +311,7 @@
 }
 
 .spells__prepared-spells {
-  font-size: 16px;
+  font-size: var(--font-size-m);
   margin: 0 0 0 8px;
 }
 
@@ -347,7 +347,7 @@
   position: absolute;
   top: -4px;
   left: -1px;
-  font-size: 22px;
+  font-size: var(--font-size-xxl);
 }
 
 .spells__prepared-spell-checked:hover {

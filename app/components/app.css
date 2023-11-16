@@ -13,7 +13,7 @@
   background-color: #282c34;
   height: 8vh;
   color: white;
-  font-size: 22px;
+  font-size: var(--font-size-xxl);
 }
 
 .app__body {
@@ -136,7 +136,7 @@
   border: 1px solid white;
   font-family: monospace;
   line-height: 1.5;
-  font-size: 15px;
+  font-size: var(--font-size-m);
 }
 
 .app__h4 {
@@ -156,19 +156,19 @@
 }
 
 .app__button-big {
-  font-size: 18px;
+  font-size: var(--font-size-l);
 }
 
 .app__big-text {
-  font-size: 24px;
+  font-size: var(--font-size-xxxl);
 }
 
 .app__small-text {
-  font-size: 14px;
+  font-size: var(--font-size-s);
 }
 
 .app__tiny-text {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
 }
 
 .app__filter {

@@ -164,7 +164,7 @@
 .encounter__cr-xp-cr {
   width: 50%;
   text-align: end;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   display: flex;
   justify-content: flex-end;
   column-gap: 16px;
@@ -186,13 +186,13 @@
 }
 
 .encounter__monster-name {
-  font-size: 18px;
+  font-size: var(--font-size-l);
   font-weight: bold;
 }
 
 .encounter__monster-stats {
   margin: 0 32px 0 0;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   text-align: right;
   display: flex;
   justify-content: flex-end;

@@ -1,5 +1,5 @@
 .encounters {
-  font-family: fantasy;
+  font-family: var(--font-family);
 }
 
 .encounters__difficulty-list {
@@ -11,10 +11,10 @@
 }
 
 .encounters__difficulty-item {
-  font-family: fantasy;
+  font-family: var(--font-family);
   padding: 16px 32px;
   background-color: #252937;
-  font-size: 22px;
+  font-size: var(--font-size-xxl);
   border: 1px groove white;
   border-radius: 10px;
   text-decoration: none;
@@ -58,7 +58,7 @@
   border: 1px solid white;
   padding: 8px 16px 4px;
   border-radius: 10px;
-  font-family: fantasy;
+  font-family: var(--font-family);
   cursor: pointer;
 }
 
@@ -90,12 +90,12 @@
 }
 
 .encounters__death {
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   color: #d94243;
 }
 
 .encounters__death-icon {
-  font-size: 40px;
+  font-size: var(--font-size-huge);
   vertical-align: sub;
 }
 

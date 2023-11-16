@@ -1,6 +1,9 @@
 body {
   margin: 0;
-  font-family: fantasy;
+
+  --font-family: 'Rosarivo';
+
+  font-family: var(--font-family);
 
   --color-green: #2b8c47;
   --color-orange: #daa645;
@@ -22,4 +25,17 @@ body {
 
   --color-gray: #dadad8;
   --color-x-gray: #eaeaea;
+
+  --font-size-xxs: 10px;
+  --font-size-xs: 12px;
+  --font-size-s: 14px;
+  --font-size-m: 16px;
+  --font-size-l: 18px;
+  --font-size-xl: 20px;
+  --font-size-xxl: 22px;
+  --font-size-xxxl: 24px;
+  --font-size-big: 28px;
+  --font-size-xbig: 32px;
+  --font-size-huge: 40px;
+  --font-size-xhuge: 44px;
 }

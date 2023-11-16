@@ -1,6 +1,6 @@
 .bar {
   font-family: monospace;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   border-bottom: 1px solid #0000d4;
   position: relative;
   display: inline-block;
@@ -29,8 +29,8 @@
 .bar__cursorValue {
   position: absolute;
   top: -16px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   width: 0px;
   display: flex;
   justify-content: flex-end;
@@ -47,8 +47,8 @@
   color: orange;
   position: absolute;
   top: 20px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   width: 0px;
   display: flex;
   justify-content: flex-end;
@@ -66,8 +66,8 @@
   color: red;
   position: absolute;
   top: 20px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   width: 0px;
   display: flex;
   justify-content: flex-end;
@@ -101,5 +101,5 @@
   position: absolute;
   color: white;
   font-weight: normal;
-  font-size: 10px;
+  font-size: var(--font-size-xxs);
 }

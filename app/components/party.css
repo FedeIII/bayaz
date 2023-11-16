@@ -7,7 +7,7 @@
 }
 
 .party__character-list {
-  font-family: fantasy;
+  font-family: var(--font-family);
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -90,7 +90,7 @@
 
 .party__character-name {
   text-transform: capitalize;
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   color: white;
   text-decoration: none;
   flex-grow: 2;
@@ -116,8 +116,8 @@
 }
 
 .party__party-list {
-  font-family: fantasy;
-  font-size: 20px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xl);
   display: flex;
   list-style: none;
   flex-wrap: wrap;
@@ -171,7 +171,7 @@
 }
 
 .party__session-item-xp {
-  font-size: 14px;
+  font-size: var(--font-size-s);
   flex-basis: 10%;
   min-width: 60px;
   flex-grow: 1;
@@ -181,7 +181,7 @@
 
 .party__session-item-xp-input::after {
   content: 'xp';
-  font-size: 14px;
+  font-size: var(--font-size-s);
   position: absolute;
   right: -4px;
   top: 0;
@@ -197,8 +197,8 @@
 .party__new-session-event {
   width: 90%;
   height: 16px;
-  font-family: fantasy;
-  font-size: 16px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
   vertical-align: middle;
   color: white;
   background-color: var(--color-base);
@@ -207,7 +207,7 @@
 .party__new-session-event-xp {
   border: 1px solid gray;
   text-align: right;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   padding-right: 20px;
   width: calc(100% - 18px);
 }

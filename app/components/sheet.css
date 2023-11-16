@@ -3,7 +3,7 @@
   position: absolute;
   top: 4px;
   bottom: 4px;
-  font-family: fantasy;
+  font-family: var(--font-family);
   display: grid;
   grid-template-columns: 8.5% 3.5% 5% 2.5% 19% 4.5% 2% 2% 5.5% 4% 5.5% 1% 5.5% 10% 13% 1% 2%;
   grid-template-rows: 7% 1% 1% 1% 1% 1.2% 5% 1% 1% 1% 2% 1% 1% 1.5% 1% 1% 0.7% 0.9% 0.8% 0.9% 0.8% 0.7% 0.9% 0.9% 0.8% 0.8% 2% 2.6% 0.4% 0.9% 0.8% 0.9% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.9% 0.8% 0.9% 0.7% 0.9% 1% 3% 1% 1% 1% 1.2% 2% 1.2% 2% 1.2% 2% 1.2% 2% 3.9% 5%;
@@ -108,7 +108,7 @@
 }
 
 .sheet__annotation {
-  font-size: 10px;
+  font-size: var(--font-size-xxs);
   position: absolute;
   top: -5px;
   left: 30px;
@@ -116,7 +116,7 @@
 
 .sheet__data {
   color: #0000d4;
-  font-size: 18px;
+  font-size: var(--font-size-l);
   z-index: 1;
   display: flex;
   justify-content: flex-start;
@@ -128,13 +128,13 @@
 .sheet__submit {
   grid-area: mit;
   margin: -28px 90px 14px -30px;
-  font-family: fantasy;
+  font-family: var(--font-family);
   border-radius: 5px;
   cursor: pointer;
 }
 
 .sheet__name {
-  font-size: 28px;
+  font-size: var(--font-size-big);
   grid-area: nam;
 }
 
@@ -152,7 +152,7 @@
   background-color: transparent;
   border: none;
   margin: 12px 0px 0px 0px;
-  font-family: fantasy;
+  font-family: var(--font-family);
   hyphens: auto;
 }
 
@@ -168,7 +168,7 @@
 .sheet__str {
   grid-area: str;
   justify-content: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
 }
 
 .sheet__strMod {
@@ -180,7 +180,7 @@
   grid-area: dex;
   justify-content: center;
   line-height: 1;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
 }
 
 .sheet__dexMod {
@@ -193,7 +193,7 @@
   grid-area: con;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
 }
 
 .sheet__conMod {
@@ -207,7 +207,7 @@
   justify-content: center;
   align-items: center;
   line-height: 1;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
 }
 
 .sheet__intMod {
@@ -220,7 +220,7 @@
   grid-area: wis;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
 }
 
 .sheet__wisMod {
@@ -232,7 +232,7 @@
   grid-area: cha;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
 }
 
 .sheet__chaMod {
@@ -245,7 +245,7 @@
   grid-area: pro;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
+  font-size: var(--font-size-big);
 }
 
 .sheet__strProf {
@@ -324,12 +324,12 @@
   grid-area: pAC;
   justify-content: center;
   align-items: flex-end;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   line-height: 1.6;
 }
 
 .sheet__extra-armor-class {
-  font-size: 14px;
+  font-size: var(--font-size-s);
   line-height: 2;
   position: absolute;
   top: 0;
@@ -340,7 +340,7 @@
   grid-area: spe;
   justify-content: center;
   align-items: flex-end;
-  font-size: 32px;
+  font-size: var(--font-size-xbig);
   line-height: 0.5;
 }
 
@@ -356,13 +356,13 @@
   grid-area: hps;
   justify-content: center;
   align-items: center;
-  font-size: 44px;
+  font-size: var(--font-size-xhuge);
 }
 
 .sheet__extra-hit-points {
   position: absolute;
   left: calc(50% + 22px);
-  font-size: 44px;
+  font-size: var(--font-size-xhuge);
   animation: extra_hit_points 5s cubic-bezier(0.005, 0.7, 0.25, 1);
 }
 
@@ -381,16 +381,16 @@
   grid-area: thp;
   justify-content: center;
   align-items: center;
-  font-size: 44px;
+  font-size: var(--font-size-xhuge);
 }
 
 .sheet__temporary-hit-points-input {
   background-color: transparent;
   border: none;
   margin: 4px 0px 0px 0px;
-  font-family: fantasy;
+  font-family: var(--font-family);
   color: var(--color-blue-ink);
-  font-size: 44px;
+  font-size: var(--font-size-xhuge);
   width: 100%;
   text-align: center;
 }
@@ -402,7 +402,7 @@
 
 .sheet__remaining-hit-dice {
   grid-area: exH;
-  font-size: 24px;
+  font-size: var(--font-size-xxxl);
   justify-content: center;
   padding: 12px 0 0;
 }
@@ -410,7 +410,7 @@
 .sheet__death-saving-throw-success {
   grid-area: dsS;
   position: absolute;
-  font-size: 24px;
+  font-size: var(--font-size-xxxl);
   justify-content: center;
   padding: 12px 0 0;
 }
@@ -418,14 +418,14 @@
 .sheet__death-saving-throw-failure {
   grid-area: dsF;
   position: absolute;
-  font-size: 24px;
+  font-size: var(--font-size-xxxl);
   justify-content: center;
   padding: 12px 0 0;
 }
 
 .sheet__attack-name-0 {
   grid-area: aN0;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   justify-content: center;
   margin-left: -20px;
   width: 120%;
@@ -440,7 +440,7 @@
 
 .sheet__attack-type-0 {
   grid-area: aT0;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   justify-content: center;
   width: 110%;
   margin-bottom: -8px;
@@ -448,7 +448,7 @@
 
 .sheet__attack-name-1 {
   grid-area: aN1;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   justify-content: center;
   margin-left: -20px;
   width: 120%;
@@ -463,7 +463,7 @@
 
 .sheet__attack-type-1 {
   grid-area: aT1;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   justify-content: center;
   width: 110%;
   margin-bottom: -8px;
@@ -471,7 +471,7 @@
 
 .sheet__attack-name-2 {
   grid-area: aN2;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   justify-content: center;
   margin-left: -20px;
   width: 120%;
@@ -486,7 +486,7 @@
 
 .sheet__attack-type-2 {
   grid-area: aT2;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   justify-content: center;
   width: 110%;
   margin-bottom: -8px;
@@ -504,7 +504,7 @@
 .sheet__attack-handler-character {
   color: #0000d44d;
   cursor: pointer;
-  font-size: 16px;
+  font-size: var(--font-size-m);
   position: absolute;
   left: -2px;
   top: 50%;
@@ -512,8 +512,8 @@
 }
 
 .sheet__select-attack {
-  font-size: 14px;
-  font-family: fantasy;
+  font-size: var(--font-size-s);
+  font-family: var(--font-family);
   color: #0000d4;
   text-align: center;
   appearance: none;
@@ -545,7 +545,7 @@
   align-items: flex-start;
   list-style: decimal;
   padding-left: 12px;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   margin: 4px 0px 0px -20px;
   line-height: 1.5;
   width: 105%;
@@ -758,7 +758,7 @@
   grid-area: per;
   justify-content: flex-end;
   align-items: flex-start;
-  font-size: 28px;
+  font-size: var(--font-size-big);
   margin-right: -5px;
 }
 
@@ -767,7 +767,7 @@
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   line-height: 1.54;
   hyphens: auto;
   width: 104%;
@@ -777,8 +777,8 @@
 }
 
 .sheet__coin-input {
-  font-size: 18px;
-  font-family: fantasy;
+  font-size: var(--font-size-l);
+  font-family: var(--font-family);
   color: var(--color-blue-ink);
   background: transparent;
   border: none;
@@ -831,8 +831,8 @@
   background-color: transparent;
   border: none;
   margin: 4px 0px 0px 0px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   line-height: 1.73;
   hyphens: auto;
 }
@@ -843,8 +843,8 @@
   background-color: transparent;
   border: none;
   margin: -13px 0px 0px 0px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   line-height: 1.73;
   hyphens: auto;
 }
@@ -855,8 +855,8 @@
   background-color: transparent;
   border: none;
   margin: 4px 0px 0px 0px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   line-height: 1.73;
   hyphens: auto;
 }
@@ -867,8 +867,8 @@
   background-color: transparent;
   border: none;
   margin: -2px 0px -7px 0px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   line-height: 1.73;
   hyphens: auto;
 }
@@ -886,7 +886,7 @@
 /*  */
 
 .sheet__trait-label {
-  font-size: 14px;
+  font-size: var(--font-size-s);
   margin: 0;
   padding: 0;
   text-align: left;
@@ -898,18 +898,18 @@
 
 .sheet__trait {
   font-weight: bolder;
-  font-size: 16px;
+  font-size: var(--font-size-m);
 }
 
 .sheet__trait-item {
   font-weight: bolder;
-  font-size: 16px;
+  font-size: var(--font-size-m);
   margin-left: 32px;
 }
 
 .sheet__pending-trait {
   position: absolute;
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: bold;
   line-height: 0.8;
   animation: pending_trait 1s infinite;

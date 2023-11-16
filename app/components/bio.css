@@ -3,7 +3,7 @@
   position: absolute;
   top: 4px;
   bottom: 4px;
-  font-family: fantasy;
+  font-family: var(--font-family);
   display: grid;
   grid-template-columns: 6% 3% 24.5% 3% 5% 3% 18% 2.5% 4% 9% 13% 2.5%;
   grid-template-rows: 7% 1.5% 1.5% 1% 1% 4% 3% 2% 14.5% 7.8% 3% 1% 24.2% 2.5% 19% 2%;
@@ -34,7 +34,7 @@
 }
 
 .bio__annotation {
-  font-size: 10px;
+  font-size: var(--font-size-xxs);
   position: absolute;
   top: -5px;
   left: 30px;
@@ -42,7 +42,7 @@
 
 .bio__data {
   color: #0000d4;
-  font-size: 18px;
+  font-size: var(--font-size-l);
   z-index: 1;
   display: flex;
   justify-content: flex-start;
@@ -56,9 +56,9 @@
   margin: 0 0 0 -3px;
   height: 25px;
   width: 110%;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   padding: 0px 2px 2px 4px;
-  font-family: fantasy;
+  font-family: var(--font-family);
   border-radius: 5px;
   cursor: pointer;
 }
@@ -68,8 +68,8 @@
   margin: 8px 0 0 0;
   height: 25px;
   width: 70px;
-  font-size: 12px;
-  font-family: fantasy;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-family);
   border-radius: 5px;
   cursor: pointer;
   justify-self: center;
@@ -80,8 +80,8 @@
   margin: 8px 50px 0 0;
   height: 25px;
   width: 70px;
-  font-size: 12px;
-  font-family: fantasy;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-family);
   border-radius: 5px;
   cursor: pointer;
   justify-self: flex-end;
@@ -92,8 +92,8 @@
   margin: 8px 0 0 70px;
   height: 25px;
   width: 70px;
-  font-size: 12px;
-  font-family: fantasy;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-family);
   border-radius: 5px;
   cursor: pointer;
   justify-self: flex-start;
@@ -101,7 +101,7 @@
 
 .bio__name {
   grid-area: nam;
-  font-size: 28px;
+  font-size: var(--font-size-big);
   justify-content: center;
   margin: 0 40px 0 0;
 }
@@ -109,19 +109,19 @@
 .bio__age {
   grid-area: age;
   margin: 0 0 -4px 0;
-  font-size: 22px;
+  font-size: var(--font-size-xxl);
 }
 
 .bio__height {
   grid-area: hei;
   margin: 0 0 -4px 0;
-  font-size: 22px;
+  font-size: var(--font-size-xxl);
 }
 
 .bio__weight {
   grid-area: wei;
   margin: 0 0 -4px 0;
-  font-size: 22px;
+  font-size: var(--font-size-xxl);
 }
 
 .bio__eyes {
@@ -129,8 +129,8 @@
   background-color: transparent;
   border: none;
   margin: 4px 0px 0px 0px;
-  font-family: fantasy;
-  font-size: 17px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-l);
   line-height: 1.9;
   hyphens: auto;
 }
@@ -140,8 +140,8 @@
   background-color: transparent;
   border: none;
   margin: 4px 0px 0px 0px;
-  font-family: fantasy;
-  font-size: 17px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-l);
   line-height: 1.9;
   hyphens: auto;
 }
@@ -151,8 +151,8 @@
   background-color: transparent;
   border: none;
   margin: 4px 0px 0px 0px;
-  font-family: fantasy;
-  font-size: 17px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-l);
   line-height: 1.9;
   hyphens: auto;
 }
@@ -162,8 +162,8 @@
   background-color: transparent;
   border: none;
   margin: 9px 4px 0px 4px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   line-height: 1.54;
   hyphens: auto;
 }
@@ -173,8 +173,8 @@
   background-color: transparent;
   border: none;
   margin: 3px 4px 0px 4px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   line-height: 1.54;
   hyphens: auto;
 }
@@ -184,8 +184,8 @@
   background-color: transparent;
   border: none;
   margin: -2px 8px 0px 8px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   line-height: 1.54;
   hyphens: auto;
 }
@@ -195,8 +195,8 @@
   background-color: transparent;
   border: none;
   margin: -2px 8px 0px 8px;
-  font-family: fantasy;
-  font-size: 14px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
   line-height: 1.54;
   hyphens: auto;
 }
@@ -208,7 +208,7 @@
   align-items: flex-start;
   column-gap: 23px;
   text-align: left;
-  font-size: 16px;
+  font-size: var(--font-size-m);
   line-height: 1.36;
   hyphens: auto;
   margin: 6px 0px 0 0px;
@@ -245,7 +245,7 @@
   border-radius: 5px;
   width: 25px;
   height: 25px;
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   cursor: pointer;
   color: var(--color-blue-ink);
 }
@@ -263,7 +263,7 @@
   border-radius: 5px;
   width: 25px;
   height: 25px;
-  font-size: 15px;
+  font-size: var(--font-size-m);
   font-weight: bold;
   cursor: pointer;
   color: var(--color-blue-ink);
@@ -282,7 +282,7 @@
   align-items: flex-start;
   column-gap: 23px;
   text-align: left;
-  font-size: 16px;
+  font-size: var(--font-size-m);
   line-height: 1.36;
   hyphens: auto;
   margin: 15px;
@@ -297,7 +297,7 @@
 }
 
 .bio__treasure-searcher-input {
-  font-family: fantasy;
+  font-family: var(--font-family);
 }
 
 .bio__section-items {
@@ -316,7 +316,7 @@
 /*  */
 
 .bio__trait-label {
-  font-size: 14px;
+  font-size: var(--font-size-s);
   margin: 0;
   padding: 0;
   text-align: left;
@@ -328,17 +328,17 @@
 
 .bio__trait {
   font-weight: bolder;
-  font-size: 16px;
+  font-size: var(--font-size-m);
 }
 
 .bio__trait-item {
   font-weight: bolder;
-  font-size: 16px;
+  font-size: var(--font-size-m);
   margin-left: 32px;
 }
 
 .bio__weapon-select {
-  font-family: fantasy;
+  font-family: var(--font-family);
   border: none;
   display: inline-flex;
   text-align: center;
@@ -357,8 +357,8 @@
 
 .bio__equip-armor {
   max-width: 160px;
-  font-family: fantasy;
-  font-size: 16px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
   cursor: pointer;
   background-color: white;
   border-width: 1px;

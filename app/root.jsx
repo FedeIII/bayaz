@@ -83,6 +83,10 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Rosarivo"
+        />
       </head>
       <body>
         <DndProvider backend={HTML5Backend}>

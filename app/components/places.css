@@ -19,8 +19,8 @@
   display: flex;
   background: none;
   border: none;
-  font-family: fantasy;
-  font-size: 16px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
   border-radius: 5px;
   padding: 4px 4px 2px;
 }
@@ -96,8 +96,8 @@
   margin: 0;
   color: var(--color-x-pale);
   text-transform: uppercase;
-  font-size: 20px;
-  font-family: fantasy;
+  font-size: var(--font-size-xl);
+  font-family: var(--font-family);
   padding: 0 0 0 18px;
 }
 
@@ -111,16 +111,16 @@
 .places__title-input {
   color: var(--color-x-pale);
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   background: transparent;
   border: none;
-  font-family: fantasy;
+  font-family: var(--font-family);
   margin: 8px 0px 5px 8px;
   padding: 0;
 }
 
 .places__title-capital {
-  font-size: 28px;
+  font-size: var(--font-size-big);
 }
 
 .places__section-divider {
@@ -128,7 +128,7 @@
 }
 
 .places__subtitle {
-  font-size: 14px;
+  font-size: var(--font-size-s);
   display: flex;
   justify-content: space-between;
 }
@@ -171,8 +171,8 @@
   border-top: 1px solid var(--color-x-pale);
   background: none;
   color: white;
-  font-family: fantasy;
-  font-size: 16px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
   padding: 16px 0 0 16px;
   scrollbar-color: white;
 }
@@ -180,9 +180,9 @@
 .places__trait-input {
   background: transparent;
   border: none;
-  font-family: fantasy;
+  font-family: var(--font-family);
   color: white;
-  font-size: 16px;
+  font-size: var(--font-size-m);
 }
 
 .places__trait-input--number-1 {
@@ -204,9 +204,9 @@
 .places__trait-select {
   background: transparent;
   border: none;
-  font-family: fantasy;
+  font-family: var(--font-family);
   color: white;
-  font-size: 14px;
+  font-size: var(--font-size-s);
 }
 
 .places__commerce-list {
@@ -215,7 +215,7 @@
 }
 
 /* .traitSelect:focus * {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
 } */
 
 .places__trait-list {

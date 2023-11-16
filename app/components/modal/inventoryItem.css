@@ -89,7 +89,7 @@
   right: 10px;
   width: 18px;
   height: 18px;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   color: black;
   cursor: pointer;
   z-index: 1;
@@ -162,7 +162,7 @@
   padding: 0 0 0 0px;
   margin: 8px auto 0;
   text-align: left;
-  font-size: 16px;
+  font-size: var(--font-size-m);
   display: table;
   border-collapse: separate;
   border-spacing: 8px 0px;
@@ -173,7 +173,7 @@
 }
 
 .inventory-item__modal-row-title {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   display: table-cell;
 }
 
@@ -200,7 +200,7 @@
   border: 2px groove gray;
   border-radius: 10px;
   cursor: pointer;
-  font-family: fantasy;
+  font-family: var(--font-family);
 }
 
 .inventory-item__modal-button:hover {
@@ -226,7 +226,7 @@
 
 .inventory-item__amount-input {
   width: 45px;
-  font-family: fantasy;
+  font-family: var(--font-family);
 }
 
 .inventory-item__modal-content-title {
@@ -245,7 +245,7 @@
 }
 
 .inventory-item__with-table .inventory-item__table {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   line-height: 1;
   height: 0;
 }
@@ -299,7 +299,7 @@
   right: 0;
   border: 1px solid black;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   cursor: pointer;
   color: var(--color-blue-ink);
   width: 20px;
@@ -318,8 +318,8 @@
 .inventory-item__drop-item-button {
   border: none;
   background: transparent;
-  font-family: fantasy;
-  font-size: 16px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
   padding: 0;
   cursor: pointer;
 }

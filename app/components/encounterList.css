@@ -30,7 +30,7 @@
 
 .encounterList__monsters {
   margin: 8px 0 0 0;
-  font-size: 18px;
+  font-size: var(--font-size-l);
   font-weight: bold;
   border-bottom: 1px solid white;
 }

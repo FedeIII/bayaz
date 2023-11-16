@@ -63,7 +63,7 @@
 }
 
 .dice__history-line-total {
-  font-size: 16px;
+  font-size: var(--font-size-m);
   font-weight: bold;
 }
 
@@ -72,7 +72,7 @@
   text-align: end;
   overflow-anchor: none;
   display: flex;
-  font-size: 14px;
+  font-size: var(--font-size-s);
   justify-content: space-between;
 }
 
