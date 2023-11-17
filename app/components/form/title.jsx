@@ -15,7 +15,9 @@ function getCapitalizedTitle(title) {
             {
               capitalized: [
                 ...acc.capitalized.slice(0, acc.capitalized.length - 1),
-                acc.capitalized[acc.capitalized.length - 1] + char,
+                (acc.capitalized.length
+                  ? acc.capitalized[acc.capitalized.length - 1]
+                  : '') + char,
               ],
               wasCapital: true,
             }
@@ -38,7 +40,9 @@ function getCapitalizedTitle(title) {
           {
             capitalized: [
               ...acc.capitalized.slice(0, acc.capitalized.length - 1),
-              acc.capitalized[acc.capitalized.length - 1] + char,
+              (acc.capitalized.length
+                ? acc.capitalized[acc.capitalized.length - 1]
+                : '') + char,
             ],
             wasCapital: false,
           },

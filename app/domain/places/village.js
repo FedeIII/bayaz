@@ -107,5 +107,5 @@ export function randomVillageImage(...args) {
     image = randomVillageImageOnce(...args);
   }
 
-  return 'village/' + image;
+  return image;
 }

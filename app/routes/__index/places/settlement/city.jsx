@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 import { json, redirect } from '@remix-run/node';
 
+import { getSettlementImages } from '~/services/s3.server';
 import {
   CITY,
   COMMERCE,
@@ -29,11 +30,8 @@ import {
 } from '~/domain/places/city';
 import { t } from '~/domain/translations';
 import { replaceAt } from '~/utils/insert';
-import {
-  createSettlement,
-  getSettlement,
-  updateSettlement,
-} from '~/services/settlements.server';
+import { createSettlement } from '~/services/settlements.server';
+import { Title } from '~/components/form/title';
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
@@ -45,15 +43,9 @@ export const loader = async ({ request }) => {
   const rng = url.searchParams.get('rng');
   let files;
 
-  const path = await import('path');
-  const fs = await import('fs/promises');
-  const publicFolderPath = path.join(
-    process.cwd(),
-    'public/images/places/city/'
-  );
   try {
-    files = await fs.readdir(publicFolderPath);
-  } catch (error) {
+    files = await getSettlementImages('city');
+  } catch {
     files = [];
   }
 
@@ -268,14 +260,8 @@ function City() {
       <div className="places__horizontal-sections">
         <div className="places__vertical-sections">
           {!!img && (
-            <div className="places__image">
-              <a href={`/images/places/${img}`} target="_blank">
-                <img
-                  src={`/images/places/${img}`}
-                  className="places__image"
-                  width="100%"
-                />
-              </a>
+            <div className="places__image-container">
+              <img src={img} className="places__image" width="100%" />
               <input readOnly type="text" name="img" value={img} hidden />
             </div>
           )}
