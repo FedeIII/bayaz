@@ -511,6 +511,10 @@
   margin-top: -4px;
 }
 
+.sheet__attack-name--hover {
+  background-color: var(--color-x-pale);
+}
+
 .sheet__select-attack {
   font-size: var(--font-size-s);
   font-family: var(--font-family);

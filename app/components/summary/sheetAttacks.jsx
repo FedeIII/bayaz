@@ -159,25 +159,31 @@ function SheetAttacks(props) {
           [attack.weapon.name]
         );
 
-        const [_2, drop] = useDrop(
+        const [{ isOver, canDrop }, drop] = useDrop(
           () => ({
             accept: 'WEAPON',
             drop: item => onWeaponDrop(item.value, i),
-            canDrop: () => !!attack.weapon.name,
+            canDrop: () => true,
+            collect: monitor => ({
+              isOver: !!monitor.isOver(),
+              canDrop: !!monitor.canDrop(),
+            }),
           }),
           [attack.weapon.name]
         );
 
         return (
           <Fragment key={i}>
-            <div className={`sheet__data sheet__attack-name-${i}`}>
-              <label
-                className="sheet__attack-handler"
-                ref={el => {
-                  drag(el);
-                  drop(el);
-                }}
-              >
+            <div
+              className={`sheet__data sheet__attack-name-${i} ${
+                isOver && canDrop ? 'sheet__attack-name--hover' : ''
+              }`}
+              ref={el => {
+                drop(el);
+                drag(el);
+              }}
+            >
+              <label className="sheet__attack-handler">
                 <span className="sheet__attack-handler-character">░</span>
                 <InventoryItem
                   ref={itemRefs.weapons.current[i]}

@@ -962,15 +962,25 @@ export async function equipWeapons(
   return updatedPc;
 }
 
-export async function unequipWeapon(name, weaponName) {
-  return await Pc.findOneAndUpdate(
-    { name },
+export async function unequipWeapon(name, weaponName, weaponPos) {
+  let pc = await Pc.findOneAndUpdate(
+    { name, 'items.weapons.name':  weaponName },
     {
-      $pull: { 'items.weapons': { name: weaponName } },
+      $unset: { 'items.weapons.$': '' },
+    },
+    { new: true }
+  );
+
+  pc = await Pc.findOneAndUpdate(
+    { name, 'items.weapons': null },
+    {
+      $pull: { 'items.weapons': null },
       $push: { 'items.treasure.weapons': { name: weaponName } },
     },
-    { new: true, multi: false }
+    { new: true }
   );
+
+  return pc;
 }
 
 export async function equipWeaponInSlot(name, weaponToEquipName, slot) {
@@ -1109,7 +1119,7 @@ export async function reorderWeapons(name, weaponName, destinationSlot) {
   const pc = await getPc(name);
   const weapons = pc.items.weapons.slice();
 
-  const originSlot = weapons.findIndex(weapon => weapon.name === weaponName);
+  const originSlot = weapons.findIndex(weapon => weapon?.name === weaponName);
   const selectedWeapon = getItem(weaponName);
   const replacedWeapon = weapons[destinationSlot];
 

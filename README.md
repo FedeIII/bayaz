@@ -72,9 +72,6 @@ npx prisma migrate dev
   - track Ki points
 - Improve spell modal data
 - Free text annotations anywhere in the character sheets (other colors)
-- Profiles:
-  - User: restrict access to generation screens
-  - Admin: add super powers to edit values
 - deduplicate items in item proficiencies and in treasure inventory
 - Bardic Inspiration die
 - Gain extra HP (con and others) on level up
