@@ -43,6 +43,7 @@
 }
 
 .places__image-container {
+  position: relative;
   float: left;
   flex-basis: 50%;
   flex-grow: 1;
@@ -56,6 +57,25 @@
   right: 0;
   bottom: 0;
   overflow: hidden;
+}
+
+.places__image-overlay {
+  opacity: 0;
+  background-color: var(--color-pale);
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-gargantuan);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.places__image-overlay:hover {
+  opacity: 0.5;
 }
 
 .places__image {

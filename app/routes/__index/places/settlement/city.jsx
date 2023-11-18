@@ -148,6 +148,23 @@ function City() {
     });
   }, [rng]);
 
+  const {
+    name,
+    img,
+    population,
+    accommodation,
+    government,
+    security,
+    commerces,
+    religion = {},
+    magicShops,
+    raceRelationships,
+    placeCharacteristics,
+    knownFor,
+    calamity,
+    notes,
+  } = place;
+
   function onNameChange(e) {
     setPlace(p => ({ ...p, name: e.target.value }));
   }
@@ -226,22 +243,20 @@ function City() {
     setPlace(p => ({ ...p, notes: e.target.value }));
   }
 
-  const {
-    name,
-    img,
-    population,
-    accommodation,
-    government,
-    security,
-    commerces,
-    religion = {},
-    magicShops,
-    raceRelationships,
-    placeCharacteristics,
-    knownFor,
-    calamity,
-    notes,
-  } = place;
+  function onImageClick() {
+    setPlace(p => ({
+      ...p,
+      img: randomCityImage(
+        files,
+        population,
+        accommodation,
+        government,
+        commerces,
+        religion,
+        placeCharacteristics
+      ),
+    }));
+  }
 
   return (
     <Form method="post">
@@ -261,6 +276,9 @@ function City() {
         <div className="places__vertical-sections">
           {!!img && (
             <div className="places__image-container">
+              <span className="places__image-overlay" onClick={onImageClick}>
+                ⟳
+              </span>
               <img src={img} className="places__image" width="100%" />
               <input readOnly type="text" name="img" value={img} hidden />
             </div>

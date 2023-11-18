@@ -10,11 +10,13 @@ import {
   PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
+  randomSettlementImage,
 } from '~/domain/places/places';
 import { getSettlement, updateSettlement } from '~/services/settlements.server';
 import { replaceAt } from '~/utils/insert';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
+import { getSettlementImages } from '~/services/s3.server';
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
@@ -29,15 +31,9 @@ export const loader = async ({ params }) => {
     throw new Error('Village not found');
   }
 
-  const path = await import('path');
-  const fs = await import('fs/promises');
-  const publicFolderPath = path.join(
-    process.cwd(),
-    `public/images/places/${place.type}/`
-  );
   try {
-    files = await fs.readdir(publicFolderPath);
-  } catch (error) {
+    files = await getSettlementImages(place.type);
+  } catch {
     files = [];
   }
 
@@ -128,6 +124,24 @@ function SettlementScreen() {
     }));
   }, [place]);
 
+  const {
+    name,
+    img,
+    population,
+    accommodation,
+    government,
+    securityType,
+    security,
+    commerces,
+    religion = {},
+    magicShops,
+    raceRelationships,
+    placeCharacteristics,
+    knownFor,
+    calamity,
+    notes,
+  } = placeState;
+
   function onNameChange(e) {
     setPlaceState(p => ({ ...p, name: e.target.value }));
   }
@@ -206,23 +220,18 @@ function SettlementScreen() {
     setPlaceState(p => ({ ...p, notes: e.target.value }));
   }
 
-  const {
-    name,
-    img,
-    population,
-    accommodation,
-    government,
-    securityType,
-    security,
-    commerces,
-    religion = {},
-    magicShops,
-    raceRelationships,
-    placeCharacteristics,
-    knownFor,
-    calamity,
-    notes,
-  } = placeState;
+  function onImageClick() {
+    setPlaceState(p => ({
+      ...p,
+      img: randomSettlementImage(
+        place.type,
+        files,
+        population,
+        accommodation,
+        religion
+      ),
+    }));
+  }
 
   return (
     <Form method="post">
@@ -249,11 +258,10 @@ function SettlementScreen() {
         <div className="places__vertical-sections">
           {!!img && (
             <div className="places__image-container">
-              <img
-                src={`/images/places/${img}`}
-                className="places__image"
-                width="100%"
-              />
+              <span className="places__image-overlay" onClick={onImageClick}>
+                ⟳
+              </span>
+              <img src={img} className="places__image" width="100%" />
               <input readOnly type="text" name="img" value={img} hidden />
             </div>
           )}

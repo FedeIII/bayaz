@@ -1,6 +1,9 @@
 import random from '~/domain/random';
 import { NPC_DEITIES, NPC_DEITIES_NAMES } from '../npc/attrs/npcFaith';
 import { t } from '../translations';
+import { randomVillageImage } from './village';
+import { randomTownImage } from './town';
+import { randomCityImage } from './city';
 
 export const VILLAGE = {
   population: [20, 500],
@@ -329,4 +332,12 @@ export function randomSettlementName() {
 export function randomDeityName() {
   const deity = random.split(NPC_DEITIES.filter(d => d[1] !== 'None'));
   return `${random.split(NPC_DEITIES_NAMES[deity])} (${t(deity)})`;
+}
+
+export function randomSettlementImage(type, ...args) {
+  return {
+    village: randomVillageImage,
+    town: randomTownImage,
+    city: randomCityImage,
+  }[type](...args);
 }

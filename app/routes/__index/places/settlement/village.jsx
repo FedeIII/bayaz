@@ -106,6 +106,17 @@ function Village() {
     }));
   }, [rng]);
 
+  const {
+    name,
+    img,
+    population,
+    accommodation,
+    government,
+    security = {},
+    religion = {},
+    notes,
+  } = place;
+
   function onNameChange(e) {
     setPlace(p => ({ ...p, name: e.target.value }));
   }
@@ -144,16 +155,12 @@ function Village() {
     setPlace(p => ({ ...p, notes: e.target.value }));
   }
 
-  const {
-    name,
-    img,
-    population,
-    accommodation,
-    government,
-    security = {},
-    religion = {},
-    notes,
-  } = place;
+  function onImageClick() {
+    setPlace(p => ({
+      ...p,
+      img: randomVillageImage(files, population, accommodation, religion),
+    }));
+  }
 
   return (
     <Form method="post">
@@ -173,6 +180,9 @@ function Village() {
         <div className="places__vertical-sections">
           {!!img && (
             <div className="places__image-container">
+              <span className="places__image-overlay" onClick={onImageClick}>
+                ⟳
+              </span>
               <img src={img} className="places__image" width="100%" />
               <input readOnly type="text" name="img" value={img} hidden />
             </div>
