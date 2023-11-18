@@ -1,10 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import {
-  Form,
-  useLoaderData,
-  useSubmit,
-  useTransition,
-} from '@remix-run/react';
+import { Form, useLoaderData, useSubmit } from '@remix-run/react';
 import { createRef, useEffect, useRef, useState } from 'react';
 
 import {
@@ -32,18 +27,23 @@ import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import { GrowBar } from '~/components/indicators/growBar';
 import { getSearchResults } from '~/domain/search';
 import { addItemToTreasure } from '~/domain/characterMutations';
+import { getSessionUser } from '~/services/session.server';
+import { isDm } from '~/domain/user';
 
 import styles from '~/components/bio.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
-export const loader = async ({ params }) => {
+export const loader = async ({ request, params }) => {
   const pc = await getPc(params.name);
   if (!pc) {
     throw new Error('pc not found');
   }
-  return json({ pc, isForPlayers: params.userRole === 'players' });
+
+  const user = await getSessionUser(request);
+
+  return json({ pc, isDm: isDm(user) });
 };
 
 async function equipWeaponAction(formData) {
@@ -364,7 +364,7 @@ function ArmorModalContent(props) {
 }
 
 function PcBio() {
-  const { pc, isForPlayers } = useLoaderData();
+  const { pc, isDm } = useLoaderData();
   const {
     name,
     age,
@@ -382,9 +382,6 @@ function PcBio() {
       extraTraits2,
     } = {},
   } = pc;
-
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
 
   const [isSubmitStatsShown, setIsSubmitStatsShown] = useState(false);
   const [isSubmitAlliesShown, setIsSubmitAlliesShown] = useState(false);
@@ -633,7 +630,7 @@ function PcBio() {
             elRef={selectedItemRef}
             formRef={formRef}
             closeModal={() => setActionModalContent(null)}
-            isForPlayers={isForPlayers}
+            isDm={isDm}
           >
             {actionModalContent}
           </ItemModal>
@@ -645,7 +642,7 @@ function PcBio() {
             formRef={formRef}
             closeModal={closeItemModal}
             closeOnLeave
-            isForPlayers={isForPlayers}
+            isDm={isDm}
           >
             {itemModalContent}
           </ItemModal>
@@ -677,11 +674,7 @@ function PcBio() {
           onChange={onStatsChange}
         ></textarea>
         {isSubmitStatsShown && (
-          <button
-            type="submit"
-            disabled={isCreating}
-            className="bio__data bio__submit-stats"
-          >
+          <button type="submit" className="bio__data bio__submit-stats">
             Actualizar
           </button>
         )}
@@ -694,11 +687,7 @@ function PcBio() {
           onChange={onAlliesChange}
         ></textarea>
         {isSubmitAlliesShown && (
-          <button
-            type="submit"
-            disabled={isCreating}
-            className="bio__data bio__submit-allies"
-          >
+          <button type="submit" className="bio__data bio__submit-allies">
             Actualizar
           </button>
         )}
@@ -710,11 +699,7 @@ function PcBio() {
           onChange={onBackstoryChange}
         ></textarea>
         {isSubmitBackstoryShown && (
-          <button
-            type="submit"
-            disabled={isCreating}
-            className="bio__data bio__submit-backstory"
-          >
+          <button type="submit" className="bio__data bio__submit-backstory">
             Actualizar
           </button>
         )}
@@ -732,11 +717,7 @@ function PcBio() {
           onChange={onTraitsChange}
         ></textarea>
         {isSubmitTraitsShown && (
-          <button
-            type="submit"
-            disabled={isCreating}
-            className="bio__data bio__submit-traits"
-          >
+          <button type="submit" className="bio__data bio__submit-traits">
             Actualizar
           </button>
         )}

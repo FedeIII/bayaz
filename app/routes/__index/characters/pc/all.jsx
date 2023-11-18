@@ -4,6 +4,7 @@ import { Link, useLoaderData } from '@remix-run/react';
 import { getPcs, getUserPcs } from '~/services/pc.server';
 import { translateClass, translateRace } from '~/domain/characters';
 import { getSessionUser } from '~/services/session.server';
+import { isDm } from '~/domain/user';
 
 import styles from '~/components/party.css';
 export const links = () => {
@@ -14,7 +15,7 @@ export const loader = async ({ request }) => {
   const user = await getSessionUser(request);
   let pcs;
 
-  if (user?.roles.includes('dm')) {
+  if (isDm(user)) {
     pcs = await getPcs();
   } else {
     pcs = await getUserPcs(user.id);

@@ -18,7 +18,7 @@ export const links = () => {
 };
 
 function CombatAttrs(props) {
-  const { pc, skillRefs, openSkillModal, onFreeTextChange, isForPlayers } =
+  const { pc, skillRefs, openSkillModal, onFreeTextChange, isDm } =
     props;
   const { hitPoints, temporaryHitPoints } = pc;
 
@@ -113,7 +113,7 @@ function CombatAttrs(props) {
           onChange={onFreeTextChange}
           defaultValue={temporaryHitPoints || ''}
           className="sheet__temporary-hit-points-input"
-          disabled={isForPlayers}
+          disabled={!isDm}
         />
       </span>
 
@@ -125,7 +125,7 @@ function CombatAttrs(props) {
           trait="Dados de golpe"
           pc={pc}
           openModal={openSkillModal('remainingHitDice', 0)}
-          disabled={isForPlayers}
+          disabled={!isDm}
         >
           {getRemainingHitDice(pc)}
         </SkillItem>

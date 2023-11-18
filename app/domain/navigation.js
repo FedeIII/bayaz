@@ -1,5 +1,6 @@
 import { insertAfter } from '~/utils/insert';
 import { PATHS } from '~/utils/paths';
+import { isDm } from './user';
 
 const menuLinks = [
   { name: 'Perfil', url: '/', level: 0, isForPlayers: true },
@@ -11,7 +12,7 @@ const menuLinks = [
 ];
 
 export function getBasicMenuItems(user) {
-  if (user?.roles.includes('dm')) {
+  if (isDm(user)) {
     return menuLinks;
   }
 

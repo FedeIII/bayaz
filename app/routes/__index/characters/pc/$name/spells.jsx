@@ -34,25 +34,31 @@ import {
   getMagicalSecretsSpells,
 } from '~/domain/classes/bard/bard';
 import { resetSpellSlots, spendSpellSlot } from '~/domain/characterMutations';
+import { isDm } from '~/domain/user';
+import { getSessionUser } from '~/services/session.server';
 
 import styles from '~/components/spells.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
-export const loader = async ({ params }) => {
+export const loader = async ({ request, params }) => {
   const pc = await getPc(params.name);
+
   if (!pc) {
     throw new Error('pc not found');
   }
-  return json({ pc, isForPlayers: params.userRole === 'players' });
+
+  const user = await getSessionUser(request);
+
+  return json({ pc, isDm: isDm(user) });
 };
 
 async function prepareSpellAction(formData) {
   const name = formData.get('name');
   const pClass = formData.get('pClass');
   const preparedSpell = formData.get('preparedSpell');
-  const isForPlayers = formData.get('isForPlayers') === 'true';
+  const isDm = formData.get('isDm') === 'true';
 
   const [preparedSpellName, spellType, spellSubtype, isPrepared] =
     preparedSpell.split(',');
@@ -65,7 +71,7 @@ async function prepareSpellAction(formData) {
 
   if (isPrepared === 'true') {
     await addPreparedSpell(name, spell);
-  } else if (!isForPlayers) {
+  } else if (isDm) {
     await deletePreparedSpell(name, spell);
   }
 }
@@ -101,7 +107,7 @@ export const action = async ({ request }) => {
 };
 
 function PcSpells() {
-  const { pc, isForPlayers } = useLoaderData();
+  const { pc, isDm } = useLoaderData();
   const { pClass, name, preparedSpells, magic } = pc;
 
   const submit = useSubmit();
@@ -141,7 +147,7 @@ function PcSpells() {
               spell.subtype,
               e.target.checked,
             ],
-            isForPlayers,
+            isDm,
           },
           { method: 'post' }
         );
@@ -201,7 +207,7 @@ function PcSpells() {
             {skillModalContent}
           </SkillModal>
         )}
-        {!isForPlayers && canCopySpells(pc) && (
+        {!!isDm && canCopySpells(pc) && (
           <div className="spells__copy-spell">
             <SkillItem
               ref={skillRefs.copySpell.current[0]}
@@ -240,7 +246,7 @@ function PcSpells() {
                   traitName="resetSpellSlots"
                   trait={level}
                   openModal={openSkillModal('resetSpellSlots', level)}
-                  disabled={isForPlayers}
+                  disabled={!isDm}
                 >
                   {spellSlots[level] || 0}
                 </SkillItem>
@@ -264,9 +270,7 @@ function PcSpells() {
                 )}
               </div>
             )}
-            <ul
-              className={`spells__data spells__level spells__${level}`}
-            >
+            <ul className={`spells__data spells__level spells__${level}`}>
               {spells.map((spell, i) => (
                 <li
                   className={`spells__data ${
@@ -295,7 +299,7 @@ function PcSpells() {
                       >
                         ◍
                       </label>
-                      <span className="spells__hide-nect-bullet" />
+                      <span className="spells__hide-next-bullet" />
                     </>
                   )}
                   <span>

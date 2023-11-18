@@ -2,6 +2,7 @@ import { json } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 
 import { getSessionUser } from '~/services/session.server';
+import { isDm } from '~/domain/user';
 
 import styles from '~/components/characters/characters.css';
 export const links = () => {
@@ -17,7 +18,7 @@ const menuLinks = [
 export const loader = async ({ request }) => {
   const user = await getSessionUser(request);
 
-  if (user?.roles.includes('dm')) {
+  if (isDm(user)) {
     return json({ menuItems: menuLinks });
   }
 

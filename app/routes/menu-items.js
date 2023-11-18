@@ -1,5 +1,6 @@
 import { json } from '@remix-run/node';
 import { getAllMenuItems } from '~/domain/navigation';
+import { isDm } from '~/domain/user';
 import { getSessionUser } from '~/services/session.server';
 
 export const loader = async ({ request }) => {
@@ -16,7 +17,7 @@ export const loader = async ({ request }) => {
   if (pcName === 'null' || pcName === 'undefined') pcName = null;
 
   const menuItems = getAllMenuItems({
-    isDm: user?.roles?.includes('dm'),
+    isDm: isDm(user),
     pcName,
     partyIdState,
     pcNamesState,

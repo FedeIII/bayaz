@@ -110,6 +110,7 @@ import SheetSkills from '~/components/summary/sheetSkills';
 import SheetAttacks from '~/components/summary/sheetAttacks';
 import SheetEquipment from '~/components/summary/sheetEquipment';
 import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLanguages';
+import { isDm } from '~/domain/user';
 
 import styles from '~/components/sheet.css';
 import spellsStyles from '~/components/spells.css';
@@ -132,11 +133,7 @@ export const loader = async ({ request, params }) => {
 
   const user = await getSessionUser(request);
 
-  return json({
-    pc,
-    playerName: user.name,
-    isForPlayers: params.userRole === 'players',
-  });
+  return json({ pc, playerName: user.name, isDm: isDm(user) });
 };
 
 async function equipWeaponsAction(formData) {
@@ -310,7 +307,7 @@ export const action = async ({ request }) => {
 };
 
 function PcSummary() {
-  const { pc, playerName, isForPlayers } = useLoaderData();
+  const { pc, playerName, isDm } = useLoaderData();
   const {
     name,
     items: { equipment },
@@ -535,7 +532,7 @@ function PcSummary() {
             formRef={formRef}
             closeModal={() => setActionModalContent(null)}
             dropShadow
-            isForPlayers={isForPlayers}
+            isDm={isDm}
           >
             {actionModalContent}
           </ItemModal>
@@ -547,7 +544,7 @@ function PcSummary() {
             formRef={formRef}
             closeModal={closeItemModal}
             closeOnLeave
-            isForPlayers={isForPlayers}
+            isDm={isDm}
           >
             {itemModalContent}
           </ItemModal>
@@ -620,7 +617,7 @@ function PcSummary() {
           skillRefs={skillRefs}
           openSkillModal={openSkillModal}
           onFreeTextChange={onFreeTextChange}
-          isForPlayers={isForPlayers}
+          isDm={isDm}
           pcName={pcName}
         />
 
