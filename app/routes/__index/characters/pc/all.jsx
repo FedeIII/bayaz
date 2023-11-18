@@ -1,16 +1,25 @@
 import { json } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 
-import { getPcs } from '~/services/pc.server';
+import { getPcs, getUserPcs } from '~/services/pc.server';
 import { translateClass, translateRace } from '~/domain/characters';
+import { getSessionUser } from '~/services/session.server';
 
 import styles from '~/components/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
-export const loader = async ({ params }) => {
-  const pcs = await getPcs();
+export const loader = async ({ request }) => {
+  const user = await getSessionUser(request);
+  let pcs;
+
+  if (user?.roles.includes('dm')) {
+    pcs = await getPcs();
+  } else {
+    pcs = await getUserPcs(user.id);
+  }
+
   if (!pcs?.length) {
     throw new Error('PCs not found');
   }

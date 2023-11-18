@@ -19,6 +19,9 @@ export let { getSession, commitSession, destroySession } = sessionStorage;
 
 export async function getSessionUser(request) {
   const session = await getSession(request.headers.get('Cookie'));
+
+  if (!session || !session.data.user) return null;
+
   const user = await getUser({ email: session.data.user.email });
 
   return user;

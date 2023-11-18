@@ -8,6 +8,7 @@ export const links = () => {
 
 function Characters() {
   const pcName = getCurrentPcPage();
+
   return (
     <div className="characters__container">
       <Outlet key={pcName} />

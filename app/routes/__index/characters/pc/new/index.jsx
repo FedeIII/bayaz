@@ -13,6 +13,7 @@ import {
 } from '~/domain/characters';
 import { createPc } from '~/services/pc.server';
 import { getSpell } from '~/domain/spells/getSpells';
+import { getSessionUser } from '~/services/session.server';
 
 const NUMBER_OF_AGE_MARKS = 5;
 
@@ -59,7 +60,9 @@ export const action = async ({ request }) => {
     money: {},
   };
 
-  await createPc(pc);
+  const user = await getSessionUser(request);
+
+  await createPc(pc, user.id);
 
   return redirect(`${name}/stats`);
 };

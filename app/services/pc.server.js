@@ -410,11 +410,12 @@ export async function getPc(name) {
   return pc;
 }
 
-export async function createPc(pc) {
+export async function createPc(pc, userId) {
   const { race, subrace } = pc;
 
   const newPc = await Pc.create({
     ...pc,
+    userId,
     size: RACES[race][subrace].size,
     speed: RACES[race][subrace].speed,
     items: {

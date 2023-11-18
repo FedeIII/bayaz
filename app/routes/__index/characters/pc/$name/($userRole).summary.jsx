@@ -609,10 +609,10 @@ function PcSummary() {
         />
 
         {/* STATS */}
-        <SheetStats pc={pc} />
+        <SheetStats pc={pc} pcName={pcName} />
 
         {/* SKILLS */}
-        <SheetSkills pc={pc} />
+        <SheetSkills pc={pc} pcName={pcName} />
 
         {/* COMBAT ATTRS */}
         <CombatAttrs
@@ -621,6 +621,7 @@ function PcSummary() {
           openSkillModal={openSkillModal}
           onFreeTextChange={onFreeTextChange}
           isForPlayers={isForPlayers}
+          pcName={pcName}
         />
 
         {/* ATTACKS */}
