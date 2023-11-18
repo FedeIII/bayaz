@@ -142,6 +142,20 @@
   font-size: var(--font-size-big);
 }
 
+.places__title-reroll {
+  display: none;
+  margin: 0 0 0 8px;
+  cursor: pointer;
+}
+
+.places__title-reroll:hover {
+  color: white;
+}
+
+.places__title:hover .places__title-reroll {
+  display: inline;
+}
+
 .places__section-divider {
   border-color: var(--color-x-pale);
 }

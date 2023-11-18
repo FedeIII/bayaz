@@ -70,6 +70,7 @@ export function Title(props) {
     inputName,
     className = '',
     inputClass = '',
+    onReroll,
   } = props;
 
   const title = value || defaultValue;
@@ -116,6 +117,11 @@ export function Title(props) {
           style={{ display: showTypeInput ? 'inline' : 'none' }}
           onBlur={() => title && setShowTypeInput(false)}
         />
+      )}
+      {!!onReroll && (
+        <span className="places__title-reroll" onClick={onReroll}>
+          ⟳
+        </span>
       )}
     </h1>
   );

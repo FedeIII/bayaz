@@ -255,6 +255,10 @@ function Town() {
     }));
   }
 
+  function onNameReroll() {
+    setPlace(p => ({ ...p, name: randomSettlementName() }));
+  }
+
   return (
     <Form method="post">
       <div className="places__buttons">
@@ -282,7 +286,12 @@ function Town() {
           )}
 
           <div className="places__info">
-            <Title inputName="name" value={name} onChange={onNameChange} />
+            <Title
+              inputName="name"
+              value={name}
+              onChange={onNameChange}
+              onReroll={onNameReroll}
+            />
 
             <hr className="places__section-divider" />
             <div className="places__subtitle">

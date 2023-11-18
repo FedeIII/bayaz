@@ -323,10 +323,12 @@ export const SETTLEMENT_NAME = [
 ];
 
 export function randomSettlementName() {
-  return [
+  const name = [
     random.element(SETTLEMENT_NAME[0]),
     random.element(SETTLEMENT_NAME[1]),
   ].join('');
+
+  return name.slice(0, 1).toUpperCase() + name.slice(1);
 }
 
 export function randomDeityName() {

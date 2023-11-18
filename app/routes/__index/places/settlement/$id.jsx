@@ -11,6 +11,7 @@ import {
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
   randomSettlementImage,
+  randomSettlementName,
 } from '~/domain/places/places';
 import { getSettlement, updateSettlement } from '~/services/settlements.server';
 import { replaceAt } from '~/utils/insert';
@@ -233,6 +234,10 @@ function SettlementScreen() {
     }));
   }
 
+  function onNameReroll() {
+    setPlaceState(p => ({ ...p, name: randomSettlementName() }));
+  }
+
   return (
     <Form method="post">
       <input readOnly type="text" name="id" value={place.id} hidden />
@@ -267,7 +272,12 @@ function SettlementScreen() {
           )}
 
           <div className="places__info">
-            <Title inputName="name" value={name} onChange={onNameChange} />
+            <Title
+              inputName="name"
+              value={name}
+              onChange={onNameChange}
+              onReroll={onNameReroll}
+            />
 
             <hr className="places__section-divider" />
             <div className="places__subtitle">
