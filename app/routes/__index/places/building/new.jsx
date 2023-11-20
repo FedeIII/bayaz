@@ -50,6 +50,7 @@ export const action = async ({ request }) => {
     randomBuilding.subtypeTranslation = t(randomBuilding.subtype);
     randomBuilding.notes = '';
 
+    let files;
     try {
       files = await getBuildingImages(randomBuilding);
     } catch {
