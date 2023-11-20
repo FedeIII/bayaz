@@ -1,9 +1,11 @@
-import { Form, Link, useLoaderData } from '@remix-run/react';
+import { Form, Link, useActionData, useLoaderData } from '@remix-run/react';
 import { useEffect, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 
 import BuildingDetails from '~/components/places/buildingDetails';
 import { getBuilding, updateBuilding } from '~/services/building.server';
+import random from '~/domain/random';
+import { getBuildingImages } from '~/services/s3.server';
 
 import styles from '~/components/filters.css';
 export const links = () => {
@@ -22,6 +24,8 @@ export const loader = async ({ params }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
+  const action = formData.get('action');
+
   const img = formData.get('img');
   const id = formData.get('id');
   const type = formData.get('type');
@@ -30,6 +34,23 @@ export const action = async ({ request }) => {
   const subtypeTranslation = formData.get('subtypeTranslation');
   const variant = formData.get('variant');
   const notes = formData.get('notes');
+
+  if (action === 'randomImage') {
+    let files;
+    try {
+      files = await getBuildingImages({
+        type,
+        subtype,
+        variant,
+      });
+    } catch {
+      files = [];
+    }
+
+    const img = random.element(files);
+
+    return json({ img });
+  }
 
   const attrs = {
     img,
@@ -48,6 +69,7 @@ export const action = async ({ request }) => {
 
 function GenerateBuilding() {
   const { building: loadedBuilding } = useLoaderData();
+  const { img: randomImage } = useActionData() || {};
 
   const formRef = useRef();
 
@@ -72,7 +94,11 @@ function GenerateBuilding() {
           ⇩ Nuevo Edificio
         </Link>
       </div>
-      <BuildingDetails building={building} setBuilding={setBuilding} />
+      <BuildingDetails
+        building={building}
+        setBuilding={setBuilding}
+        img={randomImage}
+      />
     </Form>
   );
 }

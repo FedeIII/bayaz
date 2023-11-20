@@ -7,7 +7,7 @@ function textareaCallback(textareaNode) {
 }
 
 function BuildingDetails(props) {
-  const { building, setBuilding } = props;
+  const { building, setBuilding, img } = props;
 
   const [showTypeInput, setShowTypeInput] = useState(false);
   const typeRef = useRef();
@@ -42,6 +42,8 @@ function BuildingDetails(props) {
 
   if (!building) return null;
 
+  const buildingImg = img || building.img;
+
   return (
     <>
       {!!building?.id && (
@@ -64,8 +66,16 @@ function BuildingDetails(props) {
 
       <div className="places__trait">
         <div className="places__image-container">
-          <img src={building.img} className="places__image" width="100%" />
-          <input readOnly type="text" name="img" value={building.img} hidden />
+          <button
+            type="submit"
+            name="action"
+            value="randomImage"
+            className="places__image-overlay"
+          >
+            ⟳
+          </button>
+          <img src={buildingImg} className="places__image" width="100%" />
+          <input readOnly type="text" name="img" value={buildingImg} hidden />
         </div>
       </div>
 

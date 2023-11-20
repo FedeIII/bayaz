@@ -60,6 +60,25 @@ export const action = async ({ request }) => {
     randomBuilding.img = random.element(files);
 
     return json({ building: randomBuilding });
+  } else if (action === 'randomImage') {
+    const type = formData.get('type');
+    const subtype = formData.get('subtype');
+    const variant = formData.get('variant');
+
+    let files;
+    try {
+      files = await getBuildingImages({
+        type,
+        subtype,
+        variant,
+      });
+    } catch {
+      files = [];
+    }
+
+    const img = random.element(files);
+
+    return json({ img });
   }
 };
 
@@ -144,7 +163,7 @@ function Sidebar(props) {
 }
 
 function GenerateBuilding() {
-  const { building: initBuilding } = useActionData() || {};
+  const { building: initBuilding, img: randomImage } = useActionData() || {};
   const formRef = useRef();
 
   const [building, setBuilding] = useState(initBuilding);
@@ -178,7 +197,11 @@ function GenerateBuilding() {
       <Sidebar filters={filters} setFilters={setFilters} />
 
       {!!building && (
-        <BuildingDetails building={building} setBuilding={setBuilding} />
+        <BuildingDetails
+          building={building}
+          setBuilding={setBuilding}
+          img={randomImage}
+        />
       )}
     </Form>
   );
