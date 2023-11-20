@@ -21,16 +21,23 @@ export const loader = async ({ params }) => {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
+
+  const img = formData.get('img');
   const id = formData.get('id');
   const type = formData.get('type');
   const typeTranslation = formData.get('typeTranslation');
   const subtype = formData.get('subtype');
+  const subtypeTranslation = formData.get('subtypeTranslation');
+  const variant = formData.get('variant');
   const notes = formData.get('notes');
 
   const attrs = {
+    img,
     type,
     typeTranslation,
     subtype,
+    subtypeTranslation,
+    variant,
     notes,
   };
 

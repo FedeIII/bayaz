@@ -1,12 +1,14 @@
-import { Form, Link } from '@remix-run/react';
-import { redirect } from '@remix-run/node';
-import { useRef, useState } from 'react';
+import { Form, Link, useActionData, useLoaderData } from '@remix-run/react';
+import { json, redirect } from '@remix-run/node';
+import { useEffect, useRef, useState } from 'react';
 
 import { t } from '~/domain/translations';
 import { removeItem } from '~/utils/insert';
 import { BUILDING_TYPES, createRandomBuilding } from '~/domain/places/building';
 import { createBuilding } from '~/services/building.server';
 import BuildingDetails from '~/components/places/buildingDetails';
+import { getBuildingImages } from '~/services/s3.server';
+import random from '~/domain/random';
 
 import styles from '~/components/filters.css';
 export const links = () => {
@@ -15,27 +17,53 @@ export const links = () => {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const type = formData.get('type');
-  const typeTranslation = formData.get('typeTranslation');
-  const subtype = formData.get('subtype');
-  const variant = formData.get('variant');
-  const notes = formData.get('notes');
+  const action = formData.get('action');
 
-  const attrs = {
-    type,
-    typeTranslation,
-    subtype,
-    variant,
-    notes,
-  };
+  if (action === 'save') {
+    const img = formData.get('img');
+    const type = formData.get('type');
+    const typeTranslation = formData.get('typeTranslation');
+    const subtype = formData.get('subtype');
+    const subtypeTranslation = formData.get('subtypeTranslation');
+    const variant = formData.get('variant');
+    const notes = formData.get('notes');
 
-  const place = await createBuilding(attrs);
+    const attrs = {
+      img,
+      type,
+      typeTranslation,
+      subtype,
+      subtypeTranslation,
+      variant,
+      notes,
+    };
 
-  return redirect(`/places/building/${place.id}`);
+    const place = await createBuilding(attrs);
+
+    return redirect(`/places/building/${place.id}`);
+  } else if (action === 'create') {
+    const typeFilter = formData.getAll('typeFilter[]');
+    const randomBuilding = createRandomBuilding({
+      types: typeFilter,
+    });
+    randomBuilding.typeTranslation = t(randomBuilding.type);
+    randomBuilding.subtypeTranslation = t(randomBuilding.subtype);
+    randomBuilding.notes = '';
+
+    try {
+      files = await getBuildingImages(randomBuilding);
+    } catch {
+      files = [];
+    }
+
+    randomBuilding.img = random.element(files);
+
+    return json({ building: randomBuilding });
+  }
 };
 
 function Sidebar(props) {
-  const { onCreateRandomClick, filters, setFilters } = props;
+  const { filters, setFilters } = props;
 
   function onTypeSelect(e) {
     const type = e.target.value;
@@ -63,9 +91,10 @@ function Sidebar(props) {
           <div className="filters__filterVertical">
             <div className="filters__filterOptions">
               <button
-                type="button"
+                type="submit"
+                name="action"
+                value="create"
                 className="cards__button-card"
-                onClick={onCreateRandomClick}
               >
                 Crear Edificio
               </button>
@@ -80,7 +109,7 @@ function Sidebar(props) {
               <label className="filters__filterOption">
                 <input
                   type="checkbox"
-                  name="type[]"
+                  name="typeFilter[]"
                   value="all"
                   className="cards__button-card"
                   onClick={onTypeSelect}
@@ -95,7 +124,7 @@ function Sidebar(props) {
                     <input
                       key={type}
                       type="checkbox"
-                      name="type[]"
+                      name="typeFilter[]"
                       value={type}
                       checked={filters.types.includes(type)}
                       className="cards__button-card"
@@ -114,16 +143,16 @@ function Sidebar(props) {
 }
 
 function GenerateBuilding() {
+  const { building: initBuilding } = useActionData() || {};
   const formRef = useRef();
 
-  const [building, setBuilding] = useState(null);
+  const [building, setBuilding] = useState(initBuilding);
 
-  function onCreateRandomClick() {
-    const randomBuilding = createRandomBuilding(filters);
-    randomBuilding.typeTranslation = t(randomBuilding.type);
-    randomBuilding.notes = '';
-    setBuilding(randomBuilding);
-  }
+  useEffect(() => {
+    if (initBuilding) {
+      return setBuilding(initBuilding);
+    }
+  }, [initBuilding]);
 
   const [filters, setFilters] = useState({
     types: [],
@@ -135,16 +164,17 @@ function GenerateBuilding() {
         <Link to="../" className="menus__back-button">
           ⇦ Volver
         </Link>
-        <button type="submit" className="places__save">
+        <button
+          type="submit"
+          name="action"
+          value="save"
+          className="places__save"
+        >
           ⇧ Guardar Edificio
         </button>
       </div>
 
-      <Sidebar
-        onCreateRandomClick={onCreateRandomClick}
-        filters={filters}
-        setFilters={setFilters}
-      />
+      <Sidebar filters={filters} setFilters={setFilters} />
 
       {!!building && (
         <BuildingDetails building={building} setBuilding={setBuilding} />

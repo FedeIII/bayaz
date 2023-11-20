@@ -8,6 +8,7 @@ const buildingSchema = new mongoose.Schema({
   type: { type: String, enum: BUILDING_TYPES },
   typeTranslation: String,
   subtype: String,
+  subtypeTranslation: String,
   variant: String,
   img: String,
   notes: String,

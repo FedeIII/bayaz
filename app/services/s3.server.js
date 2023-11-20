@@ -20,3 +20,47 @@ export async function getSettlementImages(settlementType) {
     o => 'https://bayaz.s3.eu-north-1.amazonaws.com/' + o.Key
   );
 }
+
+const TEMPLE_MAP = {
+  Abandonado: 'abandoned',
+  Sencillo: 'simple',
+  Normal: 'regular',
+  Lujoso: 'luxurious',
+  Divino: 'divine',
+};
+
+export async function getBuildingImages({ type, subtype, variant }) {
+  let prefix;
+  if (type === 'religious') {
+    if (subtype === 'fake') {
+      prefix = `images/places/buildings/secret`;
+    } else if (['ascetic', 'shrine', 'library', 'infernal'].includes(subtype)) {
+      prefix = `images/places/buildings/${subtype}`;
+    } else {
+      prefix = `images/places/buildings/temple/${TEMPLE_MAP[variant]}`;
+    }
+  } else if (type === 'tavern') {
+    if (subtype === 'brothel') {
+      prefix = `images/places/buildings/brothel`;
+    } else {
+      prefix = `images/places/buildings/tavern`;
+    }
+  } else if (type === 'warehouse') {
+    prefix = `images/places/buildings/warehouse`;
+  } else if (type === 'shop' && ['bakery', 'armory'].includes(subtype)) {
+    prefix = `images/places/buildings/office`;
+  } else {
+    prefix = `images/places/buildings/${subtype}`;
+  }
+
+  const response = await s3Client.send(
+    new ListObjectsCommand({
+      Bucket: 'bayaz',
+      Prefix: prefix,
+    })
+  );
+
+  return response.Contents.map(
+    o => 'https://bayaz.s3.eu-north-1.amazonaws.com/' + o.Key
+  );
+}

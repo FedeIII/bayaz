@@ -29,7 +29,7 @@ function BuildingDetails(props) {
   }
 
   function onSubtypeChange(e) {
-    setBuilding(b => ({ ...b, subtype: e.target.value }));
+    setBuilding(b => ({ ...b, subtypeTranslation: e.target.value }));
   }
 
   function onVariantChange(e) {
@@ -48,6 +48,13 @@ function BuildingDetails(props) {
         <input readOnly type="text" name="id" value={building.id} hidden />
       )}
       <input readOnly type="text" name="type" value={building.type} hidden />
+      <input
+        readOnly
+        type="text"
+        name="subtype"
+        value={building.subtype}
+        hidden
+      />
 
       <Title
         inputName="typeTranslation"
@@ -57,12 +64,7 @@ function BuildingDetails(props) {
 
       <div className="places__trait">
         <div className="places__image-container">
-          <img
-            // src={`/images/places/${building.img}`}
-            src={`/images/forest01.png`}
-            className="places__image"
-            width="100%"
-          />
+          <img src={building.img} className="places__image" width="100%" />
           <input readOnly type="text" name="img" value={building.img} hidden />
         </div>
       </div>
@@ -74,8 +76,8 @@ function BuildingDetails(props) {
           <div className="places__trait-title">Descripción</div>
           <input
             type="text"
-            name="subtype"
-            value={building.subtype}
+            name="subtypeTranslation"
+            value={building.subtypeTranslation}
             className="places__trait-input"
             onChange={onSubtypeChange}
           />

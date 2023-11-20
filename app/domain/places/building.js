@@ -12,7 +12,7 @@ const BUILDING_SUBTYPES = {
   residence: [
     [
       2,
-      'Casucha abandonada',
+      'hovel',
       [
         [75, 'Nadie dentro'],
         [25, 'Alguien dentro'],
@@ -20,7 +20,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       6,
-      'Hogar de clase media',
+      'mid_home',
       [
         [75, 'Alguien dentro'],
         [25, 'Nadie dentro'],
@@ -28,7 +28,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Hogar de clase alta',
+      'upper_home',
       [
         [75, 'Alguien dentro'],
         [25, 'Nadie dentro'],
@@ -36,7 +36,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       5,
-      'Edificio de apartamentos abarrotado',
+      'apartments',
       [
         [30, 'Comunidad unida y amigable'],
         [25, 'Comunidad hostil y dividida'],
@@ -47,7 +47,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Orfanato',
+      'orphanage',
       [
         [55, 'Mugriento'],
         [20, 'Llevado por un humilde benefactor'],
@@ -57,7 +57,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Antro para esclavos oculto',
+      'slaves',
       [
         [50, 'Negocio legítimo como tapadera'],
         [20, 'Ilusión mágica como tapadera'],
@@ -70,7 +70,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Tapadera para una secta secreta',
+      'secret',
       [
         [30, 'Secta anti-progreso, para preservar la sociedad'],
         [20, 'Secta pro-progreso, para arriesgarse a avanzar la sociedad'],
@@ -94,7 +94,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Mansión lujosa y bien protegida',
+      'mansion',
       [
         [30, 'Miembros del gobierno'],
         [20, 'Familia noble'],
@@ -108,7 +108,7 @@ const BUILDING_SUBTYPES = {
   religious: [
     [
       4,
-      'Templo a Materia',
+      'matter',
       [
         [20, 'Abandonado'],
         [20, 'Sencillo'],
@@ -119,7 +119,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       3,
-      'Templo a Energía',
+      'energy',
       [
         [20, 'Abandonado'],
         [20, 'Sencillo'],
@@ -130,7 +130,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Templo a Espíritu',
+      'spirit',
       [
         [20, 'Abandonado'],
         [20, 'Sencillo'],
@@ -141,7 +141,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Templo a Espacio',
+      'space',
       [
         [20, 'Abandonado'],
         [20, 'Sencillo'],
@@ -152,7 +152,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Templo a una deidad falsa (dirigido por sacerdotes embusteros)',
+      'fake',
       [
         [25, 'Ilusionistas creando efectos falsos para ganar dinero'],
         [
@@ -171,7 +171,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Hogar de ascetas',
+      'ascetic',
       [
         [20, 'Los ascetas ofrecen meditación que da inspiración'],
         [20, 'Los ascetas ofrecen una cura leve'],
@@ -191,7 +191,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Santuario abandonado',
+      'shrine',
       [
         [
           30,
@@ -221,7 +221,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Biblioteca',
+      'library',
       [
         [40, 'Especializada en Historia'],
         [30, 'Especializada en Ingeniería'],
@@ -230,7 +230,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Santuario oculto dedicado a un infernal o deidad malvada',
+      'infernal',
       [
         [50, 'Abandonado'],
         [
@@ -258,7 +258,7 @@ const BUILDING_SUBTYPES = {
   tavern: [
     [
       6,
-      'Antro estridente',
+      'noisy',
       [
         [50, 'Lo de siempre'],
         [25, 'Actuación musical'],
@@ -269,7 +269,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       4,
-      'Bar tranquilo y de perfil bajo',
+      'quiet',
       [
         [50, 'Los clientes se giran a mirar a los PCs al entrar'],
         [50, 'Nadie repara en los PCs al entrar'],
@@ -277,7 +277,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Lugar de reunión de un gremio',
+      'guild',
       [
         [50, 'De ladrones'],
         [50, 'De asesinos'],
@@ -285,7 +285,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Lugar de encuentro de una sociedad secreta (buena/mala)',
+      'secret_meeting',
       [
         [20, 'Religiosa'],
         [20, 'Política'],
@@ -295,7 +295,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Club de cenas de la clase alta',
+      'dinner_club',
       [
         [85, 'Los PCs necesitan una buena excusa para quedarse'],
         [15, 'Los PCs pasan desapercibidos'],
@@ -303,7 +303,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Casa de apuestas',
+      'bet_house',
       [
         [50, 'Civilizada'],
         [
@@ -317,7 +317,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Clientela de una raza o gremio concretos',
+      'race',
       [
         [50, 'Los PCs son bienvenidos'],
         [50, 'Los PCs son recibidos con hostilidad'],
@@ -325,7 +325,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Club solo para miembros',
+      'members',
       [
         [50, 'Con seguridad en la recepción'],
         [50, 'Con recepción sin seguridad'],
@@ -333,7 +333,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Burdel',
+      'brothel',
       [
         [50, 'Íntimo'],
         [50, 'Público'],
@@ -344,7 +344,7 @@ const BUILDING_SUBTYPES = {
   warehouse: [
     [
       4,
-      'Vacío o abandonado',
+      'empty',
       [
         [75, 'Completamente abandonado'],
         [25, 'Vagabundo viviendo ahí'],
@@ -352,7 +352,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Bien protegido, productos valiosos',
+      'protected',
       [
         [50, 'Seguridad vigila a los PCs'],
         [50, 'Seguridad echa a los PCs'],
@@ -360,7 +360,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       4,
-      'Productos baratos',
+      'cheap',
       [
         [75, 'Sin seguridad permanente'],
         [25, 'Con seguridad laxa'],
@@ -368,7 +368,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       4,
-      'Productos a granel',
+      'bulk',
       [
         [75, 'Sin seguridad permanente'],
         [25, 'Con seguridad laxa'],
@@ -376,7 +376,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Animales vivos',
+      'lifestock',
       [
         [75, 'Ganado/granja'],
         [10, 'Exóticos'],
@@ -386,7 +386,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Armas o armaduras',
+      'weapons',
       [
         [50, 'Seguridad vigila a los PCs'],
         [50, 'Seguridad echa a los PCs'],
@@ -394,7 +394,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       2,
-      'Bienes de una tierra lejana',
+      'exotic',
       [
         [50, 'Seguridad vigila a los PCs'],
         [50, 'Seguridad echa a los PCs'],
@@ -402,7 +402,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'Cubil secreto de contrabandistas',
+      'bootleggers',
       [
         [
           75,
@@ -427,33 +427,35 @@ const BUILDING_SUBTYPES = {
 
   /* prettier-ignore */
   shop: [
-    [3, 'Casa de empeños', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Hierbas/inciensos', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Frutas/verduras', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Comida en salazón', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Alfarero', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [2, 'Enterrador', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [3, 'Librero', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [2, 'Prestamista', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [2, 'Armas/armaduras', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Candelero', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [2, 'Herrero', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Carpintero', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Costurero', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [2, 'Joyero', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Panadero', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [1, 'Cartógrafo', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Sastre', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Cordelero', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [4, 'Albañil', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
-    [3, 'Escriba', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [3, 'pawnshop', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [4, 'herbolary', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [4, 'grocery', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [4, 'salting', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [4, 'pottery', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [2, 'undertaker', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [3, 'binder', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [2, 'lender', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [2, 'armory', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [4, 'candlestick', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [2, 'blacksmith', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [4, 'carpenter', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [8, 'tailor', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [2, 'jewelry', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [4, 'bakery', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [1, 'cartographer', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [4, 'ropemaker', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [4, 'workshop', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
+    [3, 'scribe', [[50, 'El negocio va bien'], [50, 'El negocio va mal']]],
   ],
 };
 
 export function createRandomBuilding(filters) {
-  const type = random.element(
-    filters.types.length ? filters.types : BUILDING_TYPES
-  );
+  const types =
+    !filters.types.length || filters.types.includes('all')
+      ? BUILDING_TYPES
+      : filters.types;
+
+  const type = random.element(types);
 
   const subtype = random.split(BUILDING_SUBTYPES[type]);
 
