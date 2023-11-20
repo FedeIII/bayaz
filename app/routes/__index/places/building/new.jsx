@@ -18,12 +18,14 @@ export const action = async ({ request }) => {
   const type = formData.get('type');
   const typeTranslation = formData.get('typeTranslation');
   const subtype = formData.get('subtype');
+  const variant = formData.get('variant');
   const notes = formData.get('notes');
 
   const attrs = {
     type,
     typeTranslation,
     subtype,
+    variant,
     notes,
   };
 

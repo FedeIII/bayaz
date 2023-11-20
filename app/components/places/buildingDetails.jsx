@@ -32,6 +32,10 @@ function BuildingDetails(props) {
     setBuilding(b => ({ ...b, subtype: e.target.value }));
   }
 
+  function onVariantChange(e) {
+    setBuilding(b => ({ ...b, variant: e.target.value }));
+  }
+
   function onNotesChange(e) {
     setBuilding(b => ({ ...b, notes: e.target.value }));
   }
@@ -51,35 +55,54 @@ function BuildingDetails(props) {
         onChange={onTypeChange}
       />
 
-      <div className="places__image-container">
-        <>
+      <div className="places__trait">
+        <div className="places__image-container">
           <img
-            src={`/images/places/${building.img}`}
+            // src={`/images/places/${building.img}`}
+            src={`/images/forest01.png`}
             className="places__image"
             width="100%"
           />
           <input readOnly type="text" name="img" value={building.img} hidden />
-        </>
+        </div>
       </div>
-      <div className="places__horizontal-sections">
-        <input
-          type="text"
-          name="subtype"
-          value={building.subtype}
-          className="places__trait-input"
-          onChange={onSubtypeChange}
-        />
+
+      <hr className="places__section-divider" />
+
+      <div className="places__trait">
+        <div className="places__horizontal-sections">
+          <div className="places__trait-title">Descripción</div>
+          <input
+            type="text"
+            name="subtype"
+            value={building.subtype}
+            className="places__trait-input"
+            onChange={onSubtypeChange}
+          />
+          <input
+            type="text"
+            name="variant"
+            value={building.variant}
+            className="places__trait-input"
+            onChange={onVariantChange}
+          />
+        </div>
       </div>
-      <div className="places__notes">
-        <h2 className="places__notes-title">Notas</h2>
-        <textarea
-          ref={notesRef}
-          name="notes"
-          value={building.notes}
-          className="places__notes-text"
-          onChange={onNotesChange}
-          onInput={textareaCallback}
-        ></textarea>
+
+      <hr className="places__section-divider" />
+
+      <div className="places__trait">
+        <div className="places__notes">
+          <h2 className="places__notes-title">Notas</h2>
+          <textarea
+            ref={notesRef}
+            name="notes"
+            value={building.notes}
+            className="places__notes-text"
+            onChange={onNotesChange}
+            onInput={textareaCallback}
+          ></textarea>
+        </div>
       </div>
     </>
   );
