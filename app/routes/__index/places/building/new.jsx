@@ -108,7 +108,7 @@ function Sidebar(props) {
     <div className="filters__sidebar filters__sidebar--float">
       <div className="filters__sidebarContent">
         <div className="filters__sidebarSection">
-          <div className="filters__filterVertical">
+          <div className="filters__filterVertical filters__filterVertical--no-margin">
             <div className="filters__filterOptions">
               <button
                 type="submit"
@@ -123,7 +123,7 @@ function Sidebar(props) {
         </div>
 
         <div className="filters__sidebarSection">
-          <div className="filters__filterVertical">
+          <div className="filters__filterVertical filters__filterVertical--no-margin">
             <div className="filters__filterLabel">
               <span className="filters__filterTitle">Tipo:</span>{' '}
               <label className="filters__filterOption">
@@ -137,7 +137,7 @@ function Sidebar(props) {
                 <span>Todos</span>
               </label>
             </div>{' '}
-            <div className="filters__filterOptionsTwoColumns">
+            <div>
               {BUILDING_TYPES.map(type => {
                 return (
                   <label className="filters__filterOption" key={type}>

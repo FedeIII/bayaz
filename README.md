@@ -52,6 +52,10 @@ npx prisma migrate dev
 ```
 
 ## TO DOs
+- Buildings in settlements
+- Characters in places
+- Audio in places
+- More search terms for mobs
 - Review more player options in sheets
 - Background: {trait}
 - put hit dice roll on level up in the modal

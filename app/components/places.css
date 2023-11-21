@@ -1,6 +1,5 @@
 .places__container {
-  width: 80vw;
-  height: 100vh;
+  width: 85vw;
   margin: 1% auto;
   display: flex;
   flex-direction: column;
@@ -34,6 +33,11 @@
 .places__horizontal-sections {
   display: flex;
   flex-direction: column;
+  flex-basis: 100%;
+}
+
+.places__horizontal-sections--with-sidebar {
+  margin: 0 0 0 180px;
 }
 
 .places__vertical-sections {
@@ -47,7 +51,7 @@
   float: left;
   flex-basis: 50%;
   flex-grow: 1;
-  margin: 0 32px 32px 0;
+  margin: 0 0 32px 0;
 }
 
 .places__image-container-float {
@@ -166,7 +170,7 @@
   justify-content: space-between;
 }
 
-.trait {
+.places__trait {
   display: flex;
   overflow: hidden;
 }

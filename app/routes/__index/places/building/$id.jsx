@@ -93,6 +93,9 @@ function GenerateBuilding() {
         <Link to="/places/building/new" className="menus__back-button">
           ⇩ Nuevo Edificio
         </Link>
+        <Link to="players" target="_blank" className="places__save">
+          ⇨ Presentar
+        </Link>
       </div>
       <BuildingDetails
         building={building}

@@ -23,6 +23,12 @@ function BuildingDetails(props) {
       textareaCallback({ target: notesRef.current });
     }
   }, [notesRef.current]);
+  const variantRef = useRef();
+  useEffect(() => {
+    if (variantRef.current) {
+      textareaCallback({ target: variantRef.current });
+    }
+  }, [variantRef.current]);
 
   function onTypeChange(e) {
     setBuilding(b => ({ ...b, typeTranslation: e.target.value }));
@@ -58,52 +64,55 @@ function BuildingDetails(props) {
         hidden
       />
 
-      <Title
-        inputName="typeTranslation"
-        value={building.typeTranslation}
-        onChange={onTypeChange}
-      />
+      <div className="places__horizontal-sections places__horizontal-sections--with-sidebar">
+        <div className="places__vertical-sections">
+          <div className="places__image-container">
+            <button
+              type="submit"
+              name="action"
+              value="randomImage"
+              className="places__image-overlay"
+            >
+              ⟳
+            </button>
+            <img src={buildingImg} className="places__image" width="100%" />
+            <input readOnly type="text" name="img" value={buildingImg} hidden />
+          </div>
 
-      <div className="places__trait">
-        <div className="places__image-container">
-          <button
-            type="submit"
-            name="action"
-            value="randomImage"
-            className="places__image-overlay"
-          >
-            ⟳
-          </button>
-          <img src={buildingImg} className="places__image" width="100%" />
-          <input readOnly type="text" name="img" value={buildingImg} hidden />
+          <div className="places__info">
+            <Title
+              inputName="typeTranslation"
+              value={building.typeTranslation}
+              onChange={onTypeChange}
+            />
+
+            <hr className="places__section-divider" />
+
+            <div className="places__trait">
+              <div className="places__horizontal-sections">
+                <div className="places__trait-title">Descripción</div>
+                <input
+                  type="text"
+                  name="subtypeTranslation"
+                  value={building.subtypeTranslation}
+                  className="places__trait-input"
+                  onChange={onSubtypeChange}
+                />
+                <textarea
+                  ref={variantRef}
+                  name="variant"
+                  value={building.variant}
+                  className="places__trait-input"
+                  onChange={onVariantChange}
+                  onInput={textareaCallback}
+                ></textarea>
+              </div>
+            </div>
+
+            <hr className="places__section-divider" />
+          </div>
         </div>
-      </div>
 
-      <hr className="places__section-divider" />
-
-      <div className="places__trait">
-        <div className="places__horizontal-sections">
-          <div className="places__trait-title">Descripción</div>
-          <input
-            type="text"
-            name="subtypeTranslation"
-            value={building.subtypeTranslation}
-            className="places__trait-input"
-            onChange={onSubtypeChange}
-          />
-          <input
-            type="text"
-            name="variant"
-            value={building.variant}
-            className="places__trait-input"
-            onChange={onVariantChange}
-          />
-        </div>
-      </div>
-
-      <hr className="places__section-divider" />
-
-      <div className="places__trait">
         <div className="places__notes">
           <h2 className="places__notes-title">Notas</h2>
           <textarea

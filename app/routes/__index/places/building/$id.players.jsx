@@ -3,11 +3,12 @@ import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
 import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
-import { getSettlement } from '~/services/settlements.server';
+import { getBuilding } from '~/services/building.server';
 import random from '~/domain/random';
+import { Title } from '~/components/form/title';
 
 export const loader = async ({ params }) => {
-  const place = await getSettlement(params.id);
+  const place = await getBuilding(params.id);
 
   if (!place) {
     throw new Error('Place not found');
@@ -36,7 +37,7 @@ export const action = async ({ request }) => {
 
 function PlaceForPlayers() {
   const { place, audioFiles } = useLoaderData();
-  const { name, img } = place;
+  const { type, img } = place;
 
   useRemoveMenu();
 
@@ -102,12 +103,8 @@ function PlaceForPlayers() {
 
   return (
     <>
-      <h1 className="places__title places__title--float">
-        <span>
-          <span className="places__title-capital">{name?.slice(0, 1)}</span>
-          {name?.slice(1)}
-        </span>
-      </h1>
+      <Title value={place.typeTranslation} className="places__title--float" />
+
       {!!audioFile && (
         <audio
           loop

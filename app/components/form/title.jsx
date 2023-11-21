@@ -96,28 +96,29 @@ export function Title(props) {
           {getCapitalizedTitle(title)}
         </span>
       )}
-      {value ? (
-        <input
-          ref={typeRef}
-          type="text"
-          name={inputName}
-          value={value}
-          className={`places__title-input ${inputClass}`}
-          style={{ display: showTypeInput ? 'inline' : 'none' }}
-          onBlur={() => title && setShowTypeInput(false)}
-          onChange={onChange}
-        />
-      ) : (
-        <input
-          ref={typeRef}
-          type="text"
-          name={inputName}
-          defaultValue={defaultValue}
-          className={`places__title-input ${inputClass}`}
-          style={{ display: showTypeInput ? 'inline' : 'none' }}
-          onBlur={() => title && setShowTypeInput(false)}
-        />
-      )}
+      {!!inputName &&
+        (value ? (
+          <input
+            ref={typeRef}
+            type="text"
+            name={inputName}
+            value={value}
+            className={`places__title-input ${inputClass}`}
+            style={{ display: showTypeInput ? 'inline' : 'none' }}
+            onBlur={() => title && setShowTypeInput(false)}
+            onChange={onChange}
+          />
+        ) : (
+          <input
+            ref={typeRef}
+            type="text"
+            name={inputName}
+            defaultValue={defaultValue}
+            className={`places__title-input ${inputClass}`}
+            style={{ display: showTypeInput ? 'inline' : 'none' }}
+            onBlur={() => title && setShowTypeInput(false)}
+          />
+        ))}
       {!!onReroll && (
         <span className="places__title-reroll" onClick={onReroll}>
           ⟳
