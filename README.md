@@ -52,6 +52,8 @@ npx prisma migrate dev
 ```
 
 ## TO DOs
+- Selector for building variant
+- Fix character modals at the top
 - Buildings in settlements
 - Characters in places
 - Audio in places

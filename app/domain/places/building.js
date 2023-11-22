@@ -454,10 +454,15 @@ export function createRandomBuilding(filters) {
     !filters.types.length || filters.types.includes('all')
       ? BUILDING_TYPES
       : filters.types;
-
   const type = random.element(types);
 
-  const subtype = random.split(BUILDING_SUBTYPES[type]);
+  const subtypesFromType = BUILDING_SUBTYPES[type].filter(subtypeDef =>
+    filters.subtypes.includes(subtypeDef[1])
+  );
+  const subtypes = subtypesFromType.length
+    ? subtypesFromType
+    : BUILDING_SUBTYPES[type];
+  const subtype = random.split(subtypes);
 
   const variant = random.split(
     BUILDING_SUBTYPES[type].find(subtypeDef => subtypeDef[1] === subtype)[2]
@@ -469,3 +474,11 @@ export function createRandomBuilding(filters) {
     variant,
   };
 }
+
+export const ALL_SUBTYPES = BUILDING_TYPES.reduce(
+  (subtypes, type) => ({
+    ...subtypes,
+    [type]: BUILDING_SUBTYPES[type].map(subtypeDef => subtypeDef[1]),
+  }),
+  {}
+);

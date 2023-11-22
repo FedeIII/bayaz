@@ -7,7 +7,7 @@ function textareaCallback(textareaNode) {
 }
 
 function BuildingDetails(props) {
-  const { building, setBuilding, img } = props;
+  const { building, setBuilding, img, className } = props;
 
   const [showTypeInput, setShowTypeInput] = useState(false);
   const typeRef = useRef();
@@ -64,7 +64,7 @@ function BuildingDetails(props) {
         hidden
       />
 
-      <div className="places__horizontal-sections places__horizontal-sections--with-sidebar">
+      <div className={`places__horizontal-sections ${className}`}>
         <div className="places__vertical-sections">
           <div className="places__image-container">
             <button

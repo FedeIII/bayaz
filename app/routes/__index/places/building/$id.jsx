@@ -97,6 +97,7 @@ function GenerateBuilding() {
           ⇨ Presentar
         </Link>
       </div>
+
       <BuildingDetails
         building={building}
         setBuilding={setBuilding}
