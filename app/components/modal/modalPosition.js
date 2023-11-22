@@ -21,16 +21,16 @@ export function getSelfTopY({
 
   if (bigModal) return formTopY + MODAL_VERTICAL_OFFSET_TOP;
 
-  if (selfTopY - formTopY < MODAL_VERTICAL_OFFSET_TOP) {
-    selfTopY = formTopY + MODAL_VERTICAL_OFFSET_TOP;
-  }
-
   if (
     selfTopY - formTopY + selfHeight >
     formHeight - MODAL_VERTICAL_OFFSET_BOTTOM
   ) {
     selfTopY =
       formTopY + formHeight - MODAL_VERTICAL_OFFSET_BOTTOM - selfHeight;
+  }
+
+  if (selfTopY - formTopY < MODAL_VERTICAL_OFFSET_TOP) {
+    selfTopY = formTopY + MODAL_VERTICAL_OFFSET_TOP;
   }
 
   // return showOverMouse ? selfTopY - showOverMouse : selfTopY - selfHeight;

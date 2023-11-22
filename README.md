@@ -52,12 +52,9 @@ npx prisma migrate dev
 ```
 
 ## TO DOs
-- Selector for building variant
-- Fix character modals at the top
 - Buildings in settlements
 - Characters in places
 - Audio in places
-- More search terms for mobs
 - Review more player options in sheets
 - Background: {trait}
 - put hit dice roll on level up in the modal
