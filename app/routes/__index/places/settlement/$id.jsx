@@ -3,6 +3,7 @@ import { Form, Link, useLoaderData } from '@remix-run/react';
 import { json, redirect } from '@remix-run/node';
 
 import {
+  CITY,
   COMMERCE,
   GOVERNMENTS,
   GOVERNMENT_SITUATION,
@@ -10,35 +11,76 @@ import {
   PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
+  TOWN,
+  VILLAGE,
+  getPopulation,
+  getSettlementAccommodation,
+  getSettlementCalamity,
+  getSettlementCommerces,
+  getSettlementGovernment,
+  getSettlementKnownFor,
+  getSettlementMagicShops,
+  getSettlementPlaceCharacteristics,
+  getSettlementRaceRelationships,
+  getSettlementReligion,
+  getSettlementSecurity,
   randomSettlementImage,
   randomSettlementName,
 } from '~/domain/places/places';
-import { getSettlement, updateSettlement } from '~/services/settlements.server';
+import {
+  createSettlement,
+  getSettlement,
+  updateSettlement,
+} from '~/services/settlements.server';
 import { replaceAt } from '~/utils/insert';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
 import { getSettlementImages } from '~/services/s3.server';
+import { getVillageSecurityType } from '~/domain/places/village';
+
+const TYPES = {
+  city: CITY,
+  town: TOWN,
+  village: VILLAGE,
+};
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
   textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
 }
 
-export const loader = async ({ params }) => {
+export const loader = async ({ params, request }) => {
+  const url = new URL(request.url);
+  const rng = url.searchParams.get('rng');
+
   let place;
   let files;
-  place = await getSettlement(params.id);
-  if (!place) {
-    throw new Error('Village not found');
+  let type;
+  let id;
+  if (['city', 'town', 'village'].includes(params.id)) {
+    id = null;
+    place = null;
+    type = params.id;
+    try {
+      files = await getSettlementImages(type);
+    } catch {
+      files = [];
+    }
+  } else {
+    id = params.id;
+    place = await getSettlement(id);
+    type = place.type;
+    if (!place) {
+      throw new Error('Village not found');
+    }
+    try {
+      files = await getSettlementImages(type);
+    } catch {
+      files = [];
+    }
   }
 
-  try {
-    files = await getSettlementImages(place.type);
-  } catch {
-    files = [];
-  }
-
-  return json({ place, files });
+  return json({ place, id, type, files, rng });
 };
 
 export const action = async ({ request }) => {
@@ -46,6 +88,7 @@ export const action = async ({ request }) => {
   const id = formData.get('id');
 
   const attrs = {
+    type: formData.get('type'),
     name: formData.get('name'),
     img: formData.get('img'),
     population: parseInt(formData.get('population'), 10),
@@ -64,13 +107,18 @@ export const action = async ({ request }) => {
     notes: formData.get('notes'),
   };
 
-  const settlement = await updateSettlement(id, attrs);
+  let settlement;
+  if (id) {
+    settlement = await updateSettlement(id, attrs);
+  } else {
+    settlement = await createSettlement(attrs);
+  }
 
   return redirect(`/places/settlement/${settlement.id}`);
 };
 
 function SettlementScreen() {
-  const { place, files } = useLoaderData();
+  const { place, id, type: typeParam, files, rng } = useLoaderData();
 
   const [showNameInput, setShowNameInput] = useState(false);
   const nameRef = useRef();
@@ -88,6 +136,7 @@ function SettlementScreen() {
   }, [notesRef.current]);
 
   const [placeState, setPlaceState] = useState({
+    type: '',
     name: '',
     img: '',
     population: 0,
@@ -105,27 +154,69 @@ function SettlementScreen() {
   });
 
   useEffect(() => {
-    setPlaceState(old => ({
-      ...old,
-      name: place.name,
-      img: place.img,
-      population: place.population,
-      accommodation: place.accommodation,
-      government: [place.government?.type, place.government?.situation],
-      securityType: place.securityType,
-      security: place.security,
-      commerces: place.commerces,
-      religion: place.religion,
-      magicShops: place.magicShops,
-      raceRelationships: place.raceRelationships,
-      placeCharacteristics: place.placeCharacteristics,
-      knownFor: place.knownFor,
-      calamity: place.calamity,
-      notes: place.notes,
-    }));
+    if (id) {
+      setPlaceState(old => ({
+        ...old,
+        type: typeParam,
+        name: place.name,
+        img: place.img,
+        population: place.population,
+        accommodation: place.accommodation,
+        government: [place.government?.type, place.government?.situation],
+        securityType: place.securityType,
+        security: place.security,
+        commerces: place.commerces,
+        religion: place.religion,
+        magicShops: place.magicShops,
+        raceRelationships: place.raceRelationships,
+        placeCharacteristics: place.placeCharacteristics,
+        knownFor: place.knownFor,
+        calamity: place.calamity,
+        notes: place.notes,
+      }));
+    }
   }, [place]);
 
+  useEffect(() => {
+    if (typeParam) {
+      const population = getPopulation(TYPES[typeParam]);
+      const accommodation = getSettlementAccommodation(typeParam, population);
+      const government = getSettlementGovernment(typeParam);
+      const commerces = getSettlementCommerces(typeParam);
+      const religion = getSettlementReligion(typeParam);
+      const placeCharacteristics = getSettlementPlaceCharacteristics(typeParam);
+      const img = randomSettlementImage(typeParam, {
+        files,
+        population,
+        accommodation,
+        government,
+        commerces,
+        religion,
+        placeCharacteristics,
+      });
+
+      setPlaceState({
+        name: randomSettlementName(),
+        img,
+        population,
+        accommodation,
+        government,
+        security: getSettlementSecurity(typeParam, population),
+        securityType:
+          typeParam === 'village' ? getVillageSecurityType(population) : 'guards',
+        commerces,
+        religion,
+        magicShops: getSettlementMagicShops(typeParam, population),
+        raceRelationships: getSettlementRaceRelationships(typeParam),
+        placeCharacteristics,
+        knownFor: getSettlementKnownFor(typeParam),
+        calamity: getSettlementCalamity(typeParam),
+      });
+    }
+  }, [rng, typeParam]);
+
   const {
+    type,
     name,
     img,
     population,
@@ -224,13 +315,15 @@ function SettlementScreen() {
   function onImageClick() {
     setPlaceState(p => ({
       ...p,
-      img: randomSettlementImage(
-        place.type,
+      img: randomSettlementImage(type, {
         files,
         population,
         accommodation,
-        religion
-      ),
+        government,
+        commerces,
+        religion,
+        placeCharacteristics,
+      }),
     }));
   }
 
@@ -240,7 +333,7 @@ function SettlementScreen() {
 
   return (
     <Form method="post">
-      <input readOnly type="text" name="id" value={place.id} hidden />
+      {!!id && <input readOnly type="text" name="id" value={id} hidden />}
       <div className="places__buttons">
         <Link to="../" className="menus__back-button">
           ⇦ Volver
@@ -248,10 +341,7 @@ function SettlementScreen() {
         <button type="submit" className="places__save">
           ⇧ Guardar
         </button>
-        <Link
-          to={`/places/settlement/${place.type}`}
-          className="menus__back-button"
-        >
+        <Link to={`./?rng=${Math.random()}`} className="menus__back-button">
           ⇩ Nuevo
         </Link>
         <Link to={`players`} target="_blank" className="places__save">
@@ -301,7 +391,7 @@ function SettlementScreen() {
                   <span className="places__trait-title">Alojamientos:</span>{' '}
                   <ul className="places__trait-columns">
                     {accommodation.map((innName, i) => (
-                      <li key={i} className="places__trait-item">
+                      <li key={innName} className="places__trait-item">
                         <input
                           type="text"
                           name="accommodation[]"

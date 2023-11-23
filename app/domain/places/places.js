@@ -1,9 +1,39 @@
 import random from '~/domain/random';
 import { NPC_DEITIES, NPC_DEITIES_NAMES } from '../npc/attrs/npcFaith';
 import { t } from '../translations';
-import { randomVillageImage } from './village';
-import { randomTownImage } from './town';
-import { randomCityImage } from './city';
+import {
+  getVillageAccommodation,
+  getVillageGovernment,
+  getVillageReligion,
+  getVillageSecurity,
+  randomVillageImage,
+} from './village';
+import {
+  getTownAccommodation,
+  getTownCalamity,
+  getTownCommerce,
+  getTownGovernment,
+  getTownKnownFor,
+  getTownMagicShops,
+  getTownPlaceCharacteristics,
+  getTownRaceRelationships,
+  getTownReligion,
+  getTownSecurity,
+  randomTownImage,
+} from './town';
+import {
+  getCityAccommodation,
+  getCityCalamity,
+  getCityCommerces,
+  getCityGovernment,
+  getCityKnownFor,
+  getCityMagicShops,
+  getCityPlaceCharacteristics,
+  getCityRaceRelationships,
+  getCityReligion,
+  getCitySecurity,
+  randomCityImage,
+} from './city';
 
 export const VILLAGE = {
   population: [20, 500],
@@ -342,4 +372,86 @@ export function randomSettlementImage(type, ...args) {
     town: randomTownImage,
     city: randomCityImage,
   }[type](...args);
+}
+
+export function getSettlementAccommodation(type, ...args) {
+  const func = {
+    village: getVillageAccommodation,
+    town: getTownAccommodation,
+    city: getCityAccommodation,
+  }[type];
+
+  return func?.(...args);
+}
+
+export function getSettlementGovernment(type) {
+  return {
+    village: getVillageGovernment,
+    town: getTownGovernment,
+    city: getCityGovernment,
+  }[type]();
+}
+
+export function getSettlementSecurity(type, ...args) {
+  return {
+    village: getVillageSecurity,
+    town: getTownSecurity,
+    city: getCitySecurity,
+  }[type](...args);
+}
+
+export function getSettlementCommerces(type) {
+  return {
+    village: () => null,
+    town: getTownCommerce,
+    city: getCityCommerces,
+  }[type]();
+}
+
+export function getSettlementReligion(type) {
+  return {
+    village: getVillageReligion,
+    town: getTownReligion,
+    city: getCityReligion,
+  }[type]();
+}
+
+export function getSettlementMagicShops(type, ...args) {
+  return {
+    village: () => null,
+    town: getTownMagicShops,
+    city: getCityMagicShops,
+  }[type](...args);
+}
+
+export function getSettlementRaceRelationships(type) {
+  return {
+    village: () => null,
+    town: getTownRaceRelationships,
+    city: getCityRaceRelationships,
+  }[type]();
+}
+
+export function getSettlementPlaceCharacteristics(type) {
+  return {
+    village: () => null,
+    town: getTownPlaceCharacteristics,
+    city: getCityPlaceCharacteristics,
+  }[type]();
+}
+
+export function getSettlementKnownFor(type) {
+  return {
+    village: () => null,
+    town: getTownKnownFor,
+    city: getCityKnownFor,
+  }[type]();
+}
+
+export function getSettlementCalamity(type) {
+  return {
+    village: () => null,
+    town: getTownCalamity,
+    city: getCityCalamity,
+  }[type]();
 }

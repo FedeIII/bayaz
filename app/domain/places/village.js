@@ -4,11 +4,9 @@ import { VILLAGE, randomDeityName, randomInnName } from './places';
 const noOp = () => {};
 
 export function getVillageAccommodation(population) {
-  return (
-    population > VILLAGE.minPopulationForGuesthouse
-      ? random.element([undefined, randomInnName])
-      : undefined
-  )?.();
+  return population > VILLAGE.minPopulationForGuesthouse
+    ? random.element([undefined, [randomInnName()]])
+    : undefined;
 }
 
 export function getVillageGovernment() {
@@ -19,9 +17,7 @@ export function getVillageGovernment() {
 }
 
 export function getVillageSecurity(population) {
-  const security = {};
-
-  const securityAmount = random.roundTo(
+  return random.roundTo(
     1,
     random.linearUniform({
       x: VILLAGE.population,
@@ -29,13 +25,10 @@ export function getVillageSecurity(population) {
       t: population,
     })
   );
+}
 
-  random.split([
-    [50, () => (security.guards = securityAmount)],
-    [50, () => (security.militia = securityAmount)],
-  ]);
-
-  return security;
+export function getVillageSecurityType() {
+  return random.element(['guards', 'militia']);
 }
 
 export function getVillageReligion() {
@@ -57,7 +50,12 @@ export function getVillageReligion() {
   };
 }
 
-function randomVillageImageOnce(files, population, accommodation, religion) {
+function randomVillageImageOnce({
+  files,
+  population,
+  accommodation,
+  religion,
+}) {
   if (!files?.length) return 'no-image';
 
   const size =

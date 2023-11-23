@@ -183,15 +183,15 @@ function randomTempleComponent(religion, government, placeCharacteristics) {
   ].filter(v => v).length;
 }
 
-function randomCityImageOnce(
+function randomCityImageOnce({
   files,
   population,
   accommodation,
   government,
   commerces,
   religion,
-  placeCharacteristics
-) {
+  placeCharacteristics,
+}) {
   if (!files?.length) return 'no-image';
 
   const size = randomSizeComponent(population);

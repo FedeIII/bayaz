@@ -36,7 +36,7 @@ export function getTownSecurity(population) {
 }
 
 export function getTownCommerce() {
-  return random.split(COMMERCE);
+  return [random.split(COMMERCE)];
 }
 
 export function getTownReligion() {
@@ -167,15 +167,15 @@ function randomTempleComponent(religion, government, placeCharacteristics) {
   ].filter(v => v).length;
 }
 
-function randomTownImageOnce(
+function randomTownImageOnce({
   files,
   population,
   accommodation,
   government,
   commerces,
   religion,
-  placeCharacteristics
-) {
+  placeCharacteristics,
+}) {
   if (!files?.length) return 'no-image';
 
   const size = randomSizeComponent(population);
