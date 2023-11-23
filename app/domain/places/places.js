@@ -73,6 +73,8 @@ export const COMMERCE = [
   [5, 'MINING'],
 ];
 
+export const MAX_COMMERCES = 4;
+
 export const GOVERNMENTS = [
   [5, 'DEMOCRACY'],
   [3, 'DICTATORSHIP'],
@@ -346,6 +348,10 @@ export function randomInnNames(number) {
   return names;
 }
 
+export function randomCommerce() {
+  return random.split(COMMERCE);
+}
+
 /* prettier-ignore*/
 export const SETTLEMENT_NAME = [
   ["amber", "angel", "spirit", "basin", "lagoon", "basin", "arrow", "autumn", "bare", "bay", "beach", "bear", "bell", "black", "bleak", "blind", "bone", "boulder", "bridge", "brine", "brittle", "bronze", "castle", "cave", "chill", "clay", "clear", "cliff", "cloud", "cold", "crag", "crow", "crystal", "curse", "dark", "dawn", "dead", "deep", "deer", "demon", "dew", "dim", "dire", "dirt", "dog", "dragon", "dry", "dusk", "dust", "eagle", "earth", "east", "ebon", "edge", "elder", "ember", "ever", "fair", "fall", "false", "far", "fay", "fear", "flame", "flat", "frey", "frost", "ghost", "glimmer", "gloom", "gold", "grass", "gray", "green", "grim", "grime", "hazel", "heart", "high", "hollow", "honey", "hound", "ice", "iron", "kil", "knight", "lake", "last", "light", "lime", "little", "lost", "mad", "mage", "maple", "mid", "might", "mill", "mist", "moon", "moss", "mud", "mute", "myth", "never", "new", "night", "north", "oaken", "ocean", "old", "ox", "pearl", "pine", "pond", "pure", "quick", "rage", "raven", "red", "rime", "river", "rock", "rogue", "rose", "rust", "salt", "sand", "scorch", "shade", "shadow", "shimmer", "shroud", "silent", "silk", "silver", "sleek", "sleet", "sly", "small", "smooth", "snake", "snow", "south", "spring", "stag", "star", "steam", "steel", "steep", "still", "stone", "storm", "summer", "sun", "swamp", "swan", "swift", "thorn", "timber", "trade", "west", "whale", "whit", "white", "wild", "wilde", "wind", "winter", "wolf"],
@@ -407,6 +413,9 @@ export function getSettlementCommerces(type) {
     city: getCityCommerces,
   }[type]();
 }
+
+export const MAX_TEMPLES = 4;
+export const MAX_SHRINES = 4;
 
 export function getSettlementReligion(type) {
   return {

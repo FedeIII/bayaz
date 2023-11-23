@@ -7,6 +7,9 @@ import {
   COMMERCE,
   GOVERNMENTS,
   GOVERNMENT_SITUATION,
+  MAX_COMMERCES,
+  MAX_SHRINES,
+  MAX_TEMPLES,
   PLACE_CALAMITY,
   PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
@@ -24,6 +27,9 @@ import {
   getSettlementRaceRelationships,
   getSettlementReligion,
   getSettlementSecurity,
+  randomCommerce,
+  randomDeityName,
+  randomInnName,
   randomSettlementImage,
   randomSettlementName,
 } from '~/domain/places/places';
@@ -32,7 +38,7 @@ import {
   getSettlement,
   updateSettlement,
 } from '~/services/settlements.server';
-import { replaceAt } from '~/utils/insert';
+import { changeLength, replaceAt } from '~/utils/insert';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
 import { getSettlementImages } from '~/services/s3.server';
@@ -47,6 +53,24 @@ const TYPES = {
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
   textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
+}
+
+function useAmount(array, randomElement, setNewArray, MAX = Infinity) {
+  const [amount, setAmount] = useState(0);
+  function reduceAmount() {
+    setAmount(i => (i > 0 ? i - 1 : i));
+  }
+  function increaseAmount() {
+    setAmount(i => (i < MAX ? i + 1 : MAX));
+  }
+
+  useEffect(() => {
+    let newArray = changeLength(array, amount);
+    newArray = newArray.map(element => element || randomElement());
+    setNewArray(newArray);
+  }, [amount]);
+
+  return [setAmount, reduceAmount, increaseAmount];
 }
 
 export const loader = async ({ params, request }) => {
@@ -153,6 +177,69 @@ function SettlementScreen() {
     calamity: '',
   });
 
+  const {
+    type,
+    name,
+    img,
+    population,
+    accommodation = [],
+    government,
+    securityType,
+    security,
+    commerces = [],
+    religion = {},
+    magicShops,
+    raceRelationships,
+    placeCharacteristics,
+    knownFor,
+    calamity,
+    notes,
+  } = placeState;
+
+  const [setTavernsAmount, reduceTavernAmount, increaseTavernAmount] =
+    useAmount(accommodation, randomInnName, newAccommodation =>
+      setPlaceState(p => ({
+        ...p,
+        accommodation: newAccommodation,
+      }))
+    );
+
+  const [setCommercesAmount, reduceCommercesAmount, increaseCommercesAmount] =
+    useAmount(
+      commerces,
+      randomCommerce,
+      newCommerces =>
+        setPlaceState(p => ({
+          ...p,
+          commerces: newCommerces,
+        })),
+      MAX_COMMERCES
+    );
+
+  const [setTemplesAmount, reduceTemplesAmount, increaseTemplesAmount] =
+    useAmount(
+      religion.temples,
+      randomDeityName,
+      newTemples =>
+        setPlaceState(p => ({
+          ...p,
+          religion: { ...p.religion, temples: newTemples },
+        })),
+      MAX_TEMPLES
+    );
+
+  const [setShrinesAmount, reduceShrinesAmount, increaseShrinesAmount] =
+    useAmount(
+      religion.shrines,
+      randomDeityName,
+      newShrines =>
+        setPlaceState(p => ({
+          ...p,
+          religion: { ...p.religion, shrines: newShrines },
+        })),
+      MAX_SHRINES
+    );
+
   useEffect(() => {
     if (id) {
       setPlaceState(old => ({
@@ -174,6 +261,11 @@ function SettlementScreen() {
         calamity: place.calamity,
         notes: place.notes,
       }));
+
+      setTavernsAmount(place.accommodation?.length || 0);
+      setCommercesAmount(place.commerces?.length || 0);
+      setTemplesAmount(place.religion?.temples?.length || 0);
+      setShrinesAmount(place.religion?.shrines?.length || 0);
     }
   }, [place]);
 
@@ -203,7 +295,9 @@ function SettlementScreen() {
         government,
         security: getSettlementSecurity(typeParam, population),
         securityType:
-          typeParam === 'village' ? getVillageSecurityType(population) : 'guards',
+          typeParam === 'village'
+            ? getVillageSecurityType(population)
+            : 'guards',
         commerces,
         religion,
         magicShops: getSettlementMagicShops(typeParam, population),
@@ -212,27 +306,13 @@ function SettlementScreen() {
         knownFor: getSettlementKnownFor(typeParam),
         calamity: getSettlementCalamity(typeParam),
       });
+
+      setTavernsAmount(accommodation?.length || 0);
+      setCommercesAmount(commerces?.length || 0);
+      setTemplesAmount(religion?.temples?.length || 0);
+      setShrinesAmount(religion?.shrines?.length || 0);
     }
   }, [rng, typeParam]);
-
-  const {
-    type,
-    name,
-    img,
-    population,
-    accommodation,
-    government,
-    securityType,
-    security,
-    commerces,
-    religion = {},
-    magicShops,
-    raceRelationships,
-    placeCharacteristics,
-    knownFor,
-    calamity,
-    notes,
-  } = placeState;
 
   function onNameChange(e) {
     setPlaceState(p => ({ ...p, name: e.target.value }));
@@ -277,14 +357,20 @@ function SettlementScreen() {
   function onTempleNameChange(i, e) {
     setPlaceState(p => ({
       ...p,
-      religion: { temples: replaceAt(i, religion.temples, e.target.value) },
+      religion: {
+        ...p.religion,
+        temples: replaceAt(i, religion.temples, e.target.value),
+      },
     }));
   }
 
   function onShrineNameChange(i, e) {
     setPlaceState(p => ({
       ...p,
-      religion: { shrines: replaceAt(i, religion.shrines, e.target.value) },
+      religion: {
+        ...p.religion,
+        shrines: replaceAt(i, religion.shrines, e.target.value),
+      },
     }));
   }
 
@@ -384,29 +470,43 @@ function SettlementScreen() {
               </span>
             </div>
 
-            {!!accommodation?.length && (
-              <>
-                <hr className="places__section-divider" />
-                <div className="places__trait">
-                  <span className="places__trait-title">Alojamientos:</span>{' '}
-                  <ul className="places__trait-columns">
-                    {accommodation.map((innName, i) => (
-                      <li key={innName} className="places__trait-item">
-                        <input
-                          type="text"
-                          name="accommodation[]"
-                          value={innName}
-                          onChange={e => onAccommodationChange(i, e)}
-                          className="places__trait-input"
-                        />
-                      </li>
-                    ))}
-                  </ul>
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <div className="places__trait-header">
+                <span className="places__trait-title">Alojamientos:</span>
+                <div className="places__trait-modifiers">
+                  <button
+                    type="button"
+                    className="places__trait-button"
+                    onClick={reduceTavernAmount}
+                  >
+                    -
+                  </button>
+                  <button
+                    type="button"
+                    className="places__trait-button"
+                    onClick={increaseTavernAmount}
+                  >
+                    +
+                  </button>
                 </div>
-              </>
-            )}
+              </div>
+              <ul className="places__trait-columns">
+                {(accommodation || []).map((innName, i) => (
+                  <li key={innName} className="places__trait-item">
+                    <input
+                      type="text"
+                      name="accommodation[]"
+                      value={innName}
+                      onChange={e => onAccommodationChange(i, e)}
+                      className="places__trait-input"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-            {!!(government.length && government[0]) && (
+            {!!(government.length && government[0]) ? (
               <>
                 <hr className="places__section-divider" />
                 <div className="places__trait">
@@ -441,40 +541,59 @@ function SettlementScreen() {
                   </select>
                 </div>
               </>
-            )}
-
-            <hr className="places__section-divider" />
-            <div className="places__trait-multiple">
-              {!!commerces?.length && (
-                <span className="places__trait-multiple">
-                  <span className="places__trait-title">Comercio:</span>{' '}
-                  <div className="places__commerce-list">
-                    {commerces.map((commerce, i) => (
-                      <select
-                        key={i}
-                        type="text"
-                        name="commerces[]"
-                        value={commerce}
-                        onChange={e => onCommerceChange(i, e)}
-                        className="places__trait-select"
-                      >
-                        <option value="">-</option>
-                        {COMMERCE.map(([_, com]) => (
-                          <option key={com} value={com}>
-                            {t(com)}
-                          </option>
-                        ))}
-                      </select>
-                    ))}
-                  </div>
-                </span>
-              )}
-              {!commerces && (
+            ) : (
+              <>
+                <hr className="places__section-divider" />
                 <span>
                   <span className="places__trait-title">Gobierno:</span>{' '}
                   Alguacil {Math.random() > 0.5 && 'no '}presente
                 </span>
-              )}
+              </>
+            )}
+
+            <hr className="places__section-divider" />
+            <div className="places__trait-multiple">
+              <span className="places__trait-multiple">
+                <div className="places__trait-header">
+                  <span className="places__trait-title">Comercio:</span>
+                  <div className="places__trait-modifiers">
+                    <button
+                      type="button"
+                      className="places__trait-button"
+                      onClick={reduceCommercesAmount}
+                    >
+                      -
+                    </button>
+                    <button
+                      type="button"
+                      className="places__trait-button"
+                      onClick={increaseCommercesAmount}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className="places__commerce-list">
+                  {(commerces || []).map((commerce, i) => (
+                    <select
+                      key={i}
+                      type="text"
+                      name="commerces[]"
+                      value={commerce}
+                      onChange={e => onCommerceChange(i, e)}
+                      className="places__trait-select"
+                    >
+                      <option value="">-</option>
+                      {COMMERCE.map(([_, com]) => (
+                        <option key={com} value={com}>
+                          {t(com)}
+                        </option>
+                      ))}
+                    </select>
+                  ))}
+                </div>
+              </span>
+
               {!!magicShops && (
                 <span className="places__shared-trait-greedy">
                   <span className="places__trait-title">Tiendas:</span>{' '}
@@ -487,6 +606,7 @@ function SettlementScreen() {
                   />
                 </span>
               )}
+
               <span className="places__shared-trait-greedy">
                 <span className="places__trait-title">Seguridad:</span>{' '}
                 <input
@@ -506,38 +626,66 @@ function SettlementScreen() {
                 <div className="places__trait">
                   <span className="places__trait-title">Religión:</span>{' '}
                   <div className="places__vertical-sections">
-                    {!!religion.temples?.length && (
-                      <ul className="places__trait-list">
-                        Templos:{' '}
-                        {religion.temples.map((deityName, i) => (
-                          <li key={i}>
-                            <input
-                              type="text"
-                              name="temples[]"
-                              value={deityName}
-                              onChange={e => onTempleNameChange(i, e)}
-                              className="places__trait-input"
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    {!!religion.shrines?.length && (
-                      <ul className="places__trait-list">
-                        Santuarios:{' '}
-                        {religion.shrines.map((deityName, i) => (
-                          <li key={i}>
-                            <input
-                              type="text"
-                              name="shrines[]"
-                              value={deityName}
-                              onChange={e => onShrineNameChange(i, e)}
-                              className="places__trait-input"
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    <ul className="places__trait-list">
+                      Templos:{' '}
+                      <span className="places__trait-modifiers">
+                        <button
+                          type="button"
+                          className="places__trait-button"
+                          onClick={reduceTemplesAmount}
+                        >
+                          -
+                        </button>
+                        <button
+                          type="button"
+                          className="places__trait-button"
+                          onClick={increaseTemplesAmount}
+                        >
+                          +
+                        </button>
+                      </span>
+                      {(religion?.temples || []).map((deityName, i) => (
+                        <li key={i}>
+                          <input
+                            type="text"
+                            name="temples[]"
+                            value={deityName}
+                            onChange={e => onTempleNameChange(i, e)}
+                            className="places__trait-input"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                    <ul className="places__trait-list">
+                      Santuarios:{' '}
+                      <span className="places__trait-modifiers">
+                        <button
+                          type="button"
+                          className="places__trait-button"
+                          onClick={reduceShrinesAmount}
+                        >
+                          -
+                        </button>
+                        <button
+                          type="button"
+                          className="places__trait-button"
+                          onClick={increaseShrinesAmount}
+                        >
+                          +
+                        </button>
+                      </span>
+                      {(religion?.shrines || []).map((deityName, i) => (
+                        <li key={i}>
+                          <input
+                            type="text"
+                            name="shrines[]"
+                            value={deityName}
+                            onChange={e => onShrineNameChange(i, e)}
+                            className="places__trait-input"
+                          />
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </>

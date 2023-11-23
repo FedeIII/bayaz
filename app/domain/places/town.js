@@ -1,6 +1,5 @@
 import random from '../random';
 import {
-  COMMERCE,
   GOVERNMENTS,
   GOVERNMENT_SITUATION,
   PLACE_CALAMITY,
@@ -8,6 +7,7 @@ import {
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
   TOWN,
+  randomCommerce,
   randomDeityName,
   randomInnNames,
 } from './places';
@@ -36,7 +36,7 @@ export function getTownSecurity(population) {
 }
 
 export function getTownCommerce() {
-  return [random.split(COMMERCE)];
+  return [randomCommerce()];
 }
 
 export function getTownReligion() {

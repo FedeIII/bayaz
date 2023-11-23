@@ -175,6 +175,34 @@
   overflow: hidden;
 }
 
+.places__trait-header {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.places__trait-modifiers {
+}
+
+.places__trait-button {
+  background-color: var(--color-light);
+  border: 1px solid white;
+  color: white;
+  border-radius: 50%;
+  font-size: var(--font-size-l);
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin: 0 8px 0 0;
+  padding: 0 0 0 0;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.places__trait-button:hover {
+  background-color: var(--color-pale);
+}
+
 .places__trait-multiple {
   display: flex;
   justify-content: space-between;
@@ -261,9 +289,11 @@
 
 .places__trait-columns {
   margin: 0;
-  column-count: 2;
   text-align: start;
   text-wrap: nowrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .places__trait-item {

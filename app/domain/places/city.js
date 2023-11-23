@@ -9,6 +9,7 @@ import {
   PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
+  randomCommerce,
   randomDeityName,
   randomInnNames,
 } from './places';
@@ -44,7 +45,7 @@ export function getCityCommerces() {
   const numberOfCommerces = random.invExp(...CITY.commerces);
   const commerces = [];
   while (commerces.length < numberOfCommerces) {
-    const newCommerce = random.split(COMMERCE);
+    const newCommerce = randomCommerce();
     if (!commerces.includes(newCommerce)) commerces.push(newCommerce);
   }
 

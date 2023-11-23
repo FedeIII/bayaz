@@ -32,3 +32,7 @@ export function unique(values) {
 export function substract(minuend, subtrahend) {
   return minuend.filter(el => !subtrahend.includes(el));
 }
+
+export function changeLength(arr, length) {
+  return Array.from(Array(length), (_, i) => arr?.[i] || null);
+}
