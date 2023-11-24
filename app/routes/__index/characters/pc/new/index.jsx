@@ -14,6 +14,12 @@ import {
 import { createPc } from '~/services/pc.server';
 import { getSpell } from '~/domain/spells/getSpells';
 import { getSessionUser } from '~/services/session.server';
+import { Title, links as buildingDetailsLinks } from '~/components/form/title';
+
+import styles from '~/components/cards/cards.css';
+export const links = () => {
+  return [...buildingDetailsLinks(), { rel: 'stylesheet', href: styles }];
+};
 
 const NUMBER_OF_AGE_MARKS = 5;
 
@@ -100,6 +106,7 @@ function PcRace() {
   const transition = useTransition();
   const isCreating = Boolean(transition.submission);
 
+  const [name, setName] = useState('');
   const [race, setRace] = useState('human');
   const [subrace, setSubrace] = useState('subrace');
   const [age, setAge] = useState(RACES.human.subrace.age[0]);
@@ -124,25 +131,27 @@ function PcRace() {
   }, [subrace]);
 
   return (
-    <Form method="post">
-      <p>
-        <label htmlFor="npc">
-          NPC: <input type="checkbox" name="npc" />
+    <Form method="post" className="characters__content">
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <label htmlFor="name" className="characters__trait-label">
+          <span className="characters__trait-title">
+            Nombre {errors?.name ? <em>{errors.name}</em> : null}
+          </span>{' '}
+          <Title
+            value={name}
+            onChange={e => setName(e.target.value)}
+            inputName="name"
+            className="characters__trait-input-title"
+            inputClass="characters__trait-input"
+          />
         </label>
-      </p>
-      <p>
-        <label>
-          Nombre: {errors?.name ? <em>{errors.name}</em> : null}
-          <input type="text" name="name" />
-        </label>
-      </p>
 
-      <p>
-        <label>
-          Raza:
+        <label htmlFor="race" className="characters__trait-label">
+          <span className="characters__trait-title">Raza</span>{' '}
           <select
             name="race"
             value={race}
+            className="cards__button-card"
             onChange={e => setRace(e.target.value)}
           >
             {Object.keys(RACES).map(raceName => (
@@ -152,15 +161,14 @@ function PcRace() {
             ))}
           </select>
         </label>
-      </p>
 
-      {!!subraces && (
-        <p>
-          <label>
-            Subraza:
+        {!!subraces && (
+          <label htmlFor="subrace" className="characters__trait-label">
+            <span className="characters__trait-title">Subraza</span>{' '}
             <select
               name="subrace"
               value={subrace}
+              className="cards__button-card"
               onChange={e => setSubrace(e.target.value)}
             >
               {subraces.map(subrace => (
@@ -170,23 +178,33 @@ function PcRace() {
               ))}
             </select>
           </label>
-        </p>
-      )}
+        )}
 
-      <p>
-        <label htmlFor="age">
-          Edad:{' '}
-          <input
-            type="number"
-            id="age"
-            name="age"
-            value={age}
-            onChange={e => setAge(e.target.value)}
-            min={getMinAttr(race, subrace, 'age')}
-            max={getMaxAttr(race, subrace, 'age')}
-          />{' '}
-          años
-          <br />
+        <label
+          htmlFor="npc"
+          className="characters__trait-label characters__trait-label--small"
+        >
+          <span className="characters__trait-title">NPC</span>{' '}
+          <input type="checkbox" name="npc" />
+        </label>
+      </div>
+
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <label htmlFor="age" className="characters__trait-label">
+          <span className="characters__trait-title">
+            Edad:{' '}
+            <input
+              type="number"
+              id="age"
+              name="age"
+              value={age}
+              className="places__trait-input places__trait-input--number-3"
+              onChange={e => setAge(e.target.value)}
+              min={getMinAttr(race, subrace, 'age')}
+              max={getMaxAttr(race, subrace, 'age')}
+            />{' '}
+            años
+          </span>
           <input
             type="range"
             id="age"
@@ -203,22 +221,22 @@ function PcRace() {
             {getMarkers(race, subrace, 'age')}
           </datalist>
         </label>
-      </p>
 
-      <p>
-        <label htmlFor="height">
-          Altura:{' '}
-          <input
-            type="number"
-            id="height"
-            name="height"
-            value={height}
-            onChange={e => setHeight(e.target.value)}
-            min={getMinAttr(race, subrace, 'height')}
-            max={getMaxAttr(race, subrace, 'height')}
-          />{' '}
-          cm
-          <br />
+        <label htmlFor="height" className="characters__trait-label">
+          <span className="characters__trait-title">
+            Altura:{' '}
+            <input
+              type="number"
+              id="height"
+              name="height"
+              value={height}
+              className="places__trait-input places__trait-input--number-3"
+              onChange={e => setHeight(e.target.value)}
+              min={getMinAttr(race, subrace, 'height')}
+              max={getMaxAttr(race, subrace, 'height')}
+            />{' '}
+            cm
+          </span>
           <input
             type="range"
             id="height"
@@ -235,22 +253,22 @@ function PcRace() {
             {getMarkers(race, subrace, 'height')}
           </datalist>
         </label>
-      </p>
 
-      <p>
-        <label htmlFor="weight">
-          Peso:{' '}
-          <input
-            type="number"
-            id="weight"
-            name="weight"
-            value={weight}
-            onChange={e => setWeight(e.target.value)}
-            min={getMinAttr(race, subrace, 'weight')}
-            max={getMaxAttr(race, subrace, 'weight')}
-          />{' '}
-          kg
-          <br />
+        <label htmlFor="weight" className="characters__trait-label">
+          <span className="characters__trait-title">
+            Peso:{' '}
+            <input
+              type="number"
+              id="weight"
+              name="weight"
+              value={weight}
+              className="places__trait-input places__trait-input--number-3"
+              onChange={e => setWeight(e.target.value)}
+              min={getMinAttr(race, subrace, 'weight')}
+              max={getMaxAttr(race, subrace, 'weight')}
+            />{' '}
+            kg
+          </span>
           <input
             type="range"
             id="weight"
@@ -267,14 +285,15 @@ function PcRace() {
             {getMarkers(race, subrace, 'weight')}
           </datalist>
         </label>
-      </p>
+      </div>
 
-      <p>
-        <label>
-          Clase:
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <label htmlFor="pClass" className="characters__trait-label">
+          <span className="characters__trait-title">Clase</span>{' '}
           <select
             name="pClass"
             value={pClass}
+            className="cards__button-card"
             onChange={e => setClass(e.target.value)}
           >
             {Object.keys(CLASSES).map(pClassName => (
@@ -284,13 +303,17 @@ function PcRace() {
             ))}
           </select>
         </label>
-      </p>
+      </div>
 
-      <p>
-        <button type="submit" disabled={isCreating}>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <button
+          type="submit"
+          className="cards__button-card"
+          disabled={isCreating}
+        >
           {isCreating ? 'Creando...' : 'Continuar'}
         </button>
-      </p>
+      </div>
     </Form>
   );
 }

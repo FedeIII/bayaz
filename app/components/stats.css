@@ -57,6 +57,12 @@
   padding: 0 0 0 0;
   line-height: 1;
   cursor: pointer;
+  font-family: var(--font-family);
+}
+
+.stats__statButton--big {
+  width: 28px;
+  height: 28px;
 }
 
 .stats__statButton:hover {

@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Title } from '../form/title';
+import { Title, links as titleLinks } from '../form/title';
+
+export const links = () => {
+  return titleLinks();
+};
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';

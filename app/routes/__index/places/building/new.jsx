@@ -10,13 +10,15 @@ import {
   createRandomBuilding,
 } from '~/domain/places/building';
 import { createBuilding } from '~/services/building.server';
-import BuildingDetails from '~/components/places/buildingDetails';
+import BuildingDetails, {
+  links as buildingDetailsLinks,
+} from '~/components/places/buildingDetails';
 import { getBuildingImages } from '~/services/s3.server';
 import random from '~/domain/random';
 
 import styles from '~/components/filters.css';
 export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [...buildingDetailsLinks(), { rel: 'stylesheet', href: styles }];
 };
 
 export const action = async ({ request }) => {

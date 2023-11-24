@@ -54,8 +54,10 @@ export function CustomStatValues(props) {
 
   return (
     <>
-      <p>Puntos restantes: {MAX_POINTS - usedPoints}</p>
-      <p className="characters__stat-values">
+      <div className="characters__trait-title">
+        Puntos restantes: {MAX_POINTS - usedPoints}
+      </div>
+      <div className="characters__trait-columns characters__trait-columns--three">
         {STATS.map((statName, index) => {
           const canDrag = !usedRolls[index];
 
@@ -83,7 +85,7 @@ export function CustomStatValues(props) {
             />
           );
         })}
-      </p>
+      </div>
     </>
   );
 }

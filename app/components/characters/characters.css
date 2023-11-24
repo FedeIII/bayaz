@@ -6,20 +6,106 @@
   position: relative;
 }
 
+.characters__content {
+  max-width: 768px;
+  margin: auto;
+}
+
+.characters__trait-title {
+  border-bottom: 1px solid var(--color-x-pale);
+  margin: 0 0 8px 0;
+}
+
+.characters__trait-label {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.characters__trait-label--small {
+  flex-shrink: 1;
+  flex-grow: 0;
+}
+
+.characters__trait-label--row {
+  flex-direction: row;
+  justify-content: center;
+  line-height: 3;
+}
+
+.characters__trait-cell {
+  flex-basis: 50%;
+  margin: 8px 16px;
+}
+
+.characters__trait-cell--left {
+  text-align: end;
+}
+
+.characters__trait-cell--right {
+  text-align: start;
+}
+
+.characters__trait-input-title {
+  width: 100%;
+}
+
+.characters__trait-input {
+  color: white !important;
+}
+
 .characters__range-marks {
   color: white;
 }
 
 .characters__stats-roll {
+  border: 1px solid var(--color-pale);
+  background-color: var(--color-base);
+  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  line-height: 2;
   margin-right: 8px;
 }
 
+.characters__stat-input {
+  color: white;
+  border: 1px solid var(--color-pale);
+  background-color: var(--color-base);
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  line-height: 2;
+  margin-right: 8px;
+  padding: 4px 0px 4px 12px;
+  font-size: var(--font-size-xxl);
+  font-family: var(--font-family);
+}
+
+.characters__stat-input--highlight {
+  border-color: var(--color-x-pale);
+  background-color: var(--color-light);
+}
+
+.characters__stat-input--hover {
+  border-color: var(--color-gray);
+  background-color: var(--color-pale);
+}
+
 .characters__can-drag {
-  color: greenyellow;
+  color: var(--color-x-green);
+  cursor: pointer;
+}
+
+.characters__can-drag:hover {
+  border-color: var(--color-x-pale);
+  background-color: var(--color-pale);
 }
 
 .characters__cannot-drag {
-  color: red;
+  color: var(--color-red);
 }
 
 .characters__skill-label {
@@ -32,14 +118,23 @@
 }
 
 .characters__stat-value {
-  width: 32px;
-  margin: 0 8px;
-  font-weight: bold;
-  background-color: #a3ffa3;
+  font-weight: 700;
+  color: var(--color-x-green);
+  border: 1px solid var(--color-pale);
+  background-color: var(--color-base);
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  line-height: 2;
+  margin-right: 8px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-l);
+  padding: 4px 0 4px 12px;
 }
 
 .characters__stat-value:disabled {
-  background-color: #ffaaaa;
+  color: var(--color-red);
 }
 
 .characters__equipment-container {
@@ -161,10 +256,23 @@
   margin: 8px 32px;
 }
 
+.characters__trait-columns--three {
+  column-count: 3;
+  display: flex;
+  justify-content: center;
+  column-gap: 32px;
+  margin: 48px auto 0;
+}
+
 .characters__trait-sections {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.characters__trait-sections-stats {
+  column-count: 2;
+  margin: 32px;
 }
 
 .characters__traits {

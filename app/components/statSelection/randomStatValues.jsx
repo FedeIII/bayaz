@@ -20,15 +20,15 @@ export function RandomStatValues(props) {
   const rollsComplete = rolls.filter(r => r).length === 6;
 
   return (
-    <p>
+    <div className="characters__trait-columns characters__trait-columns--three">
       {rolls.map((roll, i) => (
         <StatRoll roll={roll} index={i} canDrag={!usedRolls[i]} key={i} />
       ))}
       {!rollsComplete && (
-        <button type="button" onClick={addRoll}>
-          1d6
+        <button type="button" className="cards__button-card" onClick={addRoll}>
+          4d6 pick 3
         </button>
       )}
-    </p>
+    </div>
   );
 }

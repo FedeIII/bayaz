@@ -2,14 +2,16 @@ import { Form, Link, useActionData, useLoaderData } from '@remix-run/react';
 import { useEffect, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 
-import BuildingDetails from '~/components/places/buildingDetails';
+import BuildingDetails, {
+  links as buildingDetailsLinks,
+} from '~/components/places/buildingDetails';
 import { getBuilding, updateBuilding } from '~/services/building.server';
 import random from '~/domain/random';
 import { getBuildingImages } from '~/services/s3.server';
 
 import styles from '~/components/filters.css';
 export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [...buildingDetailsLinks(), { rel: 'stylesheet', href: styles }];
 };
 
 export const loader = async ({ params }) => {
