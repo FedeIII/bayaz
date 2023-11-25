@@ -75,58 +75,74 @@ function PcHalfElfSkills() {
   const canContinue = selectionCount === 2 && isLanguageSelected;
 
   return (
-    <Form method="post">
+    <Form method="post" className="characters__content">
       <h2>Habilidades de semielfo para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
 
-      <p>
-        Selecciona un idioma extra
-        {LANGUAGES.filter(
-          l => !RACES['half-elf'].subrace.languages.includes(l)
-        ).map(language => (
-          <label
-            htmlFor={language}
-            key={language}
-            className="characters__skill-label"
-          >
-            <input
-              type="radio"
-              name="language"
-              id={language}
-              value={language}
-              onChange={() => setIsLanguageSelected(true)}
-            />
-            {translateLanguage(language)}
-          </label>
-        ))}
-      </p>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <div className="characters__trait-label">
+          <span className="characters__trait-title">
+            Selecciona un idioma extra
+          </span>
+          <div className="characters__traits">
+            {LANGUAGES.filter(
+              l => !RACES['half-elf'].subrace.languages.includes(l)
+            ).map(language => (
+              <label
+                htmlFor={language}
+                key={language}
+                className="characters__skill-label"
+              >
+                <input
+                  type="radio"
+                  name="language"
+                  id={language}
+                  value={language}
+                  onChange={() => setIsLanguageSelected(true)}
+                />
+                {translateLanguage(language)}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div className="characters__trait-label">
+          <span className="characters__trait-title">
+            Selecciona dos habilidades en las que ser competente
+          </span>
+          <div className="characters__traits">
+            {SKILLS.map((skill, i) => (
+              <label
+                htmlFor={skill.name}
+                key={skill.name}
+                className="characters__skill-label"
+              >
+                <input
+                  type="checkbox"
+                  name={
+                    skills.includes(skill.name)
+                      ? 'skills[]'
+                      : 'half-elf-skills[]'
+                  }
+                  id={skill.name}
+                  value={skill.name}
+                  checked={checks[i]}
+                  onChange={onSkillChange(i)}
+                  disabled={skills.includes(skill.name)}
+                />
+                {translateSkill(skill.name)}
+              </label>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <p>
-        Selecciona dos habilidades en las que ser competente
-        {SKILLS.map((skill, i) => (
-          <label
-            htmlFor={skill.name}
-            key={skill.name}
-            className="characters__skill-label"
-          >
-            <input
-              type="checkbox"
-              name={
-                skills.includes(skill.name) ? 'skills[]' : 'half-elf-skills[]'
-              }
-              id={skill.name}
-              value={skill.name}
-              checked={checks[i]}
-              onChange={onSkillChange(i)}
-              disabled={skills.includes(skill.name)}
-            />
-            {translateSkill(skill.name)}
-          </label>
-        ))}
-      </p>
-
-      <p>
-        <button type="submit" disabled={isCreating || !canContinue}>
+        <button
+          type="submit"
+          className="cards__button-card"
+          disabled={isCreating || !canContinue}
+        >
           {isCreating
             ? 'Creando...'
             : canContinue

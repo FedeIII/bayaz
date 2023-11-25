@@ -272,41 +272,46 @@ function PcClassSkills() {
     });
   };
 
-  // const canContinue = selectionCount === CLASSES[pClass].pickSkills;
   const canContinue =
     Object.values(areNamespacesReady).filter(v => v === false).length === 0;
 
   return (
-    <Form method="post">
+    <Form method="post" className="characters__content">
       <h2>
         Habilidades de {translateClass(pClass)} para {name}
       </h2>
       <input readOnly type="text" name="name" value={name} hidden />
 
-      <p>
-        Escoge {CLASSES[pClass].pickSkills} habilidades de{' '}
-        {translateClass(pClass)}
-        {skillsToPick.map((skillName, i) => (
-          <label
-            htmlFor={skillName}
-            key={skillName}
-            className="characters__skill-label"
-          >
-            <input
-              type="checkbox"
-              name="class-skills[]"
-              id={skillName}
-              value={skillName}
-              checked={getSkillChecked(skillName, skillsToSelect)}
-              onChange={e => onSkillChange(skillName, e.target.checked, i)}
-              disabled={
-                !getSkillAvailable(skillName, skillsToSelect, checks[i])
-              }
-            />
-            {translateSkill(skillName)}
-          </label>
-        ))}
-      </p>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <label htmlFor="name" className="characters__trait-label">
+          <span className="characters__trait-title">
+            Escoge {CLASSES[pClass].pickSkills} habilidades de{' '}
+            {translateClass(pClass)}
+          </span>
+          <div className="characters__traits">
+            {skillsToPick.map((skillName, i) => (
+              <label
+                htmlFor={skillName}
+                key={skillName}
+                className="characters__skill-label"
+              >
+                <input
+                  type="checkbox"
+                  name="class-skills[]"
+                  id={skillName}
+                  value={skillName}
+                  checked={getSkillChecked(skillName, skillsToSelect)}
+                  onChange={e => onSkillChange(skillName, e.target.checked, i)}
+                  disabled={
+                    !getSkillAvailable(skillName, skillsToSelect, checks[i])
+                  }
+                />
+                {translateSkill(skillName)}
+              </label>
+            ))}
+          </div>
+        </label>
+      </div>
 
       <ClassSkills
         pc={pc}

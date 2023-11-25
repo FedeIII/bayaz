@@ -21,6 +21,7 @@ export function getSelfTopY({
 
   if (bigModal) return formTopY + MODAL_VERTICAL_OFFSET_TOP;
 
+  // overflows at the bottom
   if (
     selfTopY - formTopY + selfHeight >
     formHeight - MODAL_VERTICAL_OFFSET_BOTTOM
@@ -29,6 +30,7 @@ export function getSelfTopY({
       formTopY + formHeight - MODAL_VERTICAL_OFFSET_BOTTOM - selfHeight;
   }
 
+  // overflows at the top
   if (selfTopY - formTopY < MODAL_VERTICAL_OFFSET_TOP) {
     selfTopY = formTopY + MODAL_VERTICAL_OFFSET_TOP;
   }
@@ -46,8 +48,11 @@ export function getSelfLeftX({
   bigModal,
 }) {
   const selfWidth = selfPosition?.width || 0;
+  const selfHeight = selfPosition?.height || 0;
   const formWidth = formPos?.width || 0;
   const formLeftX = formPos?.x || 0;
+  const formTopY = -formPos?.y || 0;
+  const selfTopY = formTopY + (elPos?.y || 0) - (selfHeight || 0);
 
   let selfLeftX =
     (elPos?.x || 0) -
@@ -55,12 +60,19 @@ export function getSelfLeftX({
     MODAL_HORIZONTAL_GAP +
     (center ? selfWidth / 2 : 0);
 
+  // overflows at the left
   if (selfLeftX < MODAL_HORIZONTAL_OFFSET_LEFT) {
     selfLeftX = MODAL_HORIZONTAL_OFFSET_LEFT;
   }
 
+  // overflows at the right
   if (selfLeftX + selfWidth > formWidth - MODAL_HORIZONTAL_OFFSET_RIGHT) {
     selfLeftX = formWidth - selfWidth - MODAL_HORIZONTAL_OFFSET_RIGHT * 10;
+  } else {
+    // overflows at the top
+    if (selfTopY - formTopY < MODAL_VERTICAL_OFFSET_TOP) {
+      selfLeftX += elPos.width;
+    }
   }
 
   return selfLeftX;

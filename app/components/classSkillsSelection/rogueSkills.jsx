@@ -24,27 +24,31 @@ function RogueSkills(props) {
   }
 
   return (
-    <>
-      <p>
-        Escoge 2 competencias en las que ser experto
-        {skills.map(skillName => (
-          <label
-            htmlFor={`${skillName}-expert`}
-            key={skillName}
-            className="characters__skill-label"
-          >
-            <input
-              type="checkbox"
-              name="expert-skills[]"
-              id={`${skillName}-expert`}
-              value={skillName}
-              onChange={onSkillChange}
-            />
-            {translateSkill(skillName)}
-          </label>
-        ))}
-      </p>
-    </>
+    <div className="characters__trait-columns characters__trait-columns--three">
+      <div className="characters__trait-label">
+        <span className="characters__trait-title">
+          Escoge 2 competencias en las que ser experto
+        </span>
+        <div className="characters__traits characters__traits--wide">
+          {skills.map(skillName => (
+            <label
+              htmlFor={`${skillName}-expert`}
+              key={skillName}
+              className="characters__skill-label characters__skill-label--small"
+            >
+              <input
+                type="checkbox"
+                name="expert-skills[]"
+                id={`${skillName}-expert`}
+                value={skillName}
+                onChange={onSkillChange}
+              />
+              {translateSkill(skillName)}
+            </label>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 

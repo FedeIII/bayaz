@@ -37,90 +37,109 @@ function BardSkills(props) {
 
   return (
     <>
-      <p>
-        Selecciona {MAX_INSTRUMENTS} instrumentos con los que ser competente:{' '}
-        {getAllMusicalInstruments().map((instrument, i) => (
-          <label
-            htmlFor={instrument.name}
-            key={instrument.name}
-            className="characters__skill-label"
-          >
-            <input
-              type="checkbox"
-              name="items[]"
-              checked={!!selectedInstruments[i]}
-              id={instrument.name}
-              value={instrument.name}
-              onChange={() =>
-                setSelectedInstruments(oldChecks => {
-                  const newChecks = oldChecks.slice();
-                  newChecks[i] = !newChecks[i];
-                  return newChecks;
-                })
-              }
-            />
-            {t(instrument.name)}
-          </label>
-        ))}
-      </p>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <div className="characters__trait-label">
+          <span className="characters__trait-title">
+            Selecciona {MAX_INSTRUMENTS} instrumentos con los que ser competente
+          </span>
+          <div className="characters__traits">
+            {getAllMusicalInstruments().map((instrument, i) => (
+              <label
+                htmlFor={instrument.name}
+                key={instrument.name}
+                className="characters__skill-label"
+              >
+                <input
+                  type="checkbox"
+                  name="items[]"
+                  checked={!!selectedInstruments[i]}
+                  id={instrument.name}
+                  value={instrument.name}
+                  onChange={() =>
+                    setSelectedInstruments(oldChecks => {
+                      const newChecks = oldChecks.slice();
+                      newChecks[i] = !newChecks[i];
+                      return newChecks;
+                    })
+                  }
+                />
+                {t(instrument.name)}
+              </label>
+            ))}
+          </div>
+        </div>
+      </div>
 
-      <p>
-        Conoces {spellSlots[0]} trucos de bardo:{' '}
-        {getBardSpells()
-          .filter(s => s.level === 0)
-          .map((spell, i) => (
-            <label
-              htmlFor={spell.name}
-              key={spell.name}
-              className="characters__skill-label"
-            >
-              <input
-                type="checkbox"
-                name="spells[]"
-                checked={!!selectedSpells0[i]}
-                id={spell.name}
-                value={spell.name}
-                onChange={() =>
-                  setSelectedSpells0(oldChecks => {
-                    const newChecks = oldChecks.slice();
-                    newChecks[i] = !newChecks[i];
-                    return newChecks;
-                  })
-                }
-              />
-              {translateSpell(spell.name)}
-            </label>
-          ))}
-      </p>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <div
+          htmlFor="name"
+          className="characters__trait-label characters__trait-label--spells"
+        >
+          <span className="characters__trait-title">
+            Conoces {spellSlots[0]} trucos de bardo
+          </span>
+          <div className="characters__traits">
+            {getBardSpells()
+              .filter(s => s.level === 0)
+              .map((spell, i) => (
+                <label
+                  htmlFor={spell.name}
+                  key={spell.name}
+                  className="characters__skill-label"
+                >
+                  <input
+                    type="checkbox"
+                    name="spells[]"
+                    checked={!!selectedSpells0[i]}
+                    id={spell.name}
+                    value={spell.name}
+                    onChange={() =>
+                      setSelectedSpells0(oldChecks => {
+                        const newChecks = oldChecks.slice();
+                        newChecks[i] = !newChecks[i];
+                        return newChecks;
+                      })
+                    }
+                  />
+                  {translateSpell(spell.name)}
+                </label>
+              ))}
+          </div>
+        </div>
 
-      <p>
-        Conoces {totalSpells} conjuros de nivel 1 de bardo:{' '}
-        {getBardSpells()
-          .filter(s => s.level === 1)
-          .map((spell, i) => (
-            <label
-              htmlFor={spell.name}
-              key={spell.name}
-              className="characters__skill-label"
-            >
-              <input
-                type="checkbox"
-                name="spells[]"
-                checked={!!selectedSpells1[i]}
-                id={spell.name}
-                value={spell.name}
-                onChange={() =>
-                  setSelectedSpells1(oldChecks => {
-                    const newChecks = oldChecks.slice();
-                    newChecks[i] = !newChecks[i];
-                    return newChecks;
-                  })
-                }
-              />
-              {translateSpell(spell.name)}
-            </label>
-          ))}
-      </p>
+        <div className="characters__trait-label characters__trait-label--spells">
+          <span className="characters__trait-title">
+            Conoces {totalSpells} conjuros de nivel 1 de bardo
+          </span>
+          <div className="characters__traits">
+            {getBardSpells()
+              .filter(s => s.level === 1)
+              .map((spell, i) => (
+                <label
+                  htmlFor={spell.name}
+                  key={spell.name}
+                  className="characters__skill-label"
+                >
+                  <input
+                    type="checkbox"
+                    name="spells[]"
+                    checked={!!selectedSpells1[i]}
+                    id={spell.name}
+                    value={spell.name}
+                    onChange={() =>
+                      setSelectedSpells1(oldChecks => {
+                        const newChecks = oldChecks.slice();
+                        newChecks[i] = !newChecks[i];
+                        return newChecks;
+                      })
+                    }
+                  />
+                  {translateSpell(spell.name)}
+                </label>
+              ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 }

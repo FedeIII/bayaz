@@ -90,8 +90,14 @@ export function CLERIC_EQUIPMENT() {
     },
     {
       or: [
-        { and: [WEAPONS().lightCrossbow(), TOOLS().crossbowBolts({ amount: 20 })] },
-        { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
+        {
+          and: [
+            WEAPONS().lightCrossbow(),
+            TOOLS().crossbowBolts({ amount: 20 }),
+          ],
+        },
+        ...getAllSimpleMelee(),
+        ...getAllSimpleRanged(),
       ],
     },
     { or: [PRIESTS_PACK, EXPLORERS_PACK] },

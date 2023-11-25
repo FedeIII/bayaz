@@ -277,7 +277,7 @@ const BUILDING_SUBTYPES = {
     ],
     [
       1,
-      'guild',
+      'guild_meeting',
       [
         [50, 'De ladrones'],
         [50, 'De asesinos'],

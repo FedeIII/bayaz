@@ -26,63 +26,76 @@ function WizardSkills(props) {
 
   return (
     <>
-      <p>
-        Conoces {spellSlots[0]} trucos de mago:{' '}
-        {Object.values(WIZARD_SPELLS)
-          .filter(s => s.level === 0)
-          .map((spell, i) => (
-            <label
-              htmlFor={spell.name}
-              key={spell.name}
-              className="characters__skill-label"
-            >
-              <input
-                type="checkbox"
-                name="spells[]"
-                checked={!!selectedSpells0[i]}
-                id={spell.name}
-                value={spell.name}
-                onChange={() =>
-                  setSelectedSpells0(oldChecks => {
-                    const newChecks = oldChecks.slice();
-                    newChecks[i] = !newChecks[i];
-                    return newChecks;
-                  })
-                }
-              />
-              {translateSpell(spell.name)}
-            </label>
-          ))}
-      </p>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <div
+          htmlFor="name"
+          className="characters__trait-label characters__trait-label--spells"
+        >
+          <span className="characters__trait-title">
+            Conoces {spellSlots[0]} trucos de mago
+          </span>
+          <div className="characters__traits">
+            {Object.values(WIZARD_SPELLS)
+              .filter(s => s.level === 0)
+              .map((spell, i) => (
+                <label
+                  htmlFor={spell.name}
+                  key={spell.name}
+                  className="characters__skill-label"
+                >
+                  <input
+                    type="checkbox"
+                    name="spells[]"
+                    checked={!!selectedSpells0[i]}
+                    id={spell.name}
+                    value={spell.name}
+                    onChange={() =>
+                      setSelectedSpells0(oldChecks => {
+                        const newChecks = oldChecks.slice();
+                        newChecks[i] = !newChecks[i];
+                        return newChecks;
+                      })
+                    }
+                  />
+                  {translateSpell(spell.name)}
+                </label>
+              ))}
+          </div>
+        </div>
 
-      <p>
-        Conoces {totalSpells} conjuros de nivel 1 de mago:{' '}
-        {Object.values(WIZARD_SPELLS)
-          .filter(s => s.level === 1)
-          .map((spell, i) => (
-            <label
-              htmlFor={spell.name}
-              key={spell.name}
-              className="characters__skill-label"
-            >
-              <input
-                type="checkbox"
-                name="spells[]"
-                checked={!!selectedSpells1[i]}
-                id={spell.name}
-                value={spell.name}
-                onChange={() =>
-                  setSelectedSpells1(oldChecks => {
-                    const newChecks = oldChecks.slice();
-                    newChecks[i] = !newChecks[i];
-                    return newChecks;
-                  })
-                }
-              />
-              {translateSpell(spell.name)}
-            </label>
-          ))}
-      </p>
+        <div className="characters__trait-label characters__trait-label--spells">
+          <span className="characters__trait-title">
+            Conoces {totalSpells} conjuros de nivel 1 de mago
+          </span>
+          <div className="characters__traits">
+            {Object.values(WIZARD_SPELLS)
+              .filter(s => s.level === 1)
+              .map((spell, i) => (
+                <label
+                  htmlFor={spell.name}
+                  key={spell.name}
+                  className="characters__skill-label"
+                >
+                  <input
+                    type="checkbox"
+                    name="spells[]"
+                    checked={!!selectedSpells1[i]}
+                    id={spell.name}
+                    value={spell.name}
+                    onChange={() =>
+                      setSelectedSpells1(oldChecks => {
+                        const newChecks = oldChecks.slice();
+                        newChecks[i] = !newChecks[i];
+                        return newChecks;
+                      })
+                    }
+                  />
+                  {translateSpell(spell.name)}
+                </label>
+              ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 }

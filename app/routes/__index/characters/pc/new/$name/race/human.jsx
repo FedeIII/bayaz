@@ -39,34 +39,44 @@ function PcHumanSkills() {
   const [isLanguageSelected, setIsLanguageSelected] = useState(false);
 
   return (
-    <Form method="post">
+    <Form method="post" className="characters__content">
       <h2>Habilidades de Humano para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
 
-      <p>
-        Selecciona un idioma extra
-        {LANGUAGES.filter(l => !RACES.human.subrace.languages.includes(l)).map(
-          language => (
-            <label
-              htmlFor={language}
-              key={language}
-              className="characters__skill-label"
-            >
-              <input
-                type="radio"
-                name="language"
-                id={language}
-                value={language}
-                onChange={() => setIsLanguageSelected(true)}
-              />
-              {translateLanguage(language)}
-            </label>
-          )
-        )}
-      </p>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <div className="characters__trait-label">
+          <span className="characters__trait-title">
+            Selecciona un idioma extra
+          </span>
+          <div className="characters__traits">
+            {LANGUAGES.filter(
+              l => !RACES.human.subrace.languages.includes(l)
+            ).map(language => (
+              <label
+                htmlFor={language}
+                key={language}
+                className="characters__skill-label"
+              >
+                <input
+                  type="radio"
+                  name="language"
+                  id={language}
+                  value={language}
+                  onChange={() => setIsLanguageSelected(true)}
+                />
+                {translateLanguage(language)}
+              </label>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <p>
-        <button type="submit" disabled={isCreating || !isLanguageSelected}>
+        <button
+          type="submit"
+          className="cards__button-card"
+          disabled={isCreating || !isLanguageSelected}
+        >
           {isCreating
             ? 'Creando...'
             : isLanguageSelected

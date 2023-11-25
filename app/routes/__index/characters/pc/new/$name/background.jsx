@@ -92,14 +92,15 @@ function PcBackground() {
   const [canContinue, setCanContinue] = useState(false);
 
   return (
-    <Form method="post">
+    <Form method="post" className="characters__content">
       <h2>Trasfondo de {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
       <input readOnly type="text" name="background" value={background} hidden />
 
-      <p>
+      <div className="characters__trait-columns characters__trait-columns--three">
         <select
           name="background"
+          className="cards__button-card"
           value={background}
           onChange={e => setBackground(e.target.value)}
         >
@@ -112,7 +113,7 @@ function PcBackground() {
             </option>
           ))}
         </select>
-      </p>
+      </div>
 
       {background && (
         <BackgroundSelection
@@ -122,15 +123,19 @@ function PcBackground() {
         />
       )}
 
-      <p>
-        <button type="submit" disabled={isCreating || !canContinue}>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <button
+          type="submit"
+          className="cards__button-card"
+          disabled={isCreating || !canContinue}
+        >
           {isCreating
             ? 'Creando...'
             : canContinue
             ? 'Continuar'
             : 'Elige habilidades'}
         </button>
-      </p>
+      </div>
     </Form>
   );
 }

@@ -5,6 +5,10 @@
   gap: 32px;
 }
 
+.cards--columns {
+  flex-wrap: wrap;
+}
+
 .card {
   border: 1px solid white;
   background-color: var(--color-base);

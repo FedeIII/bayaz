@@ -7,6 +7,7 @@ import {
   isRangedWeapon,
   WEAPONS,
 } from '../../equipment/weapons';
+import { getItem } from '~/domain/equipment/equipment';
 
 export const FAVORED_ENEMIES = [
   'aberrations',

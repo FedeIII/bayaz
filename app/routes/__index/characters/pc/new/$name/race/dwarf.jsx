@@ -41,36 +41,45 @@ function PcDwarfSkills() {
   const [isToolSelected, setIsToolSelected] = useState(false);
 
   return (
-    <Form method="post">
+    <Form method="post" className="characters__content">
       <h2>Habilidades de Enano para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
 
-      <p>
-        Selecciona herramientas de artesano con las que ser competente
-        {[
-          TOOLS().smithsTools(),
-          TOOLS().brewersSupplies(),
-          TOOLS().masonsTools(),
-        ].map(tool => (
-          <label
-            htmlFor={tool.name}
-            key={tool.name}
-            className="characters__skill-label"
-          >
-            <input
-              type="radio"
-              name="tool"
-              id={tool.name}
-              value={tool.name}
-              onChange={() => setIsToolSelected(true)}
-            />
-            {t(tool.name)}
-          </label>
-        ))}
-      </p>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <div className="characters__trait-label">
+          <span className="characters__trait-title">
+            Selecciona herramientas de artesano con las que ser competente
+          </span>
+          <div className="characters__traits"></div>
+          {[
+            TOOLS().smithsTools(),
+            TOOLS().brewersSupplies(),
+            TOOLS().masonsTools(),
+          ].map(tool => (
+            <label
+              htmlFor={tool.name}
+              key={tool.name}
+              className="characters__skill-label"
+            >
+              <input
+                type="radio"
+                name="tool"
+                id={tool.name}
+                value={tool.name}
+                onChange={() => setIsToolSelected(true)}
+              />
+              {t(tool.name)}
+            </label>
+          ))}
+        </div>
+      </div>
 
       <p>
-        <button type="submit" disabled={isCreating || !isToolSelected}>
+        <button
+          type="submit"
+          className="cards__button-card"
+          disabled={isCreating || !isToolSelected}
+        >
           {isCreating
             ? 'Creando...'
             : isToolSelected

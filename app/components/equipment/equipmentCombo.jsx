@@ -6,10 +6,15 @@ export function EquipmentCombo(props) {
 
   if (combo.or)
     return (
-      <>
-        {depth === 0 && <h3>Escoge entre</h3>}
-        {/* {depth > 0 && <span>entre</span>} */}
-        <div>
+      <div className="characters__equipment-card--wide">
+        {depth === 0 && (
+          <h3 className="characters__card-title">Escoge entre</h3>
+        )}
+        <div
+          className={`characters__traits ${
+            combo.or?.[0].packName ? 'characters__traits--combo' : ''
+          }`}
+        >
           {combo.or.map((orItem, i) => (
             <EquipmentCombo
               pc={pc}
@@ -22,7 +27,7 @@ export function EquipmentCombo(props) {
             />
           ))}
         </div>
-      </>
+      </div>
     );
 
   if (combo.and) {
@@ -53,8 +58,11 @@ export function EquipmentCombo(props) {
     } else {
       return (
         <>
-          {depth === 0 && <h3>{translateEquipment(combo.and[0].type)}</h3>}
-          {/* {depth > 0 && <span>entre</span>} */}
+          {depth === 0 && (
+            <h3 className="characters__card-title">
+              {translateEquipment(combo.and[0].type)}
+            </h3>
+          )}
           <div>
             <input
               readOnly
@@ -176,8 +184,11 @@ export function EquipmentCombo(props) {
     if (combo.type)
       return (
         <>
-          {depth === 0 && <h3>{translateEquipment(combo.type)}</h3>}
-          {/* {depth > 0 && <h4>{translateEquipment(combo.type)}s </h4>} */}
+          {depth === 0 && (
+            <h3 className="characters__card-title">
+              {translateEquipment(combo.type)}
+            </h3>
+          )}
           {itemWithAmount(combo.translation, combo.amount)}
           <input
             readOnly
@@ -191,7 +202,7 @@ export function EquipmentCombo(props) {
     else if (combo.packName)
       return (
         <>
-          {<h3>Un {combo.translation}</h3>}
+          {<h3 className="characters__card-title">Un {combo.translation}</h3>}
           <input
             readOnly
             type="text"

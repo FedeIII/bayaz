@@ -12,8 +12,11 @@ import { getSpell } from '~/domain/spells/getSpells';
 export const WARLOCK_EQUIPMENT = [
   {
     or: [
-      { and: [WEAPONS().lightCrossbow(), TOOLS().crossbowBolts({ amount: 20 })] },
-      { or: [...getAllSimpleMelee(), ...getAllSimpleRanged()] },
+      {
+        and: [WEAPONS().lightCrossbow(), TOOLS().crossbowBolts({ amount: 20 })],
+      },
+      ...getAllSimpleMelee(),
+      ...getAllSimpleRanged(),
     ],
   },
   { or: [TOOLS().componentPouch(), ...getAllArcaneFocus()] },

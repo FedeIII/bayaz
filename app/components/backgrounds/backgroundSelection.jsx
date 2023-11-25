@@ -8,6 +8,7 @@ import {
 } from '~/domain/characters';
 import { displayTrait } from '~/domain/display';
 import { EquipmentCombo } from '../equipment/equipmentCombo';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/cards/cards.css';
 export const links = () => {
@@ -28,77 +29,91 @@ function BackgroundSelection(props) {
 
   return (
     <>
-      {!!BACKGROUNDS[backgroundName].skills && (
-        <div>
-          Eres competente en{' '}
-          {BACKGROUNDS[backgroundName].skills
-            .map(skill => translateSkill(skill))
-            .join(', ')}
-          {BACKGROUNDS[backgroundName].skills.map(skill => (
-            <input
-              readOnly
-              type="text"
-              name="skills[]"
-              value={skill}
-              key={skill}
-              hidden
-            />
-          ))}
-        </div>
-      )}
-
-      {!!BACKGROUNDS[backgroundName].languages && (
-        <div>
-          Selecciona {BACKGROUNDS[backgroundName].languages} idiomas
-          {LANGUAGES.filter(l => !languages.includes(l)).map(language => (
-            <label
-              htmlFor={language}
-              key={language}
-              className="characters__skill-label"
-            >
+      <div className="characters__trait-columns characters__trait-columns--three">
+        {!!BACKGROUNDS[backgroundName].skills && (
+          <div className="characters__trait-label">
+            <span className="characters__trait-title">Eres competente en</span>{' '}
+            {BACKGROUNDS[backgroundName].skills
+              .map(skill => translateSkill(skill))
+              .join(', ')}
+            {BACKGROUNDS[backgroundName].skills.map(skill => (
               <input
-                type="checkbox"
-                name="languages[]"
-                value={language}
-                id={language}
-                onChange={e => {
-                  if (e.target.checked) setLanguagesSelected(v => v + 1);
-                  else setLanguagesSelected(v => v - 1);
-                }}
+                readOnly
+                type="text"
+                name="skills[]"
+                value={skill}
+                key={skill}
+                hidden
               />
-              {translateLanguage(language)}
-            </label>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+
+        {!!BACKGROUNDS[backgroundName].languages && (
+          <div className="characters__trait-label">
+            <span className="characters__trait-title">
+              Selecciona {BACKGROUNDS[backgroundName].languages} idiomas
+            </span>
+            <div className="characters__traits">
+              {LANGUAGES.filter(l => !languages.includes(l)).map(language => (
+                <label
+                  htmlFor={language}
+                  key={language}
+                  className="characters__skill-label"
+                >
+                  <input
+                    type="checkbox"
+                    name="languages[]"
+                    value={language}
+                    id={language}
+                    onChange={e => {
+                      if (e.target.checked) setLanguagesSelected(v => v + 1);
+                      else setLanguagesSelected(v => v - 1);
+                    }}
+                  />
+                  {translateLanguage(language)}
+                </label>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
 
       {!!BACKGROUNDS[backgroundName].proficientItems && (
-        <div>
-          Eres competente con:{' '}
-          <div className="cards">
-            {BACKGROUNDS[backgroundName].proficientItems.map(
-              (combo, comboSection) => (
-                <div className="card" key={comboSection}>
-                  <EquipmentCombo
-                    pc={pc}
-                    comboName="proficiency"
-                    combo={combo}
-                    comboSection={comboSection}
-                  />
-                </div>
-              )
-            )}
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <div className="characters__trait-label">
+            <span className="characters__trait-title">Eres competente con</span>
+            <div className="cards">
+              {BACKGROUNDS[backgroundName].proficientItems.map(
+                (combo, comboSection) => (
+                  <div
+                    className="card characters__equipment-card"
+                    key={comboSection}
+                  >
+                    <EquipmentCombo
+                      pc={pc}
+                      comboName="proficiency"
+                      combo={combo}
+                      comboSection={comboSection}
+                    />
+                  </div>
+                )
+              )}
+            </div>
           </div>
         </div>
       )}
 
       {!!BACKGROUNDS[backgroundName].equipment && (
-        <div>
-          Añades a tu equipo:{' '}
-          <div className="cards">
+        <div className="characters__trait-columns characters__trait-columns--three characters__trait-columns--cards">
+          <span className="characters__trait-title">Añades a tu equipo</span>
+          <div className="cards cards--columns">
             {BACKGROUNDS[backgroundName].equipment.map(
               (combo, comboSection) => (
-                <div className="card" key={comboSection}>
+                <div
+                  className="card characters__equipment-card"
+                  key={comboSection}
+                >
                   <EquipmentCombo
                     pc={pc}
                     comboName="equipment"
@@ -109,7 +124,7 @@ function BackgroundSelection(props) {
               )
             )}
             {!!BACKGROUNDS[backgroundName].money && (
-              <div className="card">
+              <div className="card characters__equipment-card">
                 <li>{translateMoney(BACKGROUNDS[backgroundName].money)}</li>
                 <input
                   readOnly
@@ -126,42 +141,51 @@ function BackgroundSelection(props) {
         </div>
       )}
 
-      {!!BACKGROUNDS[backgroundName].select &&
-        Object.entries(BACKGROUNDS[backgroundName].select).map(
-          ([topicToSelect, thingsToSelect]) => (
-            <div key={topicToSelect}>
-              Escoge {thingsToSelect.amount || 1}:{' '}
-              {thingsToSelect.items.map(thing => (
-                <label
-                  htmlFor={thing}
-                  key={thing}
-                  className="characters__skill-label"
-                >
-                  <input
-                    type={thingsToSelect.amount > 1 ? 'checkbox' : 'radio'}
-                    name={
-                      thingsToSelect.amount > 1
-                        ? topicToSelect + '[]'
-                        : topicToSelect
-                    }
-                    id={thing}
-                    value={thing}
-                  />
-                  {thingsToSelect.translate(thing)}
-                </label>
-              ))}
-            </div>
-          )
-        )}
-
-      {!!BACKGROUNDS[backgroundName].traits && (
-        <div>
-          Rasgos y atributos:
-          {Object.entries(BACKGROUNDS[backgroundName].traits).map(
-            ([traitName, trait]) => (
-              <li key={traitName}>{displayTrait(traitName, trait, pc)}</li>
+      {!!BACKGROUNDS[backgroundName].select && (
+        <div className="characters__trait-columns characters__trait-columns--three characters__trait-columns--cards">
+          {Object.entries(BACKGROUNDS[backgroundName].select).map(
+            ([topicToSelect, thingsToSelect]) => (
+              <div key={topicToSelect} className="characters__trait-label">
+                <span className="characters__trait-title">
+                  Escoge {thingsToSelect.amount || 1} {t(topicToSelect)}
+                </span>
+                <div className="characters__traits">
+                  {thingsToSelect.items.map(thing => (
+                    <label
+                      htmlFor={thing}
+                      key={thing}
+                      className="characters__skill-label"
+                    >
+                      <input
+                        type={thingsToSelect.amount > 1 ? 'checkbox' : 'radio'}
+                        name={
+                          thingsToSelect.amount > 1
+                            ? topicToSelect + '[]'
+                            : topicToSelect
+                        }
+                        id={thing}
+                        value={thing}
+                      />
+                      {thingsToSelect.translate(thing)}
+                    </label>
+                  ))}
+                </div>
+              </div>
             )
           )}
+        </div>
+      )}
+
+      {!!BACKGROUNDS[backgroundName].traits && (
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <div className="characters__trait-label">
+            <span className="characters__trait-title">Rasgos y atributos</span>
+            {Object.entries(BACKGROUNDS[backgroundName].traits).map(
+              ([traitName, trait]) => (
+                <li key={traitName}>{displayTrait(traitName, trait, pc)}</li>
+              )
+            )}
+          </div>
         </div>
       )}
     </>

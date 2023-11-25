@@ -5,25 +5,24 @@ import {
 
 function FighterSkills(props) {
   return (
-    <>
-      <p>
-        <label>
-          <span className="app__pale-text">Escoge estilo de combate</span>
-          <br />
-          <select
-            name="fighting-style"
-            defaultValue=""
-            className="cards__button-card"
-          >
-            <option value="" disabled></option>
-            {FIGHTING_STYLES.map(fightingStyle => (
-              <option value={fightingStyle} key={fightingStyle}>
-                {translateFightingStyle(fightingStyle)}
-              </option>
-            ))}
-          </select>
-        </label>
-      </p>
+    <div className="characters__trait-column">
+      <div className="characters__trait-label">
+        <span className="characters__trait-title">
+          Escoge estilo de combate
+        </span>
+        <select
+          name="fighting-style"
+          defaultValue=""
+          className="cards__button-card"
+        >
+          <option value="" disabled></option>
+          {FIGHTING_STYLES.map(fightingStyle => (
+            <option value={fightingStyle} key={fightingStyle}>
+              {translateFightingStyle(fightingStyle)}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <h3 className="app__pale-text">{translateFightingStyle('archery')}</h3>
       <p className="app__paragraph">
@@ -52,9 +51,7 @@ function FighterSkills(props) {
         dos manos o tener la propiedad versátil para ganar este beneficio.
       </p>
 
-      <h3 className="app__pale-text">
-        {translateFightingStyle('protection')}
-      </h3>
+      <h3 className="app__pale-text">{translateFightingStyle('protection')}</h3>
       <p className="app__paragraph">
         Cuando una criatura que puedes ver ataca a un objetivo que no eres tú y
         está a 5 pies o menos de ti, puedes usar tu reacción para hacer que el
@@ -69,7 +66,7 @@ function FighterSkills(props) {
         Cuando luchas con el estilo de lucha de dos armas, puedes añadir tu
         modificador de característica al daño del segundo ataque.
       </p>
-    </>
+    </div>
   );
 }
 

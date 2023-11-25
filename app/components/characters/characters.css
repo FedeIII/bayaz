@@ -33,6 +33,10 @@
   line-height: 3;
 }
 
+.characters__trait-label--spells {
+  flex-basis: 50%;
+}
+
 .characters__trait-cell {
   flex-basis: 50%;
   margin: 8px 16px;
@@ -110,6 +114,16 @@
 
 .characters__skill-label {
   display: block;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.characters__skill-label:hover {
+  background-color: var(--color-pale);
+}
+
+.characters__skill-label--small {
+  font-size: var(--font-size-s);
 }
 
 .characters__stat-values {
@@ -131,6 +145,7 @@
   font-family: var(--font-family);
   font-size: var(--font-size-l);
   padding: 4px 0 4px 12px;
+  cursor: pointer;
 }
 
 .characters__stat-value:disabled {
@@ -144,6 +159,12 @@
 
 .characters__equipment-item {
   display: block;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.characters__equipment-item:hover {
+  background-color: var(--color-pale);
 }
 
 .characters__action-modal {
@@ -249,6 +270,12 @@
   color: var(--color-x-pale);
 }
 
+.characters__trait-column {
+  flex-direction: column;
+  margin: 8px 32px;
+  text-align: start;
+}
+
 .characters__trait-columns {
   column-count: 2;
   display: block;
@@ -262,6 +289,10 @@
   justify-content: center;
   column-gap: 32px;
   margin: 48px auto 0;
+}
+
+.characters__trait-columns--cards {
+  flex-direction: column;
 }
 
 .characters__trait-sections {
@@ -279,6 +310,15 @@
   display: block;
   text-align: start;
   margin: 8px 32px;
+  column-count: 2;
+}
+
+.characters__traits--wide {
+  margin: 8px 0;
+}
+
+.characters__traits--combo {
+  display: flex;
 }
 
 .characters__parallel-traits {
@@ -297,6 +337,48 @@
   color: var(--color-x-pale);
 }
 
+.characters__single-select {
+  width: 50%;
+  margin: auto;
+}
+
 .characters__trait-description {
   text-align: start;
+}
+
+.characters__card-title {
+  font-size: var(--font-size-xs);
+  margin: 0 0 8px 0;
+  color: var(--color-x-pale);
+  border-bottom: 1px solid var(--color-x-pale);
+}
+
+.characters__equipment-card {
+  font-size: var(--font-size-s);
+  flex-basis: 20%;
+}
+
+.characters__equipment-card-small {
+  flex-basis: 20%;
+}
+
+.characters__equipment-card-small-2 {
+  flex-basis: 20%;
+}
+
+.characters__equipment-card-small .characters__traits {
+  column-count: 1;
+}
+
+.characters__equipment-card-small-2 .characters__traits {
+  column-count: 2;
+}
+
+.characters__equipment-card:has(.characters__equipment-card--wide) {
+  flex-basis: 100%;
+}
+
+.characters__equipment-card--wide > .characters__traits {
+  margin: 8px;
+  font-size: 12px;
 }

@@ -144,8 +144,8 @@ export function t(key) {
     noisy_short: 'Antro estridente',
     quiet: 'Bar tranquilo y de perfil bajo',
     quiet_short: 'Bar tranquilo',
-    guild: 'Lugar de reunión de un gremio',
-    guild_short: 'Reunión de gremio',
+    guild_meeting: 'Lugar de reunión de un gremio',
+    guild_meeting_short: 'Reunión de gremio',
     secret_meeting: 'Lugar de encuentro de una sociedad secreta (buena/mala)',
     secret_meeting_short: 'Sociedad secreta',
     dinner_club: 'Club de cenas de la clase alta',
@@ -259,6 +259,15 @@ export function t(key) {
     xvart: 'Xvart',
     'hill giant': 'Gigante de las colinas',
     'storm giant': 'Gigante de las tormentas',
+
+    //Backgrounds
+    guild: 'Gremio',
+    routines: 'Rutinas',
+    favoriteScheme: 'Ardid favorito',
+    criminalSpecialty: 'Especialidad criminal',
+    outlanderOrigin: 'Origen',
+    sageSpecialty: 'Especialidad',
+    soldierSpecialty: 'Especialidad',
   }[key];
 
   if (translation) return translation;

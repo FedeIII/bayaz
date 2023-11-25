@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { getPc, updatePc } from '~/services/pc.server';
 import { LANGUAGES, RACES, translateLanguage } from '~/domain/characters';
 import { WIZARD_SPELLS } from '~/domain/spells/wizard';
-import { getSpell } from "~/domain/spells/getSpells";
+import { getSpell } from '~/domain/spells/getSpells';
+import { translateSpell } from '~/domain/spells/spells';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -42,55 +43,68 @@ function PcElfSkills() {
   const [isCantripSelected, setIsCantripSelected] = useState(false);
 
   return (
-    <Form method="post">
+    <Form method="post" className="characters__content">
       <h2>Habilidades de Alto Elfo para {name}</h2>
       <input readOnly type="text" name="name" value={name} hidden />
 
-      <p>
-        Conoces un truco de mago (Inteligencia)
-        {Object.values(WIZARD_SPELLS).map(spell => (
-          <label
-            htmlFor={spell.name}
-            key={spell.name}
-            className="characters__skill-label"
-          >
-            <input
-              type="radio"
-              name="cantrip"
-              id={spell.name}
-              value={spell.name}
-              onChange={() => setIsCantripSelected(true)}
-            />
-            {spell.translation}
-          </label>
-        ))}
-      </p>
+      <div className="characters__trait-columns characters__trait-columns--three">
+        <div className="characters__trait-label">
+          <span className="characters__trait-title">
+            Conoces un truco de mago (Inteligencia)
+          </span>
+          <div className="characters__traits">
+            {Object.values(WIZARD_SPELLS)
+              .filter(s => s.level === 0)
+              .map(spell => (
+                <label
+                  htmlFor={spell.name}
+                  key={spell.name}
+                  className="characters__skill-label"
+                >
+                  <input
+                    type="radio"
+                    name="cantrip"
+                    id={spell.name}
+                    value={spell.name}
+                    onChange={() => setIsCantripSelected(true)}
+                  />
+                  {translateSpell(spell.name)}
+                </label>
+              ))}
+          </div>
+        </div>
 
-      <p>
-        Selecciona un idioma extra
-        {LANGUAGES.filter(l => !RACES.elf.high.languages.includes(l)).map(
-          language => (
-            <label
-              htmlFor={language}
-              key={language}
-              className="characters__skill-label"
-            >
-              <input
-                type="radio"
-                name="language"
-                id={language}
-                value={language}
-                onChange={() => setIsLanguageSelected(true)}
-              />
-              {translateLanguage(language)}
-            </label>
-          )
-        )}
-      </p>
+        <div className="characters__trait-label">
+          <span className="characters__trait-title">
+            Selecciona un idioma extra
+          </span>
+          <div className="characters__traits">
+            {LANGUAGES.filter(l => !RACES.elf.high.languages.includes(l)).map(
+              language => (
+                <label
+                  htmlFor={language}
+                  key={language}
+                  className="characters__skill-label"
+                >
+                  <input
+                    type="radio"
+                    name="language"
+                    id={language}
+                    value={language}
+                    onChange={() => setIsLanguageSelected(true)}
+                  />
+                  {translateLanguage(language)}
+                </label>
+              )
+            )}
+          </div>
+        </div>
+      </div>
 
       <p>
         <button
           type="submit"
+          className="cards__button-card"
           disabled={isCreating || !isLanguageSelected || !isCantripSelected}
         >
           {isCreating

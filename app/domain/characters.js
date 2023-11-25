@@ -129,6 +129,7 @@ export const RACES = {
           'Piedra',
         ],
       },
+      languages: ['common', 'dwarvish'],
       proficientItems: [
         'battleaxe',
         'handaxe',
