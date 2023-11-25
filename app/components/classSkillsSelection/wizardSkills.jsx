@@ -5,10 +5,10 @@ import {
   getWizardTotalSpells,
   WIZARD_SPELLS,
 } from '~/domain/spells/wizard';
-import { translateSpell } from '~/domain/spells/spells';
+import { SkillItem } from '../modal/skillItem';
 
 function WizardSkills(props) {
-  const { pc, setSkillsNamespace } = props;
+  const { pc, setSkillsNamespace, skillRefs, openSkillModal } = props;
 
   const [selectedSpells0, setSelectedSpells0] = useState([]);
   const [selectedSpells1, setSelectedSpells1] = useState([]);
@@ -57,7 +57,13 @@ function WizardSkills(props) {
                       })
                     }
                   />
-                  {translateSpell(spell.name)}
+                  <SkillItem
+                    ref={skillRefs[spell.level].current[spell.name]}
+                    traitName={spell.name}
+                    trait="spell"
+                    openOnRightClick
+                    openModal={openSkillModal(spell.level, spell.name)}
+                  />
                 </label>
               ))}
           </div>
@@ -90,7 +96,13 @@ function WizardSkills(props) {
                       })
                     }
                   />
-                  {translateSpell(spell.name)}
+                  <SkillItem
+                    ref={skillRefs[spell.level].current[spell.name]}
+                    traitName={spell.name}
+                    trait="spell"
+                    openOnRightClick
+                    openModal={openSkillModal(spell.level, spell.name)}
+                  />
                 </label>
               ))}
           </div>

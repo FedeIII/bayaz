@@ -43,77 +43,79 @@ function PcElfSkills() {
   const [isCantripSelected, setIsCantripSelected] = useState(false);
 
   return (
-    <Form method="post" className="characters__content">
-      <h2>Habilidades de Alto Elfo para {name}</h2>
-      <input readOnly type="text" name="name" value={name} hidden />
+    <Form method="post">
+      <div className="characters__content">
+        <h2>Habilidades de Alto Elfo para {name}</h2>
+        <input readOnly type="text" name="name" value={name} hidden />
 
-      <div className="characters__trait-columns characters__trait-columns--three">
-        <div className="characters__trait-label">
-          <span className="characters__trait-title">
-            Conoces un truco de mago (Inteligencia)
-          </span>
-          <div className="characters__traits">
-            {Object.values(WIZARD_SPELLS)
-              .filter(s => s.level === 0)
-              .map(spell => (
-                <label
-                  htmlFor={spell.name}
-                  key={spell.name}
-                  className="characters__skill-label"
-                >
-                  <input
-                    type="radio"
-                    name="cantrip"
-                    id={spell.name}
-                    value={spell.name}
-                    onChange={() => setIsCantripSelected(true)}
-                  />
-                  {translateSpell(spell.name)}
-                </label>
-              ))}
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <div className="characters__trait-label">
+            <span className="characters__trait-title">
+              Conoces un truco de mago (Inteligencia)
+            </span>
+            <div className="characters__traits">
+              {Object.values(WIZARD_SPELLS)
+                .filter(s => s.level === 0)
+                .map(spell => (
+                  <label
+                    htmlFor={spell.name}
+                    key={spell.name}
+                    className="characters__skill-label"
+                  >
+                    <input
+                      type="radio"
+                      name="cantrip"
+                      id={spell.name}
+                      value={spell.name}
+                      onChange={() => setIsCantripSelected(true)}
+                    />
+                    {translateSpell(spell.name)}
+                  </label>
+                ))}
+            </div>
+          </div>
+
+          <div className="characters__trait-label">
+            <span className="characters__trait-title">
+              Selecciona un idioma extra
+            </span>
+            <div className="characters__traits">
+              {LANGUAGES.filter(l => !RACES.elf.high.languages.includes(l)).map(
+                language => (
+                  <label
+                    htmlFor={language}
+                    key={language}
+                    className="characters__skill-label"
+                  >
+                    <input
+                      type="radio"
+                      name="language"
+                      id={language}
+                      value={language}
+                      onChange={() => setIsLanguageSelected(true)}
+                    />
+                    {translateLanguage(language)}
+                  </label>
+                )
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="characters__trait-label">
-          <span className="characters__trait-title">
-            Selecciona un idioma extra
-          </span>
-          <div className="characters__traits">
-            {LANGUAGES.filter(l => !RACES.elf.high.languages.includes(l)).map(
-              language => (
-                <label
-                  htmlFor={language}
-                  key={language}
-                  className="characters__skill-label"
-                >
-                  <input
-                    type="radio"
-                    name="language"
-                    id={language}
-                    value={language}
-                    onChange={() => setIsLanguageSelected(true)}
-                  />
-                  {translateLanguage(language)}
-                </label>
-              )
-            )}
-          </div>
-        </div>
+        <p>
+          <button
+            type="submit"
+            className="cards__button-card"
+            disabled={isCreating || !isLanguageSelected || !isCantripSelected}
+          >
+            {isCreating
+              ? 'Creando...'
+              : isLanguageSelected && isCantripSelected
+              ? 'Continuar'
+              : 'Elige habilidades'}
+          </button>
+        </p>
       </div>
-
-      <p>
-        <button
-          type="submit"
-          className="cards__button-card"
-          disabled={isCreating || !isLanguageSelected || !isCantripSelected}
-        >
-          {isCreating
-            ? 'Creando...'
-            : isLanguageSelected && isCantripSelected
-            ? 'Continuar'
-            : 'Elige habilidades'}
-        </button>
-      </p>
     </Form>
   );
 }

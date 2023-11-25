@@ -141,15 +141,14 @@ export function SpellModalContent(props) {
             {Object.entries(spell.archetype).join(' | ')}
           </div>
         )}
-        <div dangerouslySetInnerHTML={{ __html: spell.desc }} />
+        {spell.desc}
         {spell.higher_level && (
-          <div
-            dangerouslySetInnerHTML={{
-              __html:
-                '<strong><u>En niveles superiores:</u></strong>' +
-                spell.higher_level,
-            }}
-          />
+          <div>
+            <strong>
+              <u>En niveles superiores:</u>
+            </strong>
+            {spell.higher_level}
+          </div>
         )}
       </div>
     </>

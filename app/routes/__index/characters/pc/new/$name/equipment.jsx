@@ -46,43 +46,45 @@ function PcEquipment() {
   const isCreating = Boolean(transition.submission);
 
   return (
-    <Form method="post" className="characters__content">
-      <h2>Equipamiento para {name}</h2>
-      <input readOnly type="text" name="name" value={name} hidden />
-      <input readOnly type="text" name="pClass" value={pClass} hidden />
+    <Form method="post">
+      <div className="characters__content">
+        <h2>Equipamiento para {name}</h2>
+        <input readOnly type="text" name="name" value={name} hidden />
+        <input readOnly type="text" name="pClass" value={pClass} hidden />
 
-      <div className="characters__equipment-container">
-        <div className="cards cards--columns">
-          {(getClassEquipment(pClass) || []).map((combo, comboSection) => (
-            <div
-              className={`card ${
-                combo.or?.length > 12
-                  ? 'characters__equipment-card'
-                  : combo.or?.length < 7 && !combo.or?.[0].packName
-                  ? 'characters__equipment-card-small'
-                  : combo.or?.length > 9
-                  ? 'characters__equipment-card-small-2'
-                  : ''
-              }`}
-              key={comboSection}
+        <div className="characters__equipment-container">
+          <div className="cards cards--columns">
+            {(getClassEquipment(pClass) || []).map((combo, comboSection) => (
+              <div
+                className={`card ${
+                  combo.or?.length > 12
+                    ? 'characters__equipment-card'
+                    : combo.or?.length < 7 && !combo.or?.[0].packName
+                    ? 'characters__equipment-card-small'
+                    : combo.or?.length > 9
+                    ? 'characters__equipment-card-small-2'
+                    : ''
+                }`}
+                key={comboSection}
+              >
+                <EquipmentCombo
+                  pc={pc}
+                  combo={combo}
+                  comboSection={comboSection}
+                  depth={0}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="characters__trait-columns characters__trait-columns--three">
+            <button
+              type="submit"
+              className="cards__button-card"
+              disabled={isCreating}
             >
-              <EquipmentCombo
-                pc={pc}
-                combo={combo}
-                comboSection={comboSection}
-                depth={0}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="characters__trait-columns characters__trait-columns--three">
-          <button
-            type="submit"
-            className="cards__button-card"
-            disabled={isCreating}
-          >
-            {isCreating ? 'Creando...' : 'Elige habilidades'}
-          </button>
+              {isCreating ? 'Creando...' : 'Elige habilidades'}
+            </button>
+          </div>
         </div>
       </div>
     </Form>

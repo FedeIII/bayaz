@@ -92,49 +92,57 @@ function PcBackground() {
   const [canContinue, setCanContinue] = useState(false);
 
   return (
-    <Form method="post" className="characters__content">
-      <h2>Trasfondo de {name}</h2>
-      <input readOnly type="text" name="name" value={name} hidden />
-      <input readOnly type="text" name="background" value={background} hidden />
-
-      <div className="characters__trait-columns characters__trait-columns--three">
-        <select
+    <Form method="post">
+      <div className="characters__content">
+        <h2>Trasfondo de {name}</h2>
+        <input readOnly type="text" name="name" value={name} hidden />
+        <input
+          readOnly
+          type="text"
           name="background"
-          className="cards__button-card"
           value={background}
-          onChange={e => setBackground(e.target.value)}
-        >
-          <option value="" disabled>
-            Escoge trasfondo
-          </option>
-          {Object.keys(BACKGROUNDS).map(backgroundName => (
-            <option value={backgroundName} key={backgroundName}>
-              {translateBackground(backgroundName)}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {background && (
-        <BackgroundSelection
-          pc={pc}
-          backgroundName={background}
-          setCanContinue={setCanContinue}
+          hidden
         />
-      )}
 
-      <div className="characters__trait-columns characters__trait-columns--three">
-        <button
-          type="submit"
-          className="cards__button-card"
-          disabled={isCreating || !canContinue}
-        >
-          {isCreating
-            ? 'Creando...'
-            : canContinue
-            ? 'Continuar'
-            : 'Elige habilidades'}
-        </button>
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <select
+            name="background"
+            className="cards__button-card"
+            value={background}
+            onChange={e => setBackground(e.target.value)}
+          >
+            <option value="" disabled>
+              Escoge trasfondo
+            </option>
+            {Object.keys(BACKGROUNDS).map(backgroundName => (
+              <option value={backgroundName} key={backgroundName}>
+                {translateBackground(backgroundName)}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {background && (
+          <BackgroundSelection
+            pc={pc}
+            backgroundName={background}
+            setCanContinue={setCanContinue}
+          />
+        )}
+
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <button
+            type="submit"
+            className="cards__button-card"
+            disabled={isCreating || !canContinue}
+          >
+            {isCreating
+              ? 'Creando...'
+              : canContinue
+              ? 'Continuar'
+              : 'Elige habilidades'}
+          </button>
+        </div>
       </div>
     </Form>
   );

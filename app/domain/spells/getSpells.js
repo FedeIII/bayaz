@@ -121,3 +121,10 @@ export function getAllPcSpells(pc) {
       .filter(spell => spell.level > 0) || []
   );
 }
+
+export const ALL_SPELLS_BY_LEVEL = SPELL_LIST.reduce((spellsByLevel, spell) => {
+  if (typeof spell?.level === 'number') {
+    spellsByLevel[spell.level] = [...spellsByLevel[spell.level], spell];
+  }
+  return spellsByLevel;
+}, Array(10).fill([]));

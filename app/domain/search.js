@@ -8,12 +8,21 @@ import { translateSchool } from './spells/spellTranslations';
 import { translateSpell } from './spells/spells';
 import { t } from './translations';
 
+function getSpellChildrenText(children) {
+  if (!Array.isArray(children) && !children.props) return children;
+
+  if (children.props) return getSpellChildrenText(children.props.children);
+
+  if (Array.isArray(children))
+    return children.map(getSpellChildrenText).join('. ');
+}
+
 // SPELLS //
 function isSpellMatch(spell, search) {
   return [
     spell.name,
     translateSpell(spell.name),
-    spell.desc,
+    getSpellChildrenText(spell.desc.props.children),
     spell.school,
     translateSchool(spell.school),
   ].some(str => str?.toLowerCase().includes(search));

@@ -201,137 +201,143 @@ function PcStats() {
   const [variant, setVariant] = useState(null);
 
   return (
-    <Form method="post" className="characters__content">
-      <h2>Puntuaciones de Características de {name}</h2>
-      <input readOnly type="text" name="name" value={name} hidden />
-      <input readOnly type="text" name="race" value={race} hidden />
-      <input readOnly type="text" name="subrace" value={subrace} hidden />
-      {selectedExtraPoints.map(extraPointStat => (
-        <input
-          readOnly
-          type="text"
-          name="selected-extra-points[]"
-          value={extraPointStat}
-          hidden
-          key={extraPointStat}
-        />
-      ))}
-      {areStatsPreloaded &&
-        Object.entries(extraStats).map(([extraStatName, extraStatValue]) => (
+    <Form method="post">
+      <div className="characters__content">
+        <h2>Puntuaciones de Características de {name}</h2>
+        <input readOnly type="text" name="name" value={name} hidden />
+        <input readOnly type="text" name="race" value={race} hidden />
+        <input readOnly type="text" name="subrace" value={subrace} hidden />
+        {selectedExtraPoints.map(extraPointStat => (
           <input
             readOnly
             type="text"
-            name={`extra-${extraStatName}`}
-            value={extraStatValue}
+            name="selected-extra-points[]"
+            value={extraPointStat}
             hidden
-            key={extraStatName}
+            key={extraPointStat}
           />
         ))}
+        {areStatsPreloaded &&
+          Object.entries(extraStats).map(([extraStatName, extraStatValue]) => (
+            <input
+              readOnly
+              type="text"
+              name={`extra-${extraStatName}`}
+              value={extraStatValue}
+              hidden
+              key={extraStatName}
+            />
+          ))}
 
-      {!areStatsSet && (
-        <ShowStatValues
-          variant={variant}
-          setVariant={setVariant}
-          usedRolls={usedRolls}
-        />
-      )}
+        {!areStatsSet && (
+          <ShowStatValues
+            variant={variant}
+            setVariant={setVariant}
+            usedRolls={usedRolls}
+          />
+        )}
 
-      {(!!variant || areStatsSet) && (
-        <div className="characters__trait-sections-stats">
-          {stats.map(stat => {
-            const statExtraPoints = areStatsPreloaded
-              ? extraStats[stat.name]
-              : getStatRacialExtraPoints(stat.name, pc);
-            const showPlus1Button =
-              !areStatsSet &&
-              race === 'half-elf' &&
-              stat.name !== 'cha' &&
-              selectedExtraPoints.length !== 2 &&
-              !selectedExtraPoints.includes(stat.name);
+        {(!!variant || areStatsSet) && (
+          <div className="characters__trait-sections-stats">
+            {stats.map(stat => {
+              const statExtraPoints = areStatsPreloaded
+                ? extraStats[stat.name]
+                : getStatRacialExtraPoints(stat.name, pc);
+              const showPlus1Button =
+                !areStatsSet &&
+                race === 'half-elf' &&
+                stat.name !== 'cha' &&
+                selectedExtraPoints.length !== 2 &&
+                !selectedExtraPoints.includes(stat.name);
 
-            const extraStatFromSelected = selectedExtraPoints.reduce(
-              (amount, statName) => amount + (statName === stat.name ? 1 : 0),
-              0
-            );
+              const extraStatFromSelected = selectedExtraPoints.reduce(
+                (amount, statName) => amount + (statName === stat.name ? 1 : 0),
+                0
+              );
 
-            const totalExtraPoints = statExtraPoints + extraStatFromSelected;
+              const totalExtraPoints = statExtraPoints + extraStatFromSelected;
 
-            return (
-              <label
-                key={stat.name}
-                htmlFor={stat.name}
-                className="characters__trait-label characters__trait-label--row"
-              >
-                <span className="characters__trait-cell characters__trait-cell--left">
-                  {translateStat(stat.name)}
-                </span>
-                <span className="characters__trait-cell characters__trait-cell--right">
-                  <input
-                    type="number"
-                    id={stat.name}
-                    ref={stat.drop}
-                    name={stat.name}
-                    value={stat.value}
-                    className={`characters__stat-input ${
-                      stat.isOver && stat.canDrop
-                        ? 'characters__stat-input--hover'
-                        : stat.canDrop
-                        ? 'characters__stat-input--highlight'
-                        : ''
-                    }`}
-                    readOnly
-                  />{' '}
-                  {!!totalExtraPoints && (
-                    <>
-                      <span>{signed(totalExtraPoints)}</span>
-                      {Array.from(Array(statExtraPoints), (_, i) => (
-                        <input
-                          key={i}
-                          readOnly
-                          type="text"
-                          name="extra-points[]"
-                          value={stat.name}
-                          hidden
-                        />
-                      ))}
-                    </>
-                  )}
-                  {showPlus1Button && (
-                    <button
-                      type="button"
-                      className="stats__statButton stats__statButton--big"
-                      onClick={() =>
-                        setSelectedExtraPoints(old => [...old, stat.name])
-                      }
-                    >
-                      +1
-                    </button>
-                  )}
-                </span>
-              </label>
-            );
-          })}
-        </div>
-      )}
+              return (
+                <label
+                  key={stat.name}
+                  htmlFor={stat.name}
+                  className="characters__trait-label characters__trait-label--row"
+                >
+                  <span className="characters__trait-cell characters__trait-cell--left">
+                    {translateStat(stat.name)}
+                  </span>
+                  <span className="characters__trait-cell characters__trait-cell--right">
+                    <input
+                      type="number"
+                      id={stat.name}
+                      ref={stat.drop}
+                      name={stat.name}
+                      value={stat.value}
+                      className={`characters__stat-input ${
+                        stat.isOver && stat.canDrop
+                          ? 'characters__stat-input--hover'
+                          : stat.canDrop
+                          ? 'characters__stat-input--highlight'
+                          : ''
+                      }`}
+                      readOnly
+                    />{' '}
+                    {!!totalExtraPoints && (
+                      <>
+                        <span>{signed(totalExtraPoints)}</span>
+                        {Array.from(Array(statExtraPoints), (_, i) => (
+                          <input
+                            key={i}
+                            readOnly
+                            type="text"
+                            name="extra-points[]"
+                            value={stat.name}
+                            hidden
+                          />
+                        ))}
+                      </>
+                    )}
+                    {showPlus1Button && (
+                      <button
+                        type="button"
+                        className="stats__statButton stats__statButton--big"
+                        onClick={() =>
+                          setSelectedExtraPoints(old => [...old, stat.name])
+                        }
+                      >
+                        +1
+                      </button>
+                    )}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        )}
 
-      {(!!variant || areStatsSet) && (
-        <p>
-          <button
-            type="submit"
-            className="cards__button-card"
-            disabled={isCreating || !canContinue}
-          >
-            {isCreating
-              ? 'Creando...'
-              : canContinue
-              ? 'Continuar'
-              : 'Asigna stats'}
-          </button>
-          <button type="button" className="cards__button-card" onClick={reset}>
-            Reiniciar
-          </button>
-        </p>
-      )}
+        {(!!variant || areStatsSet) && (
+          <p>
+            <button
+              type="submit"
+              className="cards__button-card"
+              disabled={isCreating || !canContinue}
+            >
+              {isCreating
+                ? 'Creando...'
+                : canContinue
+                ? 'Continuar'
+                : 'Asigna stats'}
+            </button>
+            <button
+              type="button"
+              className="cards__button-card"
+              onClick={reset}
+            >
+              Reiniciar
+            </button>
+          </p>
+        )}
+      </div>
     </Form>
   );
 }

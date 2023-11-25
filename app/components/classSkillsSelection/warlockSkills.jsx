@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import { translatePatron } from '~/domain/classes/warlock/warlock';
-import { translateSpell } from '~/domain/spells/spells';
 import {
   getSpellPatrons,
   getWarlockSpellSlots,
@@ -9,9 +8,10 @@ import {
   isSpellFrom,
   WARLOCK_SPELLS,
 } from '~/domain/spells/warlock';
+import { SkillItem } from '../modal/skillItem';
 
 function WarlockSkills(props) {
-  const { pc, setSkillsNamespace } = props;
+  const { pc, setSkillsNamespace, skillRefs, openSkillModal } = props;
 
   const [selectedPatron, setSelectedPatron] = useState(null);
   const [selectedSpells0, setSelectedSpells0] = useState([]);
@@ -127,7 +127,13 @@ function WarlockSkills(props) {
                       })
                     }
                   />
-                  {translateSpell(spell.name)}
+                  <SkillItem
+                    ref={skillRefs[spell.level].current[spell.name]}
+                    traitName={spell.name}
+                    trait="spell"
+                    openOnRightClick
+                    openModal={openSkillModal(spell.level, spell.name)}
+                  />
                 </label>
               ))}
           </div>
@@ -164,7 +170,13 @@ function WarlockSkills(props) {
                       })
                     }
                   />
-                  {translateSpell(spell.name)}{' '}
+                  <SkillItem
+                    ref={skillRefs[spell.level].current[spell.name]}
+                    traitName={spell.name}
+                    trait="spell"
+                    openOnRightClick
+                    openModal={openSkillModal(spell.level, spell.name)}
+                  />{' '}
                   {selectedPatron && isSpellFrom(spell, selectedPatron) && (
                     <>({translatePatron(selectedPatron)})</>
                   )}

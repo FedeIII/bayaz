@@ -131,188 +131,190 @@ function PcRace() {
   }, [subrace]);
 
   return (
-    <Form method="post" className="characters__content">
-      <div className="characters__trait-columns characters__trait-columns--three">
-        <label htmlFor="name" className="characters__trait-label">
-          <span className="characters__trait-title">
-            Nombre {errors?.name ? <em>{errors.name}</em> : null}
-          </span>{' '}
-          <Title
-            value={name}
-            onChange={e => setName(e.target.value)}
-            inputName="name"
-            className="characters__trait-input-title"
-            inputClass="characters__trait-input"
-          />
-        </label>
+    <Form method="post">
+      <div className="characters__content">
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <label htmlFor="name" className="characters__trait-label">
+            <span className="characters__trait-title">
+              Nombre {errors?.name ? <em>{errors.name}</em> : null}
+            </span>{' '}
+            <Title
+              value={name}
+              onChange={e => setName(e.target.value)}
+              inputName="name"
+              className="characters__trait-input-title"
+              inputClass="characters__trait-input"
+            />
+          </label>
 
-        <label htmlFor="race" className="characters__trait-label">
-          <span className="characters__trait-title">Raza</span>{' '}
-          <select
-            name="race"
-            value={race}
-            className="cards__button-card"
-            onChange={e => setRace(e.target.value)}
-          >
-            {Object.keys(RACES).map(raceName => (
-              <option value={raceName} key={raceName}>
-                {translateRace(raceName)}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        {!!subraces && (
-          <label htmlFor="subrace" className="characters__trait-label">
-            <span className="characters__trait-title">Subraza</span>{' '}
+          <label htmlFor="race" className="characters__trait-label">
+            <span className="characters__trait-title">Raza</span>{' '}
             <select
-              name="subrace"
-              value={subrace}
+              name="race"
+              value={race}
               className="cards__button-card"
-              onChange={e => setSubrace(e.target.value)}
+              onChange={e => setRace(e.target.value)}
             >
-              {subraces.map(subrace => (
-                <option value={subrace} key={subrace}>
-                  {translateRace(subrace)}
+              {Object.keys(RACES).map(raceName => (
+                <option value={raceName} key={raceName}>
+                  {translateRace(raceName)}
                 </option>
               ))}
             </select>
           </label>
-        )}
 
-        <label
-          htmlFor="npc"
-          className="characters__trait-label characters__trait-label--small"
-        >
-          <span className="characters__trait-title">NPC</span>{' '}
-          <input type="checkbox" name="npc" />
-        </label>
-      </div>
+          {!!subraces && (
+            <label htmlFor="subrace" className="characters__trait-label">
+              <span className="characters__trait-title">Subraza</span>{' '}
+              <select
+                name="subrace"
+                value={subrace}
+                className="cards__button-card"
+                onChange={e => setSubrace(e.target.value)}
+              >
+                {subraces.map(subrace => (
+                  <option value={subrace} key={subrace}>
+                    {translateRace(subrace)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
 
-      <div className="characters__trait-columns characters__trait-columns--three">
-        <label htmlFor="age" className="characters__trait-label">
-          <span className="characters__trait-title">
-            Edad:{' '}
+          <label
+            htmlFor="npc"
+            className="characters__trait-label characters__trait-label--small"
+          >
+            <span className="characters__trait-title">NPC</span>{' '}
+            <input type="checkbox" name="npc" />
+          </label>
+        </div>
+
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <label htmlFor="age" className="characters__trait-label">
+            <span className="characters__trait-title">
+              Edad:{' '}
+              <input
+                type="number"
+                id="age"
+                name="age"
+                value={age}
+                className="places__trait-input places__trait-input--number-3"
+                onChange={e => setAge(e.target.value)}
+                min={getMinAttr(race, subrace, 'age')}
+                max={getMaxAttr(race, subrace, 'age')}
+              />{' '}
+              años
+            </span>
             <input
-              type="number"
+              type="range"
               id="age"
               name="age"
               value={age}
-              className="places__trait-input places__trait-input--number-3"
               onChange={e => setAge(e.target.value)}
               min={getMinAttr(race, subrace, 'age')}
               max={getMaxAttr(race, subrace, 'age')}
-            />{' '}
-            años
-          </span>
-          <input
-            type="range"
-            id="age"
-            name="age"
-            value={age}
-            onChange={e => setAge(e.target.value)}
-            min={getMinAttr(race, subrace, 'age')}
-            max={getMaxAttr(race, subrace, 'age')}
-            step={1}
-            list="ageMarkers"
-            className="characters__range-marks"
-          />
-          <datalist id="ageMarkers">
-            {getMarkers(race, subrace, 'age')}
-          </datalist>
-        </label>
+              step={1}
+              list="ageMarkers"
+              className="characters__range-marks"
+            />
+            <datalist id="ageMarkers">
+              {getMarkers(race, subrace, 'age')}
+            </datalist>
+          </label>
 
-        <label htmlFor="height" className="characters__trait-label">
-          <span className="characters__trait-title">
-            Altura:{' '}
+          <label htmlFor="height" className="characters__trait-label">
+            <span className="characters__trait-title">
+              Altura:{' '}
+              <input
+                type="number"
+                id="height"
+                name="height"
+                value={height}
+                className="places__trait-input places__trait-input--number-3"
+                onChange={e => setHeight(e.target.value)}
+                min={getMinAttr(race, subrace, 'height')}
+                max={getMaxAttr(race, subrace, 'height')}
+              />{' '}
+              cm
+            </span>
             <input
-              type="number"
+              type="range"
               id="height"
               name="height"
               value={height}
-              className="places__trait-input places__trait-input--number-3"
               onChange={e => setHeight(e.target.value)}
               min={getMinAttr(race, subrace, 'height')}
               max={getMaxAttr(race, subrace, 'height')}
-            />{' '}
-            cm
-          </span>
-          <input
-            type="range"
-            id="height"
-            name="height"
-            value={height}
-            onChange={e => setHeight(e.target.value)}
-            min={getMinAttr(race, subrace, 'height')}
-            max={getMaxAttr(race, subrace, 'height')}
-            step={1}
-            list="heightMarkers"
-            className="characters__range-marks"
-          />
-          <datalist id="heightMarkers">
-            {getMarkers(race, subrace, 'height')}
-          </datalist>
-        </label>
+              step={1}
+              list="heightMarkers"
+              className="characters__range-marks"
+            />
+            <datalist id="heightMarkers">
+              {getMarkers(race, subrace, 'height')}
+            </datalist>
+          </label>
 
-        <label htmlFor="weight" className="characters__trait-label">
-          <span className="characters__trait-title">
-            Peso:{' '}
+          <label htmlFor="weight" className="characters__trait-label">
+            <span className="characters__trait-title">
+              Peso:{' '}
+              <input
+                type="number"
+                id="weight"
+                name="weight"
+                value={weight}
+                className="places__trait-input places__trait-input--number-3"
+                onChange={e => setWeight(e.target.value)}
+                min={getMinAttr(race, subrace, 'weight')}
+                max={getMaxAttr(race, subrace, 'weight')}
+              />{' '}
+              kg
+            </span>
             <input
-              type="number"
+              type="range"
               id="weight"
               name="weight"
               value={weight}
-              className="places__trait-input places__trait-input--number-3"
               onChange={e => setWeight(e.target.value)}
               min={getMinAttr(race, subrace, 'weight')}
               max={getMaxAttr(race, subrace, 'weight')}
-            />{' '}
-            kg
-          </span>
-          <input
-            type="range"
-            id="weight"
-            name="weight"
-            value={weight}
-            onChange={e => setWeight(e.target.value)}
-            min={getMinAttr(race, subrace, 'weight')}
-            max={getMaxAttr(race, subrace, 'weight')}
-            step={1}
-            list="weightMarkers"
-            className="characters__range-marks"
-          />
-          <datalist id="weightMarkers">
-            {getMarkers(race, subrace, 'weight')}
-          </datalist>
-        </label>
-      </div>
+              step={1}
+              list="weightMarkers"
+              className="characters__range-marks"
+            />
+            <datalist id="weightMarkers">
+              {getMarkers(race, subrace, 'weight')}
+            </datalist>
+          </label>
+        </div>
 
-      <div className="characters__trait-columns characters__trait-columns--three">
-        <label htmlFor="pClass" className="characters__trait-label">
-          <span className="characters__trait-title">Clase</span>{' '}
-          <select
-            name="pClass"
-            value={pClass}
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <label htmlFor="pClass" className="characters__trait-label">
+            <span className="characters__trait-title">Clase</span>{' '}
+            <select
+              name="pClass"
+              value={pClass}
+              className="cards__button-card"
+              onChange={e => setClass(e.target.value)}
+            >
+              {Object.keys(CLASSES).map(pClassName => (
+                <option value={pClassName} key={pClassName}>
+                  {translateClass(pClassName)}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <button
+            type="submit"
             className="cards__button-card"
-            onChange={e => setClass(e.target.value)}
+            disabled={isCreating}
           >
-            {Object.keys(CLASSES).map(pClassName => (
-              <option value={pClassName} key={pClassName}>
-                {translateClass(pClassName)}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      <div className="characters__trait-columns characters__trait-columns--three">
-        <button
-          type="submit"
-          className="cards__button-card"
-          disabled={isCreating}
-        >
-          {isCreating ? 'Creando...' : 'Continuar'}
-        </button>
+            {isCreating ? 'Creando...' : 'Continuar'}
+          </button>
+        </div>
       </div>
     </Form>
   );

@@ -1,6 +1,18 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  Form,
+  useLoaderData,
+  useSubmit,
+  useTransition,
+} from '@remix-run/react';
+import {
+  createRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 import {
@@ -27,7 +39,9 @@ import {
   getExtraPreparedSpells,
   hasToPrepareSpells,
 } from '~/domain/spells/spells';
-import { getSpell } from '~/domain/spells/getSpells';
+import { ALL_SPELLS_BY_LEVEL, getSpell } from '~/domain/spells/getSpells';
+import { SkillModal } from '~/components/modal/skillModal';
+import { useSkillItems } from '~/components/modal/useSkillItems';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.name);
@@ -275,60 +289,100 @@ function PcClassSkills() {
   const canContinue =
     Object.values(areNamespacesReady).filter(v => v === false).length === 0;
 
+  const submit = useSubmit();
+  const [skillRefs, setSkillRefs] = useState([
+    useRef(
+      ALL_SPELLS_BY_LEVEL[0].reduce(
+        (cantrips, spell) => ({ ...cantrips, [spell.name]: createRef() }),
+        {}
+      )
+    ),
+    useRef(
+      ALL_SPELLS_BY_LEVEL[1].reduce(
+        (lvl1spells, spell) => ({ ...lvl1spells, [spell.name]: createRef() }),
+        {}
+      )
+    ),
+  ]);
+  const [
+    skillModalContent,
+    closeSkillModal,
+    openSkillModal,
+    selectedSkillRef,
+    setSelectedSkillRef,
+  ] = useSkillItems(pc, skillRefs, submit);
+
+  const formRef = useRef(null);
+
   return (
-    <Form method="post" className="characters__content">
-      <h2>
-        Habilidades de {translateClass(pClass)} para {name}
-      </h2>
-      <input readOnly type="text" name="name" value={name} hidden />
+    <Form method="post" ref={formRef}>
+      <div className="characters__content">
+        {skillModalContent && (
+          <SkillModal
+            elRef={selectedSkillRef}
+            formRef={formRef}
+            closeModal={closeSkillModal}
+          >
+            {skillModalContent}
+          </SkillModal>
+        )}
+        <h2>
+          Habilidades de {translateClass(pClass)} para {name}
+        </h2>
+        <input readOnly type="text" name="name" value={name} hidden />
 
-      <div className="characters__trait-columns characters__trait-columns--three">
-        <label htmlFor="name" className="characters__trait-label">
-          <span className="characters__trait-title">
-            Escoge {CLASSES[pClass].pickSkills} habilidades de{' '}
-            {translateClass(pClass)}
-          </span>
-          <div className="characters__traits">
-            {skillsToPick.map((skillName, i) => (
-              <label
-                htmlFor={skillName}
-                key={skillName}
-                className="characters__skill-label"
-              >
-                <input
-                  type="checkbox"
-                  name="class-skills[]"
-                  id={skillName}
-                  value={skillName}
-                  checked={getSkillChecked(skillName, skillsToSelect)}
-                  onChange={e => onSkillChange(skillName, e.target.checked, i)}
-                  disabled={
-                    !getSkillAvailable(skillName, skillsToSelect, checks[i])
-                  }
-                />
-                {translateSkill(skillName)}
-              </label>
-            ))}
-          </div>
-        </label>
+        <div className="characters__trait-columns characters__trait-columns--three">
+          <label htmlFor="name" className="characters__trait-label">
+            <span className="characters__trait-title">
+              Escoge {CLASSES[pClass].pickSkills} habilidades de{' '}
+              {translateClass(pClass)}
+            </span>
+            <div className="characters__traits">
+              {skillsToPick.map((skillName, i) => (
+                <label
+                  htmlFor={skillName}
+                  key={skillName}
+                  className="characters__skill-label"
+                >
+                  <input
+                    type="checkbox"
+                    name="class-skills[]"
+                    id={skillName}
+                    value={skillName}
+                    checked={getSkillChecked(skillName, skillsToSelect)}
+                    onChange={e =>
+                      onSkillChange(skillName, e.target.checked, i)
+                    }
+                    disabled={
+                      !getSkillAvailable(skillName, skillsToSelect, checks[i])
+                    }
+                  />
+                  {translateSkill(skillName)}
+                </label>
+              ))}
+            </div>
+          </label>
+        </div>
+
+        <ClassSkills
+          pc={pc}
+          skillsToSelect={skillsToSelect}
+          setSkills={setSkills}
+          setSkillsNamespace={setSkillsNamespace}
+          skillRefs={skillRefs}
+          openSkillModal={openSkillModal}
+        />
+
+        <p>
+          <button
+            type="submit"
+            className="cards__button-card"
+            disabled={isCreating || !canContinue}
+          >
+            {canContinue ? 'Continuar' : 'Elige habilidades'}
+          </button>
+        </p>
       </div>
-
-      <ClassSkills
-        pc={pc}
-        skillsToSelect={skillsToSelect}
-        setSkills={setSkills}
-        setSkillsNamespace={setSkillsNamespace}
-      />
-
-      <p>
-        <button
-          type="submit"
-          className="cards__button-card"
-          disabled={isCreating || !canContinue}
-        >
-          {canContinue ? 'Continuar' : 'Elige habilidades'}
-        </button>
-      </p>
     </Form>
   );
 }
