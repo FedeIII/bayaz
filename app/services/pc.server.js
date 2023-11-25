@@ -447,6 +447,10 @@ export async function updatePc(pcAttrs) {
   return updatedPc;
 }
 
+export async function deletePc(pcName) {
+  await Pc.deleteOne({ name: pcName });
+}
+
 export async function createNotes(pcName, position) {
   const updatedPc = await Pc.findOneAndUpdate(
     { name: pcName },
@@ -964,7 +968,7 @@ export async function equipWeapons(
 
 export async function unequipWeapon(name, weaponName, weaponPos) {
   let pc = await Pc.findOneAndUpdate(
-    { name, 'items.weapons.name':  weaponName },
+    { name, 'items.weapons.name': weaponName },
     {
       $unset: { 'items.weapons.$': '' },
     },

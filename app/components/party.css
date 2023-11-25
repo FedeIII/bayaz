@@ -215,3 +215,46 @@
 .party__pale-color {
   color: var(--color-x-pale);
 }
+
+.party__delete {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0px 8px 2px;
+  border-radius: 5px;
+  line-height: 1;
+  font-size: var(--font-size-xxxl);
+  color: white;
+}
+
+.party__delete:hover {
+  background-color: var(--color-pale);
+}
+
+.party__delete-confirm {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bolder;
+  border: none;
+  background: none;
+}
+
+.party__delete-confirm--yes {
+  color: var(--color-x-red);
+}
+
+.party__delete-confirm--no {
+  color: var(--color-x-green);
+}
+
+.party__delete-confirm--yes:hover {
+  background-color: var(--color-x-red);
+  color: var(--color-base);
+}
+
+.party__delete-confirm--no:hover {
+  background-color: var(--color-x-green);
+  color: var(--color-base);
+}

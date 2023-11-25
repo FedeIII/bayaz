@@ -111,11 +111,11 @@ import SheetAttacks from '~/components/summary/sheetAttacks';
 import SheetEquipment from '~/components/summary/sheetEquipment';
 import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLanguages';
 import { isDm } from '~/domain/user';
+import { getUser } from '~/services/user.server';
 
 import styles from '~/components/sheet.css';
 import spellsStyles from '~/components/spells.css';
 import noteStyles from '~/components/note/note.css';
-import { getSessionUser } from '~/services/session.server';
 export const links = () => {
   return [
     { rel: 'stylesheet', href: styles },
@@ -131,7 +131,7 @@ export const loader = async ({ request, params }) => {
     throw new Error('pc not found');
   }
 
-  const user = await getSessionUser(request);
+  const user = await getUser({ id: pc.userId });
 
   return json({ pc, playerName: user.name, isDm: isDm(user) });
 };

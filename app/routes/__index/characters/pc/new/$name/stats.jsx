@@ -94,10 +94,6 @@ function useStats(setUsedRolls, pStats) {
   return STATS.map(statName => {
     const [value, setValue] = useState(pStats?.[statName] || '');
     const [drop, isOver, canDrop] = useStatDrop(value, setValue, setUsedRolls);
-    if (statName === 'str') {
-      console.log('isOver:', isOver);
-      console.log('canDrop:', canDrop);
-    }
 
     return {
       name: statName,
