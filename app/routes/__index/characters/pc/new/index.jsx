@@ -1,5 +1,10 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useActionData, useTransition } from '@remix-run/react';
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useTransition,
+} from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import invariant from 'tiny-invariant';
 
@@ -17,11 +22,18 @@ import { getSessionUser } from '~/services/session.server';
 import { Title, links as buildingDetailsLinks } from '~/components/form/title';
 
 import styles from '~/components/cards/cards.css';
+import { isDm } from '~/domain/user';
 export const links = () => {
   return [...buildingDetailsLinks(), { rel: 'stylesheet', href: styles }];
 };
 
 const NUMBER_OF_AGE_MARKS = 5;
+
+export const loader = async ({ request }) => {
+  const user = await getSessionUser(request);
+
+  return json({ isDm: isDm(user) });
+};
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -101,6 +113,7 @@ function getMarkers(race, subrace, attr) {
 }
 
 function PcRace() {
+  const { isDm } = useLoaderData();
   const errors = useActionData();
 
   const transition = useTransition();
@@ -181,13 +194,15 @@ function PcRace() {
             </label>
           )}
 
-          <label
-            htmlFor="npc"
-            className="characters__trait-label characters__trait-label--small"
-          >
-            <span className="characters__trait-title">NPC</span>{' '}
-            <input type="checkbox" name="npc" />
-          </label>
+          {!!isDm && (
+            <label
+              htmlFor="npc"
+              className="characters__trait-label characters__trait-label--small"
+            >
+              <span className="characters__trait-title">NPC</span>{' '}
+              <input type="checkbox" name="npc" />
+            </label>
+          )}
         </div>
 
         <div className="characters__trait-columns characters__trait-columns--three">

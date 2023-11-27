@@ -52,8 +52,6 @@ npx prisma migrate dev
 ```
 
 ## TO DOs
-- show weapon attrs on character creation screens
-- show npc option in character creation only to DMs
 - Change caracteristics once they are assigned
 - Racial skills description
 - Buildings in settlements
