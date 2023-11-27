@@ -71,7 +71,7 @@ export async function setPcStats(pcParams) {
     id,
     stats,
     extraStats,
-    halfElf: { extraStats: halfElfExtraStats },
+    'halfElf.extraStats': halfElfExtraStats,
   });
 
   await updatePc({

@@ -30,7 +30,7 @@ export const action = async ({ request }) => {
   await updatePc({
     id,
     skills,
-    halfElf: { skills: halfElfSkills },
+    'halfElf.skills': halfElfSkills,
     languages: [...RACES['half-elf'].subrace.languages, language],
   });
 

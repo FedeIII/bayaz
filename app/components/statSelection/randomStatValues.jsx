@@ -22,7 +22,13 @@ export function RandomStatValues(props) {
   return (
     <div className="characters__trait-columns characters__trait-columns--three">
       {rolls.map((roll, i) => (
-        <StatRoll roll={roll} index={i} canDrag={!usedRolls[i]} key={i} />
+        <StatRoll
+          roll={roll}
+          index={i}
+          canDrag={!usedRolls[i]}
+          className="characters__stats-roll"
+          key={i}
+        />
       ))}
       {!rollsComplete && (
         <button type="button" className="cards__button-card" onClick={addRoll}>

@@ -51,8 +51,7 @@ create migration file for schema changes
 npx prisma migrate dev
 ```
 
-## TO DOs
-- Change caracteristics once they are assigned
+## TO DOsg
 - Racial skills description
 - Buildings in settlements
 - Characters in places
