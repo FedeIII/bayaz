@@ -139,8 +139,8 @@
   resize: none;
   background-color: transparent;
   border: none;
-  height: 32px;
-  margin: 0;
+  height: 36px;
+  margin: -2px 0 0 0;
   font-family: var(--font-family);
   hyphens: auto;
 }
