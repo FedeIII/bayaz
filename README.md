@@ -52,6 +52,7 @@ npx prisma migrate dev
 ```
 
 ## TO DOs
+- show weapon attrs on character creation screens
 - show npc option in character creation only to DMs
 - Change caracteristics once they are assigned
 - Racial skills description
@@ -62,6 +63,7 @@ npx prisma migrate dev
 - Review more player options in sheets
 - Background: {trait}
 - put hit dice roll on level up in the modal
+- bug: when a party is active, selecting a PC outside the party ends up bugging the menu
 - Ranger:
   - choose companion
 - Bard:

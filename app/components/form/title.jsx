@@ -76,6 +76,7 @@ export function Title(props) {
   const title = value || defaultValue;
 
   const [showTypeInput, setShowTypeInput] = useState(!title);
+  const [showInputHighlight, setShowInputHighlight] = useState(!title);
   useEffect(() => {
     setShowTypeInput(!title);
   }, [!title]);
@@ -103,7 +104,9 @@ export function Title(props) {
             type="text"
             name={inputName}
             value={value}
-            className={`places__title-input ${inputClass}`}
+            className={`places__title-input ${inputClass} ${
+              showInputHighlight ? 'places__title-input--empty' : ''
+            }`}
             style={{ display: showTypeInput ? 'inline' : 'none' }}
             onBlur={() => title && setShowTypeInput(false)}
             onChange={onChange}
@@ -114,9 +117,14 @@ export function Title(props) {
             type="text"
             name={inputName}
             defaultValue={defaultValue}
-            className={`places__title-input ${inputClass}`}
+            className={`places__title-input ${inputClass} ${
+              showInputHighlight ? 'places__title-input--empty' : ''
+            }`}
             style={{ display: showTypeInput ? 'inline' : 'none' }}
-            onBlur={() => title && setShowTypeInput(false)}
+            onBlur={e => {
+              title && setShowTypeInput(false);
+              setShowInputHighlight(!e.target.value);
+            }}
           />
         ))}
       {!!onReroll && (

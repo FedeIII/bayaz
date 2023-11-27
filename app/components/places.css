@@ -142,6 +142,10 @@
   padding: 0;
 }
 
+.places__title-input--empty {
+  border: 1px dashed var(--color-pale);
+}
+
 .places__title-capital {
   font-size: var(--font-size-big);
 }
