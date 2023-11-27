@@ -336,4 +336,99 @@ export const SKILLS_EXPLANATION = {
       </div>
     );
   },
+
+  lucky: (skill, pc) => {
+    return (
+      <p>
+        Cuando obtienes un 1 en una tirada de ataque, prueba de característica o
+        tirada de salvación, puedes volver a tirar el dado y debes usar la
+        puntuación obtenida en la nueva tirada.
+      </p>
+    );
+  },
+
+  brave: (skill, pc) => {
+    return (
+      <p>
+        Tienes ventaja en las tiradas de salvación en contra de ser asustado.
+      </p>
+    );
+  },
+
+  nimble: (skill, pc) => {
+    return (
+      <p>
+        Puedes moverte a través del espacio de cualquier criatura que sea de un
+        tamaño mayor que el tuyo.
+      </p>
+    );
+  },
+
+  naturallyStealthy: (skill, pc) => {
+    return (
+      <p>
+        Puedes intentar esconderte incluso cuando solamente estás cubierto tras
+        una criatura que es al menos un tamaño mayor que tú.
+      </p>
+    );
+  },
+
+  trance: (skill, pc) => {
+    return (
+      <>
+        <p>
+          Los elfos no necesitan dormir. En lugar de eso, meditan profundamente,
+          permaneciendo semiconscientes durante 4 horas al día. (La palabra en
+          Común para tal meditación es “trance”). Mientras meditas, puedes soñar
+          en cierta manera; tales sueños son en realidad ejercicios mentales que
+          se han convertido en un reflejo a lo largo de años de práctica.
+        </p>
+        <p>
+          Tras descansar de esta manera, obtienes el mismo beneficio que un
+          humano tras 8 horas de sueño.
+        </p>
+      </>
+    );
+  },
+
+  maskOfTheWild: (skill, pc) => {
+    return (
+      <p>
+        Puedes intentar esconderte incluso cuando sólo estás ligeramente
+        cubierto por el follaje, una lluvia fuerte, la nieve que cae, niebla y
+        otros fenómenos naturales.
+      </p>
+    );
+  },
+
+  sunlightSensitivity: (skill, pc) => {
+    return (
+      <p>
+        Tienes desventaja en las tiradas de ataque y en las pruebas de Sabiduría
+        (Percepción) basadas en la vista cuando el objetivo de tu ataque o lo
+        que sea que intentes percibir está bajo luz del Sol directa.
+      </p>
+    );
+  },
+
+  relentlessEndurance: (skill, pc) => {
+    return (
+      <p>
+        Cuando te ves reducido a 0 Puntos de Golpe pero no estás totalmente
+        muerto, puedes volver a tener 1 punto de golpe en su lugar. No puedes
+        volver usar este rasgo hasta que no hayas completado un descanso
+        prolongado.
+      </p>
+    );
+  },
+
+  savageAttacks: (skill, pc) => {
+    return (
+      <p>
+        Cuando saques un impacto crítico con un ataque con arma cuerpo a cuerpo,
+        puedes tirar otra vez uno de los dados de daño del arma y añadirlo al
+        daño extra por el impacto crítico.
+      </p>
+    );
+  },
 };

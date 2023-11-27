@@ -396,6 +396,7 @@ function displayClassTrait(traitName, trait, pc) {
 
 export function displayTrait(traitName, trait, pc) {
   switch (traitName) {
+    // RACIAL
     case 'savingThrows':
       return Object.entries(trait).map(([salvation, status]) => (
         <Fragment key={salvation}>
@@ -416,6 +417,7 @@ export function displayTrait(traitName, trait, pc) {
 
     case 'trance':
       return 'Trance';
+    // RACIAL
 
     // BACKGROUNDS
     case 'guildMembership':
