@@ -1,4 +1,4 @@
-import { itemWithAmount } from '~/domain/display';
+import { ItemWithInfo } from '~/domain/display';
 import { translateEquipment } from '~/domain/equipment/equipment';
 
 export function EquipmentCombo(props) {
@@ -50,9 +50,12 @@ export function EquipmentCombo(props) {
               .map(item => `${item.name},${item.amount}`)
               .join('|')}
           />{' '}
-          {combo.and
-            .map(item => itemWithAmount(item.translation, item.amount))
-            .join(', ')}
+          {combo.and.map((item, i, all) => (
+            <>
+              <ItemWithInfo key={i} item={item} />
+              {i !== all.length - 1 && ', '}
+            </>
+          ))}
         </label>
       );
     } else {
@@ -114,9 +117,12 @@ export function EquipmentCombo(props) {
               .map(comboItem => `${comboItem.name},${comboItem.amount}`)
               .join('|')}
           />{' '}
-          {combo
-            .map(item => itemWithAmount(item.translation, item.amount))
-            .join(', ')}
+          {combo.map((item, i, all) => (
+            <>
+              <ItemWithInfo key={i} item={item} />
+              {i !== all.length - 1 && ', '}
+            </>
+          ))}
         </label>
       );
     } else if (combo.if) {
@@ -133,6 +139,7 @@ export function EquipmentCombo(props) {
         );
       else return null;
     } else if (combo.type) {
+      // single item
       return (
         <label
           htmlFor={`${combo.name}-${comboSection}`}
@@ -148,7 +155,7 @@ export function EquipmentCombo(props) {
             id={`${combo.name}-${comboSection}`}
             value={[combo.name, combo.amount]}
           />{' '}
-          {itemWithAmount(combo.translation, combo.amount)}
+          <ItemWithInfo item={combo} />
         </label>
       );
     } else if (combo.packName) {
@@ -179,7 +186,11 @@ export function EquipmentCombo(props) {
     }
   } else if (logic === 'and') {
     if (combo.type)
-      return <li>{itemWithAmount(combo.translation, combo.amount)}</li>;
+      return (
+        <li>
+          <ItemWithInfo item={combo} />
+        </li>
+      );
   } else {
     if (combo.type)
       return (
@@ -189,7 +200,7 @@ export function EquipmentCombo(props) {
               {translateEquipment(combo.type)}
             </h3>
           )}
-          {itemWithAmount(combo.translation, combo.amount)}
+          <ItemWithInfo item={combo} />
           <input
             readOnly
             type="text"

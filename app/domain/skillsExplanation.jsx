@@ -178,7 +178,7 @@ export const SKILLS_EXPLANATION = {
     const weapon = weapons[skillIndex];
     const {
       subtype,
-      properties: { finesse, light } = {},
+      properties: { finesse } = {},
       translation,
     } = getItem(weapon.name);
 

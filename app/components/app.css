@@ -202,3 +202,27 @@
 .app__input-with-tag {
   margin: 0 0 8px;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  /* border-bottom: 1px dotted var(--color-pale); */
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: var(--color-dark);
+  color: var(--color-x-pale);
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

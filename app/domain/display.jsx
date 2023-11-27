@@ -84,6 +84,26 @@ export function listItems(items) {
   );
 }
 
+export function ItemWithInfo(props) {
+  const { item } = props;
+  let info = itemWithAmount(item.translation, item.amount);
+
+  let propsInfo = null;
+  if (item.properties) {
+    propsInfo = Object.keys(item.properties)
+      .map(prop => t(prop))
+      .filter(translation => translation !== 'Unknown translation')
+      .join(', ');
+  }
+
+  return (
+    <span className="tooltip">
+      {info}
+      {!!propsInfo && <span className="tooltiptext">{propsInfo}</span>}
+    </span>
+  );
+}
+
 export function itemWithAmount(translation, amount) {
   return (amount > 1 ? amount + 'x ' : '') + translation;
 }

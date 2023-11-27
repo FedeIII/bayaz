@@ -89,6 +89,16 @@ export function t(key) {
     adventure: 'Aventura',
     clothes: 'Ropa',
     equipment: 'Equipamiento',
+    thrown: 'Lanzable',
+    reach: 'Alcance',
+    twoHanded: 'A dos manos',
+    loading: 'Requiere recarga',
+    ammunition: 'Usa munición',
+    special: 'Ataque especial',
+    light: 'Ligera',
+    heavy: 'Pesada',
+    finesse: 'Sutil',
+    versatile: 'Versátil',
 
     //Settlements
     village: 'Aldea',
