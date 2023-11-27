@@ -20,10 +20,8 @@ export const loader = async ({ request }) => {
 
   if (isDm(user)) {
     pcs = await getPcs();
-
-    userNames = (
-      await Promise.all(pcs.map(pc => getUser({ id: pc.userId })))
-    ).map(user => user.name);
+    const users = await Promise.all(pcs.map(pc => getUser({ id: pc.userId })));
+    userNames = users.map(user => user.name);
   } else {
     pcs = await getUserPcs(user.id);
   }

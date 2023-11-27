@@ -21,15 +21,12 @@ export function getBasicMenuItems(user) {
 
 export function getAllMenuItems({
   isDm,
-  pcId,
-  pcName,
   partyIdState,
-  pcIdsState,
-  pcNames,
+  allPcIds = [],
+  allPcNames = [],
   encounterIdState,
 }) {
   let items = [...menuLinks];
-  const allPcIds = pcId ? unique([pcId, ...pcIdsState]) : pcIdsState;
 
   if (!isDm) {
     items = menuLinks.filter(item => item.isForPlayers);
@@ -56,7 +53,7 @@ export function getAllMenuItems({
     ]);
   }
 
-  if (isDm && allPcIds?.length) {
+  if (allPcIds?.length) {
     items = insertAfter(
       item => item.name === 'Personajes',
       items,
@@ -64,7 +61,7 @@ export function getAllMenuItems({
         (newItems, id, i) => [
           ...newItems,
           {
-            name: pcNames[i],
+            name: allPcNames[i],
             url: PATHS.summary(id),
             level: 1,
           },
@@ -82,26 +79,6 @@ export function getAllMenuItems({
         []
       )
     );
-  } else {
-    if (pcId && pcName) {
-      items = insertAfter(item => item.name === 'Personajes', items, [
-        {
-          name: pcName,
-          url: PATHS.summary(pcId),
-          level: 1,
-        },
-        {
-          name: 'Inventario',
-          url: PATHS.bio(pcId),
-          level: 2,
-        },
-        {
-          name: 'Conjuros',
-          url: PATHS.spells(pcId),
-          level: 2,
-        },
-      ]);
-    }
   }
 
   return items;

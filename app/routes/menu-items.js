@@ -18,24 +18,28 @@ export const loader = async ({ request }) => {
   if (encounterIdState === 'null') encounterIdState = null;
   if (pcId === 'null' || pcId === 'undefined') pcId = null;
 
-  let pcName = null;
+  let allPcIds = [];
+  let allPcNames = [];
+
   if (pcId) {
-    pcName = await getPcName(pcId);
+    allPcIds = [pcId];
+    allPcNames = [await getPcName(pcId)];
   }
 
-  let pcNames = [];
-  if (pcIdsState) {
-    pcNames = await Promise.all(pcIdsState.map(getPcName));
-    if (pcName) pcNames = unique([pcName, ...pcNames]);
+  if (pcIdsState?.length) {
+    allPcIds = unique([...allPcIds, ...pcIdsState]);
+    allPcNames = [
+      ...allPcNames,
+      ...(await Promise.all(pcIdsState.map(getPcName))),
+    ];
   }
 
   const menuItems = getAllMenuItems({
     isDm: isDm(user),
-    pcId,
-    pcName,
     partyIdState,
     pcIdsState,
-    pcNames,
+    allPcIds,
+    allPcNames,
     encounterIdState,
   });
 
