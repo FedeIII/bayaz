@@ -52,7 +52,6 @@ npx prisma migrate dev
 ```
 
 ## TO DOsg
-- Racial skills description
 - Buildings in settlements
 - Characters in places
 - Audio in places
