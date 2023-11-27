@@ -35,7 +35,7 @@ export const SKILLS_EXPLANATION = {
 
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/levelUp`}
+            to={`/characters/pc/${pc.id}/leveling/levelUp`}
             className="inventory-item__modal-button"
           >
             Gana Puntos de Golpe
@@ -62,7 +62,7 @@ export const SKILLS_EXPLANATION = {
 
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/abilityScoreImprovement`}
+            to={`/characters/pc/${pc.id}/leveling/abilityScoreImprovement`}
             className="inventory-item__modal-button"
           >
             Escoge puntos de caracterísitica
@@ -77,7 +77,7 @@ export const SKILLS_EXPLANATION = {
       <p>Aprendes nuevos trucos y/o conjuros de {translateClass(pc.pClass)}</p>
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/newSpells`}
+          to={`/characters/pc/${pc.id}/leveling/newSpells`}
           className="inventory-item__modal-button"
         >
           Escoge conjuros
@@ -145,7 +145,7 @@ export const SKILLS_EXPLANATION = {
       submit(
         {
           action: 'resetSlots',
-          name: pc.name,
+          id: pc.id,
           spellsLevel: skill,
         },
         { method: 'post' }
@@ -250,7 +250,7 @@ export const SKILLS_EXPLANATION = {
       submit(
         {
           action: 'createNotes',
-          name: pc.name,
+          id: pc.id,
           position,
         },
         { method: 'post' }
@@ -289,7 +289,7 @@ export const SKILLS_EXPLANATION = {
       </p>
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/${pc.pClass}/extraSpells`}
+          to={`/characters/pc/${pc.id}/leveling/${pc.pClass}/extraSpells`}
           className="inventory-item__modal-button"
         >
           Copiar Conjuro

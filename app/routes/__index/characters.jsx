@@ -7,11 +7,11 @@ export const links = () => {
 };
 
 function Characters() {
-  const pcName = getCurrentPcPage();
+  const pcId = getCurrentPcPage();
 
   return (
     <div className="characters__container">
-      <Outlet key={pcName} />
+      <Outlet key={pcId} />
     </div>
   );
 }

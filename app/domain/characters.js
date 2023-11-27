@@ -3133,6 +3133,7 @@ export function getChannelDivinityTraits(pc) {
 }
 
 export const BASE_CHARACTER = {
+  id: '1',
   name: 'Base Character',
   race: 'human',
   size: 'M',

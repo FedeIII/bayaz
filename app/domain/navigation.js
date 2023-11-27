@@ -1,4 +1,4 @@
-import { insertAfter } from '~/utils/insert';
+import { insertAfter, unique } from '~/utils/insert';
 import { PATHS } from '~/utils/paths';
 import { isDm } from './user';
 
@@ -21,12 +21,15 @@ export function getBasicMenuItems(user) {
 
 export function getAllMenuItems({
   isDm,
+  pcId,
   pcName,
   partyIdState,
-  pcNamesState,
+  pcIdsState,
+  pcNames,
   encounterIdState,
 }) {
   let items = [...menuLinks];
+  const allPcIds = pcId ? unique([pcId, ...pcIdsState]) : pcIdsState;
 
   if (!isDm) {
     items = menuLinks.filter(item => item.isForPlayers);
@@ -53,26 +56,26 @@ export function getAllMenuItems({
     ]);
   }
 
-  if (isDm && pcNamesState?.length) {
+  if (isDm && allPcIds?.length) {
     items = insertAfter(
       item => item.name === 'Personajes',
       items,
-      pcNamesState.reduce(
-        (newItems, pcName) => [
+      allPcIds.reduce(
+        (newItems, id, i) => [
           ...newItems,
           {
-            name: pcName,
-            url: PATHS.summary(pcName),
+            name: pcNames[i],
+            url: PATHS.summary(id),
             level: 1,
           },
           {
             name: 'Inventario',
-            url: PATHS.bio(pcName),
+            url: PATHS.bio(id),
             level: 2,
           },
           {
             name: 'Conjuros',
-            url: PATHS.spells(pcName),
+            url: PATHS.spells(id),
             level: 2,
           },
         ],
@@ -80,21 +83,21 @@ export function getAllMenuItems({
       )
     );
   } else {
-    if (pcName) {
+    if (pcId && pcName) {
       items = insertAfter(item => item.name === 'Personajes', items, [
         {
           name: pcName,
-          url: PATHS.summary(pcName),
+          url: PATHS.summary(pcId),
           level: 1,
         },
         {
           name: 'Inventario',
-          url: PATHS.bio(pcName),
+          url: PATHS.bio(pcId),
           level: 2,
         },
         {
           name: 'Conjuros',
-          url: PATHS.spells(pcName),
+          url: PATHS.spells(pcId),
           level: 2,
         },
       ]);

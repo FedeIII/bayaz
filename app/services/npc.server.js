@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { mongoose } from '~/services/db.server';
 import {
   RACES,
@@ -78,6 +79,7 @@ const spellSchema = new mongoose.Schema({
 
 const quickNpcSchema = new mongoose.Schema({
   // BASIC ATTRS
+  id: String,
   name: String,
   race: {
     type: String,
@@ -198,8 +200,8 @@ export async function getAllQuickNpcs() {
   return npcs;
 }
 
-export async function getQuickNpc(name) {
-  const npc = await QuickNpc.findOne({ name }).exec();
+export async function getQuickNpc(id) {
+  const npc = await QuickNpc.findOne({ id }).exec();
   return npc;
 }
 
@@ -207,6 +209,7 @@ export async function createQuickNpc(npc) {
   const { race, subrace } = npc;
 
   const newNpc = await Pc.create({
+    id: uuid(),
     size: RACES[race][subrace].size,
     speed: RACES[race][subrace].speed,
     items: {
@@ -231,7 +234,7 @@ export async function createQuickNpc(npc) {
 
 export async function updateQuickNpc(attrs) {
   const npc = await QuickNpc.findOneAndUpdate(
-    { name: attrs.name },
+    { id: attrs.id },
     { $set: attrs },
     { new: true }
   ).exec();

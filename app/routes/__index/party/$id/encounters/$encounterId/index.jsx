@@ -101,16 +101,16 @@ export const action = async ({ request }) => {
     );
   }
 
-  const damagePcName = formData.get('pc-damage');
-  const pcDamage = formData.get(`pc-damage-${damagePcName}`);
-  if (damagePcName && pcDamage) {
-    await damagePc(damagePcName, parseInt(pcDamage, 10));
+  const damagePcId = formData.get('pc-damage');
+  const pcDamage = formData.get(`pc-damage-${damagePcId}`);
+  if (damagePcId && pcDamage) {
+    await damagePc(damagePcId, parseInt(pcDamage, 10));
   }
 
-  const healPcName = formData.get('pc-heal');
-  const pcHeal = formData.get(`pc-heal-${healPcName}`);
-  if (healPcName && pcHeal) {
-    await healPc(healPcName, parseInt(pcHeal, 10));
+  const healPcId = formData.get('pc-heal');
+  const pcHeal = formData.get(`pc-heal-${healPcId}`);
+  if (healPcId && pcHeal) {
+    await healPc(healPcId, parseInt(pcHeal, 10));
   }
 
   return json({ encounter: updatedEncounter });
@@ -270,7 +270,7 @@ function PartyCombat() {
           return (
             <Card
               title={pc.name}
-              key={pc.name}
+              key={pc.id}
               style={getMonsterPositionStyle(pcIndex, all.length)}
             >
               {isAlive && (
@@ -290,12 +290,12 @@ function PartyCombat() {
                     AC: <MultiLevelBar levels={levels} />
                   </div>
                   <div className="encounters__button-container">
-                    <button name="pc-damage" value={pc.name}>
+                    <button name="pc-damage" value={pc.id}>
                       Daño
                     </button>
                     <input
                       type="text"
-                      name={`pc-damage-${pc.name}`}
+                      name={`pc-damage-${pc.id}`}
                       className="encounters__damage-input"
                     />
                   </div>
@@ -307,12 +307,12 @@ function PartyCombat() {
                 </div>
               )}
               <div className="encounters__button-container">
-                <button name="pc-heal" value={pc.name}>
+                <button name="pc-heal" value={pc.id}>
                   Curación
                 </button>
                 <input
                   type="text"
-                  name={`pc-heal-${pc.name}`}
+                  name={`pc-heal-${pc.id}`}
                   className="encounters__damage-input"
                 />
               </div>

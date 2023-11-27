@@ -28,9 +28,9 @@ function NpcList() {
 
       <ul className="party__character-list">
         {npcs.map(npc => (
-          <li className="party__character" key={npc.name}>
+          <li className="party__character" key={npc.id}>
             <Link
-              to={`/characters/pc/${npc.name}/summary`}
+              to={`/characters/pc/${npc.id}/summary`}
               className="party__pc-link"
             >
               <div className="party__character-name">{npc.name}</div>

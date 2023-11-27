@@ -136,6 +136,13 @@
 .sheet__name {
   font-size: var(--font-size-big);
   grid-area: nam;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  height: 32px;
+  margin: 0;
+  font-family: var(--font-family);
+  hyphens: auto;
 }
 
 .sheet__pClass {
@@ -148,12 +155,6 @@
 
 .sheet__player-name {
   grid-area: pNa;
-  resize: none;
-  background-color: transparent;
-  border: none;
-  margin: 12px 0px 0px 0px;
-  font-family: var(--font-family);
-  hyphens: auto;
 }
 
 .sheet__race {

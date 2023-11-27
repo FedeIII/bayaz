@@ -46,7 +46,7 @@ async function endSessionAction(formData) {
   const currentSession = party.sessions.find(s => s.id === endSessionId);
   const pcExp = getXpForSessionPerPc(currentSession, party.players.length);
 
-  await concurrentRequests(party.players, pcName => addXp(pcName, pcExp));
+  await concurrentRequests(party.players, pcId => addXp(pcId, pcExp));
 
   await endSessionRequest;
 }
@@ -198,7 +198,7 @@ function PartyInfo() {
 
   function onStartSessionClick() {
     partyContext.setPartyIdState?.(id);
-    partyContext.setPcNamesState?.(party.players);
+    partyContext.setPcIdsState?.(party.players);
   }
 
   function onEndSessionClick() {
@@ -226,9 +226,9 @@ function PartyInfo() {
         Miembros:
         <ul className="party__party-members-list">
           {pcs.map(pc => (
-            <li className="party__character" key={pc.name}>
+            <li className="party__character" key={pc.id}>
               <Link
-                to={`/characters/pc/${pc.name}/summary`}
+                to={`/characters/pc/${pc.id}/summary`}
                 className="party__party-link party__party-link-list"
               >
                 <div className="party__character-name">{pc.name}</div>

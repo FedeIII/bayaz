@@ -1,9 +1,9 @@
 const doc = typeof document !== 'undefined' ? document : null;
 
 export const PATHS = {
-  summary: pcName => `/characters/pc/${pcName}/summary`,
-  bio: pcName => `/characters/pc/${pcName}/bio`,
-  spells: pcName => `/characters/pc/${pcName}/spells`,
+  summary: id => `/characters/pc/${id}/summary`,
+  bio: id => `/characters/pc/${id}/bio`,
+  spells: id => `/characters/pc/${id}/spells`,
 };
 
 export function getCurrentPcPage() {

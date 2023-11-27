@@ -76,7 +76,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
         {!fightingStyle && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/paladin/fightingStyle`}
+              to={`/characters/pc/${pc.id}/leveling/paladin/fightingStyle`}
               className="inventory-item__modal-button"
             >
               Escoge Estilo de Combate
@@ -172,7 +172,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
         </p>
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/paladin/sacredOath`}
+            to={`/characters/pc/${pc.id}/leveling/paladin/sacredOath`}
             className="inventory-item__modal-button"
           >
             Escoge Juramento

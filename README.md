@@ -52,9 +52,13 @@ npx prisma migrate dev
 ```
 
 ## TO DOs
+- show npc option in character creation only to DMs
+- Change caracteristics once they are assigned
+- Racial skills description
 - Buildings in settlements
 - Characters in places
 - Audio in places
+- id for NPCs
 - Review more player options in sheets
 - Background: {trait}
 - put hit dice roll on level up in the modal

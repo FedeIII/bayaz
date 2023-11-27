@@ -67,7 +67,6 @@ function WeaponModalContent(props) {
 function SheetAttacks(props) {
   const {
     pc,
-    pcName,
     itemRefs,
     setSelectedItemRef,
     setActionModalContent,
@@ -91,7 +90,7 @@ function SheetAttacks(props) {
       submit(
         {
           action: 'equipWeapons',
-          name: pcName,
+          id: pc.id,
           oldWeaponName: weapons[i].name,
           newWeaponName,
         },
@@ -105,7 +104,7 @@ function SheetAttacks(props) {
       submit(
         {
           action: 'unequipWeapon',
-          name: pcName,
+          id: pc.id,
           weaponName: weapons[i].name,
         },
         { method: 'post' }
@@ -139,7 +138,7 @@ function SheetAttacks(props) {
     submit(
       {
         action: 'reorderWeapons',
-        name: pcName,
+        id: pc.id,
         weaponName,
         weaponSlot,
       },

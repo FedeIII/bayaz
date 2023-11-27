@@ -37,9 +37,9 @@ export const loader = async ({ request }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
-  const pcName = formData.get('delete');
+  const pcId = formData.get('delete');
 
-  await deletePc(pcName);
+  await deletePc(pcId);
 
   return null;
 };
@@ -73,9 +73,9 @@ function AllPCs() {
 
       <ul className="party__character-list">
         {pcs.map((pc, i) => (
-          <li className="party__character" key={pc.name}>
+          <li className="party__character" key={pc.id}>
             <Link
-              to={`/characters/pc/${pc.name}/summary`}
+              to={`/characters/pc/${pc.id}/summary`}
               className="party__pc-link"
             >
               <div className="party__character-name">{pc.name}</div>
@@ -90,26 +90,26 @@ function AllPCs() {
                 {translateClass(pc.pClass)}
               </div>
               <div className="party__party-data">Nivel {pc.level}</div>
-              {confirmDeleteName !== pc.name && (
+              {confirmDeleteName !== pc.id && (
                 <div className="party__party-data">
                   <button
                     className="party__delete"
                     onClick={e => {
                       e.preventDefault();
-                      setConfirmDeleteName(pc.name);
+                      setConfirmDeleteName(pc.id);
                     }}
                   >
                     ⊘
                   </button>
                 </div>
               )}
-              {confirmDeleteName === pc.name && (
+              {confirmDeleteName === pc.id && (
                 <div className="party__party-data">
                   Seguro?{' '}
                   <button
                     type="submit"
                     name="delete"
-                    value={pc.name}
+                    value={pc.id}
                     className="party__delete-confirm party__delete-confirm--yes"
                     onClick={onDeleteClick}
                   >

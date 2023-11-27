@@ -1,5 +1,5 @@
-import { json, redirect } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
+import { json } from '@remix-run/node';
+import { Link } from '@remix-run/react';
 
 import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
@@ -16,13 +16,7 @@ export const loader = async ({ params }) => {
   return json({ party, pcs });
 };
 
-export const action = async ({ request }) => {
-  return redirect(`/characters/pc/${name}/summary`);
-};
-
 function PartyEncounters() {
-  const { party, pcs } = useLoaderData();
-
   return (
     <>
       <Link to="random" className="menus__main-option">

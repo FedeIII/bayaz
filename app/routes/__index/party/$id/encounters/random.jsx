@@ -22,15 +22,11 @@ export const loader = async ({ params }) => {
   const pcs = party.players.map(playerName => getPc(playerName));
   for ([index, pc] of pcs.entries()) pcs[index] = await pc;
 
-  return json({ party, pcs });
-};
-
-export const action = async ({ request }) => {
-  return redirect(`/characters/pc/${name}/summary`);
+  return json({ pcs });
 };
 
 function RandomEncounter() {
-  const { party, pcs } = useLoaderData();
+  const { pcs } = useLoaderData();
 
   return (
     <div className="encounters">

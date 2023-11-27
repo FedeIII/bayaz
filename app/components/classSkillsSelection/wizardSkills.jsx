@@ -27,10 +27,7 @@ function WizardSkills(props) {
   return (
     <>
       <div className="characters__trait-columns characters__trait-columns--three">
-        <div
-          htmlFor="name"
-          className="characters__trait-label characters__trait-label--spells"
-        >
+        <div className="characters__trait-label characters__trait-label--spells">
           <span className="characters__trait-title">
             Conoces {spellSlots[0]} trucos de mago
           </span>

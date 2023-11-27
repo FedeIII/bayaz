@@ -3,7 +3,7 @@ import { CLASSES, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 
 function HitDiceActions(props) {
-  const { skill, pc, submit, closeModal } = props;
+  const { pc, submit, closeModal } = props;
   const { pClass, remainingHitDice, hitDice } = pc;
 
   function onVirtualDieClick() {
@@ -11,7 +11,7 @@ function HitDiceActions(props) {
     submit(
       {
         action: 'spendHitDie',
-        name: pc.name,
+        id: pc.id,
         diceAmount: amountOfDice,
       },
       { method: 'post' }
@@ -23,7 +23,7 @@ function HitDiceActions(props) {
     submit(
       {
         action: 'spendRealHitDie',
-        name: pc.name,
+        id: pc.id,
         die: realDie,
         diceAmount: amountOfDice,
       },
@@ -36,7 +36,7 @@ function HitDiceActions(props) {
     submit(
       {
         action: 'longRest',
-        name: pc.name,
+        id: pc.id,
       },
       { method: 'post' }
     );

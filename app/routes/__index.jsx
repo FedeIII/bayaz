@@ -31,20 +31,20 @@ export default function Index() {
   const { menuItems: initMenuItems } = useLoaderData();
   const menuContext = useContext(MenuContext) || {};
   const { hasMenu, menuTitle } = menuContext;
-  const { partyIdState, pcNamesState } = useContext(PartyContext) || {};
+  const { partyIdState, pcIdsState } = useContext(PartyContext) || {};
   const { encounterIdState } = useContext(MonstersContext) || {};
   const fetcher = useFetcher();
 
   const [menuItems, setMenuItems] = useState(initMenuItems);
-  const pcName = getCurrentPcPage();
+  const pcId = getCurrentPcPage();
 
   useEffect(() => {
     fetcher.load(
-      `/menu-items?partyIdState=${partyIdState}&pcNamesState=${JSON.stringify(
-        pcNamesState
-      )}&encounterIdState=${encounterIdState}&pcName=${pcName}`
+      `/menu-items?partyIdState=${partyIdState}&pcIdsState=${JSON.stringify(
+        pcIdsState
+      )}&encounterIdState=${encounterIdState}&pcId=${pcId}`
     );
-  }, [partyIdState, pcNamesState, encounterIdState, pcName]);
+  }, [partyIdState, pcIdsState, encounterIdState, pcId]);
 
   useEffect(() => {
     if (fetcher.data) {

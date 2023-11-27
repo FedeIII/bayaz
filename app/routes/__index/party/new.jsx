@@ -39,13 +39,13 @@ function NewParty() {
             <label
               htmlFor={pc.name}
               className="party__select-character"
-              key={pc.name}
+              key={pc.id}
             >
               <input
                 type="checkbox"
                 name="pcs[]"
-                value={pc.name}
-                id={pc.name}
+                value={pc.id}
+                id={pc.id}
                 className="party__character-check"
               />
               <div className="party__character-name">{pc.name}</div>

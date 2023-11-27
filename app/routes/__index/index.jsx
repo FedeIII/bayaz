@@ -72,9 +72,9 @@ export default function Index() {
           <hr className="profile__prop-separator" />
           <ul className="party__character-list">
             {pcs.map(pc => (
-              <li className="party__character" key={pc.name}>
+              <li className="party__character" key={pc.id}>
                 <Link
-                  to={`/characters/pc/${pc.name}/summary`}
+                  to={`/characters/pc/${pc.id}/summary`}
                   className="party__pc-link"
                 >
                   <div className="party__character-name">{pc.name}</div>

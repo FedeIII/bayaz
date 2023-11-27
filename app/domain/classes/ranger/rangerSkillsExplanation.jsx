@@ -56,7 +56,7 @@ export const RANGER_SKILLS_EXPLANATION = {
       {hasToPickFavoredEnemies(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/ranger/favoredEnemies`}
+            to={`/characters/pc/${pc.id}/leveling/ranger/favoredEnemies`}
             className="inventory-item__modal-button"
           >
             Escoge Enemigo Predilecto
@@ -108,7 +108,7 @@ export const RANGER_SKILLS_EXPLANATION = {
       {hasToPickFavoredTerrain(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/ranger/favoredTerrains`}
+            to={`/characters/pc/${pc.id}/leveling/ranger/favoredTerrains`}
             className="inventory-item__modal-button"
           >
             Escoge Terreno Predilecto
@@ -131,7 +131,7 @@ export const RANGER_SKILLS_EXPLANATION = {
         {!fightingStyle && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/ranger/fightingStyle`}
+              to={`/characters/pc/${pc.id}/leveling/ranger/fightingStyle`}
               className="inventory-item__modal-button"
             >
               Escoge Estilo
@@ -182,7 +182,7 @@ export const RANGER_SKILLS_EXPLANATION = {
 
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/ranger/rangerConclave`}
+          to={`/characters/pc/${pc.id}/leveling/ranger/rangerConclave`}
           className="inventory-item__modal-button"
         >
           Escoge Arquetipo
@@ -200,7 +200,7 @@ export const RANGER_SKILLS_EXPLANATION = {
         {!huntersPrey && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/ranger/huntersPrey`}
+              to={`/characters/pc/${pc.id}/leveling/ranger/huntersPrey`}
               className="inventory-item__modal-button"
             >
               Escoge Presa del Cazador
@@ -289,7 +289,7 @@ export const RANGER_SKILLS_EXPLANATION = {
         {!defensiveTactics && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/ranger/defensiveTactics`}
+              to={`/characters/pc/${pc.id}/leveling/ranger/defensiveTactics`}
               className="inventory-item__modal-button"
             >
               Escoge Táctica Defensiva
@@ -370,7 +370,7 @@ export const RANGER_SKILLS_EXPLANATION = {
         {!multiattack && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/ranger/multiattack`}
+              to={`/characters/pc/${pc.id}/leveling/ranger/multiattack`}
               className="inventory-item__modal-button"
             >
               Escoge Ataque Múltiple
@@ -427,7 +427,7 @@ export const RANGER_SKILLS_EXPLANATION = {
         {!superiorHuntersDefense && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/ranger/superiorHuntersDefense`}
+              to={`/characters/pc/${pc.id}/leveling/ranger/superiorHuntersDefense`}
               className="inventory-item__modal-button"
             >
               Escoge Defensa Superior

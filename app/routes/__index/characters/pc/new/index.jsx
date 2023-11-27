@@ -68,9 +68,9 @@ export const action = async ({ request }) => {
 
   const user = await getSessionUser(request);
 
-  await createPc(pc, user.id);
+  const newPc = await createPc(pc, user.id);
 
-  return redirect(`${name}/stats`);
+  return redirect(`${newPc.id}/stats`);
 };
 
 function getFirstSubrace(race) {

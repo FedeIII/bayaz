@@ -102,7 +102,7 @@ export const BARD_SKILLS_EXPLANATION = {
 
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/bard/bardCollege`}
+          to={`/characters/pc/${pc.id}/leveling/bard/bardCollege`}
           className="inventory-item__modal-button"
         >
           Escoge Colegio de Bardo
@@ -124,7 +124,7 @@ export const BARD_SKILLS_EXPLANATION = {
         {!loreCollegeProficiencies.length && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/bard/loreBonusProficiencies`}
+              to={`/characters/pc/${pc.id}/leveling/bard/loreBonusProficiencies`}
               className="inventory-item__modal-button"
             >
               Escoge habilidades
@@ -196,7 +196,7 @@ export const BARD_SKILLS_EXPLANATION = {
       {hasToSelectExpertSkills(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/bard/expertSkills`}
+            to={`/characters/pc/${pc.id}/leveling/bard/expertSkills`}
             className="inventory-item__modal-button"
           >
             Escoge habilidades
@@ -248,7 +248,7 @@ export const BARD_SKILLS_EXPLANATION = {
         {!loreSpells.length && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/bard/loreSpells`}
+              to={`/characters/pc/${pc.id}/leveling/bard/loreSpells`}
               className="inventory-item__modal-button"
             >
               Escoge Conjuros
@@ -303,7 +303,7 @@ export const BARD_SKILLS_EXPLANATION = {
         {hasToLearnMagicalSecretsSpells(pc) && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/bard/magicalSecrets`}
+              to={`/characters/pc/${pc.id}/leveling/bard/magicalSecrets`}
               className="inventory-item__modal-button"
             >
               Escoge Conjuros

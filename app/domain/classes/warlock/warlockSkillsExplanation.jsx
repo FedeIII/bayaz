@@ -85,7 +85,7 @@ export const WARLOCK_SKILLS_EXPLANATION = {
         {hasToSelectInvocations(pc) && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/warlock/invocations`}
+              to={`/characters/pc/${pc.id}/leveling/warlock/invocations`}
               className="inventory-item__modal-button"
             >
               Escoge Invocaciones
@@ -121,7 +121,7 @@ export const WARLOCK_SKILLS_EXPLANATION = {
         {!boon && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/warlock/pactBoon`}
+              to={`/characters/pc/${pc.id}/leveling/warlock/pactBoon`}
               className="inventory-item__modal-button"
             >
               Escoge Don del Pacto
@@ -196,7 +196,7 @@ export const WARLOCK_SKILLS_EXPLANATION = {
             {hasToLearnTomeSpells(pc) && (
               <div className="inventory-item__modal-buttons">
                 <Link
-                  to={`/characters/pc/${pc.name}/leveling/warlock/tomeSpells`}
+                  to={`/characters/pc/${pc.id}/leveling/warlock/tomeSpells`}
                   className="inventory-item__modal-button"
                 >
                   Escoge Trucos
@@ -322,7 +322,7 @@ export const WARLOCK_SKILLS_EXPLANATION = {
         {hasToLearnArcanum(pc) && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/warlock/arcanum`}
+              to={`/characters/pc/${pc.id}/leveling/warlock/arcanum`}
               className="inventory-item__modal-button"
             >
               Elige Conjuro
@@ -524,7 +524,7 @@ export function getInvocationExplanation(invocationName, invocationTitle, pc) {
           {hasToLearnTomeRituals(pc) && (
             <div className="inventory-item__modal-buttons">
               <Link
-                to={`/characters/pc/${pc.name}/leveling/warlock/tomeRituals`}
+                to={`/characters/pc/${pc.id}/leveling/warlock/tomeRituals`}
                 className="inventory-item__modal-button"
               >
                 Escoge Rituales

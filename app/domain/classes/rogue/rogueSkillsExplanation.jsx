@@ -48,7 +48,7 @@ export const ROGUE_SKILLS_EXPLANATION = {
         </p>
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/rogue/roguishArchetype`}
+            to={`/characters/pc/${pc.id}/leveling/rogue/roguishArchetype`}
             className="inventory-item__modal-button"
           >
             Escoge Arquetipo
@@ -68,7 +68,7 @@ export const ROGUE_SKILLS_EXPLANATION = {
       {hasToLearnArcaneTricksterSpell(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/rogue/spellcasting`}
+            to={`/characters/pc/${pc.id}/leveling/rogue/spellcasting`}
             className="inventory-item__modal-button"
           >
             Escoge Nuevo Conjuro

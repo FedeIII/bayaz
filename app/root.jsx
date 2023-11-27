@@ -67,8 +67,8 @@ export default function App() {
   const [menuTitle, setMenuTitle] = useState('Bayaz');
   const [partyIdState, setPartyIdState, deletePartyIdState] =
     useStateValue('partyId');
-  const [pcNamesState, setPcNamesState, deletePcNamesState] =
-    useStateValue('pcNames');
+  const [pcIdsState, setPcIdsState, deletePcIdsState] =
+    useStateValue('pcIds');
   const [encounterIdState, setEncounterIdState, deleteEncounterIdState] =
     useStateValue('encounterId');
   const [monstersState, setMonstersState, deleteMonstersState] =
@@ -98,9 +98,9 @@ export default function App() {
                 partyIdState,
                 setPartyIdState,
                 deletePartyIdState,
-                pcNamesState,
-                setPcNamesState,
-                deletePcNamesState,
+                pcIdsState,
+                setPcIdsState,
+                deletePcIdsState,
               }}
             >
               <MonstersContext.Provider

@@ -164,7 +164,7 @@ export const MONK_SKILLS_EXPLANATION = {
       </p>
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/monk/monasticTradition`}
+          to={`/characters/pc/${pc.id}/leveling/monk/monasticTradition`}
           className="inventory-item__modal-button"
         >
           Escoge Tradición
@@ -232,7 +232,7 @@ export const MONK_SKILLS_EXPLANATION = {
       {hasToLearnElementalDiscipline(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/monk/elementalDisciplines`}
+            to={`/characters/pc/${pc.id}/leveling/monk/elementalDisciplines`}
             className="inventory-item__modal-button"
           >
             Escoge Disciplinas Elementales

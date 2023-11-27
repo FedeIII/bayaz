@@ -19,7 +19,7 @@ import { getItem, isAmmo, isArmor, isWeapon } from './equipment/equipment';
 
 export async function setPcStats(pcParams) {
   const {
-    name,
+    id,
     extraPoints,
     selectedExtraPoints,
     stats: paramStats,
@@ -68,21 +68,21 @@ export async function setPcStats(pcParams) {
   );
 
   const updatedPc = await updatePc({
-    name,
+    id,
     stats,
     extraStats,
     halfElf: { extraStats: halfElfExtraStats },
   });
 
   await updatePc({
-    name,
+    id,
     totalHitPoints: getInitialHitPoints(updatedPc),
     hitPoints: getInitialHitPoints(updatedPc),
   });
 }
 
-export async function spendHitDie(pcName, diceAmount, dieValue) {
-  let pc = await getPc(pcName);
+export async function spendHitDie(id, diceAmount, dieValue) {
+  let pc = await getPc(id);
   const { remainingHitDice, pClass } = pc;
 
   if (remainingHitDice === 0) {
@@ -96,16 +96,16 @@ export async function spendHitDie(pcName, diceAmount, dieValue) {
   dieValue += diceAmount * getStatMod(getStat(pc, 'con'));
 
   pc = await updatePc({
-    name: pcName,
+    id,
     remainingHitDice: remainingHitDice - diceAmount,
   });
-  pc = await healPc(pcName, dieValue);
+  pc = await healPc(id, dieValue);
 
   return pc;
 }
 
-export async function longRest(pcName) {
-  let pc = await getPc(pcName);
+export async function longRest(id) {
+  let pc = await getPc(id);
   const { remainingHitDice, hitDice, magic } = pc;
 
   let newRemainingHitDice =
@@ -114,17 +114,17 @@ export async function longRest(pcName) {
     newRemainingHitDice > hitDice ? hitDice : newRemainingHitDice;
 
   pc = await updatePc({
-    name: pcName,
+    id,
     remainingHitDice: newRemainingHitDice,
     magic: { ...magic, spentSpellSlots: Array(10).fill(0) },
   });
-  pc = await healPc(pcName, Infinity);
+  pc = await healPc(id, Infinity);
 
   return pc;
 }
 
-export async function spendSpellSlot(pcName, spellSlotLevel) {
-  let pc = await getPc(pcName);
+export async function spendSpellSlot(id, spellSlotLevel) {
+  let pc = await getPc(id);
   const { magic } = pc;
   const spellSlots = getSpellSlots(pc);
 
@@ -132,7 +132,7 @@ export async function spendSpellSlot(pcName, spellSlotLevel) {
     const newSpentSpellSlots = magic.spentSpellSlots.slice();
     newSpentSpellSlots[spellSlotLevel] += 1;
     pc = await updatePc({
-      name: pcName,
+      id,
       magic: { ...magic, spentSpellSlots: newSpentSpellSlots },
     });
   }
@@ -140,23 +140,23 @@ export async function spendSpellSlot(pcName, spellSlotLevel) {
   return pc;
 }
 
-export async function resetSpellSlots(pcName, spellsLevel) {
-  let pc = await getPc(pcName);
+export async function resetSpellSlots(id, spellsLevel) {
+  let pc = await getPc(id);
   const { magic } = pc;
 
   const newSpentSpellSlots = magic.spentSpellSlots.slice();
   newSpentSpellSlots[spellsLevel] = 0;
 
   pc = await updatePc({
-    name: pcName,
+    id,
     magic: { ...magic, spentSpellSlots: newSpentSpellSlots },
   });
 
   return pc;
 }
 
-export async function damagePc(pcName, damage) {
-  let pc = await getPc(pcName);
+export async function damagePc(id, damage) {
+  let pc = await getPc(id);
   const { hitPoints, temporaryHitPoints } = pc;
 
   if (temporaryHitPoints) {
@@ -165,13 +165,13 @@ export async function damagePc(pcName, damage) {
 
   if (damage >= 0) {
     pc = await updatePc({
-      name: pcName,
+      id,
       hitPoints: hitPoints - damage,
       temporaryHitPoints: 0,
     });
   } else {
     pc = await updatePc({
-      name: pcName,
+      id,
       temporaryHitPoints: -damage,
     });
   }
@@ -179,8 +179,8 @@ export async function damagePc(pcName, damage) {
   return pc;
 }
 
-export async function addItemToTreasure(name, itemName, itemAmount) {
-  const pc = await getPc(name);
+export async function addItemToTreasure(id, itemName, itemAmount) {
+  const pc = await getPc(id);
   const item = getItem(itemName);
   const section = isAmmo(item) ? 'equipment' : 'treasure';
   const subsection = isAmmo(item)
@@ -193,7 +193,7 @@ export async function addItemToTreasure(name, itemName, itemAmount) {
 
   if (pc.items[section][subsection].find(item => item.name === itemName)) {
     return await increaseItemAmount(
-      name,
+      id,
       itemName,
       section,
       subsection,
@@ -202,5 +202,5 @@ export async function addItemToTreasure(name, itemName, itemAmount) {
   }
 
   const pItem = { name: itemName, amount: itemAmount };
-  return await addItemToSection(name, pItem, section, subsection);
+  return await addItemToSection(id, pItem, section, subsection);
 }

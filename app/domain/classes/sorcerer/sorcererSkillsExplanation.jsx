@@ -220,7 +220,7 @@ export const SORCERER_SKILLS_EXPLANATION = {
       {hasToLearnMetamagic(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/sorcerer/metamagic`}
+            to={`/characters/pc/${pc.id}/leveling/sorcerer/metamagic`}
             className="inventory-item__modal-button"
           >
             Escoge Metamagia

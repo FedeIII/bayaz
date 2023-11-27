@@ -130,7 +130,6 @@ function ItemModalContent(props) {
 function SheetEquipment(props) {
   const {
     pc,
-    pcName,
     itemRefs,
     openItemModal,
     closeItemModal,
@@ -147,7 +146,7 @@ function SheetEquipment(props) {
     submit(
       {
         action: 'equipArmor',
-        name: pcName,
+        id: pc.id,
         newArmorName,
       },
       { method: 'post' }
@@ -158,7 +157,7 @@ function SheetEquipment(props) {
     submit(
       {
         action: 'unequipArmor',
-        name: pcName,
+        id: pc.id,
         armorName,
       },
       { method: 'post' }
@@ -169,7 +168,7 @@ function SheetEquipment(props) {
     submit(
       {
         action: 'changeMoney',
-        name: pcName,
+        id: pc.id,
         coin,
         amount,
       },
@@ -181,7 +180,7 @@ function SheetEquipment(props) {
     submit(
       {
         action: 'dropAmmo',
-        name: pc.name,
+        id: pc.id,
         itemName,
       },
       { method: 'post' }
@@ -192,7 +191,7 @@ function SheetEquipment(props) {
     submit(
       {
         action: 'changeAmmoAmount',
-        name: pc.name,
+        id: pc.id,
         itemName,
         itemAmount,
       },

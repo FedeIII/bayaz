@@ -57,7 +57,7 @@ function EncounterList() {
         <h3 className="encounterList__party-label">Party</h3>{' '}
         <div className="encounterList__party-members">
           {pcs.map(pc => (
-            <span className="cards__button-card" key={pc.name}>
+            <span className="cards__button-card" key={pc.id}>
               {pc.name}
               <br />
               Nivel {pc.level}

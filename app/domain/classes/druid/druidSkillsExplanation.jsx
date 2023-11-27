@@ -134,7 +134,7 @@ export const DRUID_SKILLS_EXPLANATION = {
 
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/druid/druidCircle`}
+          to={`/characters/pc/${pc.id}/leveling/druid/druidCircle`}
           className="inventory-item__modal-button"
         >
           Escoge Círculo Druídico
@@ -153,7 +153,7 @@ export const DRUID_SKILLS_EXPLANATION = {
       {!getBonusCantrip(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/druid/bonusCantrip`}
+            to={`/characters/pc/${pc.id}/leveling/druid/bonusCantrip`}
             className="inventory-item__modal-button"
           >
             Escoge Truco Adicional
@@ -235,7 +235,7 @@ export const DRUID_SKILLS_EXPLANATION = {
       {!getDruidLandCircle(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/druid/landCircle`}
+            to={`/characters/pc/${pc.id}/leveling/druid/landCircle`}
             className="inventory-item__modal-button"
           >
             Escoge Círculo de la Tierra

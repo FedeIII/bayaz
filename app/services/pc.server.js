@@ -270,6 +270,7 @@ const notesSchema = new mongoose.Schema({
 
 const pcSchema = new mongoose.Schema({
   // BASIC ATTRS
+  id: String,
   name: String,
   race: {
     type: String,
@@ -405,8 +406,8 @@ export async function getUserPcs(userId) {
   return pcs;
 }
 
-export async function getPc(name) {
-  const pc = await Pc.findOne({ name }).exec();
+export async function getPc(id) {
+  const pc = await Pc.findOne({ id }).exec();
   return pc;
 }
 
@@ -415,6 +416,7 @@ export async function createPc(pc, userId) {
 
   const newPc = await Pc.create({
     ...pc,
+    id: uuid(),
     userId,
     size: RACES[race][subrace].size,
     speed: RACES[race][subrace].speed,
@@ -439,7 +441,7 @@ export async function createPc(pc, userId) {
 
 export async function updatePc(pcAttrs) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcAttrs.name },
+    { id: pcAttrs.id },
     { $set: pcAttrs },
     { new: true }
   ).exec();
@@ -447,13 +449,28 @@ export async function updatePc(pcAttrs) {
   return updatedPc;
 }
 
-export async function deletePc(pcName) {
-  await Pc.deleteOne({ name: pcName });
+export async function updatePcName(oldName, newName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { name: oldName },
+    { $set: { name: newName } },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
 }
 
-export async function createNotes(pcName, position) {
+export async function getPcName(id) {
+  const pc = await getPc(id);
+  return pc?.name;
+}
+
+export async function deletePc(id) {
+  await Pc.deleteOne({ id });
+}
+
+export async function createNotes(id, position) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     { $push: { notes: { id: uuid(), position, text: '' } } },
     { new: true }
   ).exec();
@@ -461,9 +478,9 @@ export async function createNotes(pcName, position) {
   return updatedPc;
 }
 
-export async function deleteNote(pcName, noteId) {
+export async function deleteNote(id, noteId) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     { $pull: { notes: { _id: noteId } } },
     { new: true }
   ).exec();
@@ -471,9 +488,9 @@ export async function deleteNote(pcName, noteId) {
   return updatedPc;
 }
 
-export async function updateNotes(pcName, noteId, text) {
+export async function updateNotes(id, noteId, text) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName, 'notes._id': noteId },
+    { id, 'notes._id': noteId },
     { $set: { 'notes.$.text': text } },
     { new: true }
   ).exec();
@@ -481,9 +498,9 @@ export async function updateNotes(pcName, noteId, text) {
   return updatedPc;
 }
 
-export async function updateNotePosition(pcName, noteId, position) {
+export async function updateNotePosition(id, noteId, position) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName, 'notes._id': noteId },
+    { id, 'notes._id': noteId },
     { $set: { 'notes.$.position': position } },
     { new: true }
   ).exec();
@@ -491,8 +508,8 @@ export async function updateNotePosition(pcName, noteId, position) {
   return updatedPc;
 }
 
-export async function healPc(pcName, healing) {
-  const pc = await getPc(pcName);
+export async function healPc(id, healing) {
+  const pc = await getPc(id);
   const maxHitPoints = getMaxHitPoints(pc);
   const { hitPoints } = pc;
 
@@ -500,13 +517,13 @@ export async function healPc(pcName, healing) {
 
   if (hitPoints + healing > maxHitPoints) {
     updatedPc = await Pc.findOneAndUpdate(
-      { name: pcName },
+      { id },
       { $set: { hitPoints: maxHitPoints } },
       { new: true }
     ).exec();
   } else {
     updatedPc = await Pc.findOneAndUpdate(
-      { name: pcName },
+      { id },
       { $inc: { hitPoints: healing } },
       { new: true }
     ).exec();
@@ -515,15 +532,15 @@ export async function healPc(pcName, healing) {
   return updatedPc;
 }
 
-export async function addXp(pcName, xp) {
+export async function addXp(id, xp) {
   let updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     { $inc: { exp: xp } },
     { new: true }
   ).exec();
 
   updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     { level: getLevelByXp(updatedPc.exp) },
     { new: true }
   ).exec();
@@ -531,9 +548,9 @@ export async function addXp(pcName, xp) {
   return updatedPc;
 }
 
-export async function updateClassAttrs(pcName, classAttrs) {
+export async function updateClassAttrs(id, classAttrs) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     {
       $set: Object.entries(classAttrs).reduce(
         (setAttrs, [classAttrName, classAttrValue]) => ({
@@ -549,9 +566,9 @@ export async function updateClassAttrs(pcName, classAttrs) {
   return updatedPc;
 }
 
-export async function updateAttrsForClass(pcName, pClass, classAttrs) {
+export async function updateAttrsForClass(id, pClass, classAttrs) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     {
       $set: Object.entries(classAttrs).reduce(
         (setAttrs, [classAttrName, classAttrValue]) => ({
@@ -567,9 +584,9 @@ export async function updateAttrsForClass(pcName, pClass, classAttrs) {
   return updatedPc;
 }
 
-export async function pushAttrsForClass(pcName, pClass, classAttrs) {
+export async function pushAttrsForClass(id, pClass, classAttrs) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     {
       $push: Object.entries(classAttrs).reduce(
         (setAttrs, [classAttrName, classAttrValue]) => ({
@@ -585,9 +602,9 @@ export async function pushAttrsForClass(pcName, pClass, classAttrs) {
   return updatedPc;
 }
 
-export async function increaseStats(pcName, statsIncrease) {
+export async function increaseStats(id, statsIncrease) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     {
       $inc: Object.entries(statsIncrease).reduce(
         (update, [statName, statIncrease]) => ({
@@ -603,9 +620,9 @@ export async function increaseStats(pcName, statsIncrease) {
   return updatedPc;
 }
 
-export async function addImprovedStatsLevel(name, level) {
+export async function addImprovedStatsLevel(id, level) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: name },
+    { id },
     { $push: { improvedStatsLevels: level } },
     { new: true, upsert: true }
   ).exec();
@@ -613,11 +630,11 @@ export async function addImprovedStatsLevel(name, level) {
   return updatedPc;
 }
 
-export async function learnSpells(pcName, toLearn) {
+export async function learnSpells(id, toLearn) {
   const hasBardLoreSpell = await Promise.all(
     toLearn.map(spellName =>
       Pc.countDocuments({
-        name: pcName,
+        id,
         'classAttrs.bard.loreSpells.name': spellName,
       })
     )
@@ -626,7 +643,7 @@ export async function learnSpells(pcName, toLearn) {
   const hasBardMagicalSecretSpell = await Promise.all(
     toLearn.map(spellName =>
       Pc.countDocuments({
-        name: pcName,
+        id,
         'classAttrs.bard.magicalSecretsSpells.name': spellName,
       })
     )
@@ -652,17 +669,17 @@ export async function learnSpells(pcName, toLearn) {
   );
 
   const updatedPc = await Promise.all([
-    learnRegularSpells(pcName, spellsByOrigin.regular),
-    learnBardLoreSpells(pcName, spellsByOrigin.bardLore),
-    learnBardMagicalSecretsSpells(pcName, spellsByOrigin.bardMagicalSecrets),
+    learnRegularSpells(id, spellsByOrigin.regular),
+    learnBardLoreSpells(id, spellsByOrigin.bardLore),
+    learnBardMagicalSecretsSpells(id, spellsByOrigin.bardMagicalSecrets),
   ]);
 
   return updatedPc;
 }
 
-export async function learnRegularSpells(pcName, toLearn) {
+export async function learnRegularSpells(id, toLearn) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     {
       $push: {
         spells: {
@@ -676,11 +693,11 @@ export async function learnRegularSpells(pcName, toLearn) {
   return updatedPc;
 }
 
-export async function forgetSpell(pcName, spellName) {
-  const pc = await getPc(pcName);
+export async function forgetSpell(id, spellName) {
+  const pc = await getPc(id);
 
   if (pc.spells.map(s => s.name).includes(spellName)) {
-    return forgetRegularSpell(pcName, spellName);
+    return forgetRegularSpell(id, spellName);
   }
 
   if (
@@ -688,7 +705,7 @@ export async function forgetSpell(pcName, spellName) {
       .map(s => s.name)
       .includes(spellName)
   ) {
-    return forgetBardLoreSpell(pcName, spellName);
+    return forgetBardLoreSpell(id, spellName);
   }
 
   if (
@@ -696,13 +713,13 @@ export async function forgetSpell(pcName, spellName) {
       .map(s => s.name)
       .includes(spellName)
   ) {
-    return forgetBardMagicalSecretsSpell(pcName, spellName);
+    return forgetBardMagicalSecretsSpell(id, spellName);
   }
 }
 
-export async function forgetRegularSpell(pcName, spellName) {
+export async function forgetRegularSpell(id, spellName) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     {
       $pull: {
         spells: { name: spellName },
@@ -715,9 +732,9 @@ export async function forgetRegularSpell(pcName, spellName) {
   return updatedPc;
 }
 
-export async function prepareSpells(pcName, toPrepare) {
+export async function prepareSpells(id, toPrepare) {
   let updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     {
       $push: {
         preparedSpells: {
@@ -731,9 +748,9 @@ export async function prepareSpells(pcName, toPrepare) {
   return updatedPc;
 }
 
-export async function learnWizardExtraSpell(pcName, spellName) {
+export async function learnWizardExtraSpell(id, spellName) {
   let updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     {
       $push: {
         'classAttrs.wizard.extraSpells': { name: spellName },
@@ -745,9 +762,9 @@ export async function learnWizardExtraSpell(pcName, spellName) {
   return updatedPc;
 }
 
-export async function learnWarlockExtraSpell(pcName, spellName) {
+export async function learnWarlockExtraSpell(id, spellName) {
   let updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     {
       $push: {
         'classAttrs.warlock.tomeRituals': { name: spellName },
@@ -759,11 +776,11 @@ export async function learnWarlockExtraSpell(pcName, spellName) {
   return updatedPc;
 }
 
-export async function learnBardLoreSpells(pcName, spells) {
+export async function learnBardLoreSpells(id, spells) {
   const hasSpell = await Promise.all(
     spells.map(spellName =>
       Pc.countDocuments({
-        name: pcName,
+        id,
         'classAttrs.bard.loreSpells.name': spellName,
       })
     )
@@ -773,7 +790,7 @@ export async function learnBardLoreSpells(pcName, spells) {
     hasSpell.map((has, i) =>
       Pc.findOneAndUpdate(
         {
-          name: pcName,
+          id,
           ...(has ? { 'classAttrs.bard.loreSpells.name': spells[i] } : {}),
         },
         has
@@ -793,11 +810,11 @@ export async function learnBardLoreSpells(pcName, spells) {
   );
 }
 
-export async function forgetBardLoreSpell(pcName, spellName) {
+export async function forgetBardLoreSpell(id, spellName) {
   await Promise.all([
     Pc.findOneAndUpdate(
       {
-        name: pcName,
+        id,
         'classAttrs.bard.loreSpells.name': spellName,
       },
       {
@@ -806,7 +823,7 @@ export async function forgetBardLoreSpell(pcName, spellName) {
       { new: true }
     ).exec(),
     Pc.findOneAndUpdate(
-      { name: pcName },
+      { id },
       {
         $pull: { preparedSpells: { name: spellName } },
       },
@@ -815,11 +832,11 @@ export async function forgetBardLoreSpell(pcName, spellName) {
   ]);
 }
 
-export async function learnBardMagicalSecretsSpells(pcName, spells) {
+export async function learnBardMagicalSecretsSpells(id, spells) {
   const hasSpell = await Promise.all(
     spells.map(spellName =>
       Pc.countDocuments({
-        name: pcName,
+        id,
         'classAttrs.bard.magicalSecretsSpells.name': spellName,
       })
     )
@@ -829,7 +846,7 @@ export async function learnBardMagicalSecretsSpells(pcName, spells) {
     hasSpell.map((has, i) =>
       Pc.findOneAndUpdate(
         {
-          name: pcName,
+          id,
           ...(has
             ? { 'classAttrs.bard.magicalSecretsSpells.name': spells[i] }
             : {}),
@@ -851,11 +868,11 @@ export async function learnBardMagicalSecretsSpells(pcName, spells) {
   );
 }
 
-export async function forgetBardMagicalSecretsSpell(pcName, spellName) {
+export async function forgetBardMagicalSecretsSpell(id, spellName) {
   await Promise.all([
     Pc.findOneAndUpdate(
       {
-        name: pcName,
+        id,
         'classAttrs.bard.magicalSecretsSpells.name': spellName,
       },
       {
@@ -864,7 +881,7 @@ export async function forgetBardMagicalSecretsSpell(pcName, spellName) {
       { new: true }
     ).exec(),
     Pc.findOneAndUpdate(
-      { name: pcName },
+      { id },
       {
         $pull: { preparedSpells: { name: spellName } },
       },
@@ -873,15 +890,15 @@ export async function forgetBardMagicalSecretsSpell(pcName, spellName) {
   ]);
 }
 
-export async function addPreparedSpell(pcName, spell) {
-  const pc = await getPc(pcName);
+export async function addPreparedSpell(id, spell) {
+  const pc = await getPc(id);
   const maxPreparedSpells = getMaxPreparedSpells(pc);
   if (pc.preparedSpells.length >= maxPreparedSpells) {
     return pc;
   }
 
   const updatedPc = await Pc.updateOne(
-    { name: pcName },
+    { id },
     {
       $push: {
         preparedSpells: spell,
@@ -892,15 +909,15 @@ export async function addPreparedSpell(pcName, spell) {
   return updatedPc;
 }
 
-export async function deletePreparedSpell(pcName, spell) {
-  const pc = await getPc(pcName);
+export async function deletePreparedSpell(id, spell) {
+  const pc = await getPc(id);
   const extraPreparedSpells = getExtraPreparedSpells(pc);
   if (extraPreparedSpells.map(s => s.name).includes(spell.name)) {
     return pc;
   }
 
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: pcName },
+    { id },
     { $pull: { preparedSpells: spell } },
     { new: true }
   ).exec();
@@ -908,12 +925,8 @@ export async function deletePreparedSpell(pcName, spell) {
   return updatedPc;
 }
 
-export async function equipWeapons(
-  name,
-  weaponToUnequipName,
-  weaponToEquipName
-) {
-  const pc = await getPc(name);
+export async function equipWeapons(id, weaponToUnequipName, weaponToEquipName) {
+  const pc = await getPc(id);
   let updatedPc = null;
 
   const {
@@ -931,13 +944,13 @@ export async function equipWeapons(
 
   if (weaponToEquipInTreasure.amount > 1) {
     updatedPc = await Pc.findOneAndUpdate(
-      { name, 'items.treasure.weapons.name': weaponToEquipName },
+      { id, 'items.treasure.weapons.name': weaponToEquipName },
       { $inc: { 'items.treasure.weapons.$.amount': -1 } },
       { new: true }
     );
   } else {
     updatedPc = await Pc.findOneAndUpdate(
-      { name },
+      { id },
       { $pull: { 'items.treasure.weapons': { name: weaponToEquipName } } },
       { new: true }
     );
@@ -945,20 +958,20 @@ export async function equipWeapons(
 
   if (weaponToUnequipInTreasure) {
     updatedPc = await Pc.findOneAndUpdate(
-      { name, 'items.treasure.weapons.name': weaponToUnequipName },
+      { id, 'items.treasure.weapons.name': weaponToUnequipName },
       { $inc: { 'items.treasure.weapons.$.amount': 1 } },
       { new: true }
     );
   } else {
     updatedPc = await Pc.findOneAndUpdate(
-      { name },
+      { id },
       { $push: { 'items.treasure.weapons': getItem(weaponToUnequipName) } },
       { new: true }
     );
   }
 
   updatedPc = await Pc.findOneAndUpdate(
-    { name, 'items.weapons.name': weaponToUnequipName },
+    { id, 'items.weapons.name': weaponToUnequipName },
     { $set: { 'items.weapons.$': getItem(weaponToEquipName) } },
     { new: true }
   );
@@ -966,9 +979,9 @@ export async function equipWeapons(
   return updatedPc;
 }
 
-export async function unequipWeapon(name, weaponName, weaponPos) {
+export async function unequipWeapon(id, weaponName) {
   let pc = await Pc.findOneAndUpdate(
-    { name, 'items.weapons.name': weaponName },
+    { id, 'items.weapons.name': weaponName },
     {
       $unset: { 'items.weapons.$': '' },
     },
@@ -976,7 +989,7 @@ export async function unequipWeapon(name, weaponName, weaponPos) {
   );
 
   pc = await Pc.findOneAndUpdate(
-    { name, 'items.weapons': null },
+    { id, 'items.weapons': null },
     {
       $pull: { 'items.weapons': null },
       $push: { 'items.treasure.weapons': { name: weaponName } },
@@ -987,8 +1000,8 @@ export async function unequipWeapon(name, weaponName, weaponPos) {
   return pc;
 }
 
-export async function equipWeaponInSlot(name, weaponToEquipName, slot) {
-  const pc = await getPc(name);
+export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
+  const pc = await getPc(id);
   const {
     items: {
       weapons,
@@ -1006,20 +1019,20 @@ export async function equipWeaponInSlot(name, weaponToEquipName, slot) {
   );
 
   updatedPc = await Pc.findOneAndUpdate(
-    { name },
+    { id },
     { $set: { [`items.weapons.${slot}`]: getItem(weaponToEquipName) } },
     { new: true }
   );
 
   if (weaponToEquipInTreasure.amount > 1) {
     updatedPc = await Pc.findOneAndUpdate(
-      { name, 'items.treasure.weapons.name': weaponToEquipName },
+      { id, 'items.treasure.weapons.name': weaponToEquipName },
       { $inc: { 'items.treasure.weapons.$.amount': -1 } },
       { new: true }
     );
   } else {
     updatedPc = await Pc.findOneAndUpdate(
-      { name },
+      { id },
       { $pull: { 'items.treasure.weapons': { name: weaponToEquipName } } },
       { new: true }
     );
@@ -1028,13 +1041,13 @@ export async function equipWeaponInSlot(name, weaponToEquipName, slot) {
   if (weaponToUnequip) {
     if (weaponToUnequipInTreasure) {
       updatedPc = await Pc.findOneAndUpdate(
-        { name, 'items.treasure.weapons.name': weaponToUnequipName },
+        { id, 'items.treasure.weapons.name': weaponToUnequipName },
         { $inc: { 'items.treasure.weapons.$.amount': 1 } },
         { new: true }
       );
     } else {
       updatedPc = await Pc.findOneAndUpdate(
-        { name },
+        { id },
         { $push: { 'items.treasure.weapons': getItem(weaponToUnequipName) } },
         { new: true }
       );
@@ -1044,9 +1057,9 @@ export async function equipWeaponInSlot(name, weaponToEquipName, slot) {
   return updatedPc;
 }
 
-export async function unequipArmor(name, armorName) {
+export async function unequipArmor(id, armorName) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name },
+    { id },
     {
       $unset: { 'items.equipment.armor': '' },
       $push: { 'items.treasure.armors': { name: armorName } },
@@ -1057,9 +1070,9 @@ export async function unequipArmor(name, armorName) {
   return updatedPc;
 }
 
-export async function dropTreasureWeapon(name, weaponName) {
+export async function dropTreasureWeapon(id, weaponName) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name },
+    { id },
     { $pull: { 'items.treasure.weapons': { name: weaponName } } },
     { new: true }
   );
@@ -1067,9 +1080,9 @@ export async function dropTreasureWeapon(name, weaponName) {
   return updatedPc;
 }
 
-export async function dropTreasureArmor(name, armorName) {
+export async function dropTreasureArmor(id, armorName) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name },
+    { id },
     { $pull: { 'items.treasure.armors': { name: armorName } } },
     { new: true }
   );
@@ -1077,9 +1090,9 @@ export async function dropTreasureArmor(name, armorName) {
   return updatedPc;
 }
 
-export async function dropTreasureItem(name, itemName) {
+export async function dropTreasureItem(id, itemName) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name },
+    { id },
     { $pull: { 'items.treasure.others': { name: itemName } } },
     { new: true }
   );
@@ -1087,9 +1100,9 @@ export async function dropTreasureItem(name, itemName) {
   return updatedPc;
 }
 
-export async function changeTreasureItemAmount(name, itemName, itemAmount) {
+export async function changeTreasureItemAmount(id, itemName, itemAmount) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name, 'items.treasure.others.name': itemName },
+    { id, 'items.treasure.others.name': itemName },
     { $set: { 'items.treasure.others.$.amount': parseInt(itemAmount, 10) } },
     { new: true }
   );
@@ -1097,9 +1110,9 @@ export async function changeTreasureItemAmount(name, itemName, itemAmount) {
   return updatedPc;
 }
 
-export async function dropEquipmentAmmo(name, itemName) {
+export async function dropEquipmentAmmo(id, itemName) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name },
+    { id },
     { $pull: { 'items.equipment.ammunition': { name: itemName } } },
     { new: true }
   );
@@ -1107,9 +1120,9 @@ export async function dropEquipmentAmmo(name, itemName) {
   return updatedPc;
 }
 
-export async function changeEquipmentAmmoAmount(name, itemName, itemAmount) {
+export async function changeEquipmentAmmoAmount(id, itemName, itemAmount) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name, 'items.equipment.ammunition.name': itemName },
+    { id, 'items.equipment.ammunition.name': itemName },
     {
       $set: { 'items.equipment.ammunition.$.amount': parseInt(itemAmount, 10) },
     },
@@ -1119,8 +1132,8 @@ export async function changeEquipmentAmmoAmount(name, itemName, itemAmount) {
   return updatedPc;
 }
 
-export async function reorderWeapons(name, weaponName, destinationSlot) {
-  const pc = await getPc(name);
+export async function reorderWeapons(id, weaponName, destinationSlot) {
+  const pc = await getPc(id);
   const weapons = pc.items.weapons.slice();
 
   const originSlot = weapons.findIndex(weapon => weapon?.name === weaponName);
@@ -1131,7 +1144,7 @@ export async function reorderWeapons(name, weaponName, destinationSlot) {
   weapons[destinationSlot] = selectedWeapon;
 
   return updatePc({
-    name,
+    id,
     items: {
       ...pc.items,
       weapons,
@@ -1139,15 +1152,15 @@ export async function reorderWeapons(name, weaponName, destinationSlot) {
   });
 }
 
-export async function switchArmor(name, armorName) {
-  const pc = await getPc(name);
+export async function switchArmor(id, armorName) {
+  const pc = await getPc(id);
 
   const { armor: pArmor } = pc.items.equipment;
 
   let updatedPc;
   if (pArmor) {
     updatedPc = await Pc.findOneAndUpdate(
-      { name },
+      { id },
       {
         $set: { 'items.equipment.armor': { name: armorName } },
         $pull: { 'items.treasure.armors': { name: armorName } },
@@ -1155,7 +1168,7 @@ export async function switchArmor(name, armorName) {
       { new: true }
     );
     updatedPc = await Pc.findOneAndUpdate(
-      { name },
+      { id },
       {
         $push: { 'items.treasure.armors': { name: pArmor.name } },
       },
@@ -1163,7 +1176,7 @@ export async function switchArmor(name, armorName) {
     );
   } else {
     updatedPc = await Pc.findOneAndUpdate(
-      { name },
+      { id },
       {
         $set: { 'items.equipment.armor': { name: armorName } },
         $pull: { 'items.treasure.armors': { name: armorName } },
@@ -1175,9 +1188,9 @@ export async function switchArmor(name, armorName) {
   return updatedPc;
 }
 
-export async function addItemToSection(name, item, section, subsection) {
+export async function addItemToSection(id, item, section, subsection) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name },
+    { id },
     { $push: { [`items.${section}.${subsection}`]: item } },
     { new: true }
   );
@@ -1186,14 +1199,14 @@ export async function addItemToSection(name, item, section, subsection) {
 }
 
 export async function increaseItemAmount(
-  name,
+  id,
   itemName,
   section,
   subsection,
   amount
 ) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name, [`items.${section}.${subsection}.name`]: itemName },
+    { id, [`items.${section}.${subsection}.name`]: itemName },
     { $inc: { [`items.${section}.${subsection}.$.amount`]: amount } },
     { new: true }
   );
@@ -1201,9 +1214,9 @@ export async function increaseItemAmount(
   return updatedPc;
 }
 
-export async function addLevelHitPoints(name, extraHitPoints) {
+export async function addLevelHitPoints(id, extraHitPoints) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: name },
+    { id },
     {
       $push: { totalHitPoints: extraHitPoints },
       $inc: { hitPoints: extraHitPoints, hitDice: 1, remainingHitDice: 1 },

@@ -91,7 +91,7 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
 
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/barbarian/primalPath`}
+          to={`/characters/pc/${pc.id}/leveling/barbarian/primalPath`}
           className="inventory-item__modal-button"
         >
           Escoge Senda Primaria
@@ -136,7 +136,7 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
         {!totemType && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/barbarian/totemSpirit`}
+              to={`/characters/pc/${pc.id}/leveling/barbarian/totemSpirit`}
               className="inventory-item__modal-button"
             >
               Escoge Tótem
@@ -214,7 +214,7 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
         {!totemType && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/barbarian/aspectOfTheBeast`}
+              to={`/characters/pc/${pc.id}/leveling/barbarian/aspectOfTheBeast`}
               className="inventory-item__modal-button"
             >
               Escoge Tótem
@@ -363,7 +363,7 @@ export const BARBARIAN_SKILLS_EXPLANATION = {
         {!totemType && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/barbarian/totemicAttunement`}
+              to={`/characters/pc/${pc.id}/leveling/barbarian/totemicAttunement`}
               className="inventory-item__modal-button"
             >
               Escoge Tótem

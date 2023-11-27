@@ -38,7 +38,7 @@ export const WIZARD_SKILLS_EXPLANATION = {
       </p>
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/wizard/arcaneTradition`}
+          to={`/characters/pc/${pc.id}/leveling/wizard/arcaneTradition`}
           className="inventory-item__modal-button"
         >
           Escoge Escuela
@@ -175,7 +175,7 @@ export const WIZARD_SKILLS_EXPLANATION = {
       {!getImprovedMinorIllusionSpell(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/wizard/improvedMinorIllusion`}
+            to={`/characters/pc/${pc.id}/leveling/wizard/improvedMinorIllusion`}
             className="inventory-item__modal-button"
           >
             Escoge Truco de Ilusión

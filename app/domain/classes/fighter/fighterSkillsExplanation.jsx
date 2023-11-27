@@ -118,7 +118,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
       </p>
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/fighter/martialArchetype`}
+          to={`/characters/pc/${pc.id}/leveling/fighter/martialArchetype`}
           className="inventory-item__modal-button"
         >
           Escoge Arquetipo Marcial
@@ -159,7 +159,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
       {hasToLearnKnightSpell(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/fighter/knightSpells`}
+            to={`/characters/pc/${pc.id}/leveling/fighter/knightSpells`}
             className="inventory-item__modal-button"
           >
             Escoge Nuevo Conjuro
@@ -239,7 +239,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
         {hasToLearnCombatSuperiorityManeuvers(pc) && (
           <div className="inventory-item__modal-buttons">
             <Link
-              to={`/characters/pc/${pc.name}/leveling/fighter/combatSuperiority`}
+              to={`/characters/pc/${pc.id}/leveling/fighter/combatSuperiority`}
               className="inventory-item__modal-button"
             >
               Escoge Maniobras
@@ -270,7 +270,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
       {!getStudentOfWar(pc) && (
         <div className="inventory-item__modal-buttons">
           <Link
-            to={`/characters/pc/${pc.name}/leveling/fighter/studentOfWar`}
+            to={`/characters/pc/${pc.id}/leveling/fighter/studentOfWar`}
             className="inventory-item__modal-button"
           >
             Escoge Herramientas de Artesano
@@ -389,7 +389,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
 
       <div className="inventory-item__modal-buttons">
         <Link
-          to={`/characters/pc/${pc.name}/leveling/fighter/extraFightingStyle`}
+          to={`/characters/pc/${pc.id}/leveling/fighter/extraFightingStyle`}
           className="inventory-item__modal-button"
         >
           Escoge Estilo de Combate Adicional

@@ -87,7 +87,7 @@ function Sidebar(props) {
             <span className="encounter__filter-label">Party:</span>{' '}
             <div className="encounter__filter-options">
               {pcs.map(pc => (
-                <span className="cards__button-card" key={pc.name}>
+                <span className="cards__button-card" key={pc.id}>
                   {pc.name}
                   <br />
                   Nivel {pc.level}
