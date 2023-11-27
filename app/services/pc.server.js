@@ -449,9 +449,9 @@ export async function updatePc(pcAttrs) {
   return updatedPc;
 }
 
-export async function updatePcName(oldName, newName) {
+export async function updatePcName(id, newName) {
   const updatedPc = await Pc.findOneAndUpdate(
-    { name: oldName },
+    { id },
     { $set: { name: newName } },
     { new: true }
   ).exec();

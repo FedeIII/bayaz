@@ -351,6 +351,7 @@ function PcSummary() {
     submit(
       {
         action: 'updateName',
+        id,
         pcName: e.target.value,
       },
       { method: 'post' }
