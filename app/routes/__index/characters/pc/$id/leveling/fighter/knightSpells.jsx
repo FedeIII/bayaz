@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
@@ -104,9 +104,9 @@ function ArcaneKnightSpells() {
 
   const [skillRefs, setSkillRefs] = useState({
     // Known Spells
-    known: knightSpells.map(() => useRef()),
+    known: useRef(knightSpells.map(createRef)),
     // Known Spells
-    ...spellsByLevel.map(spells => spells.map(() => useRef())),
+    ...spellsByLevel.map(spells => useRef(spells.map(createRef))),
   });
 
   const [
@@ -177,7 +177,7 @@ function ArcaneKnightSpells() {
                         onChange={changeSpellToForget(spellName)}
                       />
                       <SkillItem
-                        ref={skillRefs.known[i]}
+                        ref={skillRefs.known.current[i]}
                         pc={pc}
                         traitName={spellName}
                         trait="spell"
@@ -236,7 +236,8 @@ function ArcaneKnightSpells() {
                               onChange={changeSelectedSpells(spell.name)}
                             />
                             <SkillItem
-                              ref={skillRefs[spellLevel - 1][spellIndex]}
+                              ref={skillRefs[spellLevel - 1].current[spellIndex]}
+                              pc={pc}
                               traitName={spell.name}
                               trait="spell"
                               openModal={openSkillModal(

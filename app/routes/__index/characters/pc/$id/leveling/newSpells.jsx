@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import {
@@ -292,21 +292,23 @@ function NewSpells() {
   // Knight Spells / Arcane Trickster Spells
 
   const [skillRefs, setSkillRefs] = useState({
-    cantrips: allCantrips.map(() => useRef()),
+    cantrips: useRef(allCantrips.map(createRef)),
     // Known Spells
-    known: knownSpells.map(() => useRef()),
+    known: useRef(knownSpells.map(createRef)),
     // Known Spells
-    ...spellsByLevel.map(spells => spells.map(() => useRef())),
+    ...spellsByLevel.map(spells => useRef(spells.map(createRef))),
     // Knight Spells / Arcane Trickster Spells
     ...wizardSpellsByLevel.reduce(
       (levelRefs, spells, levelIndex) => ({
         ...levelRefs,
-        ['w' + levelIndex]: spells.reduce(
-          (spellRefs, spell, spellIndex) => ({
-            ...spellRefs,
-            ['w' + spellIndex]: useRef(),
-          }),
-          {}
+        ['w' + levelIndex]: useRef(
+          spells.reduce(
+            (spellRefs, spell, spellIndex) => ({
+              ...spellRefs,
+              ['w' + spellIndex]: createRef(),
+            }),
+            {}
+          )
         ),
       }),
       {}
@@ -389,7 +391,8 @@ function NewSpells() {
                         }
                       />
                       <SkillItem
-                        ref={skillRefs.cantrips[cantripIndex]}
+                        ref={skillRefs.cantrips.current[cantripIndex]}
+                        pc={pc}
                         traitName={spell.name}
                         trait="spell"
                         openModal={openSkillModal('cantrips', cantripIndex)}
@@ -451,7 +454,8 @@ function NewSpells() {
                             }
                           />
                           <SkillItem
-                            ref={skillRefs.known[spellIndex]}
+                            ref={skillRefs.known.current[spellIndex]}
+                            pc={pc}
                             traitName={spell.name}
                             trait="spell"
                             openModal={openSkillModal('known', spellIndex)}
@@ -537,7 +541,8 @@ function NewSpells() {
                                   />
                                 )}
                                 <SkillItem
-                                  ref={skillRefs[i][spellIndex]}
+                                  ref={skillRefs[i].current[spellIndex]}
+                                  pc={pc}
                                   traitName={spell.name}
                                   trait="spell"
                                   openModal={openSkillModal(i, spellIndex)}
@@ -663,7 +668,10 @@ function NewSpells() {
                                   />
                                 )}
                                 <SkillItem
-                                  ref={skillRefs['w' + i]['w' + spellIndex]}
+                                  ref={
+                                    skillRefs['w' + i].current['w' + spellIndex]
+                                  }
+                                  pc={pc}
                                   traitName={spell.name}
                                   trait="spell"
                                   openModal={openSkillModal(

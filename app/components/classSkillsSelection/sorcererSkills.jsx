@@ -12,10 +12,10 @@ import {
   getSorcererTotalSpells,
   SORCERER_SPELLS,
 } from '~/domain/spells/sorcerer';
-import { translateSpell } from '~/domain/spells/spells';
+import { SkillItem } from '../modal/skillItem';
 
 function SorcererSkills(props) {
-  const { pc, setSkillsNamespace } = props;
+  const { pc, setSkillsNamespace, skillRefs, openSkillModal } = props;
   const initSorcererOrigin = getSorcererOrigin(pc) || 'draconic-bloodline';
 
   const [sorcererOrigin, setSorcererOrigin] = useState(initSorcererOrigin);
@@ -104,7 +104,14 @@ function SorcererSkills(props) {
                       })
                     }
                   />
-                  {translateSpell(spell.name)}
+                  <SkillItem
+                    ref={skillRefs[spell.level].current[spell.name]}
+                    pc={pc}
+                    traitName={spell.name}
+                    trait="spell"
+                    openOnRightClick
+                    openModal={openSkillModal(spell.level, spell.name)}
+                  />
                 </label>
               ))}
           </div>
@@ -137,7 +144,14 @@ function SorcererSkills(props) {
                       })
                     }
                   />
-                  {translateSpell(spell.name)}
+                  <SkillItem
+                    ref={skillRefs[spell.level].current[spell.name]}
+                    pc={pc}
+                    traitName={spell.name}
+                    trait="spell"
+                    openOnRightClick
+                    openModal={openSkillModal(spell.level, spell.name)}
+                  />
                 </label>
               ))}
           </div>

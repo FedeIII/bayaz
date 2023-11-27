@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import {
@@ -50,10 +50,7 @@ export const action = async ({ request }) => {
   const id = formData.get('id');
   const learn = formData.getAll('learn[]');
 
-  await Promise.all([
-    learnBardLoreSpells(id, learn),
-    prepareSpells(id, learn),
-  ]);
+  await Promise.all([learnBardLoreSpells(id, learn), prepareSpells(id, learn)]);
 
   return redirect(`/characters/pc/${id}/summary`);
 };
@@ -90,9 +87,9 @@ function LoreSpells() {
 
   const [skillRefs, setSkillRefs] = useState({
     // Known Spells
-    known: knownSpells.map(() => useRef()),
+    known: useRef(knownSpells.map(createRef)),
     // Known Spells
-    ...spellsByLevel.map(spells => spells.map(() => useRef())),
+    ...spellsByLevel.map(spells => useRef(spells.map(createRef))),
   });
 
   const [
@@ -110,7 +107,7 @@ function LoreSpells() {
 
   // Known spells
   const totalSpellsNumber = getTotalSpells(pc);
-  const [cantripSlots, ...spellSlots] = getSpellSlots(pc);
+  const [_cantripSlots, ...spellSlots] = getSpellSlots(pc);
   const kwnonSpellLevels = [
     ...new Set(knownSpells.filter(s => s.level > 0).map(s => s.level)),
   ];
@@ -156,7 +153,8 @@ function LoreSpells() {
                         className="checkbox__toRemove"
                       >
                         <SkillItem
-                          ref={skillRefs.known[spellIndex]}
+                          ref={skillRefs.known.current[spellIndex]}
+                          pc={pc}
                           traitName={spell.name}
                           trait="spell"
                           openModal={openSkillModal('known', spellIndex)}
@@ -252,7 +250,7 @@ function LoreSpells() {
                           }
                         />
                         <SkillItem
-                          ref={skillRefs[i][spellIndex]}
+                          ref={skillRefs[i].current[spellIndex]}
                           traitName={spell.name}
                           trait="spell"
                           openModal={openSkillModal(i, spellIndex)}

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import {
@@ -88,9 +88,9 @@ function MagicalSecretsSpells() {
 
   const [skillRefs, setSkillRefs] = useState({
     // Known Spells
-    known: knownSpells.map(() => useRef()),
+    known: useRef(knownSpells.map(createRef)),
     // Known Spells
-    ...spellsByLevel.map(spells => spells.map(() => useRef())),
+    ...spellsByLevel.map(spells => useRef(spells.map(createRef))),
   });
 
   const [
@@ -154,7 +154,8 @@ function MagicalSecretsSpells() {
                         className="checkbox__toRemove"
                       >
                         <SkillItem
-                          ref={skillRefs.known[spellIndex]}
+                          ref={skillRefs.known.current[spellIndex]}
+                          pc={pc}
                           traitName={spell.name}
                           trait="spell"
                           openModal={openSkillModal('known', spellIndex)}
@@ -251,7 +252,8 @@ function MagicalSecretsSpells() {
                           }
                         />
                         <SkillItem
-                          ref={skillRefs[i][spellIndex]}
+                          ref={skillRefs[i].current[spellIndex]}
+                          pc={pc}
                           traitName={spell.name}
                           trait="spell"
                           openModal={openSkillModal(i, spellIndex)}

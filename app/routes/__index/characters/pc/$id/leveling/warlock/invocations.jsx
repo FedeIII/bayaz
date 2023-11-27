@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
@@ -88,10 +88,10 @@ function EldritchInvocations() {
 
   const [skillRefs, setSkillRefs] = useState({
     // Known Invocations
-    known: invocations.map(() => useRef()),
+    known: useRef(invocations.map(createRef)),
     // Known Invocations
     ...Object.keys(INVOCATIONS).reduce(
-      (refs, invName) => ({ ...refs, [invName]: [useRef()] }),
+      (refs, invName) => ({ ...refs, [invName]: useRef([createRef()]) }),
       {}
     ),
   });
@@ -162,7 +162,7 @@ function EldritchInvocations() {
                     onChange={changeInvocationToForget(invocationName)}
                   />
                   <SkillItem
-                    ref={skillRefs.known[i]}
+                    ref={skillRefs.known.current[i]}
                     pc={pc}
                     traitName={invocationName}
                     trait="invocation"
@@ -209,7 +209,8 @@ function EldritchInvocations() {
                           onChange={changeSelectedInvocations(invocationName)}
                         />
                         <SkillItem
-                          ref={skillRefs[invocationName][0]}
+                          ref={skillRefs[invocationName].current[0]}
+                          pc={pc}
                           traitName={invocationName}
                           trait="invocation"
                           openModal={openSkillModal(invocationName)}

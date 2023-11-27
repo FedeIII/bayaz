@@ -7,12 +7,12 @@ import {
   getBardTotalSpells,
 } from '~/domain/spells/bard';
 import { t } from '~/domain/translations';
-import { translateSpell } from '~/domain/spells/spells';
+import { SkillItem } from '../modal/skillItem';
 
 const MAX_INSTRUMENTS = 3;
 
 function BardSkills(props) {
-  const { pc, setSkillsNamespace } = props;
+  const { pc, setSkillsNamespace, skillRefs, openSkillModal } = props;
 
   const [selectedInstruments, setSelectedInstruments] = useState([]);
   const [selectedSpells0, setSelectedSpells0] = useState([]);
@@ -98,7 +98,14 @@ function BardSkills(props) {
                       })
                     }
                   />
-                  {translateSpell(spell.name)}
+                  <SkillItem
+                    ref={skillRefs[spell.level].current[spell.name]}
+                    pc={pc}
+                    traitName={spell.name}
+                    trait="spell"
+                    openOnRightClick
+                    openModal={openSkillModal(spell.level, spell.name)}
+                  />
                 </label>
               ))}
           </div>
@@ -131,7 +138,14 @@ function BardSkills(props) {
                       })
                     }
                   />
-                  {translateSpell(spell.name)}
+                  <SkillItem
+                    ref={skillRefs[spell.level].current[spell.name]}
+                    pc={pc}
+                    traitName={spell.name}
+                    trait="spell"
+                    openOnRightClick
+                    openModal={openSkillModal(spell.level, spell.name)}
+                  />
                 </label>
               ))}
           </div>

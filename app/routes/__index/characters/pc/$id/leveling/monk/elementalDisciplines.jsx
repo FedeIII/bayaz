@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
@@ -89,9 +89,9 @@ function ElementalDisciplines() {
 
   const [skillRefs, setSkillRefs] = useState({
     // Known Disciplines
-    known: disciplines.map(() => useRef()),
+    known: useRef(disciplines.map(createRef)),
     // Known Disciplines
-    ...Object.keys(ELEMENTAL_DISCIPLINES).map(() => [useRef()]),
+    ...Object.keys(ELEMENTAL_DISCIPLINES).map(() => useRef([createRef()])),
   });
 
   const [
@@ -164,7 +164,7 @@ function ElementalDisciplines() {
                         onChange={changeDisciplineToForget(disciplineName)}
                       />
                       <SkillItem
-                        ref={skillRefs.known[i]}
+                        ref={skillRefs.known.current[i]}
                         pc={pc}
                         traitName={disciplineName}
                         trait="discipline"
@@ -216,7 +216,8 @@ function ElementalDisciplines() {
                           onChange={changeSelectedDisciplines(discipline.name)}
                         />
                         <SkillItem
-                          ref={skillRefs[i][0]}
+                          ref={skillRefs[i].current[0]}
+                          pc={pc}
                           traitName={discipline.name}
                           trait="discipline"
                           openModal={openSkillModal(i, 0)}

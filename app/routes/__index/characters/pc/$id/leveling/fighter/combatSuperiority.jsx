@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
@@ -87,9 +87,9 @@ function CombatSuperiorityManeuvers() {
 
   const [skillRefs, setSkillRefs] = useState({
     // Known Maneuvers
-    known: maneuvers.map(() => useRef()),
+    known: useRef(maneuvers.map(createRef)),
     // Known Maneuvers
-    ...COMBAT_SUPERIORITY_MANEUVERS.map(() => [useRef()]),
+    ...COMBAT_SUPERIORITY_MANEUVERS.map(() => useRef([createRef()])),
   });
 
   const [
@@ -160,7 +160,7 @@ function CombatSuperiorityManeuvers() {
                         onChange={changeManeuverToForget(maneuverName)}
                       />
                       <SkillItem
-                        ref={skillRefs.known[i]}
+                        ref={skillRefs.known.current[i]}
                         pc={pc}
                         traitName={maneuverName}
                         trait="maneuver"
@@ -206,7 +206,8 @@ function CombatSuperiorityManeuvers() {
                         onChange={changeSelectedManeuvers(maneuverName)}
                       />
                       <SkillItem
-                        ref={skillRefs[i][0]}
+                        ref={skillRefs[i].current[0]}
+                        pc={pc}
                         traitName={maneuverName}
                         trait="maneuver"
                         openModal={openSkillModal(i, 0)}

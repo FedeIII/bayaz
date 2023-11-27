@@ -12,7 +12,7 @@ import {
 } from '~/domain/classes/cleric/cleric';
 import { getClericSpellSlots, CLERIC_SPELLS } from '~/domain/spells/cleric';
 import { DRUID_SPELLS } from '~/domain/spells/druid';
-import { translateSpell } from '~/domain/spells/spells';
+import { SkillItem } from '../modal/skillItem';
 
 function getSkillChecked(skillName, skillsToSelect) {
   return !!skillsToSelect[skillName]?.selected;
@@ -26,7 +26,14 @@ function getSkillAvailable(skillName, skillsToSelect, isCheckedHere) {
 }
 
 function ClericSkills(props) {
-  const { pc, skillsToSelect, setSkills, setSkillsNamespace } = props;
+  const {
+    pc,
+    skillsToSelect,
+    setSkills,
+    setSkillsNamespace,
+    skillRefs,
+    openSkillModal,
+  } = props;
   const { languages } = pc;
   const initDivineDomain = getDivineDomain(pc);
 
@@ -227,7 +234,14 @@ function ClericSkills(props) {
                       divineDomain === 'light' && spell.name === 'light'
                     }
                   />
-                  {translateSpell(spell.name)}{' '}
+                  <SkillItem
+                    ref={skillRefs[spell.level].current[spell.name]}
+                    pc={pc}
+                    traitName={spell.name}
+                    trait="spell"
+                    openOnRightClick
+                    openModal={openSkillModal(spell.level, spell.name)}
+                  />{' '}
                   {divineDomain === 'light' &&
                     spell.name === 'light' &&
                     ' (Ya lo conoces por el Dominio de la Luz)'}
@@ -257,7 +271,14 @@ function ClericSkills(props) {
                       value={`${spell.name},druid`}
                       onChange={() => setIsDruidSpellSelected(true)}
                     />
-                    {translateSpell(spell.name)}
+                    <SkillItem
+                      ref={skillRefs[spell.level].current[spell.name]}
+                      pc={pc}
+                      traitName={spell.name}
+                      trait="spell"
+                      openOnRightClick
+                      openModal={openSkillModal(spell.level, spell.name)}
+                    />
                   </label>
                 ))}
             </div>

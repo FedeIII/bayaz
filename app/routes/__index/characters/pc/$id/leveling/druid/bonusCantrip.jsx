@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
@@ -64,7 +64,7 @@ function BonusCantrip() {
   }
 
   const [skillRefs, setSkillRefs] = useState(
-    druidCantrips.map(() => [useRef()])
+    druidCantrips.map(() => useRef([createRef()]))
   );
 
   const [
@@ -118,7 +118,7 @@ function BonusCantrip() {
                     }
                   />
                   <SkillItem
-                    ref={skillRefs[spellIndex][0]}
+                    ref={skillRefs[spellIndex].current[0]}
                     traitName={spell.name}
                     trait="spell"
                     pc={pc}

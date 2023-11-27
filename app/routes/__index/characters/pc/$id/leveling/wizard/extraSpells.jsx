@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 
@@ -63,7 +63,7 @@ function ExtraSpells() {
   }
 
   const [skillRefs, setSkillRefs] = useState({
-    ...spellsByLevel.map(spells => spells.map(() => useRef())),
+    ...spellsByLevel.map(spells => useRef(spells.map(createRef))),
   });
 
   const [
@@ -128,7 +128,8 @@ function ExtraSpells() {
                           }
                         />
                         <SkillItem
-                          ref={skillRefs[i][spellIndex]}
+                          ref={skillRefs[i].current[spellIndex]}
+                          pc={pc}
                           traitName={spell.name}
                           trait="spell"
                           openModal={openSkillModal(i, spellIndex)}

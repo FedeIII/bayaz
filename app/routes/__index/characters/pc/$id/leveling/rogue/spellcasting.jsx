@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
@@ -111,9 +111,9 @@ function ArcaneTricksterSpells() {
 
   const [skillRefs, setSkillRefs] = useState({
     // Known Spells
-    known: arcaneTricksterSpells.map(() => useRef()),
+    known: useRef(arcaneTricksterSpells.map(createRef)),
     // Known Spells
-    ...spellsByLevel.map(spells => spells.map(() => useRef())),
+    ...spellsByLevel.map(spells => useRef(spells.map(createRef))),
   });
 
   const [
@@ -184,7 +184,7 @@ function ArcaneTricksterSpells() {
                         onChange={changeSpellToForget(spellName)}
                       />
                       <SkillItem
-                        ref={skillRefs.known[i]}
+                        ref={skillRefs.known.current[i]}
                         pc={pc}
                         traitName={spellName}
                         trait="spell"
@@ -243,7 +243,8 @@ function ArcaneTricksterSpells() {
                               onChange={changeSelectedSpells(spell.name)}
                             />
                             <SkillItem
-                              ref={skillRefs[spellLevel - 1][spellIndex]}
+                              ref={skillRefs[spellLevel - 1].current[spellIndex]}
+                              pc={pc}
                               traitName={spell.name}
                               trait="spell"
                               openModal={openSkillModal(

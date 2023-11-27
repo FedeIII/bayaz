@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
@@ -54,7 +54,7 @@ function ImprovedMinorIllusionSpell() {
   const wizardCantrips = getClassSpells(pc).filter(spell => spell.level === 0);
 
   const [skillRefs, setSkillRefs] = useState({
-    cantrips: wizardCantrips.map(() => useRef()),
+    cantrips: useRef(wizardCantrips.map(createRef)),
   });
 
   const [
@@ -141,7 +141,8 @@ function ImprovedMinorIllusionSpell() {
                           onChange={() => setSelectedSpell(spell.name)}
                         />
                         <SkillItem
-                          ref={skillRefs.cantrips[spellIndex]}
+                          ref={skillRefs.cantrips.current[spellIndex]}
+                          pc={pc}
                           traitName={spell.name}
                           trait="spell"
                           openModal={openSkillModal('cantrips', spellIndex)}

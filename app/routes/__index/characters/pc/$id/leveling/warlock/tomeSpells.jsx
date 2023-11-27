@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
@@ -70,7 +70,9 @@ function TomeSpells() {
     });
   }
 
-  const [skillRefs, setSkillRefs] = useState(allCantrips.map(() => [useRef()]));
+  const [skillRefs, setSkillRefs] = useState(
+    allCantrips.map(() => useRef([createRef()]))
+  );
 
   const [
     skillModalContent,
@@ -130,7 +132,8 @@ function TomeSpells() {
                     }
                   />
                   <SkillItem
-                    ref={skillRefs[spellIndex][0]}
+                    ref={skillRefs[spellIndex].current[0]}
+                    pc={pc}
                     traitName={spell.name}
                     trait="spell"
                     openModal={openSkillModal(spellIndex)}
