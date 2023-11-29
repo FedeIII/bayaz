@@ -1,7 +1,6 @@
 import { Link, useLoaderData } from '@remix-run/react';
 
 import { getBuildings } from '~/services/building.server';
-import { t } from '~/domain/translations';
 import { json } from '@remix-run/node';
 
 import styles from '~/components/party.css';

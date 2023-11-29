@@ -103,7 +103,7 @@ function AllPCs() {
               )}
               {confirmDeleteName === pc.id && (
                 <div className="party__party-data">
-                  Seguro?{' '}
+                  Borrar?{' '}
                   <button
                     type="submit"
                     name="delete"

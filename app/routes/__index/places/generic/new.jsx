@@ -1,0 +1,119 @@
+import { Form, Link } from '@remix-run/react';
+import { redirect } from '@remix-run/node';
+import { useEffect, useRef, useState } from 'react';
+import { createPlace } from '~/services/place.server';
+import { Title } from '~/components/form/title';
+
+function textareaCallback(textareaNode) {
+  textareaNode.target.style.height = '';
+  textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
+}
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const name = formData.get('name');
+  const img = formData.get('img');
+  const description = formData.get('description');
+  const notes = formData.get('notes');
+
+  const place = await createPlace({ name, img, description, notes });
+
+  return redirect(`/places/generic/${place.id}`);
+};
+
+function GenerateGenericPlace() {
+  const formRef = useRef();
+
+  const [place, setPlace] = useState({
+    name: '',
+    img: '',
+    description: '',
+    notes: '',
+  });
+
+  const descriptionRef = useRef();
+  useEffect(() => {
+    if (descriptionRef.current) {
+      textareaCallback({ target: descriptionRef.current });
+    }
+  }, [descriptionRef.current]);
+
+  const notesRef = useRef();
+  useEffect(() => {
+    if (notesRef.current) {
+      textareaCallback({ target: notesRef.current });
+    }
+  }, [notesRef.current]);
+
+  return (
+    <Form method="post" ref={formRef}>
+      <div className="places__buttons">
+        <Link to="../" className="menus__back-button">
+          ⇦ Volver
+        </Link>
+        <button type="submit" className="places__save">
+          ⇧ Guardar Lugar
+        </button>
+      </div>
+
+      <div className="places__horizontal-sections">
+        <div className="places__vertical-sections">
+          <div className="places__image-container">
+            {place.img ? (
+              <>
+                <img src={''} className="places__image" width="100%" />
+                <input readOnly type="text" name="img" value={''} hidden />
+              </>
+            ) : (
+              <>
+                Imagen: <input type="text" name="img" />
+              </>
+            )}
+          </div>
+
+          <div className="places__info">
+            <Title
+              inputName="name"
+              value={place.name}
+              onChange={e => setPlace(p => ({ ...p, name: e.target.value }))}
+            />
+
+            <hr className="places__section-divider" />
+
+            <div className="places__trait">
+              <div className="places__horizontal-sections">
+                <div className="places__trait-title">Descripción</div>
+                <textarea
+                  ref={descriptionRef}
+                  name="description"
+                  value={place.description}
+                  className="places__trait-input"
+                  onChange={e =>
+                    setPlace(p => ({ ...p, description: e.target.value }))
+                  }
+                  onInput={textareaCallback}
+                ></textarea>
+              </div>
+            </div>
+
+            <hr className="places__section-divider" />
+          </div>
+        </div>
+
+        <div className="places__notes">
+          <h2 className="places__notes-title">Notas</h2>
+          <textarea
+            ref={notesRef}
+            name="notes"
+            value={place.notes}
+            className="places__notes-text"
+            onChange={e => setPlace(p => ({ ...p, notes: e.target.value }))}
+            onInput={textareaCallback}
+          ></textarea>
+        </div>
+      </div>
+    </Form>
+  );
+}
+
+export default GenerateGenericPlace;

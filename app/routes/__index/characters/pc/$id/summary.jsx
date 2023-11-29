@@ -270,7 +270,10 @@ async function updateFreeTexts(formData) {
   const updatedPc = await updatePc({
     id,
     temporaryHitPoints,
-    freeText: { personality, ideals, bonds, flaws },
+    'freeText.personality': personality,
+    'freeText.ideals': ideals,
+    'freeText.bonds': bonds,
+    'freeText.flaws': flaws,
   });
 
   return updatedPc;

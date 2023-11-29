@@ -110,15 +110,13 @@ async function updateFreeTextsAction(formData) {
 
   await updatePc({
     id,
-    freeText: {
-      eyes,
-      skin,
-      hair,
-      allies,
-      backstory,
-      extraTraits1,
-      extraTraits2,
-    },
+    'freeText.eyes': eyes,
+    'freeText.skin': skin,
+    'freeText.hair': hair,
+    'freeText.allies': allies,
+    'freeText.backstory': backstory,
+    'freeText.extraTraits1': extraTraits1,
+    'freeText.extraTraits2': extraTraits2,
   });
 }
 
