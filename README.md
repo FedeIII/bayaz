@@ -52,6 +52,12 @@ npx prisma migrate dev
 ```
 
 ## TO DOsg
+- Unlink encounters from parties
+  - Separate menu for encounters
+- Name to encounter
+- Combat menu
+- Initiative in combats
+- Notes for each character in combats
 - Buildings in settlements
 - Characters in places
 - Audio in places

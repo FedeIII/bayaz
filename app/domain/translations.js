@@ -3,6 +3,20 @@ import { NPC_RACES } from './npc/attrs/npcRaces';
 
 export function t(key) {
   let translation = {
+    // Classes
+    barbarian: 'Bárbaro',
+    bard: 'Bardo',
+    cleric: 'Clérigo',
+    druid: 'Druida',
+    fighter: 'Guerrero',
+    monk: 'Monje',
+    paladin: 'Paladín',
+    ranger: 'Explorador',
+    rogue: 'Pícaro',
+    sorcerer: 'Hechicero',
+    warlock: 'Brujo',
+    wizard: 'Mago',
+
     // Sizes
     Tiny: 'Diminuto',
     Small: 'Pequeño',

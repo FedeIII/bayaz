@@ -27,6 +27,7 @@ import {
   translateSize,
 } from '~/domain/encounters/monsters';
 import { rollDice } from '~/domain/random';
+import { t } from '~/domain/translations';
 import { createEncounter } from '~/services/encounter.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import { useCharacterItems } from '~/components/modal/useCharacterItems';
@@ -90,7 +91,9 @@ function Sidebar(props) {
                 <span className="cards__button-card" key={pc.id}>
                   {pc.name}
                   <br />
-                  Nivel {pc.level}
+                  {t(pc.pClass)}
+                  <br />
+                  lvl {pc.level}
                 </span>
               ))}
             </div>
@@ -139,7 +142,7 @@ function Sidebar(props) {
           </div>
           <div className="encounter__filter-group">
             <span className="encounter__filter-label">Filtros</span>
-            <div className="encounter__filter">
+            <div className="encounter__filter encounter__filter--columns">
               <label htmlFor="name" className="encounter__filter-item">
                 <span className="encounter__filter-name">Nombre: </span>
                 <input
@@ -318,7 +321,9 @@ function MonsterCatalog(props) {
               {Array.from(Array(monstersByCr.length > 1 ? 2 : 1), (_, i) => (
                 <div className="encounter__cr-xp-cr" key={i}>
                   <span className="encounter__cr-xp">xp</span>
-                  {crIndex === 0 && <span className="encounter__cr-cr">CR</span>}
+                  {crIndex === 0 && (
+                    <span className="encounter__cr-cr">CR</span>
+                  )}
                 </div>
               ))}
             </div>

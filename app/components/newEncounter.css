@@ -41,6 +41,11 @@
   column-gap: 16px;
 }
 
+.encounter__filter--columns {
+  column-count: 2;
+  display: block;
+}
+
 .encounter__filter-vertical {
   padding: 0;
   margin: 0 0 16px;
