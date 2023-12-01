@@ -30,7 +30,7 @@ export const loader = async ({ params }) => {
     throw new Error('Encounter not found');
   }
 
-  const pcs = party.players.map(playerName => getPc(playerName));
+  const pcs = party.players.map(id => getPc(id));
   for ([index, pc] of pcs.entries()) pcs[index] = await pc;
 
   return json({ party, pcs, encounter });

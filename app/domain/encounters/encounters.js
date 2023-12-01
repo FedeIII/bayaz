@@ -45,10 +45,8 @@ export function translateDifficulty(difficulty) {
   }
 }
 
-export function getCharacterXpThreshold(pc, difficulty) {
-  const { level } = pc;
-
-  return CHARACTER_XP_THRESHOLDS[level - 1][difficulty];
+export function getCharacterXpThreshold(pcLevel, difficulty) {
+  return CHARACTER_XP_THRESHOLDS[pcLevel - 1]?.[difficulty] || 0;
 }
 
 export function getXpMultiplierForMonsters(numberOfMonsters, numberOfPcs) {
@@ -80,9 +78,9 @@ export function getXpMultiplierForMonsters(numberOfMonsters, numberOfPcs) {
   }
 }
 
-export function getPartyXpThreshold(pcs, difficulty) {
-  return pcs.reduce(
-    (xp, pc) => xp + getCharacterXpThreshold(pc, difficulty),
+export function getPartyXpThreshold(pcLevels, difficulty) {
+  return pcLevels.reduce(
+    (xp, pcLevel) => xp + getCharacterXpThreshold(pcLevel, difficulty),
     0
   );
 }
@@ -101,20 +99,23 @@ function getRandomMonster(xpMultiplier, xpPerMonster, env, maxLevel) {
 }
 
 function getRandomEncounterSameMonsters(
-  pcs,
+  pcLevels,
   difficulty,
   partyXpThreshold,
   numberOfMonsters,
   env
 ) {
-  const xpMultiplier = getXpMultiplierForMonsters(numberOfMonsters, pcs.length);
+  const xpMultiplier = getXpMultiplierForMonsters(
+    numberOfMonsters,
+    pcLevels.length
+  );
   const xpPerMonster = partyXpThreshold / numberOfMonsters;
 
   const monster = getRandomMonster(
     xpMultiplier,
     xpPerMonster,
     env,
-    getPartyMaxLevel(pcs)
+    getPartyMaxLevel(pcLevels)
   );
 
   if (
@@ -122,7 +123,7 @@ function getRandomEncounterSameMonsters(
     Monster(monster).xp === 0 ||
     Monster(monster).challenge === 0
   ) {
-    return getRandomEncounter(pcs, difficulty, env);
+    return getRandomEncounter(pcLevels, difficulty, env);
   }
 
   console.log('///////////////////////////////');
@@ -136,20 +137,23 @@ function getRandomEncounterSameMonsters(
 }
 
 function getRandomEncounterLeadMonster(
-  pcs,
+  pcLevels,
   difficulty,
   partyXpThreshold,
   numberOfMonsters,
   env
 ) {
-  const xpMultiplier = getXpMultiplierForMonsters(numberOfMonsters, pcs.length);
+  const xpMultiplier = getXpMultiplierForMonsters(
+    numberOfMonsters,
+    pcLevels.length
+  );
   const leadMonsterXp = partyXpThreshold / 2;
 
   const leadMonster = getRandomMonster(
     xpMultiplier,
     leadMonsterXp,
     env,
-    getPartyMaxLevel(pcs)
+    getPartyMaxLevel(pcLevels)
   );
 
   if (
@@ -157,7 +161,7 @@ function getRandomEncounterLeadMonster(
     Monster(leadMonster).xp === 0 ||
     Monster(leadMonster).challenge === 0
   ) {
-    return getRandomEncounter(pcs, difficulty, env);
+    return getRandomEncounter(pcLevels, difficulty, env);
   }
 
   const remainingPartyXpThreshold =
@@ -169,13 +173,13 @@ function getRandomEncounterLeadMonster(
     xpMultiplier,
     xpPerMob,
     env,
-    getPartyMaxLevel(pcs)
+    getPartyMaxLevel(pcLevels)
   );
 
   if (!mob || Monster(mob).xp === 0 || Monster(mob).challenge === 0) {
     if (numberOfMonsters === 1) {
       return getRandomEncounterSameMonsters(
-        pcs,
+        pcLevels,
         difficulty,
         partyXpThreshold,
         numberOfMonsters,
@@ -183,7 +187,7 @@ function getRandomEncounterLeadMonster(
       );
     } else {
       return getRandomEncounterLeadMonster(
-        pcs,
+        pcLevels,
         difficulty,
         partyXpThreshold,
         numberOfMonsters - 1,
@@ -210,13 +214,13 @@ function getRandomEncounterLeadMonster(
   return [leadMonster, ...monsterList];
 }
 
-export function getRandomEncounter(pcs, difficulty, env) {
+export function getRandomEncounter(pcLevels, difficulty, env) {
   const numberOfMonsters = random.monsterDistribution();
-  const partyXpThreshold = getPartyXpThreshold(pcs, difficulty);
+  const partyXpThreshold = getPartyXpThreshold(pcLevels, difficulty);
 
   if (numberOfMonsters === 1 || Math.random() > 0.5) {
     return getRandomEncounterSameMonsters(
-      pcs,
+      pcLevels,
       difficulty,
       partyXpThreshold,
       numberOfMonsters,
@@ -224,7 +228,7 @@ export function getRandomEncounter(pcs, difficulty, env) {
     );
   } else {
     return getRandomEncounterLeadMonster(
-      pcs,
+      pcLevels,
       difficulty,
       partyXpThreshold,
       numberOfMonsters,
@@ -303,7 +307,10 @@ export function translateEnvironments(environment) {
 export function getEncounterXp(monsters, numberOfPcs) {
   const xpMultiplier = getXpMultiplierForMonsters(monsters.length, numberOfPcs);
   return (
-    monsters.reduce((xp, monster) => xp + Monster(monster).xp, 0) * xpMultiplier
+    monsters.reduce(
+      (xp, monster) => (xp || 0) + (Monster(monster).xp || 1),
+      0
+    ) * (xpMultiplier || 1)
   );
 }
 
@@ -326,19 +333,19 @@ export function getMonsterPositionStyle(i, total) {
   };
 }
 
-export function getEncounterDifficulty(monsters, pcs) {
-  const encounterXp = getEncounterXp(monsters, pcs.length);
+export function getEncounterDifficulty(monsters, pcLevels) {
+  const encounterXp = getEncounterXp(monsters, pcLevels.length);
 
-  if (encounterXp > getPartyXpThreshold(pcs, 'deadly')) {
+  if (encounterXp > getPartyXpThreshold(pcLevels, 'deadly')) {
     return 'impossible';
   }
-  if (encounterXp > getPartyXpThreshold(pcs, 'hard')) {
+  if (encounterXp > getPartyXpThreshold(pcLevels, 'hard')) {
     return 'deadly';
   }
-  if (encounterXp > getPartyXpThreshold(pcs, 'medium')) {
+  if (encounterXp > getPartyXpThreshold(pcLevels, 'medium')) {
     return 'hard';
   }
-  if (encounterXp > getPartyXpThreshold(pcs, 'easy')) {
+  if (encounterXp > getPartyXpThreshold(pcLevels, 'easy')) {
     return 'medium';
   }
   return 'easy';

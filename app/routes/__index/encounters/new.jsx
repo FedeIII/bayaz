@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
+import { redirect } from '@remix-run/node';
+import { Form } from '@remix-run/react';
 
-import { getPc } from '~/services/pc.server';
-import { getParty } from '~/services/party.server';
 import {
   DIFFICULTIES,
   ENVIRONMENTS,
   getEncounterChallenge,
+  getEncounterDifficulty,
   getEncounterXp,
   getMonsterPositionStyle,
   getPartyXpThreshold,
@@ -27,33 +26,28 @@ import {
   translateSize,
 } from '~/domain/encounters/monsters';
 import { rollDice } from '~/domain/random';
-import { t } from '~/domain/translations';
 import { createEncounter } from '~/services/encounter.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import { useCharacterItems } from '~/components/modal/useCharacterItems';
 import { CharacterModal } from '~/components/modal/characterModal';
 import { CharacterItem } from '~/components/modal/characterItem';
+import { replaceAt } from '~/utils/insert';
+import useAmount from '~/components/hooks/useAmount';
+import { t } from '~/domain/translations';
+import { Title } from '~/components/form/title';
 
 import styles from '~/components/newEncounter.css';
+import placesStyles from '~/components/places.css';
 export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
-};
-
-export const loader = async ({ params }) => {
-  const party = await getParty(params.id);
-  if (!party) {
-    throw new Error('Party not found');
-  }
-
-  const pcs = party.players.map(playerName => getPc(playerName));
-  for ([index, pc] of pcs.entries()) pcs[index] = await pc;
-
-  return json({ party, pcs });
+  return [
+    { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: placesStyles },
+  ];
 };
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const partyId = formData.get('partyId');
+  const encounterName = formData.get('encounterName');
   const monstersNames = formData.get('monsters');
 
   const monsters = getMonsters(monstersNames).map(monster => {
@@ -65,14 +59,15 @@ export const action = async ({ request }) => {
     };
   });
 
-  const encounter = await createEncounter(partyId, monsters);
+  const encounter = await createEncounter(encounterName, monsters);
 
-  return redirect(`/party/${partyId}/encounters/${encounter.id}`);
+  return redirect(`/encounters/${encounter.id}`);
 };
 
 function Sidebar(props) {
   const {
-    pcs,
+    pcLevels,
+    setPcLevels,
     selectDifficulty,
     xpThreshold,
     selectEnvironment,
@@ -80,20 +75,51 @@ function Sidebar(props) {
     setFilters,
   } = props;
 
+  const [setPcLevelsAmount, reducePcLevelsAmount, increasePcLevelsAmount] =
+    useAmount(pcLevels, () => pcLevels[0] || 1, setPcLevels, 20);
+
+  useEffect(() => {
+    setPcLevelsAmount(pcLevels.length);
+  }, [pcLevels]);
+
   return (
     <div className="encounter__sidebar">
       <div className="encounter__sidebar-content">
         <div className="encounter__sidebar-section">
           <div className="encounter__filter-vertical">
-            <span className="encounter__filter-label">Party:</span>{' '}
+            <div className="encounter__filter-title">
+              <span className="encounter__filter-label">Party levels</span>{' '}
+              <div className="places__trait-modifiers">
+                <button
+                  type="button"
+                  className="places__trait-button"
+                  onClick={reducePcLevelsAmount}
+                >
+                  -
+                </button>
+                <button
+                  type="button"
+                  className="places__trait-button"
+                  onClick={increasePcLevelsAmount}
+                >
+                  +
+                </button>
+              </div>
+            </div>
             <div className="encounter__filter-options">
-              {pcs.map(pc => (
-                <span className="cards__button-card" key={pc.id}>
-                  {pc.name}
-                  <br />
-                  {t(pc.pClass)}
-                  <br />
-                  lvl {pc.level}
+              {pcLevels.map((level, i) => (
+                <span>
+                  <input
+                    key={i}
+                    className="encounter__input-number"
+                    type="number"
+                    value={level}
+                    onChange={e =>
+                      setPcLevels(old =>
+                        replaceAt(i, old, parseInt(e.target.value, 10) || 1)
+                      )
+                    }
+                  />
                 </span>
               ))}
             </div>
@@ -104,7 +130,7 @@ function Sidebar(props) {
             <span className="encounter__filter-label">Dificultad:</span>{' '}
             <div className="encounter__filter-options">
               {DIFFICULTIES.map(difficulty => {
-                const difficultyXp = getPartyXpThreshold(pcs, difficulty);
+                const difficultyXp = getPartyXpThreshold(pcLevels, difficulty);
                 return (
                   <button
                     type="button"
@@ -143,15 +169,16 @@ function Sidebar(props) {
           <div className="encounter__filter-group">
             <span className="encounter__filter-label">Filtros</span>
             <div className="encounter__filter encounter__filter--columns">
-              <label htmlFor="name" className="encounter__filter-item">
+              <label htmlFor="mobName" className="encounter__filter-item">
                 <span className="encounter__filter-name">Nombre: </span>
                 <input
                   type="text"
-                  name="name"
-                  value={filters.name}
+                  id="mobName"
+                  name="mobName"
+                  value={filters.mobName}
                   className="encounter__filter-input cards__button-card"
                   onChange={e =>
-                    setFilters(f => ({ ...f, name: e.target.value }))
+                    setFilters(f => ({ ...f, mobName: e.target.value }))
                   }
                 />
               </label>
@@ -217,6 +244,7 @@ function Sidebar(props) {
 
 function SelectedMonsters(props) {
   const {
+    pcLevels,
     xpThreshold,
     partyMaxLevel,
     encounterMonsters,
@@ -228,36 +256,44 @@ function SelectedMonsters(props) {
 
   return (
     <div className="encounter__selected-monsters">
-      <h3 className="encounter__selected-monsters-title">
-        Monstruos seleccionados{' '}
-        <div className="encounter__encounter-stats">
-          (
-          <span
-            className={
-              encounterXp > xpThreshold
-                ? 'encounter__metric-warning'
-                : encounterXp === xpThreshold
-                ? 'encounter__metric-fit'
-                : 'encounter__metric'
-            }
-          >
-            {encounterXp} xp
-          </span>
-          ,{' '}
-          <span
-            className={
-              encounterChallenge > partyMaxLevel
-                ? 'encounter__metric-warning'
-                : encounterChallenge === partyMaxLevel
-                ? 'encounter__metric-fit'
-                : 'encounter__metric'
-            }
-          >
-            CR {encounterChallenge}
-          </span>
-          )
+      <div className="encounter__header">
+        <Title
+          inputName="encounterName"
+          className="encounter__selected-monsters-title"
+          inputClass="encounter__name encounter__filter-input cards__button-card"
+        />
+        <div className="encounter__stats">
+          <div className="encounter__stat">
+            {t(getEncounterDifficulty(encounterMonsters, pcLevels))}
+          </div>
+          <div className="encounter__stat">
+            <span
+              className={`encounter__stat-label ${
+                encounterXp > xpThreshold
+                  ? 'encounter__metric-warning'
+                  : encounterXp === xpThreshold
+                  ? 'encounter__metric-fit'
+                  : 'encounter__metric'
+              }`}
+            >
+              {encounterXp} xp
+            </span>
+          </div>
+          <div className="encounter__stat">
+            <span
+              className={`encounter__stat-label ${
+                encounterChallenge > partyMaxLevel
+                  ? 'encounter__metric-warning'
+                  : encounterChallenge === partyMaxLevel
+                  ? 'encounter__metric-fit'
+                  : 'encounter__metric'
+              }`}
+            >
+              CR {encounterChallenge}
+            </span>
+          </div>
         </div>
-      </h3>
+      </div>
       {!!encounterMonsters.length && (
         <div className="cards encounter__monsters">
           {sortByXp(encounterMonsters).map((m, i, all) => (
@@ -377,11 +413,11 @@ function MonsterCatalog(props) {
 }
 
 function NewEncounter() {
-  const { party, pcs } = useLoaderData();
-
   useTitle('Nuevo encuentro');
 
-  const partyMaxLevel = getPartyMaxLevel(pcs);
+  const [pcLevels, setPcLevels] = useState([1, 1, 1, 1]);
+
+  const partyMaxLevel = getPartyMaxLevel(pcLevels);
   const allMonsters = getMonstersFromEnvironment();
 
   const [xpThreshold, setXpThreshold] = useState(null);
@@ -389,17 +425,22 @@ function NewEncounter() {
   const [monsterList, setMonsterList] = useState(allMonsters);
   const [filteredMonsterList, setFilteredMonsterList] = useState([]);
   const [encounterMonsters, setEncounterMonsters] = useState([]);
-  const [filters, setFilters] = useState({ name: '', xp: 0, cr: 0, size: '' });
+  const [filters, setFilters] = useState({
+    mobName: '',
+    xp: 0,
+    cr: 0,
+    size: '',
+  });
 
   function selectDifficulty(difficulty) {
-    const difficultyXp = getPartyXpThreshold(pcs, difficulty);
+    const difficultyXp = getPartyXpThreshold(pcLevels, difficulty);
     setXpThreshold(difficultyXp);
   }
 
   useEffect(() => selectDifficulty('medium'), []);
 
   useEffect(() => {
-    setEncounterXp(getEncounterXp(encounterMonsters, pcs.length));
+    setEncounterXp(getEncounterXp(encounterMonsters, pcLevels.length));
   }, [encounterMonsters]);
 
   function addMonsterToEncounter(monster) {
@@ -419,13 +460,13 @@ function NewEncounter() {
         m =>
           Monster(m)
             .translation.toLowerCase()
-            .includes(filters.name.toLowerCase()) &&
+            .includes(filters.mobName.toLowerCase()) &&
           (!filters.xp || Monster(m).xp <= filters.xp) &&
           (!filters.cr || Monster(m).challenge <= filters.cr) &&
           (!filters.size || Monster(m).size === filters.size)
       )
     );
-  }, [filters.name, filters.xp, filters.cr, filters.size]);
+  }, [filters.mobName, filters.xp, filters.cr, filters.size]);
 
   function selectEnvironment(env) {
     const monsters = getMonstersFromEnvironment(env);
@@ -450,9 +491,7 @@ function NewEncounter() {
   const formRef = useRef(null);
 
   return (
-    <Form method="post" ref={formRef}>
-      <input readOnly type="text" name="partyId" value={party.id} hidden />
-
+    <Form method="post" ref={formRef} className="encounter__wrapper">
       {monsterModalContent && (
         <CharacterModal
           elRef={selectedMonsterRef}
@@ -465,7 +504,8 @@ function NewEncounter() {
 
       <div className="encounter">
         <Sidebar
-          pcs={pcs}
+          pcLevels={pcLevels}
+          setPcLevels={setPcLevels}
           selectDifficulty={selectDifficulty}
           xpThreshold={xpThreshold}
           selectEnvironment={selectEnvironment}
@@ -474,6 +514,7 @@ function NewEncounter() {
         />
         <div className="encounter__body">
           <SelectedMonsters
+            pcLevels={pcLevels}
             xpThreshold={xpThreshold}
             partyMaxLevel={partyMaxLevel}
             encounterMonsters={encounterMonsters}
@@ -482,7 +523,7 @@ function NewEncounter() {
           />
           {!!filteredMonsterList.length && (
             <MonsterCatalog
-              numberOfPcs={pcs.length}
+              numberOfPcs={pcLevels.length}
               monsterList={groupedFilteredMonsterList}
               encounterMonsters={encounterMonsters}
               xpThreshold={xpThreshold}

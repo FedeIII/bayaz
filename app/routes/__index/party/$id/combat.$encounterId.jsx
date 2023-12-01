@@ -34,20 +34,13 @@ export const links = () => {
 };
 
 export const loader = async ({ params }) => {
-  const [party, encounter] = await Promise.all([
-    getParty(params.id),
-    getEncounter(params.encounterId),
-  ]);
-
-  if (!party) {
-    throw new Error('Party not found');
-  }
+  const encounter = await getEncounter(params.encounterId);
 
   if (!encounter) {
     throw new Error('Encounter not found');
   }
 
-  const pcs = party.players.map(playerName => getPc(playerName));
+  const pcs = party.players.map(id => getPc(id));
   for ([index, pc] of pcs.entries()) pcs[index] = await pc;
 
   return json({ party, pcs, encounter });
@@ -329,11 +322,7 @@ function PartyCombat() {
         >
           Mostrar Combate
         </Link>
-        <button
-          name="endCombat"
-          value="true"
-          className="cards__button-card"
-        >
+        <button name="endCombat" value="true" className="cards__button-card">
           Terminar Combate
         </button>
       </p>

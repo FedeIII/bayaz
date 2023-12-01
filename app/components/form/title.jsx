@@ -66,6 +66,7 @@ export function Title(props) {
   const {
     value,
     defaultValue,
+    placeholder = false,
     onChange,
     inputName,
     className = '',
@@ -103,6 +104,7 @@ export function Title(props) {
             ref={typeRef}
             type="text"
             name={inputName}
+            placeholder={placeholder}
             value={value}
             className={`places__title-input ${inputClass} ${
               showInputHighlight ? 'places__title-input--empty' : ''
@@ -116,6 +118,7 @@ export function Title(props) {
             ref={typeRef}
             type="text"
             name={inputName}
+            placeholder={placeholder}
             defaultValue={defaultValue}
             className={`places__title-input ${inputClass} ${
               showInputHighlight ? 'places__title-input--empty' : ''

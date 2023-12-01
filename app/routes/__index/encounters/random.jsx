@@ -19,7 +19,7 @@ export const loader = async ({ params }) => {
     throw new Error('Party not found');
   }
 
-  const pcs = party.players.map(playerName => getPc(playerName));
+  const pcs = party.players.map(id => getPc(id));
   for ([index, pc] of pcs.entries()) pcs[index] = await pc;
 
   return json({ pcs });
@@ -37,7 +37,7 @@ function RandomEncounter() {
           <Link to="easy" className="encounters__difficulty">
             {translateDifficulty('easy')} (
             {pcs.reduce(
-              (xp, pc) => xp + getCharacterXpThreshold(pc, 'easy'),
+              (xp, pc) => xp + getCharacterXpThreshold(pc.level, 'easy'),
               0
             )}{' '}
             xp)
@@ -47,7 +47,7 @@ function RandomEncounter() {
           <Link to="medium" className="encounters__difficulty">
             {translateDifficulty('medium')} (
             {pcs.reduce(
-              (xp, pc) => xp + getCharacterXpThreshold(pc, 'medium'),
+              (xp, pc) => xp + getCharacterXpThreshold(pc.level, 'medium'),
               0
             )}{' '}
             xp)
@@ -57,7 +57,7 @@ function RandomEncounter() {
           <Link to="hard" className="encounters__difficulty">
             {translateDifficulty('hard')} (
             {pcs.reduce(
-              (xp, pc) => xp + getCharacterXpThreshold(pc, 'hard'),
+              (xp, pc) => xp + getCharacterXpThreshold(pc.level, 'hard'),
               0
             )}{' '}
             xp)
@@ -67,7 +67,7 @@ function RandomEncounter() {
           <Link to="deadly" className="encounters__difficulty">
             {translateDifficulty('deadly')} (
             {pcs.reduce(
-              (xp, pc) => xp + getCharacterXpThreshold(pc, 'deadly'),
+              (xp, pc) => xp + getCharacterXpThreshold(pc.level, 'deadly'),
               0
             )}{' '}
             xp)

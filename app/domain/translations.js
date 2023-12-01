@@ -92,9 +92,7 @@ export function t(key) {
     lightArmors: 'Armaduras ligeras',
     mediumArmors: 'Armaduras medias',
     heavyArmors: 'Armaduras pesadas',
-    light: 'Armadura ligera',
     medium: 'Armadura media',
-    heavy: 'Armadura pesada',
     musicalInstruments: 'Instrumentos musicales',
     artisansTools: 'Herramientas artesanales',
     arcaneFocus: 'Foco arcano',
@@ -107,7 +105,6 @@ export function t(key) {
     reach: 'Alcance',
     twoHanded: 'A dos manos',
     loading: 'Requiere recarga',
-    ammunition: 'Usa munición',
     special: 'Ataque especial',
     light: 'Ligera',
     heavy: 'Pesada',
@@ -292,6 +289,13 @@ export function t(key) {
     outlanderOrigin: 'Origen',
     sageSpecialty: 'Especialidad',
     soldierSpecialty: 'Especialidad',
+
+    //Encounters
+    easy: 'Fácil',
+    medium: 'Normal',
+    hard: 'Difícil',
+    deadly: 'Mortal',
+    impossible: 'Imposible',
   }[key];
 
   if (translation) return translation;

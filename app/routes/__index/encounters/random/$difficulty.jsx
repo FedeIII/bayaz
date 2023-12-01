@@ -21,7 +21,7 @@ export const loader = async ({ params }) => {
     throw new Error('Party not found');
   }
 
-  const pcs = party.players.map(playerName => getPc(playerName));
+  const pcs = party.players.map(id => getPc(id));
   for ([index, pc] of pcs.entries()) pcs[index] = await pc;
 
   return json({ party, pcs, difficulty: params.difficulty });
@@ -54,7 +54,11 @@ function RandomEncounterDifficulty() {
 
   function selectEnvironment(env) {
     return () => {
-      const monsterList = getRandomEncounter(pcs, difficulty, env);
+      const monsterList = getRandomEncounter(
+        pcs.map(pc => pc.level),
+        difficulty,
+        env
+      );
       setMonsters(monsterList);
     };
   }

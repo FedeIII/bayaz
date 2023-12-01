@@ -28,9 +28,7 @@ export const loader = async ({ params }) => {
     throw new Error('Party not found');
   }
 
-  const pcs = await concurrentRequests(party.players, playerName =>
-    getPc(playerName)
-  );
+  const pcs = await concurrentRequests(party.players, pcId => getPc(pcId));
 
   return json({ party, pcs });
 };

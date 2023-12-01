@@ -8,6 +8,7 @@ const menuLinks = [
   { name: 'Lugares', url: '/places', level: 0, isForPlayers: false },
   { name: 'Personajes', url: '/characters', level: 0, isForPlayers: true },
   { name: 'Party', url: '/party', level: 0, isForPlayers: false },
+  { name: 'Encuentros', url: '/encounters', level: 0, isForPlayers: false },
   { name: 'Glosario', url: '/glossary', level: 0, isForPlayers: false },
 ];
 
@@ -35,11 +36,6 @@ export function getAllMenuItems({
   if (isDm && partyIdState) {
     items = insertAfter(item => item.name === 'Party', items, [
       { name: partyIdState, url: `/party/${partyIdState}`, level: 1 },
-      {
-        name: 'Encuentros',
-        url: `/party/${partyIdState}/encounters`,
-        level: 2,
-      },
     ]);
   }
 

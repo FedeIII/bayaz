@@ -1,7 +1,7 @@
 import { getEncounterXp } from '../encounters/encounters';
 
-export function getPartyMaxLevel(pcs) {
-  return Math.max(...pcs.map(pc => pc.level));
+export function getPartyMaxLevel(pcLevels) {
+  return Math.max(...pcLevels);
 }
 
 export function getActiveSession(party) {

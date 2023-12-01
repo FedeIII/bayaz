@@ -155,6 +155,7 @@
 
 .party__party-member {
   width: 100%;
+  text-align: start;
 }
 
 .party__previous-sessions {

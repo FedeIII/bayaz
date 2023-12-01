@@ -11,17 +11,17 @@ const monsterSchema = new mongoose.Schema({
 
 const encounterSchema = new mongoose.Schema({
   id: String,
-  partyId: String,
+  name: String,
   monsters: [monsterSchema],
 });
 
 const Encounter =
   mongoose.models.Encounter || mongoose.model('Encounter', encounterSchema);
 
-export async function createEncounter(partyId, monsters) {
+export async function createEncounter(name, monsters) {
   const newEncounter = await Encounter.create({
     id: uuid(),
-    partyId,
+    name,
     monsters: monsters.map(m => ({ ...m, id: uuid() })),
   });
 

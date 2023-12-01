@@ -1,3 +1,8 @@
+.encounter__wrapper {
+  width: 100%;
+  padding: 16px 32px;
+}
+
 .encounter {
   display: flex;
   flex-direction: row;
@@ -11,6 +16,10 @@
 .encounter__sidebar {
   flex-basis: 33%;
   flex-shrink: 0;
+}
+
+.encounter__name {
+  margin: 0 0 12px !important;
 }
 
 .encounter__sidebar-content {
@@ -71,8 +80,29 @@
 
 .encounter__filter-options {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   width: 100%;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 8px;
+}
+
+.encounter__input-number {
+  width: 36px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
+  color: #fff;
+  background-color: var(--color-base);
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 8px 2px 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.encounter__input-number::before {
+  content: 'lvl';
 }
 
 .encounter__filters {
@@ -91,6 +121,13 @@
   justify-content: space-evenly;
   align-items: center;
   gap: 8px;
+}
+
+.encounter__filter-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .encounter__filter-name {
@@ -233,10 +270,17 @@
   margin: 0 0 16px 16px;
   padding: 8px 0px;
   border-bottom: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  text-transform: uppercase;
 }
 
 .encounter__stats {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 16px 0;
 }
 
 .encounter__metric-fit {
@@ -256,5 +300,5 @@
 .encounter__submit {
   position: absolute;
   right: 64px;
-  top: 8px;
+  top: 0;
 }
