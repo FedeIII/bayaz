@@ -31,7 +31,12 @@ export function MultiLevelBar(props) {
                 Math.max(Math.round((level.size * TOTAL_LENGTH) / totalSize), 1)
               ).fill(charMap[level.thickness])}
               {!!level.tag && (
-                <span className="bar__barMarker">{level.tag}</span>
+                <span className="bar__barMarker tooltip tooltip--absolute">
+                  {level.tag}
+                  {!!level.tooltip && (
+                    <span className="tooltiptext">{level.tooltip}</span>
+                  )}
+                </span>
               )}
             </span>
           </Fragment>

@@ -4,16 +4,14 @@ export const links = () => {
 };
 
 export function Card(props) {
-  const { title, style, children, className, singleCard } = props;
+  const { title, style, children, className, titleClass, singleCard } = props;
 
   return (
     <div
-      className={`${
-        singleCard ? 'cards__single-card' : 'card'
-      } ${className}`}
+      className={`${singleCard ? 'cards__single-card' : 'card'} ${className}`}
       style={style}
     >
-      <h3 className="cards__card-title">{title}</h3>
+      <h3 className={`cards__card-title ${titleClass}`}>{title}</h3>
       <div className="cards__card-body">{children}</div>
     </div>
   );

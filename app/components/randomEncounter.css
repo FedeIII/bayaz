@@ -89,6 +89,15 @@
   flex-wrap: wrap;
 }
 
+.encounters__character-name {
+  margin-top: 0;
+}
+
+.encounters__bar-title {
+  display: block;
+  margin-bottom: 8px;
+}
+
 .encounters__death {
   font-size: var(--font-size-xl);
   color: #d94243;

@@ -206,12 +206,15 @@
 .tooltip {
   position: relative;
   display: inline-block;
-  /* border-bottom: 1px dotted var(--color-pale); */
+}
+
+.tooltip--absolute {
+  position: absolute;
 }
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  width: max-content;
   background-color: var(--color-dark);
   color: var(--color-x-pale);
   text-align: center;

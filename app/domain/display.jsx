@@ -69,11 +69,11 @@ export const links = () => {
 const noOp = () => {};
 
 export function increment(num) {
-  return num >= 0 ? '+' + num : num;
+  return num >= 0 ? '+' + num : num.toString();
 }
 
 export function signed(num) {
-  return num > 0 ? '+' + num : num;
+  return num > 0 ? '+' + num : num.toString();
 }
 
 export function listItems(items) {

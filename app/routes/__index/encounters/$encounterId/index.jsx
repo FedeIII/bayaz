@@ -152,6 +152,7 @@ function PartyCombat() {
           return (
             <Card
               title={translateMonster(monster.name)}
+              titleClass="encounters__character-name"
               key={monster.name + '-' + i}
               style={getMonsterPositionStyle(i, all.length)}
             >
@@ -206,7 +207,6 @@ function PartyCombat() {
               const maxHitPoints = getMaxHitPoints(pc);
               const isAlive = pc.hitPoints > -maxHitPoints;
               const acBreakdown = getAcBreakdown(pc);
-              const extraAc = getExtraArmorClass(pc);
               let tag = acBreakdown.base;
               const levels = [
                 ...(tag > 10
@@ -215,12 +215,14 @@ function PartyCombat() {
                         size: Math.floor(10 / 2),
                         thickness: 0,
                         tag: 10,
+                        tooltip: 'Base',
                         style: { color: 'var(--color-x-pale)' },
                       },
                       {
                         size: Math.floor((acBreakdown.base - 10) / 2),
                         thickness: 1,
                         tag,
+                        tooltip: acBreakdown.title,
                         style: { color: 'var(--color-x-pale)' },
                       },
                     ]
@@ -229,36 +231,29 @@ function PartyCombat() {
                         size: Math.floor(acBreakdown.base / 2),
                         thickness: 0,
                         tag,
+                        tooltip: 'Base',
                         style: { color: 'var(--color-x-pale)' },
                       },
                     ]),
                 ...acBreakdown.extras.reduce((lvls, extra, extraIndex) => {
-                  tag += parseInt(extra.ac.slice(1), 10);
+                  tag += extra.ac === '(+2)' ? 2 : Number(extra.ac || 0);
                   return [
                     ...lvls,
                     {
-                      size: 3 * parseInt(extra.ac.slice(1), 10),
+                      size: 3 * parseInt(extra.ac?.slice(1), 10),
                       thickness: extraIndex + 1,
                       tag,
+                      tooltip: extra.title,
                       style: { color: 'var(--color-x-blue-ink)' },
                     },
                   ];
                 }, []),
-                ...(!!extraAc
-                  ? [
-                      {
-                        size: 3 * extraAc,
-                        thickness: 3,
-                        tag: tag + extraAc,
-                        style: { color: 'var(--color-x-blue-ink)' },
-                      },
-                    ]
-                  : []),
               ];
 
               return (
                 <Card
                   title={pc.name}
+                  titleClass="encounters__character-name"
                   key={pc.id}
                   style={getMonsterPositionStyle(pcIndex, all.length)}
                 >
@@ -266,7 +261,7 @@ function PartyCombat() {
                     <>
                       {' '}
                       <div className="encounters__bar">
-                        HP:{' '}
+                        HP
                         <ShrinkBar
                           cursorPos={pc.hitPoints}
                           extraValue={pc.temporaryHitPoints}
@@ -276,7 +271,8 @@ function PartyCombat() {
                         />
                       </div>
                       <div className="encounters__bar">
-                        AC: <MultiLevelBar levels={levels} />
+                        <span className="encounters__bar-title">AC</span>
+                        <MultiLevelBar levels={levels} />
                       </div>
                       <div className="encounters__button-container">
                         <button name="pc-damage" value={pc.id}>
