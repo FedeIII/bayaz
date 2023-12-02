@@ -100,23 +100,12 @@ async function addItemToTreasureAction(formData) {
 
 async function updateFreeTextsAction(formData) {
   const id = formData.get('id');
-  const eyes = formData.get('eyes');
-  const skin = formData.get('skin');
-  const hair = formData.get('hair');
-  const allies = formData.get('allies');
-  const backstory = formData.get('backstory');
-  const extraTraits1 = formData.get('extraTraits1');
-  const extraTraits2 = formData.get('extraTraits2');
+  const fieldName = formData.get('fieldName');
+  const text = formData.get('text');
 
   await updatePc({
     id,
-    'freeText.eyes': eyes,
-    'freeText.skin': skin,
-    'freeText.hair': hair,
-    'freeText.allies': allies,
-    'freeText.backstory': backstory,
-    'freeText.extraTraits1': extraTraits1,
-    'freeText.extraTraits2': extraTraits2,
+    [`freeText.${fieldName}`]: text,
   });
 }
 
@@ -146,7 +135,7 @@ export const action = async ({ request }) => {
     return null;
   } else if (action === 'addItemToTreasure') {
     await addItemToTreasureAction(formData);
-  } else {
+  } else if (action === 'textChange') {
     await updateFreeTextsAction(formData);
   }
 
@@ -382,32 +371,22 @@ function PcBio() {
     } = {},
   } = pc;
 
-  const [isSubmitStatsShown, setIsSubmitStatsShown] = useState(false);
-  const [isSubmitAlliesShown, setIsSubmitAlliesShown] = useState(false);
-  const [isSubmitTraitsShown, setIsSubmitTraitsShown] = useState(false);
-  const [isSubmitBackstoryShown, setIsSubmitBackstoryShown] = useState(false);
-
-  function onStatsChange() {
-    setIsSubmitStatsShown(true);
-  }
-  function onAlliesChange() {
-    setIsSubmitAlliesShown(true);
-  }
-  function onTraitsChange() {
-    setIsSubmitTraitsShown(true);
-  }
-  function onBackstoryChange() {
-    setIsSubmitBackstoryShown(true);
-  }
-
-  function onFormSubmit(e) {
-    setIsSubmitStatsShown(false);
-    setIsSubmitAlliesShown(false);
-    setIsSubmitTraitsShown(false);
-    setIsSubmitBackstoryShown(false);
-  }
+  function onFormSubmit(e) {}
 
   const submit = useSubmit();
+
+  function onTextChange(fieldName, text) {
+    submit(
+      {
+        action: 'textChange',
+        id,
+        fieldName,
+        text,
+      },
+      { method: 'post' }
+    );
+  }
+
   function equipWeapon(weaponName, weaponSlot) {
     submit(
       {
@@ -658,68 +637,48 @@ function PcBio() {
           className="bio__data bio__eyes"
           name="eyes"
           defaultValue={eyes}
-          onChange={onStatsChange}
+          onBlur={e => onTextChange('eyes', e.target.value)}
         ></textarea>
         <textarea
           className="bio__data bio__skin"
           name="skin"
           defaultValue={skin}
-          onChange={onStatsChange}
+          onBlur={e => onTextChange('skin', e.target.value)}
         ></textarea>
         <textarea
           className="bio__data bio__hair"
           name="hair"
           defaultValue={hair}
-          onChange={onStatsChange}
+          onBlur={e => onTextChange('hair', e.target.value)}
         ></textarea>
-        {isSubmitStatsShown && (
-          <button type="submit" className="bio__data bio__submit-stats">
-            Actualizar
-          </button>
-        )}
 
         {/* FREE TEXT */}
         <textarea
           className="bio__data bio__allies"
           name="allies"
           defaultValue={allies}
-          onChange={onAlliesChange}
+          onBlur={e => onTextChange('allies', e.target.value)}
         ></textarea>
-        {isSubmitAlliesShown && (
-          <button type="submit" className="bio__data bio__submit-allies">
-            Actualizar
-          </button>
-        )}
 
         <textarea
           className="bio__data bio__backstory"
           name="backstory"
           defaultValue={backstory}
-          onChange={onBackstoryChange}
+          onBlur={e => onTextChange('backstory', e.target.value)}
         ></textarea>
-        {isSubmitBackstoryShown && (
-          <button type="submit" className="bio__data bio__submit-backstory">
-            Actualizar
-          </button>
-        )}
 
         <textarea
           className="bio__data bio__extra-traits1"
           name="extraTraits1"
           defaultValue={extraTraits1}
-          onChange={onTraitsChange}
+          onBlur={e => onTextChange('extraTraits1', e.target.value)}
         ></textarea>
         <textarea
           className="bio__data bio__extra-traits2"
           name="extraTraits2"
           defaultValue={extraTraits2}
-          onChange={onTraitsChange}
+          onBlur={e => onTextChange('extraTraits2', e.target.value)}
         ></textarea>
-        {isSubmitTraitsShown && (
-          <button type="submit" className="bio__data bio__submit-traits">
-            Actualizar
-          </button>
-        )}
 
         {/* TREASURE */}
         <div className="bio__data bio__treasure">

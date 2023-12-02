@@ -18,7 +18,7 @@ export const links = () => {
 };
 
 function CombatAttrs(props) {
-  const { pc, skillRefs, openSkillModal, onFreeTextChange, isDm } =
+  const { pc, skillRefs, openSkillModal, onTemporaryHitPointsChange, isDm } =
     props;
   const { hitPoints, temporaryHitPoints } = pc;
 
@@ -110,7 +110,7 @@ function CombatAttrs(props) {
           type="number"
           name="temporaryHitPoints"
           min="0"
-          onChange={onFreeTextChange}
+          onChange={onTemporaryHitPointsChange}
           defaultValue={temporaryHitPoints || ''}
           className="sheet__temporary-hit-points-input"
           disabled={!isDm}

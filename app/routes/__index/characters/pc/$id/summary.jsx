@@ -1,10 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import {
-  Form,
-  useLoaderData,
-  useSubmit,
-  useTransition,
-} from '@remix-run/react';
+import { Form, useLoaderData, useSubmit } from '@remix-run/react';
 import { createRef, useEffect, useRef, useState } from 'react';
 
 import {
@@ -261,19 +256,24 @@ async function updateNameAction(formData) {
 
 async function updateFreeTexts(formData) {
   const id = formData.get('id');
-  const personality = formData.get('personality');
-  const ideals = formData.get('ideals');
-  const bonds = formData.get('bonds');
-  const flaws = formData.get('flaws');
+  const fieldName = formData.get('fieldName');
+  const text = formData.get('text');
+
+  const updatedPc = await updatePc({
+    id,
+    [`freeText.${fieldName}`]: text,
+  });
+
+  return updatedPc;
+}
+
+async function updateTemporaryHitPoints(formData) {
+  const id = formData.get('id');
   const temporaryHitPoints = formData.get('temporaryHitPoints');
 
   const updatedPc = await updatePc({
     id,
     temporaryHitPoints,
-    'freeText.personality': personality,
-    'freeText.ideals': ideals,
-    'freeText.bonds': bonds,
-    'freeText.flaws': flaws,
   });
 
   return updatedPc;
@@ -317,8 +317,10 @@ export const action = async ({ request }) => {
     pc = await changeMoneyAction(formData);
   } else if (action === 'updateName') {
     return await updateNameAction(formData);
-  } else {
+  } else if (action === 'freeTextChange') {
     pc = await updateFreeTexts(formData);
+  } else if (action === 'temporaryHitPointsChange') {
+    pc = await updateTemporaryHitPoints(formData);
   }
 
   return json({ pc });
@@ -339,15 +341,29 @@ function PcSummary() {
     setPcName(name);
   }, [name]);
 
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
-
   useTitle(pcName);
 
-  const [isSubmitShown, setIsSubmitShown] = useState(false);
+  function onTemporaryHitPointsChange(e) {
+    submit(
+      {
+        action: 'temporaryHitPointsChange',
+        id,
+        temporaryHitPoints: e.target.value,
+      },
+      { method: 'post' }
+    );
+  }
 
-  function onFreeTextChange() {
-    setIsSubmitShown(true);
+  function onFreeTextChange(fieldName, text) {
+    submit(
+      {
+        action: 'freeTextChange',
+        id,
+        fieldName,
+        text,
+      },
+      { method: 'post' }
+    );
   }
 
   function onNameChange(e) {
@@ -359,10 +375,6 @@ function PcSummary() {
       },
       { method: 'post' }
     );
-  }
-
-  function onFormSubmit(e) {
-    setIsSubmitShown(false);
   }
 
   const [selectedNote, setSelectedNote] = useState(null);
@@ -547,12 +559,7 @@ function PcSummary() {
         openModal={openSkillModal('movingModal', 0)}
         position={mousePos[0] ? mousePos : []}
       />
-      <Form
-        method="post"
-        className="sheet__summary"
-        onSubmit={onFormSubmit}
-        ref={formRef}
-      >
+      <Form method="post" className="sheet__summary" ref={formRef}>
         <input readOnly type="text" name="id" value={id} hidden />
         <input readOnly type="text" name="pcName" value={pcName} hidden />
 
@@ -602,17 +609,6 @@ function PcSummary() {
           </SkillModal>
         )}
 
-        {/* FREE TEXT SUBMIT */}
-        {isSubmitShown && (
-          <button
-            type="submit"
-            disabled={isCreating}
-            className="sheet__data sheet__submit"
-          >
-            Actualizar
-          </button>
-        )}
-
         {notes.map(note => {
           return (
             <Note
@@ -646,7 +642,7 @@ function PcSummary() {
           pc={pc}
           skillRefs={skillRefs}
           openSkillModal={openSkillModal}
-          onFreeTextChange={onFreeTextChange}
+          onTemporaryHitPointsChange={onTemporaryHitPointsChange}
           isDm={isDm}
         />
 
@@ -679,25 +675,25 @@ function PcSummary() {
           className="sheet__data sheet__personality"
           name="personality"
           defaultValue={personality}
-          onChange={onFreeTextChange}
+          onBlur={e => onFreeTextChange('personality', e.target.value)}
         ></textarea>
         <textarea
           className="sheet__data sheet__ideals"
           name="ideals"
           defaultValue={ideals}
-          onChange={onFreeTextChange}
+          onBlur={e => onFreeTextChange('ideals', e.target.value)}
         ></textarea>
         <textarea
           className="sheet__data sheet__bonds"
           name="bonds"
           defaultValue={bonds}
-          onChange={onFreeTextChange}
+          onBlur={e => onFreeTextChange('bonds', e.target.value)}
         ></textarea>
         <textarea
           className="sheet__data sheet__flaws"
           name="flaws"
           defaultValue={flaws}
-          onChange={onFreeTextChange}
+          onBlur={e => onFreeTextChange('flaws', e.target.value)}
         ></textarea>
 
         {/* FEATS & TRAITS */}
