@@ -38,6 +38,7 @@
 .encounters__container {
   display: flex;
   flex-direction: column;
+  width: 90%;
 }
 
 .encounters__container-full-screen {
@@ -89,12 +90,15 @@
   flex-wrap: wrap;
 }
 
+.encounters__character-card {
+  max-width: 25%;
+}
+
 .encounters__character-name {
   margin-top: 0;
 }
 
 .encounters__bar-title {
-  display: block;
   margin-bottom: 8px;
 }
 

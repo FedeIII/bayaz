@@ -11,7 +11,9 @@ export function Card(props) {
       className={`${singleCard ? 'cards__single-card' : 'card'} ${className}`}
       style={style}
     >
-      <h3 className={`cards__card-title ${titleClass}`}>{title}</h3>
+      <h3 className={`cards__card-title ${titleClass}`}>
+        {typeof title === 'function' ? title() : title}
+      </h3>
       <div className="cards__card-body">{children}</div>
     </div>
   );

@@ -1,17 +1,17 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
-import { useContext, useEffect } from 'react';
+import { createRef, useContext, useEffect, useRef, useState } from 'react';
 
 import { healPc } from '~/services/pc.server';
 import { addMonstersKilled, getParty } from '~/services/party.server';
 import {
+  Monster,
   badlyHurtHP,
   getMonsters,
   health,
   hurtHP,
   sortByXp,
 } from '~/domain/encounters/monsters';
-import { translateMonster } from '~/domain/encounters/monsterTranslations';
 import { Card } from '~/components/cards/card';
 import {
   damageMonster,
@@ -23,15 +23,22 @@ import { ShrinkBar } from '~/components/indicators/shrinkBar';
 import MonstersContext from '~/components/contexts/monstersContext';
 import { getMonsterPositionStyle } from '~/domain/encounters/encounters';
 import { getActiveSession } from '~/domain/party/party';
-import { getExtraArmorClass, getMaxHitPoints } from '~/domain/characters';
+import { getMaxHitPoints } from '~/domain/characters';
 import { damagePc } from '~/domain/characterMutations';
 import { MultiLevelBar } from '~/components/indicators/multiLevelBar';
 import { getAcBreakdown } from '~/domain/display';
 import usePcsFromSession from '~/components/hooks/usePcsFromSession';
+import { useCharacterItems } from '~/components/modal/useCharacterItems';
+import { CharacterItem } from '~/components/modal/characterItem';
+import { CharacterModal } from '~/components/modal/characterModal';
 
 import styles from '~/components/randomEncounter.css';
+import charactersStyles from '~/components/characters/characters.css';
 export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [
+    { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: charactersStyles },
+  ];
 };
 
 export const loader = async ({ params }) => {
@@ -132,8 +139,27 @@ function PartyCombat() {
     }
   }
 
+  const [refsList, setRefsList] = useState({
+    monsters: useRef(monsters.map(createRef)),
+  });
+
+  const [
+    characterModalContent,
+    closeCharacterModal,
+    openCharacterModal,
+    selectedCharacterRef,
+    setSelectedCharacterRef,
+  ] = useCharacterItems(refsList);
+
+  const formRef = useRef(null);
+
   return (
-    <Form method="post" className="encounters__container" onSubmit={onSubmit}>
+    <Form
+      method="post"
+      className="encounters__container"
+      onSubmit={onSubmit}
+      ref={formRef}
+    >
       <input
         readOnly
         type="text"
@@ -143,6 +169,16 @@ function PartyCombat() {
       />
       <input readOnly type="text" name="partyId" value={partyId} hidden />
 
+      {characterModalContent && (
+        <CharacterModal
+          elRef={selectedCharacterRef}
+          formRef={formRef}
+          closeModal={closeCharacterModal}
+        >
+          {characterModalContent}
+        </CharacterModal>
+      )}
+
       <h2>Enemigos</h2>
       <div className="cards encounters__monster-list">
         {sortByXp(monsters)?.map((monster, i, all) => {
@@ -151,7 +187,20 @@ function PartyCombat() {
 
           return (
             <Card
-              title={translateMonster(monster.name)}
+              title={() => (
+                <CharacterItem
+                  ref={refsList.monsters.current[i]}
+                  character={Monster(monster.name)}
+                  charSection="monsters"
+                  charIndex={i}
+                  openModal={openCharacterModal(
+                    Monster(monster.name),
+                    'monsters',
+                    i
+                  )}
+                />
+              )}
+              className="encounters__character-card"
               titleClass="encounters__character-name"
               key={monster.name + '-' + i}
               style={getMonsterPositionStyle(i, all.length)}
@@ -261,7 +310,7 @@ function PartyCombat() {
                     <>
                       {' '}
                       <div className="encounters__bar">
-                        HP
+                        <div>HP</div>
                         <ShrinkBar
                           cursorPos={pc.hitPoints}
                           extraValue={pc.temporaryHitPoints}
@@ -271,7 +320,7 @@ function PartyCombat() {
                         />
                       </div>
                       <div className="encounters__bar">
-                        <span className="encounters__bar-title">AC</span>
+                        <div className="encounters__bar-title">AC</div>
                         <MultiLevelBar levels={levels} />
                       </div>
                       <div className="encounters__button-container">
