@@ -9,7 +9,6 @@ import {
 } from '~/services/pc.server';
 import { canCopySpells, translateClass } from '~/domain/characters';
 import { increment } from '~/domain/display';
-import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import {
   divideSpells,
   getMaxPreparedSpells,
@@ -118,20 +117,6 @@ function PcSpells() {
   function onFormSubmit(e) {
     setIsSubmitShown(false);
   }
-
-  useAddMenuItems('/characters', [
-    { name, url: `/characters/pc/${id}/summary`, level: 1 },
-    {
-      name: 'Inventario',
-      url: `/characters/pc/${id}/bio`,
-      level: 2,
-    },
-    {
-      name: 'Conjuros',
-      url: `/characters/pc/${id}/spells`,
-      level: 2,
-    },
-  ]);
 
   function onPrepareSpellClick(spell) {
     return e => {

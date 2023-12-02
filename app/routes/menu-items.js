@@ -28,10 +28,10 @@ export const loader = async ({ request }) => {
 
   if (pcIdsState?.length) {
     allPcIds = unique([...allPcIds, ...pcIdsState]);
-    allPcNames = [
+    allPcNames = unique([
       ...allPcNames,
       ...(await Promise.all(pcIdsState.map(getPcName))),
-    ];
+    ]);
   }
 
   const menuItems = getAllMenuItems({

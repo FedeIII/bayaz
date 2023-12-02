@@ -12,7 +12,6 @@ import {
   dropTreasureItem,
   changeTreasureItemAmount,
 } from '~/services/pc.server';
-import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { getPackItems } from '~/domain/equipment/packs';
 import { getItem, translatePack } from '~/domain/equipment/equipment';
 import {
@@ -466,20 +465,6 @@ function PcBio() {
       { method: 'post' }
     );
   }
-
-  useAddMenuItems('/characters', [
-    { name, url: `/characters/pc/${id}/summary`, level: 1 },
-    {
-      name: 'Inventario',
-      url: `/characters/pc/${id}/bio`,
-      level: 2,
-    },
-    {
-      name: 'Conjuros',
-      url: `/characters/pc/${id}/spells`,
-      level: 2,
-    },
-  ]);
 
   const [actionModalContent, setActionModalContent] = useState(null);
 

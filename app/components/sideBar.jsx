@@ -14,7 +14,7 @@ export function SideBar(props) {
     <div className="app__sidebar">
       {menuItems.map(button => (
         <Link
-          key={button.name}
+          key={button.url}
           to={button.url}
           className={`${
             button.level === 0

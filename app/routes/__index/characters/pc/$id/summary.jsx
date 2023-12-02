@@ -40,7 +40,6 @@ import {
   getPrimalPathTraits,
   translatePrimalPath,
 } from '~/domain/classes/barbarian/barbarian';
-import { useAddMenuItems } from '~/components/hooks/useAddMenuItems';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import { ItemModal } from '~/components/modal/itemModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
@@ -424,20 +423,6 @@ function PcSummary() {
       setSelectedNote(null);
     }
   }
-
-  useAddMenuItems('/characters', [
-    { name: pcName, url: `/characters/pc/${id}/summary`, level: 1 },
-    {
-      name: 'Inventario',
-      url: `/characters/pc/${id}/bio`,
-      level: 2,
-    },
-    {
-      name: 'Conjuros',
-      url: `/characters/pc/${id}/spells`,
-      level: 2,
-    },
-  ]);
 
   const submit = useSubmit();
 

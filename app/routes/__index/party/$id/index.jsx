@@ -201,7 +201,7 @@ function PartyInfo() {
 
   function onEndSessionClick() {
     partyContext.deletePartyIdState?.();
-    partyContext.deletePcNamesState?.();
+    partyContext.deletePcIdsState?.();
   }
 
   const [activeSession, setActiveSession] = useState(getActiveSession(party));
