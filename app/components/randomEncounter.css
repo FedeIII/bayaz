@@ -1,3 +1,39 @@
+.encounters__form {
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+}
+
+.encounters__container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 18%;
+}
+
+.encounters__initiative-menu {
+  margin: 100px 0 0 0;
+  position: fixed;
+}
+
+.encounters__initiative-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.encounters__initiative-list {
+  text-align: start;
+  text-wrap: nowrap;
+  padding: 0 0 0 20px;
+}
+
+.encounters__initiative-item {
+}
+
+.encounters__initiative-item:hover {
+  background-color: var(--color-pale);
+}
+
 .encounters {
   font-family: var(--font-family);
 }
@@ -33,12 +69,6 @@
 .encounters__difficulty {
   color: white;
   text-decoration: none;
-}
-
-.encounters__container {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
 }
 
 .encounters__container-full-screen {
@@ -94,6 +124,10 @@
   max-width: 25%;
 }
 
+.encounters__character-card--highlight {
+  background-color: var(--color-pale);
+}
+
 .encounters__character-name {
   margin-top: 0;
 }
@@ -112,13 +146,72 @@
   vertical-align: sub;
 }
 
+.encounters__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 8px;
+}
+
+.encounters__buttons-container {
+  text-wrap: nowrap;
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+}
+
+.encounters__buttons-column {
+  display: flex;
+  flex-direction: column;
+  width: min-content;
+  flex-grow: 1;
+  align-items: start;
+}
+
 .encounters__button-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: start;
+  column-gap: 8px;
+  margin: 4px 0;
+}
+
+.encounters__damage-button {
+  padding: 2px 4px;
+  height: 24px;
+}
+
+.encounters__damage-button:hover {
+  background-color: var(--color-pale);
 }
 
 .encounters__damage-input {
   width: 24px;
+  font-size: 18px;
+  padding: 2px 6px;
+  height: 18px;
+}
+
+.encounters__initiative-label {
+  cursor: pointer;
+}
+
+.encounters__initiative-input {
+  padding: 2px 0px 2px 6px;
+  width: 40px;
+  font-size: 18px;
+  height: 18px;
+}
+
+.encounters__notes {
+  width: calc(100% - 16px);
+  min-height: 40px;
+  border: 1px solid var(--color-x-pale);
+  background: none;
+  color: white;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
+  padding: 4px 8px;
+  margin: 8px 0 0;
 }
 
 .encounters__monsters-list {

@@ -1,6 +1,13 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
-import { createRef, useContext, useEffect, useRef, useState } from 'react';
+import {
+  createRef,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { healPc } from '~/services/pc.server';
 import { addMonstersKilled, getParty } from '~/services/party.server';
@@ -31,6 +38,9 @@ import usePcsFromSession from '~/components/hooks/usePcsFromSession';
 import { useCharacterItems } from '~/components/modal/useCharacterItems';
 import { CharacterItem } from '~/components/modal/characterItem';
 import { CharacterModal } from '~/components/modal/characterModal';
+import { replaceAt } from '~/utils/insert';
+import { translateMonster } from '~/domain/encounters/monsterTranslations';
+import { rollDice } from '~/domain/random';
 
 import styles from '~/components/randomEncounter.css';
 import charactersStyles from '~/components/characters/characters.css';
@@ -130,7 +140,7 @@ function PartyCombat() {
     );
   }, [encounterId, monstersStats]);
 
-  const monsters = getMonsters(monstersStats.map(m => m.name));
+  const monsters = sortByXp(getMonsters(monstersStats.map(m => m.name)));
 
   function onSubmit(data) {
     if ([].slice.call(data.target).find(node => node.name === 'endCombat')) {
@@ -153,10 +163,66 @@ function PartyCombat() {
 
   const formRef = useRef(null);
 
+  const [initiatives, setInitiatives] = useState({
+    monsters: monsters.map(() => 0),
+    pcs: pcs.map(() => 0),
+  });
+
+  useEffect(() => {
+    setInitiatives({
+      monsters: monsters.map(() => 0),
+      pcs: pcs.map(() => 0),
+    });
+  }, [monsters.length, pcs.length]);
+
+  const initiativesList = useMemo(
+    () => {
+      return [
+        ...initiatives.monsters
+          .map((monsterInitiative, i) => ({
+            type: 'monsters',
+            name: translateMonster(monsters[i].name),
+            value: monsterInitiative,
+            index: i,
+          }))
+          .filter((_, i) => monstersStats[i].hp > 0),
+        ...initiatives.pcs
+          .map((pcInitiative, i) => ({
+            type: 'pcs',
+            name: pcs[i].name,
+            value: pcInitiative,
+            index: i,
+          }))
+          .filter((_, i) => pcs[i].hitPoints > 0),
+      ].sort((a, b) => b.value - a.value);
+    },
+    [initiatives.monsters, initiatives.pcs, monstersStats, pcs],
+    monsters
+  );
+
+  const [hover, setHover] = useState({
+    monsters: null,
+    pcs: null,
+  });
+
+  function resetInitiatives() {
+    setInitiatives({
+      monsters: monsters.map(() => 0),
+      pcs: pcs.map(() => 0),
+    });
+  }
+
+  function setMobInitiatives() {
+    setInitiatives(old => ({
+      ...old,
+      monsters: monsters.map(() => rollDice('1d20')),
+    }));
+  }
+
   return (
     <Form
       method="post"
-      className="encounters__container"
+      className="encounters__form"
       onSubmit={onSubmit}
       ref={formRef}
     >
@@ -179,200 +245,345 @@ function PartyCombat() {
         </CharacterModal>
       )}
 
-      <h2>Enemigos</h2>
-      <div className="cards encounters__monster-list">
-        {sortByXp(monsters)?.map((monster, i, all) => {
-          const { hp, maxHp, id: monsterId } = monstersStats[i] || {};
-          const isAlive = hp > 0;
-
-          return (
-            <Card
-              title={() => (
-                <CharacterItem
-                  ref={refsList.monsters.current[i]}
-                  character={Monster(monster.name)}
-                  charSection="monsters"
-                  charIndex={i}
-                  openModal={openCharacterModal(
-                    Monster(monster.name),
-                    'monsters',
-                    i
-                  )}
-                />
-              )}
-              className="encounters__character-card"
-              titleClass="encounters__character-name"
-              key={monster.name + '-' + i}
-              style={getMonsterPositionStyle(i, all.length)}
+      <div className="encounters__initiative-menu">
+        <Card title="Iniciativa">
+          <div className="encounters__initiative-buttons">
+            <button
+              type="button"
+              className="encounters__damage-button cards__button-card"
+              onClick={resetInitiatives}
             >
-              {isAlive && (
-                <div>
-                  HP:{' '}
-                  <ShrinkBar
-                    cursorPos={hp}
-                    maxValue={maxHp}
-                    midValue={hurtHP(monstersStats[i])}
-                    lowValue={badlyHurtHP(monstersStats[i])}
-                  />
-                </div>
-              )}
-              {!isAlive && (
-                <div className="encounters__death">
-                  <span className="encounters__death-icon">☠</span> Muerto
-                </div>
-              )}
-              {isAlive && (
-                <div className="encounters__button-container">
-                  <button name="damage" value={monsterId}>
-                    Daño
-                  </button>
-                  <input
-                    type="text"
-                    name={`damage-${monsterId}`}
-                    className="encounters__damage-input"
-                  />
-                </div>
-              )}
-              <div className="encounters__button-container">
-                <button name="heal" value={monsterId}>
-                  Curación
-                </button>
-                <input
-                  type="text"
-                  name={`heal-${monsterId}`}
-                  className="encounters__damage-input"
-                />
-              </div>
-            </Card>
-          );
-        })}
+              Reiniciar
+            </button>
+            <button
+              type="button"
+              className="encounters__damage-button cards__button-card"
+              onClick={setMobInitiatives}
+            >
+              Lanzar
+            </button>
+          </div>
+          <ol className="encounters__initiative-list">
+            {initiativesList.map((obj, i) => (
+              <li
+                className="encounters__initiative-item"
+                onMouseEnter={() =>
+                  setHover(old => ({ ...old, [obj.type]: obj.index }))
+                }
+                onMouseLeave={() =>
+                  setHover(old => ({ ...old, [obj.type]: null }))
+                }
+                key={i}
+              >
+                (<span>{obj.value}</span>) <span>{obj.name}</span>
+              </li>
+            ))}
+          </ol>
+        </Card>
       </div>
 
-      {!!pcs?.length && (
-        <>
-          <h2>PCs</h2>
-          <div className="cards encounters__monster-list">
-            {pcs.map((pc, pcIndex, all) => {
-              const maxHitPoints = getMaxHitPoints(pc);
-              const isAlive = pc.hitPoints > -maxHitPoints;
-              const acBreakdown = getAcBreakdown(pc);
-              let tag = acBreakdown.base;
-              const levels = [
-                ...(tag > 10
-                  ? [
-                      {
-                        size: Math.floor(10 / 2),
-                        thickness: 0,
-                        tag: 10,
-                        tooltip: 'Base',
-                        style: { color: 'var(--color-x-pale)' },
-                      },
-                      {
-                        size: Math.floor((acBreakdown.base - 10) / 2),
-                        thickness: 1,
-                        tag,
-                        tooltip: acBreakdown.title,
-                        style: { color: 'var(--color-x-pale)' },
-                      },
-                    ]
-                  : [
-                      {
-                        size: Math.floor(acBreakdown.base / 2),
-                        thickness: 0,
-                        tag,
-                        tooltip: 'Base',
-                        style: { color: 'var(--color-x-pale)' },
-                      },
-                    ]),
-                ...acBreakdown.extras.reduce((lvls, extra, extraIndex) => {
-                  tag += extra.ac === '(+2)' ? 2 : Number(extra.ac || 0);
-                  return [
-                    ...lvls,
-                    {
-                      size: 3 * parseInt(extra.ac?.slice(1), 10),
-                      thickness: extraIndex + 1,
-                      tag,
-                      tooltip: extra.title,
-                      style: { color: 'var(--color-x-blue-ink)' },
-                    },
-                  ];
-                }, []),
-              ];
+      <div className="encounters__container">
+        <h2>Enemigos</h2>
+        <div className="cards encounters__monster-list">
+          {monsters?.map((monster, i, all) => {
+            const { hp, maxHp, id: monsterId } = monstersStats[i] || {};
+            const isAlive = hp > 0;
 
-              return (
-                <Card
-                  title={pc.name}
-                  titleClass="encounters__character-name"
-                  key={pc.id}
-                  style={getMonsterPositionStyle(pcIndex, all.length)}
-                >
-                  {isAlive && (
-                    <>
-                      {' '}
-                      <div className="encounters__bar">
-                        <div>HP</div>
-                        <ShrinkBar
-                          cursorPos={pc.hitPoints}
-                          extraValue={pc.temporaryHitPoints}
-                          maxValue={maxHitPoints}
-                          midValue={maxHitPoints / 2}
-                          lowValue={maxHitPoints / 5}
-                        />
-                      </div>
-                      <div className="encounters__bar">
-                        <div className="encounters__bar-title">AC</div>
-                        <MultiLevelBar levels={levels} />
-                      </div>
+            return (
+              <Card
+                title={() => (
+                  <CharacterItem
+                    ref={refsList.monsters.current[i]}
+                    character={Monster(monster.name)}
+                    charSection="monsters"
+                    charIndex={i}
+                    openModal={openCharacterModal(
+                      Monster(monster.name),
+                      'monsters',
+                      i
+                    )}
+                  />
+                )}
+                className={`encounters__character-card ${
+                  hover.monsters === i
+                    ? 'encounters__character-card--highlight'
+                    : ''
+                }`}
+                titleClass="encounters__character-name"
+                key={monster.name + '-' + i}
+                style={getMonsterPositionStyle(i, all.length)}
+              >
+                {isAlive && (
+                  <div className="encounters__bar">
+                    HP{' '}
+                    <ShrinkBar
+                      cursorPos={hp}
+                      maxValue={maxHp}
+                      midValue={hurtHP(monstersStats[i])}
+                      lowValue={badlyHurtHP(monstersStats[i])}
+                    />
+                  </div>
+                )}
+                {!isAlive && (
+                  <div className="encounters__death">
+                    <span className="encounters__death-icon">☠</span> Muerto
+                  </div>
+                )}
+                <div className="encounters__buttons">
+                  <div className="encounters__buttons-column">
+                    {isAlive && (
                       <div className="encounters__button-container">
-                        <button name="pc-damage" value={pc.id}>
+                        <button
+                          name="damage"
+                          value={monsterId}
+                          className="encounters__damage-button cards__button-card"
+                        >
                           Daño
                         </button>
                         <input
                           type="text"
-                          name={`pc-damage-${pc.id}`}
-                          className="encounters__damage-input"
+                          name={`damage-${monsterId}`}
+                          className="encounters__damage-input cards__button-card"
                         />
                       </div>
-                    </>
-                  )}
-                  {!isAlive && (
-                    <div className="encounters__death">
-                      <span className="encounters__death-icon">☠</span> Muerto
+                    )}
+                    <div className="encounters__button-container">
+                      <button
+                        name="heal"
+                        value={monsterId}
+                        className="encounters__damage-button cards__button-card"
+                      >
+                        Curación
+                      </button>
+                      <input
+                        type="text"
+                        name={`heal-${monsterId}`}
+                        className="encounters__damage-input cards__button-card"
+                      />
                     </div>
-                  )}
-                  <div className="encounters__button-container">
-                    <button name="pc-heal" value={pc.id}>
-                      Curación
-                    </button>
-                    <input
-                      type="text"
-                      name={`pc-heal-${pc.id}`}
-                      className="encounters__damage-input"
-                    />
                   </div>
-                </Card>
-              );
-            })}
-          </div>
 
-          <p className="encounters__buttons-row">
-            <Link
-              to={`/party/${partyId}/encounters/${encounterId}/players`}
-              className="cards__button-card"
-              target="_blank"
-            >
-              Mostrar Combate
-            </Link>
-            <button
-              name="endCombat"
-              value="true"
-              className="cards__button-card"
-            >
-              Terminar Combate
-            </button>
-          </p>
-        </>
-      )}
+                  <div className="encounters__buttons-column">
+                    <div className="encounters__button-container">
+                      <label
+                        htmlFor={`initiative-${monsterId}`}
+                        className="encounters__initiative-label"
+                        onClick={() =>
+                          setInitiatives(old => ({
+                            ...old,
+                            monsters: replaceAt(
+                              i,
+                              old.monsters,
+                              rollDice('1d20')
+                            ),
+                          }))
+                        }
+                      >
+                        Iniciativa{' '}
+                        <input
+                          type="number"
+                          name={`initiative-${monsterId}`}
+                          value={initiatives.monsters[i]}
+                          onChange={e =>
+                            setInitiatives(old => ({
+                              ...old,
+                              monsters: replaceAt(
+                                i,
+                                old.monsters,
+                                e.target.value
+                              ),
+                            }))
+                          }
+                          className="encounters__initiative-input cards__button-card"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <textarea
+                  className="encounters__notes"
+                  name={`notes-${monsterId}`}
+                  defaultValue={''}
+                ></textarea>
+              </Card>
+            );
+          })}
+        </div>
+
+        {!!pcs?.length && (
+          <>
+            <h2>PCs</h2>
+            <div className="cards encounters__monster-list">
+              {pcs.map((pc, pcIndex, all) => {
+                const maxHitPoints = getMaxHitPoints(pc);
+                const isAlive = pc.hitPoints > -maxHitPoints;
+                const acBreakdown = getAcBreakdown(pc);
+                let tag = acBreakdown.base;
+                const levels = [
+                  ...(tag > 10
+                    ? [
+                        {
+                          size: Math.floor(10 / 2),
+                          thickness: 0,
+                          tag: 10,
+                          tooltip: 'Base',
+                          style: { color: 'var(--color-x-pale)' },
+                        },
+                        {
+                          size: Math.floor((acBreakdown.base - 10) / 2),
+                          thickness: 1,
+                          tag,
+                          tooltip: acBreakdown.title,
+                          style: { color: 'var(--color-x-pale)' },
+                        },
+                      ]
+                    : [
+                        {
+                          size: Math.floor(acBreakdown.base / 2),
+                          thickness: 0,
+                          tag,
+                          tooltip: 'Base',
+                          style: { color: 'var(--color-x-pale)' },
+                        },
+                      ]),
+                  ...acBreakdown.extras.reduce((lvls, extra, extraIndex) => {
+                    tag += extra.ac === '(+2)' ? 2 : Number(extra.ac || 0);
+                    return [
+                      ...lvls,
+                      {
+                        size: 3 * parseInt(extra.ac?.slice(1), 10),
+                        thickness: extraIndex + 1,
+                        tag,
+                        tooltip: extra.title,
+                        style: { color: 'var(--color-x-blue-ink)' },
+                      },
+                    ];
+                  }, []),
+                ];
+
+                return (
+                  <Card
+                    title={pc.name}
+                    className={`encounters__character-card ${
+                      hover.pcs === pcIndex
+                        ? 'encounters__character-card--highlight'
+                        : ''
+                    }`}
+                    titleClass="encounters__character-name"
+                    key={pc.id}
+                    style={getMonsterPositionStyle(pcIndex, all.length)}
+                  >
+                    {isAlive && (
+                      <>
+                        {' '}
+                        <div className="encounters__bar">
+                          HP{' '}
+                          <ShrinkBar
+                            cursorPos={pc.hitPoints}
+                            extraValue={pc.temporaryHitPoints}
+                            maxValue={maxHitPoints}
+                            midValue={maxHitPoints / 2}
+                            lowValue={maxHitPoints / 5}
+                          />
+                        </div>
+                        <div className="encounters__bar">
+                          AC <MultiLevelBar levels={levels} />
+                        </div>
+                        {!isAlive && (
+                          <div className="encounters__death">
+                            <span className="encounters__death-icon">☠</span>{' '}
+                            Muerto
+                          </div>
+                        )}
+                        <div className="encounters__buttons">
+                          <div className="encounters__buttons-column">
+                            <div className="encounters__button-container">
+                              <button
+                                name="pc-damage"
+                                value={pc.id}
+                                className="encounters__damage-button cards__button-card"
+                              >
+                                Daño
+                              </button>
+                              <input
+                                type="text"
+                                name={`pc-damage-${pc.id}`}
+                                className="encounters__damage-input cards__button-card"
+                              />
+                            </div>
+                            <div className="encounters__buttons-container">
+                              <button
+                                name="pc-heal"
+                                value={pc.id}
+                                className="encounters__damage-button cards__button-card"
+                              >
+                                Curación
+                              </button>
+                              <input
+                                type="text"
+                                name={`pc-heal-${pc.id}`}
+                                className="encounters__damage-input cards__button-card"
+                              />
+                            </div>
+                          </div>
+                          <div className="encounters__buttons-column">
+                            <div className="encounters__button-container">
+                              <label
+                                htmlFor={`initiative-${pc.id}`}
+                                className="encounters__initiative-label"
+                              >
+                                Iniciativa{' '}
+                                <input
+                                  type="number"
+                                  name={`initiative-${pc.id}`}
+                                  value={initiatives.pcs[pcIndex]}
+                                  onChange={e =>
+                                    setInitiatives(old => ({
+                                      ...old,
+                                      pcs: replaceAt(
+                                        pcIndex,
+                                        old.pcs,
+                                        e.target.value
+                                      ),
+                                    }))
+                                  }
+                                  className="encounters__initiative-input cards__button-card"
+                                />
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <textarea
+                          className="encounters__notes"
+                          name={`notes-${pc.id}`}
+                          defaultValue={''}
+                        ></textarea>
+                      </>
+                    )}
+                  </Card>
+                );
+              })}
+            </div>
+
+            <p className="encounters__buttons-row">
+              <Link
+                to={`/party/${partyId}/encounters/${encounterId}/players`}
+                className="encounters__damage-button cards__button-card"
+                target="_blank"
+              >
+                Mostrar Combate
+              </Link>
+              <button
+                name="endCombat"
+                value="true"
+                className="encounters__damage-button cards__button-card"
+              >
+                Terminar Combate
+              </button>
+            </p>
+          </>
+        )}
+      </div>
     </Form>
   );
 }
