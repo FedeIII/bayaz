@@ -22,7 +22,6 @@ import {
 import { Card } from '~/components/cards/card';
 import {
   damageMonster,
-  deleteEncounter,
   getEncounter,
   healMonster,
 } from '~/services/encounter.server';
@@ -70,17 +69,17 @@ export const action = async ({ request }) => {
   ]);
 
   const activeSession = getActiveSession(party);
+  const monstersKilled = encounter.monsters
+    .filter(m => m.hp <= 0)
+    .map(m => m.name);
 
   if (endCombat) {
-    await Promise.all([
-      addMonstersKilled(
-        partyId,
-        activeSession.id,
-        encounter.monsters.map(m => m.name)
-      ),
-      deleteEncounter(encounterId),
-    ]);
-    return redirect(`/party/${partyId}/encounters`);
+    if (monstersKilled.length) {
+      await Promise.all([
+        addMonstersKilled(partyId, activeSession.id, monstersKilled),
+      ]);
+    }
+    return redirect(`/party/${partyId}`);
   }
 
   let updatedEncounter = encounter;
