@@ -28,7 +28,7 @@
 
 .bar__cursorValue {
   position: absolute;
-  top: -16px;
+  top: -3vh;
   font-family: var(--font-family);
   font-size: var(--font-size-s);
   width: 0px;
