@@ -56,6 +56,7 @@ function EncounterList() {
               className="cards__button-card encounterList__encounter"
               key={encounter.id}
             >
+              <div className="encounterList__name">{encounter.name}</div>
               <div className="encounterList__monsters">
                 {groupMonsters(monsters)}
               </div>
