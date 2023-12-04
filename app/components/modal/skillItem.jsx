@@ -54,8 +54,9 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
           }
         }}
       >
-        {!!children && children}
+        {!!(!!children || children === 0) && children}
         {!children &&
+          children !== 0 &&
           !position &&
           (trait === 'spell'
             ? translateSpell(traitName)

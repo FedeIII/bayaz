@@ -52,7 +52,6 @@ npx prisma migrate dev
 ```
 
 ## TO DOsg
-- Give exp on encounter end just for enemies killed (but counting as a part of the total party)
 - Unlink encounters from parties
   - Random encounters
 - Combat menu

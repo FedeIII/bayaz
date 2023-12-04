@@ -10,7 +10,12 @@ import { BASE_CHARACTER } from '~/domain/characters';
 
 const noOp = () => {};
 
-export function useSkillItems(pc = BASE_CHARACTER, skillRefs, submit = noOp) {
+export function useSkillItems(
+  pc = BASE_CHARACTER,
+  skillRefs,
+  submit = noOp,
+  isDm
+) {
   const [skillModalContent, setSkillModalContent] = useState(null);
   const [skillBigModalContent, setSkillBigModalContent] = useState(null);
   const [selectedSkillRef, setSelectedSkillRef] = useState(null);
@@ -30,7 +35,7 @@ export function useSkillItems(pc = BASE_CHARACTER, skillRefs, submit = noOp) {
         setModalContent(
           () => props =>
             skill === 'spell' ? (
-              <SpellModalContent spellName={skillName} bigModal />
+              <SpellModalContent spellName={skillName} isDm={isDm} bigModal />
             ) : skill === 'invocation' ? (
               <InvocationModalContent
                 pc={pc}
@@ -54,6 +59,7 @@ export function useSkillItems(pc = BASE_CHARACTER, skillRefs, submit = noOp) {
                 submit={submit}
                 skillIndex={skillIndex}
                 position={position}
+                isDm={isDm}
                 {...props}
               />
             )

@@ -3055,7 +3055,8 @@ export function getSkillExplanation(
   submit,
   closeModal,
   skillIndex,
-  position
+  position,
+  isDm
 ) {
   return (
     {
@@ -3074,7 +3075,8 @@ export function getSkillExplanation(
       ...elementalDisciplineExplanation(skillName),
       ...PALADIN_SKILLS_EXPLANATION,
       ...ROGUE_SKILLS_EXPLANATION,
-    }[skillName]?.(skill, pc, submit, closeModal, skillIndex, position) || skill
+    }[skillName]?.(skill, pc, submit, closeModal, skillIndex, position, isDm) ||
+    skill
   );
 }
 

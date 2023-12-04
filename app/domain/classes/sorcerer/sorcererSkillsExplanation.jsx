@@ -46,7 +46,15 @@ export const SORCERER_SKILLS_EXPLANATION = {
     </>
   ),
 
-  wildMagicSurge: (skill, pc) => (
+  wildMagicSurge: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm
+  ) => (
     <>
       <p>
         Comenzando cuando eliges este origen en el nivel 1, tus lanzamientos de
@@ -56,52 +64,54 @@ export const SORCERER_SKILLS_EXPLANATION = {
         Salvaje para crear un efecto mágico aleatorio.
       </p>
 
-      <div>
-        <h3>Oleada de Magia Salvaje</h3>
-        <table className="inventory-item__table">
-          <thead className="inventory-item__table-head">
-            <tr>
-              <th className="inventory-item__table-cell">
-                <strong>d100</strong>
-              </th>
-              <th className="inventory-item__table-cell inventory-item__left">
-                <strong>Efecto</strong>
-              </th>
-              <th className="inventory-item__table-cell">
-                <strong>d100</strong>
-              </th>
-              <th className="inventory-item__table-cell inventory-item__left">
-                <strong>Efecto</strong>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {WILD_MAGIC_SURGE_TABLE.reduce(
-              (rows, row, i) =>
-                i < WILD_MAGIC_SURGE_TABLE.length - 2 && i % 2 === 0
-                  ? [
-                      ...rows,
-                      <tr className="inventory-item__table-row">
-                        <td className="inventory-item__table-cell inventory-item__no-wrap">
-                          {row.dice}
-                        </td>
-                        <td className="inventory-item__table-cell inventory-item__left">
-                          {row.effect}
-                        </td>
-                        <td className="inventory-item__table-cell inventory-item__no-wrap">
-                          {WILD_MAGIC_SURGE_TABLE[i + 1].dice}
-                        </td>
-                        <td className="inventory-item__table-cell inventory-item__left">
-                          {WILD_MAGIC_SURGE_TABLE[i + 1].effect}
-                        </td>
-                      </tr>,
-                    ]
-                  : rows,
-              []
-            )}
-          </tbody>
-        </table>
-      </div>
+      {!!isDm && (
+        <div>
+          <h3>Oleada de Magia Salvaje</h3>
+          <table className="inventory-item__table">
+            <thead className="inventory-item__table-head">
+              <tr>
+                <th className="inventory-item__table-cell">
+                  <strong>d100</strong>
+                </th>
+                <th className="inventory-item__table-cell inventory-item__left">
+                  <strong>Efecto</strong>
+                </th>
+                <th className="inventory-item__table-cell">
+                  <strong>d100</strong>
+                </th>
+                <th className="inventory-item__table-cell inventory-item__left">
+                  <strong>Efecto</strong>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {WILD_MAGIC_SURGE_TABLE.reduce(
+                (rows, row, i) =>
+                  i < WILD_MAGIC_SURGE_TABLE.length - 2 && i % 2 === 0
+                    ? [
+                        ...rows,
+                        <tr className="inventory-item__table-row">
+                          <td className="inventory-item__table-cell inventory-item__no-wrap">
+                            {row.dice}
+                          </td>
+                          <td className="inventory-item__table-cell inventory-item__left">
+                            {row.effect}
+                          </td>
+                          <td className="inventory-item__table-cell inventory-item__no-wrap">
+                            {WILD_MAGIC_SURGE_TABLE[i + 1].dice}
+                          </td>
+                          <td className="inventory-item__table-cell inventory-item__left">
+                            {WILD_MAGIC_SURGE_TABLE[i + 1].effect}
+                          </td>
+                        </tr>,
+                      ]
+                    : rows,
+                []
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
     </>
   ),
 

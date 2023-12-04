@@ -26,6 +26,7 @@ export function SkillModalContent(props) {
     closeModal,
     skillIndex,
     position,
+    isDm,
   } = props;
 
   const skillExplanation = getSkillExplanation(
@@ -35,7 +36,8 @@ export function SkillModalContent(props) {
     submit,
     closeModal,
     skillIndex,
-    position
+    position,
+    isDm
   );
 
   const skillTitle =
