@@ -8,11 +8,6 @@ function DeathSavingThrows() {
           id="savingThrowSuccess0"
           value="savingThrowSuccess0"
           className="sheet__data spells__prepared-spell"
-          style={{
-            left: '4px',
-            top: '0px',
-            zIndex: 10,
-          }}
         />
         <label
           htmlFor="savingThrowSuccess0"
@@ -25,8 +20,8 @@ function DeathSavingThrows() {
           htmlFor="savingThrowSuccess0"
           className="spells__prepared-spell-checked"
           style={{
-            left: '4px',
-            top: '0px',
+            left: '0.3vw',
+            top: '0.05vh',
             zIndex: 10,
           }}
         >
@@ -40,11 +35,6 @@ function DeathSavingThrows() {
           id="savingThrowSuccess1"
           value="savingThrowSuccess1"
           className="sheet__data spells__prepared-spell"
-          style={{
-            left: '29px',
-            top: '0px',
-            zIndex: 10,
-          }}
         />
         <label
           htmlFor="savingThrowSuccess1"
@@ -58,8 +48,8 @@ function DeathSavingThrows() {
           htmlFor="savingThrowSuccess1"
           className="spells__prepared-spell-checked"
           style={{
-            left: '29px',
-            top: '0px',
+            left: '2.05vw',
+            top: '0.05vh',
             zIndex: 10,
           }}
         >
@@ -73,11 +63,6 @@ function DeathSavingThrows() {
           id="savingThrowSuccess2"
           value="savingThrowSuccess2"
           className="sheet__data spells__prepared-spell"
-          style={{
-            left: '54px',
-            top: '0px',
-            zIndex: 10,
-          }}
         />
         <label
           htmlFor="savingThrowSuccess2"
@@ -91,8 +76,8 @@ function DeathSavingThrows() {
           htmlFor="savingThrowSuccess2"
           className="spells__prepared-spell-checked"
           style={{
-            left: '54px',
-            top: '0px',
+            left: '3.8vw',
+            top: '0.05vh',
             zIndex: 10,
           }}
         >
@@ -123,7 +108,7 @@ function DeathSavingThrows() {
           htmlFor="savingThrowFailure0"
           className="spells__prepared-spell-checked"
           style={{
-            left: '4px',
+            left: '0.3vw',
             top: '-1vh',
             zIndex: 10,
           }}
@@ -138,11 +123,6 @@ function DeathSavingThrows() {
           id="savingThrowFailure1"
           value="savingThrowFailure1"
           className="sheet__data spells__prepared-spell"
-          style={{
-            left: '5px',
-            top: '-7px',
-            zIndex: 10,
-          }}
         />
         <label
           htmlFor="savingThrowFailure1"
@@ -157,7 +137,7 @@ function DeathSavingThrows() {
           htmlFor="savingThrowFailure1"
           className="spells__prepared-spell-checked"
           style={{
-            left: '30px',
+            left: '2vw',
             top: '-1vh',
             zIndex: 10,
           }}
@@ -191,7 +171,7 @@ function DeathSavingThrows() {
           htmlFor="savingThrowFailure2"
           className="spells__prepared-spell-checked"
           style={{
-            left: '55px',
+            left: '3.8vw',
             top: '-1vh',
             zIndex: 10,
           }}
