@@ -357,7 +357,7 @@
   position: absolute;
   top: -4px;
   left: -1px;
-  font-size: var(--font-size-xxl);
+  font-size: var(--font-size-big);
 }
 
 .spells__prepared-spell-checked:hover {
