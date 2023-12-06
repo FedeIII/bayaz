@@ -52,6 +52,7 @@ npx prisma migrate dev
 ```
 
 ## TO DOsg
+- Embedded youtube music
 - Unlink encounters from parties
   - Random encounters
 - Combat menu

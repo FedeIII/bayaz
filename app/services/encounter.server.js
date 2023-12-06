@@ -11,6 +11,7 @@ const monsterSchema = new mongoose.Schema({
 
 const encounterSchema = new mongoose.Schema({
   id: String,
+  group: String,
   name: String,
   monsters: [monsterSchema],
 });
@@ -18,9 +19,10 @@ const encounterSchema = new mongoose.Schema({
 const Encounter =
   mongoose.models.Encounter || mongoose.model('Encounter', encounterSchema);
 
-export async function createEncounter(name, monsters) {
+export async function createEncounter(group, name, monsters) {
   const newEncounter = await Encounter.create({
     id: uuid(),
+    group,
     name,
     monsters: monsters.map(m => ({ ...m, id: uuid() })),
   });
@@ -28,10 +30,8 @@ export async function createEncounter(name, monsters) {
   return newEncounter;
 }
 
-export async function getEncounters(partyId) {
-  const encounters = await Encounter.find({
-    $or: [{ partyId }, { partyId: null }],
-  });
+export async function getEncounters() {
+  const encounters = await Encounter.find();
   return encounters;
 }
 
@@ -76,4 +76,19 @@ export async function healMonster(encounterId, monsterId, healing) {
   }
 
   return updatedEncounter;
+}
+
+export async function getEncountersByGroup() {
+  const encounters = await getEncounters();
+
+  return encounters.reduce(
+    (encountersByGroup, encounter) => ({
+      ...encountersByGroup,
+      [encounter.group]: [
+        ...(encountersByGroup[encounter.group] || []),
+        encounter,
+      ],
+    }),
+    {}
+  );
 }

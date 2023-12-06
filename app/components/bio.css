@@ -51,54 +51,6 @@
   position: relative;
 }
 
-.bio__submit-stats {
-  grid-area: suS;
-  margin: 0 0 0 -3px;
-  height: 25px;
-  width: 110%;
-  font-size: var(--font-size-xs);
-  padding: 0px 2px 2px 4px;
-  font-family: var(--font-family);
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.bio__submit-allies {
-  grid-area: suA;
-  margin: 8px 0 0 0;
-  height: 25px;
-  width: 70px;
-  font-size: var(--font-size-xs);
-  font-family: var(--font-family);
-  border-radius: 5px;
-  cursor: pointer;
-  justify-self: center;
-}
-
-.bio__submit-backstory {
-  grid-area: suL;
-  margin: 8px 50px 0 0;
-  height: 25px;
-  width: 70px;
-  font-size: var(--font-size-xs);
-  font-family: var(--font-family);
-  border-radius: 5px;
-  cursor: pointer;
-  justify-self: flex-end;
-}
-
-.bio__submit-traits {
-  grid-area: suT;
-  margin: 8px 0 0 70px;
-  height: 25px;
-  width: 70px;
-  font-size: var(--font-size-xs);
-  font-family: var(--font-family);
-  border-radius: 5px;
-  cursor: pointer;
-  justify-self: flex-start;
-}
-
 .bio__name {
   grid-area: nam;
   font-size: var(--font-size-big);
@@ -159,46 +111,46 @@
 
 .bio__allies {
   grid-area: ali;
-  background-color: transparent;
   border: none;
   margin: 9px 4px 0px 4px;
   font-family: var(--font-family);
   font-size: var(--font-size-s);
   line-height: 1.54;
   hyphens: auto;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .bio__backstory {
   grid-area: bst;
-  background-color: transparent;
   border: none;
   margin: 3px 4px 0px 4px;
   font-family: var(--font-family);
   font-size: var(--font-size-s);
   line-height: 1.54;
   hyphens: auto;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .bio__extra-traits1 {
   grid-area: eT1;
-  background-color: transparent;
   border: none;
   margin: -2px 8px 0px 8px;
   font-family: var(--font-family);
   font-size: var(--font-size-s);
   line-height: 1.54;
   hyphens: auto;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .bio__extra-traits2 {
   grid-area: eT2;
-  background-color: transparent;
   border: none;
   margin: -2px 8px 0px 8px;
   font-family: var(--font-family);
   font-size: var(--font-size-s);
   line-height: 1.54;
   hyphens: auto;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .bio__treasure {

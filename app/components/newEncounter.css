@@ -13,6 +13,22 @@
   --card-height: 42.5px;
 }
 
+.encounter__header-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 1px solid white;
+}
+
+.encounter__header-input-title {
+  display: block;
+  text-align: start;
+}
+
+.encounter__group {
+  text-align: start;
+}
+
 .encounter__sidebar {
   flex-basis: 33%;
   flex-shrink: 0;
@@ -261,11 +277,16 @@
 .encounter__selected-monsters-title {
   margin: 0 0 16px 16px;
   padding: 8px 0px;
-  border-bottom: 1px solid white;
   display: flex;
   flex-direction: column;
   row-gap: 16px;
   text-transform: uppercase;
+  flex-grow: 1;
+}
+
+.encounter__title-name {
+  flex-grow: 1;
+  margin: 0 0 0 32px;
 }
 
 .encounter__stats {

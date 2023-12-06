@@ -47,6 +47,7 @@ export const links = () => {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
+  const encounterGroup = formData.get('encounterGroup');
   const encounterName = formData.get('encounterName');
   const monstersNames = formData.get('monsters');
 
@@ -59,7 +60,11 @@ export const action = async ({ request }) => {
     };
   });
 
-  const encounter = await createEncounter(encounterName, monsters);
+  const encounter = await createEncounter(
+    encounterGroup,
+    encounterName,
+    monsters
+  );
 
   return redirect(`/encounters/${encounter.id}`);
 };
@@ -257,11 +262,24 @@ function SelectedMonsters(props) {
   return (
     <div className="encounter__selected-monsters">
       <div className="encounter__header">
-        <Title
-          inputName="encounterName"
-          className="encounter__selected-monsters-title"
-          inputClass="encounter__name encounter__filter-input cards__button-card"
-        />
+        <div className="encounter__header-inputs">
+          <label htmlFor="encounterGroup">
+            <span className="encounter__header-input-title">Grupo</span>{' '}
+            <Title
+              inputName="encounterGroup"
+              className="encounter__group"
+              inputClass="encounter__name encounter__filter-input cards__button-card"
+            />
+          </label>
+          <label htmlFor="encounterName" className="encounter__title-name">
+            <span className="encounter__header-input-title">Nombre</span>{' '}
+            <Title
+              inputName="encounterName"
+              className="encounter__selected-monsters-title"
+              inputClass="encounter__name encounter__filter-input cards__button-card"
+            />
+          </label>
+        </div>
         <div className="encounter__stats">
           <div className="encounter__stat">
             {t(getEncounterDifficulty(encounterMonsters, pcLevels))}

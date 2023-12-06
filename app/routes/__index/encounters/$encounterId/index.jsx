@@ -40,6 +40,7 @@ import { CharacterModal } from '~/components/modal/characterModal';
 import { replaceAt } from '~/utils/insert';
 import { translateMonster } from '~/domain/encounters/monsterTranslations';
 import { rollDice } from '~/domain/random';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/randomEncounter.css';
 import charactersStyles from '~/components/characters/characters.css';
@@ -123,6 +124,8 @@ function PartyCombat() {
   const { encounter } = useLoaderData();
   const [pcs, partyId] = usePcsFromSession();
   const { monsters: monstersStats, id: encounterId } = encounter;
+
+  useTitle(`${encounter.group} - ${encounter.name}`);
 
   const monsterContext = useContext(MonstersContext) || {};
   const {
