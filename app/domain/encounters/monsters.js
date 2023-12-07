@@ -118,7 +118,7 @@ export function isMonsterSuitable(
 }
 
 function getMonsterChallenge(monster) {
-  if (monster.challenge.includes('/')) {
+  if (String(monster.challenge).includes('/')) {
     const values = monster.challenge.split('/');
     return values[0] / values[1];
   }

@@ -4,7 +4,7 @@ import { Link, useLoaderData } from '@remix-run/react';
 import { getEncountersByGroup } from '~/services/encounter.server';
 
 import { useTitle } from '~/components/hooks/useTitle';
-import { getMonsters } from '~/domain/encounters/monsters';
+import { Monster, getMonsters } from '~/domain/encounters/monsters';
 import {
   getEncounterChallenge,
   getEncounterDifficulty,
@@ -47,12 +47,26 @@ function EncounterList() {
     pcLevels = partyTemplateState;
   }
 
+  const xpByGroup = Object.values(encountersByGroup).map(encounters =>
+    encounters.reduce(
+      (totalXp, encounter) =>
+        totalXp +
+        getEncounterXp(
+          encounter.monsters.map(monster => Monster(monster.name)),
+          pcLevels.length
+        ),
+      0
+    )
+  );
+
   return (
     <div className="encounterList">
-      {Object.entries(encountersByGroup)?.map(([group, encounters]) => {
+      {Object.entries(encountersByGroup)?.map(([group, encounters], i) => {
         return (
           <div className="encounterList__group">
-            <span className="encounterList__group-name">{group}</span>
+            <span className="encounterList__group-name">
+              {group} <span>({xpByGroup[i]} xp)</span>
+            </span>
             <div className="cards encounterList__encounters">
               {encounters?.map(encounter => {
                 const difficulty = pcLevels
