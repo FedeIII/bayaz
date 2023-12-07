@@ -1,7 +1,7 @@
 export const MONSTER_DETAILS_LIST = {
   'Evil Mage': {
     'Armor Class': '12',
-    'Hit Points': '31 (7d8)',
+    'Hit Points': '40 (8d8)',
     Speed: '30 ft.',
     stats: {
       str: '9',
@@ -17,7 +17,7 @@ export const MONSTER_DETAILS_LIST = {
     Languages: 'Common, Draconic, Dwarvish, Elvish',
     Challenge: '2 (450 XP)',
     Spellcasting:
-      "The mage is a 4th·level spellcaster that uses Intelligence as its spellcasting ability (spell save DC 13; +5 to hit with spell attacks). The mage knows the following spells from the wizard's spell list:",
+      "The mage is a 6th·level spellcaster that uses Intelligence as its spellcasting ability (spell save DC 13; +6 to hit with spell attacks). The mage knows the following spells from the wizard's spell list:",
     'Cantrips (at will)': 'light, mage hand, shocking grasp',
     '1st level (4 slots)': 'charm person, magic missile',
     '2nd level (3 slots)': 'hold person, misty step',
