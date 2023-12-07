@@ -19,6 +19,7 @@ import {
   writeIntoStore,
 } from './components/hooks/useStore';
 import MonstersContext from './components/contexts/monstersContext';
+import PartyTemplateContext from './components/contexts/partyTemplateContext';
 
 import styles from '~/styles/global.css';
 import menuStyles from '~/components/menus.css';
@@ -67,12 +68,13 @@ export default function App() {
   const [menuTitle, setMenuTitle] = useState('Bayaz');
   const [partyIdState, setPartyIdState, deletePartyIdState] =
     useStateValue('partyId');
-  const [pcIdsState, setPcIdsState, deletePcIdsState] =
-    useStateValue('pcIds');
+  const [pcIdsState, setPcIdsState, deletePcIdsState] = useStateValue('pcIds');
   const [encounterIdState, setEncounterIdState, deleteEncounterIdState] =
     useStateValue('encounterId');
   const [monstersState, setMonstersState, deleteMonstersState] =
     useStateValue('monsters');
+  const [partyTemplateState, setPartyTemplateState, deletePartyTemplateState] =
+    useStateValue('partyTemplate');
 
   useEffect(() => {
     setHasMenu(true);
@@ -113,10 +115,18 @@ export default function App() {
                   deleteEncounterIdState,
                 }}
               >
-                <Outlet />
-                <ScrollRestoration />
-                <Scripts />
-                <LiveReload />
+                <PartyTemplateContext.Provider
+                  value={{
+                    partyTemplateState,
+                    setPartyTemplateState,
+                    deletePartyTemplateState,
+                  }}
+                >
+                  <Outlet />
+                  <ScrollRestoration />
+                  <Scripts />
+                  <LiveReload />
+                </PartyTemplateContext.Provider>
               </MonstersContext.Provider>
             </PartyContext.Provider>
           </MenuContext.Provider>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { redirect } from '@remix-run/node';
 import { Form } from '@remix-run/react';
 
@@ -25,7 +25,7 @@ import {
   sortByXp,
   translateSize,
 } from '~/domain/encounters/monsters';
-import { rollDice } from '~/domain/random';
+import random, { rollDice } from '~/domain/random';
 import { createEncounter } from '~/services/encounter.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import { useCharacterItems } from '~/components/modal/useCharacterItems';
@@ -38,6 +38,7 @@ import { Title } from '~/components/form/title';
 
 import styles from '~/components/newEncounter.css';
 import placesStyles from '~/components/places.css';
+import PartyTemplateContext from '~/components/contexts/partyTemplateContext';
 export const links = () => {
   return [
     { rel: 'stylesheet', href: styles },
@@ -81,7 +82,12 @@ function Sidebar(props) {
   } = props;
 
   const [setPcLevelsAmount, reducePcLevelsAmount, increasePcLevelsAmount] =
-    useAmount(pcLevels, () => pcLevels[0] || 1, setPcLevels, 20);
+    useAmount(
+      pcLevels,
+      () => pcLevels[pcLevels.length - 1] || 1,
+      setPcLevels,
+      20
+    );
 
   useEffect(() => {
     setPcLevelsAmount(pcLevels.length);
@@ -203,7 +209,7 @@ function Sidebar(props) {
                 />
               </label>
               <label htmlFor="cr" className="encounter__filter-item">
-                <span className="encounter__filter-name">CR {'<='} </span>
+                <span className="encounter__filter-name">CR {'>='} </span>
                 <input
                   type="number"
                   name="cr"
@@ -284,6 +290,7 @@ function SelectedMonsters(props) {
           <div className="encounter__stat">
             {t(getEncounterDifficulty(encounterMonsters, pcLevels))}
           </div>
+
           <div className="encounter__stat">
             <span
               className={`encounter__stat-label ${
@@ -294,9 +301,11 @@ function SelectedMonsters(props) {
                   : 'encounter__metric'
               }`}
             >
-              {encounterXp} xp
+              {encounterXp} xp (
+              {random.roundTo(1, encounterXp / pcLevels.length)} xp / pc)
             </span>
           </div>
+
           <div className="encounter__stat">
             <span
               className={`encounter__stat-label ${
@@ -433,7 +442,14 @@ function MonsterCatalog(props) {
 function NewEncounter() {
   useTitle('Nuevo encuentro');
 
-  const [pcLevels, setPcLevels] = useState([1, 1, 1, 1]);
+  const partyTemplateContext = useContext(PartyTemplateContext) || {};
+  const { partyTemplateState, setPartyTemplateState } = partyTemplateContext;
+
+  const [pcLevels, setPcLevels] = useState(partyTemplateState || [1, 1, 1, 1]);
+
+  useEffect(() => {
+    setPartyTemplateState(pcLevels);
+  }, [pcLevels]);
 
   const partyMaxLevel = getPartyMaxLevel(pcLevels);
   const allMonsters = getMonstersFromEnvironment();
@@ -480,7 +496,7 @@ function NewEncounter() {
             .translation.toLowerCase()
             .includes(filters.mobName.toLowerCase()) &&
           (!filters.xp || Monster(m).xp <= filters.xp) &&
-          (!filters.cr || Monster(m).challenge <= filters.cr) &&
+          (!filters.cr || Monster(m).challenge >= filters.cr) &&
           (!filters.size || Monster(m).size === filters.size)
       )
     );

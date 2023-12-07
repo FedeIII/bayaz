@@ -16,6 +16,18 @@ export const MONSTERS = {
     alignment: 'CE',
     page: 'vgm 183',
   },
+  'Redbrand Ruffian': {
+    size: 'Medium',
+    challenge: '1/2',
+    xp: '100',
+    name: 'Redbrand Ruffian',
+    type: 'Humanoid',
+    tags: 'human',
+    environment: {
+      Urban: 'yes',
+    },
+    alignment: 'NE',
+  },
   Redcap: {
     size: 'Small',
     challenge: '3',
