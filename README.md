@@ -52,6 +52,9 @@ npx prisma migrate dev
 ```
 
 ## TO DOsg
+- Allow to modify hitpoints
+- Add notes to npcs
+- Save quick npcs
 - Embedded youtube music
 - Unlink encounters from parties
   - Random encounters

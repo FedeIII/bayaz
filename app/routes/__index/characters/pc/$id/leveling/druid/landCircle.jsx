@@ -1,12 +1,17 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, updateAttrsForClass } from '~/services/pc.server';
+import {
+  getPc,
+  prepareSpells,
+  updateAttrsForClass,
+} from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
   LAND_CIRCLES,
   getDruidLandCircle,
   translateDruidLandCircle,
 } from '~/domain/classes/druid/druid';
+import { getDruidExtraPreparedSpells } from '~/domain/spells/druid';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -29,7 +34,12 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const id = formData.get('id');
   const landCircle = formData.get('landCircle');
-  await updateAttrsForClass(id, 'druid', { landCircle });
+  let pc = await getPc(id);
+  pc = await updateAttrsForClass(id, 'druid', { landCircle });
+  await prepareSpells(
+    id,
+    getDruidExtraPreparedSpells(pc).map(spell => spell.name)
+  );
   return redirect(`/characters/pc/${id}/summary`);
 };
 

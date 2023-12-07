@@ -6,6 +6,7 @@ import {
   getDruidLandCircle,
   translateDruidLandCircle,
 } from './druid';
+import { getDruidExtraPreparedSpells } from '~/domain/spells/druid';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
@@ -246,6 +247,11 @@ export const DRUID_SKILLS_EXPLANATION = {
       {!!getDruidLandCircle(pc) && (
         <p>
           <strong>{translateDruidLandCircle(getDruidLandCircle(pc))}</strong>
+          <ul>
+            {getDruidExtraPreparedSpells(pc).map(spell => (
+              <li>{translateSpell(spell.name)}</li>
+            ))}
+          </ul>
         </p>
       )}
     </>
