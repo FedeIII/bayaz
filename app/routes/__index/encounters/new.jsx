@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { createRef, useContext, useEffect, useRef, useState } from 'react';
 import { redirect } from '@remix-run/node';
 import { Form } from '@remix-run/react';
 
@@ -35,14 +35,16 @@ import { replaceAt } from '~/utils/insert';
 import useAmount from '~/components/hooks/useAmount';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
+import PartyTemplateContext from '~/components/contexts/partyTemplateContext';
 
 import styles from '~/components/newEncounter.css';
 import placesStyles from '~/components/places.css';
-import PartyTemplateContext from '~/components/contexts/partyTemplateContext';
+import charactersStyles from '~/components/characters/characters.css';
 export const links = () => {
   return [
     { rel: 'stylesheet', href: styles },
     { rel: 'stylesheet', href: placesStyles },
+    { rel: 'stylesheet', href: charactersStyles },
   ];
 };
 
@@ -409,7 +411,7 @@ function MonsterCatalog(props) {
                 <div className="encounter__monster-info">
                   <span className="encounter__monster-name">
                     <CharacterItem
-                      ref={monsterRefs[Monster(monster).name][0]}
+                      ref={monsterRefs[Monster(monster).name].current[0]}
                       character={Monster(monster)}
                       charSection={Monster(monster).name}
                       openModal={openMonsterModal(
@@ -511,7 +513,10 @@ function NewEncounter() {
   const groupedFilteredMonsterList = groupByCR(filteredMonsterList);
 
   const [monsterRefs, setMonsterRefs] = useState(
-    allMonsters.reduce((refs, m) => ({ ...refs, [m.name]: [useRef()] }), {})
+    allMonsters.reduce(
+      (refs, m) => ({ ...refs, [m.name]: useRef([createRef()]) }),
+      {}
+    )
   );
 
   const [

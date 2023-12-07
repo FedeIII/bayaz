@@ -280,6 +280,7 @@ export const MONSTER_TRANSLATIONS = {
   'ore war chief': 'Caudillo orco',
   'red dragon wyrmling': 'Cría de dragón rojo',
   'redbrand ruffian': 'Rufián Marca Roja',
+  'redbrand spy': 'Espía Marca Roja',
   'sea hag (in coven)': 'Saga de los mares (en aquelarre)',
   'shadow demon': 'Demonio de las sombras',
   succubus: 'Súcubo',
