@@ -1,6 +1,6 @@
 export const MONSTERS = {
   'Evil Mage': {
-    challenge: '1',
+    challenge: '2',
     size: 'Medium',
     name: 'Evil Mage',
     type: 'Humanoid',
@@ -10,7 +10,7 @@ export const MONSTERS = {
       Underdark: 'yes',
       Forest: 'yes',
     },
-    xp: '200',
+    xp: '450',
     alignment: 'LE',
   },
   'Orc Blade of Ilneval': {
