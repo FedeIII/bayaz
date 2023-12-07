@@ -4956,6 +4956,38 @@ export const MONSTER_DETAILS_LIST = {
     Description:
       'Redbrand ruffians are petty thugs and ruthless enforcers skilled at intimidation and violence. They work for money and have no scruples',
   },
+  'Redbrand Spy': {
+    'Armor Class': '12',
+    'Hit Points': '27 (6d8)',
+    Speed: '30 ft.',
+    stats: {
+      str: '10',
+      dex: '15',
+      con: '10',
+      int: '12',
+      wis: '14',
+      cha: '16',
+    },
+    Skills:
+      'Deception +5, Sleight of Hand +4, Investigation +5, Perception +6, Insight +4, Persuasion +5, Stealth +4',
+    Senses: 'passive Perception 16',
+    Languages: 'Common, Elvish',
+    Challenge: '1/2 (100 XP)',
+    actions: {
+      'Ataque múltiple': 'El espía realiza dos ataques cuerpo a cuerpo.',
+      'Espada corta':
+        '<em>Ataque con arma cuerpo a cuerpo:</em> +4 a impactar, alcance 5 pies, un objetivo. <em>Impacto:</em> 5 (1d6 + 2) de daño perforante.',
+      'Ballesta de mano':
+        '<em>Ataque con arma a distancia:</em> +4 a impactar, alcance 30/120 pies, un objetivo. <em>Impacto:</em> 5 (1d6 + 2) de daño perforante.',
+    },
+    notes: 'Medium humanoid (human), neutral evil',
+    'Acción Astuta':
+      'El espía puede, en cada uno de sus turnos, usar una acción adicional para realizar una acción de Correr, Destrabarse o Esconderse.',
+    'Ataque Furtivo':
+      'Una vez por turno, el espía inflige 7 (2d6) de daño adicional a un objetivo al que impacte con un ataque con arma en cuya tirada de ataque tuviera ventaja. No necesita tener ventaja si un aliado no incapacitado del espía está a 5 pies o menos del objetivo y el espía no sufre desventaja en la tirada de ataque. ',
+    Description:
+      'Los gobernantes, nobles, comerciantes, maestros gremiales y otros individuos adinerados contratan espías para obtener la mayor ventaja posible en el despiadado mundo de la política. Los espías han sido entrenados para recabar información sin ser advertidos, y los más leales darían la vida antes de revelar algún secreto que pudiera poner en peligro a sus empleadores.',
+  },
   Wereboar: {
     actions: {
       'Multiattack (Humanoid or Hybrid Form Only)':

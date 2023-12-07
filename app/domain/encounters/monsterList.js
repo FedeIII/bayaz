@@ -28,6 +28,18 @@ export const MONSTERS = {
     },
     alignment: 'NE',
   },
+  'Redbrand Spy': {
+    environment: {
+      Underdark: 'yes',
+      Urban: 'yes',
+    },
+    xp: '200',
+    alignment: 'NE',
+    name: 'Redbrand Spy',
+    challenge: '1',
+    size: 'Medium',
+    type: 'Humanoid',
+  },
   Redcap: {
     size: 'Small',
     challenge: '3',
