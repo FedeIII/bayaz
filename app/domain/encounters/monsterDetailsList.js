@@ -1,4 +1,35 @@
 export const MONSTER_DETAILS_LIST = {
+  'Evil Mage': {
+    'Armor Class': '12',
+    'Hit Points': '31 (7d8)',
+    Speed: '30 ft.',
+    stats: {
+      str: '9',
+      dex: '14',
+      con: '11',
+      int: '17',
+      wis: '12',
+      cha: '11',
+    },
+    'Saving Throws': 'Int +5, Wis +3',
+    Skills: 'Arcana +5, History +5',
+    Senses: 'passive Perception 11',
+    Languages: 'Common, Draconic, Dwarvish, Elvish',
+    Challenge: '2 (450 XP)',
+    Spellcasting:
+      "The mage is a 4th·level spellcaster that uses Intelligence as its spellcasting ability (spell save DC 13; +5 to hit with spell attacks). The mage knows the following spells from the wizard's spell list:",
+    'Cantrips (at will)': 'light, mage hand, shocking grasp',
+    '1st level (4 slots)': 'charm person, magic missile',
+    '2nd level (3 slots)': 'hold person, misty step',
+    'Potent Cantrips':
+      'The spellcaster can add its spellcasting ability modifier to the damage it deals with any cantrip',
+    actions: {
+      Quarterstaff:
+        '<em>Melee Weapon Attack</em>: +1 to hit, reach 5 ft., one target. <em>Hit</em>: 3 (1d8 - 1) bludgeoning damage.',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (human), Lawful evil',
+  },
   Frog: {
     actions: {},
     legendaryActions: {},

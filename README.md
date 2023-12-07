@@ -52,6 +52,8 @@ npx prisma migrate dev
 ```
 
 ## TO DOsg
+
+- Allow to set max health for mobs in new encounters
 - Allow to modify hitpoints
 - Add notes to npcs
 - Save quick npcs
@@ -62,6 +64,7 @@ npx prisma migrate dev
 - Buildings in settlements
 - Characters in places
 - Audio in places
+- 
 - id for NPCs
 - Review more player options in sheets
 - Background: {trait}

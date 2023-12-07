@@ -332,6 +332,7 @@ export const MONSTER_TRANSLATIONS = {
   'invisible stalker': 'Acechador invisible',
   'kuo-toa archpriest': 'Arcipreste kuo-toa',
   mage: 'Mago',
+  'evil mage': 'Mago maligno',
   mammoth: 'Mamut',
   medusa: 'Medusa',
   vrock: 'Vrock',
