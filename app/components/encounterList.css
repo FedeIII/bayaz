@@ -9,7 +9,8 @@
 }
 
 .encounterList__group-name {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   margin: 0 0 16px 0;
   padding: 0 0 4px 16px;
   color: var(--color-x-pale);
