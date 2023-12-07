@@ -13,6 +13,8 @@ import {
   translateDifficulty,
 } from '~/domain/encounters/encounters';
 import usePcsFromSession from '~/components/hooks/usePcsFromSession';
+import { useContext } from 'react';
+import PartyTemplateContext from '~/components/contexts/partyTemplateContext';
 
 import styles from '~/components/encounterList.css';
 export const links = () => {
@@ -38,7 +40,12 @@ function EncounterList() {
   useTitle('Lista de encuentros');
 
   const [pcs] = usePcsFromSession();
-  const pcLevels = pcs.map(pc => pc.level);
+  const partyTemplateContext = useContext(PartyTemplateContext) || {};
+  const { partyTemplateState = [] } = partyTemplateContext;
+  let pcLevels = pcs.map(pc => pc.level);
+  if (pcLevels.length === 0) {
+    pcLevels = partyTemplateState;
+  }
 
   return (
     <div className="encounterList">
@@ -63,7 +70,7 @@ function EncounterList() {
                     className="cards__button-card encounterList__encounter"
                     key={encounter.id}
                   >
-                    <div className="encounterList__name">{`${encounter.group} - ${encounter.name}`}</div>
+                    <div className="encounterList__name">{encounter.name}</div>
                     <div className="encounterList__monsters">
                       {groupMonsters(monsters)}
                     </div>
