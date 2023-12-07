@@ -4931,6 +4931,31 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium dragon, chaotic evil',
   },
+  'Redbrand Ruffian': {
+    'Armor Class': '14 (studded leather armor)',
+    'Hit Points': '16 (3d8 + 3)',
+    Speed: '30 ft.',
+    stats: {
+      str: '11',
+      dex: '14',
+      con: '12',
+      int: '9',
+      wis: '9',
+      cha: '11',
+    },
+    Skills: 'Intimidation +2',
+    Senses: 'passive Perception 9',
+    Languages: 'Common',
+    Challenge: '1/2 (100 XP)',
+    actions: {
+      Multiattack: 'The ruffian makes two melee attacks',
+      Shortsword:
+        '<em>Melee Weapon Attack</em>: +4 to hit, reach 5 ft., one target. <em>Hit</em>: 5 (1d6 + 2) piercing damage',
+    },
+    notes: 'Medium humanoid (human), neutral evil',
+    Description:
+      'Redbrand ruffians are petty thugs and ruthless enforcers skilled at intimidation and violence. They work for money and have no scruples',
+  },
   Wereboar: {
     actions: {
       'Multiattack (Humanoid or Hybrid Form Only)':

@@ -279,6 +279,7 @@ export const MONSTER_TRANSLATIONS = {
   'lizard king/queen': 'Rey/Reina lagarto',
   'ore war chief': 'Caudillo orco',
   'red dragon wyrmling': 'Cría de dragón rojo',
+  'redbrand ruffian': 'Rufián Marca Roja',
   'sea hag (in coven)': 'Saga de los mares (en aquelarre)',
   'shadow demon': 'Demonio de las sombras',
   succubus: 'Súcubo',
