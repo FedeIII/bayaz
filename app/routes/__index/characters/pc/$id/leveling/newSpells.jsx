@@ -22,6 +22,7 @@ import {
   hasToLearnSpells,
   hasToPrepareSpells,
   maxSpellLevel,
+  translateSpell,
 } from '~/domain/spells/spells';
 import {
   getAllPcCantrips,
@@ -37,6 +38,7 @@ import { SkillItem } from '~/components/modal/skillItem';
 import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
 import { getKnightSpells } from '~/domain/classes/fighter/fighter';
 import { getArcaneTricksterSpells } from '~/domain/classes/rogue/rogue';
+import { translateSchool } from '~/domain/spells/spellTranslations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -397,7 +399,14 @@ function NewSpells() {
                         trait="spell"
                         openModal={openSkillModal('cantrips', cantripIndex)}
                         openOnRightClick
-                      />
+                      >
+                        <span className="tooltip">
+                          {translateSpell(spell.name)}
+                          <span className="tooltiptext">
+                            {translateSchool(spell.school)}
+                          </span>
+                        </span>
+                      </SkillItem>
                     </label>
                   </li>
                 ))}
@@ -460,7 +469,14 @@ function NewSpells() {
                             trait="spell"
                             openModal={openSkillModal('known', spellIndex)}
                             openOnRightClick
-                          />
+                          >
+                            <span className="tooltip">
+                              {translateSpell(spell.name)}
+                              <span className="tooltiptext">
+                                {translateSchool(spell.school)}
+                              </span>
+                            </span>
+                          </SkillItem>
                           {/* // Knight Spells */}
                           {knightSpells
                             .map(s => s.name)
@@ -547,7 +563,14 @@ function NewSpells() {
                                   trait="spell"
                                   openModal={openSkillModal(i, spellIndex)}
                                   openOnRightClick
-                                />
+                                >
+                                  <span className="tooltip">
+                                    {translateSpell(spell.name)}
+                                    <span className="tooltiptext">
+                                      {translateSchool(spell.school)}
+                                    </span>
+                                  </span>
+                                </SkillItem>
                               </label>
                             </li>
                           ))}
@@ -679,7 +702,14 @@ function NewSpells() {
                                     'w' + spellIndex
                                   )}
                                   openOnRightClick
-                                />
+                                >
+                                  <span className="tooltip">
+                                    {translateSpell(spell.name)}
+                                    <span className="tooltiptext">
+                                      {translateSchool(spell.school)}
+                                    </span>
+                                  </span>
+                                </SkillItem>
                               </label>
                             </li>
                           ))}

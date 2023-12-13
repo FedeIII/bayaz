@@ -13,6 +13,8 @@ import {
   SORCERER_SPELLS,
 } from '~/domain/spells/sorcerer';
 import { SkillItem } from '../modal/skillItem';
+import { translateSpell } from '~/domain/spells/spells';
+import { translateSchool } from '~/domain/spells/spellTranslations';
 
 function SorcererSkills(props) {
   const { pc, setSkillsNamespace, skillRefs, openSkillModal } = props;
@@ -111,7 +113,14 @@ function SorcererSkills(props) {
                     trait="spell"
                     openOnRightClick
                     openModal={openSkillModal(spell.level, spell.name)}
-                  />
+                  >
+                    <span className="tooltip">
+                      {translateSpell(spell.name)}
+                      <span className="tooltiptext">
+                        {translateSchool(spell.school)}
+                      </span>
+                    </span>
+                  </SkillItem>
                 </label>
               ))}
           </div>
@@ -151,7 +160,14 @@ function SorcererSkills(props) {
                     trait="spell"
                     openOnRightClick
                     openModal={openSkillModal(spell.level, spell.name)}
-                  />
+                  >
+                    <span className="tooltip">
+                      {translateSpell(spell.name)}
+                      <span className="tooltiptext">
+                        {translateSchool(spell.school)}
+                      </span>
+                    </span>
+                  </SkillItem>
                 </label>
               ))}
           </div>

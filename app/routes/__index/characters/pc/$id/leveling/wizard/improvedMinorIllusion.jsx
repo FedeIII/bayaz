@@ -9,7 +9,8 @@ import { SkillModal } from '~/components/modal/skillModal';
 import { SkillItem } from '~/components/modal/skillItem';
 import { getKnownCantrips } from '~/domain/spells/getSpells';
 import { getImprovedMinorIllusionSpell } from '~/domain/classes/wizard/wizard';
-import { getClassSpells } from '~/domain/spells/spells';
+import { getClassSpells, translateSpell } from '~/domain/spells/spells';
+import { translateSchool } from '~/domain/spells/spellTranslations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -147,7 +148,14 @@ function ImprovedMinorIllusionSpell() {
                           trait="spell"
                           openModal={openSkillModal('cantrips', spellIndex)}
                           openOnRightClick
-                        />
+                        >
+                          <span className="tooltip">
+                            {translateSpell(spell.name)}
+                            <span className="tooltiptext">
+                              {translateSchool(spell.school)}
+                            </span>
+                          </span>
+                        </SkillItem>
                       </label>
                     </li>
                   );

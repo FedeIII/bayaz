@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { DRUID_SPELLS, getDruidSpellSlots } from '~/domain/spells/druid';
 import { SkillItem } from '../modal/skillItem';
+import { translateSpell } from '~/domain/spells/spells';
+import { translateSchool } from '~/domain/spells/spellTranslations';
 
 function DruidSkills(props) {
   const { pc, setSkillsNamespace, skillRefs, openSkillModal } = props;
@@ -53,7 +55,14 @@ function DruidSkills(props) {
                   trait="spell"
                   openOnRightClick
                   openModal={openSkillModal(spell.level, spell.name)}
-                />
+                >
+                  <span className="tooltip">
+                    {translateSpell(spell.name)}
+                    <span className="tooltiptext">
+                      {translateSchool(spell.school)}
+                    </span>
+                  </span>
+                </SkillItem>
               </label>
             ))}
         </div>
