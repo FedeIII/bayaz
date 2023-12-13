@@ -5,13 +5,18 @@ import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, learnWizardExtraSpell } from '~/services/pc.server';
 import { translateClass } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
-import { getClassSpells, maxSpellLevel } from '~/domain/spells/spells';
+import {
+  getClassSpells,
+  maxSpellLevel,
+  translateSpell,
+} from '~/domain/spells/spells';
 import { Card } from '~/components/cards/card';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { getInvocationsSpells } from '~/domain/classes/warlock/warlock';
 import { getAllPcSpells } from '~/domain/spells/getSpells';
 import { SkillItem } from '~/components/modal/skillItem';
+import { translateSchool } from '~/domain/spells/spellTranslations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -134,7 +139,14 @@ function ExtraSpells() {
                           trait="spell"
                           openModal={openSkillModal(i, spellIndex)}
                           openOnRightClick
-                        />
+                        >
+                          <span className="tooltip">
+                            {translateSpell(spell.name)}
+                            <span className="tooltiptext">
+                              {translateSchool(spell.school)}
+                            </span>
+                          </span>
+                        </SkillItem>
                       </label>
                     </li>
                   ))}

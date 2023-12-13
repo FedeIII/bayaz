@@ -13,6 +13,8 @@ import {
   getTomeSpells,
   hasToLearnTomeSpells,
 } from '~/domain/classes/warlock/warlock';
+import { translateSpell } from '~/domain/spells/spells';
+import { translateSchool } from '~/domain/spells/spellTranslations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -138,7 +140,14 @@ function TomeSpells() {
                     trait="spell"
                     openModal={openSkillModal(spellIndex)}
                     openOnRightClick
-                  />
+                  >
+                    <span className="tooltip">
+                      {translateSpell(spell.name)}
+                      <span className="tooltiptext">
+                        {translateSchool(spell.school)}
+                      </span>
+                    </span>
+                  </SkillItem>
                 </label>
               </li>
             ))}

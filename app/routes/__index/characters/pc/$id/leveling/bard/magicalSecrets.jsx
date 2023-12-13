@@ -14,6 +14,7 @@ import {
   getSpellSlots,
   getTotalSpells,
   maxSpellLevel,
+  translateSpell,
 } from '~/domain/spells/spells';
 import { getAllPcSpells } from '~/domain/spells/getSpells';
 import { Card } from '~/components/cards/card';
@@ -159,7 +160,14 @@ function MagicalSecretsSpells() {
                           traitName={spell.name}
                           trait="spell"
                           openModal={openSkillModal('known', spellIndex)}
-                        />
+                        >
+                          <span className="tooltip">
+                            {translateSpell(spell.name)}
+                            <span className="tooltiptext">
+                              {translateSchool(spell.school)}
+                            </span>
+                          </span>
+                        </SkillItem>
                       </label>
                     </li>
                   );
@@ -258,7 +266,14 @@ function MagicalSecretsSpells() {
                           trait="spell"
                           openModal={openSkillModal(i, spellIndex)}
                           openOnRightClick
-                        />
+                        >
+                          <span className="tooltip">
+                            {translateSpell(spell.name)}
+                            <span className="tooltiptext">
+                              {translateSchool(spell.school)}
+                            </span>
+                          </span>
+                        </SkillItem>
                       </label>
                     </li>
                   ))}

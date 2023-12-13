@@ -13,6 +13,8 @@ import {
 import { getClericSpellSlots, CLERIC_SPELLS } from '~/domain/spells/cleric';
 import { DRUID_SPELLS } from '~/domain/spells/druid';
 import { SkillItem } from '../modal/skillItem';
+import { translateSpell } from '~/domain/spells/spells';
+import { translateSchool } from '~/domain/spells/spellTranslations';
 
 function getSkillChecked(skillName, skillsToSelect) {
   return !!skillsToSelect[skillName]?.selected;
@@ -241,7 +243,14 @@ function ClericSkills(props) {
                     trait="spell"
                     openOnRightClick
                     openModal={openSkillModal(spell.level, spell.name)}
-                  />{' '}
+                  >
+                    <span className="tooltip">
+                      {translateSpell(spell.name)}
+                      <span className="tooltiptext">
+                        {translateSchool(spell.school)}
+                      </span>
+                    </span>
+                  </SkillItem>{' '}
                   {divineDomain === 'light' &&
                     spell.name === 'light' &&
                     ' (Ya lo conoces por el Dominio de la Luz)'}
@@ -278,7 +287,14 @@ function ClericSkills(props) {
                       trait="spell"
                       openOnRightClick
                       openModal={openSkillModal(spell.level, spell.name)}
-                    />
+                    >
+                      <span className="tooltip">
+                        {translateSpell(spell.name)}
+                        <span className="tooltiptext">
+                          {translateSchool(spell.school)}
+                        </span>
+                      </span>
+                    </SkillItem>
                   </label>
                 ))}
             </div>

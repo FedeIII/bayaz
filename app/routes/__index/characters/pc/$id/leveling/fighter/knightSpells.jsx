@@ -17,8 +17,13 @@ import {
   isEldritchknight,
 } from '~/domain/classes/fighter/fighter';
 import { WIZARD_SPELLS } from '~/domain/spells/wizard';
-import { getSpellSlots, maxSpellLevel } from '~/domain/spells/spells';
+import {
+  getSpellSlots,
+  maxSpellLevel,
+  translateSpell,
+} from '~/domain/spells/spells';
 import { getAllPcSpells } from '~/domain/spells/getSpells';
+import { translateSchool } from '~/domain/spells/spellTranslations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -183,7 +188,14 @@ function ArcaneKnightSpells() {
                         trait="spell"
                         openModal={openSkillModal('known', i)}
                         openOnRightClick
-                      />
+                      >
+                        <span className="tooltip">
+                          {translateSpell(spell.name)}
+                          <span className="tooltiptext">
+                            {translateSchool(spell.school)}
+                          </span>
+                        </span>
+                      </SkillItem>
                     </label>
                   </li>
                 ))}
@@ -236,7 +248,9 @@ function ArcaneKnightSpells() {
                               onChange={changeSelectedSpells(spell.name)}
                             />
                             <SkillItem
-                              ref={skillRefs[spellLevel - 1].current[spellIndex]}
+                              ref={
+                                skillRefs[spellLevel - 1].current[spellIndex]
+                              }
                               pc={pc}
                               traitName={spell.name}
                               trait="spell"
@@ -245,7 +259,14 @@ function ArcaneKnightSpells() {
                                 spellIndex
                               )}
                               openOnRightClick
-                            />
+                            >
+                              <span className="tooltip">
+                                {translateSpell(spell.name)}
+                                <span className="tooltiptext">
+                                  {translateSchool(spell.school)}
+                                </span>
+                              </span>
+                            </SkillItem>
                           </label>
                         </li>
                       );

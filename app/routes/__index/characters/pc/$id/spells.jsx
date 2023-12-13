@@ -18,6 +18,7 @@ import {
   getSpellSlots,
   hasToPrepareSpells,
   isPreparedSpell,
+  translateSpell,
 } from '~/domain/spells/spells';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
@@ -35,6 +36,7 @@ import {
 import { resetSpellSlots, spendSpellSlot } from '~/domain/characterMutations';
 import { isDm } from '~/domain/user';
 import { getSessionUser } from '~/services/session.server';
+import { translateSchool } from '~/domain/spells/spellTranslations';
 
 import styles from '~/components/spells.css';
 export const links = () => {
@@ -293,7 +295,14 @@ function PcSpells() {
                       traitName={spell.name}
                       trait="spell"
                       openModal={openSkillModal(level, i)}
-                    />{' '}
+                    >
+                      <span className="tooltip">
+                        {translateSpell(spell.name)}
+                        <span className="tooltiptext">
+                          {translateSchool(spell.school)}
+                        </span>
+                      </span>
+                    </SkillItem>{' '}
                     {loreSpells.map(s => s.name).includes(spell.name) && (
                       <> (Colegio del Conocimiento)</>
                     )}
