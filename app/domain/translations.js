@@ -296,6 +296,14 @@ export function t(key) {
     hard: 'Difícil',
     deadly: 'Mortal',
     impossible: 'Imposible',
+
+    //Items
+    rarity: 'Rareza',
+    common: 'Común',
+    uncommon: 'Infrecuente',
+    rare: 'Raro',
+    veryRare: 'Muy raro',
+    legendary: 'Legendario',
   }[key];
 
   if (translation) return translation;
