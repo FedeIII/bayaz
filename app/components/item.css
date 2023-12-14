@@ -1,0 +1,87 @@
+.item__wrapper {
+  width: 95%;
+}
+
+.item__buttons {
+  display: flex;
+  margin: 16px;
+}
+
+.item__save {
+  color: var(--color-x-pale);
+  text-decoration: none;
+  display: flex;
+  background: none;
+  border: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
+  border-radius: 5px;
+  padding: 4px 4px 2px;
+  margin: 2px 16px;
+  cursor: pointer;
+}
+
+.item__save:hover {
+  background-color: var(--color-pale);
+  color: white;
+}
+
+.item__section-divider {
+  border-color: var(--color-x-pale);
+}
+
+.item__header {
+  display: flex;
+}
+
+.item__section {
+  display: flex;
+  margin: 0 32px;
+  align-items: center;
+}
+
+.item__title {
+  width: 50%;
+}
+
+.item__title-input {
+  width: 100%;
+}
+
+.item__select {
+  background: transparent;
+  border: none;
+  font-family: var(--font-family);
+  color: white;
+  font-size: var(--font-size-s);
+  color: var(--color-pale);
+}
+
+.item__checkbox-text {
+  color: var(--color-pale);
+}
+
+.item__notes {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 0 64px;
+}
+
+.item__notes-title {
+  margin: 0;
+  color: var(--color-x-pale);
+}
+
+.item__notes-text {
+  width: 80%;
+  min-height: 100px;
+  border: none;
+  border-top: 1px solid var(--color-x-pale);
+  background: none;
+  color: white;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
+  padding: 16px 0 0 16px;
+  scrollbar-color: white;
+}

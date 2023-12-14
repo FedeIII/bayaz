@@ -10,6 +10,7 @@ const menuLinks = [
   { name: 'Party', url: '/party', level: 0, isForPlayers: false },
   { name: 'Encuentros', url: '/encounters', level: 0, isForPlayers: false },
   { name: 'Glosario', url: '/glossary', level: 0, isForPlayers: false },
+  { name: 'Items', url: '/items', level: 0, isForPlayers: false },
 ];
 
 export function getBasicMenuItems(user) {
