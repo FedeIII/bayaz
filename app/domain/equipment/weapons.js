@@ -517,6 +517,8 @@ export function WEAPONS() {
   };
 }
 
+export const ALL_WEAPONS = Object.keys(WEAPONS());
+
 export function translateWeapon(weapon) {
   if (typeof weapon === 'object') return weapon.translation;
   return WEAPONS()[weapon]().translation;

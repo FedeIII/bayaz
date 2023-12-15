@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { ITEM_RARITY } from '~/domain/equipment/items';
+import { ITEM_CATEGORY, ITEM_RARITY } from '~/domain/equipment/items';
 
 import { mongoose } from '~/services/db.server';
 
@@ -8,6 +8,13 @@ const itemSchema = new mongoose.Schema({
   name: String,
   description: String,
   consumable: Boolean,
+  charges: Number,
+  identified: Boolean,
+  category: {
+    type: String,
+    enum: ITEM_CATEGORY,
+  },
+  subtype: String,
   rarity: {
     type: String,
     enum: ITEM_RARITY,

@@ -1,16 +1,18 @@
 import { json } from '@remix-run/node';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
 import { useTitle } from '~/components/hooks/useTitle';
-import { ITEM_RARITY } from '~/domain/equipment/items';
-import { Title } from '~/components/form/title';
+import { ITEM_CATEGORY, ITEM_RARITY } from '~/domain/equipment/items';
+import { Title, links as titleLinks } from '~/components/form/title';
 import { t } from '~/domain/translations';
 import { getItem, updateItem } from '~/services/item.server';
+import { ALL_ARMORS, ARMORS } from '~/domain/equipment/armors';
+import { ALL_WEAPONS, WEAPONS } from '~/domain/equipment/weapons';
 
 import styles from '~/components/item.css';
 export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [{ rel: 'stylesheet', href: styles }, ...titleLinks()];
 };
 
 function textareaCallback(textareaNode) {
@@ -31,13 +33,21 @@ export const action = async ({ request }) => {
   const id = formData.get('id');
   const name = formData.get('name');
   const rarity = formData.get('rarity');
+  const category = formData.get('category');
+  const subtype = formData.get('subtype');
+  const charges = formData.get('charges');
   const consumable = formData.get('consumable');
+  const identified = formData.get('identified');
   const description = formData.get('description');
 
   await updateItem(id, {
     name,
     rarity,
+    category,
+    subtype,
     consumable: consumable === 'on',
+    identified: identified === 'on',
+    charges,
     description,
   });
 
@@ -56,9 +66,16 @@ function NewItem() {
     }
   }, [notesRef.current]);
 
+  const [isArmor, setIsArmor] = useState(item?.category === 'armor');
+  const [isWeapon, setIsWeapon] = useState(item?.category === 'weapon');
+  useEffect(() => {
+    setIsArmor(item?.category === 'armor');
+    setIsWeapon(item?.category === 'weapon');
+  }, [item?.category]);
+
   return (
     <Form method="post" className="item__wrapper">
-      <input readOnly type="text" name="id" value={item.id} hidden />
+      <input readOnly type="text" name="id" value={item?.id} hidden />
 
       <div className="item__buttons">
         <Link to="/items" className="menus__back-button">
@@ -79,52 +96,133 @@ function NewItem() {
             inputName="name"
             className="item__title"
             inputClass="item__title-input"
-            defaultValue={item.name}
+            defaultValue={item?.name}
           />
-
-          <div className="item__section">
-            <select
-              type="text"
-              name="rarity"
-              className="item__select"
-              defaultValue={item.rarity}
-            >
-              <option value="" disabled selected>
-                {t('rarity')}
-              </option>
-              {ITEM_RARITY.map(rarityType => (
-                <option key={rarityType} value={rarityType}>
-                  {t(rarityType)}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="item__section">
-            <label htmlFor="consumable" className="item__checkbox-label">
-              <input
-                type="checkbox"
-                name="consumable"
-                id="consumable"
-                defaultChecked={!!item.consumable}
-              />{' '}
-              <span className="item__checkbox-text">Consumible</span>
-            </label>
-          </div>
         </div>
         <hr className="item__section-divider" />
 
-        <div className="item__notes">
-          <h2 className="item__notes-title">Descripción</h2>
-          <textarea
-            ref={notesRef}
-            name="description"
-            className="item__notes-text"
-            onInput={textareaCallback}
+        <div className="item__section">
+          <select
+            type="text"
+            name="rarity"
+            defaultValue={item?.rarity}
+            className="item__select"
           >
-            {!!item.description && item.description}
-          </textarea>
+            <option value="" disabled selected>
+              {t('rarity')}
+            </option>
+            {ITEM_RARITY.map(rarityType => (
+              <option key={rarityType} value={rarityType}>
+                {t(rarityType)}
+              </option>
+            ))}
+          </select>
+
+          <select
+            type="text"
+            name="category"
+            defaultValue={item?.category}
+            className="item__select"
+            onChange={e => {
+              e.target.value === 'armor' ? setIsArmor(true) : setIsArmor(false);
+              e.target.value === 'weapon'
+                ? setIsWeapon(true)
+                : setIsWeapon(false);
+            }}
+          >
+            <option value="" disabled selected>
+              {t('category')}
+            </option>
+            {ITEM_CATEGORY.map(category => (
+              <option key={category} value={category}>
+                {t(category)}
+              </option>
+            ))}
+          </select>
+
+          {!!isArmor && (
+            <select
+              type="text"
+              name="subtype"
+              className="item__select"
+              defaultValue={item?.subtype}
+            >
+              <option value="" disabled selected>
+                Tipo de armadura
+              </option>
+              {ALL_ARMORS.map(armorName => {
+                return (
+                  <option key={armorName} value={armorName}>
+                    {ARMORS()[armorName]().translation}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+
+          {!!isWeapon && (
+            <select
+              type="text"
+              name="subtype"
+              className="item__select"
+              defaultValue={item?.subtype}
+            >
+              <option value="" disabled selected>
+                Tipo de arma
+              </option>
+              {ALL_WEAPONS.map(weaponName => {
+                return (
+                  <option key={weaponName} value={weaponName}>
+                    {WEAPONS()[weaponName]().translation}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+
+          <label htmlFor="charges" className="item__checkbox-label">
+            <span className="item__checkbox-text">Cargas</span>
+            <input
+              type="number"
+              name="charges"
+              id="charges"
+              defaultValue={item?.charges || 0}
+              className="item__input item__input--number-2"
+            />
+          </label>
+
+          <label htmlFor="consumable" className="item__checkbox-label">
+            <input
+              type="checkbox"
+              name="consumable"
+              id="consumable"
+              defaultChecked={item?.consumable}
+            />{' '}
+            <span className="item__checkbox-text">Consumible</span>
+          </label>
+
+          <label htmlFor="identified" className="item__checkbox-label">
+            <input
+              type="checkbox"
+              name="identified"
+              id="identified"
+              defaultChecked={item?.identified}
+            />{' '}
+            <span className="item__checkbox-text">Identificado</span>
+          </label>
         </div>
+      </div>
+
+      <div className="item__notes">
+        <h2 className="item__notes-title">Descripción</h2>
+        <textarea
+          ref={notesRef}
+          name="description"
+          className="item__notes-text"
+          onInput={textareaCallback}
+        >
+          {!!item?.description && item?.description}
+        </textarea>
       </div>
     </Form>
   );

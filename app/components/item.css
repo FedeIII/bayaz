@@ -36,8 +36,9 @@
 
 .item__section {
   display: flex;
-  margin: 0 32px;
+  margin: 16px 32px;
   align-items: center;
+  column-gap: 32px;
 }
 
 .item__title {
@@ -59,6 +60,23 @@
 
 .item__checkbox-text {
   color: var(--color-pale);
+  margin: 0 8px 0 0;
+}
+
+.item__input {
+  background: transparent;
+  border: none;
+  font-family: var(--font-family);
+  color: white;
+  font-size: var(--font-size-m);
+}
+
+.item__input--number-1 {
+  width: 25px;
+}
+
+.item__input--number-2 {
+  width: 36px;
 }
 
 .item__notes {
