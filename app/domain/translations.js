@@ -304,6 +304,16 @@ export function t(key) {
     rare: 'Raro',
     veryRare: 'Muy raro',
     legendary: 'Legendario',
+    category: 'Categoría',
+    ring: 'Anillo',
+    armor: 'Armadura',
+    weapon: 'Arma',
+    staff: 'Bastón',
+    wondrous: 'Objeto Maravilloso',
+    scroll: 'Pergamino',
+    potion: 'Poción',
+    rod: 'Vara',
+    wand: 'Varita',
   }[key];
 
   if (translation) return translation;

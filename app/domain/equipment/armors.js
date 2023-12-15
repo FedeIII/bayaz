@@ -2,7 +2,7 @@ import { getStatMod } from '../characters';
 
 export function ARMORS() {
   return {
-    padded() {
+    padded(props) {
       return {
         name: 'padded',
         translation: 'Armadura acolchada',
@@ -14,9 +14,10 @@ export function ARMORS() {
           AC: ({ dex }) => 11 + getStatMod(dex),
           stealthDisadvantage: true,
         },
+        ...props,
       };
     },
-    leather() {
+    leather(props) {
       return {
         name: 'leather',
         translation: 'Armadura de cuero',
@@ -27,9 +28,10 @@ export function ARMORS() {
         properties: {
           AC: ({ dex }) => 11 + getStatMod(dex),
         },
+        ...props,
       };
     },
-    studdedLeather() {
+    studdedLeather(props) {
       return {
         name: 'studdedLeather',
         translation: 'Armadura de cuero tachonado',
@@ -40,9 +42,10 @@ export function ARMORS() {
         properties: {
           AC: ({ dex }) => 12 + getStatMod(dex),
         },
+        ...props,
       };
     },
-    hide() {
+    hide(props) {
       return {
         name: 'hide',
         translation: 'Armadura de pieles',
@@ -53,9 +56,10 @@ export function ARMORS() {
         properties: {
           AC: ({ dex }) => 12 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
         },
+        ...props,
       };
     },
-    chainShirt() {
+    chainShirt(props) {
       return {
         name: 'chainShirt',
         translation: 'Camisote de mallas',
@@ -66,9 +70,10 @@ export function ARMORS() {
         properties: {
           AC: ({ dex }) => 13 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
         },
+        ...props,
       };
     },
-    scaleMail() {
+    scaleMail(props) {
       return {
         name: 'scaleMail',
         translation: 'Cota de escamas',
@@ -80,9 +85,10 @@ export function ARMORS() {
           AC: ({ dex }) => 14 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
           stealthDisadvantage: true,
         },
+        ...props,
       };
     },
-    breastplate() {
+    breastplate(props) {
       return {
         name: 'breastplate',
         translation: 'Coraza',
@@ -93,9 +99,10 @@ export function ARMORS() {
         properties: {
           AC: ({ dex }) => 14 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
         },
+        ...props,
       };
     },
-    halfPlate() {
+    halfPlate(props) {
       return {
         name: 'halfPlate',
         translation: 'Semiplacas',
@@ -107,9 +114,10 @@ export function ARMORS() {
           AC: ({ dex }) => 15 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
           stealthDisadvantage: true,
         },
+        ...props,
       };
     },
-    ringMail() {
+    ringMail(props) {
       return {
         name: 'ringMail',
         translation: 'Cota de anillas',
@@ -121,9 +129,10 @@ export function ARMORS() {
           AC: () => 14,
           stealthDisadvantage: true,
         },
+        ...props,
       };
     },
-    chainMail() {
+    chainMail(props) {
       return {
         name: 'chainMail',
         translation: 'Cota de mallas',
@@ -136,9 +145,10 @@ export function ARMORS() {
           stealthDisadvantage: true,
           strength: 13,
         },
+        ...props,
       };
     },
-    splint() {
+    splint(props) {
       return {
         name: 'splint',
         translation: 'Armadura de bandas',
@@ -151,9 +161,10 @@ export function ARMORS() {
           stealthDisadvantage: true,
           strength: 15,
         },
+        ...props,
       };
     },
-    plate() {
+    plate(props) {
       return {
         name: 'plate',
         translation: 'Armadura de placas',
@@ -166,9 +177,10 @@ export function ARMORS() {
           stealthDisadvantage: true,
           strength: 15,
         },
+        ...props,
       };
     },
-    shield() {
+    shield(props) {
       return {
         name: 'shield',
         translation: 'Escudo',
@@ -179,10 +191,13 @@ export function ARMORS() {
         properties: {
           AC: () => 2,
         },
+        ...props,
       };
     },
   };
 }
+
+export const ALL_ARMORS = Object.keys(ARMORS());
 
 export function translateArmor(armor) {
   if (typeof armor === 'object') return armor.translation;
