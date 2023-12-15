@@ -37,6 +37,10 @@ function ItemsList() {
             <Link to={`/items/${item.id}`} className="party__pc-link">
               <div className="party__character-name">{item.name}</div>
               <div className="party__party-data">{t(item.rarity)}</div>
+              <div className="party__party-data">{t(item.category)}</div>
+              <div className="party__party-data">
+                {!!item.subtype && t(item.subtype)}
+              </div>
               <div className="party__party-data">
                 {!!item.consumable && 'Consumible'}
               </div>

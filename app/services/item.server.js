@@ -9,7 +9,6 @@ const itemSchema = new mongoose.Schema({
   description: String,
   consumable: Boolean,
   charges: Number,
-  identified: Boolean,
   category: {
     type: String,
     enum: ITEM_CATEGORY,

@@ -1,5 +1,6 @@
 import { getItem } from './equipment/equipment';
 import { NPC_RACES } from './npc/attrs/npcRaces';
+import { translateSpell } from './spells/spells';
 
 export function t(key) {
   let translation = {
@@ -318,13 +319,13 @@ export function t(key) {
 
   if (translation) return translation;
 
-  // Races
   translation = NPC_RACES[key]?.translation;
-
   if (translation) return translation;
 
   translation = getItem(key)?.translation;
+  if (translation) return translation;
 
+  translation = translateSpell(key);
   if (translation) return translation;
 
   return 'Unknown translation';

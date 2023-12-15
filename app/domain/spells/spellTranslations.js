@@ -585,6 +585,7 @@ export const SPELL_TRANSLATIONS = {
   telekinesis: 'Telequinesia',
   telekineticSphere: 'Esfera telekinética',
   telephaticBond: 'Vínculo telepático',
+  telepathy: 'Telepatía',
   teleport: 'Teleportar',
   teleportObject: 'Teleportar objeto',
   teleportWithoutError: 'Teleportar sin error',

@@ -11,6 +11,7 @@ import { ALL_ARMORS, ARMORS } from '~/domain/equipment/armors';
 import { ALL_WEAPONS, WEAPONS } from '~/domain/equipment/weapons';
 
 import styles from '~/components/item.css';
+import { ALL_SPELLS_BY_TRANSLATION } from '~/domain/spells/getSpells';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }, ...titleLinks()];
 };
@@ -37,7 +38,6 @@ export const action = async ({ request }) => {
   const subtype = formData.get('subtype');
   const charges = formData.get('charges');
   const consumable = formData.get('consumable');
-  const identified = formData.get('identified');
   const description = formData.get('description');
 
   await updateItem(id, {
@@ -46,7 +46,6 @@ export const action = async ({ request }) => {
     category,
     subtype,
     consumable: consumable === 'on',
-    identified: identified === 'on',
     charges,
     description,
   });
@@ -68,9 +67,11 @@ function NewItem() {
 
   const [isArmor, setIsArmor] = useState(item?.category === 'armor');
   const [isWeapon, setIsWeapon] = useState(item?.category === 'weapon');
+  const [isScroll, setIsScroll] = useState(item?.category === 'scroll');
   useEffect(() => {
     setIsArmor(item?.category === 'armor');
     setIsWeapon(item?.category === 'weapon');
+    setIsScroll(item?.category === 'scroll');
   }, [item?.category]);
 
   return (
@@ -179,6 +180,29 @@ function NewItem() {
               })}
             </select>
           )}
+          
+          {!!isScroll && (
+            <select
+              type="text"
+              name="subtype"
+              className="item__select"
+              defaultValue={item?.subtype}
+            >
+              <option value="" disabled>
+                Tipo de pergamino
+              </option>
+              {ALL_SPELLS_BY_TRANSLATION.map(spellWithTranslation => {
+                return (
+                  <option
+                    key={spellWithTranslation.name}
+                    value={spellWithTranslation.name}
+                  >
+                    {spellWithTranslation.translation}
+                  </option>
+                );
+              })}
+            </select>
+          )}
 
           <label htmlFor="charges" className="item__checkbox-label">
             <span className="item__checkbox-text">Cargas</span>
@@ -199,16 +223,6 @@ function NewItem() {
               defaultChecked={item?.consumable}
             />{' '}
             <span className="item__checkbox-text">Consumible</span>
-          </label>
-
-          <label htmlFor="identified" className="item__checkbox-label">
-            <input
-              type="checkbox"
-              name="identified"
-              id="identified"
-              defaultChecked={item?.identified}
-            />{' '}
-            <span className="item__checkbox-text">Identificado</span>
           </label>
         </div>
       </div>
