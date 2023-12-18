@@ -9,6 +9,7 @@ import { t } from '~/domain/translations';
 import { createItem } from '~/services/item.server';
 import { ALL_ARMORS, ARMORS } from '~/domain/equipment/armors';
 import { ALL_WEAPONS, WEAPONS } from '~/domain/equipment/weapons';
+import { ALL_SPELLS_BY_TRANSLATION } from '~/domain/spells/getSpells';
 
 import styles from '~/components/item.css';
 export const links = () => {
@@ -25,18 +26,16 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const rarity = formData.get('rarity');
   const category = formData.get('category');
-  const subtype = formData.get('subtype');
+  const subcategory = formData.get('subcategory');
   const charges = formData.get('charges');
   const consumable = formData.get('consumable');
-  const identified = formData.get('identified');
   const description = formData.get('description');
   const item = await createItem({
     name,
     rarity,
     category,
-    subtype,
+    subcategory,
     consumable: consumable === 'true',
-    identified: identified === 'true',
     charges,
     description,
   });
@@ -55,6 +54,7 @@ function NewItem() {
 
   const [isArmor, setIsArmor] = useState(false);
   const [isWeapon, setIsWeapon] = useState(false);
+  const [isScroll, setIsScroll] = useState(false);
 
   return (
     <Form method="post" className="item__wrapper">
@@ -79,8 +79,13 @@ function NewItem() {
         <hr className="item__section-divider" />
 
         <div className="item__section">
-          <select type="text" name="rarity" className="item__select">
-            <option value="" disabled selected>
+          <select
+            type="text"
+            name="rarity"
+            className="item__select"
+            defaultValue=""
+          >
+            <option value="" disabled>
               {t('rarity')}
             </option>
             {ITEM_RARITY.map(rarityType => (
@@ -99,6 +104,9 @@ function NewItem() {
               e.target.value === 'weapon'
                 ? setIsWeapon(true)
                 : setIsWeapon(false);
+              e.target.value === 'scroll'
+                ? setIsScroll(true)
+                : setIsScroll(false);
             }}
           >
             <option value="" disabled selected>
@@ -112,7 +120,7 @@ function NewItem() {
           </select>
 
           {!!isArmor && (
-            <select type="text" name="subtype" className="item__select">
+            <select type="text" name="subcategory" className="item__select">
               <option value="" disabled selected>
                 Tipo de armadura
               </option>
@@ -127,7 +135,7 @@ function NewItem() {
           )}
 
           {!!isWeapon && (
-            <select type="text" name="subtype" className="item__select">
+            <select type="text" name="subcategory" className="item__select">
               <option value="" disabled selected>
                 Tipo de arma
               </option>
@@ -135,6 +143,24 @@ function NewItem() {
                 return (
                   <option key={weaponName} value={weaponName}>
                     {WEAPONS()[weaponName]().translation}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+
+          {!!isScroll && (
+            <select type="text" name="subcategory" className="item__select">
+              <option value="" disabled selected>
+                Tipo de pergamino
+              </option>
+              {ALL_SPELLS_BY_TRANSLATION.map(spellWithTranslation => {
+                return (
+                  <option
+                    key={spellWithTranslation.name}
+                    value={spellWithTranslation.name}
+                  >
+                    {spellWithTranslation.translation}
                   </option>
                 );
               })}
@@ -155,11 +181,6 @@ function NewItem() {
           <label htmlFor="consumable" className="item__checkbox-label">
             <input type="checkbox" name="consumable" id="consumable" />{' '}
             <span className="item__checkbox-text">Consumible</span>
-          </label>
-
-          <label htmlFor="identified" className="item__checkbox-label">
-            <input type="checkbox" name="identified" id="identified" />{' '}
-            <span className="item__checkbox-text">Identificado</span>
           </label>
         </div>
       </div>

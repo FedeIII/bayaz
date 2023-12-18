@@ -14,6 +14,7 @@ import { WIZARD_EQUIPMENT } from '../classes/wizard/wizard';
 import { MONK_EQUIPMENT } from '../classes/monk/monk';
 import { PALADIN_EQUIPMENT } from '../classes/paladin/paladin';
 import { ROGUE_EQUIPMENT } from '../classes/rogue/rogue';
+import { magicItemsStore } from './items';
 
 export function translateEquipment(type) {
   switch (type) {
@@ -31,13 +32,33 @@ export function translateEquipment(type) {
   }
 }
 
-export function getItem(item) {
+export async function getAnyItem(item) {
   if (!item) return null;
 
   const itemName = typeof item === 'string' ? item : item.name;
   const itemAmount = typeof item === 'string' ? 1 : item.amount;
 
-  const allItems = getAllItems();
+  const magicItemBuilder = await magicItemsStore.get(itemName);
+
+  if (magicItemBuilder) {
+    if (typeof magicItemBuilder === 'function') {
+      return magicItemBuilder({ amount: itemAmount || 1 });
+    } else {
+      return magicItemBuilder;
+    }
+  }
+
+  return getItem(item);
+}
+
+export function getItem(item) {
+  if (!item) return null;
+  if (item.description || item.translation) return item;
+
+  const itemName = typeof item === 'string' ? item : item.name;
+  const itemAmount = typeof item === 'string' ? 1 : item.amount;
+
+  const allItems = [...getAllItems(), ...magicItemsStore.getAllSync()];
   const itemBuilder = allItems.find(item => item().name === itemName);
 
   if (!itemBuilder) {
@@ -128,11 +149,15 @@ export function getEquippedArmor(pc) {
 }
 
 export function isWeapon(item) {
-  return item.type === 'weapon';
+  return (
+    item.type === 'weapon' ||
+    item.category === 'weapon' ||
+    item.category === 'staff'
+  );
 }
 
 export function isArmor(item) {
-  return item.type === 'armor';
+  return item.type === 'armor' || item.category === 'armor';
 }
 
 export function isAmmo(item) {

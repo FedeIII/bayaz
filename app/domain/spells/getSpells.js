@@ -14,6 +14,7 @@ import {
   getClassSpells,
   hasToLearnSpells,
   maxSpellLevel,
+  translateSpell,
 } from './spells';
 import { getWizardExtraKnownSpells } from './wizard';
 import {
@@ -128,3 +129,7 @@ export const ALL_SPELLS_BY_LEVEL = SPELL_LIST.reduce((spellsByLevel, spell) => {
   }
   return spellsByLevel;
 }, Array(10).fill([]));
+
+export const ALL_SPELLS_BY_TRANSLATION = SPELL_LIST.sort((s1, s2) =>
+  translateSpell(s1.name) > translateSpell(s2.name) ? 1 : -1
+).map(s => ({ name: s.name, translation: translateSpell(s.name) }));

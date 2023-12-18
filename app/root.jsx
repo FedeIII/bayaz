@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useFetcher,
 } from '@remix-run/react';
 
 import { DndProvider } from 'react-dnd';
@@ -20,6 +21,8 @@ import {
 } from './components/hooks/useStore';
 import MonstersContext from './components/contexts/monstersContext';
 import PartyTemplateContext from './components/contexts/partyTemplateContext';
+import { magicItemsStore, parseMagicItems } from './domain/equipment/items';
+import MagicItemsContext from './components/contexts/magicItemsContext';
 
 import styles from '~/styles/global.css';
 import menuStyles from '~/components/menus.css';
@@ -76,6 +79,21 @@ export default function App() {
   const [partyTemplateState, setPartyTemplateState, deletePartyTemplateState] =
     useStateValue('partyTemplate');
 
+  const [magicItems, setMagicItems] = useState([]);
+  const fetcher = useFetcher();
+  useEffect(() => {
+    if (!magicItems.length && fetcher.state === 'idle') {
+      fetcher.load('/magic-items');
+    }
+  }, [fetcher.state, magicItems.length]);
+  useEffect(() => {
+    if (fetcher.data) {
+      const parsedMagicItems = parseMagicItems(fetcher.data);
+      setMagicItems(parsedMagicItems);
+      magicItemsStore.set(parsedMagicItems);
+    }
+  }, [fetcher.data, fetcher.state]);
+
   useEffect(() => {
     setHasMenu(true);
   }, []);
@@ -95,40 +113,42 @@ export default function App() {
           <MenuContext.Provider
             value={{ hasMenu, setHasMenu, menuTitle, setMenuTitle }}
           >
-            <PartyContext.Provider
-              value={{
-                partyIdState,
-                setPartyIdState,
-                deletePartyIdState,
-                pcIdsState,
-                setPcIdsState,
-                deletePcIdsState,
-              }}
-            >
-              <MonstersContext.Provider
+            <MagicItemsContext.Provider value={magicItems}>
+              <PartyContext.Provider
                 value={{
-                  monstersState,
-                  setMonstersState,
-                  deleteMonstersState,
-                  encounterIdState,
-                  setEncounterIdState,
-                  deleteEncounterIdState,
+                  partyIdState,
+                  setPartyIdState,
+                  deletePartyIdState,
+                  pcIdsState,
+                  setPcIdsState,
+                  deletePcIdsState,
                 }}
               >
-                <PartyTemplateContext.Provider
+                <MonstersContext.Provider
                   value={{
-                    partyTemplateState,
-                    setPartyTemplateState,
-                    deletePartyTemplateState,
+                    monstersState,
+                    setMonstersState,
+                    deleteMonstersState,
+                    encounterIdState,
+                    setEncounterIdState,
+                    deleteEncounterIdState,
                   }}
                 >
-                  <Outlet />
-                  <ScrollRestoration />
-                  <Scripts />
-                  <LiveReload />
-                </PartyTemplateContext.Provider>
-              </MonstersContext.Provider>
-            </PartyContext.Provider>
+                  <PartyTemplateContext.Provider
+                    value={{
+                      partyTemplateState,
+                      setPartyTemplateState,
+                      deletePartyTemplateState,
+                    }}
+                  >
+                    <Outlet />
+                    <ScrollRestoration />
+                    <Scripts />
+                    <LiveReload />
+                  </PartyTemplateContext.Provider>
+                </MonstersContext.Provider>
+              </PartyContext.Provider>
+            </MagicItemsContext.Provider>
           </MenuContext.Provider>
         </DndProvider>
       </body>
