@@ -32,7 +32,9 @@ export function SideBar(props) {
           <Link
             key={button.url}
             to={button.url}
-            className={`${button.level === 0 ? 'app__main-button' : ''} ${
+            className={`app__button ${
+              button.level === 0 ? 'app__main-button' : ''
+            } ${
               isSelected
                 ? button.level === 0
                   ? 'app__button-selected'
@@ -42,7 +44,9 @@ export function SideBar(props) {
                 : 'app__secondary-button'
             }`}
           >
-            {isSelected ? '●' : '○'} {button.name}
+            <span className='app__button-shadow'>
+              {isSelected ? '●' : '○'} {button.name}
+            </span>
           </Link>
         );
       })}

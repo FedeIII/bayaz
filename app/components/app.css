@@ -57,66 +57,99 @@
   overflow-y: none;
 }
 
-.app__main-button {
+.app__button-shadow {
+  width: 0%;
+  border-radius: 50%;
+  text-align: start;
+}
+
+.app__button {
   min-height: 32px;
-  margin: 2px 0;
-  padding: 4px 8px;
-  width: calc(100% - 16px);
   color: white;
-  border-radius: 5px;
+  background-color: transparent;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   text-decoration: none;
   cursor: pointer;
   text-wrap: nowrap;
+  width: 100%;
+  /* border-radius: 50%;
+  width: 0%; */
+}
+
+.app__button:hover .app__button-shadow {
+  background-color: #232d40;
+  animation: select-menu-item 1s;
+  animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  /* border-radius: 5px;
+  width: 100%; */
+  border-radius: 5px;
+  width: 100%;
+}
+
+.app__main-button {
+  margin: 2px 0;
+  /* width: calc(100% - 16px); */
+  /* transition: border-radius .5s ease-out, width .5s ease-out; */
+}
+
+.app__main-button .app__button-shadow {
+  padding: 8px;
 }
 
 .app__main-button:hover {
-  background-color: #232d40;
+  margin: 2px 0 2px 4px;
+}
+
+.app__main-button.app__button-selected {
   margin: 2px 0 2px 4px;
 }
 
 .app__secondary-button {
-  min-height: 32px;
   margin: 0px 0 4px 12px;
-  padding: 0 8px;
-  color: white;
-  border-radius: 5px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  text-decoration: none;
-  cursor: pointer;
-  text-wrap: nowrap;
+  width: calc(100% - 12px);
+}
+
+.app__secondary-button .app__button-shadow {
+  padding: 4px 8px;
 }
 
 .app__secondary-button:hover {
-  background-color: #232d40;
-  margin: 0px 0 4px 16px;
+  margin: 0 0 4px 16px;
+}
+
+.app__secondary-button.app__button-selected {
+  margin: 0 0 4px 16px;
 }
 
 .app__tertiary-button {
-  min-height: 32px;
   margin: 0 0 4px 20px;
+}
+
+.app__tertiary-button .app__button-shadow {
   padding: 0 8px;
-  color: white;
-  border-radius: 5px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  text-decoration: none;
-  cursor: pointer;
-  text-wrap: nowrap;
 }
 
 .app__tertiary-button:hover {
-  background-color: #232d40;
   margin: 0 0 4px 24px;
 }
 
-.app__button-selected {
+.app__button-selected .app__button-shadow {
   background-color: #252937;
+  animation: select-menu-item 0.1s forwards;
+  animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+}
+
+@keyframes select-menu-item {
+  0% {
+    border-radius: 50%;
+    width: 0px;
+  }
+  100% {
+    border-radius: 5px;
+    width: 100%;
+  }
 }
 
 .app__container {
