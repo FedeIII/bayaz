@@ -2713,8 +2713,8 @@ export function getArmorClass(pc) {
     },
     pClass,
   } = pc;
-  const armor = pArmor && getItem(pArmor.name);
-  const shield = pShield && getItem(pShield.name);
+  const armor = pArmor && getItem(pArmor);
+  const shield = pShield && getItem(pShield);
 
   let extraAC = 0;
 
@@ -2747,34 +2747,40 @@ export function getArmorClass(pc) {
 }
 
 export function getExtraArmorClass(pc) {
-  const shield = getItem(pc.items.equipment.shield?.name);
+  const shield = getItem(pc.items.equipment.shield);
   if (shield) return shield.properties.AC(getStats(pc));
   else return 0;
 }
 
-export function getAttackBonus(pc, weapon, weaponIndex) {
-  const statMod = getDamageBonus(pc, weapon);
+export function getAttackBonus(pc, weapons, weapon, weaponIndex) {
+  const statMod = getDamageBonus(pc, weapons, weapon);
 
-  const proficiencyBonus = getItemProficiencies(pc).includes(weapon.name)
+  const proficiencyBonus = isProficientWithWeapon(pc, weapon)
     ? getProficiencyBonus(pc.level)
     : 0;
 
-  const classBonus = getAttackClassBonus(pc, weapon, weaponIndex);
+  const classBonus = getAttackClassBonus(pc, weapons, weapon, weaponIndex);
 
-  return statMod + proficiencyBonus + classBonus;
+  const magicBonus = weapon.bonus?.hit || 0;
+
+  return { statMod, proficiencyBonus, classBonus, magicBonus };
 }
 
-export function getAttackClassBonus(pc, weapon, weaponIndex) {
+export function getTotalAttackBonus(...args) {
+  return Object.values(getAttackBonus(...args)).reduce((a, b) => a + b);
+}
+
+export function getAttackClassBonus(pc, weapons, weapon, weaponIndex) {
   const { pClass } = pc;
   return pClass === 'fighter'
     ? getAttackBonusForFightingStyles(pc, weapon, weaponIndex)
     : pClass === 'ranger'
-    ? getAttackBonusForRangerFightingStyles(pc, weapon, weaponIndex)
+    ? getAttackBonusForRangerFightingStyles(pc, weapons, weapon, weaponIndex)
     : 0;
 }
 
 export function getDamageDice(pc, w) {
-  const weapon = getItem(w.name);
+  const weapon = getItem(w);
   const damage = weapon.damage[0];
   const { pClass } = pc;
 
@@ -2805,12 +2811,9 @@ function isTwoWeaponFighterSecondWeapon(pc, weapon, weaponIndex) {
   );
 }
 
-export function getDamageBonus(pc, w, weaponIndex) {
-  const {
-    pClass,
-    items: { weapons },
-  } = pc;
-  const weapon = getItem(w.name);
+export function getDamageBonus(pc, weapons, w, weaponIndex) {
+  const { pClass } = pc;
+  const weapon = getItem(w);
   const { subtype, properties: { finesse, light, twoHanded } = {} } = weapon;
   let statMod = 0;
 
@@ -2896,7 +2899,7 @@ export function translateMoney(money) {
 }
 
 function putItemInInventory(inventory, pItem) {
-  const item = getItem(pItem.name);
+  const item = getItem(pItem);
 
   if (item.type === 'weapon') {
     if (inventory.weapons.length < 3) {
@@ -3004,11 +3007,10 @@ export function getEquipmentWeight(pc) {
               ? subsection.reduce((subsectionEncumbrance, item) => {
                   return (
                     subsectionEncumbrance +
-                    (getItem(item?.name)?.weight || 0) * (item?.amount || 1)
+                    (getItem(item)?.weight || 0) * (item?.amount || 1)
                   );
                 }, 0)
-              : (getItem(subsection?.name)?.weight || 0) *
-                (subsection?.amount || 1))
+              : (getItem(subsection)?.weight || 0) * (subsection?.amount || 1))
           );
         }, 0)
       );
@@ -3228,5 +3230,13 @@ export function canCopySpells(pc) {
       boon === 'pactOfTheTome' &&
       invocations.includes('bookOfAncientSecrets')) ||
     pClass === 'wizard'
+  );
+}
+
+export function isProficientWithWeapon(pc, weapon) {
+  const itemProficiencies = getItemProficiencies(pc);
+  return (
+    itemProficiencies.includes(weapon.name) ||
+    itemProficiencies.includes(weapon.subcategory)
   );
 }

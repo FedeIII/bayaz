@@ -1,12 +1,13 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { getExtraWeapons, hasExtraWeapons } from '~/domain/characters';
-import { getItem, noItem } from '~/domain/equipment/equipment';
+import { getAnyItem, noItem } from '~/domain/equipment/equipment';
 import { getAttacks, getSpecialAttacks, increment } from '~/domain/display';
 import { InventoryItem } from '../modal/inventoryItem';
 import { SkillItem } from '../modal/skillItem';
 import { t } from '~/domain/translations';
+import MagicItemsContext from '../contexts/magicItemsContext';
 
 const noAttack = { weapon: noItem() };
 
@@ -76,14 +77,20 @@ function SheetAttacks(props) {
     openSkillModal,
     submit,
   } = props;
-  const {
-    items: { weapons },
-  } = pc;
+
+  const allMagicItems = useContext(MagicItemsContext);
+
+  const weapons =
+    useMemo(() => {
+      return !!allMagicItems?.length && pc.items.weapons;
+    }, [allMagicItems, pc.items.weapons]) || [];
 
   const [attacks, setAttacks] = useState([noAttack, noAttack, noAttack]);
   useEffect(() => {
-    setAttacks(getAttacks(pc));
-  }, [pc]);
+    if (weapons.length) {
+      setAttacks(getAttacks(pc, weapons));
+    }
+  }, [pc, weapons]);
 
   function onWeaponChange(i) {
     return newWeaponName => {
@@ -114,23 +121,22 @@ function SheetAttacks(props) {
 
   function onWeaponClick(itemType, itemIndex = 0) {
     return itemName => {
-      const item = getItem(itemName);
-
-      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
-
-      setTimeout(
-        () =>
-          setActionModalContent(() => props => (
-            <WeaponModalContent
-              pc={pc}
-              weapon={item}
-              onWeaponChange={onWeaponChange(itemIndex)}
-              onWeaponUnequip={onWeaponUnequip(itemIndex)}
-              closeModal={() => setActionModalContent(null)}
-            />
-          )),
-        0
-      );
+      getAnyItem(itemName).then(item => {
+        setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+        setTimeout(
+          () =>
+            setActionModalContent(() => props => (
+              <WeaponModalContent
+                pc={pc}
+                weapon={item}
+                onWeaponChange={onWeaponChange(itemIndex)}
+                onWeaponUnequip={onWeaponUnequip(itemIndex)}
+                closeModal={() => setActionModalContent(null)}
+              />
+            )),
+          0
+        );
+      });
     };
   }
 
@@ -226,7 +232,7 @@ function SheetAttacks(props) {
         );
       })}
       <ul className="sheet__data sheet__special-attacks">
-        {getSpecialAttacks(pc).map((specialAttack, i) => (
+        {getSpecialAttacks(pc, weapons).map((specialAttack, i) => (
           <li className="sheet__special-attack" key={i}>
             {specialAttack}
           </li>

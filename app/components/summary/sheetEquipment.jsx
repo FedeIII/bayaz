@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 
 import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
 import { t } from '~/domain/translations';
+import MagicItemsContext from '../contexts/magicItemsContext';
 
 const noOp = () => {};
 
@@ -64,11 +65,17 @@ function ArmorModalContent(props) {
 }
 
 function ItemModalContent(props) {
-  const { item, dropItem, changeAmount, closeModal } = props;
+  const { item, dropItem, useItem, changeAmount, closeModal } = props;
 
   function onDropClick(e) {
     const itemName = e.target.value;
     dropItem(itemName);
+    closeModal();
+  }
+
+  function onUseClick(e) {
+    const itemName = e.target.value;
+    useItem(itemName);
     closeModal();
   }
 
@@ -121,6 +128,18 @@ function ItemModalContent(props) {
               </button>
             </li>
           )}
+          {!!useItem && (
+            <li>
+              <button
+                type="button"
+                className="inventory-item__drop-item-button"
+                value={item.name}
+                onClick={onUseClick}
+              >
+                Usar {item.translation}
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </>
@@ -137,10 +156,15 @@ function SheetEquipment(props) {
     setActionModalContent,
     submit,
   } = props;
-  const {
-    items: { equipment, treasure },
-    money,
-  } = pc;
+  const { money } = pc;
+
+  const allMagicItems = useContext(MagicItemsContext);
+
+  const [equipment = {}, treasure = {}] = useMemo(() => {
+    return !!allMagicItems?.length
+      ? [pc.items.equipment, pc.items.treasure]
+      : [];
+  }, [allMagicItems, pc.items.equipment, pc.items.treasure]);
 
   function onArmorChange(newArmorName) {
     submit(
@@ -187,10 +211,33 @@ function SheetEquipment(props) {
     );
   }
 
+  function dropOther(itemName) {
+    submit(
+      {
+        action: 'dropOther',
+        id: pc.id,
+        itemName,
+      },
+      { method: 'post' }
+    );
+  }
+
   function changeAmmoAmount(itemName, itemAmount) {
     submit(
       {
         action: 'changeAmmoAmount',
+        id: pc.id,
+        itemName,
+        itemAmount,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function changeOtherAmount(itemName, itemAmount) {
+    submit(
+      {
+        action: 'changeOtherAmount',
         id: pc.id,
         itemName,
         itemAmount,
@@ -221,11 +268,11 @@ function SheetEquipment(props) {
     };
   }
 
-  function onAmmoClick(itemType, itemIndex = 0) {
+  function onAmmoClick(itemIndex = 0) {
     return itemName => {
       const item = getItem(itemName);
 
-      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+      setSelectedItemRef(itemRefs.ammunition.current[itemIndex]);
 
       setTimeout(
         () =>
@@ -239,6 +286,29 @@ function SheetEquipment(props) {
           )),
         0
       );
+    };
+  }
+
+  function onMagicItemClick(itemIndex = 0) {
+    return itemName => {
+      const item = getItem(itemName);
+      if (item.consumable) {
+        setSelectedItemRef(itemRefs.others.current[itemIndex]);
+
+        setTimeout(
+          () =>
+            setActionModalContent(() => props => (
+              <ItemModalContent
+                item={item}
+                changeAmount={changeOtherAmount}
+                dropItem={dropOther}
+                useItem={dropOther}
+                closeModal={() => setActionModalContent(null)}
+              />
+            )),
+          0
+        );
+      }
     };
   }
 
@@ -282,7 +352,7 @@ function SheetEquipment(props) {
                 ref={itemRefs.ammunition.current[i]}
                 pItem={ammo}
                 isLast={i === equipment.ammunition.length - 1}
-                onItemClick={onAmmoClick('ammunition', i)}
+                onItemClick={onAmmoClick(i)}
                 openModal={openItemModal('ammunition', i)}
                 closeModal={closeItemModal}
                 key={ammo.name}
@@ -294,12 +364,13 @@ function SheetEquipment(props) {
           <li>
             {equipment.others.map((otherItem, i) => (
               <InventoryItem
+                key={otherItem.name}
                 ref={itemRefs.others.current[i]}
                 pItem={otherItem}
                 isLast={i === equipment.others.length - 1}
+                onItemClick={onMagicItemClick(i)}
                 openModal={openItemModal('others', i)}
                 closeModal={closeItemModal}
-                key={otherItem.name}
               />
             ))}
           </li>

@@ -117,7 +117,7 @@ export function displayFighterTrait(traitName, trait, pc) {
           )}
           {!!getStudentOfWar(pc) && (
             <span className="app__small-text">
-              {getItem(getStudentOfWar(pc).name).translation}
+              {getItem(getStudentOfWar(pc)).translation}
             </span>
           )}
         </>
@@ -161,8 +161,7 @@ export function displayFighterTrait(traitName, trait, pc) {
       return (
         !getExtraFightingStyle(pc) && (
           <>
-            <u>{trait}.</u>{' '}
-            <span className="sheet__pending-trait">(!)</span>
+            <u>{trait}.</u> <span className="sheet__pending-trait">(!)</span>
           </>
         )
       );

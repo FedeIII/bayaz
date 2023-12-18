@@ -168,6 +168,17 @@
   border-spacing: 8px 0px;
 }
 
+.inventory-item__modal-options-left:has(+ .inventory-item__modal-description) {
+  display: block;
+  padding: 0;
+  margin: 16px 0 16px;
+  columns: 2;
+  text-align: left;
+  font-size: var(--font-size-m);
+  border-collapse: separate;
+  border-spacing: 8px 0px;
+}
+
 .inventory-item__modal-item {
   display: table-row;
 }
@@ -327,4 +338,8 @@
 .inventory-item__drop-item-button:hover {
   background-color: var(--color-x-gray);
   color: var(--color-x-blue-ink);
+}
+
+.inventory-item__modal-description {
+  text-align: start;
 }

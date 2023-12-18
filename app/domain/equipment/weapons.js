@@ -558,12 +558,12 @@ export function getAllWeapons(props) {
 }
 
 export function isMeleeWeapon(w) {
-  const weapon = getItem(w.name);
+  const weapon = getItem(w);
   return ['simpleMelee', 'martialMelee'].includes(weapon.subtype);
 }
 
 export function isRangedWeapon(w) {
-  const weapon = getItem(w.name);
+  const weapon = getItem(w);
   return ['simpleRanged', 'martialRanged'].includes(weapon.subtype);
 }
 

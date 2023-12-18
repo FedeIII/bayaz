@@ -26,7 +26,7 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const rarity = formData.get('rarity');
   const category = formData.get('category');
-  const subtype = formData.get('subtype');
+  const subcategory = formData.get('subcategory');
   const charges = formData.get('charges');
   const consumable = formData.get('consumable');
   const description = formData.get('description');
@@ -34,7 +34,7 @@ export const action = async ({ request }) => {
     name,
     rarity,
     category,
-    subtype,
+    subcategory,
     consumable: consumable === 'true',
     charges,
     description,
@@ -120,7 +120,7 @@ function NewItem() {
           </select>
 
           {!!isArmor && (
-            <select type="text" name="subtype" className="item__select">
+            <select type="text" name="subcategory" className="item__select">
               <option value="" disabled selected>
                 Tipo de armadura
               </option>
@@ -135,7 +135,7 @@ function NewItem() {
           )}
 
           {!!isWeapon && (
-            <select type="text" name="subtype" className="item__select">
+            <select type="text" name="subcategory" className="item__select">
               <option value="" disabled selected>
                 Tipo de arma
               </option>
@@ -150,7 +150,7 @@ function NewItem() {
           )}
 
           {!!isScroll && (
-            <select type="text" name="subtype" className="item__select">
+            <select type="text" name="subcategory" className="item__select">
               <option value="" disabled selected>
                 Tipo de pergamino
               </option>

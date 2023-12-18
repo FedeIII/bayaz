@@ -1,6 +1,13 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useSubmit } from '@remix-run/react';
-import { createRef, useEffect, useRef, useState } from 'react';
+import {
+  createRef,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import {
   equipWeaponInSlot,
@@ -13,7 +20,11 @@ import {
   changeTreasureItemAmount,
 } from '~/services/pc.server';
 import { getPackItems } from '~/domain/equipment/packs';
-import { getItem, translatePack } from '~/domain/equipment/equipment';
+import {
+  getAnyItem,
+  getItem,
+  translatePack,
+} from '~/domain/equipment/equipment';
 import {
   getLightEncumbrance,
   getHeavyEncumbrance,
@@ -24,10 +35,11 @@ import { ItemModal } from '~/components/modal/itemModal';
 import { InventoryItem } from '~/components/modal/inventoryItem';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import { GrowBar } from '~/components/indicators/growBar';
-import { getSearchResults } from '~/domain/search';
 import { addItemToTreasure } from '~/domain/characterMutations';
 import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
+import { useSearchResults } from '~/components/hooks/useSearchResults';
+import MagicItemsContext from '~/components/contexts/magicItemsContext';
 
 import styles from '~/components/bio.css';
 export const links = () => {
@@ -263,7 +275,7 @@ function WeaponModalContent(props) {
               <option value="">Escoge hueco</option>
               {Array.from(Array(3), (_, i) => (
                 <option value={i} key={i}>
-                  {i}: {getItem(weapons[i]?.name)?.translation || '-'}
+                  {i}: {getItem(weapons[i])?.translation || '-'}
                 </option>
               ))}
             </select>
@@ -320,7 +332,7 @@ function ArmorModalContent(props) {
                 className="bio__equip-armor"
                 onClick={onEquipClick}
               >
-                Equipar en lugar de {getItem(pArmor.name).translation}
+                Equipar en lugar de {getItem(pArmor).translation}
               </button>
             )}
             {!pArmor && (
@@ -357,7 +369,6 @@ function PcBio() {
     age,
     height,
     weight,
-    items: { treasure },
     pack,
     freeText: {
       eyes,
@@ -369,6 +380,13 @@ function PcBio() {
       extraTraits2,
     } = {},
   } = pc;
+
+  const allMagicItems = useContext(MagicItemsContext);
+  const treasure = useMemo(() => {
+    return !!allMagicItems.length
+      ? pc.items.treasure
+      : { weapons: [], armors: [], others: [] };
+  }, [allMagicItems, pc.items.treasure]);
 
   function onFormSubmit(e) {}
 
@@ -473,12 +491,7 @@ function PcBio() {
     setItemSearch(e.target.value);
   }
 
-  const [itemResults, setItemResults] = useState([]);
-  useEffect(() => {
-    if (itemSearch.length > 2) {
-      setItemResults(getSearchResults(itemSearch, ['equipment']).equipment);
-    }
-  }, [itemSearch]);
+  const itemResults = useSearchResults(itemSearch, ['equipment']).equipment;
 
   const [itemRefs, setItemRefs] = useState({
     weapons: useRef(treasure.weapons.map(createRef)),
@@ -515,51 +528,51 @@ function PcBio() {
 
   function onItemClick(itemType, itemIndex) {
     return pItem => {
-      const item = getItem(pItem);
+      getAnyItem(pItem).then(item => {
+        setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
 
-      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+        let content;
+        if (itemType === 'others') {
+          content = props => (
+            <ItemModalContent
+              item={item}
+              dropItem={dropItem}
+              changeAmount={changeAmount}
+              closeModal={() => setActionModalContent(null)}
+            />
+          );
+        } else if (itemType === 'inventorySearchResults') {
+          content = props => (
+            <ItemModalContent
+              item={item}
+              addToTreasure={addToTreasure}
+              closeModal={() => setActionModalContent(null)}
+            />
+          );
+        } else if (item.type === 'weapon') {
+          content = props => (
+            <WeaponModalContent
+              pc={pc}
+              weapon={item}
+              equipWeapon={equipWeapon}
+              dropWeapon={dropWeapon}
+              closeModal={() => setActionModalContent(null)}
+            />
+          );
+        } else if (item.type === 'armor') {
+          content = props => (
+            <ArmorModalContent
+              pc={pc}
+              armor={item}
+              equipArmor={equipArmor}
+              dropArmor={dropArmor}
+              closeModal={() => setActionModalContent(null)}
+            />
+          );
+        }
 
-      let content;
-      if (itemType === 'others') {
-        content = props => (
-          <ItemModalContent
-            item={item}
-            dropItem={dropItem}
-            changeAmount={changeAmount}
-            closeModal={() => setActionModalContent(null)}
-          />
-        );
-      } else if (itemType === 'inventorySearchResults') {
-        content = props => (
-          <ItemModalContent
-            item={item}
-            addToTreasure={addToTreasure}
-            closeModal={() => setActionModalContent(null)}
-          />
-        );
-      } else if (item.type === 'weapon') {
-        content = props => (
-          <WeaponModalContent
-            pc={pc}
-            weapon={item}
-            equipWeapon={equipWeapon}
-            dropWeapon={dropWeapon}
-            closeModal={() => setActionModalContent(null)}
-          />
-        );
-      } else if (item.type === 'armor') {
-        content = props => (
-          <ArmorModalContent
-            pc={pc}
-            armor={item}
-            equipArmor={equipArmor}
-            dropArmor={dropArmor}
-            closeModal={() => setActionModalContent(null)}
-          />
-        );
-      }
-
-      setTimeout(() => setActionModalContent(() => content), 0);
+        setActionModalContent(() => content);
+      });
     };
   }
 
@@ -604,7 +617,6 @@ function PcBio() {
             elRef={selectedItemRef}
             formRef={formRef}
             closeModal={closeItemModal}
-            closeOnLeave
             isDm={isDm}
           >
             {itemModalContent}
@@ -766,7 +778,7 @@ function PcBio() {
         {isTreasureScreenOpen && (
           <div className="bio__data bio__treasure-screen">
             <div className="bio__treasure-searcher">
-              Buscar Items:{' '}
+              Buscar Items{' '}
               <input
                 className="bio__treasure-searcher-input"
                 value={itemSearch}
@@ -783,6 +795,7 @@ function PcBio() {
                     onItemClick={onItemClick('inventorySearchResults', i)}
                     openModal={openItemModal('inventorySearchResults', i)}
                     closeModal={closeItemModal}
+                    dontCloseOnMouseOut
                     key={item.name}
                   />
                 </li>

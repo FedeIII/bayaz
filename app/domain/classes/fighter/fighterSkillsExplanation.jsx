@@ -279,7 +279,7 @@ export const FIGHTER_SKILLS_EXPLANATION = {
       )}
 
       {!!getStudentOfWar(pc) && (
-        <strong>{getItem(getStudentOfWar(pc).name).translation}</strong>
+        <strong>{getItem(getStudentOfWar(pc)).translation}</strong>
       )}
     </>
   ),

@@ -1,8 +1,7 @@
-import { createRef, useEffect, useMemo, useRef, useState } from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import { SkillModal } from '~/components/modal/skillModal';
-import { getSearchResults } from '~/domain/search';
 import { InventoryItem } from '~/components/modal/inventoryItem';
 import { ItemModal } from '~/components/modal/itemModal';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
@@ -10,6 +9,7 @@ import { useCharacterItems } from '~/components/modal/useCharacterItems';
 import { CharacterModal } from '~/components/modal/characterModal';
 import { CharacterItem } from '~/components/modal/characterItem';
 import { Monster } from '~/domain/encounters/monsters';
+import { useSearchResults } from '~/components/hooks/useSearchResults';
 
 import styles from '~/components/glossary.css';
 import charactersStyles from '~/components/characters/characters.css';
@@ -56,10 +56,7 @@ function Glossary() {
   const [filters, setFilters] = useState({ search: '' });
   const { search } = filters;
 
-  const searchResults = useMemo(
-    () => (search.length > 2 ? getSearchResults(search) : getSearchResults('')),
-    [search]
-  );
+  const searchResults = useSearchResults(search);
 
   const [refsList, setRefsList] = useState({
     spells: useRef(searchResults.spells.map(createRef)),
@@ -190,7 +187,9 @@ function Glossary() {
           {!!searchResults.traits.length && (
             <div className="glossary__results-section">
               <div className="glossary__section-header">
-                <span className="glossary__header-title">Rasgos y Atributos</span>
+                <span className="glossary__header-title">
+                  Rasgos y Atributos
+                </span>
               </div>
               <ul className="glossary__section-items">
                 {searchResults.traits.map(([traitName, trait], i) => (

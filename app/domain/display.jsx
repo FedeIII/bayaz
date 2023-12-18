@@ -9,12 +9,12 @@ import {
   translateSoldierSpecialty,
 } from './backgrounds/backgrounds';
 import {
-  getAttackBonus,
   getDamageBonus,
   getDamageDice,
   getItemArmorClass,
   getStat,
   getStatMod,
+  getTotalAttackBonus,
   hasToImproveAbilityScore,
   translateClass,
   translateSavingThrowStatus,
@@ -201,10 +201,10 @@ export function getItemDisplayList(itemNames) {
   return list;
 }
 
-export function displayDamage(pc, weapon, weaponIndex) {
+export function displayDamage(pc, weapons, weapon, weaponIndex) {
   const { properties: { versatile } = {} } = weapon;
   const damageDice = getDamageDice(pc, weapon);
-  const damageBonus = getDamageBonus(pc, weapon, weaponIndex);
+  const damageBonus = getDamageBonus(pc, weapons, weapon, weaponIndex);
   const bonusOperator = damageBonus > 0 ? '+' : '';
 
   if (versatile)
@@ -215,13 +215,19 @@ export function displayDamage(pc, weapon, weaponIndex) {
   else return `${damageDice}`;
 }
 
-function getAttackFromWeapon(pc, weapon, specialAttackIndex, weaponIndex) {
+function getAttackFromWeapon(
+  pc,
+  weapons,
+  weapon,
+  specialAttackIndex,
+  weaponIndex
+) {
   return weapon?.name
     ? {
-        weapon: getItem(weapon.name),
+        weapon: getItem(weapon),
         specialAttackIndex,
-        bonus: getAttackBonus(pc, weapon, weaponIndex),
-        damage: displayDamage(pc, weapon, weaponIndex),
+        bonus: getTotalAttackBonus(pc, weapons, weapon, weaponIndex),
+        damage: displayDamage(pc, weapons, weapon, weaponIndex),
         type: `(${translateDamage(weapon.damage[1])})`,
       }
     : {
@@ -233,20 +239,17 @@ function getAttackFromWeapon(pc, weapon, specialAttackIndex, weaponIndex) {
       };
 }
 
-export function getAttacks(pc) {
-  const {
-    items: { weapons },
-  } = pc;
-
+export function getAttacks(pc, weapons = []) {
   let specialAttackIndex = 0;
   let weaponSlots = [...weapons, noItem(), noItem(), noItem()];
   weaponSlots = weaponSlots.slice(0, 3).map(w => w || noItem());
   return weaponSlots.reduce((attacks, pWeapon, weaponIndex) => {
-    const weapon = getItem(pWeapon.name);
+    const weapon = getItem(pWeapon);
 
     attacks.push(
       getAttackFromWeapon(
         pc,
+        weapons,
         weapon,
         hasSpecialAttack(weapon, pc) && ++specialAttackIndex,
         weaponIndex
@@ -355,14 +358,10 @@ function SpecialAttackFromWeapon(props) {
   return components;
 }
 
-export function getSpecialAttacks(pc) {
-  const {
-    items: { weapons },
-  } = pc;
-
+export function getSpecialAttacks(pc, weapons) {
   return weapons.reduce((specialAttacks, pWeapon) => {
     pWeapon = pWeapon || noItem();
-    const weapon = getItem(pWeapon.name);
+    const weapon = getItem(pWeapon);
     if (hasSpecialAttack(weapon, pc)) {
       specialAttacks.push(
         <SpecialAttackFromWeapon pc={pc} weapon={weapon} key={weapon.name} />
@@ -569,8 +568,8 @@ export function getAcBreakdown(pc) {
     pClass,
   } = pc;
 
-  const armor = pArmor && getItem(pArmor.name);
-  const shield = pShield && getItem(pShield.name);
+  const armor = pArmor && getItem(pArmor);
+  const shield = pShield && getItem(pShield);
 
   const acBreakdown =
     pClass === 'barbarian' && !armor

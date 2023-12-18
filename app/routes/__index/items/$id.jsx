@@ -35,7 +35,7 @@ export const action = async ({ request }) => {
   const name = formData.get('name');
   const rarity = formData.get('rarity');
   const category = formData.get('category');
-  const subtype = formData.get('subtype');
+  const subcategory = formData.get('subcategory');
   const charges = formData.get('charges');
   const consumable = formData.get('consumable');
   const description = formData.get('description');
@@ -44,7 +44,7 @@ export const action = async ({ request }) => {
     name,
     rarity,
     category,
-    subtype,
+    subcategory,
     consumable: consumable === 'on',
     charges,
     description,
@@ -144,9 +144,9 @@ function NewItem() {
           {!!isArmor && (
             <select
               type="text"
-              name="subtype"
+              name="subcategory"
               className="item__select"
-              defaultValue={item?.subtype}
+              defaultValue={item?.subcategory}
             >
               <option value="" disabled selected>
                 Tipo de armadura
@@ -164,9 +164,9 @@ function NewItem() {
           {!!isWeapon && (
             <select
               type="text"
-              name="subtype"
+              name="subcategory"
               className="item__select"
-              defaultValue={item?.subtype}
+              defaultValue={item?.subcategory}
             >
               <option value="" disabled selected>
                 Tipo de arma
@@ -184,9 +184,9 @@ function NewItem() {
           {!!isScroll && (
             <select
               type="text"
-              name="subtype"
+              name="subcategory"
               className="item__select"
-              defaultValue={item?.subtype}
+              defaultValue={item?.subcategory}
             >
               <option value="" disabled>
                 Tipo de pergamino

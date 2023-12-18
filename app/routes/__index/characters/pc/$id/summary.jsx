@@ -17,6 +17,8 @@ import {
   dropEquipmentAmmo,
   changeEquipmentAmmoAmount,
   updatePcName,
+  dropEquipmentOther,
+  changeEquipmentOtherAmount,
 } from '~/services/pc.server';
 import {
   CLASSES,
@@ -228,12 +230,27 @@ async function dropAmmoAction(formData) {
   await dropEquipmentAmmo(id, itemName);
 }
 
+async function dropOtherAction(formData) {
+  const id = formData.get('id');
+  const itemName = formData.get('itemName');
+
+  await dropEquipmentOther(id, itemName);
+}
+
 async function changeAmmoAmountAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
   const itemAmount = formData.get('itemAmount');
 
   await changeEquipmentAmmoAmount(id, itemName, itemAmount);
+}
+
+async function changeOtherAmountAction(formData) {
+  const id = formData.get('id');
+  const itemName = formData.get('itemName');
+  const itemAmount = formData.get('itemAmount');
+
+  await changeEquipmentOtherAmount(id, itemName, itemAmount);
 }
 
 async function changeMoneyAction(formData) {
@@ -310,8 +327,12 @@ export const action = async ({ request }) => {
     pc = await updateNoteTextAction(formData);
   } else if (action === 'dropAmmo') {
     pc = await dropAmmoAction(formData);
+  } else if (action === 'dropOther') {
+    pc = await dropOtherAction(formData);
   } else if (action === 'changeAmmoAmount') {
     pc = await changeAmmoAmountAction(formData);
+  } else if (action === 'changeOtherAmount') {
+    pc = await changeOtherAmountAction(formData);
   } else if (action === 'changeMoney') {
     pc = await changeMoneyAction(formData);
   } else if (action === 'updateName') {

@@ -301,11 +301,16 @@ export function translateSuperiorHuntersDefense(defense) {
   return 'unknown superior hunters defense';
 }
 
-export function getAttackBonusForRangerFightingStyles(pc, weapon, weaponIndex) {
+export function getAttackBonusForRangerFightingStyles(
+  pc,
+  weapons,
+  weapon,
+  weaponIndex
+) {
   const {
     subtype,
     properties: { light },
-  } = getItem(weapon.name);
+  } = getItem(weapon);
   const fightingStyle = getRangerFightingStyle(pc);
 
   if (fightingStyle === 'archery' && isRangedWeapon(weapon)) return 2;
@@ -315,6 +320,6 @@ export function getAttackBonusForRangerFightingStyles(pc, weapon, weaponIndex) {
     subtype === 'simpleMelee' &&
     light
   )
-    return getDamageBonus(pc, weapon);
+    return getDamageBonus(pc, weapons, weapon);
   return 0;
 }

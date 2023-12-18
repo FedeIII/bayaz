@@ -32,7 +32,7 @@ import {
   SUPERIOR_HUNTERS_DEFENSE,
 } from '~/domain/classes/ranger/ranger';
 import { DIVINE_DOMAINS } from '~/domain/classes/cleric/cleric';
-import { getItem } from '~/domain/equipment/equipment';
+import { getAnyItem } from '~/domain/equipment/equipment';
 import {
   SPELL_SCHOOLS,
   getExtraPreparedSpells,
@@ -965,14 +965,18 @@ export async function equipWeapons(id, weaponToUnequipName, weaponToEquipName) {
   } else {
     updatedPc = await Pc.findOneAndUpdate(
       { id },
-      { $push: { 'items.treasure.weapons': getItem(weaponToUnequipName) } },
+      {
+        $push: {
+          'items.treasure.weapons': await getAnyItem(weaponToUnequipName),
+        },
+      },
       { new: true }
     );
   }
 
   updatedPc = await Pc.findOneAndUpdate(
     { id, 'items.weapons.name': weaponToUnequipName },
-    { $set: { 'items.weapons.$': getItem(weaponToEquipName) } },
+    { $set: { 'items.weapons.$': await getAnyItem(weaponToEquipName) } },
     { new: true }
   );
 
@@ -1020,7 +1024,9 @@ export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
 
   updatedPc = await Pc.findOneAndUpdate(
     { id },
-    { $set: { [`items.weapons.${slot}`]: getItem(weaponToEquipName) } },
+    {
+      $set: { [`items.weapons.${slot}`]: await getAnyItem(weaponToEquipName) },
+    },
     { new: true }
   );
 
@@ -1048,7 +1054,11 @@ export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
     } else {
       updatedPc = await Pc.findOneAndUpdate(
         { id },
-        { $push: { 'items.treasure.weapons': getItem(weaponToUnequipName) } },
+        {
+          $push: {
+            'items.treasure.weapons': await getAnyItem(weaponToUnequipName),
+          },
+        },
         { new: true }
       );
     }
@@ -1120,6 +1130,16 @@ export async function dropEquipmentAmmo(id, itemName) {
   return updatedPc;
 }
 
+export async function dropEquipmentOther(id, itemName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    { $pull: { 'items.equipment.others': { name: itemName } } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function changeEquipmentAmmoAmount(id, itemName, itemAmount) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id, 'items.equipment.ammunition.name': itemName },
@@ -1132,12 +1152,24 @@ export async function changeEquipmentAmmoAmount(id, itemName, itemAmount) {
   return updatedPc;
 }
 
+export async function changeEquipmentOtherAmount(id, itemName, itemAmount) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id, 'items.equipment.others.name': itemName },
+    {
+      $set: { 'items.equipment.others.$.amount': parseInt(itemAmount, 10) },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function reorderWeapons(id, weaponName, destinationSlot) {
   const pc = await getPc(id);
   const weapons = pc.items.weapons.slice();
 
   const originSlot = weapons.findIndex(weapon => weapon?.name === weaponName);
-  const selectedWeapon = getItem(weaponName);
+  const selectedWeapon = await getAnyItem(weaponName);
   const replacedWeapon = weapons[destinationSlot];
 
   weapons[originSlot] = replacedWeapon;

@@ -39,7 +39,7 @@ function ItemsList() {
               <div className="party__party-data">{t(item.rarity)}</div>
               <div className="party__party-data">{t(item.category)}</div>
               <div className="party__party-data">
-                {!!item.subtype && t(item.subtype)}
+                {!!item.subcategory && t(item.subcategory)}
               </div>
               <div className="party__party-data">
                 {!!item.consumable && 'Consumible'}

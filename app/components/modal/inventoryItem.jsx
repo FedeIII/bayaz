@@ -1,6 +1,6 @@
-import { forwardRef } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { itemWithAmount } from '~/domain/display';
-import { getItem } from '~/domain/equipment/equipment';
+import { getAnyItem, getItem } from '~/domain/equipment/equipment';
 
 const noOp = () => {};
 
@@ -14,10 +14,18 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
     actions = {},
     className = '',
     openModalOnClick,
+    dontCloseOnMouseOut,
   } = props;
-  const item = getItem(pItem);
+  const [item, setItem] = useState(getItem(pItem));
+  useEffect(() => {
+    if (!item && pItem.name) {
+      getAnyItem(pItem.name).then(i => setItem(i));
+    }
+  }, [pItem.name, item]);
 
   if (!item?.name) return null;
+
+  const internalDontCloseOnMouseOut = dontCloseOnMouseOut || !!item.description;
 
   const openModalForItem = () => openModal(pItem.name, actions);
   const onClickForItem = () => onItemClick?.(pItem);
@@ -29,9 +37,11 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
         className={`inventory-item ${className}`}
         onClick={openModalOnClick ? openModalForItem : onClickForItem}
         onMouseOver={openModalOnClick ? noOp : openModalForItem}
-        onMouseOut={openModalOnClick ? noOp : closeModal}
+        onMouseOut={
+          openModalOnClick || internalDontCloseOnMouseOut ? noOp : closeModal
+        }
       >
-        {itemWithAmount(item.translation, pItem.amount)}
+        {itemWithAmount(item.translation || item.name, pItem.amount)}
       </strong>
       {!isLast && ', '}
     </>

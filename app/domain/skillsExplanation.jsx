@@ -4,16 +4,17 @@ import {
   CLASSES,
   getArmorClass,
   getAttackBonus,
-  getAttackClassBonus,
   getExtraHitPoints,
-  getItemProficiencies,
-  getProficiencyBonus,
   getStat,
   getStatMod,
+  getTotalAttackBonus,
   translateClass,
 } from './characters';
 import { getAcBreakdown, increment } from './display';
 import { getItem } from './equipment/equipment';
+import { useContext, useMemo } from 'react';
+import MagicItemsContext from '~/components/contexts/magicItemsContext';
+import { t } from './translations';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
@@ -170,17 +171,22 @@ export const SKILLS_EXPLANATION = {
   savingThrows: (skill, pc) => <></>,
 
   attackBonus: (skill, pc, submit, closeModal, skillIndex) => {
-    const {
-      items: { weapons },
-      pClass,
-    } = pc;
+    const { pClass } = pc;
 
-    const weapon = weapons[skillIndex];
+    const allMagicItems = useContext(MagicItemsContext);
+    const weapons = useMemo(() => {
+      return !!allMagicItems.length && pc.items.weapons;
+    }, [allMagicItems, pc.items.weapons]);
+
+    const w = weapons[skillIndex];
+    const weapon = getItem(w);
     const {
       subtype,
       properties: { finesse } = {},
       translation,
-    } = getItem(weapon.name);
+      subcategory,
+    } = weapon;
+    const subcategoryTranslation = !!subcategory && t(subcategory);
 
     const strMod = getStatMod(getStat(pc, 'str'));
     const dexMod = getStatMod(getStat(pc, 'dex'));
@@ -194,13 +200,8 @@ export const SKILLS_EXPLANATION = {
     else if (subtype === 'simpleRanged' || subtype === 'martialRanged')
       selectedStat = 'dex';
 
-    const statMod = getStatMod(getStat(pc, selectedStat));
-
-    const proficiencyBonus = getItemProficiencies(pc).includes(weapon.name)
-      ? getProficiencyBonus(pc.level)
-      : 0;
-
-    const classBonus = getAttackClassBonus(pc, weapon);
+    const { statMod, proficiencyBonus, classBonus, magicBonus } =
+      getAttackBonus(pc, weapons, weapon);
 
     return (
       <div className="inventory-item__hp-container">
@@ -211,11 +212,16 @@ export const SKILLS_EXPLANATION = {
                 {selectedStat.toUpperCase()}
               </th>
               <th className="inventory-item__table-cell-level inventory-item__table-cell-small">
-                Compentencia en {translation}
+                Competencia en {subcategoryTranslation || translation}
               </th>
               {!!classBonus && (
                 <th className="inventory-item__table-cell-level">
                   Bonificación de Clase
+                </th>
+              )}
+              {!!magicBonus && (
+                <th className="inventory-item__table-cell-level">
+                  Arma mágica
                 </th>
               )}
               <th className="inventory-item__table-cell-extra">Total</th>
@@ -234,8 +240,13 @@ export const SKILLS_EXPLANATION = {
                   {increment(classBonus)}
                 </td>
               )}
+              {!!magicBonus && (
+                <td className="inventory-item__table-cell-level">
+                  {increment(magicBonus)}
+                </td>
+              )}
               <td className="inventory-item__table-cell-extra">
-                {getAttackBonus(pc, weapon)}
+                {getTotalAttackBonus(pc, weapons, weapon)}
               </td>
             </tr>
           </tbody>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
 import { displayDamage } from '~/domain/display';
@@ -6,9 +6,20 @@ import { t } from '~/domain/translations';
 import { getItemArmorClass, translateMoney } from '~/domain/characters';
 import { translateDamage } from '~/domain/equipment/weapons';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
+import MagicItemsContext from '../contexts/magicItemsContext';
 
 export function ItemModalContent(props) {
-  const { pc, item, actions = {}, isDm } = props;
+  const { pc, actions = {}, isDm } = props;
+
+  const allMagicItems = useContext(MagicItemsContext);
+
+  const [item, weapons] = useMemo(() => {
+    return !!allMagicItems?.length ? [props.item, pc.items.weapons] : [];
+  }, [allMagicItems, props.item, pc.items.weapons]);
+
+  if (!item) {
+    return null;
+  }
 
   const subtypeTranslation = item.subtype && t(item.subtype);
   const isWeapon = item.type === 'weapon';
@@ -42,7 +53,8 @@ export function ItemModalContent(props) {
             <li className="inventory-item__modal-item">
               <span className="inventory-item__modal-row-title">Daño:</span>{' '}
               <strong className="inventory-item__modal-row-value">
-                {displayDamage(pc, item)} ({translateDamage(item.damage[1])})
+                {displayDamage(pc, weapons, item)} (
+                {translateDamage(item.damage[1])})
               </strong>
             </li>
           )}
@@ -69,6 +81,13 @@ export function ItemModalContent(props) {
             </strong>
           </li>
         </ul>
+
+        {!!(isDm && item.description) && (
+          <div
+            className="inventory-item__modal-description"
+            dangerouslySetInnerHTML={{ __html: item.description }}
+          />
+        )}
       </div>
     </>
   );
@@ -100,6 +119,7 @@ export function ItemModal(props) {
     formPos,
     selfPosition,
     showOverMouse,
+    center,
   });
   const selfLeftX = getSelfLeftX({
     elPos,

@@ -3,6 +3,7 @@ import { MONSTERS } from './encounters/monsterList';
 import { translateMonster } from './encounters/monsterTranslations';
 import { Monster, getSpecialSkills } from './encounters/monsters';
 import { getAllItems } from './equipment/equipment';
+import { magicItemsStore } from './equipment/items';
 import { SPELL_LIST } from './spells/spellList';
 import { translateSchool } from './spells/spellTranslations';
 import { translateSpell } from './spells/spells';
@@ -29,7 +30,9 @@ function isSpellMatch(spell, search) {
 }
 
 function findSpells(search) {
-  return SPELL_LIST.filter(spell => isSpellMatch(spell, search));
+  return Promise.resolve(
+    SPELL_LIST.filter(spell => isSpellMatch(spell, search))
+  );
 }
 
 // EQUIPMENT //
@@ -45,8 +48,8 @@ function isItemMatch(itemBuilder, search) {
   ].some(str => str?.toLowerCase().includes(search));
 }
 
-function findEquipment(search) {
-  return getAllItems()
+async function findEquipment(search) {
+  return [...getAllItems(), ...(await magicItemsStore.getAll())]
     .filter(itemBuilder => isItemMatch(itemBuilder, search))
     .map(i => i?.());
 }
@@ -76,8 +79,10 @@ function isTraitMatch(traitName, trait, search) {
 }
 
 function findTraits(search) {
-  return ALL_TRAITS.filter(([traitName, trait]) =>
-    isTraitMatch(traitName, trait, search)
+  return Promise.resolve(
+    ALL_TRAITS.filter(([traitName, trait]) =>
+      isTraitMatch(traitName, trait, search)
+    )
   );
 }
 
@@ -102,8 +107,10 @@ function isMonsterMatch(monsterName, search) {
 }
 
 function findMonsters(search) {
-  return Object.values(MONSTERS).filter(monster =>
-    isMonsterMatch(monster.name, search)
+  return Promise.resolve(
+    Object.values(MONSTERS).filter(monster =>
+      isMonsterMatch(monster.name, search)
+    )
   );
 }
 
@@ -114,23 +121,21 @@ const finders = {
   monsters: findMonsters,
 };
 
-export function getSearchResults(
+export async function getSearchResults(
   search,
   searchSections = ['spells', 'equipment', 'traits', 'monsters']
 ) {
-  const lowercaseSearch = search?.toLowerCase();
   if (!search) {
-    return searchSections.reduce(
-      (res, element) => ({ ...res, [element]: [] }),
-      {}
+    return Promise.resolve(
+      searchSections.reduce((res, element) => ({ ...res, [element]: [] }), {})
     );
   }
 
-  return searchSections.reduce(
-    (res, element) => ({
-      ...res,
-      [element]: finders[element](lowercaseSearch),
-    }),
-    {}
-  );
+  const lowercaseSearch = search?.toLowerCase();
+  const searchResults = {};
+  for (let element of searchSections) {
+    searchResults[element] = await finders[element](lowercaseSearch);
+  }
+
+  return searchResults;
 }
