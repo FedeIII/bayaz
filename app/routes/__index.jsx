@@ -10,11 +10,6 @@ import PartyContext from '~/components/contexts/partyContext';
 import MonstersContext from '~/components/contexts/monstersContext';
 import { getCurrentPcPage } from '~/utils/paths';
 
-import appStyles from '~/components/app.css';
-export const links = () => {
-  return [{ rel: 'stylesheet', href: appStyles }];
-};
-
 export const loader = async ({ request }) => {
   const user = await getSessionUser(request);
 
@@ -23,12 +18,19 @@ export const loader = async ({ request }) => {
   }
 
   const menuItems = getBasicMenuItems(user);
+  const url = new URL(request.url);
+  const pathname =
+    url.pathname === '/'
+      ? '/'
+      : url.pathname[url.pathname.length - 1] === '/'
+      ? url.pathname.slice(0, -1)
+      : url.pathname;
 
-  return json({ menuItems });
+  return json({ menuItems, location: pathname });
 };
 
 export default function Index() {
-  const { menuItems: initMenuItems } = useLoaderData();
+  const { menuItems: initMenuItems, location } = useLoaderData();
   const menuContext = useContext(MenuContext) || {};
   const { hasMenu, menuTitle } = menuContext;
   const { partyIdState, pcIdsState } = useContext(PartyContext) || {};
@@ -58,7 +60,7 @@ export default function Index() {
       <div
         className={hasMenu ? 'app__body' : 'app__body app__body--full-screen'}
       >
-        <SideBar menuItems={menuItems} />
+        <SideBar menuItems={menuItems} location={location} />
         <div
           className={
             hasMenu ? 'app__content' : 'app__content app__content--ful-screen'

@@ -30,6 +30,7 @@ import cardStyles from '~/components/cards/cards.css';
 import itemStyles from '~/components/modal/inventoryItem.css';
 import barStyles from '~/components/indicators/bar.css';
 import checkboxStyles from '~/components/checkbox.css';
+import appStyles from '~/components/app.css';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -45,6 +46,7 @@ export const links = () => {
     { rel: 'stylesheet', href: itemStyles },
     { rel: 'stylesheet', href: barStyles },
     { rel: 'stylesheet', href: checkboxStyles },
+    { rel: 'stylesheet', href: appStyles },
   ];
 };
 

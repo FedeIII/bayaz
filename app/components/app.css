@@ -31,11 +31,13 @@
 .app__sidebar {
   display: flex;
   flex-direction: column;
-  width: 10vw;
-  padding: 8px;
-  background-color: #5c687e;
+  width: 11vw;
+  padding: 8px 16px;
+  margin: 8px 0;
+  border-right: 1px solid #a3b3d0;
+  background-color: transparent;
   color: white;
-  align-items: flex-end;
+  align-items: flex-start;
   overflow-y: scroll;
 }
 
@@ -57,44 +59,64 @@
 
 .app__main-button {
   min-height: 32px;
-  margin: 8px 0 8px;
-  width: 100%;
-  background-color: #a3b3d0;
+  margin: 2px 0;
+  padding: 4px 8px;
+  width: calc(100% - 16px);
+  color: white;
   border-radius: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-decoration: none;
-  color: black;
-  overflow: hidden;
+  cursor: pointer;
+  text-wrap: nowrap;
+}
+
+.app__main-button:hover {
+  background-color: #232d40;
+  margin: 2px 0 2px 4px;
 }
 
 .app__secondary-button {
-  min-height: 24px;
-  margin: 0 0 8px 16px;
-  width: 80%;
-  background-color: #a3b3d0;
+  min-height: 32px;
+  margin: 0px 0 4px 12px;
+  padding: 0 8px;
+  color: white;
   border-radius: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-decoration: none;
-  color: black;
-  overflow: hidden;
+  cursor: pointer;
+  text-wrap: nowrap;
+}
+
+.app__secondary-button:hover {
+  background-color: #232d40;
+  margin: 0px 0 4px 16px;
 }
 
 .app__tertiary-button {
-  min-height: 20px;
-  margin: 0 0 8px 16px;
-  width: 65%;
-  background-color: #a3b3d0;
+  min-height: 32px;
+  margin: 0 0 4px 20px;
+  padding: 0 8px;
+  color: white;
   border-radius: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-decoration: none;
-  color: black;
-  overflow: hidden;
+  cursor: pointer;
+  text-wrap: nowrap;
+}
+
+.app__tertiary-button:hover {
+  background-color: #232d40;
+  margin: 0 0 4px 24px;
+}
+
+.app__button-selected {
+  background-color: #252937;
 }
 
 .app__container {

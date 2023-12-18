@@ -55,14 +55,13 @@ npx prisma migrate dev
 
 - Fix padding left at spell selection
 - Add HP input in sheet for admins
-- Highlight current and hover character sheet in the navigation
 - Allow to set max health for mobs in new encounters
 - Allow to modify hitpoints
 - Add notes to npcs
 - Save quick npcs
 - Embedded youtube music
 - Unlink encounters from parties
-  - Random encounters
+  - Random encounters fix
 - Combat menu
 - Buildings in settlements
 - Characters in places
