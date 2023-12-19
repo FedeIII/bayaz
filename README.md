@@ -53,10 +53,12 @@ npx prisma migrate dev
 
 ## TO DOsg
 
+- recover magic item charges
+- Magic items owners
+  - on assignation create instance?
+  - give to other player action
 - Fix padding left at spell selection
-- Add HP input in sheet for admins
 - Allow to set max health for mobs in new encounters
-- Allow to modify hitpoints
 - Add notes to npcs
 - Save quick npcs
 - Embedded youtube music

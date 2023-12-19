@@ -27,6 +27,7 @@ export const action = async ({ request }) => {
   const rarity = formData.get('rarity');
   const category = formData.get('category');
   const subcategory = formData.get('subcategory');
+  const hasCharges = formData.get('hasCharges');
   const charges = formData.get('charges');
   const consumable = formData.get('consumable');
   const description = formData.get('description');
@@ -36,7 +37,7 @@ export const action = async ({ request }) => {
     category,
     subcategory,
     consumable: consumable === 'true',
-    charges,
+    charges: hasCharges ? charges : null,
     description,
   });
   return redirect(`/items/${item.id}`);
@@ -55,6 +56,7 @@ function NewItem() {
   const [isArmor, setIsArmor] = useState(false);
   const [isWeapon, setIsWeapon] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
+  const [hasCharges, setHasCharges] = useState(false);
 
   return (
     <Form method="post" className="item__wrapper">
@@ -167,16 +169,28 @@ function NewItem() {
             </select>
           )}
 
-          <label htmlFor="charges" className="item__checkbox-label">
-            <span className="item__checkbox-text">Cargas</span>
+          <label htmlFor="hasCharges" className="item__checkbox-label">
             <input
-              type="number"
-              name="charges"
-              id="charges"
-              defaultValue="0"
-              className="item__input item__input--number-2"
-            />
+              type="checkbox"
+              name="hasCharges"
+              id="hasCharges"
+              onChange={e => setHasCharges(e.target.checked)}
+            />{' '}
+            <span className="item__checkbox-text">Tiene cargas?</span>
           </label>
+
+          {hasCharges && (
+            <label htmlFor="charges" className="item__checkbox-label">
+              <span className="item__checkbox-text">Cargas</span>
+              <input
+                type="number"
+                name="charges"
+                id="charges"
+                defaultValue="0"
+                className="item__input item__input--number-2"
+              />
+            </label>
+          )}
 
           <label htmlFor="consumable" className="item__checkbox-label">
             <input type="checkbox" name="consumable" id="consumable" />{' '}

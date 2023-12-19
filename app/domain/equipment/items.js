@@ -126,3 +126,7 @@ export function isEquipmentItem(item) {
     item.category === 'wand'
   );
 }
+
+export function hasActions(item) {
+  return item.consumable || item.charges !== null;
+}

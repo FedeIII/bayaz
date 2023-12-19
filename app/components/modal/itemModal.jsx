@@ -80,6 +80,12 @@ export function ItemModalContent(props) {
               {item.weight ? item.weight + ' kg' : '-'}
             </strong>
           </li>
+          {item.charges !== null && <li className="inventory-item__modal-item">
+            <span className="inventory-item__modal-row-title">Cargas:</span>{' '}
+            <strong className="inventory-item__modal-row-value">
+              {item.charges}
+            </strong>
+          </li>}
         </ul>
 
         {!!(isDm && item.description) && (

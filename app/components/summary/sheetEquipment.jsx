@@ -4,6 +4,7 @@ import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
 import { t } from '~/domain/translations';
 import MagicItemsContext from '../contexts/magicItemsContext';
+import { hasActions } from '~/domain/equipment/items';
 
 const noOp = () => {};
 
@@ -67,15 +68,13 @@ function ArmorModalContent(props) {
 function ItemModalContent(props) {
   const { item, dropItem, useItem, changeAmount, closeModal } = props;
 
-  function onDropClick(e) {
-    const itemName = e.target.value;
-    dropItem(itemName);
+  function onDropClick() {
+    dropItem(item);
     closeModal();
   }
 
-  function onUseClick(e) {
-    const itemName = e.target.value;
-    useItem(itemName);
+  function onUseClick() {
+    useItem(item);
     closeModal();
   }
 
@@ -121,7 +120,6 @@ function ItemModalContent(props) {
               <button
                 type="button"
                 className="inventory-item__drop-item-button"
-                value={item.name}
                 onClick={onDropClick}
               >
                 Tirar {item.translation}
@@ -133,7 +131,6 @@ function ItemModalContent(props) {
               <button
                 type="button"
                 className="inventory-item__drop-item-button"
-                value={item.name}
                 onClick={onUseClick}
               >
                 Usar {item.translation}
@@ -200,23 +197,35 @@ function SheetEquipment(props) {
     );
   }
 
-  function dropAmmo(itemName) {
+  function dropAmmo(item) {
     submit(
       {
         action: 'dropAmmo',
         id: pc.id,
-        itemName,
+        itemId: item.id,
+        itemName: item.name,
       },
       { method: 'post' }
     );
   }
 
-  function dropOther(itemName) {
+  function dropOther(item) {
     submit(
       {
         action: 'dropOther',
         id: pc.id,
-        itemName,
+        itemId: item.id,
+        itemName: item.name,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function useCharge(item) {
+    submit(
+      {
+        action: 'useCharge',
+        itemId: item.id,
       },
       { method: 'post' }
     );
@@ -292,8 +301,14 @@ function SheetEquipment(props) {
   function onMagicItemClick(itemIndex = 0) {
     return itemName => {
       const item = getItem(itemName);
-      if (item.consumable) {
+      if (hasActions(item)) {
         setSelectedItemRef(itemRefs.others.current[itemIndex]);
+
+        const useItem = item.consumable
+          ? dropOther
+          : item.charges !== null
+          ? useCharge
+          : noOp;
 
         setTimeout(
           () =>
@@ -302,7 +317,7 @@ function SheetEquipment(props) {
                 item={item}
                 changeAmount={changeOtherAmount}
                 dropItem={dropOther}
-                useItem={dropOther}
+                useItem={useItem}
                 closeModal={() => setActionModalContent(null)}
               />
             )),

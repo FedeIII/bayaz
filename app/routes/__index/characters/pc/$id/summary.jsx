@@ -110,6 +110,7 @@ import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLang
 import { isDm } from '~/domain/user';
 import { getUser } from '~/services/user.server';
 import { getSessionUser } from '~/services/session.server';
+import { useCharge } from '~/services/item.server';
 
 import styles from '~/components/sheet.css';
 import spellsStyles from '~/components/spells.css';
@@ -225,16 +226,24 @@ async function updateNoteTextAction(formData) {
 
 async function dropAmmoAction(formData) {
   const id = formData.get('id');
+  const itemId = formData.get('itemId');
   const itemName = formData.get('itemName');
 
-  await dropEquipmentAmmo(id, itemName);
+  await dropEquipmentAmmo(id, itemId, itemName);
 }
 
 async function dropOtherAction(formData) {
   const id = formData.get('id');
+  const itemId = formData.get('itemId');
   const itemName = formData.get('itemName');
 
-  await dropEquipmentOther(id, itemName);
+  await dropEquipmentOther(id, itemId, itemName);
+}
+
+async function useChargeAction(formData) {
+  const itemId = formData.get('itemId');
+
+  await useCharge(itemId);
 }
 
 async function changeAmmoAmountAction(formData) {
@@ -337,6 +346,8 @@ export const action = async ({ request }) => {
     pc = await dropAmmoAction(formData);
   } else if (action === 'dropOther') {
     pc = await dropOtherAction(formData);
+  } else if (action === 'useCharge') {
+    pc = await useChargeAction(formData);
   } else if (action === 'changeAmmoAmount') {
     pc = await changeAmmoAmountAction(formData);
   } else if (action === 'changeOtherAmount') {

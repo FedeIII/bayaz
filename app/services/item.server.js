@@ -49,21 +49,31 @@ export async function updateItem(id, attrs) {
 }
 
 export async function getItems() {
-  const places = await Item.find();
-  return places;
+  const items = await Item.find();
+  return items;
 }
 
 export async function getItem(id) {
-  const place = await Item.findOne({ id }).exec();
-  return place;
+  const item = await Item.findOne({ id }).exec();
+  return item;
 }
 
 export async function getItemByName(itemName) {
-  const place = await Item.findOne({ name: itemName }).exec();
-  return place;
+  const item = await Item.findOne({ name: itemName }).exec();
+  return item;
 }
 
 export async function deleteItem(id) {
   const { deletedCount } = await Item.deleteOne({ id });
   return deletedCount;
+}
+
+export async function useCharge(id) {
+  const updatedItem = await Item.findOneAndUpdate(
+    { id },
+    { $inc: { charges: -1 } },
+    { new: true }
+  ).exec();
+
+  return updateItem;
 }
