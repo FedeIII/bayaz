@@ -283,6 +283,14 @@ async function updateFreeTexts(formData) {
   return updatedPc;
 }
 
+async function hitPointsChangeAction(formData) {
+  const id = formData.get('id');
+  const hitPoints = formData.get('hitPoints');
+
+  const updatedPc = await updatePc({ id, hitPoints });
+  return updatedPc;
+}
+
 async function updateTemporaryHitPoints(formData) {
   const id = formData.get('id');
   const temporaryHitPoints = formData.get('temporaryHitPoints');
@@ -339,6 +347,8 @@ export const action = async ({ request }) => {
     return await updateNameAction(formData);
   } else if (action === 'freeTextChange') {
     pc = await updateFreeTexts(formData);
+  } else if (action === 'hitPointsChange') {
+    pc = await hitPointsChangeAction(formData);
   } else if (action === 'temporaryHitPointsChange') {
     pc = await updateTemporaryHitPoints(formData);
   }
@@ -443,6 +453,17 @@ function PcSummary() {
       );
       setSelectedNote(null);
     }
+  }
+
+  function onPcHitPointsChange(hitPoints) {
+    submit(
+      {
+        action: 'hitPointsChange',
+        id,
+        hitPoints,
+      },
+      { method: 'post' }
+    );
   }
 
   const submit = useSubmit();
@@ -649,6 +670,7 @@ function PcSummary() {
           skillRefs={skillRefs}
           openSkillModal={openSkillModal}
           onTemporaryHitPointsChange={onTemporaryHitPointsChange}
+          onPcHitPointsChange={onPcHitPointsChange}
           isDm={isDm}
         />
 

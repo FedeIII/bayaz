@@ -18,8 +18,14 @@ export const links = () => {
 };
 
 function CombatAttrs(props) {
-  const { pc, skillRefs, openSkillModal, onTemporaryHitPointsChange, isDm } =
-    props;
+  const {
+    pc,
+    skillRefs,
+    openSkillModal,
+    onPcHitPointsChange,
+    onTemporaryHitPointsChange,
+    isDm,
+  } = props;
   const { hitPoints, temporaryHitPoints } = pc;
 
   const [extraHitPoints, setExtraHitPoints] = useState(null);
@@ -48,6 +54,11 @@ function CombatAttrs(props) {
     setHitPointsState(hitPoints - extraHitPoints);
     setExtraHitPoints(extraHitPoints);
     animateHitPoints(parseInt(extraHitPoints, 10), 0);
+  }
+
+  function changePcHitPoints(e) {
+    onPcHitPointsChange(e.target.value);
+    setHitPointsState(e.target.value);
   }
 
   useEffect(() => {
@@ -97,23 +108,27 @@ function CombatAttrs(props) {
           {maxHitPoints}
         </SkillItem>
       </span>
-      <span className={`sheet__data sheet__hit-points ${hitPointsStyle}`}>
-        {hitPointsState}
+      <div className={`sheet__data sheet__hit-points ${hitPointsStyle}`}>
+        <input
+          type="number"
+          name="hitPoints"
+          onChange={changePcHitPoints}
+          value={hitPointsState || 0}
+          className="sheet__temporary-hit-points-input"
+        />
         {!!extraHitPoints && (
           <span className="sheet__data sheet__extra-hit-points">
             {increment(extraHitPoints)}
           </span>
         )}
-      </span>
+      </div>
       <span className="sheet__data sheet__temporary-hit-points">
         <input
           type="number"
           name="temporaryHitPoints"
-          min="0"
           onChange={onTemporaryHitPointsChange}
           defaultValue={temporaryHitPoints || ''}
           className="sheet__temporary-hit-points-input"
-          disabled={!isDm}
         />
       </span>
 
