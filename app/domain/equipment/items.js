@@ -25,11 +25,11 @@ export const ITEM_CATEGORY = [
 ];
 
 const ITEM_APROX_PRICES = {
-  common: '50-100 po',
-  uncommon: '101-500 po',
-  rare: '501-5.000 po',
-  veryRare: '5.001-50.000 po',
-  legendary: '>50.000 po',
+  common: '50-100 Oro',
+  uncommon: '101-500 Oro',
+  rare: '501-5.000 Oro',
+  veryRare: '5.001-50.000 Oro',
+  legendary: '>50.000 Oro',
 };
 
 function getMagicItemProps(magicItem) {
@@ -52,6 +52,10 @@ export function parseMagicItems(magicItems) {
 
     if (magicItem.category === 'armor') {
       itemBuilder = ARMORS()[magicItem.subcategory];
+    }
+
+    if (magicItem.category === 'staff') {
+      itemBuilder = WEAPONS().quarterstaff;
     }
 
     return props => itemBuilder({ ...magicItemProps, ...props });
@@ -112,5 +116,13 @@ export const magicItemsStore = {
 };
 
 export function isEquipmentItem(item) {
-  return isAmmo(item) || item.category === 'scroll';
+  return (
+    isAmmo(item) ||
+    item.category === 'scroll' ||
+    item.category === 'potion' ||
+    item.category === 'wondrous' ||
+    item.category === 'ring' ||
+    item.category === 'rod' ||
+    item.category === 'wand'
+  );
 }

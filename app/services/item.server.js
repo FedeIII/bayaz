@@ -28,15 +28,11 @@ const itemSchema = new mongoose.Schema({
 const Item = mongoose.models.Item || mongoose.model('Item', itemSchema);
 
 export async function createItem(attrs) {
-  let nonMagicItem = {};
-  if (attrs.category === 'armor') nonMagicItem = getItem(attrs.subcategory);
-  if (attrs.category === 'weapon') nonMagicItem = getItem(attrs.subcategory);
-  if (attrs.category === 'staff') nonMagicItem = getItem('quarterstaff');
-
   const newItem = await Item.create({
     id: uuid(),
-    ...nonMagicItem,
     ...attrs,
+    subcategory:
+      attrs.subcategory || (attrs.category === 'staff' ? 'quarterstaff' : null),
   });
 
   return newItem;

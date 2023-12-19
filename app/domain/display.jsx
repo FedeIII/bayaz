@@ -215,16 +215,11 @@ export function displayDamage(pc, weapons, weapon, weaponIndex) {
   else return `${damageDice}`;
 }
 
-function getAttackFromWeapon(
-  pc,
-  weapons,
-  weapon,
-  specialAttackIndex,
-  weaponIndex
-) {
+function getAttackFromWeapon(pc, weapons, w, specialAttackIndex, weaponIndex) {
+  const weapon = getItem(w);
   return weapon?.name
     ? {
-        weapon: getItem(weapon),
+        weapon,
         specialAttackIndex,
         bonus: getTotalAttackBonus(pc, weapons, weapon, weaponIndex),
         damage: displayDamage(pc, weapons, weapon, weaponIndex),

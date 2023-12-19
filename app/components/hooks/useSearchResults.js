@@ -1,17 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
-import { getSearchResults } from '~/domain/search';
+import { useEffect, useState } from 'react';
+import { emptySearch, getSearchResults } from '~/domain/search';
 
 export function useSearchResults(search, sections) {
-  const emptySearch = useMemo(
-    () => sections.reduce((res, element) => ({ ...res, [element]: [] }), {}),
-    [...sections]
-  );
-
-  const [searchResults, setSearchResults] = useState(emptySearch);
+  const [searchResults, setSearchResults] = useState(emptySearch(sections));
 
   useEffect(() => {
     if (search.length < 3) {
-      setSearchResults(emptySearch);
+      setSearchResults(emptySearch(sections));
     } else {
       getSearchResults(search, sections).then(res => {
         setSearchResults(res);

@@ -70,7 +70,7 @@ export function ItemModalContent(props) {
             <li className="inventory-item__modal-item">
               <span className="inventory-item__modal-row-title">Coste:</span>{' '}
               <strong className="inventory-item__modal-row-value">
-                {translateMoney(item.price)}
+                {item.aproxPrice || translateMoney(item.price)}
               </strong>
             </li>
           )}

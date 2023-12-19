@@ -121,14 +121,15 @@ const finders = {
   monsters: findMonsters,
 };
 
-export async function getSearchResults(
-  search,
-  searchSections = ['spells', 'equipment', 'traits', 'monsters']
-) {
+const ALL_SECTIONS = ['spells', 'equipment', 'traits', 'monsters'];
+
+export function emptySearch(sections = ALL_SECTIONS) {
+  return sections.reduce((res, element) => ({ ...res, [element]: [] }), {});
+}
+
+export async function getSearchResults(search, searchSections = ALL_SECTIONS) {
   if (!search) {
-    return Promise.resolve(
-      searchSections.reduce((res, element) => ({ ...res, [element]: [] }), {})
-    );
+    return Promise.resolve(emptySearch(searchSections));
   }
 
   const lowercaseSearch = search?.toLowerCase();

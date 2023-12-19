@@ -124,6 +124,7 @@ function Glossary() {
           formRef={formRef}
           closeModal={closeItemModal}
           showOverMouse={ITEM_HEIGHT}
+          isDm
         >
           {itemModalContent}
         </ItemModal>
