@@ -110,7 +110,7 @@ import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLang
 import { isDm } from '~/domain/user';
 import { getUser } from '~/services/user.server';
 import { getSessionUser } from '~/services/session.server';
-import { useCharge } from '~/services/item.server';
+import { changeMagicCharges, useCharge } from '~/services/item.server';
 
 import styles from '~/components/sheet.css';
 import spellsStyles from '~/components/spells.css';
@@ -149,6 +149,25 @@ async function unequipWeaponAction(formData) {
   const weaponName = formData.get('weaponName');
 
   return await unequipWeapon(id, weaponName);
+}
+
+async function useMagicWeaponAction(formData) {
+  const id = formData.get('id');
+  const weaponId = formData.get('weaponId');
+
+  await useCharge(weaponId);
+
+  return await getPc(id);
+}
+
+async function setMagicWeaponChargesActions(formData) {
+  const id = formData.get('id');
+  const weaponId = formData.get('weaponId');
+  const charges = formData.get('charges');
+
+  await changeMagicCharges(weaponId, charges);
+
+  return await getPc(id);
 }
 
 async function reorderWeaponsAction(formData) {
@@ -226,24 +245,25 @@ async function updateNoteTextAction(formData) {
 
 async function dropAmmoAction(formData) {
   const id = formData.get('id');
-  const itemId = formData.get('itemId');
   const itemName = formData.get('itemName');
 
-  await dropEquipmentAmmo(id, itemId, itemName);
+  await dropEquipmentAmmo(id, itemName);
 }
 
 async function dropOtherAction(formData) {
   const id = formData.get('id');
-  const itemId = formData.get('itemId');
   const itemName = formData.get('itemName');
 
-  await dropEquipmentOther(id, itemId, itemName);
+  await dropEquipmentOther(id, itemName);
 }
 
 async function useChargeAction(formData) {
+  const id = formData.get('id');
   const itemId = formData.get('itemId');
 
   await useCharge(itemId);
+
+  return await getPc(id);
 }
 
 async function changeAmmoAmountAction(formData) {
@@ -260,6 +280,16 @@ async function changeOtherAmountAction(formData) {
   const itemAmount = formData.get('itemAmount');
 
   await changeEquipmentOtherAmount(id, itemName, itemAmount);
+}
+
+async function changeMagicChargesAction(formData) {
+  const id = formData.get('id');
+  const itemId = formData.get('itemId');
+  const charges = formData.get('charges');
+
+  await changeMagicCharges(itemId, charges);
+
+  return await getPc(id);
 }
 
 async function changeMoneyAction(formData) {
@@ -322,6 +352,10 @@ export const action = async ({ request }) => {
     pc = await equipWeaponsAction(formData);
   } else if (action === 'unequipWeapon') {
     pc = await unequipWeaponAction(formData);
+  } else if (action === 'useMagicWeapon') {
+    pc = await useMagicWeaponAction(formData);
+  } else if (action === 'setMagicWeaponCharges') {
+    pc = await setMagicWeaponChargesActions(formData);
   } else if (action === 'reorderWeapons') {
     pc = await reorderWeaponsAction(formData);
   } else if (action === 'equipArmor') {
@@ -352,6 +386,8 @@ export const action = async ({ request }) => {
     pc = await changeAmmoAmountAction(formData);
   } else if (action === 'changeOtherAmount') {
     pc = await changeOtherAmountAction(formData);
+  } else if (action === 'changeMagicCharges') {
+    pc = await changeMagicChargesAction(formData);
   } else if (action === 'changeMoney') {
     pc = await changeMoneyAction(formData);
   } else if (action === 'updateName') {

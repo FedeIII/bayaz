@@ -66,7 +66,8 @@ function ArmorModalContent(props) {
 }
 
 function ItemModalContent(props) {
-  const { item, dropItem, useItem, changeAmount, closeModal } = props;
+  const { item, dropItem, useItem, changeAmount, changeCharges, closeModal } =
+    props;
 
   function onDropClick() {
     dropItem(item);
@@ -79,12 +80,14 @@ function ItemModalContent(props) {
   }
 
   const [amount, setAmount] = useState(item.amount);
-  function onAmountChange(e) {
-    setAmount(e.target.value);
-  }
-
   function onChangeAmountClick() {
     changeAmount(item.name, amount);
+    closeModal();
+  }
+
+  const [charges, setCharges] = useState(item.charges);
+  function onChangeChargesClick() {
+    changeCharges(item.id, charges);
     closeModal();
   }
 
@@ -110,11 +113,33 @@ function ItemModalContent(props) {
                 name="amount"
                 min="1"
                 value={amount}
-                onChange={onAmountChange}
+                onChange={e => setAmount(e.target.value)}
                 className="inventory-item__amount-input"
               />
             </li>
           )}
+
+          {!!(changeCharges && item.charges) && (
+            <li>
+              <button
+                type="button"
+                className="inventory-item__drop-item-button"
+                onClick={onChangeChargesClick}
+              >
+                Cambiar cargas
+              </button>{' '}
+              <input
+                type="number"
+                name="amount"
+                min="0"
+                max={item.maxCharges}
+                value={charges}
+                onChange={e => setCharges(e.target.value)}
+                className="inventory-item__amount-input"
+              />
+            </li>
+          )}
+
           {!!dropItem && (
             <li>
               <button
@@ -126,6 +151,7 @@ function ItemModalContent(props) {
               </button>
             </li>
           )}
+
           {!!useItem && (
             <li>
               <button
@@ -202,7 +228,6 @@ function SheetEquipment(props) {
       {
         action: 'dropAmmo',
         id: pc.id,
-        itemId: item.id,
         itemName: item.name,
       },
       { method: 'post' }
@@ -214,7 +239,6 @@ function SheetEquipment(props) {
       {
         action: 'dropOther',
         id: pc.id,
-        itemId: item.id,
         itemName: item.name,
       },
       { method: 'post' }
@@ -225,6 +249,7 @@ function SheetEquipment(props) {
     submit(
       {
         action: 'useCharge',
+        id: pc.id,
         itemId: item.id,
       },
       { method: 'post' }
@@ -250,6 +275,18 @@ function SheetEquipment(props) {
         id: pc.id,
         itemName,
         itemAmount,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function changeMagicCharges(itemId, charges) {
+    submit(
+      {
+        action: 'changeMagicCharges',
+        id: pc.id,
+        itemId,
+        charges,
       },
       { method: 'post' }
     );
@@ -318,6 +355,7 @@ function SheetEquipment(props) {
                 changeAmount={changeOtherAmount}
                 dropItem={dropOther}
                 useItem={useItem}
+                changeCharges={changeMagicCharges}
                 closeModal={() => setActionModalContent(null)}
               />
             )),

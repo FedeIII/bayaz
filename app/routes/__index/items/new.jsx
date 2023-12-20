@@ -38,6 +38,7 @@ export const action = async ({ request }) => {
     subcategory,
     consumable: consumable === 'true',
     charges: hasCharges ? charges : null,
+    maxCharges: hasCharges ? charges : null,
     description,
   });
   return redirect(`/items/${item.id}`);

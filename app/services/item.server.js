@@ -13,6 +13,7 @@ const itemSchema = new mongoose.Schema({
   description: String,
   consumable: Boolean,
   charges: Number,
+  maxCharges: Number,
   category: {
     type: String,
     enum: ITEM_CATEGORY,
@@ -75,5 +76,15 @@ export async function useCharge(id) {
     { new: true }
   ).exec();
 
-  return updateItem;
+  return updatedItem;
+}
+
+export async function changeMagicCharges(id, charges) {
+  const updatedItem = await Item.findOneAndUpdate(
+    { id },
+    { $set: { charges } },
+    { new: true }
+  ).exec();
+
+  return updatedItem;
 }

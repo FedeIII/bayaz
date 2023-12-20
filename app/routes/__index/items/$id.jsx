@@ -36,6 +36,7 @@ export const action = async ({ request }) => {
   const rarity = formData.get('rarity');
   const category = formData.get('category');
   const subcategory = formData.get('subcategory');
+  const hasCharges = formData.get('hasCharges');
   const charges = formData.get('charges');
   const consumable = formData.get('consumable');
   const description = formData.get('description');
@@ -46,7 +47,8 @@ export const action = async ({ request }) => {
     category,
     subcategory,
     consumable: consumable === 'on',
-    charges,
+    charges: hasCharges ? charges : null,
+    maxCharges: hasCharges ? charges : null,
     description,
   });
 
@@ -73,6 +75,8 @@ function NewItem() {
     setIsWeapon(item?.category === 'weapon');
     setIsScroll(item?.category === 'scroll');
   }, [item?.category]);
+
+  const [hasCharges, setHasCharges] = useState(false);
 
   return (
     <Form method="post" className="item__wrapper">
@@ -180,7 +184,7 @@ function NewItem() {
               })}
             </select>
           )}
-          
+
           {!!isScroll && (
             <select
               type="text"
@@ -204,16 +208,29 @@ function NewItem() {
             </select>
           )}
 
-          <label htmlFor="charges" className="item__checkbox-label">
-            <span className="item__checkbox-text">Cargas</span>
+          <label htmlFor="hasCharges" className="item__checkbox-label">
             <input
-              type="number"
-              name="charges"
-              id="charges"
-              defaultValue={item?.charges || 0}
-              className="item__input item__input--number-2"
-            />
+              type="checkbox"
+              name="hasCharges"
+              id="hasCharges"
+              checked={hasCharges}
+              onChange={e => setHasCharges(e.target.checked)}
+            />{' '}
+            <span className="item__checkbox-text">Tiene cargas?</span>
           </label>
+
+          {hasCharges && (
+            <label htmlFor="charges" className="item__checkbox-label">
+              <span className="item__checkbox-text">Cargas</span>
+              <input
+                type="number"
+                name="charges"
+                id="charges"
+                defaultValue={item?.charges || 0}
+                className="item__input item__input--number-2"
+              />
+            </label>
+          )}
 
           <label htmlFor="consumable" className="item__checkbox-label">
             <input

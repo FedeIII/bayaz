@@ -1120,24 +1120,33 @@ export async function changeTreasureItemAmount(id, itemName, itemAmount) {
   return updatedPc;
 }
 
-export async function dropEquipmentAmmo(id, itemId, itemName) {
-  const pull = itemId ? { id: itemId } : { name: itemName };
+export async function dropEquipmentAmmo(id, itemName) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
-    { $pull: { 'items.equipment.ammunition': pull } },
+    { $pull: { 'items.equipment.ammunition': { name: itemName } } },
     { new: true }
   );
 
   return updatedPc;
 }
 
-export async function dropEquipmentOther(id, itemId, itemName) {
-  const pull = itemId ? { id: itemId } : { name: itemName };
-  const updatedPc = await Pc.findOneAndUpdate(
-    { id },
-    { $pull: { 'items.equipment.others': pull } },
+export async function dropEquipmentOther(id, itemName) {
+  let updatedPc = await Pc.findOneAndUpdate(
+    { id, 'items.equipment.others.name': itemName },
+    { $inc: { 'items.equipment.others.$.amount': -1 } },
     { new: true }
   );
+
+  if (
+    updatedPc.items.equipment.others.find(item => item.name === itemName)
+      .amount === 0
+  ) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { id },
+      { $pull: { 'items.equipment.others': { name: itemName } } },
+      { new: true }
+    );
+  }
 
   return updatedPc;
 }

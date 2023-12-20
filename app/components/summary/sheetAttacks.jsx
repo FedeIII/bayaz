@@ -12,7 +12,15 @@ import MagicItemsContext from '../contexts/magicItemsContext';
 const noAttack = { weapon: noItem() };
 
 function WeaponModalContent(props) {
-  const { pc, weapon, onWeaponChange, onWeaponUnequip, closeModal } = props;
+  const {
+    pc,
+    weapon,
+    onWeaponChange,
+    onWeaponUnequip,
+    onUseItem,
+    onSetItemCharges,
+    closeModal,
+  } = props;
 
   function onEquipClick(e) {
     const newWeaponName = e.target.value;
@@ -24,6 +32,18 @@ function WeaponModalContent(props) {
     onWeaponUnequip();
     closeModal();
   }
+
+  function onUseItemClick() {
+    onUseItem();
+    closeModal();
+  }
+
+  function onSetItemChargesClick() {
+    onSetItemCharges(charges);
+    closeModal();
+  }
+
+  const [charges, setCharges] = useState(weapon.charges);
 
   return (
     <>
@@ -50,6 +70,7 @@ function WeaponModalContent(props) {
               ))}
             </select>
           </li>
+
           <li>
             <button
               type="button"
@@ -59,6 +80,39 @@ function WeaponModalContent(props) {
               Desequipar
             </button>
           </li>
+
+          {!!onUseItem && (
+            <li>
+              <button
+                type="button"
+                className="sheet__select-attack"
+                onClick={onUseItemClick}
+              >
+                Usar {weapon.translation}
+              </button>
+            </li>
+          )}
+
+          {!!onSetItemCharges && (
+            <li>
+              <button
+                type="button"
+                className="sheet__select-attack"
+                onClick={() => onSetItemChargesClick(charges)}
+              >
+                Cambiar cargas
+              </button>{' '}
+              <input
+                type="number"
+                name="charges"
+                min="0"
+                max={weapon.maxCharges}
+                value={charges}
+                onChange={e => setCharges(e.target.value)}
+                className="inventory-item__amount-input"
+              />
+            </li>
+          )}
         </ul>
       </div>
     </>
@@ -119,6 +173,33 @@ function SheetAttacks(props) {
     };
   }
 
+  function onUseMagicWeapon(weaponId) {
+    return () => {
+      submit(
+        {
+          action: 'useMagicWeapon',
+          id: pc.id,
+          weaponId,
+        },
+        { method: 'post' }
+      );
+    };
+  }
+
+  function onSetMagicWeaponCharges(weaponId) {
+    return charges => {
+      submit(
+        {
+          action: 'setMagicWeaponCharges',
+          id: pc.id,
+          weaponId,
+          charges,
+        },
+        { method: 'post' }
+      );
+    };
+  }
+
   function onWeaponClick(itemType, itemIndex = 0) {
     return itemName => {
       getAnyItem(itemName).then(item => {
@@ -131,6 +212,10 @@ function SheetAttacks(props) {
                 weapon={item}
                 onWeaponChange={onWeaponChange(itemIndex)}
                 onWeaponUnequip={onWeaponUnequip(itemIndex)}
+                onUseItem={item.charges && onUseMagicWeapon(item.id)}
+                onSetItemCharges={
+                  !!item.maxCharges && onSetMagicWeaponCharges(item.id)
+                }
                 closeModal={() => setActionModalContent(null)}
               />
             )),
