@@ -1,0 +1,197 @@
+[{
+  "_id": {
+    "$oid": "657a5be445af22f54edaf826"
+  },
+  "id": "262a5e25-230b-48d9-880f-33cf6d16e4f7",
+  "name": "Poción de Curación",
+  "description": "Cuando bebes esta poción recuperas 2d4 + 2 puntos de golpe.",
+  "consumable": true,
+  "rarity": "common",
+  "__v": 0,
+  "category": "potion"
+},{
+  "_id": {
+    "$oid": "657a64646761f4cde27f1319"
+  },
+  "id": "d66d70a6-b9e4-4a80-935b-ac38976c431c",
+  "name": "Poción de curación mayor",
+  "description": "Cuando bebes esta poción recuperas 4d4 + 4 puntos de golpe. ",
+  "consumable": true,
+  "rarity": "uncommon",
+  "__v": 0,
+  "category": "potion"
+},{
+  "_id": {
+    "$oid": "657b891d2f35dd3bbc4bb1d2"
+  },
+  "id": "6f7b7cd2-2a59-4b3e-981e-8847cb7b5c5e",
+  "name": "Alas de Vuelo",
+  "description": "Requiere sintinización.\n\nMientras lleves esta capa, puedes usar una acción para pronunciar su palabra de activación. Esto convierte la capa en un par de alas de murciélago o de pájaro que se colocan en tu espalda durante 1 hora o hasta que repitas la palabra de activación.",
+  "consumable": false,
+  "category": "wondrous",
+  "charges": 0,
+  "identified": false,
+  "rarity": "rare",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "657b918b0c5feb73e88b9bc8"
+  },
+  "id": "b9cf8cbb-20a7-4379-b96e-3f61b7c8722a",
+  "name": "Anillo de caída de pluma",
+  "description": "Requiere sintonización.\n\nCuando caigas llevando este anillo puesto, desciendes 60 pies por asalto y no recibes daño por caída.",
+  "consumable": false,
+  "charges": 0,
+  "identified": false,
+  "category": "ring",
+  "rarity": "rare",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "657b9aacb05574ac41eb8563"
+  },
+  "id": "8d466497-b592-4e90-a39c-11764a51a2ea",
+  "name": "Armadura de invulnerabilidad",
+  "description": "Requiere sintonización.\n\nTienes resistencia al daño no mágico cuando llevas puesta esta armadura. Además, puedes utilizar una acción para hacerte inmune al daño no mágico durante 10 minutos o hasta que no vistas la armadura. Una vez empleas esta acción especial, no podrás volver a hacerlo hasta el siguiente amanecer.",
+  "consumable": false,
+  "charges": 0,
+  "identified": false,
+  "category": "armor",
+  "rarity": "legendary",
+  "__v": 0,
+  "subcategory": "plate"
+},{
+  "_id": {
+    "$oid": "657b9e1e4d6b56bcab1e1e6c"
+  },
+  "id": "e6810e0a-80b5-442f-aecf-22e25db40b96",
+  "name": "Daga de la ponzoña",
+  "description": "<p>Recibes un bonificador de +1 a las tiradas de ataque y de daño que hagas con esta arma mágica.</p>\n<p>Puedes usar una acción para que un veneno denso y negro cubra la hoja. El veneno permanecerá durante 1 minuto o hasta que un ataque con esta arma impacte a una criatura. La criatura impactada deberá tener éxito en una tirada de salvación de <u>Constitución CD 15</u> o recibirá <u>2d10 de daño de veneno</u> y quedará envenenada durante 1 minuto. La daga no puede volver a emplearse de esta manera hasta el siguiente amanecer.</p>",
+  "consumable": false,
+  "charges": 0,
+  "identified": false,
+  "category": "weapon",
+  "rarity": "rare",
+  "__v": 0,
+  "subcategory": "dagger",
+  "bonus": {
+    "hit": 1
+  }
+},{
+  "_id": {
+    "$oid": "657cd3d51482823892cdf3df"
+  },
+  "id": "6e23db22-05fe-47b5-b6b5-98db4a5071e1",
+  "name": "Pergamino de Bola de fuego",
+  "description": "<p>Bola de fuego nivel 3.</p>\n<p>Un pergamino de conjuro contiene las palabras de un único conjuro, escritas usando un código mágico. S i el conjuro pertenece a los que tu clase puede lanzar, puedes gastar una acción para leer el pergamino y lanzar el conjuro sin tener que aportar ninguno de sus componentes. De lo contrario, el conjuro es ininteligible para ti. Lanzarlo leyendo el pergamino precisa del tiempo de lanzamiento normal del conjuro. Una vez lanzado, las palabras escritas en el pergamino desaparecen y el propio pergamino se deshace, convertido en polvo. Si el lanzamiento queda interrumpido, el pergamino no se pierde.</p>\n<p>Si el conjuro está en la lista de conjuros de tu clase, pero su nivel es superior a los que puedes lanzar normalmente, deberás hacer una prueba de característica empleando tu aptitud mágica para determinar si logras lanzarlo con éxito. La CD es de 13. Si fallas, el conjuro desaparece del pergamino, pero no ocurre nada más.</p>\n<p>Un conjuro de mago en un pergamino de conjuro puede ser copiado del mismo modo que los conjuros en un libro de conjuros. Cuando se copia de un pergamino, el que lo hace debe tener éxito en una prueba de Inteligencia (Conocimiento Arcano) con CD 13. Si lo consigue, la copia del conjuro se realiza con éxito. Independientemente de que la prueba tenga éxito o fracase, el pergamino de conjuro queda destruido.</p>",
+  "consumable": true,
+  "charges": 0,
+  "category": "scroll",
+  "rarity": "uncommon",
+  "__v": 0,
+  "subcategory": "fireball"
+},{
+  "_id": {
+    "$oid": "657cd4f01482823892cdf3e4"
+  },
+  "id": "ceb82b9b-decf-4055-a438-fbe87695a1f7",
+  "name": "Cetro de mando",
+  "description": "Requiere sintonización.\n\nPuedes usar una acción para mostrar el cetro y exigir obediencia de cualquier cantidad de criaturas de tu elección que puedas ver y que se encuentren a 120 pies o menos de ti. Cada criatura deberá superar una tirada de salvación de Sabiduría CD 15 o quedará hechizada por ti durante 8 horas. Mientras esté hechizada de esta manera, la criatura te considerará un líder de confianza. Una criatura que sea dañada por ti mismo o por tus compañeros, o a la que pidas hacer algo contrario a su naturaleza, dejará de estar hechizada por este efecto. La vara no puede volver a emplearse de esta manera hasta el siguiente amanecer. ",
+  "consumable": false,
+  "charges": 0,
+  "category": "rod",
+  "rarity": "rare",
+  "__v": 0,
+  "subcategory": null
+},{
+  "_id": {
+    "$oid": "657cd5741482823892cdf3e9"
+  },
+  "id": "9adc17ce-2aba-4bab-9036-e38204ec8165",
+  "name": "Varita de bolas de fuego",
+  "description": "Requiere sintonización con un lanzador de conjuros.\n\nEsta varita tiene 7 cargas. Mientras la empuñes, puedes usar una acción para gastar 1 o más de sus cargas en lanzar el conjuro bola de fuego desde ella, con salvación CD 15. Si utilizas 1 carga, se trata rá de la versión de nivel 3 del conjuro. Puedes subir el nivel del espacio de conjuro en uno por cada carga adicional que emplees.\n\nLa varita recupera 1d6 + 1 cargas usadas cada día, al amanecer. Si gastas la última carga, tira 1d20. Si obtienes un 1, la varita se convierte en cenizas y es destruida.",
+  "consumable": false,
+  "charges": 7,
+  "category": "wand",
+  "rarity": "rare",
+  "__v": 0,
+  "subcategory": null
+},{
+  "_id": {
+    "$oid": "6580dcc3ab315c3f478a5005"
+  },
+  "id": "9fc48a84-c35b-4483-855d-cdf49d4dee95",
+  "name": "Bastón de marchitamiento",
+  "description": "<p>Requiere sintonización con un brujo, clérigo o druida.</p>\n<p>Este bastón tiene <u>3 cargas</u> y recupera 1d3 cargas empleadas cada día, al amanecer.</p>\n<p>Puede ser utilizado como un bastón mágico. Hace daño como un bastón normal y, si impactas con él, puedes gastar 1 carga para infligir 2d10 de daño necrótico adicional a 1 objetivo. Además, este deberá tener éxito en una <u>tirada de salvación CD 15</u> o durante 1 hora sufrirá desventaja en cualquier prueba de característica o tirada de sa lvación que utilice Fuerza o Constitución.</p>",
+  "consumable": false,
+  "charges": 3,
+  "category": "staff",
+  "subcategory": "quarterstaff",
+  "rarity": "rare",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "658180b734061ff48c466ac0"
+  },
+  "id": "e6afa716-daa2-4937-ab5a-8c50802b077b",
+  "name": "Poción de curación Superior",
+  "description": "Cuando bebes esta poción recuperas 8d4 + 8 puntos de golpe.",
+  "consumable": false,
+  "charges": 0,
+  "category": "potion",
+  "subcategory": null,
+  "rarity": "rare",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6581838b34061ff48c466b81"
+  },
+  "id": "a8e5a9b1-d541-4eb4-9bd9-2195e8e2fa84",
+  "name": "Pergamino de Identificar",
+  "description": "<p>Identificar nivel 1.</p>\n<p>Un pergamino de conjuro contiene las palabras de un único conjuro, escritas usando un código mágico. S i el conjuro pertenece a los que tu clase puede lanzar, puedes gastar una acción para leer el pergamino y lanzar el conjuro sin tener que aportar ninguno de sus componentes. De lo contrario, el conjuro es ininteligible para ti. Lanzarlo leyendo el pergamino precisa del tiempo de lanzamiento normal del conjuro. Una vez lanzado, las palabras escritas en el pergamino desaparecen y el propio pergamino se deshace, convertido en polvo. Si el lanzamiento queda interrumpido, el pergamino no se pierde.</p>\n<p>Si el conjuro está en la lista de conjuros de tu clase, pero su nivel es superior a los que puedes lanzar normalmente, deberás hacer una prueba de característica empleando tu aptitud mágica para determinar si logras lanzarlo con éxito. La CD es de 13. Si fallas, el conjuro desaparece del pergamino, pero no ocurre nada más.</p>\n<p>Un conjuro de mago en un pergamino de conjuro puede ser copiado del mismo modo que los conjuros en un libro de conjuros. Cuando se copia de un pergamino, el que lo hace debe tener éxito en una prueba de Inteligencia (Conocimiento Arcano) con CD 13. Si lo consigue, la copia del conjuro se realiza con éxito. Independientemente de que la prueba tenga éxito o fracase, el pergamino de conjuro queda destruido.</p>",
+  "consumable": false,
+  "charges": 0,
+  "category": "scroll",
+  "subcategory": "identify",
+  "rarity": "common",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "658183d4c0e860d5a00b0b3b"
+  },
+  "id": "e36e1c4d-44df-45c2-af73-b5b7fa3e326c",
+  "name": "Pergamino de Comprensión idiomática",
+  "description": "<p>Comprensión idiomática nivel 1.</p>\n<p>Un pergamino de conjuro contiene las palabras de un único conjuro, escritas usando un código mágico. S i el conjuro pertenece a los que tu clase puede lanzar, puedes gastar una acción para leer el pergamino y lanzar el conjuro sin tener que aportar ninguno de sus componentes. De lo contrario, el conjuro es ininteligible para ti. Lanzarlo leyendo el pergamino precisa del tiempo de lanzamiento normal del conjuro. Una vez lanzado, las palabras escritas en el pergamino desaparecen y el propio pergamino se deshace, convertido en polvo. Si el lanzamiento queda interrumpido, el pergamino no se pierde.</p>\n<p>Si el conjuro está en la lista de conjuros de tu clase, pero su nivel es superior a los que puedes lanzar normalmente, deberás hacer una prueba de característica empleando tu aptitud mágica para determinar si logras lanzarlo con éxito. La CD es de 13. Si fallas, el conjuro desaparece del pergamino, pero no ocurre nada más.</p>\n<p>Un conjuro de mago en un pergamino de conjuro puede ser copiado del mismo modo que los conjuros en un libro de conjuros. Cuando se copia de un pergamino, el que lo hace debe tener éxito en una prueba de Inteligencia (Conocimiento Arcano) con CD 13. Si lo consigue, la copia del conjuro se realiza con éxito. Independientemente de que la prueba tenga éxito o fracase, el pergamino de conjuro queda destruido.</p>",
+  "consumable": false,
+  "charges": 0,
+  "category": "scroll",
+  "subcategory": "comprehendLanguages",
+  "rarity": "common",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6581842934061ff48c466b85"
+  },
+  "id": "a60ae13c-0bb0-472c-a4ef-1bbed4b423ac",
+  "name": "Pergamino de Mano del mago",
+  "description": "<p>Mano del mago, truco</p>\n<p>Un pergamino de conjuro contiene las palabras de un único conjuro, escritas usando un código mágico. S i el conjuro pertenece a los que tu clase puede lanzar, puedes gastar una acción para leer el pergamino y lanzar el conjuro sin tener que aportar ninguno de sus componentes. De lo contrario, el conjuro es ininteligible para ti. Lanzarlo leyendo el pergamino precisa del tiempo de lanzamiento normal del conjuro. Una vez lanzado, las palabras escritas en el pergamino desaparecen y el propio pergamino se deshace, convertido en polvo. Si el lanzamiento queda interrumpido, el pergamino no se pierde.</p>\n<p>Si el conjuro está en la lista de conjuros de tu clase, pero su nivel es superior a los que puedes lanzar normalmente, deberás hacer una prueba de característica empleando tu aptitud mágica para determinar si logras lanzarlo con éxito. La CD es de 13. Si fallas, el conjuro desaparece del pergamino, pero no ocurre nada más.</p>\n<p>Un conjuro de mago en un pergamino de conjuro puede ser copiado del mismo modo que los conjuros en un libro de conjuros. Cuando se copia de un pergamino, el que lo hace debe tener éxito en una prueba de Inteligencia (Conocimiento Arcano) con CD 13. Si lo consigue, la copia del conjuro se realiza con éxito. Independientemente de que la prueba tenga éxito o fracase, el pergamino de conjuro queda destruido.</p>",
+  "consumable": false,
+  "charges": 0,
+  "category": "scroll",
+  "subcategory": "mageHand",
+  "rarity": "common",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "658186f177ffa5f47b3bdc53"
+  },
+  "id": "04c3238a-9f82-4c5f-a9ab-147e452d3abe",
+  "name": "Anillo de protección",
+  "description": "<p>Requiere sintonización.</p>\n<p>Obtienes un bonificador de +1 a la CA y a las tiradas de salvación mientras lleves puesto este anillo.</p>",
+  "consumable": false,
+  "charges": 0,
+  "category": "ring",
+  "subcategory": null,
+  "rarity": "rare",
+  "__v": 0
+}]

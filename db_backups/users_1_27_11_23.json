@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "65561647fce0068c4840f76c"
+  },
+  "email": "fedelll@gmail.com",
+  "__v": 0,
+  "pcs": [],
+  "roles": [
+    "dm"
+  ],
+  "name": "Fedes"
+},{
+  "_id": {
+    "$oid": "65575858c90f7233d8271aed"
+  },
+  "id": "e880df1b-d6d3-4226-a7a4-b7e61d55f307",
+  "email": "fredeswindo.timeline@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Fredeswindo"
+},{
+  "_id": {
+    "$oid": "6561ee87c269a225cb62a1c8"
+  },
+  "id": "da399bee-8d3e-4daa-b5e8-51bb796aff17",
+  "email": "lb4you@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Jose"
+},{
+  "_id": {
+    "$oid": "656332b64520dafa2358fa31"
+  },
+  "id": "2d279bbb-79f9-4d6d-86d1-c2186ae54c6b",
+  "email": "sarafebrero87@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Sara"
+}]

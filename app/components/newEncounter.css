@@ -1,16 +1,16 @@
 .encounter__wrapper {
   width: 100%;
-  padding: 16px 32px;
+  padding: 0px 32px 16px;
 }
 
 .encounter {
   display: flex;
   flex-direction: row;
-  --header-padding-top: 8px;
-  --header-height: 62px;
+  --header-padding-top: 16px;
+  --header-height: 120px;
   --header-padding-bottom: 16px;
   --header-border-height: 1px;
-  --card-height: 42.5px;
+  --card-height: 40px;
 }
 
 .encounter__header-inputs {
@@ -40,7 +40,7 @@
 
 .encounter__sidebar-content {
   position: sticky;
-  top: 8px;
+  top: 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -103,6 +103,15 @@
   row-gap: 8px;
 }
 
+.encounter__filter-options--no-wrap {
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.encounter__filter-button {
+  padding: 4px 8px;
+}
+
 .encounter__input-number {
   width: 36px;
   font-family: var(--font-family);
@@ -111,7 +120,7 @@
   background-color: var(--color-base);
   border: 1px solid white;
   border-radius: 5px;
-  padding: 8px 2px 8px 16px;
+  padding: 8px 2px 8px 4px;
   text-decoration: none;
   cursor: pointer;
   text-align: center;
@@ -274,6 +283,10 @@
   border-bottom: var(--header-border-height) solid white;
 }
 
+.encounter__header {
+  height: var(--header-height);
+}
+
 .encounter__selected-monsters-title {
   margin: 0 0 16px 16px;
   padding: 8px 0px;
@@ -310,6 +323,14 @@
   row-gap: 15px;
   margin: 0;
   padding: 0 0 16px 16px;
+}
+
+.encounter__selected-monsters-list {
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 15px;
+  margin: 0;
+  padding: 0;
 }
 
 .encounter__submit {

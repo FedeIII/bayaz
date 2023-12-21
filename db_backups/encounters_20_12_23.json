@@ -1,0 +1,600 @@
+[{
+  "_id": {
+    "$oid": "656d336dc5927d619f05ee90"
+  },
+  "id": "0d74220f-b166-488b-a9e0-923981a7d4d6",
+  "name": "[3] Perrera",
+  "monsters": [
+    {
+      "id": "94a9a3e5-bfc7-4e82-99c3-d727a5d07404",
+      "name": "Worg",
+      "maxHp": 30,
+      "hp": 30,
+      "_id": {
+        "$oid": "656d336dc5927d619f05ee91"
+      }
+    },
+    {
+      "id": "82a57bec-e2e1-410f-96b3-d89b5b2295a2",
+      "name": "Wolf",
+      "maxHp": 16,
+      "hp": 16,
+      "_id": {
+        "$oid": "656d336dc5927d619f05ee92"
+      }
+    },
+    {
+      "id": "7cd8f38f-d70d-48b5-b5c9-f8a41d0d6690",
+      "name": "Wolf",
+      "maxHp": 4,
+      "hp": 4,
+      "_id": {
+        "$oid": "656d336dc5927d619f05ee93"
+      }
+    },
+    {
+      "id": "ce3c6884-83ee-41c6-9793-27931601efba",
+      "name": "Wolf",
+      "maxHp": 7,
+      "hp": 7,
+      "_id": {
+        "$oid": "656d336dc5927d619f05ee94"
+      }
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A"
+},{
+  "_id": {
+    "$oid": "656d33b7e4ccd1de4e46902d"
+  },
+  "id": "fc35dcae-416c-499f-8ced-1fd99b46c77d",
+  "name": "[5] Paso elevado",
+  "monsters": [
+    {
+      "id": "e4e4743d-0488-4e00-b0ea-a5c0d2ebb4ba",
+      "name": "Goblin Boss",
+      "maxHp": 17,
+      "hp": 17,
+      "_id": {
+        "$oid": "656d33b7e4ccd1de4e46902e"
+      }
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A"
+},{
+  "_id": {
+    "$oid": "656d34d1c5927d619f05eea0"
+  },
+  "id": "555a45e6-cdef-458a-a6c6-d2216fcad5c0",
+  "name": "[6] Guarida de los goblins",
+  "monsters": [
+    {
+      "id": "1a917c24-fd22-40a6-baa5-c9aeeefef8ce",
+      "name": "Goblin Boss",
+      "maxHp": 27,
+      "hp": 27,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea1"
+      }
+    },
+    {
+      "id": "a168436c-db22-4c18-99de-74b72ed3bc05",
+      "name": "Goblin Boss",
+      "maxHp": 23,
+      "hp": 23,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea2"
+      }
+    },
+    {
+      "id": "b9da99f1-cf1b-40cc-8a10-ef8f956998c9",
+      "name": "Goblin",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea3"
+      }
+    },
+    {
+      "id": "c7062456-deda-4c34-ac4a-01d0fa3b6a96",
+      "name": "Goblin",
+      "maxHp": 5,
+      "hp": 5,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea4"
+      }
+    },
+    {
+      "id": "3200d821-33b8-4769-9361-42ed37304040",
+      "name": "Goblin",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea5"
+      }
+    },
+    {
+      "id": "c252d72f-e591-4c63-889c-907a5b1c4027",
+      "name": "Goblin",
+      "maxHp": 3,
+      "hp": 3,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea6"
+      }
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A"
+},{
+  "_id": {
+    "$oid": "656d3513e4ccd1de4e469033"
+  },
+  "id": "eff8d94b-a361-46bf-a6f0-e3d99ae27d03",
+  "name": "[7] Caverna de las piscinas",
+  "monsters": [
+    {
+      "id": "aa302114-9198-4bbd-bb24-6b1fb6f24c5c",
+      "name": "Goblin Boss",
+      "maxHp": 18,
+      "hp": 18,
+      "_id": {
+        "$oid": "656d3513e4ccd1de4e469034"
+      }
+    },
+    {
+      "id": "bd3b614d-f5a2-44b1-baaa-220bf37f1430",
+      "name": "Goblin",
+      "maxHp": 7,
+      "hp": 7,
+      "_id": {
+        "$oid": "656d3513e4ccd1de4e469035"
+      }
+    },
+    {
+      "id": "3a568856-bc8d-42f2-b334-6a0e34772f24",
+      "name": "Goblin",
+      "maxHp": 5,
+      "hp": 5,
+      "_id": {
+        "$oid": "656d3513e4ccd1de4e469036"
+      }
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A"
+},{
+  "_id": {
+    "$oid": "656d35e6c5927d619f05eed2"
+  },
+  "id": "ed4fbbc5-ac2f-444a-af07-a56bd1858cd6",
+  "name": "[8] Sala de Klarg",
+  "monsters": [
+    {
+      "id": "fdefc9e9-046b-46d9-a1ff-812a2186ae9c",
+      "name": "Bugbear",
+      "maxHp": 23,
+      "hp": 23,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed3"
+      }
+    },
+    {
+      "id": "97856e23-598a-40ef-8a0a-cf533d87a8d7",
+      "name": "Wolf",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed4"
+      }
+    },
+    {
+      "id": "342403f8-32e2-4ddd-8cbc-5f3f7525d227",
+      "name": "Goblin",
+      "maxHp": 6,
+      "hp": 6,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed5"
+      }
+    },
+    {
+      "id": "fbf87fce-917e-4d15-9a1b-96855e9186f7",
+      "name": "Goblin",
+      "maxHp": 11,
+      "hp": 11,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed6"
+      }
+    },
+    {
+      "id": "965d60f8-ae11-4212-ba6e-61287a722117",
+      "name": "Goblin",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed7"
+      }
+    },
+    {
+      "id": "fe89a9e3-2582-428c-99aa-e77797811829",
+      "name": "Goblin",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed8"
+      }
+    },
+    {
+      "id": "2364e732-19ee-471c-8065-8dd065c4091b",
+      "name": "Goblin",
+      "maxHp": 7,
+      "hp": 7,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed9"
+      }
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A"
+},{
+  "_id": {
+    "$oid": "656e85cf761708bdca3118ce"
+  },
+  "id": "2756e85c-3c1e-42bb-815b-b372ab1d85a4",
+  "name": "[9] Salida inundada",
+  "monsters": [
+    {
+      "id": "6124c355-20cb-4b3a-ba43-5de18c80e360",
+      "name": "Goblin",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "656e85cf761708bdca3118cf"
+      }
+    },
+    {
+      "id": "f14a9fb1-ed90-4160-9a02-5f29c2270567",
+      "name": "Goblin",
+      "maxHp": 6,
+      "hp": 6,
+      "_id": {
+        "$oid": "656e85cf761708bdca3118d0"
+      }
+    },
+    {
+      "id": "211d4dff-c79e-4e65-ab8a-11f16a1c2e0b",
+      "name": "Goblin",
+      "maxHp": 12,
+      "hp": 12,
+      "_id": {
+        "$oid": "656e85cf761708bdca3118d1"
+      }
+    },
+    {
+      "id": "af75f540-8ae5-41b2-b3e6-341aeccc2fed",
+      "name": "Goblin",
+      "maxHp": 6,
+      "hp": 6,
+      "_id": {
+        "$oid": "656e85cf761708bdca3118d2"
+      }
+    },
+    {
+      "id": "c3f924f3-2589-43e4-8246-2e2b3f2020d4",
+      "name": "Goblin",
+      "maxHp": 8,
+      "hp": 8,
+      "_id": {
+        "$oid": "656e85cf761708bdca3118d3"
+      }
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A"
+},{
+  "_id": {
+    "$oid": "6571ce5e402e21e486c50546"
+  },
+  "id": "1d7f03fb-e03b-4e8a-af65-9317398d0746",
+  "group": "Sesión 1B",
+  "name": "Posada",
+  "monsters": [
+    {
+      "id": "56c9f26f-7429-4a00-b60f-bdd9f6a9681c",
+      "name": "Redbrand Ruffian",
+      "maxHp": 13,
+      "hp": 13,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c50547"
+      }
+    },
+    {
+      "id": "ece218cc-a54f-4da8-a8f1-8b77a23f1c2b",
+      "name": "Redbrand Ruffian",
+      "maxHp": 16,
+      "hp": 16,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c50548"
+      }
+    },
+    {
+      "id": "0aa64c2e-37f4-45f9-88f6-7fede9e8e979",
+      "name": "Redbrand Ruffian",
+      "maxHp": 16,
+      "hp": 16,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c50549"
+      }
+    },
+    {
+      "id": "e7d9132f-e0fa-4ceb-bb80-1b76d9bdef61",
+      "name": "Redbrand Ruffian",
+      "maxHp": 22,
+      "hp": 22,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c5054a"
+      }
+    },
+    {
+      "id": "a67f541e-669f-4d1e-bfb7-2fb7380f8af4",
+      "name": "Redbrand Ruffian",
+      "maxHp": 7,
+      "hp": 7,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c5054b"
+      }
+    },
+    {
+      "id": "512933f8-f106-4745-a43f-b637d6a757c0",
+      "name": "Redbrand Ruffian",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c5054c"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571e6621cdebe1cb7bd8e50"
+  },
+  "id": "fb56e956-3595-431c-bf3c-110821bd7afa",
+  "group": "Sesión 1B",
+  "name": "[2] Barracas",
+  "monsters": [
+    {
+      "id": "cb13a349-58de-4576-af08-74c74d9fa581",
+      "name": "Redbrand Spy",
+      "maxHp": 34,
+      "hp": 34,
+      "_id": {
+        "$oid": "6571e6621cdebe1cb7bd8e51"
+      }
+    },
+    {
+      "id": "6516146b-8ec2-47f5-a7ae-a799e8801531",
+      "name": "Redbrand Ruffian",
+      "maxHp": 14,
+      "hp": 14,
+      "_id": {
+        "$oid": "6571e6621cdebe1cb7bd8e52"
+      }
+    },
+    {
+      "id": "a750e6e9-9f4c-4b06-a65c-7f9fb6a071ec",
+      "name": "Redbrand Ruffian",
+      "maxHp": 13,
+      "hp": 13,
+      "_id": {
+        "$oid": "6571e6621cdebe1cb7bd8e53"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571eb98c0c12b7f550e898a"
+  },
+  "id": "b4ed4491-371f-4ef9-8616-3e6cd92a55d6",
+  "group": "Sesión 1B",
+  "name": "[4] Criptas",
+  "monsters": [
+    {
+      "id": "44fbc903-2bdb-47aa-a02d-65ac0d2cb0f8",
+      "name": "Skeleton",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "6571eb98c0c12b7f550e898b"
+      }
+    },
+    {
+      "id": "d12c1f00-619d-4a20-acdb-fb261b722920",
+      "name": "Skeleton",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "6571eb98c0c12b7f550e898c"
+      }
+    },
+    {
+      "id": "46ec8168-086d-4846-966b-b2ab66b01f9d",
+      "name": "Skeleton",
+      "maxHp": 3,
+      "hp": 3,
+      "_id": {
+        "$oid": "6571eb98c0c12b7f550e898d"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571edd4c754457afcd6e8ad"
+  },
+  "id": "e2b0c359-db16-40c3-8e07-4cb12a88ba01",
+  "group": "Sesión 1B",
+  "name": "[5] Celdas",
+  "monsters": [
+    {
+      "id": "4a9f7061-a2e2-4e43-bd4e-c9ee61d5f6c5",
+      "name": "Redbrand Ruffian",
+      "maxHp": 17,
+      "hp": 17,
+      "_id": {
+        "$oid": "6571edd4c754457afcd6e8ae"
+      }
+    },
+    {
+      "id": "62bb7ed4-eb72-4248-802a-423782e018a3",
+      "name": "Redbrand Ruffian",
+      "maxHp": 8,
+      "hp": 8,
+      "_id": {
+        "$oid": "6571edd4c754457afcd6e8af"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571ee8672e5819d24f44efd"
+  },
+  "id": "e0c899d4-bd7a-41f5-8d3b-15726ea80dad",
+  "group": "Sesión 1B",
+  "name": "[8] Grieta",
+  "monsters": [
+    {
+      "id": "c1dc6625-2349-40d6-bddc-20b4b837215b",
+      "name": "Nothic",
+      "maxHp": 48,
+      "hp": 48,
+      "_id": {
+        "$oid": "6571ee8672e5819d24f44efe"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571f7f5e33cc7036ba1e126"
+  },
+  "id": "8cd9e7b0-b544-4e0c-964d-7242c206baef",
+  "group": "Sesión 1B",
+  "name": "[9] Barracas de Guardia",
+  "monsters": [
+    {
+      "id": "17384385-4c59-447d-a601-170ff8409cd8",
+      "name": "Bugbear",
+      "maxHp": 19,
+      "hp": 19,
+      "_id": {
+        "$oid": "6571f7f5e33cc7036ba1e127"
+      }
+    },
+    {
+      "id": "45fccf75-42b7-4a97-b235-960123959be0",
+      "name": "Bugbear",
+      "maxHp": 24,
+      "hp": 24,
+      "_id": {
+        "$oid": "6571f7f5e33cc7036ba1e128"
+      }
+    },
+    {
+      "id": "8fedf635-fbe7-43ef-a1e1-790c3b536f8d",
+      "name": "Bugbear",
+      "maxHp": 21,
+      "hp": 21,
+      "_id": {
+        "$oid": "6571f7f5e33cc7036ba1e129"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571f94ee33cc7036ba1e132"
+  },
+  "id": "96713467-d29c-4ce2-97a3-d5f38ab98947",
+  "group": "Sesión 1B",
+  "name": "[10] Sala común",
+  "monsters": [
+    {
+      "id": "81bd9ef5-d66c-4b9c-b7b1-e523a11e25d3",
+      "name": "Redbrand Ruffian",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e133"
+      }
+    },
+    {
+      "id": "1a23fcd7-89cb-4dce-9d43-b567212e340f",
+      "name": "Redbrand Ruffian",
+      "maxHp": 11,
+      "hp": 11,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e134"
+      }
+    },
+    {
+      "id": "e73ad50b-fb0c-45bc-b088-a0e5055c5130",
+      "name": "Redbrand Ruffian",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e135"
+      }
+    },
+    {
+      "id": "08d3bbe3-a41e-4776-b752-79b6618c500f",
+      "name": "Redbrand Ruffian",
+      "maxHp": 20,
+      "hp": 20,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e136"
+      }
+    },
+    {
+      "id": "4c323ac6-9f3b-4775-b1fd-28d2779165c8",
+      "name": "Redbrand Ruffian",
+      "maxHp": 20,
+      "hp": 20,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e137"
+      }
+    },
+    {
+      "id": "31b49165-196a-4454-9871-b886c72563ee",
+      "name": "Redbrand Ruffian",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e138"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "657202efa0ebf88909292b83"
+  },
+  "id": "7c054321-cef1-455a-bd90-4fab8819c22e",
+  "group": "Sesión 1B",
+  "name": "[12] Aposentos de Glasstaff",
+  "monsters": [
+    {
+      "id": "18ac32c6-a601-49f6-a7f5-711baf725e6c",
+      "name": "Evil Mage",
+      "maxHp": 33,
+      "hp": 33,
+      "_id": {
+        "$oid": "657202efa0ebf88909292b84"
+      }
+    }
+  ],
+  "__v": 0
+}]

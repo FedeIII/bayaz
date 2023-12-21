@@ -53,7 +53,7 @@ npx prisma migrate dev
 
 ## TO DOsg
 
-- recover magic item charges
+- Leveling requires confirmation from DM
 - Magic items owners
   - on assignation create instance?
   - give to other player action

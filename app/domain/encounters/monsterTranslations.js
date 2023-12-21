@@ -185,7 +185,7 @@ export const MONSTER_TRANSLATIONS = {
   shadow: 'Sombra',
   'swarm of insects': 'Enjambre de insectos',
   thug: 'Matón',
-  tridrone: 'Tridon',
+  tridrone: 'Tridron',
   'vine blight': 'Enredadera marchita',
   warhorse: 'Caballo de guerra',
   'warhorse skeleton': 'Caballo de guerra esqueleto',

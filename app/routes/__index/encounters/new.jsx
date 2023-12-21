@@ -141,13 +141,13 @@ function Sidebar(props) {
         <div className="encounter__sidebar-section">
           <div className="encounter__filter-vertical">
             <span className="encounter__filter-label">Dificultad:</span>{' '}
-            <div className="encounter__filter-options">
+            <div className="encounter__filter-options encounter__filter-options--no-wrap">
               {DIFFICULTIES.map(difficulty => {
                 const difficultyXp = getPartyXpThreshold(pcLevels, difficulty);
                 return (
                   <button
                     type="button"
-                    className="cards__button-card"
+                    className="cards__button-card encounter__filter-button"
                     onClick={() => selectDifficulty(difficulty)}
                     key={difficulty}
                     data-selected={xpThreshold === difficultyXp}
@@ -324,7 +324,7 @@ function SelectedMonsters(props) {
         </div>
       </div>
       {!!encounterMonsters.length && (
-        <div className="cards encounter__monsters">
+        <div className="cards encounter__selected-monsters-list">
           {sortByXp(encounterMonsters).map((m, i, all) => (
             <div
               className="cards__button-card"
