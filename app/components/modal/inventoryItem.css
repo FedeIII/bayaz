@@ -53,6 +53,10 @@
   justify-content: center;
 }
 
+.inventory-item__centered-item--selected {
+  color: var(--color-x-blue-ink);
+}
+
 .inventory-item:hover {
   color: var(--color-x-blue-ink);
 }

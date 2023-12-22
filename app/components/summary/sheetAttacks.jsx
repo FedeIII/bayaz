@@ -8,6 +8,7 @@ import { InventoryItem } from '../modal/inventoryItem';
 import { SkillItem } from '../modal/skillItem';
 import { t } from '~/domain/translations';
 import MagicItemsContext from '../contexts/magicItemsContext';
+import classNames from 'classnames';
 
 const noAttack = { weapon: noItem() };
 
@@ -134,10 +135,17 @@ function SheetAttacks(props) {
 
   const allMagicItems = useContext(MagicItemsContext);
 
+  const [weaponsLoading, setWeaponsLoading] = useState([false, false, false]);
+  const [weaponsState, setWeaponsState] = useState(pc.items.weapons);
+  useEffect(() => {
+    setWeaponsState(pc.items.weapons);
+    setWeaponsLoading([false, false, false]);
+  }, [pc.items.weapons]);
+
   const weapons =
     useMemo(() => {
-      return !!allMagicItems?.length && pc.items.weapons;
-    }, [allMagicItems, pc.items.weapons]) || [];
+      return !!allMagicItems?.length && weaponsState;
+    }, [allMagicItems, weaponsState]) || [];
 
   const [attacks, setAttacks] = useState([noAttack, noAttack, noAttack]);
   useEffect(() => {
@@ -200,6 +208,43 @@ function SheetAttacks(props) {
     };
   }
 
+  function onWeaponDrop(weaponName, weaponSlot) {
+    getAnyItem(weaponName).then(selectedWeapon => {
+      setWeaponsState(w => {
+        const newW = w.slice();
+
+        const originSlot = newW.findIndex(
+          weapon => weapon?.name === weaponName
+        );
+        const replacedWeapon = newW[weaponSlot];
+
+        newW[originSlot] = replacedWeapon;
+        newW[weaponSlot] = selectedWeapon;
+
+        if (originSlot !== weaponSlot) {
+          setWeaponsLoading(l => {
+            const newL = l.slice();
+            newL[originSlot] = true;
+            newL[weaponSlot] = true;
+            return newL;
+          });
+        }
+
+        return newW;
+      });
+    });
+
+    submit(
+      {
+        action: 'reorderWeapons',
+        id: pc.id,
+        weaponName,
+        weaponSlot,
+      },
+      { method: 'post' }
+    );
+  }
+
   function onWeaponClick(itemType, itemIndex = 0) {
     return itemName => {
       getAnyItem(itemName).then(item => {
@@ -225,18 +270,6 @@ function SheetAttacks(props) {
     };
   }
 
-  function onWeaponDrop(weaponName, weaponSlot) {
-    submit(
-      {
-        action: 'reorderWeapons',
-        id: pc.id,
-        weaponName,
-        weaponSlot,
-      },
-      { method: 'post' }
-    );
-  }
-
   return (
     <>
       {attacks.map((attack, i) => {
@@ -244,22 +277,22 @@ function SheetAttacks(props) {
           () => ({
             type: 'WEAPON',
             item: { value: attack.weapon.name },
-            canDrag: () => !!attack.weapon.name,
+            canDrag: () => !!attack.weapon.name && !weaponsLoading[i],
           }),
-          [attack.weapon.name]
+          [attack.weapon.name, weaponsLoading[i]]
         );
 
         const [{ isOver, canDrop }, drop] = useDrop(
           () => ({
             accept: 'WEAPON',
             drop: item => onWeaponDrop(item.value, i),
-            canDrop: () => true,
+            canDrop: () => !weaponsLoading[i],
             collect: monitor => ({
               isOver: !!monitor.isOver(),
               canDrop: !!monitor.canDrop(),
             }),
           }),
-          [attack.weapon.name]
+          [attack.weapon.name, weaponsLoading[i]]
         );
 
         return (
@@ -282,7 +315,10 @@ function SheetAttacks(props) {
                   onItemClick={onWeaponClick('weapons', i)}
                   openModal={openItemModal('weapons', i)}
                   closeModal={closeItemModal}
-                  className="inventory-item__centered-item"
+                  className={classNames('inventory-item__centered-item', {
+                    'inventory-item__centered-item--selected':
+                      weaponsLoading[i],
+                  })}
                   key={attack.weapon.name}
                 />
               </label>
