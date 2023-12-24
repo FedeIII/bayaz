@@ -1,6 +1,13 @@
 import { json } from '@remix-run/node';
 import { Form, useLoaderData, useSubmit } from '@remix-run/react';
-import { Fragment, createRef, useRef, useState } from 'react';
+import {
+  Fragment,
+  createRef,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import {
   addPreparedSpell,
@@ -37,6 +44,8 @@ import { resetSpellSlots, spendSpellSlot } from '~/domain/characterMutations';
 import { isDm } from '~/domain/user';
 import { getSessionUser } from '~/services/session.server';
 import { translateSchool } from '~/domain/spells/spellTranslations';
+import { replaceAt } from '~/utils/insert';
+import classNames from 'classnames';
 
 import styles from '~/components/spells.css';
 export const links = () => {
@@ -116,13 +125,34 @@ function PcSpells() {
   const spellsByLevel = divideSpells(pc);
   const spellSlots = getSpellSlots(pc);
 
+  const initIsSpellPrepared = useMemo(
+    () =>
+      spellsByLevel.map(ss =>
+        ss.map(s => ({ name: s.name, isPrepared: isPreparedSpell(pc, s.name) }))
+      ),
+    []
+  );
+  const [isSpellPrepared, setIsSpellPrepared] = useState(initIsSpellPrepared);
+  const [usedSpellSlots, setUsedSpellSlots] = useState(magic.spentSpellSlots);
+  const [isUsingSpell, setIsUsingSpell] = useState(false);
+
+  useEffect(() => {
+    setIsUsingSpell(false);
+  }, [magic.spentSpellSlots]);
+
   function onFormSubmit(e) {
     setIsSubmitShown(false);
   }
 
-  function onPrepareSpellClick(spell) {
+  function onPrepareSpellClick(spell, level, i) {
     return e => {
       if (hasToPrepareSpells(pc)) {
+        setIsSpellPrepared(oldList => {
+          const newList = oldList.slice();
+          newList[level][i] = !newList[level][i];
+          return newList;
+        });
+
         submit(
           {
             action: 'prepareSpell',
@@ -143,6 +173,14 @@ function PcSpells() {
   }
 
   function onSpentSpacesClick(level) {
+    if (usedSpellSlots[level] < spellSlots[level] && !isUsingSpell) {
+      setUsedSpellSlots(oldList =>
+        replaceAt(level, oldList, oldList[level] + 1)
+      );
+
+      setIsUsingSpell(true);
+    }
+
     submit(
       {
         action: 'useSpellSlot',
@@ -151,6 +189,24 @@ function PcSpells() {
       },
       { method: 'post' }
     );
+  }
+
+  function onResetSlotsClick(level) {
+    return () => {
+      if (usedSpellSlots[level] > 0 && !isUsingSpell) {
+        setUsedSpellSlots(magic.spentSpellSlots.map(s => 0));
+        setIsUsingSpell(true);
+        closeSkillModal();
+        submit(
+          {
+            action: 'resetSlots',
+            id: pc.id,
+            spellsLevel: level,
+          },
+          { method: 'post' }
+        );
+      }
+    };
   }
 
   const [skillRefs, setSkillRefs] = useState({
@@ -232,7 +288,9 @@ function PcSpells() {
                   pc={pc}
                   traitName="resetSpellSlots"
                   trait={level}
-                  openModal={openSkillModal('resetSpellSlots', level)}
+                  openModal={openSkillModal('resetSpellSlots', level, {
+                    resetSlots: onResetSlotsClick(level),
+                  })}
                   disabled={!isDm}
                 >
                   {spellSlots[level] || 0}
@@ -241,10 +299,17 @@ function PcSpells() {
             )}
             {level > 0 && (
               <div
-                className={`spells__data spells__spent-spaces spells__spent-spaces-${level}`}
+                className={classNames(
+                  'spells__data',
+                  'spells__spent-spaces',
+                  `spells__spent-spaces-${level}`,
+                  {
+                    'spells__spent-spaces--disabled': isUsingSpell,
+                  }
+                )}
                 onClick={() => onSpentSpacesClick(level)}
               >
-                {magic.spentSpellSlots[level] || 0}
+                {usedSpellSlots[level] || 0}
                 {hasToPrepareSpells(pc) && (
                   <>
                     {' '}
@@ -273,8 +338,8 @@ function PcSpells() {
                         id={spell.name}
                         value={spell.name}
                         className="spells__data spells__prepared-spell"
-                        onChange={onPrepareSpellClick(spell)}
-                        checked={isPreparedSpell(pc, spell.name)}
+                        onChange={onPrepareSpellClick(spell, level, i)}
+                        checked={isSpellPrepared[level][i].isPrepared}
                       />
                       <label
                         htmlFor={spell.name}

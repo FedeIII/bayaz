@@ -140,26 +140,23 @@ export const SKILLS_EXPLANATION = {
     );
   },
 
-  resetSpellSlots: (skill, pc, submit, closeModal) => {
-    function onResetSlotsClick() {
-      closeModal();
-      submit(
-        {
-          action: 'resetSlots',
-          id: pc.id,
-          spellsLevel: skill,
-        },
-        { method: 'post' }
-      );
-    }
-
+  resetSpellSlots: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions
+  ) => {
     return (
       <div className="inventory-item__hp-container">
         <div className="inventory-item__modal-buttons">
           <button
             type="button"
             className="inventory-item__modal-button"
-            onClick={onResetSlotsClick}
+            onClick={actions.resetSlots}
           >
             Reiniciar espacios
           </button>

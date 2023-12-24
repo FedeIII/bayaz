@@ -27,9 +27,10 @@ export function SkillModalContent(props) {
     skillIndex,
     position,
     isDm,
+    actions,
   } = props;
 
-  const skillExplanation = getSkillExplanation(
+  const skillExplanation = getSkillExplanation({
     skillName,
     skill,
     pc,
@@ -37,8 +38,9 @@ export function SkillModalContent(props) {
     closeModal,
     skillIndex,
     position,
-    isDm
-  );
+    isDm,
+    actions,
+  });
 
   const skillTitle =
     skillName === 'resetSpellSlots'

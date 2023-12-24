@@ -24,7 +24,7 @@ export function useSkillItems(
     setSkillBigModalContent(null);
   };
 
-  function openSkillModal(sectionName, skillIndex = 0) {
+  function openSkillModal(sectionName, skillIndex = 0, actions) {
     return (skillName, skill, bigModal, position) => {
       setSelectedSkillRef(skillRefs[sectionName].current[skillIndex]);
 
@@ -60,6 +60,7 @@ export function useSkillItems(
                 skillIndex={skillIndex}
                 position={position}
                 isDm={isDm}
+                actions={actions}
                 {...props}
               />
             )

@@ -119,6 +119,10 @@
   color: var(--color-x-blue-ink);
 }
 
+.spells__spent-spaces--disabled {
+  color: var(--color-x-blue-ink);
+}
+
 .spells__0 {
   grid-area: sp0;
   flex-direction: column;

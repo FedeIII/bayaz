@@ -66,7 +66,11 @@ function getChildrenText(text, reactNode) {
 function getExplanationText(traitName, trait) {
   const text = getChildrenText(
     `${trait}: `,
-    getSkillExplanation(traitName, trait, BASE_CHARACTER)
+    getSkillExplanation({
+      skillName: traitName,
+      skill: trait,
+      pc: BASE_CHARACTER,
+    })
   );
   return text;
 }
