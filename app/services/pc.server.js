@@ -307,6 +307,7 @@ const pcSchema = new mongoose.Schema({
     ],
   },
   level: Number,
+  levelReady: Number,
   exp: Number,
   background: backgroundSchema,
   userId: String,
@@ -541,7 +542,7 @@ export async function addXp(id, xp) {
 
   updatedPc = await Pc.findOneAndUpdate(
     { id },
-    { level: getLevelByXp(updatedPc.exp) },
+    { levelReady: getLevelByXp(updatedPc.exp) },
     { new: true }
   ).exec();
 

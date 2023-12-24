@@ -71,6 +71,7 @@ export const action = async ({ request }) => {
     weight,
     pClass,
     level: 1,
+    levelReady: 1,
     skills: RACES[race][subrace].skills,
     exp: 0,
     languages: setLanguages(race, subrace, pClass),

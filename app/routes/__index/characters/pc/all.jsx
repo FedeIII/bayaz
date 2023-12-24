@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { json } from '@remix-run/node';
 import { Link, useLoaderData, useSubmit } from '@remix-run/react';
 
-import { deletePc, getPcs, getUserPcs } from '~/services/pc.server';
+import { deletePc, getPcs, getUserPcs, updatePc } from '~/services/pc.server';
 import { translateClass, translateRace } from '~/domain/characters';
 import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
@@ -35,11 +35,17 @@ export const loader = async ({ request }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
-  const pcId = formData.get('delete');
+  const action = formData.get('action');
+  if (action === 'delete') {
+    const pcId = formData.get('delete');
+    await deletePc(pcId);
+  } else if (action === 'levelUp') {
+    const pcId = formData.get('pcId');
+    const level = formData.get('level');
+    await updatePc({ id: pcId, level });
+  }
 
-  await deletePc(pcId);
-
-  return null;
+  return json({ pcs: await getPcs() });
 };
 
 function AllPCs() {
@@ -53,9 +59,21 @@ function AllPCs() {
     setConfirmDeleteName(null);
   };
 
+  function onLevelUpClick(id, level) {
+    submit(
+      {
+        action: 'levelUp',
+        pcId: id,
+        level,
+      },
+      { method: 'post' }
+    );
+  }
+
   function onDeleteClick(e) {
     submit(
       {
+        action: 'delete',
         delete: e.target.value,
       },
       { method: 'post' }
@@ -88,39 +106,51 @@ function AllPCs() {
                 {translateClass(pc.pClass)}
               </div>
               <div className="party__party-data">Nivel {pc.level}</div>
-              {confirmDeleteName !== pc.id && (
-                <div className="party__party-data">
-                  <button
-                    className="party__delete"
-                    onClick={e => {
-                      e.preventDefault();
-                      setConfirmDeleteName(pc.id);
-                    }}
-                  >
-                    ⊘
-                  </button>
-                </div>
-              )}
-              {confirmDeleteName === pc.id && (
-                <div className="party__party-data">
-                  Borrar?{' '}
-                  <button
-                    type="submit"
-                    name="delete"
-                    value={pc.id}
-                    className="party__delete-confirm party__delete-confirm--yes"
-                    onClick={onDeleteClick}
-                  >
-                    Sí
-                  </button>{' '}
-                  <span
-                    className="party__delete-confirm party__delete-confirm--no"
-                    onClick={confirmNot}
-                  >
-                    No
-                  </span>
-                </div>
-              )}
+              <div className="party__party-data">
+                {confirmDeleteName === pc.id ? (
+                  <>
+                    Borrar?{' '}
+                    <button
+                      type="submit"
+                      name="delete"
+                      value={pc.id}
+                      className="party__delete-confirm party__delete-confirm--yes"
+                      onClick={onDeleteClick}
+                    >
+                      Sí
+                    </button>{' '}
+                    <span
+                      className="party__delete-confirm party__delete-confirm--no"
+                      onClick={confirmNot}
+                    >
+                      No
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    {pc.level !== pc.levelReady && (
+                      <button
+                        className="party__level-up"
+                        onClick={e => {
+                          e.preventDefault();
+                          onLevelUpClick(pc.id, pc.levelReady);
+                        }}
+                      >
+                        ⇧
+                      </button>
+                    )}
+                    <button
+                      className="party__delete"
+                      onClick={e => {
+                        e.preventDefault();
+                        setConfirmDeleteName(pc.id);
+                      }}
+                    >
+                      ⊘
+                    </button>
+                  </>
+                )}
+              </div>
             </Link>
           </li>
         ))}

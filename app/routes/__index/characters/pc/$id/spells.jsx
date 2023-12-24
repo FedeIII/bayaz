@@ -126,10 +126,7 @@ function PcSpells() {
   const spellSlots = getSpellSlots(pc);
 
   const initIsSpellPrepared = useMemo(
-    () =>
-      spellsByLevel.map(ss =>
-        ss.map(s => ({ name: s.name, isPrepared: isPreparedSpell(pc, s.name) }))
-      ),
+    () => spellsByLevel.map(ss => ss.map(s => isPreparedSpell(pc, s.name))),
     []
   );
   const [isSpellPrepared, setIsSpellPrepared] = useState(initIsSpellPrepared);
@@ -339,7 +336,7 @@ function PcSpells() {
                         value={spell.name}
                         className="spells__data spells__prepared-spell"
                         onChange={onPrepareSpellClick(spell, level, i)}
-                        checked={isSpellPrepared[level][i].isPrepared}
+                        checked={isSpellPrepared[level][i]}
                       />
                       <label
                         htmlFor={spell.name}

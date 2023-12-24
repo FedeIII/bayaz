@@ -105,6 +105,7 @@
 }
 
 .party__party-data {
+  position: relative;
   color: white;
   text-decoration: none;
   flex-grow: 1;
@@ -271,4 +272,71 @@
 .party__delete-confirm--no:hover {
   background-color: var(--color-x-green);
   color: var(--color-base);
+}
+
+.party__level-up {
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
+  line-height: 0.8;
+  animation: level_up 1s infinite;
+  transition: margin ease-in;
+  text-align: right;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.party__level-up:hover {
+  background-color: var(--color-pale);
+  height: 100%;
+  border-radius: 5px;
+}
+
+@keyframes level_up {
+  0% {
+    margin-top: 2px;
+    color: var(--color-green);
+    transition: margin ease-out;
+  }
+  33% {
+    margin-top: -3px;
+    transition: margin ease-in;
+  }
+  66% {
+    margin-top: 2px;
+    color: var(--color-green);
+    transition: margin ease-out;
+  }
+  70.25% {
+    color: var(--color-green);
+  }
+  74.5% {
+    margin-top: -3px;
+    color: var(--color-orange);
+    transition: margin ease-in;
+  }
+  78.75% {
+    color: var(--color-green);
+  }
+  83% {
+    margin-top: 2px;
+    color: var(--color-green);
+    transition: margin ease-out;
+  }
+  87.25% {
+    color: var(--color-green);
+  }
+  91.5% {
+    margin-top: -1px;
+    color: var(--color-orange);
+    transition: margin ease-in;
+  }
+  95.75% {
+    color: var(--color-green);
+  }
+  100% {
+    margin-top: 2px;
+    color: var(--color-green);
+    transition: margin ease-out;
+  }
 }
