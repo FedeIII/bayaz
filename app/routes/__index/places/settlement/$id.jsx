@@ -178,7 +178,6 @@ function SettlementScreen() {
   });
 
   const {
-    type,
     name,
     img,
     population,
@@ -401,7 +400,7 @@ function SettlementScreen() {
   function onImageClick() {
     setPlaceState(p => ({
       ...p,
-      img: randomSettlementImage(type, {
+      img: randomSettlementImage(typeParam, {
         files,
         population,
         accommodation,
