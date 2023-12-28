@@ -93,18 +93,17 @@ export const loader = async ({ params, request }) => {
   } else {
     id = params.id;
     place = await getSettlement(id);
-    type = place.type;
     if (!place) {
       throw new Error('Village not found');
     }
     try {
-      files = await getSettlementImages(type);
+      files = await getSettlementImages(place.type);
     } catch {
       files = [];
     }
   }
 
-  return json({ place, id, type, files, rng });
+  return json({ place, id, typeParam: type, files, rng });
 };
 
 export const action = async ({ request }) => {
@@ -142,7 +141,7 @@ export const action = async ({ request }) => {
 };
 
 function SettlementScreen() {
-  const { place, id, type: typeParam, files, rng } = useLoaderData();
+  const { place, id, typeParam, files, rng } = useLoaderData();
 
   const [showNameInput, setShowNameInput] = useState(false);
   const nameRef = useRef();
@@ -160,7 +159,7 @@ function SettlementScreen() {
   }, [notesRef.current]);
 
   const [placeState, setPlaceState] = useState({
-    type: '',
+    type: typeParam,
     name: '',
     img: '',
     population: 0,
@@ -178,6 +177,7 @@ function SettlementScreen() {
   });
 
   const {
+    type,
     name,
     img,
     population,
@@ -243,7 +243,7 @@ function SettlementScreen() {
     if (id) {
       setPlaceState(old => ({
         ...old,
-        type: typeParam,
+        type: typeParam || place.type,
         name: place.name,
         img: place.img,
         population: place.population,
@@ -288,6 +288,7 @@ function SettlementScreen() {
 
       setPlaceState({
         name: randomSettlementName(),
+        type: typeParam,
         img,
         population,
         accommodation,
@@ -400,7 +401,7 @@ function SettlementScreen() {
   function onImageClick() {
     setPlaceState(p => ({
       ...p,
-      img: randomSettlementImage(typeParam, {
+      img: randomSettlementImage(type, {
         files,
         population,
         accommodation,
@@ -419,6 +420,7 @@ function SettlementScreen() {
   return (
     <Form method="post">
       {!!id && <input readOnly type="text" name="id" value={id} hidden />}
+      <input readOnly type="text" name="type" value={type} hidden />
       <div className="places__buttons">
         <Link to="../" className="menus__back-button">
           ⇦ Volver
