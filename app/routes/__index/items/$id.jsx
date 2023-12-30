@@ -76,7 +76,7 @@ function NewItem() {
     setIsScroll(item?.category === 'scroll');
   }, [item?.category]);
 
-  const [hasCharges, setHasCharges] = useState(false);
+  const [hasCharges, setHasCharges] = useState(!!item?.charges);
 
   return (
     <Form method="post" className="item__wrapper">
