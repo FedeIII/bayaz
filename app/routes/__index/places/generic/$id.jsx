@@ -78,7 +78,7 @@ function GenericPlace() {
         <Link to="/places/generic/new" className="menus__back-button">
           ⇩ Nuevo Lugar
         </Link>
-        <Link to="players" target="_blank" className="places__save">
+        <Link to="./present" target="_blank" className="places__save">
           ⇨ Presentar
         </Link>
       </div>
