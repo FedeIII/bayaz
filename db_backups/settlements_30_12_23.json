@@ -1,0 +1,52 @@
+[{
+  "_id": {
+    "$oid": "658cd616fac097c3700c608c"
+  },
+  "id": "34bd0500-6e8e-4db2-88b1-c4f005e1686c",
+  "type": "city",
+  "name": "Auranthia",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/city/medium_temple_tavern_4512345.png",
+  "population": 10000,
+  "accommodation": [
+    "La Pluma Veloz",
+    "El Cuervo Sacrificado",
+    "El Jabalí Pálido",
+    "El Martillo Ladrador",
+    "La Lanza de Oropel",
+    "El Oso Panorámico",
+    "El Corzo Naranja"
+  ],
+  "government": {
+    "type": "OLIGARCHY",
+    "situation": "Liderazgo disputado, lucha abierta",
+    "_id": {
+      "$oid": "658cd66cfac097c3700c609c"
+    }
+  },
+  "security": 80,
+  "securityType": "guards",
+  "commerces": [
+    "TRADING",
+    "WOODWORK",
+    "STEELWORK"
+  ],
+  "religion": {
+    "temples": [
+      "Dshim (Energía)",
+      "Abnu (Materia)"
+    ],
+    "shrines": [
+      "Burumu (Espacio)",
+      "Kabattu (Espiritu)"
+    ],
+    "_id": {
+      "$oid": "658cd66cfac097c3700c609b"
+    }
+  },
+  "magicShops": 1,
+  "raceRelationships": "Armonía",
+  "knownFor": "Gremios poderosos",
+  "calamity": "Escándalo que amenaza a familias poderosas",
+  "notes": "- Lugar de nacimiento de Neylen",
+  "__v": 0
+}]

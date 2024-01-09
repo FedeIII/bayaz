@@ -88,8 +88,14 @@ function GenericPlace() {
           <div className="places__image-container">
             {place?.img ? (
               <>
-                <img src={''} className="places__image" width="100%" />
-                <input readOnly type="text" name="img" value={''} hidden />
+                <img src={place?.img} className="places__image" width="100%" />
+                <input
+                  readOnly
+                  type="text"
+                  name="img"
+                  value={place?.img}
+                  hidden
+                />
               </>
             ) : (
               <>
