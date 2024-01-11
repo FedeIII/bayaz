@@ -27,6 +27,7 @@
   width: 100%;
   background-color: var(--color-base);
   align-items: stretch;
+  column-gap: 16px;
 }
 
 .party__pc-link:hover {
@@ -118,7 +119,6 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  margin: 0 32px 0 0;
 }
 
 .party__party-section {

@@ -136,6 +136,15 @@ export const ROGUE_SKILLS_EXPLANATION = {
   ),
 
   fastHands: (skill, pc) => (
+    <p>
+      Empezando al nivel 3 puedes usar la acción adicional que te otorga tu
+      Acción Astuta para hacer una prueba de Destreza (Juego de Manos), usar tus
+      herramientas de ladrón para desarmar una trampa o abrir una cerradura, o
+      para ejecutar la acción de Usar un Objeto.
+    </p>
+  ),
+
+  secondStoryWork: (skill, pc) => (
     <>
       <p>
         Cuando escoges este arquetipo al nivel 3 ganas la habilidad de trepar
@@ -147,15 +156,6 @@ export const ROGUE_SKILLS_EXPLANATION = {
         modificador de Destreza).
       </p>
     </>
-  ),
-
-  secondStoryWork: (skill, pc) => (
-    <p>
-      Empezando al nivel 3 puedes usar la acción adicional que te otorga tu
-      Acción Astuta para hacer una prueba de Destreza (Juego de Manos), usar tus
-      herramientas de ladrón para desarmar una trampa o abrir una cerradura, o
-      para ejecutar la acción de Usar un Objeto.
-    </p>
   ),
 
   uncannyDodge: (skill, pc) => (

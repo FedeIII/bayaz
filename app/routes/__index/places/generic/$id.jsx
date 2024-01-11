@@ -69,7 +69,7 @@ function GenericPlace() {
       <input readOnly type="text" name="id" value={place?.id} hidden />
 
       <div className="places__buttons">
-        <Link to="../" className="menus__back-button">
+        <Link to="/places/generic/list" className="menus__back-button">
           ⇦ Volver
         </Link>
         <button type="submit" className="places__save">
