@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "656e25e8e607dfbdb42f7fc0"
+  },
+  "id": "5dbf53f8-02c6-4627-9a9b-edb4ea1f01f4",
+  "name": "Cueva",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1A_cave.png",
+  "description": "Todo está negro. Al cabo de unos pocos segundos, la visión se adapta a la oscuridad y vemos que estamos en una cueva irregular. En un lateral, un riachuelo subterráneo poco profundo fluye con fuerza pendiente abajo. En el lateral contrario, una jaula de hierro oxidado está colocada bajo un agujero por el que entra débilmente la única fuente de luz de la cueva.\n\n\nSólo se oye el ruido del agua al fluir y el eco de las gotas que de vez en cuando golpean contra el suelo tras filtrarse y recorrer alguna estalactita del techo.\n\n\nUnos golpes lejanos perturban la escena: una figura cae abruptamente a través del agujero del techo directamente dentro de la jaula.",
+  "notes": "Sesion 1A",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "659c9bb0198f61a4b0c2a246"
+  },
+  "id": "2d1aba90-1d9f-43e1-91fc-8f462d4f5386",
+  "name": "Taberna de Rosie",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1B_rosies_tavern.png",
+  "description": "La Taberna de Rosie es la posada que da alojamiento a los visitantes de Thalesferro y bebida y comida a los trabajadores de la fábrica.\n\nEn la planta baja, una pequeña barra da servicio a un enorme salón con mesas y sillas para los clientes.\n\nA través de una ventana del salón se sirve la comida y a través de una escalera se sube a las plantas superiores donde se encuentran las habitaciones.",
+  "notes": "Sesión 1B",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "659c9cf345867226803dd2d6"
+  },
+  "id": "139c4d93-3d1b-4482-94c8-5cf1f04d029f",
+  "name": "Mansión Abandonada",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1B_mansion.png",
+  "description": "La mansión es claramente un edificio de una era pasada, completamente abandonada y en ruinas. En su exterior, la vegetación salvaje cubre la gran mayoría de su superficie. El resto de ella está completamente desgastada por el tiempo.\n\nEn el interior, todo está en oscuridad.",
+  "notes": "Sesión 1B",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "659cac9892866f73fbb854cc"
+  },
+  "id": "fa4ee506-a0c5-44cf-984d-47bf53b4ae5e",
+  "name": "Exterior de la cueva",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1A_cave_exit.png",
+  "description": "Tras una estrecha galería cuesta abajo, con espacio justo para una persona, empieza a verse algo de luz. Al final de la galería se ve el sol del atardecer colándose entre los árboles del bosque.\n\nLa salida de la cueva da a un arroyo que cruza el bosque de lado a lado. Al otro lado del arroyo hay un claro en el que descansan unos guardias goblins.",
+  "notes": "Sesión 1A",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "659df47e041588095c443f99"
+  },
+  "id": "56e0bd22-f341-4a70-b033-7502c70f0c1d",
+  "name": "Fábrica Forjacero",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/2_forjacero.png",
+  "description": "La fábrica Forjacero se levanta imponente en el centro de Thalesferro. Es visible desde cualquier punto del asentamiento, ya que es con diferencia el edificio más alto y extenso del pueblo. Está dividida en varias extensiones que se conectan entre ellas por puentes, pasarelas, corredores y galerías de una forma aparentemente caótica, claramente improvisada a medida que la fábrica ha ido creciendo. Tiene un acceso directo al mar a través de un puerto industrial, donde los barcos se cargan con equipamiento para exportar. Grandes estructuras se yerguen por encima de los tejados. Algunas son torreones de observación y vigía. Otras son chimeneas, grúas, cúpulas, antenas de recepción arcana y construcciones con funcionalidades imposibles de adivinar.\n\nLa entrada cuenta con una serie de arcos que empiezan a unos 50 metros de la fábrica y dirigen a los visitantes y trabajadores hacia los enormes portones principales, suficientemente grandes como para rivalizar con los de los castillos más grandes.",
+  "notes": "Sesión 2",
+  "__v": 0
+}]
