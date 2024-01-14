@@ -5,6 +5,8 @@ import { useLoaderData } from '@remix-run/react';
 import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
 import { getPlace } from '~/services/place.server';
 import random from '~/domain/random';
+import lights from '~/utils/ambience/lights';
+import caveAmbient from '~/domain/lightCombos/caveAmbient';
 
 export const loader = async ({ params }) => {
   const place = await getPlace(params.id);
@@ -26,6 +28,13 @@ export const loader = async ({ params }) => {
   } catch (error) {
     audioFiles = [];
   }
+
+  const device = await lights.ready();
+
+  lights.setLight(device, {
+    rgb: 0xb8cdff,
+    luminance: 100,
+  });
 
   return json({ place, audioFiles });
 };
