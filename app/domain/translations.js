@@ -2,6 +2,7 @@ import { translateLanguage, translateSkill } from './characters';
 import { getItem } from './equipment/equipment';
 import { translateDamage } from './equipment/weapons';
 import { NPC_RACES } from './npc/attrs/npcRaces';
+import { translateSchool } from './spells/spellTranslations';
 import { translateSpell } from './spells/spells';
 
 export function t(key) {
@@ -353,6 +354,9 @@ export function t(key) {
 
   translation = translateSkill(key);
   if (translation && translation !== 'unknown skill') return translation;
+
+  translation = translateSchool(key);
+  if (translation) return translation;
 
   return key;
 }

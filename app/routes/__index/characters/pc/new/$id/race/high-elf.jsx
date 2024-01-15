@@ -1,12 +1,15 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useTransition } from '@remix-run/react';
-import { useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 import { LANGUAGES, RACES, translateLanguage } from '~/domain/characters';
 import { WIZARD_SPELLS } from '~/domain/spells/wizard';
 import { getSpell } from '~/domain/spells/getSpells';
-import { translateSpell } from '~/domain/spells/spells';
+import { t } from '~/domain/translations';
+import { SkillItem } from '~/components/modal/skillItem';
+import { useSkillItems } from '~/components/modal/useSkillItems';
+import { SkillModal } from '~/components/modal/skillModal';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -42,9 +45,37 @@ function PcElfSkills() {
   const [isLanguageSelected, setIsLanguageSelected] = useState(false);
   const [isCantripSelected, setIsCantripSelected] = useState(false);
 
+  const [skillRefs, setSkillRefs] = useState({
+    cantrips: useRef(
+      Object.values(WIZARD_SPELLS)
+        .filter(s => s.level === 0)
+        .map(createRef)
+    ),
+  });
+
+  const [
+    skillModalContent,
+    closeSkillModal,
+    openSkillModal,
+    selectedSkillRef,
+    setSelectedSkillRef,
+  ] = useSkillItems(pc, skillRefs);
+
+  const formRef = useRef(null);
+
   return (
-    <Form method="post">
+    <Form method="post" ref={formRef}>
       <div className="characters__content">
+        {skillModalContent && (
+          <SkillModal
+            elRef={selectedSkillRef}
+            formRef={formRef}
+            closeModal={closeSkillModal}
+          >
+            {skillModalContent}
+          </SkillModal>
+        )}
+
         <h2>Habilidades de Alto Elfo para {name}</h2>
         <input readOnly type="text" name="id" value={id} hidden />
 
@@ -56,7 +87,7 @@ function PcElfSkills() {
             <div className="characters__traits">
               {Object.values(WIZARD_SPELLS)
                 .filter(s => s.level === 0)
-                .map(spell => (
+                .map((spell, cantripIndex) => (
                   <label
                     htmlFor={spell.name}
                     key={spell.name}
@@ -69,7 +100,19 @@ function PcElfSkills() {
                       value={spell.name}
                       onChange={() => setIsCantripSelected(true)}
                     />
-                    {translateSpell(spell.name)}
+                    <SkillItem
+                      ref={skillRefs.cantrips.current[cantripIndex]}
+                      pc={pc}
+                      traitName={spell.name}
+                      trait="spell"
+                      openModal={openSkillModal('cantrips', cantripIndex)}
+                      openOnRightClick
+                    >
+                      <span className="tooltip">
+                        {t(spell.name)}
+                        <span className="tooltiptext">{t(spell.school)}</span>
+                      </span>
+                    </SkillItem>
                   </label>
                 ))}
             </div>

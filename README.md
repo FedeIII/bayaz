@@ -53,9 +53,6 @@ npx prisma migrate dev
 
 ## TO DOsg
 
-- Cantrips high elf
-   - hints/modals
-   - mark in wizard class list
 - NPC groups
 - Change name of enemy in encounter (variations and proper nouns)
 - Magic items owners

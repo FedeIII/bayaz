@@ -8,10 +8,12 @@ import {
 import { SkillItem } from '../modal/skillItem';
 import { translateSpell } from '~/domain/spells/spells';
 import { translateSchool } from '~/domain/spells/spellTranslations';
+import { getAllPcCantrips } from '~/domain/spells/getSpells';
 
 function WizardSkills(props) {
   const { pc, setSkillsNamespace, skillRefs, openSkillModal } = props;
 
+  const knownCantrips = getAllPcCantrips(pc);
   const [selectedSpells0, setSelectedSpells0] = useState([]);
   const [selectedSpells1, setSelectedSpells1] = useState([]);
 
@@ -45,7 +47,15 @@ function WizardSkills(props) {
                   <input
                     type="checkbox"
                     name="spells[]"
-                    checked={!!selectedSpells0[i]}
+                    checked={
+                      !!selectedSpells0[i] ||
+                      knownCantrips.filter(s => s.name === spell.name).length >
+                        0
+                    }
+                    disabled={
+                      knownCantrips.filter(s => s.name === spell.name).length >
+                      0
+                    }
                     id={spell.name}
                     value={spell.name}
                     onChange={() =>
