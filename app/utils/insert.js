@@ -29,8 +29,9 @@ export function unique(values) {
   return [...new Set(values || [])];
 }
 
-export function substract(minuend, subtrahend) {
-  return minuend.filter(el => !subtrahend.includes(el));
+export function substract(minuend, subtrahend, isEqualFn) {
+  const isEqual = isEqualFn || (el => !subtrahend.includes(el));
+  return minuend.filter(el => isEqual(el, subtrahend));
 }
 
 export function changeLength(arr, length) {

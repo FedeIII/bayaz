@@ -79,25 +79,28 @@ async function prepareSpellAction(formData) {
     subtype: spellSubtype || undefined,
   };
 
+  let updatedPc;
   if (isPrepared === 'true') {
-    await addPreparedSpell(id, spell);
+    updatedPc = await addPreparedSpell(id, spell);
   } else if (isDm) {
-    await deletePreparedSpell(id, spell);
+    updatedPc = await deletePreparedSpell(id, spell);
   }
+
+  return updatedPc;
 }
 
 async function useSpellSlotAction(formData) {
   const id = formData.get('id');
   const spellSlotLevel = formData.get('spellSlotLevel');
 
-  await spendSpellSlot(id, spellSlotLevel);
+  return await spendSpellSlot(id, spellSlotLevel);
 }
 
 async function resetSlotsAction(formData) {
   const id = formData.get('id');
   const spellsLevel = formData.get('spellsLevel');
 
-  await resetSpellSlots(id, spellsLevel);
+  return await resetSpellSlots(id, spellsLevel);
 }
 
 export const action = async ({ request }) => {
@@ -105,15 +108,16 @@ export const action = async ({ request }) => {
 
   const action = formData.get('action');
 
+  let updatedPc;
   if (action === 'prepareSpell') {
-    await prepareSpellAction(formData);
+    updatedPc = await prepareSpellAction(formData);
   } else if (action === 'useSpellSlot') {
-    await useSpellSlotAction(formData);
+    updatedPc = await useSpellSlotAction(formData);
   } else if (action === 'resetSlots') {
-    await resetSlotsAction(formData);
+    updatedPc = await resetSlotsAction(formData);
   }
 
-  return null;
+  return { pc: updatedPc };
 };
 
 function PcSpells() {
@@ -141,12 +145,12 @@ function PcSpells() {
     setIsSubmitShown(false);
   }
 
-  function onPrepareSpellClick(spell, level, i) {
+  function onPrepareSpellClick(spell, level, i, isPrepared) {
     return e => {
       if (hasToPrepareSpells(pc)) {
         setIsSpellPrepared(oldList => {
           const newList = oldList.slice();
-          newList[level][i] = !newList[level][i];
+          newList[level][i] = isPrepared;
           return newList;
         });
 
@@ -335,7 +339,12 @@ function PcSpells() {
                         id={spell.name}
                         value={spell.name}
                         className="spells__data spells__prepared-spell"
-                        onChange={onPrepareSpellClick(spell, level, i)}
+                        onChange={onPrepareSpellClick(
+                          spell,
+                          level,
+                          i,
+                          !isSpellPrepared[level][i]
+                        )}
                         checked={isSpellPrepared[level][i]}
                       />
                       <label

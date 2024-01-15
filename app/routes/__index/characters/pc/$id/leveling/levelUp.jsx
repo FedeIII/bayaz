@@ -43,7 +43,8 @@ export const action = async ({ request }) => {
 
   const extraPreparedSpells = substract(
     getExtraPreparedSpells(pc).map(s => s.name),
-    pc.preparedSpells.map(s => s.name)
+    pc.preparedSpells.map(s => s.name),
+    (el, subtrahend) => !subtrahend.map(s => s.name).includes(el.name)
   );
 
   await Promise.all([
@@ -105,10 +106,7 @@ function LevelUp() {
             max="20"
             min="1"
           />
-          <button
-            type="submit"
-            className="cards__button-card app__button-big"
-          >
+          <button type="submit" className="cards__button-card app__button-big">
             Lanzar Dado Real ({CLASSES[pClass].hitDice})
           </button>
         </label>

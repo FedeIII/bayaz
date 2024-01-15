@@ -53,7 +53,7 @@ npx prisma migrate dev
 
 ## TO DOsg
 
-- Spells cleric
+- armor tooltips in equipment selection
 - NPCs in encounters
 - Cantrips high elf
    - hints/modals
