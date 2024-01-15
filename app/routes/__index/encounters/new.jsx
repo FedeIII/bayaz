@@ -1,6 +1,6 @@
 import { createRef, useContext, useEffect, useRef, useState } from 'react';
-import { redirect } from '@remix-run/node';
-import { Form } from '@remix-run/react';
+import { json, redirect } from '@remix-run/node';
+import { Form, useLoaderData } from '@remix-run/react';
 
 import {
   DIFFICULTIES,
@@ -19,6 +19,7 @@ import {
   getMonsters,
   getMonstersFromEnvironment,
   groupByCR,
+  isMonster,
   isMonsterSuitable,
   Monster,
   MONSTER_SIZES,
@@ -36,6 +37,8 @@ import useAmount from '~/components/hooks/useAmount';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
 import PartyTemplateContext from '~/components/contexts/partyTemplateContext';
+import { getNpcs } from '~/services/pc.server';
+import { npcsToMonsters } from '~/domain/npc/npc';
 
 import styles from '~/components/newEncounter.css';
 import placesStyles from '~/components/places.css';
@@ -46,6 +49,12 @@ export const links = () => {
     { rel: 'stylesheet', href: placesStyles },
     { rel: 'stylesheet', href: charactersStyles },
   ];
+};
+
+export const loader = async ({ request }) => {
+  const allNpcs = await getNpcs();
+
+  return json({ allNpcs: npcsToMonsters(allNpcs) });
 };
 
 export const action = async ({ request }) => {
@@ -442,6 +451,8 @@ function MonsterCatalog(props) {
 }
 
 function NewEncounter() {
+  const { allNpcs } = useLoaderData();
+
   useTitle('Nuevo encuentro');
 
   const partyTemplateContext = useContext(PartyTemplateContext) || {};
@@ -454,7 +465,7 @@ function NewEncounter() {
   }, [pcLevels]);
 
   const partyMaxLevel = getPartyMaxLevel(pcLevels);
-  const allMonsters = getMonstersFromEnvironment();
+  const allMonsters = [...allNpcs, ...getMonstersFromEnvironment()];
 
   const [xpThreshold, setXpThreshold] = useState(null);
   const [encounterXp, setEncounterXp] = useState(null);
@@ -492,15 +503,17 @@ function NewEncounter() {
 
   useEffect(() => {
     setFilteredMonsterList(
-      monsterList.filter(
-        m =>
-          Monster(m)
-            .translation.toLowerCase()
+      monsterList.filter(m => {
+        const mob = isMonster(m) ? Monster(m) : m;
+        return (
+          mob.translation
+            .toLowerCase()
             .includes(filters.mobName.toLowerCase()) &&
-          (!filters.xp || Monster(m).xp <= filters.xp) &&
-          (!filters.cr || Monster(m).challenge >= filters.cr) &&
-          (!filters.size || Monster(m).size === filters.size)
-      )
+          (!filters.xp || mob.xp <= filters.xp) &&
+          (!filters.cr || mob.challenge >= filters.cr) &&
+          (!filters.size || mob.size === filters.size)
+        );
+      })
     );
   }, [filters.mobName, filters.xp, filters.cr, filters.size]);
 

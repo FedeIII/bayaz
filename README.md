@@ -53,8 +53,6 @@ npx prisma migrate dev
 
 ## TO DOsg
 
-- armor tooltips in equipment selection
-- NPCs in encounters
 - Cantrips high elf
    - hints/modals
    - mark in wizard class list

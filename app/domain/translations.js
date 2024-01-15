@@ -1,3 +1,4 @@
+import { translateLanguage, translateSkill } from './characters';
 import { getItem } from './equipment/equipment';
 import { translateDamage } from './equipment/weapons';
 import { NPC_RACES } from './npc/attrs/npcRaces';
@@ -346,6 +347,12 @@ export function t(key) {
 
   translation = translateDamage(key);
   if (translation) return translation;
+
+  translation = translateLanguage(key);
+  if (translation && translation !== 'unknown language') return translation;
+
+  translation = translateSkill(key);
+  if (translation && translation !== 'unknown skill') return translation;
 
   return key;
 }

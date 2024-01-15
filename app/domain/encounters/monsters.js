@@ -14,6 +14,10 @@ export function Monster(monster) {
   };
 }
 
+export function isMonster(m) {
+  return !!m.details && !!m.environment;
+}
+
 function isString(value) {
   return typeof value === 'string' || value instanceof String;
 }

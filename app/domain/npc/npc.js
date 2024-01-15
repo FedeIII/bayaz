@@ -1,3 +1,17 @@
+import {
+  RACES,
+  SKILLS,
+  STATS,
+  getArmorClass,
+  getHitDice,
+  getMaxHitPoints,
+  getPassivePerception,
+  getStat,
+  getStats,
+  skillCheckBonus,
+  statSavingThrow,
+} from '../characters';
+import { increment } from '../display';
 import random, { randomInteger } from '../random';
 import { t } from '../translations';
 import {
@@ -339,4 +353,66 @@ export function createRandomNpc(filters) {
     flaws: getRandomFlaws(npcGender),
     talent: getRandomTalent(),
   };
+}
+
+/* prettier-ignore */
+const levelToXp = {
+  1: 200,     2: 450,    3: 700,    4: 1100,   5: 1800,
+  6: 2300,    7: 2900,   8: 3900,   9: 5000,  10: 5900,
+  11: 7200,  12: 8400,  13: 10000, 14: 11500, 15: 13000,
+  16: 15000, 17: 18000, 18: 20000, 19: 22000, 20: 25000,
+  21: 33000, 22: 41000, 23: 50000, 24: 62000, 25: 75000,
+  30: 155000,
+};
+
+function singleNpcToMonster(npc) {
+  return {
+    challenge: npc.level,
+    size: npc.size,
+    name: npc.name,
+    translation: npc.name,
+    type: 'Humanoid',
+    tags: npc.race,
+    xp: levelToXp[npc.level],
+    alignment: npc.alignment,
+    details: {
+      'Armor Class': getArmorClass(npc),
+      'Hit Points': `${getMaxHitPoints(npc)} (${getHitDice(npc)})`,
+      Speed: npc.speed,
+      stats: getStats(npc),
+      'Saving Throws': STATS.map(
+        statName =>
+          `${statName} ${increment(
+            statSavingThrow(
+              statName,
+              getStat(npc, statName),
+              npc.pClass,
+              npc.level
+            )
+          )}`
+      ).join(', '),
+      Skills: SKILLS.map(
+        skill =>
+          `${t(skill.name)} ${increment(skillCheckBonus(npc, skill.name))}`
+      ).join(', '),
+      Senses: [
+        `passive Perception ${getPassivePerception(npc)}`,
+        RACES[npc.race][npc.subrace].traits?.darkvision
+          ? `darkvision ${RACES[npc.race][npc.subrace].traits.darkvision}m`
+          : '',
+      ].join(', '),
+      Languages: npc.languages.map(lang => t(lang)).join(', '),
+      Challenge: `${npc.level} (${levelToXp[npc.level]} XP)`,
+
+      Spellcasting: '',
+      actions: {},
+      legendaryActions: {},
+      notes: `${npc.size} humanoid (${npc.race})`,
+      notes: 'Medium humanoid (human), Lawful evil',
+    },
+  };
+}
+
+export function npcsToMonsters(npcs) {
+  return npcs.map(singleNpcToMonster);
 }
