@@ -1,4 +1,5 @@
 import { getItem } from './equipment/equipment';
+import { translateDamage } from './equipment/weapons';
 import { NPC_RACES } from './npc/attrs/npcRaces';
 import { translateSpell } from './spells/spells';
 
@@ -111,6 +112,7 @@ export function t(key) {
     heavy: 'Pesada',
     finesse: 'Sutil',
     versatile: 'Versátil',
+    stealthDisadvantage: 'Desventaja al sigilo',
 
     //Settlements
     village: 'Aldea',
@@ -315,6 +317,20 @@ export function t(key) {
     potion: 'Poción',
     rod: 'Vara',
     wand: 'Varita',
+
+    // Characteristics
+    strength: 'Fuerza',
+    dexterity: 'Destreza',
+    constitution: 'Constitución',
+    intelligence: 'Inteligencia',
+    wisdom: 'Sabiduría',
+    charisma: 'Carisma',
+    str: 'Fuerza',
+    dex: 'Destreza',
+    con: 'Constitución',
+    int: 'Inteligencia',
+    wis: 'Sabiduría',
+    cha: 'Carisma',
   }[key];
 
   if (translation) return translation;
@@ -326,7 +342,10 @@ export function t(key) {
   if (translation) return translation;
 
   translation = translateSpell(key);
+  if (translation && translation.indexOf('[[<---') !== 0) return translation;
+
+  translation = translateDamage(key);
   if (translation) return translation;
 
-  return 'Unknown translation';
+  return key;
 }

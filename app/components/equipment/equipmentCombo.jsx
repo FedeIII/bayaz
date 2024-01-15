@@ -52,7 +52,7 @@ export function EquipmentCombo(props) {
           />{' '}
           {combo.and.map((item, i, all) => (
             <>
-              <ItemWithInfo key={i} item={item} />
+              <ItemWithInfo key={i} item={item} pc={pc} />
               {i !== all.length - 1 && ', '}
             </>
           ))}
@@ -119,7 +119,7 @@ export function EquipmentCombo(props) {
           />{' '}
           {combo.map((item, i, all) => (
             <>
-              <ItemWithInfo key={i} item={item} />
+              <ItemWithInfo key={i} item={item} pc={pc} />
               {i !== all.length - 1 && ', '}
             </>
           ))}
@@ -155,7 +155,7 @@ export function EquipmentCombo(props) {
             id={`${combo.name}-${comboSection}`}
             value={[combo.name, combo.amount]}
           />{' '}
-          <ItemWithInfo item={combo} />
+          <ItemWithInfo item={combo} pc={pc} />
         </label>
       );
     } else if (combo.packName) {
@@ -188,7 +188,7 @@ export function EquipmentCombo(props) {
     if (combo.type)
       return (
         <li>
-          <ItemWithInfo item={combo} />
+          <ItemWithInfo item={combo} pc={pc} />
         </li>
       );
   } else {
@@ -200,7 +200,7 @@ export function EquipmentCombo(props) {
               {translateEquipment(combo.type)}
             </h3>
           )}
-          <ItemWithInfo item={combo} />
+          <ItemWithInfo item={combo} pc={pc} />
           <input
             readOnly
             type="text"

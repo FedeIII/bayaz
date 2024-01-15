@@ -14,6 +14,7 @@ import {
   getItemArmorClass,
   getStat,
   getStatMod,
+  getStats,
   getTotalAttackBonus,
   hasToImproveAbilityScore,
   translateClass,
@@ -85,14 +86,30 @@ export function listItems(items) {
 }
 
 export function ItemWithInfo(props) {
-  const { item } = props;
+  const { item, pc } = props;
   let info = itemWithAmount(item.translation, item.amount);
 
-  let propsInfo = null;
+  let propsInfo = '';
+
+  if (item.damage) {
+    propsInfo += `${item.damage[0]} ${t(item.damage[1])}`;
+  }
+
+  if (item.damage && item.properties) {
+    propsInfo += ', ';
+  }
+
   if (item.properties) {
-    propsInfo = Object.keys(item.properties)
-      .map(prop => t(prop))
-      .filter(translation => translation !== 'Unknown translation')
+    propsInfo += Object.entries(item.properties)
+      .map(([propName, propValue]) => {
+        if (typeof propValue === 'function') {
+          return `${t(propName)}: ${propValue(getStats(pc))}`;
+        }
+        if (typeof propValue !== 'boolean') {
+          return `${t(propName)}: ${propValue}`;
+        }
+        return t(propName);
+      })
       .join(', ');
   }
 
