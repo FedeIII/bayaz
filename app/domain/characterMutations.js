@@ -11,6 +11,7 @@ import {
   getPc,
   healPc,
   increaseItemAmount,
+  updateAttrsForClass,
   updatePc,
 } from '~/services/pc.server';
 import { rollDice } from '~/domain/random';
@@ -107,7 +108,7 @@ export async function spendHitDie(id, diceAmount, dieValue) {
 
 export async function longRest(id) {
   let pc = await getPc(id);
-  const { remainingHitDice, hitDice, magic } = pc;
+  const { remainingHitDice, hitDice, magic, pClass } = pc;
 
   let newRemainingHitDice =
     remainingHitDice + (hitDice / 2 >= 1 ? Math.floor(hitDice / 2) : 1);
@@ -120,6 +121,12 @@ export async function longRest(id) {
     magic: { ...magic, spentSpellSlots: Array(10).fill(0) },
   });
   pc = await healPc(id, Infinity);
+  if (pClass === 'paladin') {
+    pc = await updateAttrsForClass(id, 'paladin', {
+      layOnHands: pc.level * 5,
+      divineSense: 1 + getStatMod(getStat(pc, 'cha')),
+    });
+  }
 
   return pc;
 }

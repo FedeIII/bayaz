@@ -58,8 +58,9 @@ export const action = async ({ request }) => {
   invariant(typeof name === 'string', 'name must be a string');
 
   const spells = [];
-  if (race === 'elf' && subrace === 'drow')
+  if (race === 'elf' && subrace === 'drow') {
     spells.push(getSpell('dancingLights', 'sorcerer'));
+  }
 
   const pc = {
     npc: npc === 'on',

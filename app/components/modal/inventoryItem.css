@@ -201,6 +201,10 @@
   justify-content: center;
 }
 
+.inventory-item__modal-buttons--wide {
+  justify-content: space-evenly;
+}
+
 .inventory-item__modal-buttons-column {
   display: flex;
   justify-content: space-between;

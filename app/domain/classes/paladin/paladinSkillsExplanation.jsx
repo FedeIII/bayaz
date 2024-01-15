@@ -1,67 +1,139 @@
 import { Link } from '@remix-run/react';
 import { getStat, getStatMod } from '~/domain/characters';
 import { getSpellSavingThrow } from '~/domain/spells/spells';
-import { getPaladinFightingStyle, getSacredOath } from './paladin';
+import {
+  getDivineSense,
+  getLayOnHands,
+  getPaladinFightingStyle,
+  getSacredOath,
+} from './paladin';
 import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
 
 import styles from '~/components/modal/inventoryItem.css';
+import { useEffect, useState } from 'react';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
 export const PALADIN_SKILLS_EXPLANATION = {
-  divineSense: (skill, pc) => (
-    <>
-      <p>
-        Tus sentidos captan la presencia de un terrible mal como un nauseabundo
-        olor, y un bien poderoso resuena en tus oídos como música celestial.
-        Como acción, puedes expandir tus sentidos para detectar esas fuerzas.
-        Hasta el final de tu siguiente turno, conoces la localización de
-        cualquier ser celestial, demoníaco o muerto viviente en un rango de 60
-        pies (18 metros) o menos que no esté tras una cobertura total. Conoces
-        el tipo (celestial, demoníaco o muerto viviente) de cualquier criatura
-        que capten tus sentidos, pero no su identidad (el Conde vampiro Strahd
-        von Zarovich, por ejemplo). Dentro del mismo radio también puedes
-        detectar la presencia de cualquier objeto o lugar que haya sido
-        consagrado o profanado, como con el conjuro sacralizar
-      </p>
-      <p>
-        Puedes usar esta característica {1 + getStatMod(getStat(pc, 'cha'))}{' '}
-        veces: 1 + modificador de Carisma ({getStatMod(getStat(pc, 'cha'))}).
-        Cuando finalices un descanso prolongado recuperas todos los usos
-        gastados.
-      </p>
-    </>
-  ),
+  divineSense: (skill, pc, submit, closeModal) => {
+    function onDivineSenseClick(e) {
+      submit(
+        {
+          action: 'spendDivineSense',
+          id: pc.id,
+        },
+        { method: 'post' }
+      );
+      closeModal();
+    }
 
-  layOnHands: (skill, pc) => (
-    <>
-      <p>
-        Tu toque bendito puede curar heridas. Tienes una reserva de poder
-        curativo que se regenera cuando haces un descanso prolongado. Con esa
-        reserva puedes restaurar un número total de {pc.level * 5} HP igual a tu
-        nivel de paladín ({pc.level}) x 5.
-      </p>
-      <p>
-        Como una acción, puedes tocar a una criatura y utilizar poder de tu
-        reserva de curación para restaurar un número de Puntos de Golpe a esa
-        criatura igual hasta, como máximo, el máximo que tengas en tu reserva.
-      </p>
-      <p>
-        De forma alternativa, puedes{' '}
-        <u>gastar 5 puntos de tu reserva de curación</u>
-        para sanar al objetivo de una enfermedad o neutralizar un veneno que le
-        esté afectando. Puedes curar varias enfermedades y neutralizar
-        diferentes venenos con un solo uso de Imposición de manos, gastando
-        puntos de tu reserva de curación por separado para cada uno de ellos.
-      </p>
-      <p>
-        Esta característica no tiene efecto en los muertos vivientes y los
-        constructos.
-      </p>
-    </>
-  ),
+    const divineSense = getDivineSense(pc);
+
+    return (
+      <>
+        <p>
+          Tus sentidos captan la presencia de un terrible mal como un
+          nauseabundo olor, y un bien poderoso resuena en tus oídos como música
+          celestial. Como acción, puedes expandir tus sentidos para detectar
+          esas fuerzas. Hasta el final de tu siguiente turno, conoces la
+          localización de cualquier ser celestial, demoníaco o muerto viviente
+          en un rango de 60 pies (18 metros) o menos que no esté tras una
+          cobertura total. Conoces el tipo (celestial, demoníaco o muerto
+          viviente) de cualquier criatura que capten tus sentidos, pero no su
+          identidad (el Conde vampiro Strahd von Zarovich, por ejemplo). Dentro
+          del mismo radio también puedes detectar la presencia de cualquier
+          objeto o lugar que haya sido consagrado o profanado, como con el
+          conjuro sacralizar
+        </p>
+        <p>
+          Puedes usar esta característica {1 + getStatMod(getStat(pc, 'cha'))}{' '}
+          veces: 1 + modificador de Carisma ({getStatMod(getStat(pc, 'cha'))}).
+          Cuando finalices un descanso prolongado recuperas todos los usos
+          gastados.
+        </p>
+
+        <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
+          <span>Usos restantes: {divineSense}</span>
+          {divineSense > 0 && (
+            <button type="button" onClick={onDivineSenseClick}>
+              Gastar
+            </button>
+          )}
+        </div>
+      </>
+    );
+  },
+
+  layOnHands: (skill, pc, submit, closeModal) => {
+    const layOnHands = getLayOnHands(pc);
+    const [value, setValue] = useState(layOnHands);
+    useEffect(() => {
+      const newLayOnHands = getLayOnHands(pc);
+      setValue(newLayOnHands);
+    }, [pc]);
+
+    function onLayOnHandsChange(e) {
+      submit(
+        {
+          action: 'spendLayOnHands',
+          id: pc.id,
+          hp: value,
+        },
+        { method: 'post' }
+      );
+      closeModal();
+    }
+
+    return (
+      <>
+        <p>
+          Tu toque bendito puede curar heridas. Tienes una reserva de poder
+          curativo que se regenera cuando haces un descanso prolongado. Con esa
+          reserva puedes restaurar un número total de {pc.level * 5} HP igual a
+          tu nivel de paladín ({pc.level}) x 5.
+        </p>
+        <p>
+          Como una acción, puedes tocar a una criatura y utilizar poder de tu
+          reserva de curación para restaurar un número de Puntos de Golpe a esa
+          criatura igual hasta, como máximo, el máximo que tengas en tu reserva.
+        </p>
+        <p>
+          De forma alternativa, puedes{' '}
+          <u>gastar 5 puntos de tu reserva de curación</u>
+          para sanar al objetivo de una enfermedad o neutralizar un veneno que
+          le esté afectando. Puedes curar varias enfermedades y neutralizar
+          diferentes venenos con un solo uso de Imposición de manos, gastando
+          puntos de tu reserva de curación por separado para cada uno de ellos.
+        </p>
+        <p>
+          Esta característica no tiene efecto en los muertos vivientes y los
+          constructos.
+        </p>
+
+        <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
+          <span>HP restante: {layOnHands}</span>
+
+          <div>
+            <label>
+              <input
+                type="number"
+                defaultValue={layOnHands > 0 ? 1 : 0}
+                min="0"
+                max={layOnHands}
+                onChange={e => setValue(e.target.value)}
+              />{' '}
+              HP
+            </label>{' '}
+            <button type="button" onClick={onLayOnHandsChange}>
+              Gastar
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  },
 
   paladinFightingStyle: (skill, pc) => {
     const fightingStyle = getPaladinFightingStyle(pc);

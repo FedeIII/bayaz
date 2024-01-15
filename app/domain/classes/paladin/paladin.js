@@ -65,3 +65,11 @@ export function getSacredOathTraits(pc) {
     )
   ).filter(t => !!displayTrait(t[0], t[1], pc));
 }
+
+export function getLayOnHands(pc) {
+  return pc.classAttrs?.paladin?.layOnHands || 0;
+}
+
+export function getDivineSense(pc) {
+  return pc.classAttrs?.paladin?.divineSense || 0;
+}

@@ -140,7 +140,6 @@ function CombatAttrs(props) {
           trait="Dados de golpe"
           pc={pc}
           openModal={openSkillModal('remainingHitDice', 0)}
-          disabled={!isDm}
         >
           {getRemainingHitDice(pc)}
         </SkillItem>

@@ -1,5 +1,10 @@
 import { getStat, getStatMod } from '~/domain/characters';
-import { getPaladinFightingStyle, getSacredOath } from './paladin';
+import {
+  getDivineSense,
+  getLayOnHands,
+  getPaladinFightingStyle,
+  getSacredOath,
+} from './paladin';
 import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
 
@@ -19,20 +24,22 @@ export function displayPaladinTrait(traitName, trait, pc) {
             <u>{trait}.</u>
           </strong>{' '}
           <span className="app__small-text">
-            18m, {chaMod + 1} veces al día
+            18m, {getDivineSense(pc)} veces al día
           </span>
         </>
       );
 
-    case 'layOnHands':
+    case 'layOnHands': {
+      const layOnHands = getLayOnHands(pc);
       return (
         <>
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className="app__small-text">{pc.level * 5} HP</span>
+          <span className="app__small-text">{layOnHands} HP</span>
         </>
       );
+    }
 
     case 'paladinFightingStyle': {
       const fightingStyle = getPaladinFightingStyle(pc);
@@ -41,9 +48,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          {!fightingStyle && (
-            <span className="sheet__pending-trait">(!)</span>
-          )}
+          {!fightingStyle && <span className="sheet__pending-trait">(!)</span>}
           {!!fightingStyle && (
             <span className="app__small-text">
               {translateFightingStyle(fightingStyle)}

@@ -215,6 +215,8 @@ const monkSchema = new mongoose.Schema({
 const paladinSchema = new mongoose.Schema({
   fightingStyle: { type: String, enum: PALADIN_FIGHTING_STYLES },
   sacredOath: { type: String, enum: SACRED_OATHS },
+  layOnHands: Number,
+  divineSense: Number,
 });
 
 const rogueSchema = new mongoose.Schema({
@@ -1266,6 +1268,26 @@ export async function addLevelHitPoints(id, extraHitPoints) {
       $inc: { hitPoints: extraHitPoints, hitDice: 1, remainingHitDice: 1 },
     },
     { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function spendLayOnHands(id, hp) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    { $inc: { 'classAttrs.paladin.layOnHands': -hp } },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function spendDivineSense(id) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    { $inc: { 'classAttrs.paladin.divineSense': -1 } },
+    { new: true, upsert: true }
   ).exec();
 
   return updatedPc;

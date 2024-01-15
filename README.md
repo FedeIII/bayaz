@@ -53,6 +53,12 @@ npx prisma migrate dev
 
 ## TO DOsg
 
+- Spells cleric
+- NPCs in encounters
+- Cantrips high elf
+   - hints/modals
+   - mark in wizard class list
+- NPC groups
 - Change name of enemy in encounter (variations and proper nouns)
 - Magic items owners
   - on assignation create instance?

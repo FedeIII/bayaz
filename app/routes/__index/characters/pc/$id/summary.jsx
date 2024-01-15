@@ -19,6 +19,8 @@ import {
   updatePcName,
   dropEquipmentOther,
   changeEquipmentOtherAmount,
+  spendLayOnHands,
+  spendDivineSense,
 } from '~/services/pc.server';
 import {
   CLASSES,
@@ -342,6 +344,21 @@ async function updateTemporaryHitPoints(formData) {
   return updatedPc;
 }
 
+async function spendLayOnHandsAction(formData) {
+  const id = formData.get('id');
+  const hp = formData.get('hp');
+
+  const updatedPc = await spendLayOnHands(id, parseInt(hp, 10));
+
+  return updatedPc;
+}
+
+async function spendDivineSenseAction(formData) {
+  const id = formData.get('id');
+  const updatedPc = await spendDivineSense(id);
+  return updatedPc;
+}
+
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
@@ -398,6 +415,10 @@ export const action = async ({ request }) => {
     pc = await hitPointsChangeAction(formData);
   } else if (action === 'temporaryHitPointsChange') {
     pc = await updateTemporaryHitPoints(formData);
+  } else if (action === 'spendLayOnHands') {
+    pc = await spendLayOnHandsAction(formData);
+  } else if (action === 'spendDivineSense') {
+    pc = await spendDivineSenseAction(formData);
   }
 
   return json({ pc });

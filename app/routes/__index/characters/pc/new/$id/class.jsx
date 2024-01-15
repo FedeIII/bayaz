@@ -22,6 +22,8 @@ import {
   translateClass,
   SKILLS,
   getInitialHitPoints,
+  getStatMod,
+  getStat,
 } from '~/domain/characters';
 import BardSkills from '~/components/classSkillsSelection/bardSkills';
 import WarlockSkills from '~/components/classSkillsSelection/warlockSkills';
@@ -100,6 +102,13 @@ export const action = async ({ request }) => {
 
   if (sorcererOrigin || dragonAncestor)
     pcAttrs.classAttrs.sorcerer = { sorcererOrigin, dragonAncestor };
+
+  if (pc.pClass === 'paladin') {
+    pcAttrs.classAttrs.paladin = {
+      layOnHands: 5,
+      divineSense: 1 + getStatMod(getStat(pc, 'cha')),
+    };
+  }
 
   if (expertSkills.length) pcAttrs.classAttrs.expertSkills = expertSkills;
   if (languages.length) pcAttrs.languages = [...pc.languages, ...languages];
