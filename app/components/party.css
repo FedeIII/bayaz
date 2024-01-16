@@ -4,6 +4,21 @@
   align-items: stretch;
   border-radius: 10px;
   border: 1px groove white;
+  background-color: var(--color-base);
+  cursor: pointer;
+}
+
+.party:hover {
+  background-color: var(--color-light);
+}
+
+.party--with-name {
+  flex-direction: column;
+  padding: 16px;
+}
+
+.party--with-name .party__party-link {
+  width: calc(100% - 32px);
 }
 
 .party__character-list {
@@ -39,18 +54,18 @@
   flex-direction: column;
   text-decoration: none;
   color: white;
-  padding: 16px;
   width: 100%;
   background-color: #252937;
   align-items: stretch;
+  padding: 16px;
 }
 
 .party__party-link:hover {
-  background-color: #3d414f;
+  background-color: var(--color-xlight);
 }
 
 .party__party-link[data-selected='true'] {
-  background-color: #3d414f;
+  background-color: var(--color-xlight);
 }
 
 .party__party-link-list {
@@ -73,7 +88,7 @@
 }
 
 .party__character:hover {
-  background-color: #3d414f;
+  background-color: var(--color-xlight);
 }
 
 .party__select-character {

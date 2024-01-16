@@ -63,13 +63,39 @@ function getCapitalizedTitle(title) {
 }
 
 export function Title(props) {
+  const { className = '', tag = 'h1' } = props;
+
+  switch (tag) {
+    case 'h1':
+    default:
+      return (
+        <h1 className={`places__title ${className}`}>
+          <TitleContent {...props} />
+        </h1>
+      );
+    case 'h2':
+      return (
+        <h2 className={`places__title ${className}`}>
+          <TitleContent {...props} />
+        </h2>
+      );
+    case 'h3':
+      return (
+        <h3 className={`places__title ${className}`}>
+          <TitleContent {...props} />
+        </h3>
+      );
+  }
+}
+
+function TitleContent(props) {
   const {
     value,
     defaultValue,
     placeholder = false,
     onChange,
+    onBlur,
     inputName,
-    className = '',
     inputClass = '',
     onReroll,
   } = props;
@@ -84,12 +110,12 @@ export function Title(props) {
   const typeRef = useRef();
   useEffect(() => {
     if (showTypeInput) {
-      typeRef.current.focus();
+      typeRef.current?.focus();
     }
   }, [showTypeInput]);
 
   return (
-    <h1 className={`places__title ${className}`}>
+    <>
       {!!title && (
         <span
           style={{ display: showTypeInput ? 'none' : 'inline' }}
@@ -110,7 +136,12 @@ export function Title(props) {
               showInputHighlight ? 'places__title-input--empty' : ''
             }`}
             style={{ display: showTypeInput ? 'inline' : 'none' }}
-            onBlur={() => title && setShowTypeInput(false)}
+            onBlur={() => {
+              if (title) {
+                setShowTypeInput(false);
+              }
+              onBlur?.();
+            }}
             onChange={onChange}
           />
         ) : (
@@ -135,6 +166,6 @@ export function Title(props) {
           ⟳
         </span>
       )}
-    </h1>
+    </>
   );
 }

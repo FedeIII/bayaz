@@ -9,6 +9,8 @@ import {
   CLASSES,
   getLevelByXp,
   getMaxHitPoints,
+  CHARACTER_CLASSES,
+  CHARACTER_RACES,
 } from '~/domain/characters';
 import {
   DRAGON_ANCESTORS,
@@ -276,7 +278,7 @@ const pcSchema = new mongoose.Schema({
   name: String,
   race: {
     type: String,
-    enum: ['dwarf', 'elf', 'halfling', 'human', 'half-elf', 'half-orc'],
+    enum: CHARACTER_RACES,
   },
   subrace: {
     type: String,
@@ -293,20 +295,7 @@ const pcSchema = new mongoose.Schema({
   },
   pClass: {
     type: String,
-    enum: [
-      'barbarian',
-      'bard',
-      'cleric',
-      'druid',
-      'fighter',
-      'monk',
-      'paladin',
-      'ranger',
-      'rogue',
-      'sorcerer',
-      'warlock',
-      'wizard',
-    ],
+    enum: CHARACTER_CLASSES,
   },
   level: Number,
   levelReady: Number,

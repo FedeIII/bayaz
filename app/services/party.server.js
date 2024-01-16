@@ -19,16 +19,19 @@ const sessionSchema = new mongoose.Schema(
 
 const partySchema = new mongoose.Schema({
   id: String,
+  name: String,
   players: [String],
   sessions: [sessionSchema],
+  npcs: Boolean,
 });
 
 const Party = mongoose.models.Party || mongoose.model('Party', partySchema);
 
-export async function createParty(players) {
+export async function createParty(players, npcs = false) {
   const newParty = await Party.create({
     id: uuid(),
     players,
+    npcs,
   });
 
   return newParty;
@@ -36,6 +39,16 @@ export async function createParty(players) {
 
 export async function getParties() {
   const parties = await Party.find();
+  return parties;
+}
+
+export async function getPcParties() {
+  const parties = await Party.find({ npcs: false });
+  return parties;
+}
+
+export async function getNpcParties() {
+  const parties = await Party.find({ npcs: true });
   return parties;
 }
 
@@ -94,6 +107,12 @@ export async function addEventCompleted(
       },
     }
   );
+
+  return updatedParty;
+}
+
+export async function setPartyName(id, name) {
+  const updatedParty = await Party.findOneAndUpdate({ id }, { name });
 
   return updatedParty;
 }

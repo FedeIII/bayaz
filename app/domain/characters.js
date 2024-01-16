@@ -316,6 +316,8 @@ export const RACES = {
   },
 };
 
+export const CHARACTER_RACES = Object.keys(RACES);
+
 export const SUBRACES = {
   dwarf: ['hills', 'mountains'],
   elf: ['high', 'wood', 'drow'],
@@ -2238,9 +2240,7 @@ export const CLASSES = {
   },
 };
 
-export function getAllClasses() {
-  return Object.keys(CLASSES);
-}
+export const CHARACTER_CLASSES = Object.keys(CLASSES);
 
 export function getInitialHitPoints(pc) {
   const { pClass } = pc;

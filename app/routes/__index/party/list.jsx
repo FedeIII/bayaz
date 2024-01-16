@@ -2,13 +2,13 @@ import { json } from '@remix-run/node';
 import { useContext } from 'react';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
-import { getParties } from '~/services/party.server';
+import { getPcParties } from '~/services/party.server';
 import PartyContext from '~/components/contexts/partyContext';
 import { concurrentRequests } from '~/utils/concurrentRequests';
 import { getPc } from '~/services/pc.server';
 
 export const loader = async ({ params }) => {
-  const parties = await getParties();
+  const parties = await getPcParties();
   if (!parties) {
     throw new Error('Party not found');
   }

@@ -9,8 +9,11 @@ function NpcMenu() {
       <Link to="./quick" className="menus__main-option">
         <span className="menus__option-label">Crear NPC Rápido</span>
       </Link>
-      <Link to="" className="menus__main-option">
-        <span className="menus__option-label">/</span>
+      <Link to="./groups" className="menus__main-option">
+        <span className="menus__option-label">Grupos de NPCs</span>
+      </Link>
+      <Link to="./groups/new" className="menus__main-option">
+        <span className="menus__option-label">Crear grupo</span>
       </Link>
     </>
   );
