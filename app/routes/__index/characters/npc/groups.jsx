@@ -86,7 +86,7 @@ function NpcGroup(props) {
         onChange={e => setName(e.target.value)}
         onBlur={onNameChange}
       />
-      <Link to={`/party/${id}`} className="party__party-link">
+      <Link to={`/characters/npc/groups/${id}`} className="party__party-link">
         <ul className="party__party-members">
           {npcs.map(npc => (
             <li className="party__party-member" key={npc.name}>

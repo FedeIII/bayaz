@@ -40,7 +40,7 @@ import {
   getLoreSpells,
   getMagicalSecretsSpells,
 } from '~/domain/classes/bard/bard';
-import { resetSpellSlots, spendSpellSlot } from '~/domain/characterMutations';
+import { resetSpellSlots, spendSpellSlot } from '~/domain/mutations/characterMutations';
 import { isDm } from '~/domain/user';
 import { getSessionUser } from '~/services/session.server';
 import { translateSchool } from '~/domain/spells/spellTranslations';

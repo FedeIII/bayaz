@@ -72,11 +72,11 @@ export const action = async ({ request }) => {
     };
   });
 
-  const encounter = await createEncounter(
-    encounterGroup,
-    encounterName,
-    monsters
-  );
+  const encounter = await createEncounter({
+    group: encounterGroup,
+    name: encounterName,
+    monsters,
+  });
 
   return redirect(`/encounters/${encounter.id}`);
 };

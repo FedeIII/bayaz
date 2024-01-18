@@ -16,7 +16,7 @@ export const CharacterItem = forwardRef(function CharacterItem(props, ref) {
           }
         }}
       >
-        {character.translation}
+        {character.translation || character.name}
       </span>
     </>
   );

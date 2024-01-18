@@ -15,9 +15,9 @@ import {
   updatePc,
 } from '~/services/pc.server';
 import { rollDice } from '~/domain/random';
-import { getSpellSlots } from './spells/spells';
-import { getAnyItem, isAmmo, isArmor, isWeapon } from './equipment/equipment';
-import { isEquipmentItem } from './equipment/items';
+import { getSpellSlots } from '../spells/spells';
+import { getAnyItem, isAmmo, isArmor, isWeapon } from '../equipment/equipment';
+import { isEquipmentItem } from '../equipment/items';
 
 export async function setPcStats(pcParams) {
   const {

@@ -35,7 +35,7 @@ import { ItemModal } from '~/components/modal/itemModal';
 import { InventoryItem } from '~/components/modal/inventoryItem';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import { GrowBar } from '~/components/indicators/growBar';
-import { addItemToTreasure } from '~/domain/characterMutations';
+import { addItemToTreasure } from '~/domain/mutations/characterMutations';
 import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
 import { useSearchResults } from '~/components/hooks/useSearchResults';

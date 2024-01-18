@@ -10,7 +10,7 @@ import {
   translateStat,
   getStatRacialExtraPoints,
 } from '~/domain/characters';
-import { setPcStats } from '~/domain/characterMutations';
+import { setPcStats } from '~/domain/mutations/characterMutations';
 import { RandomStatValues } from '~/components/statSelection/randomStatValues';
 import { CustomStatValues } from '~/components/statSelection/customStatValues';
 import { RealDiceStatValues } from '~/components/statSelection/realDiceStatValues';

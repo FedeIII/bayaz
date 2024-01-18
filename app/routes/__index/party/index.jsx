@@ -9,8 +9,8 @@ function PartyMenu() {
       <Link to="list" className="menus__main-option">
         <span className="menus__option-label">Parties</span>
       </Link>
-      <Link to="" className="menus__main-option">
-        <span className="menus__option-label">/</span>
+      <Link to="/characters/npc/groups" className="menus__main-option">
+        <span className="menus__option-label">Grupos de NPCs</span>
       </Link>
     </>
   );

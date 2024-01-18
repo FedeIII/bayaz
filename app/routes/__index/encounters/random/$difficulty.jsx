@@ -41,7 +41,11 @@ export const action = async ({ request }) => {
     };
   });
 
-  const encounter = await createEncounter(partyId, monsters);
+  const encounter = await createEncounter({
+    //fix
+    partyId,
+    monsters,
+  });
 
   return redirect(`/party/${partyId}/encounters/${encounter.id}`);
 };

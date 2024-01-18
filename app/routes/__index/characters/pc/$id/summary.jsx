@@ -100,7 +100,7 @@ import {
   getRoguishArchetypeTraits,
   translateRoguishArchetype,
 } from '~/domain/classes/rogue/rogue';
-import { longRest, spendHitDie } from '~/domain/characterMutations';
+import { longRest, spendHitDie } from '~/domain/mutations/characterMutations';
 import Note from '~/components/note/note';
 import BasicAttrs from '~/components/summary/basicAttrs';
 import CombatAttrs from '~/components/summary/combatAttrs';

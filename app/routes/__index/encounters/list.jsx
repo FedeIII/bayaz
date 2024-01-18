@@ -65,7 +65,11 @@ function EncounterList() {
         return (
           <div className="encounterList__group">
             <span className="encounterList__group-name">
-              {group} <span>({xpByGroup[i]} xp)</span>
+              {!!group && group !== 'undefined' && (
+                <>
+                  {group} <span>({xpByGroup[i]} xp)</span>
+                </>
+              )}
             </span>
             <div className="cards encounterList__encounters">
               {encounters?.map(encounter => {

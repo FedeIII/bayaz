@@ -1,10 +1,11 @@
-import { json } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
 import { getPc } from '~/services/pc.server';
 import { getParty } from '~/services/party.server';
 import { translateClass, translateRace } from '~/domain/characters';
 import { concurrentRequests } from '~/utils/concurrentRequests';
+import { createNpcsEncounter } from '~/domain/mutations/partyMutations';
 
 import styles from '~/components/party.css';
 export const links = () => {
@@ -22,13 +23,30 @@ export const loader = async ({ params }) => {
   return json({ group, npcs });
 };
 
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+
+  const id = formData.get('id');
+  const name = formData.get('name');
+  const npcIds = formData.getAll('npcs[]');
+
+  const encounter = await createNpcsEncounter({
+    id,
+    name,
+    npcs: npcIds,
+  });
+
+  return redirect(`/encounters/${encounter.id}`);
+};
+
 function GroupInfo() {
   const { group, npcs } = useLoaderData();
-  const { id } = group;
+  const { id, name } = group;
 
   return (
     <Form method="post">
-      <input readOnly type="text" name="partyId" value={id} hidden />
+      <input readOnly type="text" name="id" value={id} hidden />
+      <input readOnly type="text" name="name" value={name} hidden />
       <h2>{group.name}</h2>
 
       <div className="party__party-section">
@@ -36,6 +54,7 @@ function GroupInfo() {
         <ul className="party__party-members-list">
           {npcs.map(npc => (
             <li className="party__character" key={npc.id}>
+              <input readOnly type="text" name="npcs[]" value={npc.id} hidden />
               <Link
                 to={`/characters/pc/${npc.id}/summary`}
                 className="party__party-link party__party-link-list"
@@ -54,6 +73,17 @@ function GroupInfo() {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="party__party-section">
+        <button
+          type="submit"
+          name="combat"
+          value="start"
+          className="cards__button-card"
+        >
+          Combate
+        </button>
       </div>
     </Form>
   );

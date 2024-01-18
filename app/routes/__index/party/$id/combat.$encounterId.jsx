@@ -24,7 +24,7 @@ import MonstersContext from '~/components/contexts/monstersContext';
 import { getMonsterPositionStyle } from '~/domain/encounters/encounters';
 import { getActiveSession } from '~/domain/party/party';
 import { getExtraArmorClass, getMaxHitPoints } from '~/domain/characters';
-import { damagePc } from '~/domain/characterMutations';
+import { damagePc } from '~/domain/mutations/characterMutations';
 import { MultiLevelBar } from '~/components/indicators/multiLevelBar';
 import { getAcBreakdown } from '~/domain/display';
 

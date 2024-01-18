@@ -416,3 +416,30 @@ function singleNpcToMonster(npc) {
 export function npcsToMonsters(npcs) {
   return npcs.map(singleNpcToMonster);
 }
+
+function hurtHP(npc) {
+  return getMaxHitPoints(npc) / 2;
+}
+
+export function isNpcHurt(npc) {
+  return npc.hitPoints < hurtHP(npc);
+}
+
+export function npcBadlyHurtHP(npc) {
+  return getMaxHitPoints(npc) / 5;
+}
+
+function isBadlyHurt(npc) {
+  return npc.hitPoints < npcBadlyHurtHP(npc);
+}
+
+function isDead(npc) {
+  return npc.hitPoints <= 0;
+}
+
+export function npcHealth(npc) {
+  if (isDead(npc)) return 'dead';
+  if (isBadlyHurt(npc)) return 'badlyHurt';
+  if (isNpcHurt(npc)) return 'hurt';
+  return 'alive';
+}
