@@ -53,9 +53,6 @@ npx prisma migrate dev
 
 ## TO DOsg
 
-- Kingdom for settlements
-- Productos del campo como comercio de ciudades
-- Race distribution for settlements
 - Change name of enemy in encounter (variations and proper nouns)
 - Magic items owners
   - on assignation create instance?

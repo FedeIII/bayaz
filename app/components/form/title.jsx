@@ -92,7 +92,7 @@ function TitleContent(props) {
   const {
     value,
     defaultValue,
-    placeholder = false,
+    placeholder,
     onChange,
     onBlur,
     inputName,
@@ -130,7 +130,7 @@ function TitleContent(props) {
             ref={typeRef}
             type="text"
             name={inputName}
-            placeholder={placeholder}
+            placeholder={placeholder || value}
             value={value}
             className={`places__title-input ${inputClass} ${
               showInputHighlight ? 'places__title-input--empty' : ''

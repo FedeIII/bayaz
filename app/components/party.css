@@ -21,6 +21,10 @@
   width: calc(100% - 32px);
 }
 
+.party__character-group {
+  margin: 16px 0 0;
+}
+
 .party__character-list {
   font-family: var(--font-family);
   list-style: none;

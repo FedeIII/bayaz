@@ -5,6 +5,7 @@ import { json, redirect } from '@remix-run/node';
 import {
   CITY,
   COMMERCE,
+  DOMINION_NAMES,
   GOVERNMENTS,
   GOVERNMENT_SITUATION,
   MAX_COMMERCES,
@@ -14,6 +15,7 @@ import {
   PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
+  SUBDOMINION_NAMES,
   TOWN,
   VILLAGE,
   getPopulation,
@@ -27,6 +29,7 @@ import {
   getSettlementRaceRelationships,
   getSettlementReligion,
   getSettlementSecurity,
+  getSubdominionNames,
   randomCommerce,
   randomDeityName,
   randomInnName,
@@ -75,7 +78,7 @@ function useAmount(array, randomElement, setNewArray, MAX = Infinity) {
 
 export const loader = async ({ params, request }) => {
   const url = new URL(request.url);
-  const rng = url.searchParams.get('rng');
+  let rng = url.searchParams.get('rng');
 
   let place;
   let files;
@@ -103,6 +106,8 @@ export const loader = async ({ params, request }) => {
     }
   }
 
+  if (!rng) rng = Math.random();
+
   return json({ place, id, typeParam: type, files, rng });
 };
 
@@ -114,6 +119,8 @@ export const action = async ({ request }) => {
     type: formData.get('type'),
     name: formData.get('name'),
     img: formData.get('img'),
+    dominion: formData.get('dominion'),
+    subdominion: formData.get('subdominion'),
     population: parseInt(formData.get('population'), 10),
     accommodation: formData.getAll('accommodation[]'),
     governmentType: formData.get('governmentType'),
@@ -162,6 +169,8 @@ function SettlementScreen() {
     type: typeParam,
     name: '',
     img: '',
+    dominion: '',
+    subdominion: '',
     population: 0,
     accommodation: [],
     government: [],
@@ -180,6 +189,8 @@ function SettlementScreen() {
     type,
     name,
     img,
+    dominion,
+    subdominion,
     population,
     accommodation = [],
     government,
@@ -188,7 +199,7 @@ function SettlementScreen() {
     commerces = [],
     religion = {},
     magicShops,
-    raceRelationships,
+    raceRelationships = '',
     placeCharacteristics,
     knownFor,
     calamity,
@@ -246,6 +257,8 @@ function SettlementScreen() {
         type: typeParam || place.type,
         name: place.name,
         img: place.img,
+        dominion: place.dominion,
+        subdominion: place.subdominion,
         population: place.population,
         accommodation: place.accommodation,
         government: [place.government?.type, place.government?.situation],
@@ -290,6 +303,8 @@ function SettlementScreen() {
         name: randomSettlementName(),
         type: typeParam,
         img,
+        dominion: '',
+        subdominion: '',
         population,
         accommodation,
         government,
@@ -316,6 +331,14 @@ function SettlementScreen() {
 
   function onNameChange(e) {
     setPlaceState(p => ({ ...p, name: e.target.value }));
+  }
+
+  function onDominionChange(e) {
+    setPlaceState(p => ({ ...p, dominion: e.target.value }));
+  }
+
+  function onSubdominionChange(e) {
+    setPlaceState(p => ({ ...p, subdominion: e.target.value }));
   }
 
   function onPopulationChange(e) {
@@ -428,7 +451,7 @@ function SettlementScreen() {
         <button type="submit" className="places__save">
           ⇧ Guardar
         </button>
-        <Link to={`./?rng=${Math.random()}`} className="menus__back-button">
+        <Link to={`./?rng=${rng}`} className="menus__back-button">
           ⇩ Nuevo
         </Link>
         <Link to={`players`} target="_blank" className="places__save">
@@ -458,7 +481,57 @@ function SettlementScreen() {
 
             <hr className="places__section-divider" />
             <div className="places__subtitle">
-              <span>Ciudad</span>
+              <span>
+                <select
+                  type="text"
+                  name="dominion"
+                  value={dominion}
+                  onChange={onDominionChange}
+                  className="places__trait-select"
+                >
+                  <option value="">-</option>
+                  {DOMINION_NAMES.map(domName => (
+                    <option key={domName} value={domName}>
+                      {t(domName)}
+                    </option>
+                  ))}
+                </select>
+              </span>
+              <span>
+                <label for="subdominion">
+                  Search subdominion:{' '}
+                  <input
+                    list="subdominion"
+                    name="subdominion"
+                    type="text"
+                    className="places__trait-select"
+                    value={subdominion}
+                    onChange={onSubdominionChange}
+                  />
+                </label>
+                <datalist id="subdominion">
+                  {getSubdominionNames(dominion).map(domName => (
+                    <option key={domName} value={domName}>
+                      {domName}
+                    </option>
+                  ))}
+                </datalist>
+              </span>
+              {/* <span>
+                <span className="places__trait-title">Población:</span> ≈
+                <input
+                  type="number"
+                  name="population"
+                  value={population}
+                  onChange={onPopulationChange}
+                  className="places__trait-input places__trait-input--number-4"
+                />
+              </span> */}
+            </div>
+
+            <hr className="places__section-divider" />
+            <div className="places__subtitle">
+              <span>{t(type)}</span>
               <span>
                 <span className="places__trait-title">Población:</span> ≈
                 <input
@@ -474,7 +547,7 @@ function SettlementScreen() {
             <hr className="places__section-divider" />
             <div className="places__trait">
               <div className="places__trait-header">
-                <span className="places__trait-title">Alojamientos:</span>
+                <span className="places__trait-title">Tabernas:</span>
                 <div className="places__trait-modifiers">
                   <button
                     type="button"
@@ -621,182 +694,160 @@ function SettlementScreen() {
               </span>
             </div>
 
-            {!!(religion.temples?.length || religion.shrines?.length) && (
-              <>
-                <hr className="places__section-divider" />
-                <div className="places__trait">
-                  <span className="places__trait-title">Religión:</span>{' '}
-                  <div className="places__vertical-sections">
-                    <ul className="places__trait-list">
-                      Templos:{' '}
-                      <span className="places__trait-modifiers">
-                        <button
-                          type="button"
-                          className="places__trait-button"
-                          onClick={reduceTemplesAmount}
-                        >
-                          -
-                        </button>
-                        <button
-                          type="button"
-                          className="places__trait-button"
-                          onClick={increaseTemplesAmount}
-                        >
-                          +
-                        </button>
-                      </span>
-                      {(religion?.temples || []).map((deityName, i) => (
-                        <li key={i}>
-                          <input
-                            type="text"
-                            name="temples[]"
-                            value={deityName}
-                            onChange={e => onTempleNameChange(i, e)}
-                            className="places__trait-input"
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                    <ul className="places__trait-list">
-                      Santuarios:{' '}
-                      <span className="places__trait-modifiers">
-                        <button
-                          type="button"
-                          className="places__trait-button"
-                          onClick={reduceShrinesAmount}
-                        >
-                          -
-                        </button>
-                        <button
-                          type="button"
-                          className="places__trait-button"
-                          onClick={increaseShrinesAmount}
-                        >
-                          +
-                        </button>
-                      </span>
-                      {(religion?.shrines || []).map((deityName, i) => (
-                        <li key={i}>
-                          <input
-                            type="text"
-                            name="shrines[]"
-                            value={deityName}
-                            onChange={e => onShrineNameChange(i, e)}
-                            className="places__trait-input"
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {!!raceRelationships && (
-              <>
-                <hr className="places__section-divider" />
-                <div className="places__trait">
-                  <span>
-                    <span className="places__trait-title">
-                      Relaciones entre razas:
-                    </span>{' '}
-                    <select
-                      type="text"
-                      name="raceRelationships"
-                      value={raceRelationships}
-                      onChange={onRaceRelationshipsChange}
-                      className="places__trait-select"
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span className="places__trait-title">Religión:</span>{' '}
+              <div className="places__vertical-sections">
+                <ul className="places__trait-list">
+                  Templos:{' '}
+                  <span className="places__trait-modifiers">
+                    <button
+                      type="button"
+                      className="places__trait-button"
+                      onClick={reduceTemplesAmount}
                     >
-                      <option value="">-</option>
-                      {RACE_RELATIONSHIPS.map(([_, raceRel]) => (
-                        <option key={raceRel} value={raceRel}>
-                          {raceRel}
-                        </option>
-                      ))}
-                    </select>
-                  </span>
-                </div>
-              </>
-            )}
-
-            {!!placeCharacteristics && (
-              <>
-                <hr className="places__section-divider" />
-                <div className="places__trait">
-                  <span>
-                    <span className="places__trait-title">
-                      Características destacadas:
-                    </span>{' '}
-                    <select
-                      type="text"
-                      name="placeCharacteristics"
-                      value={placeCharacteristics}
-                      onChange={onPlaceCharacteristicsChange}
-                      className="places__trait-select"
+                      -
+                    </button>
+                    <button
+                      type="button"
+                      className="places__trait-button"
+                      onClick={increaseTemplesAmount}
                     >
-                      <option value="">-</option>
-                      {PLACE_CHARACTERISTICS.map(placeChar => (
-                        <option key={placeChar} value={placeChar}>
-                          {placeChar}
-                        </option>
-                      ))}
-                    </select>
+                      +
+                    </button>
                   </span>
-                </div>
-              </>
-            )}
-
-            {!!knownFor && (
-              <>
-                <hr className="places__section-divider" />
-                <div className="places__trait">
-                  <span>
-                    <span className="places__trait-title">Conocido por:</span>{' '}
-                    <select
-                      type="text"
-                      name="knownFor"
-                      value={knownFor}
-                      onChange={onKnownForChange}
-                      className="places__trait-select"
+                  {(religion?.temples || []).map((deityName, i) => (
+                    <li key={i}>
+                      <input
+                        type="text"
+                        name="temples[]"
+                        value={deityName}
+                        onChange={e => onTempleNameChange(i, e)}
+                        className="places__trait-input"
+                      />
+                    </li>
+                  ))}
+                </ul>
+                <ul className="places__trait-list">
+                  Santuarios:{' '}
+                  <span className="places__trait-modifiers">
+                    <button
+                      type="button"
+                      className="places__trait-button"
+                      onClick={reduceShrinesAmount}
                     >
-                      <option value="">-</option>
-                      {PLACE_KNOWN_FOR.map(kF => (
-                        <option key={kF} value={kF}>
-                          {kF}
-                        </option>
-                      ))}
-                    </select>
-                  </span>
-                </div>
-              </>
-            )}
-
-            {!!calamity && (
-              <>
-                <hr className="places__section-divider" />
-                <div className="places__trait">
-                  <span>
-                    <span className="places__trait-title">
-                      Desgracia actual:
-                    </span>{' '}
-                    <select
-                      type="text"
-                      name="calamity"
-                      value={calamity}
-                      onChange={onCalamityChange}
-                      className="places__trait-select"
+                      -
+                    </button>
+                    <button
+                      type="button"
+                      className="places__trait-button"
+                      onClick={increaseShrinesAmount}
                     >
-                      <option value="">-</option>
-                      {PLACE_CALAMITY.map(([_, calam]) => (
-                        <option key={calam} value={calam}>
-                          {calam}
-                        </option>
-                      ))}
-                    </select>
+                      +
+                    </button>
                   </span>
-                </div>
-              </>
-            )}
+                  {(religion?.shrines || []).map((deityName, i) => (
+                    <li key={i}>
+                      <input
+                        type="text"
+                        name="shrines[]"
+                        value={deityName}
+                        onChange={e => onShrineNameChange(i, e)}
+                        className="places__trait-input"
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span>
+                <span className="places__trait-title">
+                  Relaciones entre razas:
+                </span>{' '}
+                <select
+                  type="text"
+                  name="raceRelationships"
+                  value={raceRelationships}
+                  onChange={onRaceRelationshipsChange}
+                  className="places__trait-select"
+                >
+                  <option value="">-</option>
+                  {RACE_RELATIONSHIPS.map(([_, raceRel]) => (
+                    <option key={raceRel} value={raceRel}>
+                      {raceRel}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            </div>
+
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span>
+                <span className="places__trait-title">
+                  Características destacadas:
+                </span>{' '}
+                <select
+                  type="text"
+                  name="placeCharacteristics"
+                  value={placeCharacteristics}
+                  onChange={onPlaceCharacteristicsChange}
+                  className="places__trait-select"
+                >
+                  <option value="">-</option>
+                  {PLACE_CHARACTERISTICS.map(placeChar => (
+                    <option key={placeChar} value={placeChar}>
+                      {placeChar}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            </div>
+
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span>
+                <span className="places__trait-title">Conocido por:</span>{' '}
+                <select
+                  type="text"
+                  name="knownFor"
+                  value={knownFor}
+                  onChange={onKnownForChange}
+                  className="places__trait-select"
+                >
+                  <option value="">-</option>
+                  {PLACE_KNOWN_FOR.map(kF => (
+                    <option key={kF} value={kF}>
+                      {kF}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            </div>
+
+            <hr className="places__section-divider" />
+            <div className="places__trait">
+              <span>
+                <span className="places__trait-title">Desgracia actual:</span>{' '}
+                <select
+                  type="text"
+                  name="calamity"
+                  value={calamity}
+                  onChange={onCalamityChange}
+                  className="places__trait-select"
+                >
+                  <option value="">-</option>
+                  {PLACE_CALAMITY.map(([_, calam]) => (
+                    <option key={calam} value={calam}>
+                      {calam}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            </div>
           </div>
         </div>
 

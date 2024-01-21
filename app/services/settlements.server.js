@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import {
   COMMERCE,
+  DOMINION_NAMES,
   GOVERNMENTS,
   GOVERNMENT_SITUATION,
   PLACE_CALAMITY,
@@ -38,6 +39,8 @@ const settlementSchema = new mongoose.Schema({
   placeCharacteristics: { type: String, enum: PLACE_CHARACTERISTICS },
   knownFor: { type: String, enum: PLACE_KNOWN_FOR },
   calamity: { type: String, enum: PLACE_CALAMITY.map(a => a[1]) },
+  dominion: { type: String, enum: DOMINION_NAMES },
+  subdominion: String,
   notes: String,
 });
 
@@ -50,6 +53,8 @@ function attrToSchema(attrs) {
   if (attrs.name) newAttrs.name = attrs.name;
   if (attrs.img) newAttrs.img = attrs.img;
   if (attrs.population) newAttrs.population = attrs.population;
+  if (attrs.dominion) newAttrs.dominion = attrs.dominion;
+  if (attrs.subdominion) newAttrs.subdominion = attrs.subdominion;
   if (attrs.accommodation) newAttrs.accommodation = attrs.accommodation;
   if (attrs.governmentType)
     newAttrs.government = {

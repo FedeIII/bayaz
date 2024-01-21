@@ -85,6 +85,7 @@ export function t(key) {
     STEELWORK: 'Herrería',
     MAGIC: 'Magia',
     MINING: 'Minería',
+    AGRICULTURE: 'Agricultura/ganadería',
 
     // Items
     simpleWeapons: 'Armas simples',
@@ -333,6 +334,15 @@ export function t(key) {
     int: 'Inteligencia',
     wis: 'Sabiduría',
     cha: 'Carisma',
+
+    // Dominions
+    central_dominion: 'Dominio Central',
+    human_dominion: 'Dominio Humano',
+    dwarven_dominion: 'Dominio Enano',
+    elven_dominion: 'Dominio Élfico',
+    wildlands_north: 'Tierras salvajes del Norte',
+    wildlands_south: 'Tierras salvajes del Sur',
+    forgotten_dominions: 'Dominios Olvidados',
   }[key];
 
   if (translation) return translation;

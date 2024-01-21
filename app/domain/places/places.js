@@ -59,6 +59,49 @@ export const CITY = {
   magicShops: [0, 3],
 };
 
+export const DOMINIONS = {
+  central_dominion: [
+    'Enclave del Mithril',
+    'Soberanía del Hierro',
+    'Precinto del Oro',
+  ],
+  human_dominion: [
+    'Feudo de Ultramar',
+    'Puertos Humanos',
+    'Reino de los Campos',
+    'Tierra de Sangre',
+    'Marcas de la Frontera',
+  ],
+  dwarven_dominion: [
+    'Dominio de las Colinas',
+    'Corazón de Piedra',
+    'Enclave de la Montaña',
+    'Cordillera Norte',
+  ],
+  elven_dominion: [
+    'Celembrin Lantëa', // Costa Noble
+    'Táriel', // Magic
+    'Elendëon Ëalëa', // Soberanía de los Guerreros
+    'Loth Taurëon', // Dominio del Bosque
+    'Aëlinthil', // Reinos de Aelinthor
+    'Nestalëa', // Feudo de Ultramar
+  ],
+  wildlands_north: ['Colinas Salvajes', 'Bosques Olvidados'],
+  wildlands_south: ['Desierto Rogrok', 'Durnar Drak'],
+  forgotten_dominions: [],
+};
+
+export const DOMINION_NAMES = Object.keys(DOMINIONS);
+export const SUBDOMINION_NAMES = Object.values(DOMINIONS).reduce(
+  (names, subdomains) => [...names, ...subdomains]
+);
+
+export function getSubdominionNames(dominion) {
+  return DOMINIONS[dominion] || [];
+}
+
+export const SUBDOMINIONS = ['', 'hierro', 'oro'];
+
 export function getPopulation(PLACE) {
   const population = random.uniform(...PLACE.population);
   return random.roundTo(PLACE.roundPopulation, population);
@@ -71,6 +114,7 @@ export const COMMERCE = [
   [10, 'STEELWORK'],
   [2, 'MAGIC'],
   [5, 'MINING'],
+  [10, 'AGRICULTURE'],
 ];
 
 export const MAX_COMMERCES = 4;
@@ -463,4 +507,28 @@ export function getSettlementCalamity(type) {
     town: getTownCalamity,
     city: getCityCalamity,
   }[type]();
+}
+
+export function classifySettlementsByDomains(settlements) {
+  const classifiedSettlements = settlements.reduce((classified, settlement) => {
+    const { dominion } = settlement;
+
+    if (classified[dominion]) {
+      classified[dominion].push(settlement);
+    } else {
+      classified[dominion] = [settlement];
+    }
+
+    return classified;
+  }, {});
+
+  return Object.entries(classifiedSettlements).reduce(
+    (sortedSettlements, [dominion, settlements]) => ({
+      ...sortedSettlements,
+      [dominion]: settlements.sort((a, b) =>
+        a.subdominion > b.subdominion ? -1 : 1
+      ),
+    }),
+    {}
+  );
 }

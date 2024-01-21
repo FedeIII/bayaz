@@ -5,6 +5,8 @@ import { t } from '~/domain/translations';
 import { json } from '@remix-run/node';
 
 import styles from '~/components/party.css';
+import { classifySettlementsByDomains } from '~/domain/places/places';
+import { Card } from '~/components/cards/card';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
@@ -16,11 +18,13 @@ export const loader = async ({ request }) => {
     throw new Error('Settlements not found');
   }
 
-  return json({ settlements });
+  return json({
+    settlementsByDomain: classifySettlementsByDomains(settlements),
+  });
 };
 
 function PlacesList() {
-  const { settlements } = useLoaderData();
+  const { settlementsByDomain } = useLoaderData();
 
   return (
     <>
@@ -28,34 +32,30 @@ function PlacesList() {
         {'<<'} Volver
       </Link>
 
-      <ul className="party__character-list">
-        {settlements.map(settlement => (
-          <li className="party__character" key={settlement.name}>
-            <Link
-              to={`/places/settlement/${settlement.id}`}
-              className="party__pc-link"
-            >
-              <div className="party__character-name">{settlement.name}</div>
-              <div className="party__party-data">{t(settlement.type)}</div>
-              <div className="party__party-data">
-                {settlement.population} habitantes
-              </div>
-              <div className="party__party-data">
-                Dioses:{' '}
-                {Object.entries(settlement.religion)
-                  .reduce(
-                    (gods, [listName, list]) =>
-                      listName === 'temples' || listName === 'shrines'
-                        ? [...gods, ...list]
-                        : gods,
-                    []
-                  )
-                  .join(', ')}
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {Object.entries(settlementsByDomain).map(([dominion, settlements]) => (
+        <>
+          <h3 className="party__character-group">{t(dominion)}</h3>
+          <ul className="party__character-list">
+            {settlements.map(settlement => (
+              <li className="party__character" key={settlement.name}>
+                <Link
+                  to={`/places/settlement/${settlement.id}`}
+                  className="party__pc-link"
+                >
+                  <div className="party__character-name">{settlement.name}</div>
+                  <div className="party__party-data">{t(settlement.type)}</div>
+                  <div className="party__party-data">
+                    {settlement.population} habitantes
+                  </div>
+                  <div className="party__party-data">
+                    {settlement.subdominion}
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+      ))}
     </>
   );
 }
