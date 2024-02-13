@@ -3811,7 +3811,15 @@ export const MONSTER_DETAILS_LIST = {
     notes: 'Large undead, lawful evil',
   },
   Nothic: {
-    actions: {},
+    actions: {
+      ['Ataque múltiple']: 'Ataca dos veces con sus garras',
+      Garras:
+        '<em>Ataque con arma de cuerpo a cuerpo</em>: +4 a impactar, alcance 1.5m, un objetivo. <em>Impacto</em>: 6 (1d6 + 3) daño cortante',
+      ['Mirada putrescente']:
+        'El nótico elige una criatura que se encuentre a 10m o menos y que pueda ver. El objetivo deberá tener éxito en una tirada de salvación de Constitución CD 12, o sufrirá 10 (3d6) de daño necrótico',
+      ['Intuición sobrecogedora']:
+        'El nótico elige a una criatura situada a 10m o menos y pueda ver. Deberá hacerse una tirada enfrentada entre el Carisma (Engaño) del objetivo y la Sabiduría (Perspicacia) del nótico. Si gana este último, aprenderá mágicamente un dato o un secreto de la criatura. El objetivo ganará automáticamente si es inmune al estado hechizado.',
+    },
     legendaryActions: {},
     'Armor Class': '15 (natural armor)',
     'Hit Points': '45 (6d8 + 18)',
@@ -3820,6 +3828,8 @@ export const MONSTER_DETAILS_LIST = {
     Senses: 'truesight 120 ft., passive Perception 12',
     Languages: 'Undercommon',
     Challenge: '2 (450 XP)',
+    ['Vista Aguda']:
+      'El nótico tiene ventaja en las pruebas de Sabiduría (Percepción) que dependan de la vista',
     stats: {
       str: '14',
       dex: '16',
