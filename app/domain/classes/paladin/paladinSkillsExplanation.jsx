@@ -68,11 +68,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
 
   layOnHands: (skill, pc, submit, closeModal) => {
     const layOnHands = getLayOnHands(pc);
-    const [value, setValue] = useState(layOnHands);
-    useEffect(() => {
-      const newLayOnHands = getLayOnHands(pc);
-      setValue(newLayOnHands);
-    }, [pc]);
+    const [value, setValue] = useState(layOnHands > 0 ? 1 : 0);
 
     function onLayOnHandsChange(e) {
       submit(
@@ -86,13 +82,22 @@ export const PALADIN_SKILLS_EXPLANATION = {
       closeModal();
     }
 
+    return PALADIN_SKILLS_EXPLANATION.layOnHands_text(
+      pc.level,
+      layOnHands,
+      setValue,
+      onLayOnHandsChange
+    );
+  },
+
+  layOnHands_text: (level, layOnHands, setValue, onLayOnHandsChange) => {
     return (
       <>
         <p>
           Tu toque bendito puede curar heridas. Tienes una reserva de poder
           curativo que se regenera cuando haces un descanso prolongado. Con esa
-          reserva puedes restaurar un número total de {pc.level * 5} HP igual a
-          tu nivel de paladín ({pc.level}) x 5.
+          reserva puedes restaurar un número total de {level * 5} HP igual a tu
+          nivel de paladín ({level}) x 5.
         </p>
         <p>
           Como una acción, puedes tocar a una criatura y utilizar poder de tu
@@ -112,25 +117,27 @@ export const PALADIN_SKILLS_EXPLANATION = {
           constructos.
         </p>
 
-        <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
-          <span>HP restante: {layOnHands}</span>
+        {!!(setValue && onLayOnHandsChange) && (
+          <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
+            <span>HP restante: {layOnHands}</span>
 
-          <div>
-            <label>
-              <input
-                type="number"
-                defaultValue={layOnHands > 0 ? 1 : 0}
-                min="0"
-                max={layOnHands}
-                onChange={e => setValue(e.target.value)}
-              />{' '}
-              HP
-            </label>{' '}
-            <button type="button" onClick={onLayOnHandsChange}>
-              Gastar
-            </button>
+            <div>
+              <label>
+                <input
+                  type="number"
+                  defaultValue={layOnHands > 0 ? 1 : 0}
+                  min="0"
+                  max={layOnHands}
+                  onChange={e => setValue(e.target.value)}
+                />{' '}
+                HP
+              </label>{' '}
+              <button type="button" onClick={onLayOnHandsChange}>
+                Gastar
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </>
     );
   },

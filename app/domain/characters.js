@@ -3050,6 +3050,51 @@ export function getLevelByXp(exp) {
   return EXP_FOR_LEVEL.findIndex(xp => xp > exp);
 }
 
+export function getSkillExplanationText({
+  skillName,
+  skill,
+  pc,
+  submit,
+  closeModal,
+  skillIndex,
+  position,
+  isDm,
+  actions,
+}) {
+  const skillExplanationGetters = {
+    ...SKILLS_EXPLANATION,
+    ...BACKGROUND_SKILLS_EXPLANATION,
+    ...BARBARIAN_SKILLS_EXPLANATION,
+    ...BARD_SKILLS_EXPLANATION,
+    ...WARLOCK_SKILLS_EXPLANATION,
+    ...CLERIC_SKILLS_EXPLANATION,
+    ...DRUID_SKILLS_EXPLANATION,
+    ...RANGER_SKILLS_EXPLANATION,
+    ...FIGHTER_SKILLS_EXPLANATION,
+    ...SORCERER_SKILLS_EXPLANATION,
+    ...WIZARD_SKILLS_EXPLANATION,
+    ...MONK_SKILLS_EXPLANATION,
+    ...elementalDisciplineExplanation(skillName),
+    ...PALADIN_SKILLS_EXPLANATION,
+    ...ROGUE_SKILLS_EXPLANATION,
+  };
+  const getExplanation =
+    skillExplanationGetters[skillName + '_text'] ||
+    skillExplanationGetters[skillName];
+  return (
+    getExplanation?.(
+      skill,
+      pc,
+      submit,
+      closeModal,
+      skillIndex,
+      position,
+      isDm,
+      actions
+    ) || skill
+  );
+}
+
 export function getSkillExplanation({
   skillName,
   skill,

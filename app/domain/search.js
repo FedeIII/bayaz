@@ -1,4 +1,8 @@
-import { ALL_TRAITS, BASE_CHARACTER, getSkillExplanation } from './characters';
+import {
+  ALL_TRAITS,
+  BASE_CHARACTER,
+  getSkillExplanationText,
+} from './characters';
 import { MONSTERS } from './encounters/monsterList';
 import { translateMonster } from './encounters/monsterTranslations';
 import { Monster, getSpecialSkills } from './encounters/monsters';
@@ -64,14 +68,12 @@ function getChildrenText(text, reactNode) {
 }
 
 function getExplanationText(traitName, trait) {
-  const text = getChildrenText(
-    `${trait}: `,
-    getSkillExplanation({
-      skillName: traitName,
-      skill: trait,
-      pc: BASE_CHARACTER,
-    })
-  );
+  const skillExplanation = getSkillExplanationText({
+    skillName: traitName,
+    skill: trait,
+    pc: BASE_CHARACTER,
+  });
+  const text = getChildrenText(`${trait}: `, skillExplanation);
   return text;
 }
 
