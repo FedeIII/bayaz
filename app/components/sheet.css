@@ -20,7 +20,7 @@
     /* 08 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   mit .   .  ' /* 08 */
     /* 09 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   ity ity ity .  ' /* 09 */
     /* 10 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   ity ity ity .  ' /* 10 */
-    /* 11 */ '.   str .   .   .   pAC .   .   .   .   spe .   .   ity ity ity .  ' /* 11 */
+    /* 11 */ '.   str .   .   .   pAC .   .   ini .   spe .   .   ity ity ity .  ' /* 11 */
     /* 12 */ '.   str .   pro .   .   .   .   .   .   .   .   .   ity ity ity .  ' /* 12 */
     /* 13 */ '.   .   .   pro .   .   .   .   .   .   .   .   .   ity ity ity .  ' /* 13 */
     /* 14 */ '.   stM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 14 */
@@ -327,6 +327,30 @@
   align-items: flex-end;
   font-size: var(--font-size-xbig);
   line-height: 1.6;
+}
+
+.sheet__initiative {
+  grid-area: ini;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: var(--font-size-l);
+  line-height: 1;
+}
+
+.sheet__initiativeInput {
+  width: 100%;
+  position: absolute;
+  top: -20%;
+  bottom: -50%;
+  border: none;
+  text-align: center;
+  font-size: var(--font-size-xbig);
+  color: var(--color-blue-ink);
+}
+
+.sheet__initiativeInput::placeholder {
+  font-size: var(--font-size-l);
+  color: var(--color-x-blue-ink);
 }
 
 .sheet__extra-armor-class {

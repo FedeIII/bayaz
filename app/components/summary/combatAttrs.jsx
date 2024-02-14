@@ -7,6 +7,8 @@ import {
   getMaxHitPoints,
   getRemainingHitDice,
   getSpeed,
+  getStat,
+  getStatMod,
 } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import { SkillItem } from '../modal/skillItem';
@@ -22,11 +24,12 @@ function CombatAttrs(props) {
     pc,
     skillRefs,
     openSkillModal,
+    onPcInitiativeChange,
     onPcHitPointsChange,
     onTemporaryHitPointsChange,
     isDm,
   } = props;
-  const { hitPoints, temporaryHitPoints } = pc;
+  const { hitPoints, temporaryHitPoints, initiative } = pc;
 
   const [extraHitPoints, setExtraHitPoints] = useState(null);
   const [hitPointsState, setHitPointsState] = useState(hitPoints);
@@ -96,6 +99,16 @@ function CombatAttrs(props) {
           </span>
         </SkillItem>
       </div>
+      <span className="sheet__data sheet__initiative">
+        <input
+          type="text"
+          name="hitPoints"
+          onBlur={onPcInitiativeChange}
+          defaultValue={initiative || null}
+          placeholder={'1d20' + increment(getStatMod(getStat(pc, 'dex')))}
+          className="sheet__initiativeInput"
+        />
+      </span>
       <span className="sheet__data sheet__speed">{getSpeed(pc)}m</span>
       <span className="sheet__data sheet__max-hit-points">
         <SkillItem

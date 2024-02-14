@@ -313,6 +313,7 @@ const pcSchema = new mongoose.Schema({
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
 
   // COMBAT ATTRS
+  initiative: Number,
   speed: Number,
   totalHitPoints: [Number],
   hitPoints: Number,

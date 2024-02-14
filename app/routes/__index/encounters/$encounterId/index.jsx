@@ -174,6 +174,13 @@ function MonstersCombat(props) {
             <button
               type="button"
               className="encounters__damage-button cards__button-card"
+              onClick={() => {}}
+            >
+              Actualizar
+            </button>
+            <button
+              type="button"
+              className="encounters__damage-button cards__button-card"
               onClick={resetInitiatives}
             >
               Reiniciar
@@ -537,6 +544,13 @@ function NpcsCombat(props) {
       <div className="encounters__initiative-menu">
         <Card title="Iniciativa">
           <div className="encounters__initiative-buttons">
+            <button
+              type="button"
+              className="encounters__damage-button cards__button-card"
+              onClick={() => {}}
+            >
+              Actualizar
+            </button>
             <button
               type="button"
               className="encounters__damage-button cards__button-card"
@@ -917,15 +931,15 @@ function PartyCombat() {
 
   const [initiatives, setInitiatives] = useState({
     mobs: mobs.map(() => 0),
-    pcs: pcs.map(() => 0),
+    pcs: pcs.map(pc => pc.initiative || 0),
   });
 
   useEffect(() => {
     setInitiatives({
       mobs: mobs.map(() => 0),
-      pcs: pcs.map(() => 0),
+      pcs: pcs.map(pc => pc.initiative || 0),
     });
-  }, [mobs.length, pcs.length]);
+  }, [mobs.length, pcs.length, ...pcs.map(pc => pc.initiative)]);
 
   const initiativesList = useMemo(() => {
     return [

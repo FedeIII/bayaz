@@ -324,6 +324,14 @@ async function updateFreeTexts(formData) {
   return updatedPc;
 }
 
+async function initiativeChangeAction(formData) {
+  const id = formData.get('id');
+  const initiative = parseInt(formData.get('initiative'), 10) || 0;
+
+  const updatedPc = await updatePc({ id, initiative });
+  return updatedPc;
+}
+
 async function hitPointsChangeAction(formData) {
   const id = formData.get('id');
   const hitPoints = formData.get('hitPoints');
@@ -411,6 +419,8 @@ export const action = async ({ request }) => {
     return await updateNameAction(formData);
   } else if (action === 'freeTextChange') {
     pc = await updateFreeTexts(formData);
+  } else if (action === 'initiativeChange') {
+    pc = await initiativeChangeAction(formData);
   } else if (action === 'hitPointsChange') {
     pc = await hitPointsChangeAction(formData);
   } else if (action === 'temporaryHitPointsChange') {
@@ -521,6 +531,17 @@ function PcSummary() {
       );
       setSelectedNote(null);
     }
+  }
+
+  function onPcInitiativeChange(e) {
+    submit(
+      {
+        action: 'initiativeChange',
+        id: pc.id,
+        initiative: e.target.value,
+      },
+      { method: 'post' }
+    );
   }
 
   function onPcHitPointsChange(hitPoints) {
@@ -738,6 +759,7 @@ function PcSummary() {
           skillRefs={skillRefs}
           openSkillModal={openSkillModal}
           onTemporaryHitPointsChange={onTemporaryHitPointsChange}
+          onPcInitiativeChange={onPcInitiativeChange}
           onPcHitPointsChange={onPcHitPointsChange}
           isDm={isDm}
         />
