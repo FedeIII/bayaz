@@ -7,11 +7,14 @@ export default function usePcsFromSession() {
 
   const { partyIdState, pcIdsState } = useContext(PartyContext) || {};
   const [pcs, setPcs] = useState([]);
+  const [refetch, setRefetch] = useState(true);
+
   useEffect(() => {
-    if (pcIdsState?.length) {
+    if (pcIdsState?.length && refetch) {
       fetcher.load(`/pcs?pcIdsState=${JSON.stringify(pcIdsState)}`);
+      setRefetch(false);
     }
-  }, [pcIdsState]);
+  }, [pcIdsState, refetch]);
 
   useEffect(() => {
     if (fetcher.data) {
@@ -19,5 +22,9 @@ export default function usePcsFromSession() {
     }
   }, [fetcher.data]);
 
-  return [pcs, partyIdState];
+  function updatePcs() {
+    setRefetch(true);
+  }
+
+  return [pcs, partyIdState, updatePcs];
 }

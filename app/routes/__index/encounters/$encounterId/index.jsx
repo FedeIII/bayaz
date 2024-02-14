@@ -156,11 +156,13 @@ function MonstersCombat(props) {
     setHover,
     resetInitiatives,
     setMobInitiatives,
+    pcs,
+    partyId,
+    updatePcs,
   } = props;
 
   const { encounter } = useLoaderData();
   const { id: encounterId, monsters: monstersStats } = encounter;
-  const [pcs, partyId] = usePcsFromSession();
 
   useTitle(`${encounter.group} - ${encounter.name}`);
 
@@ -174,7 +176,7 @@ function MonstersCombat(props) {
             <button
               type="button"
               className="encounters__damage-button cards__button-card"
-              onClick={() => {}}
+              onClick={updatePcs}
             >
               Actualizar
             </button>
@@ -529,11 +531,13 @@ function NpcsCombat(props) {
     setHover,
     resetInitiatives,
     setMobInitiatives,
+    pcs,
+    partyId,
+    updatePcs,
   } = props;
 
   const { encounter, npcs } = useLoaderData();
   const { id: encounterId } = encounter;
-  const [pcs, partyId] = usePcsFromSession();
 
   useTitle(encounter.name);
 
@@ -547,7 +551,7 @@ function NpcsCombat(props) {
             <button
               type="button"
               className="encounters__damage-button cards__button-card"
-              onClick={() => {}}
+              onClick={updatePcs}
             >
               Actualizar
             </button>
@@ -887,7 +891,7 @@ function NpcsCombat(props) {
 function PartyCombat() {
   const { encounter, npcs } = useLoaderData();
   const { id: encounterId, monsters } = encounter;
-  const [pcs, partyId] = usePcsFromSession();
+  const [pcs, partyId, updatePcs] = usePcsFromSession();
 
   const isNpcs = !!npcs?.length;
   const mobs = isNpcs ? npcs : monsters;
@@ -1020,6 +1024,9 @@ function PartyCombat() {
           setHover={setHover}
           resetInitiatives={resetInitiatives}
           setMobInitiatives={setMobInitiatives}
+          pcs={pcs}
+          partyId={partyId}
+          updatePcs={updatePcs}
         />
       )}
 
@@ -1034,6 +1041,9 @@ function PartyCombat() {
           setHover={setHover}
           resetInitiatives={resetInitiatives}
           setMobInitiatives={setMobInitiatives}
+          pcs={pcs}
+          partyId={partyId}
+          updatePcs={updatePcs}
         />
       )}
     </Form>
