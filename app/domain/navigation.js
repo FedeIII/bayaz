@@ -58,7 +58,8 @@ export function getAllMenuItems({
         (newItems, id, i) => [
           ...newItems,
           {
-            name: allPcNames[i],
+            header: allPcNames[i],
+            name: 'Principal',
             url: PATHS.summary(id),
             level: 1,
           },

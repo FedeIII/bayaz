@@ -63,6 +63,12 @@
   text-align: start;
 }
 
+.app__button-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-x-pale);
+  margin: 4px 0 0 14px;
+}
+
 .app__button {
   min-height: 32px;
   color: white;
