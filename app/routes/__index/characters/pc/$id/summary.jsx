@@ -125,6 +125,10 @@ export const links = () => {
   ];
 };
 
+export const meta = ({ data }) => ({
+  title: data.pc.name,
+});
+
 export const loader = async ({ request, params }) => {
   const pc = await getPc(params.id);
 
