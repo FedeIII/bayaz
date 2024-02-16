@@ -57,6 +57,10 @@
   overflow-y: none;
 }
 
+.app__content--fullscreen::-webkit-scrollbar {
+  display: none;
+}
+
 .app__button-shadow {
   width: 0%;
   border-radius: 50%;

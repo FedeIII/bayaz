@@ -63,7 +63,7 @@ export default function Index() {
         <SideBar menuItems={menuItems} location={location} />
         <div
           className={
-            hasMenu ? 'app__content' : 'app__content app__content--ful-screen'
+            hasMenu ? 'app__content' : 'app__content app__content--fullscreen'
           }
         >
           <Outlet />
