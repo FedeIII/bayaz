@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "655c0b4f205bc416f20278d7"
+  },
+  "id": "c6b6474a-f450-46c9-8e8a-f5991a863f90",
+  "type": "religious",
+  "typeTranslation": "Religioso",
+  "subtype": "spirit",
+  "subtypeTranslation": "Templo a Espíritu",
+  "variant": "Lujoso",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/buildings/temple/luxurious/ComfyUI_00194_.png",
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "655cb1cbc8a080f129e3d250"
+  },
+  "id": "02376a9f-7bd0-485e-994b-ece38baa3759",
+  "type": "religious",
+  "typeTranslation": "Religioso",
+  "subtype": "energy",
+  "subtypeTranslation": "Templo a Energía",
+  "variant": "Divino",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/buildings/temple/divine/ComfyUI_00213_.png",
+  "notes": "",
+  "__v": 0
+}]

@@ -1,0 +1,6870 @@
+[{
+  "_id": {
+    "$oid": "6561ef58c269a225cb62a1d3"
+  },
+  "name": "Estel",
+  "race": "half-elf",
+  "subrace": "subrace",
+  "pClass": "warlock",
+  "level": 1,
+  "exp": 0,
+  "userId": "da399bee-8d3e-4daa-b5e8-51bb796aff17",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "intimidation",
+    "religion"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "sling",
+        "amount": 1,
+        "_id": {
+          "$oid": "65620244398bc38abb8efc55"
+        }
+      },
+      {
+        "name": "sickle",
+        "amount": 1,
+        "_id": {
+          "$oid": "65620244398bc38abb8efc56"
+        }
+      },
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "65620244398bc38abb8efc57"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "65620244398bc38abb8efc54"
+        }
+      },
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "6562017888e3af21a870066b"
+          }
+        },
+        {
+          "name": "wand",
+          "amount": 1,
+          "_id": {
+            "$oid": "65620244398bc38abb8efc53"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [
+        {
+          "name": "dagger",
+          "amount": 1,
+          "_id": {
+            "$oid": "65620244398bc38abb8efc51"
+          }
+        }
+      ],
+      "armors": [],
+      "others": [
+        {
+          "name": "smallKnife",
+          "amount": 1,
+          "_id": {
+            "$oid": "6562017888e3af21a8700667"
+          }
+        },
+        {
+          "name": "cityMap",
+          "amount": 1,
+          "_id": {
+            "$oid": "6562017888e3af21a8700668"
+          }
+        },
+        {
+          "name": "petMouse",
+          "amount": 1,
+          "_id": {
+            "$oid": "6562017888e3af21a8700669"
+          }
+        },
+        {
+          "name": "parentsToken",
+          "amount": 1,
+          "_id": {
+            "$oid": "6562017888e3af21a870066a"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "dwarvish"
+  ],
+  "age": 26,
+  "height": 172,
+  "weight": 62,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "chillTouch",
+      "_id": {
+        "$oid": "6562015588e3af21a870063c"
+      }
+    },
+    {
+      "name": "trueStrike",
+      "_id": {
+        "$oid": "6562015588e3af21a870063d"
+      }
+    },
+    {
+      "name": "armsOfHadar",
+      "_id": {
+        "$oid": "6562015588e3af21a870063e"
+      }
+    },
+    {
+      "name": "burningHands",
+      "_id": {
+        "$oid": "6562015588e3af21a870063f"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "6562017888e3af21a870066c"
+      }
+    },
+    {
+      "name": "thievesTools",
+      "amount": 1,
+      "_id": {
+        "$oid": "6562017888e3af21a870066d"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "chillTouch",
+      "_id": {
+        "$oid": "6562015588e3af21a8700647"
+      }
+    },
+    {
+      "name": "trueStrike",
+      "_id": {
+        "$oid": "6562015588e3af21a8700648"
+      }
+    },
+    {
+      "name": "armsOfHadar",
+      "_id": {
+        "$oid": "6562015588e3af21a8700649"
+      }
+    },
+    {
+      "name": "burningHands",
+      "_id": {
+        "$oid": "6562015588e3af21a870064a"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 0,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": 2,
+    "_id": {
+      "$oid": "6561f423b2e86802f026795d"
+    }
+  },
+  "halfElf": {
+    "skills": [
+      "deception",
+      "persuasion"
+    ],
+    "_id": {
+      "$oid": "6561f4acb2e86802f0267964"
+    },
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 1,
+      "int": 1,
+      "wis": 0,
+      "cha": 0
+    }
+  },
+  "stats": {
+    "str": 9,
+    "dex": 11,
+    "con": 14,
+    "int": 12,
+    "wis": 10,
+    "cha": 15,
+    "_id": {
+      "$oid": "6561f423b2e86802f026795e"
+    }
+  },
+  "hitPoints": 10,
+  "classAttrs": {
+    "warlock": {
+      "patron": "fiend",
+      "invocations": [],
+      "_id": {
+        "$oid": "6562015588e3af21a8700641"
+      },
+      "tomeSpells": [],
+      "tomeRituals": [],
+      "arcanum": []
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "6562015588e3af21a8700640"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "urchin",
+    "skills": [
+      "sleight-of-hand",
+      "stealth"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "6562017888e3af21a870066e"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 10,
+    "pp": 0
+  },
+  "pack": "scholars-pack",
+  "id": "8bc3837a-af18-450f-a4ce-8dd1bd36cc3c",
+  "freeText": {
+    "backstory": ""
+  },
+  "levelReady": 1
+},{
+  "_id": {
+    "$oid": "656334e33cd7863f7d931fe4"
+  },
+  "name": "Petra ",
+  "race": "halfling",
+  "subrace": "lightfoot",
+  "pClass": "rogue",
+  "level": 1,
+  "exp": 0,
+  "userId": "2d279bbb-79f9-4d6d-86d1-c2186ae54c6b",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "acrobatics",
+    "deception",
+    "investigation",
+    "stealth"
+  ],
+  "speed": 8,
+  "totalHitPoints": [
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "shortsword",
+        "amount": 1,
+        "_id": {
+          "$oid": "6574849c1dd4a3257e8584b0"
+        }
+      },
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "656339b84d3b30f969b15605"
+        }
+      },
+      {
+        "name": "shortbow",
+        "amount": 1,
+        "_id": {
+          "$oid": "65633938b26f8b1639cedb29"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "65633938b26f8b1639cedb26"
+        }
+      },
+      "shield": null,
+      "ammunition": [
+        {
+          "name": "arrows",
+          "amount": 20,
+          "_id": {
+            "$oid": "65633938b26f8b1639cedb25"
+          }
+        }
+      ],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "656338a54d3b30f969b155bd"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [
+        {
+          "name": "shortsword",
+          "amount": 1,
+          "_id": {
+            "$oid": "656339b74d3b30f969b155f5"
+          }
+        },
+        {
+          "name": "dagger",
+          "amount": 1,
+          "_id": {
+            "$oid": "6574849c1dd4a3257e8584cd"
+          }
+        }
+      ],
+      "armors": [],
+      "others": [
+        {
+          "name": "smallKnife",
+          "amount": 1,
+          "_id": {
+            "$oid": "656338a54d3b30f969b155b9"
+          }
+        },
+        {
+          "name": "cityMap",
+          "amount": 1,
+          "_id": {
+            "$oid": "656338a54d3b30f969b155ba"
+          }
+        },
+        {
+          "name": "petMouse",
+          "amount": 1,
+          "_id": {
+            "$oid": "656338a54d3b30f969b155bb"
+          }
+        },
+        {
+          "name": "parentsToken",
+          "amount": 1,
+          "_id": {
+            "$oid": "656338a54d3b30f969b155bc"
+          }
+        },
+        {
+          "name": "thievesTools",
+          "amount": 1,
+          "_id": {
+            "$oid": "65633938b26f8b1639cedb22"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "halfling",
+    "thieves-cant"
+  ],
+  "age": 40,
+  "height": 95,
+  "weight": 18,
+  "size": "S",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "656338a54d3b30f969b155be"
+      }
+    },
+    {
+      "name": "thievesTools",
+      "amount": 1,
+      "_id": {
+        "$oid": "656338a54d3b30f969b155bf"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 2,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": 1,
+    "_id": {
+      "$oid": "6563373d4d3b30f969b155b1"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "6563373d4d3b30f969b155b0"
+      }
+    },
+    "skills": [],
+    "_id": {
+      "$oid": "6563373d4d3b30f969b155af"
+    }
+  },
+  "stats": {
+    "str": 11,
+    "dex": 15,
+    "con": 13,
+    "int": 10,
+    "wis": 18,
+    "cha": 9,
+    "_id": {
+      "$oid": "6563373d4d3b30f969b155b2"
+    }
+  },
+  "hitPoints": 9,
+  "classAttrs": {
+    "expertSkills": [
+      "investigation",
+      "thieves-tools"
+    ],
+    "skills": [],
+    "_id": {
+      "$oid": "65633859b26f8b1639cedb0a"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "urchin",
+    "skills": [
+      "sleight-of-hand",
+      "stealth"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "656338a54d3b30f969b155c0"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 10,
+    "pp": 0
+  },
+  "pack": "burglars-pack",
+  "freeText": {
+    "personality": "Desconfiada e introvertida. Le cuesta crear nuevos vínculos, pero cuando lo hace son sólidos. ",
+    "ideals": "Supervivencia, justicia",
+    "bonds": "Nekane (elfa del bosque, clériga) \nRayland (humano, bardo)",
+    "flaws": "Las injusticias hacia los más desfavorecidos le llenan de ira y en ocasiones se precipita en sus decisiones debido a esto. ",
+    "_id": {
+      "$oid": "65690f0045e0ff41bc1cd38e"
+    },
+    "allies": "",
+    "backstory": "Petra nació en una pequeña aldea en los bosques al norte de Kandrax. Su madre, Loreen,  era una clériga que acudía frecuentemente al templo en Gran Bwini ,  la ciudad más cercana a la aldea, a apenas unos km. Su padre, Tymur, era brujo, condición muy mal vista en la aldea y por la que, tras varios incidentes haciendo un uso cuestionable de su magia, fue desterrado y desapareció de la vida de Petra y Loreen cuando Petra apenas tenía 3 años. Tiene muy pocos recuerdos de su padre. \nUn día , cuando Petra tenía 6 años, Loreen fué al templo como hacía habitualmente, pero no regresó nunca. Una banda de criminales de Gran Bwini  había recibido noticias de que Loreen poseía una rara reliquia arcana que albergaba un gran poder. La asaltaron en el bosque, camino a la ciudad, y la asesinaron. Lo que no sabían es que hacía años que Loreen no tenía esta reliquia en su poder: era un colgante, y se lo regaló a Petra en su 4º cumpleaños, el primero que pasaban solas tras el destierro de su padre. Loreen, que no acababa de entender del todo en qué consistía aquel objeto arcano,  tenía la esperanza de que el colgante protegiese a la pequeña Petra gracias a sus poderes. \nTras la muerte de su madre, las sacerdotisas del templo acogieron a Petra y Nekane, una clériga elfa de los bosques, se convirtió en su tutora y mentora. De ella aprendió a hacer uso de la sabiduría. Pero además, le instruyó en el combate cuerpo a cuerpo, a sabiendas de que cuando Petra cumpliese la mayoría de edad, debía abandonar el templo y vivir en la ciudad. \nCuando ese día llegó , Nekane le entregó a Petra los pocos ahorros que su madre le había dejado en herencia (apenas 30 monedas de oro) y una carta. Nekane había recibido esta carta de Loreen el mismo día que entregó a Petra el colgante arcano, y le dio la instrucción de, si ella faltaba, hacérselo llegar a Petra el día de su mayoría de edad. Cuando Petra leyó la carta no entendió nada. Su madre le hablaba de que el colgante que llevaba al cuello desde los 4 años era un objeto arcano, y que debía encontrar a Thrain Forjacero para descubrir cuál era el poder que albergaba. Petra no sabía quién era Thraín ni en qué rincón de Kandrax comenzar a buscarle. Así que se centró en sobrevivir en la ciudad, ya sin el asilo y la seguridad que le proporcionaba el templo, y poco a poco esta carta fue cayendo en el olvido. \nDurante sus años en la ciudad pasó muchas penurias, tuvo que aliarse con bandas de criminales de poca monta por pura supervivencia y protección, y cometió algunos crimenes menores como robos o allanamientos de morada. Petra sólo recurría a la violencia para defenderse, pero cuando lo hacía solía salir airosa de los enfrentamientos. Fue en estos años en la ciudad cuando conoció a Rayland, un humano bardo que se erigió como su guía en los secretos de la ciudad y en cierto modo en su protector. Petra todavía no comprende porqué Rayland decidió ayudarla, dadas las circunstancias en las que se habían conocido. Rayland actuaba  en una conocida taberna de la cuidad, y pilló a Petra robando de las limosneras del público durante su número. Al finalizar la actuación se encontró con ella en la parte de atrás del local buscando entre los restos de comida que habían sacado de la cocina. Lejos de sermonearla la invitó a cenar y a dormir en la posada más cercana, y desde entonces, la acogía siempre que Petra se metía en más líos de los habituales, y le enseñaba todos los secretos de la ciudad que conocía. \nUno de esos días en los que Petra pasaba la noche con Rayland para evitar ser apresada, Rayland le preguntó por el colgante, y Petra le mostró la carta de su madre, que siempre llevaba en el jubón. Tras leerla, Rayland, que había actuado por medio Kandrax, le dijo que sabía exactamente dónde encontrar a Thraín, y que le ayudaría a prepararse para emprender el largo camino que debía recorrer hasta la empresa  Forjacero.\n",
+    "extraTraits1": "",
+    "extraTraits2": "",
+    "eyes": "",
+    "hair": "",
+    "skin": ""
+  },
+  "temporaryHitPoints": null,
+  "id": "7h23837a-af18-450f-a4ce-8dd1bd36c5gy",
+  "levelReady": 1
+},{
+  "_id": {
+    "$oid": "6563a27ab92a39faf94ddbf7"
+  },
+  "name": "Alexandros",
+  "race": "half-elf",
+  "subrace": "subrace",
+  "pClass": "bard",
+  "level": 1,
+  "exp": 0,
+  "userId": "2d279bbb-79f9-4d6d-86d1-c2186ae54c6b",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "investigation",
+    "insight",
+    "performance"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "rapier",
+        "amount": 1,
+        "_id": {
+          "$oid": "6563abcdded7fe2298995db7"
+        }
+      },
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "6563abcdded7fe2298995db8"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "6563abcdded7fe2298995db6"
+        }
+      },
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "fineClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "6563ab08cfd71528c0c7729a"
+          }
+        },
+        {
+          "name": "disguiseKit",
+          "amount": 1,
+          "_id": {
+            "$oid": "6563ab08cfd71528c0c7729b"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "conTools",
+          "amount": 1,
+          "_id": {
+            "$oid": "6563ab08cfd71528c0c77299"
+          }
+        },
+        {
+          "name": "viol",
+          "amount": 1,
+          "_id": {
+            "$oid": "6563abcdded7fe2298995db3"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "dwarvish"
+  ],
+  "age": 87,
+  "height": 170,
+  "weight": 75,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "mageHand",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c7724e"
+      }
+    },
+    {
+      "name": "message",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c7724f"
+      }
+    },
+    {
+      "name": "bane",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77250"
+      }
+    },
+    {
+      "name": "dissonantWhispers",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77251"
+      }
+    },
+    {
+      "name": "healingWord",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77252"
+      }
+    },
+    {
+      "name": "identify",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77253"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "shawn",
+      "amount": 1,
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77254"
+      }
+    },
+    {
+      "name": "drum",
+      "amount": 1,
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77255"
+      }
+    },
+    {
+      "name": "viol",
+      "amount": 1,
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77256"
+      }
+    },
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "6563ab08cfd71528c0c7729f"
+      }
+    },
+    {
+      "name": "forgeryKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "6563ab08cfd71528c0c772a0"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "mageHand",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77262"
+      }
+    },
+    {
+      "name": "message",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77263"
+      }
+    },
+    {
+      "name": "bane",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77264"
+      }
+    },
+    {
+      "name": "dissonantWhispers",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77265"
+      }
+    },
+    {
+      "name": "healingWord",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77266"
+      }
+    },
+    {
+      "name": "identify",
+      "_id": {
+        "$oid": "6563aabdcfd71528c0c77267"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 0,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": 2,
+    "_id": {
+      "$oid": "6563a2f3536a699a18552ebb"
+    }
+  },
+  "halfElf": {
+    "skills": [
+      "arcana",
+      "persuasion"
+    ],
+    "_id": {
+      "$oid": "6563a3ec536a699a18552ec0"
+    },
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 1,
+      "int": 1,
+      "wis": 0,
+      "cha": 0
+    }
+  },
+  "stats": {
+    "str": 13,
+    "dex": 16,
+    "con": 13,
+    "int": 15,
+    "wis": 13,
+    "cha": 17,
+    "_id": {
+      "$oid": "6563a2f3536a699a18552ebc"
+    }
+  },
+  "hitPoints": 9,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "6563aabdcfd71528c0c77257"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "charlatan",
+    "skills": [
+      "deception",
+      "sleight-of-hand"
+    ],
+    "routines": [],
+    "favoriteScheme": "prey",
+    "_id": {
+      "$oid": "6563ab08cfd71528c0c772a1"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 15,
+    "pp": 0
+  },
+  "pack": "diplomats-pack",
+  "id": "pg33837a-af18-450f-a4ce-8dd1bd36cj3s",
+  "freeText": {
+    "backstory": "Alexandros es un semielfo bardo, charlatán. Su madre, Narayan,  era una elfa de los bosques. Su padre  Alexandros , Jaskier , era  un humano bardo, artista, que se dedicaba a recorrer las ciudades y aldeas con su poesía y su música. Narayan conoció a Jaskier en uno de los viajes que la troupe realizaba atravesando los bosques del Oeste de Kandrax. Jaskier era apuesto, tanto que algunos dirían que se le podría confundir con un semielfo. Esto, y su enorme carisma, hicieron que Narayan se fijase en él y le acompañase durante sus viajes con la troupe. Alexandros nació en los bosques también, y desde que nació acompañó a Jaskier y a Narayan de ciudad en ciudad. Mamó  el carisma de su padre y la sabiduría de su madre, pero además, el azar le dotó de una gran inteligencia. Alexandros siguió el legado de su padre, pero su ambición le pedía más. Tenía un enorme talento igual que su padre , pero además contaba con un especial don de gentes, así que pasó de actuar en tabernas a ir de corte en corte, donde fué , poco a poco ganándose la confianza de los nobles de las grandes ciudades. Pronto,los nobles  empezaron a pedirle consejo, y la inteligencia y carisma de Alexandros afloraban: no solo ofrecía grandes consejos estratégicos sino que los nobles acababan confiándole sus más ocultos secretos. Alexandros utilizaba esto a su favor  para ascender cada vez más en la nobleza y llegar hasta las cortes reales. A lo largo de los años, Alexandros ha sido consejero de casi todos los reinos de Kandrax y su nombre es bastante conocido a poco que hayas tenido algún contacto con la nobleza o la realeza. \nPero no solo esto: su condición de semielfo hacía que a menudo se solicitase su consejo como intermediario entre Elfos y humanos, e incluso entre otras razas como los enanos, ya que  Alexandros habla fluidamente el idioma común, élfico y enano.\nActualmente Alexandros tiene 52 años. Un día estando en  la corte del  Rey de [insertar aquí el nombre de un reino], en la que Alexandro llevaba varios años viviendo asistiendo al rey como consejero, el Rey le encomienda un extraño encargo: Thraín Forjacero ( al que Alexandros conocía por haber tenido que hacer como intermediario en algunas ventas de armas a los Altos Elfos ) había realizado un gran descubrimiento relacionado con una investigación arcana y el Rey necesita un emisario de confianza que se entere de este descubrimiento ya que podría tener importantes implicaciones económicas y políticas. A Alexandros no le hace ni pizca de gracia este encargo: vive muy bien en la corte, y , pese a haberse pasado media vida en los caminos, hace años que no emprende un viaje tan largo. Pero acepta el encargo, a sabiendas de que ha de mantener la confianza que el Rey tiene con él y , quien sabe, tal vez él mismo pueda sacar algún rédito de esta investigación…\n",
+    "extraTraits1": "",
+    "allies": "",
+    "personality": "Carismático, embaucador. No es malo por naturaleza, pero si puede sacar beneficio de una situación sin causar un daño grave a otro, no desaprovecha la oportunidad. ",
+    "ideals": "Ambicioso. Se ha criado desde lo más humilde y quiere mejorar su situación. ",
+    "bonds": "El padre de Alexandros murió hace años, pero su madre , Nayaran, sigue viva pero es muy mayor (620 años)",
+    "flaws": "Es un poco veleta, su lealtad depende del beneficio que obtenga de ella. ",
+    "eyes": ""
+  },
+  "levelReady": 1
+},{
+  "_id": {
+    "$oid": "656a1763c1402f5cb581f37f"
+  },
+  "id": "3bee5c28-c677-4c07-babd-db82062030bb",
+  "name": "Yua",
+  "race": "half-elf",
+  "subrace": "subrace",
+  "pClass": "sorcerer",
+  "level": 1,
+  "exp": 0,
+  "userId": "be0ba1bc-0f20-4aab-aa6b-c9ca81fa7482",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "insight",
+    "persuasion"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    6
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "656a20b380962b72361b4488"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": null,
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "656a1ff380962b72361b443f"
+          }
+        },
+        {
+          "name": "componentPouch",
+          "amount": 1,
+          "_id": {
+            "$oid": "656a20b380962b72361b4487"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "smallKnife",
+          "amount": 1,
+          "_id": {
+            "$oid": "656a1ff380962b72361b443b"
+          }
+        },
+        {
+          "name": "cityMap",
+          "amount": 1,
+          "_id": {
+            "$oid": "656a1ff380962b72361b443c"
+          }
+        },
+        {
+          "name": "petMouse",
+          "amount": 1,
+          "_id": {
+            "$oid": "656a1ff380962b72361b443d"
+          }
+        },
+        {
+          "name": "parentsToken",
+          "amount": 1,
+          "_id": {
+            "$oid": "656a1ff380962b72361b443e"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "gnomish"
+  ],
+  "age": 36,
+  "height": 160,
+  "weight": 55,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "bladeWard",
+      "_id": {
+        "$oid": "656a1fc32b9750cb1352520f"
+      }
+    },
+    {
+      "name": "fireBolt",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525210"
+      }
+    },
+    {
+      "name": "mageHand",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525211"
+      }
+    },
+    {
+      "name": "minorIllusion",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525212"
+      }
+    },
+    {
+      "name": "fogCloud",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525213"
+      }
+    },
+    {
+      "name": "rayOfSickness",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525214"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "656a1ff380962b72361b4440"
+      }
+    },
+    {
+      "name": "thievesTools",
+      "amount": 1,
+      "_id": {
+        "$oid": "656a1ff380962b72361b4441"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "bladeWard",
+      "_id": {
+        "$oid": "656a1fc32b9750cb1352521f"
+      }
+    },
+    {
+      "name": "fireBolt",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525220"
+      }
+    },
+    {
+      "name": "mageHand",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525221"
+      }
+    },
+    {
+      "name": "minorIllusion",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525222"
+      }
+    },
+    {
+      "name": "fogCloud",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525223"
+      }
+    },
+    {
+      "name": "rayOfSickness",
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525224"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 0,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": 2,
+    "_id": {
+      "$oid": "656a1980c1402f5cb581f385"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 1,
+      "int": 1,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "656a1980c1402f5cb581f384"
+      }
+    },
+    "skills": [
+      "stealth",
+      "deception"
+    ]
+  },
+  "stats": {
+    "str": 9,
+    "dex": 11,
+    "con": 16,
+    "int": 10,
+    "wis": 13,
+    "cha": 14,
+    "_id": {
+      "$oid": "656a1980c1402f5cb581f386"
+    }
+  },
+  "hitPoints": 9,
+  "classAttrs": {
+    "sorcerer": {
+      "sorcererOrigin": "wildMagic",
+      "dragonAncestor": null,
+      "metamagic": [],
+      "_id": {
+        "$oid": "656a1fc32b9750cb13525216"
+      }
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "656a1fc32b9750cb13525215"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "urchin",
+    "skills": [
+      "sleight-of-hand",
+      "stealth"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "656a1ff380962b72361b4442"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 10,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "levelReady": 1
+},{
+  "_id": {
+    "$oid": "656dd6e2fe35da02720518d3"
+  },
+  "id": "a27da9be-f202-406b-8ea6-e654efce7d4b",
+  "name": "Galeos Manonegra",
+  "race": "dwarf",
+  "subrace": "hills",
+  "pClass": "warlock",
+  "level": 1,
+  "exp": 0,
+  "userId": "1b6a09de-5bf9-4da9-a253-d5fb52303d7b",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "arcana",
+    "intimidation"
+  ],
+  "speed": 8,
+  "totalHitPoints": [
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "quarterstaff",
+        "amount": 1,
+        "_id": {
+          "$oid": "656ddd6fac69c51ecd286be6"
+        }
+      },
+      {
+        "name": "spear",
+        "amount": 1,
+        "_id": {
+          "$oid": "656dde3185075d7f82da60cd"
+        }
+      },
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "656dde3185075d7f82da60ce"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "656dde3185075d7f82da60cb"
+        }
+      },
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "656ddd6fac69c51ecd286be5"
+          }
+        },
+        {
+          "name": "staff",
+          "amount": 1,
+          "_id": {
+            "$oid": "656dde3185075d7f82da60ca"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [
+        {
+          "name": "dagger",
+          "amount": 1,
+          "_id": {
+            "$oid": "656dde3185075d7f82da60c8"
+          }
+        }
+      ],
+      "armors": [],
+      "others": [
+        {
+          "name": "huntingTrap",
+          "amount": 1,
+          "_id": {
+            "$oid": "656ddd6fac69c51ecd286be3"
+          }
+        },
+        {
+          "name": "animalTrophy",
+          "amount": 1,
+          "_id": {
+            "$oid": "656ddd6fac69c51ecd286be4"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "dwarvish",
+    "elvish"
+  ],
+  "age": 312,
+  "height": 130,
+  "weight": 83,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "bladeWard",
+      "_id": {
+        "$oid": "656ddc6385075d7f82da6098"
+      }
+    },
+    {
+      "name": "minorIllusion",
+      "_id": {
+        "$oid": "656ddc6385075d7f82da6099"
+      }
+    },
+    {
+      "name": "armorOfAgathys",
+      "_id": {
+        "$oid": "656ddc6385075d7f82da609a"
+      }
+    },
+    {
+      "name": "hex",
+      "_id": {
+        "$oid": "656ddc6385075d7f82da609b"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "smithsTools",
+      "amount": 1,
+      "_id": {
+        "$oid": "656dd8364868a1de6c0cfb2e"
+      }
+    },
+    {
+      "name": "viol",
+      "amount": 1,
+      "_id": {
+        "$oid": "656ddd6fac69c51ecd286be8"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "bladeWard",
+      "_id": {
+        "$oid": "656ddc6385075d7f82da60a5"
+      }
+    },
+    {
+      "name": "minorIllusion",
+      "_id": {
+        "$oid": "656ddc6385075d7f82da60a6"
+      }
+    },
+    {
+      "name": "armorOfAgathys",
+      "_id": {
+        "$oid": "656ddc6385075d7f82da60a7"
+      }
+    },
+    {
+      "name": "hex",
+      "_id": {
+        "$oid": "656ddc6385075d7f82da60a8"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 0,
+    "con": 2,
+    "int": 0,
+    "wis": 1,
+    "cha": 0,
+    "_id": {
+      "$oid": "656dd821fe35da02720518d9"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "656dd821fe35da02720518d8"
+      }
+    }
+  },
+  "stats": {
+    "str": 6,
+    "dex": 9,
+    "con": 13,
+    "int": 12,
+    "wis": 12,
+    "cha": 16,
+    "_id": {
+      "$oid": "656dd821fe35da02720518da"
+    }
+  },
+  "hitPoints": 11,
+  "classAttrs": {
+    "warlock": {
+      "patron": "greatOldOne",
+      "invocations": [],
+      "_id": {
+        "$oid": "656ddc6385075d7f82da609d"
+      },
+      "tomeSpells": [],
+      "tomeRituals": [],
+      "arcanum": []
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "656ddc6385075d7f82da609c"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "outlander",
+    "skills": [
+      "athletics",
+      "survival"
+    ],
+    "routines": [],
+    "outlanderOrigin": "pilgrim",
+    "_id": {
+      "$oid": "656ddd6fac69c51ecd286be9"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 10,
+    "pp": 0
+  },
+  "pack": "dungeoneers-pack",
+  "levelReady": 1
+},{
+  "_id": {
+    "$oid": "65712402be0c78de681fba1e"
+  },
+  "id": "6b26c8f2-8a66-4ebd-9b9b-9f45f6f52f25",
+  "name": "Cedric Olmo Sereno",
+  "race": "human",
+  "subrace": "subrace",
+  "pClass": "druid",
+  "level": 6,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [
+    4
+  ],
+  "skills": [
+    "nature",
+    "perception"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    8,
+    1,
+    7,
+    3,
+    3,
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "sickle",
+        "amount": 1,
+        "_id": {
+          "$oid": "65712876be0c78de681fbbd4"
+        }
+      },
+      {
+        "name": "quarterstaff",
+        "amount": 1,
+        "_id": {
+          "$oid": "65712780be0c78de681fba4f"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "65712780be0c78de681fba4e"
+        }
+      },
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "6571274dc0dd85c8ed4f1513"
+          }
+        },
+        {
+          "name": "staff",
+          "amount": 1,
+          "_id": {
+            "$oid": "65712780be0c78de681fba4d"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "scrollCase",
+          "amount": 1,
+          "_id": {
+            "$oid": "6571274dc0dd85c8ed4f1510"
+          }
+        },
+        {
+          "name": "winterBlanket",
+          "amount": 1,
+          "_id": {
+            "$oid": "6571274dc0dd85c8ed4f1511"
+          }
+        },
+        {
+          "name": "herbalismKit",
+          "amount": 1,
+          "_id": {
+            "$oid": "6571274dc0dd85c8ed4f1512"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "druidic",
+    "orc",
+    "dwarvish"
+  ],
+  "age": 34,
+  "height": 175,
+  "weight": 70,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "druidcraft",
+      "_id": {
+        "$oid": "65712714be0c78de681fba2b"
+      }
+    },
+    {
+      "name": "produceFlame",
+      "_id": {
+        "$oid": "65712714be0c78de681fba2c"
+      }
+    },
+    {
+      "name": "resistance",
+      "_id": {
+        "$oid": "65712afcc0dd85c8ed4f18a1"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "herbalismKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "6571274dc0dd85c8ed4f1514"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "barkskin",
+      "_id": {
+        "$oid": "65712aa7e152b04185b3e845"
+      }
+    },
+    {
+      "name": "spiderClimb",
+      "_id": {
+        "$oid": "65712aa7e152b04185b3e846"
+      }
+    },
+    {
+      "name": "callLightning",
+      "_id": {
+        "$oid": "657131669c29baeadfb10974"
+      }
+    },
+    {
+      "name": "plantGrowth",
+      "_id": {
+        "$oid": "657131669c29baeadfb10975"
+      }
+    },
+    {
+      "name": "barkskin",
+      "_id": {
+        "$oid": "65713ac309875d92d13aaa91"
+      }
+    },
+    {
+      "name": "callLightning",
+      "_id": {
+        "$oid": "65713ac309875d92d13aaa92"
+      }
+    },
+    {
+      "name": "plantGrowth",
+      "_id": {
+        "$oid": "65713ac309875d92d13aaa93"
+      }
+    },
+    {
+      "name": "spiderClimb",
+      "_id": {
+        "$oid": "65713ac309875d92d13aaa94"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 1,
+    "dex": 1,
+    "con": 1,
+    "int": 1,
+    "wis": 1,
+    "cha": 1,
+    "_id": {
+      "$oid": "6571261c59ed1d7ff95c1879"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "6571261c59ed1d7ff95c1878"
+      }
+    }
+  },
+  "stats": {
+    "str": 12,
+    "dex": 13,
+    "con": 15,
+    "int": 12,
+    "wis": 19,
+    "cha": 14,
+    "_id": {
+      "$oid": "6571261c59ed1d7ff95c187a"
+    }
+  },
+  "hitPoints": 48,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "65712714be0c78de681fba2d"
+    },
+    "druid": {
+      "druidCircle": "land",
+      "bonusCantrip": {
+        "name": "shillelagh",
+        "_id": {
+          "$oid": "657129c6c0dd85c8ed4f17a6"
+        }
+      },
+      "landCircle": "forest"
+    }
+  },
+  "hitDice": 6,
+  "remainingHitDice": 6,
+  "background": {
+    "name": "hermit",
+    "skills": [
+      "medicine",
+      "religion"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "6571274dc0dd85c8ed4f1515"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 5,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "eyes": "Negros",
+    "skin": "Clara",
+    "hair": "Largo y oscuro",
+    "allies": "- Círculo druídico Bóreas:\n   - en el Bosque Céfiro\n   - seguidores del dios Simtu, dios de la naturaleza, el agua y los bosques\n   - Teógrafo: se dedica a registrar y mapear influcencia y apariciones de dioses en las diferentes regiones",
+    "extraTraits1": "Pelo largo y enmarañado. Afeitado limpio.\n\nMovimientos como coreografiados, de elegancia femenina. Duerme poco y le gusta dar largos paseos por la noche.\n",
+    "ideals": "La naturaleza tiene mucho que ofrecer si se tiene la paciencia adecuada para observarla",
+    "bonds": "Grum Pies de Roca, amistad desde toda la vida. Conversación. Admiro su unión con la naturaleza",
+    "flaws": "Me cuesta entender el ritmo trepidante de una ciudad y desconecto si la conversación se mueve demasiado rápido",
+    "personality": "Movimientos como coreografiados, de elegancia femenina. Duerme poco y le gusta dar largos paseos por la noche"
+  },
+  "levelReady": 6
+},{
+  "_id": {
+    "$oid": "657135718e27aaeabd2f4595"
+  },
+  "id": "40222820-69ff-491e-a589-2adc429f4a66",
+  "name": "Grum Pies de Roca",
+  "race": "half-orc",
+  "subrace": "subrace",
+  "pClass": "druid",
+  "level": 6,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [
+    4
+  ],
+  "skills": [
+    "nature",
+    "religion"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    8,
+    4,
+    3,
+    8,
+    4,
+    5
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "sickle",
+        "amount": 1,
+        "_id": {
+          "$oid": "6571369590e00dceda3702b6"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "6571369590e00dceda3702b5"
+        }
+      },
+      "shield": {
+        "name": "shield",
+        "amount": 1,
+        "_id": {
+          "$oid": "6571369590e00dceda3702b4"
+        }
+      },
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "657136358e27aaeabd2f45ad"
+          }
+        },
+        {
+          "name": "crystal",
+          "amount": 1,
+          "_id": {
+            "$oid": "6571369590e00dceda3702b3"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "holySymbol",
+          "amount": 1,
+          "_id": {
+            "$oid": "657136358e27aaeabd2f45a9"
+          }
+        },
+        {
+          "name": "prayerbook",
+          "amount": 1,
+          "_id": {
+            "$oid": "657136358e27aaeabd2f45aa"
+          }
+        },
+        {
+          "name": "incenseBlocks",
+          "amount": 5,
+          "_id": {
+            "$oid": "657136358e27aaeabd2f45ab"
+          }
+        },
+        {
+          "name": "vestments",
+          "amount": 1,
+          "_id": {
+            "$oid": "657136358e27aaeabd2f45ac"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "orc",
+    "druidic",
+    "dwarvish",
+    "goblin"
+  ],
+  "age": 40,
+  "height": 190,
+  "weight": 100,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      1,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "druidcraft",
+      "_id": {
+        "$oid": "6571360390e00dceda370298"
+      }
+    },
+    {
+      "name": "guidance",
+      "_id": {
+        "$oid": "6571360390e00dceda370299"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [],
+  "preparedSpells": [
+    {
+      "name": "barkskin",
+      "_id": {
+        "$oid": "65713aa109875d92d13aa976"
+      }
+    },
+    {
+      "name": "callLightning",
+      "_id": {
+        "$oid": "65713aa109875d92d13aa977"
+      }
+    },
+    {
+      "name": "plantGrowth",
+      "_id": {
+        "$oid": "65713aa109875d92d13aa978"
+      }
+    },
+    {
+      "name": "spiderClimb",
+      "_id": {
+        "$oid": "65713aa109875d92d13aa979"
+      }
+    },
+    {
+      "name": "createOrDestroyWater",
+      "type": "druid",
+      "_id": {
+        "$oid": "65cffa07d6e84c829bc7d0d3"
+      }
+    },
+    {
+      "name": "speakWithAnimals",
+      "type": "druid",
+      "_id": {
+        "$oid": "65cffa12c7aa880a2c1be8d7"
+      }
+    },
+    {
+      "name": "purifyFoodAndDrink",
+      "type": "druid",
+      "_id": {
+        "$oid": "65cffa14d6e84c829bc7d112"
+      }
+    },
+    {
+      "name": "feignDeath",
+      "type": "druid",
+      "_id": {
+        "$oid": "65cffa31c7aa880a2c1be905"
+      }
+    },
+    {
+      "name": "speakWithPlants",
+      "type": "druid",
+      "_id": {
+        "$oid": "65cffa33d6e84c829bc7d142"
+      }
+    },
+    {
+      "name": "animalFriendship",
+      "type": "druid",
+      "_id": {
+        "$oid": "65cffa49d6e84c829bc7d173"
+      }
+    },
+    {
+      "name": "goodberry",
+      "type": "druid",
+      "_id": {
+        "$oid": "65cffa52c7aa880a2c1be93a"
+      }
+    },
+    {
+      "name": "healingWord",
+      "type": "druid",
+      "_id": {
+        "$oid": "65cffa7cc7aa880a2c1be970"
+      }
+    },
+    {
+      "name": "locateAnimalsOrPlants",
+      "type": "druid",
+      "_id": {
+        "$oid": "65cffa99c7aa880a2c1be9dc"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 2,
+    "dex": 0,
+    "con": 1,
+    "int": 0,
+    "wis": 0,
+    "cha": 0,
+    "_id": {
+      "$oid": "657135c48e27aaeabd2f459a"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "657135c48e27aaeabd2f4599"
+      }
+    }
+  },
+  "stats": {
+    "str": 14,
+    "dex": 12,
+    "con": 15,
+    "int": 9,
+    "wis": 17,
+    "cha": 10,
+    "_id": {
+      "$oid": "657135c48e27aaeabd2f459b"
+    }
+  },
+  "hitPoints": 34,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "6571360390e00dceda37029a"
+    },
+    "druid": {
+      "druidCircle": "land",
+      "bonusCantrip": {
+        "name": "resistance",
+        "_id": {
+          "$oid": "6571385b90e00dceda37042d"
+        }
+      },
+      "landCircle": "forest"
+    }
+  },
+  "hitDice": 6,
+  "remainingHitDice": 6,
+  "background": {
+    "name": "acolyte",
+    "skills": [
+      "insight",
+      "religion"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "657136358e27aaeabd2f45ae"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 5,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "personality": "Pausado y pragmático. Normalmente va vestido y adornado con elementos naturales que él mismo confecciona\n",
+    "ideals": "Hay que ser realista y entender cuándo es momento para actuar y cuando para observar",
+    "bonds": "Cedric Olmo Sereno. Amistad desde toda la vida. Pasear. Admiro su competencia con los conjuros druídicos",
+    "flaws": "Ni entiendo, ni quiero entender la tecnología ni tipos de magia que no tengan que ver con la naturaleza",
+    "allies": "- Círculo druídico Bóreas:\n   - en el Bosque Céfiro\n   - seguidores del dios Simtu, dios de la naturaleza, el agua y los bosques\n   - Teógrafo: se dedica a registrar y mapear influcencia y apariciones de dioses en las diferentes regiones",
+    "extraTraits1": "Semiorco, esbelto.\nCalvo en la coronilla, con pelo largo por los laterales.\nOjos serenos que transmiten paz.\nColmillos inferiores limados y romos.\n"
+  },
+  "levelReady": 6
+},{
+  "_id": {
+    "$oid": "65733ca7f2f659571a1ca5cc"
+  },
+  "id": "a112c2be-a255-4e78-b714-64f1d827e5e2",
+  "name": "Dezzo",
+  "race": "human",
+  "subrace": "subrace",
+  "pClass": "bard",
+  "level": 1,
+  "exp": 0,
+  "userId": "b6ad42fc-34aa-4578-b5be-b3f97e893bc9",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "sleight-of-hand",
+    "performance",
+    "persuasion"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "rapier",
+        "amount": 1,
+        "_id": {
+          "$oid": "65734585703597ca47bc7a41"
+        }
+      },
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "6573457ec1d38b25e9313769"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "657344f3e8e7ab7d5232977b"
+        }
+      },
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "fineClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65734458c1d38b25e9313515"
+          }
+        },
+        {
+          "name": "disguiseKit",
+          "amount": 1,
+          "_id": {
+            "$oid": "65734458c1d38b25e9313516"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "conTools",
+          "amount": 1,
+          "_id": {
+            "$oid": "65734458c1d38b25e9313514"
+          }
+        },
+        {
+          "name": "lute",
+          "amount": 1,
+          "_id": {
+            "$oid": "657344f3e8e7ab7d52329778"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "dwarvish"
+  ],
+  "age": 25,
+  "height": 185,
+  "weight": 78,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "prestidigitation",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134c5"
+      }
+    },
+    {
+      "name": "viciousMockery",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134c6"
+      }
+    },
+    {
+      "name": "disguiseSelf",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134c7"
+      }
+    },
+    {
+      "name": "healingWord",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134c8"
+      }
+    },
+    {
+      "name": "thunderwave",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134c9"
+      }
+    },
+    {
+      "name": "unseenServant",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134ca"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "flute",
+      "amount": 1,
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134cb"
+      }
+    },
+    {
+      "name": "bagpipes",
+      "amount": 1,
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134cc"
+      }
+    },
+    {
+      "name": "lute",
+      "amount": 1,
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134cd"
+      }
+    },
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "65734458c1d38b25e931351a"
+      }
+    },
+    {
+      "name": "forgeryKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "65734458c1d38b25e931351b"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "prestidigitation",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134da"
+      }
+    },
+    {
+      "name": "viciousMockery",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134db"
+      }
+    },
+    {
+      "name": "disguiseSelf",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134dc"
+      }
+    },
+    {
+      "name": "healingWord",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134dd"
+      }
+    },
+    {
+      "name": "thunderwave",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134de"
+      }
+    },
+    {
+      "name": "unseenServant",
+      "_id": {
+        "$oid": "657343f8c1d38b25e93134df"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 1,
+    "dex": 1,
+    "con": 1,
+    "int": 1,
+    "wis": 1,
+    "cha": 1,
+    "_id": {
+      "$oid": "65733e7af2f659571a1ca5d2"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "65733e7af2f659571a1ca5d1"
+      }
+    }
+  },
+  "stats": {
+    "str": 9,
+    "dex": 14,
+    "con": 9,
+    "int": 13,
+    "wis": 12,
+    "cha": 16,
+    "_id": {
+      "$oid": "65733e7af2f659571a1ca5d3"
+    }
+  },
+  "hitPoints": 8,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "657343f8c1d38b25e93134ce"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "charlatan",
+    "skills": [
+      "deception",
+      "sleight-of-hand"
+    ],
+    "routines": [],
+    "favoriteScheme": "cheat",
+    "_id": {
+      "$oid": "65734458c1d38b25e931351c"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 15,
+    "pp": 0
+  },
+  "pack": "entertainers-pack",
+  "freeText": {
+    "personality": "",
+    "ideals": "",
+    "bonds": "",
+    "flaws": "",
+    "allies": "",
+    "extraTraits1": "",
+    "extraTraits2": "",
+    "backstory": "",
+    "eyes": "",
+    "skin": "",
+    "hair": ""
+  },
+  "levelReady": 1
+},{
+  "_id": {
+    "$oid": "657349f9c8e8676c130cfcf7"
+  },
+  "id": "1eecb2d1-fb64-49a4-a130-da8e88ed8290",
+  "name": "Krystal",
+  "race": "half-elf",
+  "subrace": "subrace",
+  "pClass": "rogue",
+  "level": 1,
+  "exp": 0,
+  "userId": "b0e79a13-4a76-47d8-9c62-bc116feac45e",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "athletics",
+    "insight",
+    "investigation",
+    "sleight-of-hand"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "shortsword",
+        "amount": 1,
+        "_id": {
+          "$oid": "65734e638ec15a240634cb30"
+        }
+      },
+      {
+        "name": "shortsword",
+        "amount": 1,
+        "_id": {
+          "$oid": "65734e638ec15a240634cb31"
+        }
+      },
+      {
+        "name": "shortbow",
+        "amount": 1,
+        "_id": {
+          "$oid": "65734e638ec15a240634cb32"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "65734e638ec15a240634cb2f"
+        }
+      },
+      "shield": null,
+      "ammunition": [
+        {
+          "name": "arrows",
+          "amount": 20,
+          "_id": {
+            "$oid": "65734e638ec15a240634cb2e"
+          }
+        }
+      ],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65734e02c8e8676c130cfd09"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [
+        {
+          "name": "dagger",
+          "amount": 2,
+          "_id": {
+            "$oid": "65734e638ec15a240634cb2c"
+          }
+        }
+      ],
+      "armors": [],
+      "others": [
+        {
+          "name": "smallKnife",
+          "amount": 1,
+          "_id": {
+            "$oid": "65734e02c8e8676c130cfd05"
+          }
+        },
+        {
+          "name": "cityMap",
+          "amount": 1,
+          "_id": {
+            "$oid": "65734e02c8e8676c130cfd06"
+          }
+        },
+        {
+          "name": "petMouse",
+          "amount": 1,
+          "_id": {
+            "$oid": "65734e02c8e8676c130cfd07"
+          }
+        },
+        {
+          "name": "parentsToken",
+          "amount": 1,
+          "_id": {
+            "$oid": "65734e02c8e8676c130cfd08"
+          }
+        },
+        {
+          "name": "thievesTools",
+          "amount": 1,
+          "_id": {
+            "$oid": "65734e638ec15a240634cb2b"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "giant"
+  ],
+  "age": 16,
+  "height": 150,
+  "weight": 55,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "65734e02c8e8676c130cfd0a"
+      }
+    },
+    {
+      "name": "thievesTools",
+      "amount": 1,
+      "_id": {
+        "$oid": "65734e02c8e8676c130cfd0b"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 0,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": 2,
+    "_id": {
+      "$oid": "65734bda8ec15a240634cb05"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 1,
+      "con": 0,
+      "int": 0,
+      "wis": 1,
+      "cha": 0,
+      "_id": {
+        "$oid": "65734bda8ec15a240634cb04"
+      }
+    },
+    "skills": [
+      "stealth",
+      "perception"
+    ]
+  },
+  "stats": {
+    "str": 8,
+    "dex": 15,
+    "con": 10,
+    "int": 9,
+    "wis": 13,
+    "cha": 12,
+    "_id": {
+      "$oid": "65734bda8ec15a240634cb06"
+    }
+  },
+  "hitPoints": 8,
+  "classAttrs": {
+    "expertSkills": [
+      "stealth",
+      "thieves-tools"
+    ],
+    "skills": [],
+    "_id": {
+      "$oid": "65734db78ec15a240634cb0f"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "urchin",
+    "skills": [
+      "sleight-of-hand",
+      "stealth"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "65734e02c8e8676c130cfd0c"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 10,
+    "pp": 0
+  },
+  "pack": "burglars-pack",
+  "freeText": {
+    "personality": "Krystal es reservada. No confía de primeras en nadie, porque nadie le ha demostrado que se pueda dar nada sin querer recibir nada a cambio. Ella quisiera confiar, pero en su corta vida ha sufrido algunos desengaños que no ha olvidado ni cree que olvidará nunca. \nEs curiosa, le gustca aprender cosas nuevas, perfeccionar habilidades... \nTiene una sensibilidad espacial hacia los animales, llegando a ser muy compasiva con ellos, y poco con los humanos u otras razas.\nHará cualquier cosa con tal de lograr su objetivo. Cabezota, intrépida. \n",
+    "ideals": "\"la desconfianza es mi defensa, he aprendido a no dar nada por sentado\"\n\"Lo que me favorece a mi, bienvenido sea\"\n",
+    "bonds": "",
+    "flaws": "",
+    "eyes": "",
+    "skin": "",
+    "hair": "",
+    "allies": "",
+    "extraTraits1": "",
+    "extraTraits2": "",
+    "backstory": ""
+  },
+  "levelReady": 1
+},{
+  "_id": {
+    "$oid": "6578e39c0b4d582db0871ea3"
+  },
+  "id": "c1dc62b3-361f-42ec-b229-b6b1c09ad477",
+  "name": "Ignus Luminer",
+  "race": "dwarf",
+  "subrace": "mountains",
+  "pClass": "wizard",
+  "level": 10,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [
+    4,
+    8
+  ],
+  "skills": [
+    "arcana",
+    "investigation"
+  ],
+  "speed": 8,
+  "totalHitPoints": [
+    6,
+    6,
+    6,
+    4,
+    6,
+    5,
+    6,
+    6,
+    5,
+    6
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "warhammer",
+        "amount": 1,
+        "_id": {
+          "$oid": "6579085306bba2e5dfb77379"
+        }
+      },
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "6578fdea3761fe8d877c9402"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "halfPlate",
+        "_id": {
+          "$oid": "6578fed13761fe8d877c94ad"
+        }
+      },
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "6578fdd9ae6e3b306697d495"
+          }
+        },
+        {
+          "name": "componentPouch",
+          "amount": 1,
+          "_id": {
+            "$oid": "6578fdea3761fe8d877c9401"
+          }
+        },
+        {
+          "name": "Varita de bolas de fuego",
+          "amount": 1,
+          "_id": {
+            "$oid": "6581800b14e50e1f0f35f262"
+          }
+        },
+        {
+          "name": "Poción de curación Superior",
+          "amount": 2,
+          "_id": {
+            "$oid": "658180d914e50e1f0f35f3cd"
+          }
+        },
+        {
+          "name": "Anillo de protección",
+          "amount": 1,
+          "_id": {
+            "$oid": "6581872877ffa5f47b3bdc98"
+          }
+        },
+        {
+          "name": "Pergamino de Identificar",
+          "amount": 1,
+          "_id": {
+            "$oid": "6581873f2746f1aca6804394"
+          }
+        },
+        {
+          "name": "Pergamino de Comprensión idiomática",
+          "amount": 1,
+          "_id": {
+            "$oid": "658187422746f1aca6804451"
+          }
+        },
+        {
+          "name": "Pergamino de Mano del mago",
+          "amount": 1,
+          "_id": {
+            "$oid": "658187462746f1aca6804511"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "inkBottle",
+          "amount": 1,
+          "_id": {
+            "$oid": "6578fdd9ae6e3b306697d491"
+          }
+        },
+        {
+          "name": "inkPen",
+          "amount": 1,
+          "_id": {
+            "$oid": "6578fdd9ae6e3b306697d492"
+          }
+        },
+        {
+          "name": "smallKnife",
+          "amount": 1,
+          "_id": {
+            "$oid": "6578fdd9ae6e3b306697d493"
+          }
+        },
+        {
+          "name": "personalLetter",
+          "amount": 1,
+          "_id": {
+            "$oid": "6578fdd9ae6e3b306697d494"
+          }
+        },
+        {
+          "name": "spellbook",
+          "amount": 1,
+          "_id": {
+            "$oid": "6578fdea3761fe8d877c93ff"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "dwarvish",
+    "elvish",
+    "gnomish"
+  ],
+  "age": 176,
+  "height": 148,
+  "weight": 80,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "fireBolt",
+      "_id": {
+        "$oid": "6578fd9f3761fe8d877c93bb"
+      }
+    },
+    {
+      "name": "rayOfFrost",
+      "_id": {
+        "$oid": "6578fd9f3761fe8d877c93bc"
+      }
+    },
+    {
+      "name": "shockingGrasp",
+      "_id": {
+        "$oid": "6578fd9f3761fe8d877c93bd"
+      }
+    },
+    {
+      "name": "burningHands",
+      "_id": {
+        "$oid": "6578fd9f3761fe8d877c93be"
+      }
+    },
+    {
+      "name": "chromaticOrb",
+      "_id": {
+        "$oid": "6578fd9f3761fe8d877c93bf"
+      }
+    },
+    {
+      "name": "magicMissile",
+      "_id": {
+        "$oid": "6578fd9f3761fe8d877c93c0"
+      }
+    },
+    {
+      "name": "shield",
+      "_id": {
+        "$oid": "6578fd9f3761fe8d877c93c1"
+      }
+    },
+    {
+      "name": "thunderwave",
+      "_id": {
+        "$oid": "6578fd9f3761fe8d877c93c2"
+      }
+    },
+    {
+      "name": "witchBolt",
+      "_id": {
+        "$oid": "6578fd9f3761fe8d877c93c3"
+      }
+    },
+    {
+      "name": "alarm",
+      "_id": {
+        "$oid": "6578ffb43761fe8d877c951d"
+      }
+    },
+    {
+      "name": "gustOfWind",
+      "_id": {
+        "$oid": "65790084ae6e3b306697d61e"
+      }
+    },
+    {
+      "name": "scorchingRay",
+      "_id": {
+        "$oid": "65790084ae6e3b306697d61f"
+      }
+    },
+    {
+      "name": "shatter",
+      "_id": {
+        "$oid": "65790084ae6e3b306697d620"
+      }
+    },
+    {
+      "name": "light",
+      "_id": {
+        "$oid": "657902ab1c356cd6eaeddde1"
+      }
+    },
+    {
+      "name": "darkness",
+      "_id": {
+        "$oid": "657902ab1c356cd6eaeddde2"
+      }
+    },
+    {
+      "name": "fireball",
+      "_id": {
+        "$oid": "657903c21c356cd6eaedde78"
+      }
+    },
+    {
+      "name": "leomund'sTinyHut",
+      "_id": {
+        "$oid": "657903c21c356cd6eaedde79"
+      }
+    },
+    {
+      "name": "lightningBolt",
+      "_id": {
+        "$oid": "657903c21c356cd6eaedde7a"
+      }
+    },
+    {
+      "name": "sending",
+      "_id": {
+        "$oid": "6579042dae6e3b306697da96"
+      }
+    },
+    {
+      "name": "fireShield",
+      "_id": {
+        "$oid": "657904a81c356cd6eaede047"
+      }
+    },
+    {
+      "name": "iceStorm",
+      "_id": {
+        "$oid": "657904a81c356cd6eaede048"
+      }
+    },
+    {
+      "name": "otiluke'sResilientSphere",
+      "_id": {
+        "$oid": "657904a81c356cd6eaede049"
+      }
+    },
+    {
+      "name": "wallOfFire",
+      "_id": {
+        "$oid": "657905211c356cd6eaede18a"
+      }
+    },
+    {
+      "name": "bigby'sHand",
+      "_id": {
+        "$oid": "657905a2ae6e3b306697dd45"
+      }
+    },
+    {
+      "name": "coneOfCold",
+      "_id": {
+        "$oid": "657905a2ae6e3b306697dd46"
+      }
+    },
+    {
+      "name": "wallOfForce",
+      "_id": {
+        "$oid": "657905a2ae6e3b306697dd47"
+      }
+    },
+    {
+      "name": "dancingLights",
+      "_id": {
+        "$oid": "657906a31c356cd6eaede29b"
+      }
+    },
+    {
+      "name": "counterspell",
+      "_id": {
+        "$oid": "657906a31c356cd6eaede29c"
+      }
+    },
+    {
+      "name": "wallOfStone",
+      "_id": {
+        "$oid": "657906a31c356cd6eaede29d"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "brewersSupplies",
+      "amount": 1,
+      "_id": {
+        "$oid": "6578e6ef7ba4ac6a1e04023a"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "fireball",
+      "type": "wizard",
+      "_id": {
+        "$oid": "6581583b1ecc812da19a294b"
+      }
+    },
+    {
+      "name": "coneOfCold",
+      "type": "wizard",
+      "_id": {
+        "$oid": "65815868a6e1bfd94f24bd54"
+      }
+    },
+    {
+      "name": "wallOfFire",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658158816f4edb2241396b0a"
+      }
+    },
+    {
+      "name": "otiluke'sResilientSphere",
+      "type": "wizard",
+      "_id": {
+        "$oid": "6581588ea6e1bfd94f24bdb4"
+      }
+    },
+    {
+      "name": "fireShield",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658158b46f4edb2241396b6c"
+      }
+    },
+    {
+      "name": "counterspell",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658158baa6e1bfd94f24be18"
+      }
+    },
+    {
+      "name": "scorchingRay",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658158e76f4edb2241396bd2"
+      }
+    },
+    {
+      "name": "shatter",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658158fa6f4edb2241396c39"
+      }
+    },
+    {
+      "name": "sending",
+      "type": "wizard",
+      "_id": {
+        "$oid": "6581593fa6e1bfd94f24be83"
+      }
+    },
+    {
+      "name": "alarm",
+      "type": "wizard",
+      "_id": {
+        "$oid": "6581596c6f4edb2241396ca5"
+      }
+    },
+    {
+      "name": "shield",
+      "type": "wizard",
+      "_id": {
+        "$oid": "65815975a6e1bfd94f24bef1"
+      }
+    },
+    {
+      "name": "chromaticOrb",
+      "type": "wizard",
+      "_id": {
+        "$oid": "6581597ea6e1bfd94f24bf60"
+      }
+    },
+    {
+      "name": "thunderwave",
+      "type": "wizard",
+      "_id": {
+        "$oid": "6581598e6f4edb2241396d18"
+      }
+    },
+    {
+      "name": "lightningBolt",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658159cca6e1bfd94f24bfd4"
+      }
+    },
+    {
+      "name": "darkness",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658159e56f4edb2241396d8e"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 2,
+    "dex": 0,
+    "con": 2,
+    "int": 0,
+    "wis": 0,
+    "cha": 0,
+    "_id": {
+      "$oid": "6578e6c97ba4ac6a1e04022e"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "6578e6c97ba4ac6a1e04022d"
+      }
+    }
+  },
+  "stats": {
+    "str": 13,
+    "dex": 9,
+    "con": 17,
+    "int": 20,
+    "wis": 11,
+    "cha": 15,
+    "_id": {
+      "$oid": "6578e6c97ba4ac6a1e04022f"
+    }
+  },
+  "hitPoints": 96,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "6578fd9f3761fe8d877c93c4"
+    },
+    "wizard": {
+      "arcaneTradition": "Evocation"
+    }
+  },
+  "hitDice": 10,
+  "remainingHitDice": 10,
+  "background": {
+    "name": "sage",
+    "skills": [
+      "arcana",
+      "history"
+    ],
+    "routines": [],
+    "sageSpecialty": "researcher",
+    "_id": {
+      "$oid": "6578fdd9ae6e3b306697d497"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 150,
+    "pp": 12
+  },
+  "pack": "scholars-pack",
+  "freeText": {
+    "hair": "Calvo, b. blanca",
+    "skin": "Pálido",
+    "eyes": "Negros",
+    "allies": "- Maestre Evocador de Forjacero\n   - Director de investigación en Evocación.\n   - Director de la Forja Arcana\n   - Director de la Sala de Vapor",
+    "personality": "Bonachón y campechano. Hace bromas de padre pero cambia rápidamente a un tono serio si la situación lo requiere.\n",
+    "ideals": "Divertirme mientras trabajo duro.",
+    "bonds": "Leal y protector de Fojacero y de su departamento.",
+    "flaws": "Arrogante con sus capacidades que, aunque grandes, ya llegaron a su punto máximo y ha dejado de intentar mejorarlas.",
+    "extraTraits1": "Es delgado y alto para un enano, pero muy fornido.\n\nTiene una larga barba blanca suelta, sin adornos. Lleva una túnica con capucha granate ribeteada con hilo de cobre encima de una armadura de bronce.\n\nEs extremadamente fuerte y robusto para un mago.\n\nAunque su poder como mago haya dejado de crecer al ritmo al que solía hacerlo y probablemente se encuentre al comienzo del declive del mismo, aun actúa como si tuviera un largo potencial por delante suyo.",
+    "extraTraits2": "",
+    "backstory": "Ignus conoce a Thrain desde antes de fundar Forjacero y empezó con él casi desde el principio de la fábrica.\n\nCuando se unió a Thrain, Ignus había ya pasado de ser una gran promesa en el mundo de la Evocación a materializar su poder tanto mágico como de mando.\n\nThrain lo puso a cargo de la Forja Arcana de la fábrica y acabó dirigiendo también las operaciones en la Sala de Vapor.\n\nAunque fue un gran investigador, hace tiempo que se dedica principalmente a labores administraticas y sus conocimientos en Evocación, aunque amplios, han dejado de avanzar. Aun tiene habilidad y capacidad suficientes para seguir siendo Maestre Evocador en la fábrica, aunque sus poderes como investigador y lanzador de conjuros están claramente estancados."
+  },
+  "temporaryHitPoints": 0,
+  "levelReady": 10
+},{
+  "_id": {
+    "$oid": "657f2af36dbae1724e571799"
+  },
+  "id": "3b482a31-6565-4240-9201-502e867d956d",
+  "name": "Doruk",
+  "race": "half-orc",
+  "subrace": "subrace",
+  "pClass": "fighter",
+  "level": 1,
+  "exp": 0,
+  "userId": "d5415d71-2bb8-4e7c-8fd4-d26d73b345fb",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "animal-handling",
+    "survival"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    10
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "battleaxe",
+        "amount": 1,
+        "_id": {
+          "$oid": "657f2ddfb9b17d6c97897d87"
+        }
+      },
+      {
+        "name": "handaxe",
+        "amount": 1,
+        "_id": {
+          "$oid": "657f2e30b9b17d6c97897db9"
+        }
+      },
+      {
+        "name": "handaxe",
+        "amount": 1,
+        "_id": {
+          "$oid": "657f2ddfb9b17d6c97897d89"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "chainMail",
+        "amount": 1,
+        "_id": {
+          "$oid": "657f2ddfb9b17d6c97897d86"
+        }
+      },
+      "shield": {
+        "name": "shield",
+        "amount": 1,
+        "_id": {
+          "$oid": "657f2ddfb9b17d6c97897d85"
+        }
+      },
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "657f2d95d7f16a744eff5bc8"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "smallKnife",
+          "amount": 1,
+          "_id": {
+            "$oid": "657f2d95d7f16a744eff5bc4"
+          }
+        },
+        {
+          "name": "cityMap",
+          "amount": 1,
+          "_id": {
+            "$oid": "657f2d95d7f16a744eff5bc5"
+          }
+        },
+        {
+          "name": "petMouse",
+          "amount": 1,
+          "_id": {
+            "$oid": "657f2d95d7f16a744eff5bc6"
+          }
+        },
+        {
+          "name": "parentsToken",
+          "amount": 1,
+          "_id": {
+            "$oid": "657f2d95d7f16a744eff5bc7"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "orc"
+  ],
+  "age": 27,
+  "height": 190,
+  "weight": 90,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "657f2d95d7f16a744eff5bc9"
+      }
+    },
+    {
+      "name": "thievesTools",
+      "amount": 1,
+      "_id": {
+        "$oid": "657f2d95d7f16a744eff5bca"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 2,
+    "dex": 0,
+    "con": 1,
+    "int": 0,
+    "wis": 0,
+    "cha": 0,
+    "_id": {
+      "$oid": "657f2bfbb9b17d6c97897d5e"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "657f2bfbb9b17d6c97897d5d"
+      }
+    }
+  },
+  "stats": {
+    "str": 14,
+    "dex": 13,
+    "con": 14,
+    "int": 13,
+    "wis": 8,
+    "cha": 9,
+    "_id": {
+      "$oid": "657f2bfbb9b17d6c97897d5f"
+    }
+  },
+  "hitPoints": 12,
+  "classAttrs": {
+    "fighter": {
+      "fightingStyle": "dueling",
+      "combatSuperiority": [],
+      "_id": {
+        "$oid": "657f2d4ab9b17d6c97897d68"
+      },
+      "knightSpells": []
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "657f2d4ab9b17d6c97897d67"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "urchin",
+    "skills": [
+      "sleight-of-hand",
+      "stealth"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "657f2d95d7f16a744eff5bcb"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 10,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "personality": "",
+    "ideals": "",
+    "bonds": "",
+    "flaws": "",
+    "allies": "",
+    "extraTraits1": "",
+    "extraTraits2": "",
+    "backstory": ""
+  },
+  "levelReady": 1
+},{
+  "_id": {
+    "$oid": "65844ddc923db9dd7a7d7d20"
+  },
+  "id": "90a3979e-dbc5-4873-a5dc-8414db847214",
+  "name": "Neylen",
+  "race": "half-elf",
+  "subrace": "subrace",
+  "pClass": "bard",
+  "level": 1,
+  "exp": 0,
+  "userId": "91dfa1cd-f529-4b05-a5e5-b3e68e498f57",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "investigation",
+    "insight",
+    "perception"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "rapier",
+        "amount": 1,
+        "_id": {
+          "$oid": "65845b42a9b31de9dd89565c"
+        }
+      },
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "658459adcd23e8f8a1d1c5fa"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "658459adcd23e8f8a1d1c5f8"
+        }
+      },
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65845950a9b31de9dd8954b4"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "calligraphersSupplies",
+          "amount": 1,
+          "_id": {
+            "$oid": "65845950a9b31de9dd8954b2"
+          }
+        },
+        {
+          "name": "guildIntroductionLetter",
+          "amount": 1,
+          "_id": {
+            "$oid": "65845950a9b31de9dd8954b3"
+          }
+        },
+        {
+          "name": "panFlute",
+          "amount": 1,
+          "_id": {
+            "$oid": "658459adcd23e8f8a1d1c5f6"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "dwarvish",
+    "halfling"
+  ],
+  "age": 50,
+  "height": 171,
+  "weight": 69,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "viciousMockery",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd895463"
+      }
+    },
+    {
+      "name": "mageHand",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd895464"
+      }
+    },
+    {
+      "name": "cureWounds",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd895465"
+      }
+    },
+    {
+      "name": "faerieFire",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd895466"
+      }
+    },
+    {
+      "name": "silentImage",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd895467"
+      }
+    },
+    {
+      "name": "tasha'sHideousLaughter",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd895468"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "flute",
+      "amount": 1,
+      "_id": {
+        "$oid": "658458eaa9b31de9dd895469"
+      }
+    },
+    {
+      "name": "panFlute",
+      "amount": 1,
+      "_id": {
+        "$oid": "658458eaa9b31de9dd89546a"
+      }
+    },
+    {
+      "name": "bagpipes",
+      "amount": 1,
+      "_id": {
+        "$oid": "658458eaa9b31de9dd89546b"
+      }
+    },
+    {
+      "name": "calligraphersSupplies",
+      "amount": 1,
+      "_id": {
+        "$oid": "65845950a9b31de9dd8954b8"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "viciousMockery",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd895478"
+      }
+    },
+    {
+      "name": "mageHand",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd895479"
+      }
+    },
+    {
+      "name": "cureWounds",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd89547a"
+      }
+    },
+    {
+      "name": "faerieFire",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd89547b"
+      }
+    },
+    {
+      "name": "silentImage",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd89547c"
+      }
+    },
+    {
+      "name": "tasha'sHideousLaughter",
+      "_id": {
+        "$oid": "658458eaa9b31de9dd89547d"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 0,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": 2,
+    "_id": {
+      "$oid": "65844e7153c4ca135033eca1"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 1,
+      "con": 0,
+      "int": 0,
+      "wis": 1,
+      "cha": 0,
+      "_id": {
+        "$oid": "65844e7153c4ca135033eca0"
+      }
+    },
+    "skills": [
+      "performance",
+      "persuasion"
+    ]
+  },
+  "stats": {
+    "str": 11,
+    "dex": 15,
+    "con": 14,
+    "int": 14,
+    "wis": 11,
+    "cha": 15,
+    "_id": {
+      "$oid": "65844e7153c4ca135033eca2"
+    }
+  },
+  "hitPoints": 10,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "658458eaa9b31de9dd89546c"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "guildArtisan",
+    "skills": [
+      "insight",
+      "persuasion"
+    ],
+    "guild": "calligraphers",
+    "routines": [],
+    "_id": {
+      "$oid": "65845950a9b31de9dd8954b9"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 15,
+    "pp": 0
+  },
+  "pack": "diplomats-pack",
+  "freeText": {
+    "allies": ""
+  },
+  "levelReady": 1
+},{
+  "_id": {
+    "$oid": "658e1ce267058a2a7774f134"
+  },
+  "id": "673d81ee-1ced-413a-bd3e-247bfd3ab8ef",
+  "name": "Magnum Morphus",
+  "race": "dwarf",
+  "subrace": "hills",
+  "pClass": "wizard",
+  "level": 8,
+  "levelReady": 8,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [
+    4,
+    8
+  ],
+  "skills": [
+    "arcana",
+    "investigation"
+  ],
+  "speed": 8,
+  "totalHitPoints": [
+    6,
+    4,
+    5,
+    3,
+    2,
+    6,
+    1,
+    6
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "658e207a2b5788048822ec03"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": null,
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "658e20642e935713b35c4177"
+          }
+        },
+        {
+          "name": "componentPouch",
+          "amount": 1,
+          "_id": {
+            "$oid": "658e207a2b5788048822ec02"
+          }
+        },
+        {
+          "name": "Anillo de Almacenamiento de Conjuros",
+          "amount": 1,
+          "_id": {
+            "$oid": "658f7a9e75528cbe3e6efe64"
+          }
+        },
+        {
+          "name": "Bolsa de Contención",
+          "amount": 1,
+          "_id": {
+            "$oid": "658f7bc58f0146b083a565a7"
+          }
+        },
+        {
+          "name": "Anteojos de la Noche",
+          "amount": 1,
+          "_id": {
+            "$oid": "658f7c4c75528cbe3e6effac"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "inkBottle",
+          "amount": 1,
+          "_id": {
+            "$oid": "658e20642e935713b35c4173"
+          }
+        },
+        {
+          "name": "inkPen",
+          "amount": 1,
+          "_id": {
+            "$oid": "658e20642e935713b35c4174"
+          }
+        },
+        {
+          "name": "smallKnife",
+          "amount": 1,
+          "_id": {
+            "$oid": "658e20642e935713b35c4175"
+          }
+        },
+        {
+          "name": "personalLetter",
+          "amount": 1,
+          "_id": {
+            "$oid": "658e20642e935713b35c4176"
+          }
+        },
+        {
+          "name": "spellbook",
+          "amount": 1,
+          "_id": {
+            "$oid": "658e207a2b5788048822ec00"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "dwarvish",
+    "elvish",
+    "goblin"
+  ],
+  "age": 117,
+  "height": 122,
+  "weight": 74,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "mending",
+      "_id": {
+        "$oid": "658e20442e935713b35c4138"
+      }
+    },
+    {
+      "name": "message",
+      "_id": {
+        "$oid": "658e20442e935713b35c4139"
+      }
+    },
+    {
+      "name": "prestidigitation",
+      "_id": {
+        "$oid": "658e20442e935713b35c413a"
+      }
+    },
+    {
+      "name": "expeditiousRetreat",
+      "_id": {
+        "$oid": "658e20442e935713b35c413c"
+      }
+    },
+    {
+      "name": "featherFall",
+      "_id": {
+        "$oid": "658e20442e935713b35c413d"
+      }
+    },
+    {
+      "name": "jump",
+      "_id": {
+        "$oid": "658e20442e935713b35c413f"
+      }
+    },
+    {
+      "name": "longstrider",
+      "_id": {
+        "$oid": "658e20442e935713b35c4140"
+      }
+    },
+    {
+      "name": "alterSelf",
+      "_id": {
+        "$oid": "658e21cea418e80b74542f56"
+      }
+    },
+    {
+      "name": "darkvision",
+      "_id": {
+        "$oid": "658e21cea418e80b74542f57"
+      }
+    },
+    {
+      "name": "enlarge/Reduce",
+      "_id": {
+        "$oid": "658e21cea418e80b74542f58"
+      }
+    },
+    {
+      "name": "knock",
+      "_id": {
+        "$oid": "658e221c2e935713b35c4532"
+      }
+    },
+    {
+      "name": "levitate",
+      "_id": {
+        "$oid": "658e221c2e935713b35c4533"
+      }
+    },
+    {
+      "name": "magicWeapon",
+      "_id": {
+        "$oid": "658e221c2e935713b35c4534"
+      }
+    },
+    {
+      "name": "blink",
+      "_id": {
+        "$oid": "658e22f7a418e80b745430cb"
+      }
+    },
+    {
+      "name": "fly",
+      "_id": {
+        "$oid": "658e22f7a418e80b745430cc"
+      }
+    },
+    {
+      "name": "gaseousForm",
+      "_id": {
+        "$oid": "658e22f7a418e80b745430cd"
+      }
+    },
+    {
+      "name": "ropeTrick",
+      "_id": {
+        "$oid": "658e233ca418e80b745431dc"
+      }
+    },
+    {
+      "name": "waterBreathing",
+      "_id": {
+        "$oid": "658e233ca418e80b745431de"
+      }
+    },
+    {
+      "name": "fireBolt",
+      "_id": {
+        "$oid": "658e23bc2e935713b35c482f"
+      }
+    },
+    {
+      "name": "controlWater",
+      "_id": {
+        "$oid": "658e23bc2e935713b35c4830"
+      }
+    },
+    {
+      "name": "fabricate",
+      "_id": {
+        "$oid": "658e23bc2e935713b35c4831"
+      }
+    },
+    {
+      "name": "polymorph",
+      "_id": {
+        "$oid": "658e23bc2e935713b35c4832"
+      }
+    },
+    {
+      "name": "slow",
+      "_id": {
+        "$oid": "658e23f52e935713b35c494e"
+      }
+    },
+    {
+      "name": "stoneShape",
+      "_id": {
+        "$oid": "658e23f52e935713b35c494f"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "brewersSupplies",
+      "amount": 1,
+      "_id": {
+        "$oid": "658e1d3067058a2a7774f13d"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "fabricate",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e247ba418e80b7454354f"
+      }
+    },
+    {
+      "name": "polymorph",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e247ca418e80b74543576"
+      }
+    },
+    {
+      "name": "controlWater",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e248374a6c2c15ac64f7e"
+      }
+    },
+    {
+      "name": "gaseousForm",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e24912e935713b35c4a7e"
+      }
+    },
+    {
+      "name": "fly",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e249474a6c2c15ac64fd2"
+      }
+    },
+    {
+      "name": "blink",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e249574a6c2c15ac65027"
+      }
+    },
+    {
+      "name": "levitate",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e24a62e935713b35c4ad7"
+      }
+    },
+    {
+      "name": "enlarge/Reduce",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e24b474a6c2c15ac65056"
+      }
+    },
+    {
+      "name": "longstrider",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e24b82e935713b35c4b5e"
+      }
+    },
+    {
+      "name": "jump",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e24b92e935713b35c4b8e"
+      }
+    },
+    {
+      "name": "featherFall",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e24ba2e935713b35c4bed"
+      }
+    },
+    {
+      "name": "slow",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e24ca74a6c2c15ac650e7"
+      }
+    },
+    {
+      "name": "ropeTrick",
+      "type": "wizard",
+      "_id": {
+        "$oid": "658e24d22e935713b35c4c51"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 0,
+    "con": 2,
+    "int": 0,
+    "wis": 1,
+    "cha": 0,
+    "_id": {
+      "$oid": "658e1d2a4195003261122998"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "658e1d2a4195003261122997"
+      }
+    }
+  },
+  "stats": {
+    "str": 12,
+    "dex": 16,
+    "con": 13,
+    "int": 20,
+    "wis": 15,
+    "cha": 10,
+    "_id": {
+      "$oid": "658e1d2a4195003261122999"
+    }
+  },
+  "hitPoints": 50,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "658e20442e935713b35c4141"
+    },
+    "wizard": {
+      "arcaneTradition": "Transmutation"
+    }
+  },
+  "hitDice": 8,
+  "remainingHitDice": 8,
+  "background": {
+    "name": "sage",
+    "skills": [
+      "arcana",
+      "history"
+    ],
+    "routines": [],
+    "sageSpecialty": "alchemist",
+    "_id": {
+      "$oid": "658e20642e935713b35c4179"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 100,
+    "pp": 10
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "personality": "Joven investigador muy centrado en sus estudios. No tiene miedo de salir al campo, explorar y exponerse a peligros",
+    "ideals": "Conocimiento. Resultados cueste lo que cueste. El fin justifica los medios",
+    "bonds": "Comunidad investigadora. Thrain Forjacero por concederle recursos ilimitados para sus investigaciones.",
+    "flaws": "Puede poner a cualquiera en peligro si a cambio consigue avanzar en sus investigaciones.",
+    "allies": "- Maestre Transmutador de Forjacero\n   - Director de investigación en Transmutación.\n   - Director del Almacén de Materiales\n   - Director de Alquimia\n   - Director de Calderones",
+    "extraTraits1": "Estatura y peso medios, pero muy en forma.\n\nEs muy serio. Se toma en serio sus estudios y trabajo y aunque permite que sus trabajadores se divertan y bromeen, él nunca participa Deja que pasen y continúa con su trabajo. Rara vez sonríe.\n\nBalancea trabajo de fábrica y trabajo de campo a partes iguales.",
+    "extraTraits2": "",
+    "backstory": "Magnum es de los últimos fichajes de Thrain para dirigir la fábrica. Tras el último crecimiento de la misma, fue contratado como Director de Alquimia y poco más tarde se hizo con la dirección de los Calderones y el Almacén.\n\nSu fuerte ética de trabajo, sus capacidades investigadoras, y su infatigable ansia por aprender y desentrañar los misterios del universo han colocado a Magnum entre los predilectos de Thrain para dirigir su fábrica."
+  }
+},{
+  "_id": {
+    "$oid": "6590438338c8541b4fe1a78f"
+  },
+  "id": "c1ff13c1-6d37-4ed4-9749-df9c249fab25",
+  "name": "ZÓSIMO",
+  "race": "half-orc",
+  "subrace": "subrace",
+  "pClass": "ranger",
+  "level": 1,
+  "levelReady": 1,
+  "exp": 0,
+  "userId": "0e90c5c6-2bfa-4547-b4b0-4f9b49f6eb92",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "insight",
+    "perception",
+    "survival"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    10
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "handaxe",
+        "amount": 1,
+        "_id": {
+          "$oid": "6590464538c8541b4fe1a7b2"
+        }
+      },
+      {
+        "name": "handaxe",
+        "amount": 1,
+        "_id": {
+          "$oid": "659046a838c8541b4fe1a838"
+        }
+      },
+      {
+        "name": "longbow",
+        "amount": 1,
+        "_id": {
+          "$oid": "659046ab712c9fe0309601c1"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "6590464538c8541b4fe1a7b1"
+        }
+      },
+      "shield": null,
+      "ammunition": [
+        {
+          "name": "arrows",
+          "amount": 20,
+          "_id": {
+            "$oid": "6590464538c8541b4fe1a7b0"
+          }
+        }
+      ],
+      "others": [
+        {
+          "name": "fineClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "6590459a712c9fe03096012c"
+          }
+        },
+        {
+          "name": "disguiseKit",
+          "amount": 1,
+          "_id": {
+            "$oid": "6590459a712c9fe03096012d"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "conTools",
+          "amount": 1,
+          "_id": {
+            "$oid": "6590459a712c9fe03096012b"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "orc",
+    "deep-speech"
+  ],
+  "age": 27,
+  "height": 184,
+  "weight": 104,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "6590459a712c9fe03096012e"
+      }
+    },
+    {
+      "name": "forgeryKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "6590459a712c9fe03096012f"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 2,
+    "dex": 0,
+    "con": 1,
+    "int": 0,
+    "wis": 0,
+    "cha": 0,
+    "_id": {
+      "$oid": "6590443f712c9fe030960120"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "6590443f712c9fe03096011f"
+      }
+    }
+  },
+  "stats": {
+    "str": 12,
+    "dex": 12,
+    "con": 12,
+    "int": 13,
+    "wis": 12,
+    "cha": 14,
+    "_id": {
+      "$oid": "6590443f712c9fe030960121"
+    }
+  },
+  "hitPoints": 11,
+  "classAttrs": {
+    "ranger": {
+      "favoredEnemies": [
+        "aberrations"
+      ],
+      "favoredEnemiesSelection": [
+        true
+      ],
+      "favoredTerrains": [
+        "forest"
+      ],
+      "_id": {
+        "$oid": "659044d738c8541b4fe1a798"
+      }
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "659044d738c8541b4fe1a797"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "charlatan",
+    "skills": [
+      "deception",
+      "sleight-of-hand"
+    ],
+    "routines": [],
+    "favoriteScheme": "identity",
+    "_id": {
+      "$oid": "6590459a712c9fe030960130"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 15,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "personality": "",
+    "backstory": ""
+  }
+},{
+  "_id": {
+    "$oid": "65904c5aa8308875aa2bfb7f"
+  },
+  "id": "3b5672fd-0b05-4f89-974a-1077471ab363",
+  "name": "Taylor Veridia",
+  "race": "human",
+  "subrace": "subrace",
+  "pClass": "sorcerer",
+  "level": 1,
+  "levelReady": 1,
+  "exp": 0,
+  "userId": "a8219d7b-54cd-456c-9152-6f1e26721b35",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "insight",
+    "persuasion"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    6
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "6593566ec29bc66f23209819"
+        }
+      },
+      null,
+      null
+    ],
+    "equipment": {
+      "armor": null,
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "fineClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "659050e605b10bc4daecb386"
+          }
+        },
+        {
+          "name": "wand",
+          "amount": 1,
+          "_id": {
+            "$oid": "659051d40723d547ff300aba"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "signedRing",
+          "amount": 1,
+          "_id": {
+            "$oid": "659050e605b10bc4daecb384"
+          }
+        },
+        {
+          "name": "pedigreeScroll",
+          "amount": 1,
+          "_id": {
+            "$oid": "659050e605b10bc4daecb385"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "dwarvish"
+  ],
+  "age": 22,
+  "height": 172,
+  "weight": 60,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "fireBolt",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb343"
+      }
+    },
+    {
+      "name": "light",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb344"
+      }
+    },
+    {
+      "name": "mageHand",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb345"
+      }
+    },
+    {
+      "name": "prestidigitation",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb346"
+      }
+    },
+    {
+      "name": "burningHands",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb347"
+      }
+    },
+    {
+      "name": "sleep",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb348"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "gamingSet",
+      "amount": 1,
+      "_id": {
+        "$oid": "659050e605b10bc4daecb387"
+      }
+    }
+  ],
+  "preparedSpells": [
+    {
+      "name": "fireBolt",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb353"
+      }
+    },
+    {
+      "name": "light",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb354"
+      }
+    },
+    {
+      "name": "mageHand",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb355"
+      }
+    },
+    {
+      "name": "prestidigitation",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb356"
+      }
+    },
+    {
+      "name": "burningHands",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb357"
+      }
+    },
+    {
+      "name": "sleep",
+      "_id": {
+        "$oid": "6590504605b10bc4daecb358"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 1,
+    "dex": 1,
+    "con": 1,
+    "int": 1,
+    "wis": 1,
+    "cha": 1,
+    "_id": {
+      "$oid": "65904e0105b10bc4daecb338"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "65904e0105b10bc4daecb337"
+      }
+    }
+  },
+  "stats": {
+    "str": 7,
+    "dex": 9,
+    "con": 15,
+    "int": 10,
+    "wis": 13,
+    "cha": 16,
+    "_id": {
+      "$oid": "65904e0105b10bc4daecb339"
+    }
+  },
+  "hitPoints": 10,
+  "classAttrs": {
+    "sorcerer": {
+      "sorcererOrigin": "draconicBloodline",
+      "dragonAncestor": "fire",
+      "metamagic": [],
+      "_id": {
+        "$oid": "6590504605b10bc4daecb34a"
+      }
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "6590504605b10bc4daecb349"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "noble",
+    "skills": [
+      "history",
+      "persuasion"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "659050e605b10bc4daecb388"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 25,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "allies": "",
+    "extraTraits1": "",
+    "backstory": "",
+    "personality": "",
+    "ideals": "",
+    "bonds": "",
+    "flaws": ""
+  }
+},{
+  "_id": {
+    "$oid": "659c756a4b8a9e15caa19202"
+  },
+  "id": "a8c08245-6218-43cc-8ba8-e32fe2b98cb7",
+  "name": "Lander",
+  "race": "human",
+  "subrace": "subrace",
+  "pClass": "ranger",
+  "level": 1,
+  "levelReady": 1,
+  "exp": 0,
+  "userId": "2b3bcf16-d7f3-44b8-a9f8-a3874f6db776",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "athletics",
+    "insight",
+    "nature"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    10
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "shortsword",
+        "amount": 1,
+        "_id": {
+          "$oid": "659c79614b8a9e15caa19259"
+        }
+      },
+      {
+        "name": "shortsword",
+        "amount": 1,
+        "_id": {
+          "$oid": "659c7940b7ac8cecacb4d0a0"
+        }
+      },
+      {
+        "name": "longbow",
+        "amount": 1,
+        "_id": {
+          "$oid": "659c7940b7ac8cecacb4d0a1"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "659c7940b7ac8cecacb4d09e"
+        }
+      },
+      "shield": null,
+      "ammunition": [
+        {
+          "name": "arrows",
+          "amount": 20,
+          "_id": {
+            "$oid": "659c7940b7ac8cecacb4d09d"
+          }
+        }
+      ],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "659c78cc4b8a9e15caa1921e"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "smallKnife",
+          "amount": 1,
+          "_id": {
+            "$oid": "659c78cc4b8a9e15caa1921a"
+          }
+        },
+        {
+          "name": "cityMap",
+          "amount": 1,
+          "_id": {
+            "$oid": "659c78cc4b8a9e15caa1921b"
+          }
+        },
+        {
+          "name": "parentsToken",
+          "amount": 1,
+          "_id": {
+            "$oid": "659c78cc4b8a9e15caa1921d"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish"
+  ],
+  "age": 19,
+  "height": 175,
+  "weight": 70,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "659c78cc4b8a9e15caa1921f"
+      }
+    },
+    {
+      "name": "thievesTools",
+      "amount": 1,
+      "_id": {
+        "$oid": "659c78cc4b8a9e15caa19220"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 1,
+    "dex": 1,
+    "con": 1,
+    "int": 1,
+    "wis": 1,
+    "cha": 1,
+    "_id": {
+      "$oid": "659c76a96fd14d8ca6cf3cc8"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "659c76a96fd14d8ca6cf3cc7"
+      }
+    }
+  },
+  "stats": {
+    "str": 11,
+    "dex": 16,
+    "con": 15,
+    "int": 13,
+    "wis": 15,
+    "cha": 9,
+    "_id": {
+      "$oid": "659c76a96fd14d8ca6cf3cc9"
+    }
+  },
+  "hitPoints": 13,
+  "classAttrs": {
+    "ranger": {
+      "favoredEnemies": [
+        "beasts"
+      ],
+      "favoredEnemiesSelection": [
+        true
+      ],
+      "favoredTerrains": [
+        "forest"
+      ],
+      "_id": {
+        "$oid": "659c78464b8a9e15caa19210"
+      }
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "659c78464b8a9e15caa1920f"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "urchin",
+    "skills": [
+      "sleight-of-hand",
+      "stealth"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "659c78cc4b8a9e15caa19221"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 10,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "personality": ""
+  }
+},{
+  "_id": {
+    "$oid": "659ef702edcb70b1c9719a4a"
+  },
+  "id": "e62f7010-7a1c-4376-bc96-60fa172a0444",
+  "name": "Tomburan Goldsack",
+  "race": "halfling",
+  "subrace": "lightfoot",
+  "pClass": "rogue",
+  "level": 11,
+  "levelReady": 11,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [
+    4,
+    8,
+    10
+  ],
+  "skills": [
+    "insight",
+    "deception",
+    "performance",
+    "persuasion"
+  ],
+  "speed": 8,
+  "totalHitPoints": [
+    8,
+    7,
+    6,
+    2,
+    5,
+    8,
+    6,
+    1,
+    5,
+    8,
+    4
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "rapier",
+        "amount": 1,
+        "_id": {
+          "$oid": "659ef94303b1cfd587ae30a8"
+        }
+      },
+      {
+        "name": "dagger",
+        "amount": 1,
+        "_id": {
+          "$oid": "659ef93fedcb70b1c9719b91"
+        }
+      },
+      {
+        "name": "shortbow",
+        "amount": 1,
+        "_id": {
+          "$oid": "659ef847edcb70b1c9719a70"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "leather",
+        "amount": 1,
+        "_id": {
+          "$oid": "659ef847edcb70b1c9719a6d"
+        }
+      },
+      "shield": null,
+      "ammunition": [
+        {
+          "name": "arrows",
+          "amount": 20,
+          "_id": {
+            "$oid": "659ef847edcb70b1c9719a6c"
+          }
+        }
+      ],
+      "others": [
+        {
+          "name": "fineClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "659ef820c694041f40936468"
+          }
+        },
+        {
+          "name": "disguiseKit",
+          "amount": 1,
+          "_id": {
+            "$oid": "659ef820c694041f40936469"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [
+        {
+          "name": "dagger",
+          "amount": 1,
+          "_id": {
+            "$oid": "659ef93003b1cfd587ae3060"
+          }
+        },
+        {
+          "name": "rapier",
+          "amount": 1,
+          "_id": {
+            "$oid": "659ef93eedcb70b1c9719b81"
+          }
+        }
+      ],
+      "armors": [],
+      "others": [
+        {
+          "name": "conTools",
+          "amount": 1,
+          "_id": {
+            "$oid": "659ef820c694041f40936467"
+          }
+        },
+        {
+          "name": "thievesTools",
+          "amount": 1,
+          "_id": {
+            "$oid": "659ef847edcb70b1c9719a68"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "halfling",
+    "thieves-cant"
+  ],
+  "age": 150,
+  "height": 98,
+  "weight": 19,
+  "size": "S",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "disguiseKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "659ef820c694041f4093646a"
+      }
+    },
+    {
+      "name": "forgeryKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "659ef820c694041f4093646b"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 2,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": 1,
+    "_id": {
+      "$oid": "659ef73cc694041f4093645c"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "659ef73cc694041f4093645b"
+      }
+    }
+  },
+  "stats": {
+    "str": 10,
+    "dex": 13,
+    "con": 13,
+    "int": 15,
+    "wis": 16,
+    "cha": 15,
+    "_id": {
+      "$oid": "659ef73cc694041f4093645d"
+    }
+  },
+  "hitPoints": 71,
+  "classAttrs": {
+    "expertSkills": [
+      "insight",
+      "persuasion"
+    ],
+    "skills": [],
+    "_id": {
+      "$oid": "659ef7a3edcb70b1c9719a53"
+    },
+    "rogue": {
+      "roguishArchetype": "thief"
+    }
+  },
+  "hitDice": 11,
+  "remainingHitDice": 11,
+  "background": {
+    "name": "charlatan",
+    "skills": [
+      "deception",
+      "sleight-of-hand"
+    ],
+    "routines": [],
+    "favoriteScheme": "junk",
+    "_id": {
+      "$oid": "659ef820c694041f4093646c"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 15,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "bonds": ""
+  }
+},{
+  "_id": {
+    "$oid": "65a26d689f77e738f53ecbe2"
+  },
+  "id": "eaec9b34-1993-4db8-89f0-5717b3317e9c",
+  "name": "Nekane",
+  "race": "elf",
+  "subrace": "wood",
+  "pClass": "cleric",
+  "level": 2,
+  "levelReady": 2,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [],
+  "skills": [
+    "medicine",
+    "religion"
+  ],
+  "speed": 11,
+  "totalHitPoints": [
+    8,
+    4
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "warhammer",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a26ff29f77e738f53ecc23"
+        }
+      },
+      {
+        "name": "mace",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a26ff29f77e738f53ecc24"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "chainMail",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a26ff29f77e738f53ecc22"
+        }
+      },
+      "shield": {
+        "name": "shield",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a26ff29f77e738f53ecc21"
+        }
+      },
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a26fb49f77e738f53ecbf4"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "holySymbol",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a26fb49f77e738f53ecbf0"
+          }
+        },
+        {
+          "name": "prayerbook",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a26fb49f77e738f53ecbf1"
+          }
+        },
+        {
+          "name": "incenseBlocks",
+          "amount": 5,
+          "_id": {
+            "$oid": "65a26fb49f77e738f53ecbf2"
+          }
+        },
+        {
+          "name": "vestments",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a26fb49f77e738f53ecbf3"
+          }
+        },
+        {
+          "name": "holySymbol",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a26ff29f77e738f53ecc1f"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "dwarvish",
+    "orc"
+  ],
+  "age": 299,
+  "height": 170,
+  "weight": 50,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "sacredFlame",
+      "_id": {
+        "$oid": "65a26f3db45e8c5c8d93f114"
+      }
+    },
+    {
+      "name": "guidance",
+      "_id": {
+        "$oid": "65a26f3db45e8c5c8d93f115"
+      }
+    },
+    {
+      "name": "thaumaturgy",
+      "_id": {
+        "$oid": "65a26f3db45e8c5c8d93f116"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [],
+  "preparedSpells": [
+    {
+      "name": "fogCloud",
+      "_id": {
+        "$oid": "65a26f3db45e8c5c8d93f11e"
+      }
+    },
+    {
+      "name": "thunderwave",
+      "_id": {
+        "$oid": "65a26f3db45e8c5c8d93f11f"
+      }
+    },
+    {
+      "name": "thunderwave",
+      "type": "cleric",
+      "_id": {
+        "$oid": "65a270279f77e738f53ecc64"
+      }
+    },
+    {
+      "name": "thunderwave",
+      "type": "cleric",
+      "_id": {
+        "$oid": "65a2703a9f77e738f53ecca8"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 2,
+    "con": 0,
+    "int": 0,
+    "wis": 1,
+    "cha": 0,
+    "_id": {
+      "$oid": "65a26e35b45e8c5c8d93f10a"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "65a26e35b45e8c5c8d93f109"
+      }
+    }
+  },
+  "stats": {
+    "str": 13,
+    "dex": 10,
+    "con": 12,
+    "int": 9,
+    "wis": 16,
+    "cha": 11,
+    "_id": {
+      "$oid": "65a26e35b45e8c5c8d93f10b"
+    }
+  },
+  "hitPoints": 14,
+  "classAttrs": {
+    "cleric": {
+      "divineDomain": "tempest",
+      "_id": {
+        "$oid": "65a26f3db45e8c5c8d93f118"
+      }
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "65a26f3db45e8c5c8d93f117"
+    }
+  },
+  "hitDice": 2,
+  "remainingHitDice": 2,
+  "background": {
+    "name": "acolyte",
+    "skills": [
+      "insight",
+      "religion"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "65a26fb49f77e738f53ecbf5"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 15,
+    "pp": 0
+  },
+  "pack": "priests-pack",
+  "freeText": {
+    "allies": "- Templo de Abaru en Gran Bwini\n   - Clériga interna hasta que Petra se fue\n- Tutora y mentora de Petra\n- Compañía del Trueno, último fichaje, desde que Petra se fue",
+    "backstory": "Se crió en un poblado elfo de los bosques al límite de los reinos élficos, por lo que recibió entrenamiento en combate desde muy joven.\n\nTras alcanzar la madurez a los 100 años, partió en busca de un objetivo vital a los Reinos [X]. Encontró en un creciente Gran Bwini su objetivo sirviendo en el Templo a Abaru, en el que se formó como clériga, ayudando en la seguridad de la ciudad y en las tareas del Templo.\n\nCon 265 años, cuando Gran Bwini se había convertido en la ciudad más importante de la región, acogió bajo su tutela a la huérfana Petra, a la que educó y tutorizó.\n\nCon 276 años, cuando Petra se fue en busca de Thrain, la Compañía del Trueno, también seguidores de Abaru, pasó por Gran Bwini en su persecución de los [Ladrones de Reliquias]. Tras conversaciones con ellos, se dio cuenta de que su etapa en Gran Bwini debía acabar y que podía aumentar el alcance de su ayuda en nombre de Abaru fuera de la ciudad a través de unirse a la Compañía.",
+    "personality": "Dulce y amable con amigos y extraños. Dilapidante y sentenciosa con los enemigos de Abaru.",
+    "ideals": "Ayudar al necesitado.",
+    "bonds": "Templo de Abaru en Gran Bwini.\nSiente a Petra como su ahijada.\nVolcada con la Compañía del Trueno.",
+    "flaws": "Puede llegar a perder el control ante injusticias."
+  }
+},{
+  "_id": {
+    "$oid": "65a29b8679f0d54a76d8af33"
+  },
+  "id": "27109b35-462a-4b55-ba32-f778c29c7268",
+  "name": "Ser Solomon von Vuur",
+  "race": "dwarf",
+  "subrace": "mountains",
+  "pClass": "paladin",
+  "level": 2,
+  "levelReady": 2,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [],
+  "skills": [
+    "insight",
+    "religion"
+  ],
+  "speed": 8,
+  "totalHitPoints": [
+    10,
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "warhammer",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a29d18acfd5c2d262d473f"
+        }
+      },
+      {
+        "name": "lightHammer",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a29d18acfd5c2d262d4740"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "chainMail",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a29d18acfd5c2d262d473e"
+        }
+      },
+      "shield": {
+        "name": "shield",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a29d18acfd5c2d262d473d"
+        }
+      },
+      "ammunition": [],
+      "others": [
+        {
+          "name": "fineClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a29c8a2e5fd0002e411be4"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "signedRing",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a29c8a2e5fd0002e411be2"
+          }
+        },
+        {
+          "name": "pedigreeScroll",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a29c8a2e5fd0002e411be3"
+          }
+        },
+        {
+          "name": "holySymbol",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a29d18acfd5c2d262d473b"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "dwarvish",
+    "giant"
+  ],
+  "age": 90,
+  "height": 143,
+  "weight": 88,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "smithsTools",
+      "amount": 1,
+      "_id": {
+        "$oid": "65a29bfc2e5fd0002e411bd7"
+      }
+    },
+    {
+      "name": "gamingSet",
+      "amount": 1,
+      "_id": {
+        "$oid": "65a29c8a2e5fd0002e411be6"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 2,
+    "dex": 0,
+    "con": 2,
+    "int": 0,
+    "wis": 0,
+    "cha": 0,
+    "_id": {
+      "$oid": "65a29bedacfd5c2d262d4715"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "65a29bedacfd5c2d262d4714"
+      }
+    }
+  },
+  "stats": {
+    "str": 18,
+    "dex": 12,
+    "con": 12,
+    "int": 7,
+    "wis": 11,
+    "cha": 17,
+    "_id": {
+      "$oid": "65a29bedacfd5c2d262d4716"
+    }
+  },
+  "hitPoints": 22,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "65a29c60acfd5c2d262d4723"
+    },
+    "paladin": {
+      "fightingStyle": "protection"
+    }
+  },
+  "hitDice": 2,
+  "remainingHitDice": 2,
+  "background": {
+    "name": "noble",
+    "skills": [
+      "history",
+      "persuasion"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "65a29c8a2e5fd0002e411be7"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 25,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "bonds": "Comañía del Trueno",
+    "ideals": "Proteger al débil.",
+    "allies": "- Comañía del Trueno, miembro."
+  }
+},{
+  "_id": {
+    "$oid": "65a2a378c7e1c11c4db78c96"
+  },
+  "id": "df2bb01f-b012-472e-a5d8-f7f10221b134",
+  "name": "Tízoc \"el Trueno\" Steele",
+  "race": "human",
+  "subrace": "subrace",
+  "pClass": "fighter",
+  "level": 2,
+  "levelReady": 2,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [],
+  "skills": [
+    "acrobatics",
+    "survival"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    10,
+    8
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "glaive",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a3c55b291139d35d2d37a4"
+        }
+      },
+      {
+        "name": "handaxe",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a3c54c35c8ec344df33a24"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "chainMail",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a2a4f0f0dbfbae792185b1"
+        }
+      },
+      "shield": {
+        "name": "shield",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a2a4f0f0dbfbae792185b0"
+        }
+      },
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2a470c7e1c11c4db78ca3"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [
+        {
+          "name": "handaxe",
+          "_id": {
+            "$oid": "65a2a4ffaec62abf3f24af83"
+          }
+        }
+      ],
+      "armors": [],
+      "others": [
+        {
+          "name": "rankInsignia",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2a470c7e1c11c4db78ca0"
+          }
+        },
+        {
+          "name": "enemyTrophy",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2a470c7e1c11c4db78ca1"
+          }
+        },
+        {
+          "name": "gamingSet",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2a470c7e1c11c4db78ca2"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "dwarvish"
+  ],
+  "age": 24,
+  "height": 180,
+  "weight": 90,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "gamingSet",
+      "amount": 1,
+      "_id": {
+        "$oid": "65a2a470c7e1c11c4db78ca4"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 1,
+    "dex": 1,
+    "con": 1,
+    "int": 1,
+    "wis": 1,
+    "cha": 1,
+    "_id": {
+      "$oid": "65a2a3bcf0dbfbae79218587"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "65a2a3bcf0dbfbae79218586"
+      }
+    }
+  },
+  "stats": {
+    "str": 18,
+    "dex": 14,
+    "con": 15,
+    "int": 12,
+    "wis": 13,
+    "cha": 13,
+    "_id": {
+      "$oid": "65a2a3bcf0dbfbae79218588"
+    }
+  },
+  "hitPoints": 24,
+  "classAttrs": {
+    "fighter": {
+      "fightingStyle": "great-Weapon-fighting",
+      "combatSuperiority": [],
+      "_id": {
+        "$oid": "65a2a43ff0dbfbae79218597"
+      },
+      "knightSpells": []
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "65a2a43ff0dbfbae79218596"
+    }
+  },
+  "hitDice": 2,
+  "remainingHitDice": 2,
+  "background": {
+    "name": "soldier",
+    "skills": [
+      "athletics",
+      "intimidation"
+    ],
+    "routines": [],
+    "soldierSpecialty": "scout",
+    "_id": {
+      "$oid": "65a2a470c7e1c11c4db78ca5"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 10,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "bonds": "Compañía del Trueno",
+    "allies": "- Compañía del Trueno, líder."
+  }
+},{
+  "_id": {
+    "$oid": "65a2e84993259fede15c339b"
+  },
+  "id": "825795b0-ffc2-4a18-9777-a17e4633076f",
+  "name": "Leif",
+  "race": "half-orc",
+  "subrace": "subrace",
+  "pClass": "monk",
+  "level": 2,
+  "levelReady": 2,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [],
+  "skills": [
+    "acrobatics",
+    "athletics"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    8,
+    3
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "shortsword",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a2e9c393259fede15c33c1"
+        }
+      },
+      {
+        "name": "martialArts",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a2e9fbf2616f4d9969f549"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": null,
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2e942f2616f4d9969f491"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [
+        {
+          "name": "dart",
+          "amount": 8,
+          "_id": {
+            "$oid": "65a2e9c393259fede15c33be"
+          }
+        },
+        {
+          "name": "dart",
+          "_id": {
+            "$oid": "65a2e9e0e262d62a4b7d7bd5"
+          }
+        },
+        {
+          "name": "dart",
+          "_id": {
+            "$oid": "65a2e9e3f2616f4d9969f4cf"
+          }
+        }
+      ],
+      "armors": [],
+      "others": [
+        {
+          "name": "scrollCase",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2e942f2616f4d9969f48e"
+          }
+        },
+        {
+          "name": "winterBlanket",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2e942f2616f4d9969f48f"
+          }
+        },
+        {
+          "name": "herbalismKit",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2e942f2616f4d9969f490"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "orc",
+    "elvish"
+  ],
+  "age": 20,
+  "height": 170,
+  "weight": 95,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "leatherworkersTools",
+      "amount": 1,
+      "_id": {
+        "$oid": "65a2e8cf93259fede15c33a9"
+      }
+    },
+    {
+      "name": "herbalismKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "65a2e942f2616f4d9969f493"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 2,
+    "dex": 0,
+    "con": 1,
+    "int": 0,
+    "wis": 0,
+    "cha": 0,
+    "_id": {
+      "$oid": "65a2e8a8f2616f4d9969f481"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "65a2e8a8f2616f4d9969f480"
+      }
+    }
+  },
+  "stats": {
+    "str": 12,
+    "dex": 16,
+    "con": 16,
+    "int": 8,
+    "wis": 16,
+    "cha": 9,
+    "_id": {
+      "$oid": "65a2e8a8f2616f4d9969f482"
+    }
+  },
+  "hitPoints": 16,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "65a2e8cf93259fede15c33aa"
+    }
+  },
+  "hitDice": 2,
+  "remainingHitDice": 2,
+  "background": {
+    "name": "hermit",
+    "skills": [
+      "medicine",
+      "religion"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "65a2e942f2616f4d9969f494"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 5,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "allies": "- Compañía del Trueno, miembro",
+    "backstory": "Nació en Silverhaven. Sus padres eran el humano Tobías y la orca Grukka. Grukka tenía un hijo de otro hombre, llamado Doruk, 4 años mayor que él. Leif creció aprendiendo de su hermano.\n\nA los 20 años, Silverhaven fue atacado por una horda de orcos que hirieron mortalmente a Leif. Sin pulso, sus padres y hermano le dieron por muerto y lo llevaron al templo de Abaru en el pueblo, donde lo dispusieron para el entierro.\n\nPero en en las criptas del templo, un sacerdote, experimentando con muertos, consiguió revivir por la gracia de Abaru a Leif, que tuvo que pasar un año en las mismas criptas re-aprendiendo a hablar y andar.\n\nEnvuelto en un una capa y capucha, salió del templo una noche y vió que en su casa su hermano no estaba y sus padres parecían tener una vida feliz normal. Decidió sin decírselo a nadie partir en busca de una explicación a su resurrección.\n\nLa explicación la encontró tras un año de meditación en el bosque cerca de Gran Bwini. Tras ello, se dirigió al templo de Abaru de la ciudad, donde conoció a Nekane y se unió a la Compañía del Trueno con la intención de cumplir con su objetivo vital con ellos."
+  }
+},{
+  "_id": {
+    "$oid": "65a2eb5fe262d62a4b7d7bf8"
+  },
+  "id": "d9c25226-cf98-445b-aea5-f8548477d67f",
+  "name": "Vianola Vianaris",
+  "race": "elf",
+  "subrace": "high",
+  "pClass": "wizard",
+  "level": 2,
+  "levelReady": 2,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [],
+  "skills": [
+    "arcana",
+    "religion"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    6,
+    3
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "quarterstaff",
+        "amount": 1,
+        "_id": {
+          "$oid": "65a2ecdf93259fede15c3423"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": null,
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2ecd593259fede15c33f7"
+          }
+        },
+        {
+          "name": "componentPouch",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2ecdf93259fede15c3422"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "inkBottle",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2ecd593259fede15c33f3"
+          }
+        },
+        {
+          "name": "inkPen",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2ecd593259fede15c33f4"
+          }
+        },
+        {
+          "name": "smallKnife",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2ecd593259fede15c33f5"
+          }
+        },
+        {
+          "name": "personalLetter",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2ecd593259fede15c33f6"
+          }
+        },
+        {
+          "name": "spellbook",
+          "amount": 1,
+          "_id": {
+            "$oid": "65a2ecdf93259fede15c3420"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "halfling",
+    "dwarvish",
+    "gnomish"
+  ],
+  "age": 183,
+  "height": 157,
+  "weight": 47,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true,
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [
+    {
+      "name": "fireBolt",
+      "_id": {
+        "$oid": "65a2ebbb93259fede15c33d4"
+      }
+    },
+    {
+      "name": "chillTouch",
+      "_id": {
+        "$oid": "65a2ecb0f2616f4d9969f569"
+      }
+    },
+    {
+      "name": "rayOfFrost",
+      "_id": {
+        "$oid": "65a2ecb0f2616f4d9969f56a"
+      }
+    },
+    {
+      "name": "shockingGrasp",
+      "_id": {
+        "$oid": "65a2ecb0f2616f4d9969f56b"
+      }
+    },
+    {
+      "name": "burningHands",
+      "_id": {
+        "$oid": "65a2ecb0f2616f4d9969f56c"
+      }
+    },
+    {
+      "name": "chromaticOrb",
+      "_id": {
+        "$oid": "65a2ecb0f2616f4d9969f56d"
+      }
+    },
+    {
+      "name": "fogCloud",
+      "_id": {
+        "$oid": "65a2ecb0f2616f4d9969f56e"
+      }
+    },
+    {
+      "name": "jump",
+      "_id": {
+        "$oid": "65a2ecb0f2616f4d9969f56f"
+      }
+    },
+    {
+      "name": "magicMissile",
+      "_id": {
+        "$oid": "65a2ecb0f2616f4d9969f570"
+      }
+    },
+    {
+      "name": "shield",
+      "_id": {
+        "$oid": "65a2ecb0f2616f4d9969f571"
+      }
+    },
+    {
+      "name": "thunderwave",
+      "_id": {
+        "$oid": "65a3c6b035c8ec344df33d0a"
+      }
+    },
+    {
+      "name": "witchBolt",
+      "_id": {
+        "$oid": "65a3c6b035c8ec344df33d0b"
+      }
+    }
+  ],
+  "notes": [],
+  "proficientItems": [],
+  "preparedSpells": [
+    {
+      "name": "shield",
+      "type": "wizard",
+      "_id": {
+        "$oid": "65a3c85f35c8ec344df33e25"
+      }
+    },
+    {
+      "name": "jump",
+      "type": "wizard",
+      "_id": {
+        "$oid": "65a3c8615ce48e634bb38e04"
+      }
+    },
+    {
+      "name": "witchBolt",
+      "type": "wizard",
+      "_id": {
+        "$oid": "65a3c8755ce48e634bb38e79"
+      }
+    },
+    {
+      "name": "burningHands",
+      "type": "wizard",
+      "_id": {
+        "$oid": "65a4807e48492fcf6ce4dcee"
+      }
+    },
+    {
+      "name": "chromaticOrb",
+      "type": "wizard",
+      "_id": {
+        "$oid": "65a4808448492fcf6ce4dd2a"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 2,
+    "con": 0,
+    "int": 1,
+    "wis": 0,
+    "cha": 0,
+    "_id": {
+      "$oid": "65a2eb83f2616f4d9969f55c"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "65a2eb83f2616f4d9969f55b"
+      }
+    }
+  },
+  "stats": {
+    "str": 6,
+    "dex": 10,
+    "con": 14,
+    "int": 15,
+    "wis": 13,
+    "cha": 8,
+    "_id": {
+      "$oid": "65a2eb83f2616f4d9969f55d"
+    }
+  },
+  "hitPoints": 13,
+  "classAttrs": {
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "65a2ecb0f2616f4d9969f572"
+    },
+    "wizard": {
+      "arcaneTradition": "Evocation"
+    }
+  },
+  "hitDice": 2,
+  "remainingHitDice": 2,
+  "background": {
+    "name": "sage",
+    "skills": [
+      "arcana",
+      "history"
+    ],
+    "routines": [],
+    "sageSpecialty": "discreditedAcademic",
+    "_id": {
+      "$oid": "65a2ecd593259fede15c33f8"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 10,
+    "pp": 0
+  },
+  "pack": "scholars-pack",
+  "freeText": {
+    "bonds": "Compañía del Trueno",
+    "allies": "- Compañía del Trueno, miembro"
+  }
+},{
+  "_id": {
+    "$oid": "65abf23358850b0fc284ea2b"
+  },
+  "id": "894af961-ffcc-4f3e-a987-1ec1bf4da86e",
+  "name": "Lokiron Sombraestelar",
+  "race": "elf",
+  "subrace": "high",
+  "pClass": "paladin",
+  "level": 1,
+  "levelReady": 1,
+  "exp": 0,
+  "userId": "3361fc21-857f-452d-82c4-8564b43478c8",
+  "npc": false,
+  "improvedStatsLevels": [],
+  "skills": [
+    "athletics",
+    "medicine"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    10
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "longsword",
+        "amount": 1,
+        "_id": {
+          "$oid": "65abf51958850b0fc284eb03"
+        }
+      },
+      {
+        "name": "longsword",
+        "amount": 1,
+        "_id": {
+          "$oid": "65abf4e4c5bec91d93b13e19"
+        }
+      },
+      {
+        "name": "handaxe",
+        "amount": 1,
+        "_id": {
+          "$oid": "65abf51ec5bec91d93b13ed3"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "chainMail",
+        "amount": 1,
+        "_id": {
+          "$oid": "65abf4e4c5bec91d93b13e18"
+        }
+      },
+      "shield": null,
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65abf47c58850b0fc284ea3e"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "scrollCase",
+          "amount": 1,
+          "_id": {
+            "$oid": "65abf47c58850b0fc284ea3b"
+          }
+        },
+        {
+          "name": "winterBlanket",
+          "amount": 1,
+          "_id": {
+            "$oid": "65abf47c58850b0fc284ea3c"
+          }
+        },
+        {
+          "name": "herbalismKit",
+          "amount": 1,
+          "_id": {
+            "$oid": "65abf47c58850b0fc284ea3d"
+          }
+        },
+        {
+          "name": "holySymbol",
+          "amount": 1,
+          "_id": {
+            "$oid": "65abf4e4c5bec91d93b13e16"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "giant",
+    "gnomish"
+  ],
+  "age": 219,
+  "height": 173,
+  "weight": 62,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [
+    {
+      "name": "herbalismKit",
+      "amount": 1,
+      "_id": {
+        "$oid": "65abf47c58850b0fc284ea3f"
+      }
+    }
+  ],
+  "preparedSpells": [],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 2,
+    "con": 0,
+    "int": 1,
+    "wis": 0,
+    "cha": 0,
+    "_id": {
+      "$oid": "65abf34dc5bec91d93b13df7"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "65abf34dc5bec91d93b13df6"
+      }
+    }
+  },
+  "stats": {
+    "str": 13,
+    "dex": 10,
+    "con": 11,
+    "int": 11,
+    "wis": 10,
+    "cha": 12,
+    "_id": {
+      "$oid": "65abf34dc5bec91d93b13df8"
+    }
+  },
+  "hitPoints": 10,
+  "classAttrs": {
+    "paladin": {
+      "layOnHands": 5,
+      "divineSense": 2,
+      "_id": {
+        "$oid": "65abf419c5bec91d93b13e04"
+      }
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "65abf419c5bec91d93b13e03"
+    }
+  },
+  "hitDice": 1,
+  "remainingHitDice": 1,
+  "background": {
+    "name": "hermit",
+    "skills": [
+      "medicine",
+      "religion"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "65abf47c58850b0fc284ea40"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 5,
+    "pp": 0
+  },
+  "pack": "explorers-pack",
+  "freeText": {
+    "personality": ""
+  },
+  "temporaryHitPoints": 0
+},{
+  "_id": {
+    "$oid": "65ca9ec0822d6251deef1288"
+  },
+  "id": "486c3bb6-bdb1-48af-b246-22dccea3d1b6",
+  "name": "Eolin",
+  "race": "half-elf",
+  "subrace": "subrace",
+  "pClass": "paladin",
+  "level": 2,
+  "levelReady": 2,
+  "exp": 0,
+  "npc": true,
+  "improvedStatsLevels": [],
+  "skills": [
+    "athletics",
+    "religion"
+  ],
+  "speed": 10,
+  "totalHitPoints": [
+    10,
+    2
+  ],
+  "items": {
+    "weapons": [
+      {
+        "name": "longsword",
+        "amount": 1,
+        "_id": {
+          "$oid": "65caa130dfbe7a296435ccfe"
+        }
+      },
+      {
+        "name": "lightHammer",
+        "amount": 1,
+        "_id": {
+          "$oid": "65caa130dfbe7a296435ccff"
+        }
+      }
+    ],
+    "equipment": {
+      "armor": {
+        "name": "chainMail",
+        "amount": 1,
+        "_id": {
+          "$oid": "65caa130dfbe7a296435ccfd"
+        }
+      },
+      "shield": {
+        "name": "shield",
+        "amount": 1,
+        "_id": {
+          "$oid": "65caa130dfbe7a296435ccfc"
+        }
+      },
+      "ammunition": [],
+      "others": [
+        {
+          "name": "commonClothes",
+          "amount": 1,
+          "_id": {
+            "$oid": "65caa0c0dfbe7a296435cce5"
+          }
+        }
+      ]
+    },
+    "treasure": {
+      "weapons": [],
+      "armors": [],
+      "others": [
+        {
+          "name": "holySymbol",
+          "amount": 1,
+          "_id": {
+            "$oid": "65caa0c0dfbe7a296435cce1"
+          }
+        },
+        {
+          "name": "prayerbook",
+          "amount": 1,
+          "_id": {
+            "$oid": "65caa0c0dfbe7a296435cce2"
+          }
+        },
+        {
+          "name": "incenseBlocks",
+          "amount": 5,
+          "_id": {
+            "$oid": "65caa0c0dfbe7a296435cce3"
+          }
+        },
+        {
+          "name": "vestments",
+          "amount": 1,
+          "_id": {
+            "$oid": "65caa0c0dfbe7a296435cce4"
+          }
+        },
+        {
+          "name": "holySymbol",
+          "amount": 1,
+          "_id": {
+            "$oid": "65caa130dfbe7a296435ccfa"
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    "common",
+    "elvish",
+    "halfling",
+    "dwarvish",
+    "gnomish"
+  ],
+  "age": 36,
+  "height": 160,
+  "weight": 60,
+  "size": "M",
+  "magic": {
+    "hasLearnedSpells": [
+      true
+    ],
+    "spentSpellSlots": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "spells": [],
+  "notes": [],
+  "proficientItems": [],
+  "preparedSpells": [
+    {
+      "name": "shieldOfFaith",
+      "type": "paladin",
+      "_id": {
+        "$oid": "65caa2c6822d6251deef146b"
+      }
+    },
+    {
+      "name": "divineFavor",
+      "type": "paladin",
+      "_id": {
+        "$oid": "65caa2ecdfbe7a296435cdc4"
+      }
+    },
+    {
+      "name": "cureWounds",
+      "type": "paladin",
+      "_id": {
+        "$oid": "65caa2f1822d6251deef14b1"
+      }
+    }
+  ],
+  "__v": 0,
+  "extraStats": {
+    "str": 0,
+    "dex": 0,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": 2,
+    "_id": {
+      "$oid": "65ca9efb822d6251deef128e"
+    }
+  },
+  "halfElf": {
+    "extraStats": {
+      "str": 1,
+      "dex": 0,
+      "con": 1,
+      "int": 0,
+      "wis": 0,
+      "cha": 0,
+      "_id": {
+        "$oid": "65ca9efb822d6251deef128d"
+      }
+    },
+    "skills": [
+      "arcana",
+      "perception"
+    ]
+  },
+  "stats": {
+    "str": 16,
+    "dex": 9,
+    "con": 12,
+    "int": 11,
+    "wis": 12,
+    "cha": 13,
+    "_id": {
+      "$oid": "65ca9efb822d6251deef128f"
+    }
+  },
+  "hitPoints": 14,
+  "classAttrs": {
+    "paladin": {
+      "layOnHands": 5,
+      "divineSense": 3,
+      "_id": {
+        "$oid": "65caa010822d6251deef1299"
+      },
+      "fightingStyle": "protection"
+    },
+    "expertSkills": [],
+    "skills": [],
+    "_id": {
+      "$oid": "65caa010822d6251deef1298"
+    }
+  },
+  "hitDice": 2,
+  "remainingHitDice": 2,
+  "background": {
+    "name": "acolyte",
+    "skills": [
+      "insight",
+      "religion"
+    ],
+    "routines": [],
+    "_id": {
+      "$oid": "65caa0c0dfbe7a296435cce6"
+    }
+  },
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 15,
+    "pp": 0
+  },
+  "pack": "priests-pack",
+  "freeText": {
+    "backstory": "Madre elfa noble le repudia. Se enamoró de uno de los sirvientes. Miembro de la realeza de una gran ciudad. El abuelo es uno de los ministros de la ciudad.\n\nPadre campesino humano asesinado. Asesinado por su abuelo materno, para ocultar la vergüenza de su madre.\nCicatriz en el costado derecho, sueños de una niña como ella con su madre con cicatriz en el costado izquierdo.\n\nAl ir a dar a luz, el abuelo envió a la madre de incógnito a un templo lejano. Allí, gracias a magia divina, se les salvó la vida a las niñas separándolas al nacer (siamesas). Esa magia divina les dio poderes y las vinculó a cada una con un dios. Las novicias, al sospechar de la alta alcurnia de la madre y que el abuelo podría querer deshacerse de ellas, ocultaron a una de ellas y dieron a la otra al hermano de la madre (su tío), que la adoptó como bastarda y la crió en la ciudad de Lorbrindel.\n\nEolin es hermana de Yua.\n\n",
+    "allies": "",
+    "personality": "Seria. Aunque bella, transmite dureza. Se toma en serio su misión.",
+    "ideals": "Proteger las cosas bellas.",
+    "bonds": "Juramento a Astar, diosa de la Belleza.",
+    "flaws": "No tiene mucho sentido del humor."
+  }
+}]

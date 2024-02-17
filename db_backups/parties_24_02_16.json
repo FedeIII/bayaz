@@ -1,0 +1,66 @@
+[{
+  "_id": {
+    "$oid": "65a64aed7b2aecf6d214db08"
+  },
+  "id": "b0f79de9-ffa0-49e8-84c0-00bee14dc211",
+  "players": [
+    "pg33837a-af18-450f-a4ce-8dd1bd36cj3s",
+    "3bee5c28-c677-4c07-babd-db82062030bb",
+    "a27da9be-f202-406b-8ea6-e654efce7d4b",
+    "a112c2be-a255-4e78-b714-64f1d827e5e2",
+    "1eecb2d1-fb64-49a4-a130-da8e88ed8290",
+    "c1ff13c1-6d37-4ed4-9749-df9c249fab25",
+    "3b5672fd-0b05-4f89-974a-1077471ab363"
+  ],
+  "sessions": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65ba62aa446ed9c92b8607f0"
+  },
+  "id": "ad21fca4-8e1a-46ce-800a-ca3dc119f953",
+  "players": [
+    "8bc3837a-af18-450f-a4ce-8dd1bd36cc3c",
+    "7h23837a-af18-450f-a4ce-8dd1bd36c5gy",
+    "3b482a31-6565-4240-9201-502e867d956d",
+    "90a3979e-dbc5-4873-a5dc-8414db847214",
+    "a8c08245-6218-43cc-8ba8-e32fe2b98cb7",
+    "894af961-ffcc-4f3e-a987-1ec1bf4da86e"
+  ],
+  "npcs": false,
+  "sessions": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65ba62d0a69dbe215a4b1d86"
+  },
+  "id": "5ab4b406-f8c9-4730-84c6-eb1a26e2803f",
+  "players": [
+    "pg33837a-af18-450f-a4ce-8dd1bd36cj3s",
+    "3bee5c28-c677-4c07-babd-db82062030bb",
+    "a27da9be-f202-406b-8ea6-e654efce7d4b",
+    "a112c2be-a255-4e78-b714-64f1d827e5e2",
+    "1eecb2d1-fb64-49a4-a130-da8e88ed8290",
+    "c1ff13c1-6d37-4ed4-9749-df9c249fab25",
+    "3b5672fd-0b05-4f89-974a-1077471ab363"
+  ],
+  "npcs": false,
+  "sessions": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65ba64af446ed9c92b8608ee"
+  },
+  "id": "4f9a2c4e-6311-4210-a5ad-35f8e908b46b",
+  "players": [
+    "eaec9b34-1993-4db8-89f0-5717b3317e9c",
+    "27109b35-462a-4b55-ba32-f778c29c7268",
+    "df2bb01f-b012-472e-a5d8-f7f10221b134",
+    "825795b0-ffc2-4a18-9777-a17e4633076f",
+    "d9c25226-cf98-445b-aea5-f8548477d67f"
+  ],
+  "npcs": true,
+  "sessions": [],
+  "__v": 0,
+  "name": "Compañia del Trueno"
+}]

@@ -79,7 +79,7 @@ export const action = async ({ request }) => {
   const encounter = await getEncounter(encounterId);
 
   if (partyId) {
-    const party = getParty(partyId);
+    const party = await getParty(partyId);
 
     const activeSession = getActiveSession(party);
 

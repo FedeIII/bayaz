@@ -41,10 +41,10 @@ function EncounterList() {
 
   const [pcs] = usePcsFromSession();
   const partyTemplateContext = useContext(PartyTemplateContext) || {};
-  const { partyTemplateState = [] } = partyTemplateContext;
+  const { partyTemplateState } = partyTemplateContext;
   let pcLevels = pcs.map(pc => pc.level);
   if (pcLevels.length === 0) {
-    pcLevels = partyTemplateState;
+    pcLevels = partyTemplateState || [1];
   }
 
   const xpByGroup = Object.values(encountersByGroup).map(encounters =>
