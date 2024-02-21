@@ -1,5 +1,9 @@
 import { translateBackground } from '~/domain/backgrounds/backgrounds';
-import { translateClass, translateRace } from '~/domain/characters';
+import {
+  getExperience,
+  translateClass,
+  translateRace,
+} from '~/domain/characters';
 
 function BasicAttrs(props) {
   const { pc, playerName, onNameChange } = props;
@@ -25,7 +29,7 @@ function BasicAttrs(props) {
         {translateRace(race)}
         {subrace !== 'subrace' && ' ' + translateRace(subrace)}
       </span>
-      <span className="sheet__data sheet__exp">{exp}</span>
+      <span className="sheet__data sheet__exp">{getExperience(pc)}</span>
     </>
   );
 }

@@ -9,7 +9,11 @@ import {
   getParty,
   startSession,
 } from '~/services/party.server';
-import { translateClass, translateRace } from '~/domain/characters';
+import {
+  getExperience,
+  translateClass,
+  translateRace,
+} from '~/domain/characters';
 import PartyContext from '~/components/contexts/partyContext';
 import {
   getActiveSession,
@@ -86,7 +90,8 @@ function Session(props) {
         <h4 className="party__session-section-title">
           <span>Combates</span>
           <span>
-            {encounterXp} xp ({encounterXp / pcs.length} por PC)
+            {encounterXp} xp ({getExperience({ exp: encounterXp / pcs.length })}{' '}
+            por PC)
           </span>
         </h4>
         <ul className="party__session-section-items">

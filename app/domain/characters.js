@@ -3294,3 +3294,7 @@ export function isProficientWithWeapon(pc, weapon) {
     itemProficiencies.includes(weapon.subcategory)
   );
 }
+
+export function getExperience(pc) {
+  return Math.floor(pc.exp);
+}
