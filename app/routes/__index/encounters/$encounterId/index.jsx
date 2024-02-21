@@ -945,10 +945,10 @@ function PartyCombat() {
   });
 
   useEffect(() => {
-    setInitiatives({
-      mobs: mobs.map(() => 0),
+    setInitiatives(old => ({
+      mobs: mobs.map((_, i) => old.mobs[i] || 0),
       pcs: pcs.map(pc => pc.initiative || 0),
-    });
+    }));
   }, [mobs.length, pcs.length, ...pcs.map(pc => pc.initiative)]);
 
   const initiativesList = useMemo(() => {
@@ -956,7 +956,9 @@ function PartyCombat() {
       ...initiatives.mobs
         .map((mobInitiative, i) => ({
           type: 'mobs',
-          name: isNpcs ? mobs[i].name : mobs[i].nick || translateMonster(mobs[i].name),
+          name: isNpcs
+            ? mobs[i].name
+            : mobs[i].nick || translateMonster(mobs[i].name),
           value: mobInitiative,
           index: i,
         }))
@@ -975,7 +977,7 @@ function PartyCombat() {
   function resetInitiatives() {
     setInitiatives({
       mobs: mobs.map(() => 0),
-      pcs: pcs.map(() => 0),
+      pcs: pcs.map(pc => pc.initiative || 0),
     });
   }
 
