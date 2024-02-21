@@ -166,7 +166,12 @@ function MonstersCombat(props) {
 
   useTitle(`${encounter.group} - ${encounter.name}`);
 
-  const monsters = sortByXp(getMonsters(monstersStats.map(m => m.name)));
+  const monsters = sortByXp(
+    getMonsters(
+      monstersStats.map(m => m.name),
+      monstersStats.map(m => m.nick)
+    )
+  );
 
   return (
     <>
@@ -227,6 +232,7 @@ function MonstersCombat(props) {
                   <CharacterItem
                     ref={refsList.mobs.current[i]}
                     character={Monster(monster.name)}
+                    nick={monster.nick}
                     charSection="mobs"
                     charIndex={i}
                     openModal={openCharacterModal(
@@ -242,7 +248,7 @@ function MonstersCombat(props) {
                     : ''
                 }`}
                 titleClass="encounters__character-name"
-                key={monster.name + '-' + i}
+                key={monster.nick || monster.name + '-' + i}
                 style={getMonsterPositionStyle(i, all.length)}
               >
                 {isAlive && (
@@ -950,7 +956,7 @@ function PartyCombat() {
       ...initiatives.mobs
         .map((mobInitiative, i) => ({
           type: 'mobs',
-          name: isNpcs ? mobs[i].name : translateMonster(mobs[i].name),
+          name: isNpcs ? mobs[i].name : mobs[i].nick || translateMonster(mobs[i].name),
           value: mobInitiative,
           index: i,
         }))

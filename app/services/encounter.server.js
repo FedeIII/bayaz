@@ -5,6 +5,7 @@ import { mongoose } from '~/services/db.server';
 const monsterSchema = new mongoose.Schema({
   id: String,
   name: String,
+  nick: String,
   maxHp: Number,
   hp: Number,
 });

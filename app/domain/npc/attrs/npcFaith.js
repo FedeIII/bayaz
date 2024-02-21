@@ -21,11 +21,11 @@ export const NPC_DEITIES_NAMES = {
   Matter: [
     [40, 'Simtu'],
     [30, 'Abnu'],
-    [20, 'Sabatu'],
+    [20, 'Sabati'],
     [10, 'Zid'],
   ],
   Energy: [
-    [40, 'Abaru'],
+    [40, 'Akosh'],
     [30, 'Giru'],
     [20, 'Ilu'],
     [10, 'Dshim'],

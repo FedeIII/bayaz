@@ -22,25 +22,32 @@ function isString(value) {
   return typeof value === 'string' || value instanceof String;
 }
 
-export function getMonster(monsterName) {
+export function getMonster(monsterName, monsterNick) {
   return {
     ...MONSTERS[monsterName],
     details: {
       ...MONSTER_DETAILS_LIST[monsterName],
     },
+    nick: monsterNick || null,
   };
 }
 
-export function getMonsters(monsterNames) {
+export function getMonsters(monsterNames, monsterNicks = []) {
   if (Array.isArray(monsterNames)) {
     if (isString(monsterNames[0])) {
-      return monsterNames.map(monsterName => getMonster(monsterName));
+      return monsterNames.map((monsterName, i) =>
+        getMonster(monsterName, monsterNicks[i])
+      );
     }
-    return monsterNames.map(monster => getMonster(monster.name));
+    return monsterNames.map((monster, i) =>
+      getMonster(monster.name, monsterNicks[i])
+    );
   }
 
   if (isString(monsterNames)) {
-    return monsterNames.split('|').map(getMonster);
+    return monsterNames
+      .split('|')
+      .map((monsterName, i) => getMonster(monsterName, monsterNicks[i]));
   }
 }
 

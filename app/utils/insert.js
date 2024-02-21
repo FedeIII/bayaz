@@ -13,11 +13,19 @@ export function insertAfter(findIndexCallback, array, newItems) {
 }
 
 export function replaceAt(index, array = [], newItem) {
-  return [
-    ...array.slice(0, index),
-    newItem,
-    ...array.slice(index + 1, array.length),
-  ];
+  if (index < array.length) {
+    return [
+      ...array.slice(0, index),
+      newItem,
+      ...array.slice(index + 1, array.length),
+    ];
+  } else {
+    return replaceAt(
+      index,
+      [...array, ...Array(index - array.length + 1)],
+      newItem
+    );
+  }
 }
 
 export function removeItem(findCallback, array) {

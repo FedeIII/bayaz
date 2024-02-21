@@ -333,6 +333,28 @@
   padding: 0;
 }
 
+.encounter__add-nick {
+  position: absolute;
+  border: 1px solid white;
+  border-radius: 50%;
+  top: -8px;
+  right: -8px;
+  width: 1.2em;
+  height: 1.2em;
+  line-height: 1.2;
+  font-weight: bolder;
+  background-color: var(--color-light);
+  cursor: pointer;
+}
+
+.encounter__add-nick:hover {
+  background-color: var(--color-x-light);
+}
+
+.encounter__mob-card {
+  position: relative;
+}
+
 .encounter__submit {
   position: absolute;
   right: 64px;

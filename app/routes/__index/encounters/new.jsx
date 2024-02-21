@@ -39,6 +39,7 @@ import { Title } from '~/components/form/title';
 import PartyTemplateContext from '~/components/contexts/partyTemplateContext';
 import { getNpcs } from '~/services/pc.server';
 import { npcsToMonsters } from '~/domain/npc/npc';
+import { useArrayState } from '~/components/hooks/useArrayState';
 
 import styles from '~/components/newEncounter.css';
 import placesStyles from '~/components/places.css';
@@ -62,11 +63,13 @@ export const action = async ({ request }) => {
   const encounterGroup = formData.get('encounterGroup');
   const encounterName = formData.get('encounterName');
   const monstersNames = formData.get('monsters');
+  const monsterNicks = formData.get('monsterNicks').split('|');
 
-  const monsters = getMonsters(monstersNames).map(monster => {
+  const monsters = getMonsters(monstersNames).map((monster, i) => {
     const maxHp = rollDice(getMonsterHitPoints(monster));
     return {
       name: monster.name,
+      nick: monsterNicks[i] || null,
       maxHp,
       hp: maxHp,
     };
@@ -272,9 +275,32 @@ function SelectedMonsters(props) {
     encounterMonsters,
     encounterXp,
     removeMonsterFromEncounter,
+    setMonsterNick,
   } = props;
 
   const encounterChallenge = getEncounterChallenge(encounterMonsters);
+  const [getEditNick, setEditNick] = useArrayState(
+    encounterMonsters.map(() => false)
+  );
+
+  function onEditNickBlur(i) {
+    return e => {
+      setMonsterNick(i, e.target.value);
+      setEditNick(i, false);
+    };
+  }
+
+  function onEditNickClick(i) {
+    return e => {
+      e.stopPropagation();
+      e.preventDefault();
+      setEditNick(i, true);
+    };
+  }
+
+  function onMonsterCardClick(i) {
+    return () => removeMonsterFromEncounter(i);
+  }
 
   return (
     <div className="encounter__selected-monsters">
@@ -334,26 +360,50 @@ function SelectedMonsters(props) {
       </div>
       {!!encounterMonsters.length && (
         <div className="cards encounter__selected-monsters-list">
-          {sortByXp(encounterMonsters).map((m, i, all) => (
-            <div
-              className="cards__button-card"
-              style={getMonsterPositionStyle(i, all.length)}
-              onClick={() => removeMonsterFromEncounter(i)}
-              key={m.name + i}
-            >
-              {Monster(m).translation}
-            </div>
-          ))}
+          {sortByXp(encounterMonsters).map((m, i, all) =>
+            !!getEditNick(i) ? (
+              <input
+                key={m.nick || m.name + i}
+                value={m.nick}
+                style={getMonsterPositionStyle(i, all.length)}
+                onBlur={onEditNickBlur(i)}
+              />
+            ) : (
+              <div
+                className="cards__button-card encounter__mob-card"
+                style={getMonsterPositionStyle(i, all.length)}
+                onClick={onMonsterCardClick(i)}
+                key={m.nick || m.name + i}
+              >
+                {Monster(m).nick || Monster(m).translation}
+                <span
+                  onClick={onEditNickClick(i)}
+                  className="encounter__add-nick"
+                >
+                  +
+                </span>
+              </div>
+            )
+          )}
         </div>
       )}
       {!!encounterMonsters.length && (
-        <input
-          readOnly
-          type="text"
-          name="monsters"
-          value={encounterMonsters.map(m => Monster(m).name).join('|')}
-          hidden
-        />
+        <>
+          <input
+            readOnly
+            type="text"
+            name="monsters"
+            value={encounterMonsters.map(m => Monster(m).name).join('|')}
+            hidden
+          />
+          <input
+            readOnly
+            type="text"
+            name="monsterNicks"
+            value={encounterMonsters.map(m => Monster(m).nick).join('|')}
+            hidden
+          />
+        </>
       )}
       {!!encounterMonsters.length && (
         <div className="encounter__submit">
@@ -501,6 +551,10 @@ function NewEncounter() {
     ]);
   }
 
+  function setMonsterNick(i, nick) {
+    setEncounterMonsters(list => replaceAt(i, list, { ...list[i], nick }));
+  }
+
   useEffect(() => {
     setFilteredMonsterList(
       monsterList.filter(m => {
@@ -572,6 +626,7 @@ function NewEncounter() {
             encounterMonsters={encounterMonsters}
             encounterXp={encounterXp}
             removeMonsterFromEncounter={removeMonsterFromEncounter}
+            setMonsterNick={setMonsterNick}
           />
           {!!filteredMonsterList.length && (
             <MonsterCatalog

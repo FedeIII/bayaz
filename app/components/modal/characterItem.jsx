@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 
 export const CharacterItem = forwardRef(function CharacterItem(props, ref) {
-  const { character, openModal, openOnRightClick } = props;
+  const { character, nick, openModal, openOnRightClick } = props;
 
   return (
     <>
@@ -16,7 +16,7 @@ export const CharacterItem = forwardRef(function CharacterItem(props, ref) {
           }
         }}
       >
-        {character.translation || character.name}
+        {nick || character.translation || character.name}
       </span>
     </>
   );

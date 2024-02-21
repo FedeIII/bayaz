@@ -65,11 +65,11 @@
 }
 
 .party__party-link:hover {
-  background-color: var(--color-xlight);
+  background-color: var(--color-x-light);
 }
 
 .party__party-link[data-selected='true'] {
-  background-color: var(--color-xlight);
+  background-color: var(--color-x-light);
 }
 
 .party__party-link-list {
@@ -92,7 +92,7 @@
 }
 
 .party__character:hover {
-  background-color: var(--color-xlight);
+  background-color: var(--color-x-light);
 }
 
 .party__select-character {

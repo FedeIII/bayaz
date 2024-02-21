@@ -4973,7 +4973,7 @@ export const MONSTER_DETAILS_LIST = {
     notes: 'Medium dragon, chaotic evil',
   },
   'Redbrand Ruffian': {
-    'Armor Class': '14 (studded leather armor)',
+    'Armor Class': '12 (Armadura de cuero tachonado)',
     'Hit Points': '16 (3d8 + 3)',
     Speed: '30 ft.',
     stats: {
@@ -4989,16 +4989,15 @@ export const MONSTER_DETAILS_LIST = {
     Languages: 'Common',
     Challenge: '1/2 (100 XP)',
     actions: {
-      Multiattack: 'The ruffian makes two melee attacks',
       Shortsword:
-        '<em>Melee Weapon Attack</em>: +4 to hit, reach 5 ft., one target. <em>Hit</em>: 5 (1d6 + 2) piercing damage',
+        '<em>Melee Weapon Attack</em>: +4 to hit, reach 5 ft., one target. <em>Hit</em>: 3 (1d6) piercing damage',
     },
     notes: 'Medium humanoid (human), neutral evil',
     Description:
       'Redbrand ruffians are petty thugs and ruthless enforcers skilled at intimidation and violence. They work for money and have no scruples',
   },
   'Redbrand Spy': {
-    'Armor Class': '12',
+    'Armor Class': '14 (Armadura de cuero tachonado)',
     'Hit Points': '27 (6d8)',
     Speed: '30 ft.',
     stats: {
@@ -5017,15 +5016,15 @@ export const MONSTER_DETAILS_LIST = {
     actions: {
       'Ataque múltiple': 'El espía realiza dos ataques cuerpo a cuerpo.',
       'Espada corta':
-        '<em>Ataque con arma cuerpo a cuerpo:</em> +4 a impactar, alcance 5 pies, un objetivo. <em>Impacto:</em> 5 (1d6 + 2) de daño perforante.',
+        '<em>Ataque con arma cuerpo a cuerpo:</em> +4 a impactar, alcance 5 pies, un objetivo. <em>Impacto:</em> 5 (1d6) de daño perforante.',
       'Ballesta de mano':
-        '<em>Ataque con arma a distancia:</em> +4 a impactar, alcance 30/120 pies, un objetivo. <em>Impacto:</em> 5 (1d6 + 2) de daño perforante.',
+        '<em>Ataque con arma a distancia:</em> +4 a impactar, alcance 30/120 pies, un objetivo. <em>Impacto:</em> 5 (1d6) de daño perforante.',
     },
     notes: 'Medium humanoid (human), neutral evil',
     'Acción Astuta':
       'El espía puede, en cada uno de sus turnos, usar una acción adicional para realizar una acción de Correr, Destrabarse o Esconderse.',
     'Ataque Furtivo':
-      'Una vez por turno, el espía inflige 7 (2d6) de daño adicional a un objetivo al que impacte con un ataque con arma en cuya tirada de ataque tuviera ventaja. No necesita tener ventaja si un aliado no incapacitado del espía está a 5 pies o menos del objetivo y el espía no sufre desventaja en la tirada de ataque. ',
+      'Una vez por turno, el espía inflige 4 (1d6) de daño adicional a un objetivo al que impacte con un ataque con arma en cuya tirada de ataque tuviera ventaja. No necesita tener ventaja si un aliado no incapacitado del espía está a 5 pies o menos del objetivo y el espía no sufre desventaja en la tirada de ataque. ',
     Description:
       'Los gobernantes, nobles, comerciantes, maestros gremiales y otros individuos adinerados contratan espías para obtener la mayor ventaja posible en el despiadado mundo de la política. Los espías han sido entrenados para recabar información sin ser advertidos, y los más leales darían la vida antes de revelar algún secreto que pudiera poner en peligro a sus empleadores.',
   },
