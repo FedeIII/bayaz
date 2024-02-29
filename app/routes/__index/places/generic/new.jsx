@@ -4,6 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { createPlace } from '~/services/place.server';
 import { Title } from '~/components/form/title';
 
+import styles from '~/components/newEncounter.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
+
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
   textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
@@ -11,12 +16,13 @@ function textareaCallback(textareaNode) {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
+  const group = formData.get('group');
   const name = formData.get('name');
   const img = formData.get('img');
   const description = formData.get('description');
   const notes = formData.get('notes');
 
-  const place = await createPlace({ name, img, description, notes });
+  const place = await createPlace({ group, name, img, description, notes });
 
   return redirect(`/places/generic/${place.id}`);
 };
@@ -25,6 +31,7 @@ function GenerateGenericPlace() {
   const formRef = useRef();
 
   const [place, setPlace] = useState({
+    group: '',
     name: '',
     img: '',
     description: '',
@@ -72,11 +79,32 @@ function GenerateGenericPlace() {
           </div>
 
           <div className="places__info">
-            <Title
-              inputName="name"
-              value={place.name}
-              onChange={e => setPlace(p => ({ ...p, name: e.target.value }))}
-            />
+            <div className="places__group-title">
+              <label htmlFor="group">
+                <span className="encounter__header-input-title">Grupo</span>{' '}
+                <Title
+                  inputName="group"
+                  className="encounter__group"
+                  inputClass="encounter__name encounter__filter-input cards__button-card"
+                  value={place.group}
+                  onChange={e =>
+                    setPlace(p => ({ ...p, group: e.target.value }))
+                  }
+                />
+              </label>
+              <label htmlFor="name" className="encounter__title-name">
+                <span className="encounter__header-input-title">Nombre</span>{' '}
+                <Title
+                  inputName="name"
+                  className="encounter__group"
+                  inputClass="encounter__name encounter__filter-input cards__button-card"
+                  value={place.name}
+                  onChange={e =>
+                    setPlace(p => ({ ...p, name: e.target.value }))
+                  }
+                />
+              </label>
+            </div>
 
             <hr className="places__section-divider" />
 

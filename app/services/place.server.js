@@ -4,6 +4,7 @@ import { mongoose } from '~/services/db.server';
 
 const placeSchema = new mongoose.Schema({
   id: String,
+  group: String,
   name: String,
   img: String,
   description: String,
@@ -44,4 +45,18 @@ export async function getPlace(id) {
 export async function deletePlace(id) {
   const { deletedCount } = await Place.deleteOne({ id });
   return deletedCount;
+}
+
+export async function getPlacesByGroup() {
+  const places = await getPlaces();
+
+  if (!places) return null;
+
+  return places.reduce(
+    (placesByGroup, place) => ({
+      ...placesByGroup,
+      [place.group]: [...(placesByGroup[place.group] || []), place],
+    }),
+    {}
+  );
 }

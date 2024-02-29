@@ -116,6 +116,10 @@
   width: 50%;
 }
 
+.places__group-title {
+  display: flex;
+}
+
 .places__title {
   margin: 0;
   color: var(--color-x-pale);

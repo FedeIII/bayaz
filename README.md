@@ -53,7 +53,6 @@ npx prisma migrate dev
 
 ## TO DOsg
 
-- Change name of enemy in encounter (variations and proper nouns)
 - Magic items owners
   - on assignation create instance?
   - give to other player action

@@ -101,7 +101,9 @@ export function getMonsterImage(monsterName) {
 export function getMonstersFromEnvironment(env) {
   if (!env) return Object.values(MONSTERS).map(m => getMonster(m.name));
   return Object.values(MONSTERS)
-    .filter(m => m.environment?.[env] === 'yes' && m.page.includes('mm'))
+    .filter(
+      m => m.environment?.[env] === 'yes' && (!m.page || m.page.includes('mm'))
+    )
     .map(m => getMonster(m.name));
 }
 
