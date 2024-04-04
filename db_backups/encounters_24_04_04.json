@@ -1,0 +1,1459 @@
+[{
+  "_id": {
+    "$oid": "656d336dc5927d619f05ee90"
+  },
+  "id": "0d74220f-b166-488b-a9e0-923981a7d4d6",
+  "name": "[3] Perrera",
+  "monsters": [
+    {
+      "id": "94a9a3e5-bfc7-4e82-99c3-d727a5d07404",
+      "name": "Wolf",
+      "maxHp": 13,
+      "hp": -9,
+      "_id": {
+        "$oid": "656d336dc5927d619f05ee91"
+      },
+      "nick": "Lobo 1"
+    },
+    {
+      "id": "82a57bec-e2e1-410f-96b3-d89b5b2295a2",
+      "name": "Wolf",
+      "maxHp": 16,
+      "hp": -4,
+      "_id": {
+        "$oid": "656d336dc5927d619f05ee92"
+      },
+      "nick": "Lobo 2"
+    },
+    {
+      "id": "7cd8f38f-d70d-48b5-b5c9-f8a41d0d6690",
+      "name": "Wolf",
+      "maxHp": 4,
+      "hp": -6,
+      "_id": {
+        "$oid": "656d336dc5927d619f05ee93"
+      },
+      "nick": "Lobo 3"
+    },
+    {
+      "id": "ce3c6884-83ee-41c6-9793-27931601efba",
+      "name": "Wolf",
+      "maxHp": 7,
+      "hp": -3,
+      "_id": {
+        "$oid": "656d336dc5927d619f05ee94"
+      },
+      "nick": "Lobo 4"
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A - Secuestradores de talento"
+},{
+  "_id": {
+    "$oid": "656d33b7e4ccd1de4e46902d"
+  },
+  "id": "fc35dcae-416c-499f-8ced-1fd99b46c77d",
+  "name": "[5] Paso elevado",
+  "monsters": [
+    {
+      "id": "e4e4743d-0488-4e00-b0ea-a5c0d2ebb4ba",
+      "name": "Goblin",
+      "maxHp": 12,
+      "hp": 0,
+      "_id": {
+        "$oid": "656d33b7e4ccd1de4e46902e"
+      },
+      "nick": "Goblin vigía"
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A - Secuestradores de talento"
+},{
+  "_id": {
+    "$oid": "656d34d1c5927d619f05eea0"
+  },
+  "id": "555a45e6-cdef-458a-a6c6-d2216fcad5c0",
+  "name": "[6] Guarida de los goblins",
+  "monsters": [
+    {
+      "id": "1a917c24-fd22-40a6-baa5-c9aeeefef8ce",
+      "name": "Goblin Boss",
+      "maxHp": 27,
+      "hp": 0,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea1"
+      },
+      "nick": "Yeemik"
+    },
+    {
+      "id": "54217c24-fd3d-44f6-bgh5-c9aee43ef85g",
+      "name": "Goblin Boss",
+      "maxHp": 25,
+      "hp": -4,
+      "_id": {
+        "$oid": "65d3ffb95d01d25e45b5be16"
+      }
+    },
+    {
+      "id": "a168436c-db22-4c18-99de-74b72ed3bc05",
+      "name": "Goblin",
+      "maxHp": 7,
+      "hp": 0,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea2"
+      },
+      "nick": "Goblin 1"
+    },
+    {
+      "id": "b9da99f1-cf1b-40cc-8a10-ef8f956998c9",
+      "name": "Goblin",
+      "maxHp": 9,
+      "hp": -3,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea3"
+      },
+      "nick": "Goblin 2"
+    },
+    {
+      "id": "c7062456-deda-4c34-ac4a-01d0fa3b6a96",
+      "name": "Goblin",
+      "maxHp": 5,
+      "hp": -5,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea4"
+      },
+      "nick": "Goblin 3"
+    },
+    {
+      "id": "3200d821-33b8-4769-9361-42ed37304040",
+      "name": "Goblin",
+      "maxHp": 10,
+      "hp": -5,
+      "_id": {
+        "$oid": "656d34d1c5927d619f05eea5"
+      },
+      "nick": "Goblin 4"
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A - Secuestradores de talento"
+},{
+  "_id": {
+    "$oid": "656d3513e4ccd1de4e469033"
+  },
+  "id": "eff8d94b-a361-46bf-a6f0-e3d99ae27d03",
+  "name": "[7] Caverna de las piscinas",
+  "monsters": [
+    {
+      "id": "aa302114-9198-4bbd-bb24-6b1fb6f24c5c",
+      "name": "Goblin Boss",
+      "maxHp": 18,
+      "hp": -1,
+      "_id": {
+        "$oid": "656d3513e4ccd1de4e469034"
+      }
+    },
+    {
+      "id": "bd3b614d-f5a2-44b1-baaa-220bf37f1430",
+      "name": "Goblin",
+      "maxHp": 7,
+      "hp": -3,
+      "_id": {
+        "$oid": "656d3513e4ccd1de4e469035"
+      },
+      "nick": "Goblin 1"
+    },
+    {
+      "id": "3a568856-bc8d-42f2-b334-6a0e34772f24",
+      "name": "Goblin",
+      "maxHp": 5,
+      "hp": -4,
+      "_id": {
+        "$oid": "656d3513e4ccd1de4e469036"
+      },
+      "nick": "Goblin 2"
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A - Secuestradores de talento"
+},{
+  "_id": {
+    "$oid": "656d35e6c5927d619f05eed2"
+  },
+  "id": "ed4fbbc5-ac2f-444a-af07-a56bd1858cd6",
+  "name": "[8] Sala de Klarg",
+  "monsters": [
+    {
+      "id": "fdefc9e9-046b-46d9-a1ff-812a2186ae9c",
+      "name": "Bugbear",
+      "maxHp": 23,
+      "hp": 23,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed3"
+      },
+      "nick": "Klarg"
+    },
+    {
+      "id": "97856e23-598a-40ef-8a0a-cf533d87a8d7",
+      "name": "Wolf",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed4"
+      },
+      "nick": "Ripper"
+    },
+    {
+      "id": "342403f8-32e2-4ddd-8cbc-5f3f7525d227",
+      "name": "Goblin",
+      "maxHp": 6,
+      "hp": 6,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed5"
+      },
+      "nick": "Goblin 1"
+    },
+    {
+      "id": "fbf87fce-917e-4d15-9a1b-96855e9186f7",
+      "name": "Goblin",
+      "maxHp": 11,
+      "hp": 11,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed6"
+      },
+      "nick": "Goblin 2"
+    },
+    {
+      "id": "965d60f8-ae11-4212-ba6e-61287a722117",
+      "name": "Goblin",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed7"
+      },
+      "nick": "Goblin 3"
+    },
+    {
+      "id": "fe89a9e3-2582-428c-99aa-e77797811829",
+      "name": "Goblin",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed8"
+      },
+      "nick": "Goblin 4"
+    },
+    {
+      "id": "2364e732-19ee-471c-8065-8dd065c4091b",
+      "name": "Goblin",
+      "maxHp": 7,
+      "hp": 7,
+      "_id": {
+        "$oid": "656d35e6c5927d619f05eed9"
+      },
+      "nick": "Goblin 5"
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A - Secuestradores de talento"
+},{
+  "_id": {
+    "$oid": "656e85cf761708bdca3118ce"
+  },
+  "id": "2756e85c-3c1e-42bb-815b-b372ab1d85a4",
+  "name": "[9] Salida inundada",
+  "monsters": [
+    {
+      "id": "6124c355-20cb-4b3a-ba43-5de18c80e360",
+      "name": "Goblin",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "656e85cf761708bdca3118cf"
+      },
+      "nick": "Goblin 1"
+    },
+    {
+      "id": "211d4dff-c79e-4e65-ab8a-11f16a1c2e0b",
+      "name": "Goblin",
+      "maxHp": 12,
+      "hp": 12,
+      "_id": {
+        "$oid": "656e85cf761708bdca3118d1"
+      },
+      "nick": "Goblin 2"
+    },
+    {
+      "id": "c3f924f3-2589-43e4-8246-2e2b3f2020d4",
+      "name": "Goblin",
+      "maxHp": 8,
+      "hp": 8,
+      "_id": {
+        "$oid": "656e85cf761708bdca3118d3"
+      },
+      "nick": "Goblin 3"
+    },
+    {
+      "id": "c3f929hu-253d-4kgr-83dg-2e2b3f202654",
+      "name": "Goblin",
+      "maxHp": 8,
+      "hp": 8,
+      "nick": "Goblin 4"
+    }
+  ],
+  "__v": 0,
+  "group": "Sesión 1A - Secuestradores de talento"
+},{
+  "_id": {
+    "$oid": "6571ce5e402e21e486c50546"
+  },
+  "id": "1d7f03fb-e03b-4e8a-af65-9317398d0746",
+  "group": "Sesión 1B - Rufianes Marca Roja",
+  "name": "Posada",
+  "monsters": [
+    {
+      "id": "56c9f26f-7429-4a00-b60f-bdd9f6a9681c",
+      "name": "Redbrand Ruffian",
+      "maxHp": 10,
+      "hp": -2,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c50547"
+      }
+    },
+    {
+      "id": "ece218cc-a54f-4da8-a8f1-8b77a23f1c2b",
+      "name": "Redbrand Ruffian",
+      "maxHp": 12,
+      "hp": 6,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c50548"
+      }
+    },
+    {
+      "id": "0aa64c2e-37f4-45f9-88f6-7fede9e8e979",
+      "name": "Redbrand Ruffian",
+      "maxHp": 12,
+      "hp": -1,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c50549"
+      }
+    },
+    {
+      "id": "e7d9132f-e0fa-4ceb-bb80-1b76d9bdef61",
+      "name": "Redbrand Ruffian",
+      "maxHp": 14,
+      "hp": -1,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c5054a"
+      }
+    },
+    {
+      "id": "a67f541e-669f-4d1e-bfb7-2fb7380f8af4",
+      "name": "Redbrand Ruffian",
+      "maxHp": 5,
+      "hp": -1,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c5054b"
+      }
+    },
+    {
+      "id": "512933f8-f106-4745-a43f-b637d6a757c0",
+      "name": "Redbrand Ruffian",
+      "maxHp": 9,
+      "hp": -1,
+      "_id": {
+        "$oid": "6571ce5e402e21e486c5054c"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571e6621cdebe1cb7bd8e50"
+  },
+  "id": "fb56e956-3595-431c-bf3c-110821bd7afa",
+  "group": "Sesión 1B - Rufianes Marca Roja",
+  "name": "[2] Barracas",
+  "monsters": [
+    {
+      "id": "cb13a349-58de-4576-af08-74c74d9fa581",
+      "name": "Redbrand Spy",
+      "maxHp": 20,
+      "hp": 0,
+      "_id": {
+        "$oid": "6571e6621cdebe1cb7bd8e51"
+      }
+    },
+    {
+      "id": "6516146b-8ec2-47f5-a7ae-a799e8801531",
+      "name": "Redbrand Ruffian",
+      "maxHp": 12,
+      "hp": 0,
+      "_id": {
+        "$oid": "6571e6621cdebe1cb7bd8e52"
+      }
+    },
+    {
+      "id": "a750e6e9-9f4c-4b06-a65c-7f9fb6a071ec",
+      "name": "Redbrand Ruffian",
+      "maxHp": 11,
+      "hp": -1,
+      "_id": {
+        "$oid": "6571e6621cdebe1cb7bd8e53"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571eb98c0c12b7f550e898a"
+  },
+  "id": "b4ed4491-371f-4ef9-8616-3e6cd92a55d6",
+  "group": "Sesión 1B - Rufianes Marca Roja",
+  "name": "[4] Criptas",
+  "monsters": [
+    {
+      "id": "44fbc903-2bdb-47aa-a02d-65ac0d2cb0f8",
+      "name": "Skeleton",
+      "maxHp": 11,
+      "hp": -9,
+      "_id": {
+        "$oid": "6571eb98c0c12b7f550e898b"
+      }
+    },
+    {
+      "id": "d12c1f00-619d-4a20-acdb-fb261b722920",
+      "name": "Skeleton",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "6571eb98c0c12b7f550e898c"
+      }
+    },
+    {
+      "id": "46ec8168-086d-4846-966b-b2ab66b01f9d",
+      "name": "Skeleton",
+      "maxHp": 8,
+      "hp": -6,
+      "_id": {
+        "$oid": "6571eb98c0c12b7f550e898d"
+      }
+    },
+    {
+      "id": "d12c1f00-619d-4a20-acdb-fb261b4f6j2s",
+      "name": "Skeleton",
+      "maxHp": 8,
+      "hp": 0,
+      "_id": {
+        "$oid": "65c6c10f5f453698e84471f4"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571edd4c754457afcd6e8ad"
+  },
+  "id": "e2b0c359-db16-40c3-8e07-4cb12a88ba01",
+  "group": "Sesión 1B - Rufianes Marca Roja",
+  "name": "[5] Celdas",
+  "monsters": [
+    {
+      "id": "4a9f7061-a2e2-4e43-bd4e-c9ee61d5f6c5",
+      "name": "Redbrand Ruffian",
+      "maxHp": 12,
+      "hp": -2,
+      "_id": {
+        "$oid": "6571edd4c754457afcd6e8ae"
+      }
+    },
+    {
+      "id": "62bb7ed4-eb72-4248-802a-423782e018a3",
+      "name": "Redbrand Ruffian",
+      "maxHp": 8,
+      "hp": 0,
+      "_id": {
+        "$oid": "6571edd4c754457afcd6e8af"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571ee8672e5819d24f44efd"
+  },
+  "id": "e0c899d4-bd7a-41f5-8d3b-15726ea80dad",
+  "group": "Sesión 1B - Rufianes Marca Roja",
+  "name": "[8] Grieta",
+  "monsters": [
+    {
+      "id": "c1dc6625-2349-40d6-bddc-20b4b837215b",
+      "name": "Nothic",
+      "maxHp": 33,
+      "hp": 33,
+      "_id": {
+        "$oid": "6571ee8672e5819d24f44efe"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571f7f5e33cc7036ba1e126"
+  },
+  "id": "8cd9e7b0-b544-4e0c-964d-7242c206baef",
+  "group": "Sesión 1B - Rufianes Marca Roja",
+  "name": "[9] Barracas de Guardia",
+  "monsters": [
+    {
+      "id": "17384385-4c59-447d-a601-170ff8409cd8",
+      "name": "Bugbear",
+      "maxHp": 17,
+      "hp": 17,
+      "_id": {
+        "$oid": "6571f7f5e33cc7036ba1e127"
+      }
+    },
+    {
+      "id": "8fedf635-fbe7-43ef-a1e1-790c3b536f8d",
+      "name": "Bugbear",
+      "maxHp": 16,
+      "hp": 16,
+      "_id": {
+        "$oid": "6571f7f5e33cc7036ba1e129"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6571f94ee33cc7036ba1e132"
+  },
+  "id": "96713467-d29c-4ce2-97a3-d5f38ab98947",
+  "group": "Sesión 1B - Rufianes Marca Roja",
+  "name": "[10] Sala común",
+  "monsters": [
+    {
+      "id": "81bd9ef5-d66c-4b9c-b7b1-e523a11e25d3",
+      "name": "Redbrand Ruffian",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e133"
+      }
+    },
+    {
+      "id": "1a23fcd7-89cb-4dce-9d43-b567212e340f",
+      "name": "Redbrand Ruffian",
+      "maxHp": 11,
+      "hp": 11,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e134"
+      }
+    },
+    {
+      "id": "e73ad50b-fb0c-45bc-b088-a0e5055c5130",
+      "name": "Redbrand Ruffian",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e135"
+      }
+    },
+    {
+      "id": "08d3bbe3-a41e-4776-b752-79b6618c500f",
+      "name": "Redbrand Ruffian",
+      "maxHp": 20,
+      "hp": 20,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e136"
+      }
+    },
+    {
+      "id": "4c323ac6-9f3b-4775-b1fd-28d2779165c8",
+      "name": "Redbrand Ruffian",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e137"
+      }
+    },
+    {
+      "id": "31b49165-196a-4454-9871-b886c72563ee",
+      "name": "Redbrand Ruffian",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "6571f94ee33cc7036ba1e138"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "657202efa0ebf88909292b83"
+  },
+  "id": "7c054321-cef1-455a-bd90-4fab8819c22e",
+  "group": "Sesión 1B - Rufianes Marca Roja",
+  "name": "[12] Aposentos de Glasstaff",
+  "monsters": [
+    {
+      "id": "18ac32c6-a601-49f6-a7f5-711baf725e6c",
+      "name": "Evil Mage",
+      "maxHp": 33,
+      "hp": 33,
+      "_id": {
+        "$oid": "657202efa0ebf88909292b84"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65838c374770c3fdb05c03f9"
+  },
+  "id": "bfe4144b-2c10-4806-b21c-7f62acc6c6f5",
+  "group": "Sesión 2 - Fábrica Forjacero",
+  "name": "Infestación - Bichos",
+  "monsters": [
+    {
+      "id": "8e5f4e3e-ba90-4457-9717-3f56afefecc0",
+      "name": "Giant Centipede",
+      "maxHp": 6,
+      "hp": 6,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c03fa"
+      }
+    },
+    {
+      "id": "f110eb98-0ff2-47c9-a908-294be50efc60",
+      "name": "Giant Centipede",
+      "maxHp": 4,
+      "hp": 4,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c03fb"
+      }
+    },
+    {
+      "id": "cf323787-a2fa-4f2c-8594-4eb8bb6f815a",
+      "name": "Giant Centipede",
+      "maxHp": 2,
+      "hp": 2,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c03fc"
+      }
+    },
+    {
+      "id": "4bbcdb74-09ea-430d-9159-72b2db558f87",
+      "name": "Giant Centipede",
+      "maxHp": 6,
+      "hp": 6,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c03fd"
+      }
+    },
+    {
+      "id": "863ce7c2-a91c-4627-9721-5bdc5a8d1cb8",
+      "name": "Spider",
+      "maxHp": 2,
+      "hp": 2,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c03fe"
+      }
+    },
+    {
+      "id": "2253191f-3b75-4d0e-98ba-af674fa32120",
+      "name": "Spider",
+      "maxHp": 4,
+      "hp": 4,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c03ff"
+      }
+    },
+    {
+      "id": "c325294f-3927-47bf-9eca-a643554ae039",
+      "name": "Spider",
+      "maxHp": 1,
+      "hp": 1,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0400"
+      }
+    },
+    {
+      "id": "968a4e0a-750c-4007-aa82-5d5250e4f084",
+      "name": "Spider",
+      "maxHp": 2,
+      "hp": 2,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0401"
+      }
+    },
+    {
+      "id": "49bb378d-e33a-4784-93fc-4195b4e0f091",
+      "name": "Spider",
+      "maxHp": 4,
+      "hp": 4,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0402"
+      }
+    },
+    {
+      "id": "35511a65-6139-4381-ba87-df602ceea8ce",
+      "name": "Spider",
+      "maxHp": 4,
+      "hp": 4,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0403"
+      }
+    },
+    {
+      "id": "1f790cb3-9c3c-4280-b246-fcb63dab117c",
+      "name": "Scorpion",
+      "maxHp": 2,
+      "hp": 2,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0404"
+      }
+    },
+    {
+      "id": "69a30a7e-9d06-4ebf-b215-af10c81f6b2c",
+      "name": "Scorpion",
+      "maxHp": 2,
+      "hp": 2,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0405"
+      }
+    },
+    {
+      "id": "a61a3089-8d8c-4f17-aa96-098d79ea5938",
+      "name": "Scorpion",
+      "maxHp": 3,
+      "hp": 3,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0406"
+      }
+    },
+    {
+      "id": "1d26c051-2fa6-43fd-88dd-d2ea4fdd5b40",
+      "name": "Scorpion",
+      "maxHp": 1,
+      "hp": 1,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0407"
+      }
+    },
+    {
+      "id": "8d960aa0-e758-448f-b531-df70691bcad3",
+      "name": "Scorpion",
+      "maxHp": 2,
+      "hp": 2,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0408"
+      }
+    },
+    {
+      "id": "bfd1d7ee-aa2d-4013-a996-a4acc5b1040c",
+      "name": "Scorpion",
+      "maxHp": 3,
+      "hp": 3,
+      "_id": {
+        "$oid": "65838c374770c3fdb05c0409"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65838cb14770c3fdb05c045e"
+  },
+  "id": "4eb4c470-0906-46e1-8e54-68703bed1c8f",
+  "group": "Sesión 2 - Fábrica Forjacero",
+  "name": "Infestación - Hongos",
+  "monsters": [
+    {
+      "id": "768f535f-8a56-41d2-a74a-218e8a518daa",
+      "name": "Violet Fungus",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c045f"
+      }
+    },
+    {
+      "id": "8a87caa5-ddc9-47c4-ac72-dcb26b614c95",
+      "name": "Violet Fungus",
+      "maxHp": 26,
+      "hp": 26,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0460"
+      }
+    },
+    {
+      "id": "638de949-e1db-4c2e-8bef-69cb5d285f0e",
+      "name": "Violet Fungus",
+      "maxHp": 19,
+      "hp": 19,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0461"
+      }
+    },
+    {
+      "id": "1a5e7b80-195c-4c02-8b13-d480945138a7",
+      "name": "Violet Fungus",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0462"
+      }
+    },
+    {
+      "id": "a97cad81-9776-4b24-a697-26b36ac47100",
+      "name": "Violet Fungus",
+      "maxHp": 18,
+      "hp": 18,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0463"
+      }
+    },
+    {
+      "id": "79f0656f-6223-4346-8963-558635c516fc",
+      "name": "Shrieker",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0464"
+      }
+    },
+    {
+      "id": "a56dbe4f-ac3a-4dc0-a7fd-04ad88d23a6a",
+      "name": "Shrieker",
+      "maxHp": 14,
+      "hp": 14,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0465"
+      }
+    },
+    {
+      "id": "3f575ba3-bffe-42e8-b8d3-8c5912605bf2",
+      "name": "Shrieker",
+      "maxHp": 13,
+      "hp": 13,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0466"
+      }
+    },
+    {
+      "id": "0e968bea-55c2-48ba-9aa2-3c51c4e15516",
+      "name": "Shrieker",
+      "maxHp": 13,
+      "hp": 13,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0467"
+      }
+    },
+    {
+      "id": "710067bb-3c90-4183-bf71-e9a922bdb407",
+      "name": "Shrieker",
+      "maxHp": 18,
+      "hp": 18,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0468"
+      }
+    },
+    {
+      "id": "65d5dcde-1d02-4be2-8c2a-b57e8178f2ac",
+      "name": "Shrieker",
+      "maxHp": 4,
+      "hp": 4,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c0469"
+      }
+    },
+    {
+      "id": "ee6db21f-4df4-41ed-ad3c-d118a4da3dd9",
+      "name": "Shrieker",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c046a"
+      }
+    },
+    {
+      "id": "ade0bf42-a016-4278-813a-191a4193db5b",
+      "name": "Shrieker",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c046b"
+      }
+    },
+    {
+      "id": "81b88394-a6f3-4216-b2ee-2bf1bac9ba96",
+      "name": "Shrieker",
+      "maxHp": 14,
+      "hp": 14,
+      "_id": {
+        "$oid": "65838cb14770c3fdb05c046c"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65838cfe93e6ecf05ef412c1"
+  },
+  "id": "97e9d842-1928-4bbf-9af7-6d167866ccf9",
+  "group": "Sesión 2 - Fábrica Forjacero",
+  "name": "Infestación - Alimañas",
+  "monsters": [
+    {
+      "id": "573b47bf-bcd1-4177-bb19-3e9426ba980d",
+      "name": "Swarm of Rats",
+      "maxHp": 25,
+      "hp": 25,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412c2"
+      }
+    },
+    {
+      "id": "40bd876e-d81f-4582-b6d1-1471e25f64af",
+      "name": "Swarm of Rats",
+      "maxHp": 38,
+      "hp": 38,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412c3"
+      }
+    },
+    {
+      "id": "61e3619e-ce39-459f-a773-4947dda2e554",
+      "name": "Swarm of Rats",
+      "maxHp": 44,
+      "hp": 44,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412c4"
+      }
+    },
+    {
+      "id": "484d6813-a995-4102-9e1e-3e15888ee2fd",
+      "name": "Swarm of Rats",
+      "maxHp": 25,
+      "hp": 25,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412c5"
+      }
+    },
+    {
+      "id": "9db1a8ac-0fa5-40d2-a212-bcf693c4ed95",
+      "name": "Swarm of Rats",
+      "maxHp": 33,
+      "hp": 33,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412c6"
+      }
+    },
+    {
+      "id": "26f1b169-2fb8-4038-9f50-b54a5f4dc89a",
+      "name": "Constrictor Snake",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412c7"
+      }
+    },
+    {
+      "id": "6ef54b7e-e8fc-4925-9184-fe951a75ed6e",
+      "name": "Constrictor Snake",
+      "maxHp": 14,
+      "hp": 14,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412c8"
+      }
+    },
+    {
+      "id": "958f50f8-80b6-461f-b999-e10a62ba03fd",
+      "name": "Constrictor Snake",
+      "maxHp": 13,
+      "hp": 13,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412c9"
+      }
+    },
+    {
+      "id": "e357ae6a-e19e-4923-a8c2-79517da95d27",
+      "name": "Giant Rat",
+      "maxHp": 9,
+      "hp": 9,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412ca"
+      }
+    },
+    {
+      "id": "8d1eb4c9-2623-4cbf-a297-9e1d101daed6",
+      "name": "Giant Rat",
+      "maxHp": 5,
+      "hp": 5,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412cb"
+      }
+    },
+    {
+      "id": "f19fa825-e7d0-4b62-a687-2fba9b8b82c9",
+      "name": "Poisonous Snake",
+      "maxHp": 1,
+      "hp": 1,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412cc"
+      }
+    },
+    {
+      "id": "149f10c6-3a6d-4c0f-aaa3-cc028840fc5b",
+      "name": "Poisonous Snake",
+      "maxHp": 1,
+      "hp": 1,
+      "_id": {
+        "$oid": "65838cfe93e6ecf05ef412cd"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65838d3693e6ecf05ef41312"
+  },
+  "id": "a95c9c81-783f-4451-81f1-e4dbedd19524",
+  "group": "Sesión 2 - Fábrica Forjacero",
+  "name": "Infestación - Caos",
+  "monsters": [
+    {
+      "id": "2c106b81-f461-4ff6-a121-a5e091a93926",
+      "name": "Quasit",
+      "maxHp": 8,
+      "hp": 8,
+      "_id": {
+        "$oid": "65838d3693e6ecf05ef41313"
+      }
+    },
+    {
+      "id": "9cdcfedf-5a39-40f7-af53-7a80c76c74cd",
+      "name": "Dretch",
+      "maxHp": 16,
+      "hp": 16,
+      "_id": {
+        "$oid": "65838d3693e6ecf05ef41314"
+      }
+    },
+    {
+      "id": "489f3885-3642-4e71-80ad-77c7a07cff0d",
+      "name": "Dretch",
+      "maxHp": 21,
+      "hp": 21,
+      "_id": {
+        "$oid": "65838d3693e6ecf05ef41315"
+      }
+    },
+    {
+      "id": "6f2b42e7-5fec-4f94-a82f-3b377c235a06",
+      "name": "Manes",
+      "maxHp": 11,
+      "hp": 11,
+      "_id": {
+        "$oid": "65838d3693e6ecf05ef41316"
+      }
+    },
+    {
+      "id": "7ac3b09b-be2a-4d55-8b98-41b20cfb4649",
+      "name": "Manes",
+      "maxHp": 7,
+      "hp": 7,
+      "_id": {
+        "$oid": "65838d3693e6ecf05ef41317"
+      }
+    },
+    {
+      "id": "bdadd20b-d3d3-4f78-a8b1-7325582d3071",
+      "name": "Manes",
+      "maxHp": 10,
+      "hp": 10,
+      "_id": {
+        "$oid": "65838d3693e6ecf05ef41318"
+      }
+    },
+    {
+      "id": "5763e5a9-c33d-4c0a-82ec-9a3f86ac3c17",
+      "name": "Manes",
+      "maxHp": 6,
+      "hp": 6,
+      "_id": {
+        "$oid": "65838d3693e6ecf05ef41319"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65838d6e93e6ecf05ef41365"
+  },
+  "id": "b7577e02-36d6-42b9-81cf-32f299b413e2",
+  "group": "Sesión 2 - Fábrica Forjacero",
+  "name": "Infestación - Renegados",
+  "monsters": [
+    {
+      "id": "eb2e9c50-5bb5-4d4e-b77e-205b64278e00",
+      "name": "Tridrone",
+      "maxHp": 13,
+      "hp": 13,
+      "_id": {
+        "$oid": "65838d6e93e6ecf05ef41366"
+      }
+    },
+    {
+      "id": "de9acf77-c5f3-4f25-a11e-cce040897500",
+      "name": "Tridrone",
+      "maxHp": 6,
+      "hp": 6,
+      "_id": {
+        "$oid": "65838d6e93e6ecf05ef41367"
+      }
+    },
+    {
+      "id": "0d3a3808-d0c7-4031-ad5f-0c4fc7f768e5",
+      "name": "Duodrone",
+      "maxHp": 16,
+      "hp": 16,
+      "_id": {
+        "$oid": "65838d6e93e6ecf05ef41368"
+      }
+    },
+    {
+      "id": "f0f5f6e3-4e51-443c-8680-210e250968b4",
+      "name": "Duodrone",
+      "maxHp": 13,
+      "hp": 13,
+      "_id": {
+        "$oid": "65838d6e93e6ecf05ef41369"
+      }
+    },
+    {
+      "id": "17a0fa62-933f-44f3-91f9-f7817dd922fe",
+      "name": "Duodrone",
+      "maxHp": 16,
+      "hp": 16,
+      "_id": {
+        "$oid": "65838d6e93e6ecf05ef4136a"
+      }
+    },
+    {
+      "id": "7d89783a-7e27-4bc5-aabd-b1aa27fd760b",
+      "name": "Monodrone",
+      "maxHp": 2,
+      "hp": 2,
+      "_id": {
+        "$oid": "65838d6e93e6ecf05ef4136b"
+      }
+    },
+    {
+      "id": "a141587f-a538-494e-b570-7f8d76878fa5",
+      "name": "Monodrone",
+      "maxHp": 7,
+      "hp": 7,
+      "_id": {
+        "$oid": "65838d6e93e6ecf05ef4136c"
+      }
+    },
+    {
+      "id": "fdb8a499-b5cf-41e1-b6ca-a6fe1c3a5928",
+      "name": "Monodrone",
+      "maxHp": 6,
+      "hp": 6,
+      "_id": {
+        "$oid": "65838d6e93e6ecf05ef4136d"
+      }
+    },
+    {
+      "id": "2ec1f236-ceb9-4a5e-86c2-d1de0826bf03",
+      "name": "Monodrone",
+      "maxHp": 8,
+      "hp": 8,
+      "_id": {
+        "$oid": "65838d6e93e6ecf05ef4136e"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65838fdf93e6ecf05ef41421"
+  },
+  "id": "e078238c-24ef-411d-bd8c-b961528b344c",
+  "group": "Sesión 2 - Fábrica Forjacero",
+  "name": "Infestación - Fuego",
+  "monsters": [
+    {
+      "id": "898387ac-b712-421a-946b-866153c77e64",
+      "name": "Magma Mephit",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "65838fdf93e6ecf05ef41422"
+      }
+    },
+    {
+      "id": "036d05ce-0c97-4062-b3f6-c809de58fb89",
+      "name": "Magma Mephit",
+      "maxHp": 20,
+      "hp": 20,
+      "_id": {
+        "$oid": "65838fdf93e6ecf05ef41423"
+      }
+    },
+    {
+      "id": "daedcb0f-12bd-4d09-9c9a-a08404544fa2",
+      "name": "Smoke Mephit",
+      "maxHp": 23,
+      "hp": 23,
+      "_id": {
+        "$oid": "65838fdf93e6ecf05ef41424"
+      }
+    },
+    {
+      "id": "abe7595d-92dc-49d1-8a2b-c752e0310156",
+      "name": "Steam Mephit",
+      "maxHp": 13,
+      "hp": 13,
+      "_id": {
+        "$oid": "65838fdf93e6ecf05ef41425"
+      }
+    },
+    {
+      "id": "7ea9f8a6-0420-4a3e-8458-a7fd28bb44db",
+      "name": "Smoke Mephit",
+      "maxHp": 26,
+      "hp": 26,
+      "_id": {
+        "$oid": "65838fdf93e6ecf05ef41426"
+      }
+    },
+    {
+      "id": "aba49280-49e3-47b7-9b21-99ceff9c2d16",
+      "name": "Steam Mephit",
+      "maxHp": 22,
+      "hp": 22,
+      "_id": {
+        "$oid": "65838fdf93e6ecf05ef41427"
+      }
+    },
+    {
+      "id": "8c60d07c-7356-46d9-b542-b6a94e7d4608",
+      "name": "Smoke Mephit",
+      "maxHp": 16,
+      "hp": 16,
+      "_id": {
+        "$oid": "65838fdf93e6ecf05ef41428"
+      }
+    },
+    {
+      "id": "e353e44a-9b6b-4227-9f8e-2913d88f7ae8",
+      "name": "Steam Mephit",
+      "maxHp": 20,
+      "hp": 20,
+      "_id": {
+        "$oid": "65838fdf93e6ecf05ef41429"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "658390de9cb46205d06904d8"
+  },
+  "id": "b37e310f-9a96-43ea-a72e-627d5b511c68",
+  "group": "Sesión 2 - Fábrica Forjacero",
+  "name": "Infestación - Agua",
+  "monsters": [
+    {
+      "id": "5841983e-46d6-486f-8ad4-e2f8804bc8a2",
+      "name": "Ice Mephit",
+      "maxHp": 16,
+      "hp": 16,
+      "_id": {
+        "$oid": "658390de9cb46205d06904d9"
+      }
+    },
+    {
+      "id": "300341d7-cd46-4453-a3b1-3e34d9450188",
+      "name": "Ice Mephit",
+      "maxHp": 22,
+      "hp": 22,
+      "_id": {
+        "$oid": "658390de9cb46205d06904da"
+      }
+    },
+    {
+      "id": "d5bb7187-f8c5-4c43-83e4-51720d8b4057",
+      "name": "Mud Mephit",
+      "maxHp": 23,
+      "hp": 23,
+      "_id": {
+        "$oid": "658390de9cb46205d06904db"
+      }
+    },
+    {
+      "id": "1f119259-d9a3-4935-a920-e753b0a70132",
+      "name": "Mud Mephit",
+      "maxHp": 23,
+      "hp": 23,
+      "_id": {
+        "$oid": "658390de9cb46205d06904dc"
+      }
+    },
+    {
+      "id": "93d9a52b-6bed-4073-8b5a-4f9f24c12998",
+      "name": "Steam Mephit",
+      "maxHp": 20,
+      "hp": 20,
+      "_id": {
+        "$oid": "658390de9cb46205d06904dd"
+      }
+    },
+    {
+      "id": "a9f515d0-71db-460d-ba7c-7918aa4f44ec",
+      "name": "Steam Mephit",
+      "maxHp": 19,
+      "hp": 19,
+      "_id": {
+        "$oid": "658390de9cb46205d06904de"
+      }
+    },
+    {
+      "id": "895c9b74-6355-487d-8cee-0ccc645da9d5",
+      "name": "Mud Mephit",
+      "maxHp": 24,
+      "hp": 24,
+      "_id": {
+        "$oid": "658390de9cb46205d06904df"
+      }
+    },
+    {
+      "id": "abc768b0-a176-433a-8158-fd51c0cf600b",
+      "name": "Steam Mephit",
+      "maxHp": 25,
+      "hp": 25,
+      "_id": {
+        "$oid": "658390de9cb46205d06904e0"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65840ec37f280b56901f6928"
+  },
+  "id": "5e00002a-2689-47a1-8286-cd3bad9888a4",
+  "group": "Sesión 2 - Fábrica Forjacero",
+  "name": "Infestación - Animados",
+  "monsters": [
+    {
+      "id": "f4251e50-f0db-4474-8a63-b14a6ef926a3",
+      "name": "Flying Sword",
+      "maxHp": 19,
+      "hp": 19,
+      "_id": {
+        "$oid": "65840ec37f280b56901f6929"
+      }
+    },
+    {
+      "id": "35c90463-e9b4-4ede-92ca-d3986878e7a2",
+      "name": "Flying Sword",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "65840ec37f280b56901f692a"
+      }
+    },
+    {
+      "id": "a400317a-b94f-42c4-abfc-f97bcc788633",
+      "name": "Flying Sword",
+      "maxHp": 25,
+      "hp": 25,
+      "_id": {
+        "$oid": "65840ec37f280b56901f692b"
+      }
+    },
+    {
+      "id": "ab074ebf-ce92-40ee-b37a-5edc7cc5b3c9",
+      "name": "Flying Sword",
+      "maxHp": 20,
+      "hp": 20,
+      "_id": {
+        "$oid": "65840ec37f280b56901f692c"
+      }
+    },
+    {
+      "id": "0c663dd1-c341-46a2-a1f5-29c2f90a36da",
+      "name": "Flying Sword",
+      "maxHp": 18,
+      "hp": 18,
+      "_id": {
+        "$oid": "65840ec37f280b56901f692d"
+      }
+    },
+    {
+      "id": "1afc1fea-9192-47e1-ab5d-8430595c2dfe",
+      "name": "Flying Sword",
+      "maxHp": 17,
+      "hp": 17,
+      "_id": {
+        "$oid": "65840ec37f280b56901f692e"
+      }
+    },
+    {
+      "id": "71ab0cb7-4a11-452c-9b4a-4d91345ab18f",
+      "name": "Flying Sword",
+      "maxHp": 15,
+      "hp": 15,
+      "_id": {
+        "$oid": "65840ec37f280b56901f692f"
+      }
+    },
+    {
+      "id": "db8aa264-a393-48e1-a1f7-c773d6c317d5",
+      "name": "Flying Sword",
+      "maxHp": 19,
+      "hp": 19,
+      "_id": {
+        "$oid": "65840ec37f280b56901f6930"
+      }
+    },
+    {
+      "id": "dcf69590-3bd5-4178-9cbe-fe5449623abf",
+      "name": "Flying Sword",
+      "maxHp": 13,
+      "hp": 13,
+      "_id": {
+        "$oid": "65840ec37f280b56901f6931"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65e1dbd84828f793c2598f4e"
+  },
+  "id": "902e2879-e133-4593-890c-f1d113182261",
+  "group": "Sesión 1A - Secuestradores de talento",
+  "name": "Cuidador Goblin",
+  "monsters": [
+    {
+      "id": "0866ae83-d190-42ea-82bd-dd0d2074aaa3",
+      "name": "Goblin",
+      "nick": null,
+      "maxHp": 5,
+      "hp": -4,
+      "_id": {
+        "$oid": "65e1dbd84828f793c2598f4f"
+      }
+    }
+  ],
+  "npcs": [],
+  "__v": 0
+}]

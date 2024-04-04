@@ -1,0 +1,500 @@
+[{
+  "_id": {
+    "$oid": "658cd616fac097c3700c608c"
+  },
+  "id": "34bd0500-6e8e-4db2-88b1-c4f005e1686c",
+  "type": "city",
+  "name": "Auranthia",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/auranthia.png",
+  "population": 10000,
+  "accommodation": [
+    "La Pluma Veloz",
+    "El Cuervo Sacrificado",
+    "El Jabalí Pálido",
+    "El Martillo Ladrador",
+    "La Lanza de Oropel",
+    "El Oso Panorámico",
+    "El Corzo Naranja"
+  ],
+  "government": {
+    "type": "OLIGARCHY",
+    "situation": "Liderazgo disputado, lucha abierta",
+    "_id": {
+      "$oid": "65b91797c3c11e57fbeaf887"
+    }
+  },
+  "security": 80,
+  "securityType": "guards",
+  "commerces": [
+    "TRADING",
+    "WOODWORK",
+    "STEELWORK"
+  ],
+  "religion": {
+    "temples": [
+      "Abnu (Materia)",
+      "Namtar (Espiritu)"
+    ],
+    "shrines": [
+      "Abaru (Energía)",
+      "Burumu (Espacio)"
+    ],
+    "_id": {
+      "$oid": "65b91797c3c11e57fbeaf886"
+    }
+  },
+  "magicShops": 1,
+  "raceRelationships": "Armonía",
+  "knownFor": "Gremios poderosos",
+  "calamity": "Escándalo que amenaza a familias poderosas",
+  "notes": "- Lugar de nacimiento de Neylen\n- Universidad de Arte\n- Gremio de Mercaderes\n- Gremio de Caligrafía",
+  "__v": 0,
+  "dominion": "central_dominion",
+  "subdominion": "Precinto del Oro"
+},{
+  "_id": {
+    "$oid": "65a1f1df3c41d7f3f0f5a8bd"
+  },
+  "id": "9ccf0935-aba6-4342-afd5-bccdb1d860fb",
+  "type": "city",
+  "name": "Gran Bwini",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/gran_bwini.png",
+  "population": 6000,
+  "accommodation": [
+    "El Druida de Acero",
+    "El Gólem Aullador",
+    "El Poeta Marrón",
+    "La Mula Ceiluda",
+    "El Ópalo Mentiroso"
+  ],
+  "government": {
+    "type": "TEOCRACY",
+    "situation": "De voluntad férrea pero respetado",
+    "_id": {
+      "$oid": "65aaf909eb4d1cf0001b552a"
+    }
+  },
+  "security": 40,
+  "securityType": "guards",
+  "commerces": [
+    "MAGIC",
+    "TRADING",
+    "FISHING"
+  ],
+  "religion": {
+    "temples": [
+      "Abaru (Energía)"
+    ],
+    "shrines": [
+      "Abnu (Materia)"
+    ],
+    "_id": {
+      "$oid": "65aaf909eb4d1cf0001b5529"
+    }
+  },
+  "magicShops": 2,
+  "raceRelationships": "Armonía",
+  "placeCharacteristics": "Templo grandioso",
+  "knownFor": "Devoción",
+  "calamity": "Saqueos por parte de monstruos",
+  "__v": 0,
+  "notes": "- Lugar donde creció Petra\n- Ciudad de origen de:\n   - Nekane (Clériga de Abaru)\n   - Rayland (Bardo)\n- Templo a Abaru\n   - Se dedica a combatir sectas e incursiones en la zona",
+  "dominion": "central_dominion",
+  "subdominion": "Enclave del Mithril"
+},{
+  "_id": {
+    "$oid": "65aa7aceab3c4332670aad0f"
+  },
+  "id": "bf55c41f-1bd3-43b3-a3be-4932e277d9b0",
+  "type": "village",
+  "name": "Saxum",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/saxum.png",
+  "population": 1,
+  "accommodation": [],
+  "security": 1,
+  "securityType": "guards",
+  "commerces": [],
+  "religion": {
+    "temples": [],
+    "shrines": [
+      "Sabatu (Materia)"
+    ],
+    "_id": {
+      "$oid": "65aaf7c8b6b83ebbe7ab7b9a"
+    }
+  },
+  "notes": "- Lugar de nacimiento de Lander\n- En ruinas, saqueada por los Ladrones de Reliquias Naturales\n- Tiene un inquilino misterioso",
+  "__v": 0,
+  "dominion": "central_dominion",
+  "subdominion": "Enclave del Mithril"
+},{
+  "_id": {
+    "$oid": "65aa7bfbab3c4332670aad37"
+  },
+  "id": "ac8c1321-b6b9-4799-96b8-cf57b3d078ff",
+  "type": "village",
+  "name": "Orris",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/orris.png",
+  "population": 150,
+  "accommodation": [
+    "El Perro Viejo"
+  ],
+  "security": 3,
+  "securityType": "guards",
+  "commerces": [],
+  "religion": {
+    "temples": [],
+    "shrines": [
+      "Simtu (Materia)"
+    ],
+    "_id": {
+      "$oid": "65b038aaffa4f02894e6ae78"
+    }
+  },
+  "notes": "- Lugar de crianza de Lancer\n- Viven:\n   - Jon (Hermanastro de Lancer)\n   - Alaia (Hermanastra de Lancer)\n",
+  "__v": 0,
+  "dominion": "central_dominion",
+  "subdominion": "Enclave del Mithril"
+},{
+  "_id": {
+    "$oid": "65aa81cc5f65521493c0572b"
+  },
+  "id": "c1c63eff-4987-4312-8989-4183fadbb8c3",
+  "type": "village",
+  "name": "Verdeloma",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/verdeloma.png",
+  "population": 60,
+  "accommodation": [
+    "La Montaña de Oropel"
+  ],
+  "security": 2,
+  "securityType": "guards",
+  "commerces": [],
+  "religion": {
+    "temples": [],
+    "shrines": [],
+    "_id": {
+      "$oid": "65aaf993eb4d1cf0001b552e"
+    }
+  },
+  "notes": "- Lugar de nacimiento de Petra\n- Aldea mediana",
+  "__v": 0,
+  "dominion": "central_dominion",
+  "subdominion": "Enclave del Mithril"
+},{
+  "_id": {
+    "$oid": "65aa8a1e3bd173f1803c1f0d"
+  },
+  "id": "760d0fd8-e1d5-42f5-911f-54e0656209fb",
+  "type": "village",
+  "name": "Grimhollow",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/grimhollow.png",
+  "population": 200,
+  "accommodation": [
+    "El Herrero Cansado"
+  ],
+  "security": 5,
+  "securityType": "guards",
+  "commerces": [],
+  "religion": {
+    "temples": [],
+    "shrines": [
+      "Abaru (Energía)"
+    ],
+    "_id": {
+      "$oid": "65aafdcbb6b83ebbe7ab7bb8"
+    }
+  },
+  "notes": "- Aldea Orca\n- Ser Eldric buscó refugio aquí\n- Lugar de nacimiento de Doruk",
+  "__v": 0,
+  "dominion": "human_dominion",
+  "subdominion": "Marcas de la Frontera"
+},{
+  "_id": {
+    "$oid": "65aa8ab8810a3450172d8190"
+  },
+  "id": "55e5cc5b-6f2e-4a21-97f7-3d2c08a7e228",
+  "type": "town",
+  "name": "Silverhaven",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/silverhaven.png",
+  "population": 1500,
+  "accommodation": [
+    "El Ogro Reluciente",
+    "El Bardo de Bronce"
+  ],
+  "government": {
+    "type": "GERONTOCRACY",
+    "situation": "Respetado, justo y equitativo",
+    "_id": {
+      "$oid": "65aafd1db6b83ebbe7ab7bad"
+    }
+  },
+  "security": 15,
+  "securityType": "guards",
+  "commerces": [
+    "WOODWORK"
+  ],
+  "religion": {
+    "temples": [
+      "Giru (Energía)"
+    ],
+    "shrines": [
+      "Abnu (Materia)"
+    ],
+    "_id": {
+      "$oid": "65aafd1db6b83ebbe7ab7bac"
+    }
+  },
+  "raceRelationships": "Una minoría racial son refugiados",
+  "notes": "- Pueblo humano con cierta población semiorca\n- Lugar de crianza de Doruk\n- Viven:\n   - Grukka (madre de Doruk)\n   - Tobías (padrastro de Doruk)\n   - Leif (hermanastro de Doruk)\n- Fue saqueada por orcos que mataron a Leif (conexión con los Ladrones de Reliquias Naturales)",
+  "__v": 0,
+  "dominion": "human_dominion",
+  "subdominion": "Marcas de la Frontera"
+},{
+  "_id": {
+    "$oid": "65aa8c873bd173f1803c1f24"
+  },
+  "id": "a269ebe0-beaf-4ac2-a867-08532accad48",
+  "type": "village",
+  "name": "Sildorei",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/Sildorei.png",
+  "population": 490,
+  "accommodation": [
+    "La Espada Muda"
+  ],
+  "security": 3,
+  "securityType": "guards",
+  "commerces": [],
+  "religion": {
+    "temples": [
+      "Lamassu (Espiritu)"
+    ],
+    "shrines": [
+      "Simtu (Materia)",
+      "Kabattu (Espiritu)"
+    ],
+    "_id": {
+      "$oid": "65b04f300d614105e5e2b468"
+    }
+  },
+  "notes": "- Aldea de elfos del bosque\n- Lugar de nacimiento de Mahai (madre de Neylen)",
+  "__v": 0,
+  "dominion": "elven_dominion",
+  "subdominion": "Loth Taurëon",
+  "knownFor": "Ciudadanos maleducados"
+},{
+  "_id": {
+    "$oid": "65abb08b59dd5f0d7a54776a"
+  },
+  "id": "7e53177b-0751-4dbd-a4c2-f7a63580779c",
+  "type": "city",
+  "name": "Vintaros",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/vintaros.png",
+  "population": 9000,
+  "accommodation": [
+    "El Espíritu Misterioso",
+    "El Duende Brillante",
+    "El Oso Celoso",
+    "El Bastón Bizarro",
+    "El Poeta Rugiente"
+  ],
+  "government": {
+    "type": "FEUDALISM",
+    "situation": "Respetado, justo y equitativo",
+    "_id": {
+      "$oid": "65f214b467bd3fae91fca228"
+    }
+  },
+  "security": 60,
+  "securityType": "guards",
+  "commerces": [
+    "TRADING",
+    "WOODWORK",
+    "AGRICULTURE"
+  ],
+  "religion": {
+    "temples": [
+      "Ashnan (Materia)",
+      "Akosh (Energía)"
+    ],
+    "shrines": [
+      "Tigris (Materia)"
+    ],
+    "_id": {
+      "$oid": "65f214b467bd3fae91fca227"
+    }
+  },
+  "magicShops": 1,
+  "raceRelationships": "Armonía",
+  "placeCharacteristics": "Gran fortaleza",
+  "knownFor": "Vinos",
+  "calamity": "Oficiales corruptos",
+  "__v": 0,
+  "notes": "- Familia de Taylor\n- Alexandros trabaja como consejero del Rey Leandro III Duvante",
+  "dominion": "human_dominion",
+  "subdominion": "Valle del Vintral"
+},{
+  "_id": {
+    "$oid": "65abb490970f104102abebbd"
+  },
+  "id": "058af3d1-1edb-4778-a30e-2868ae6d6f50",
+  "type": "village",
+  "name": "Claro Mithral",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/claro_mithral.png",
+  "population": 320,
+  "accommodation": [
+    "El Bastón Encantado"
+  ],
+  "security": 4,
+  "securityType": "guards",
+  "commerces": [
+    "MAGIC"
+  ],
+  "religion": {
+    "temples": [
+      "Ilu (Energía)"
+    ],
+    "shrines": [
+      "Dumu (Espacio)"
+    ],
+    "_id": {
+      "$oid": "65ac45867894b3fac70b62d7"
+    }
+  },
+  "notes": "- Lugar de nacimiento de Narayan (madre de Alexandros)",
+  "__v": 0,
+  "dominion": "elven_dominion",
+  "subdominion": "Aëlinthil"
+},{
+  "_id": {
+    "$oid": "65ac4de3108543c95a0fbf02"
+  },
+  "id": "3a6d3711-091a-409d-9d2e-f12d13ac65e2",
+  "type": "village",
+  "name": "Bluff Dorpie",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/bluff_dorpie.png",
+  "population": 270,
+  "accommodation": [
+    "La Mula Vieja"
+  ],
+  "security": 5,
+  "securityType": "guards",
+  "commerces": [],
+  "religion": {
+    "temples": [],
+    "shrines": [
+      "Simtu (Materia)"
+    ],
+    "_id": {
+      "$oid": "65b041dfefa77be114e25d94"
+    }
+  },
+  "__v": 0,
+  "notes": "- Lugar de nacimiento de ZÓSIMO",
+  "dominion": "human_dominion",
+  "subdominion": "Marcas de la Frontera"
+},{
+  "_id": {
+    "$oid": "65ac4e38c7c4f93241673c9a"
+  },
+  "id": "890414ae-9389-4444-9748-589ddb2fbfb4",
+  "type": "city",
+  "name": "Lorbrindel",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/settlements/lorbrindel.png",
+  "population": 10000,
+  "accommodation": [
+    "La Rosa de Oropel",
+    "El Diamante Encendido",
+    "El Bardo Celoso",
+    "El Caballero Mentiroso"
+  ],
+  "government": {
+    "type": "MAGOCRACY",
+    "situation": "Cábala que se hizo con el poder abiertamente",
+    "_id": {
+      "$oid": "65b049a0e3b4e657241d90ba"
+    }
+  },
+  "security": 70,
+  "securityType": "guards",
+  "commerces": [
+    "TRADING",
+    "MAGIC"
+  ],
+  "religion": {
+    "temples": [
+      "Napsutu (Espiritu)",
+      "Abaru (Energía)"
+    ],
+    "shrines": [
+      "Giru (Energía)",
+      "Zid (Materia)"
+    ],
+    "_id": {
+      "$oid": "65b049a0e3b4e657241d90b9"
+    }
+  },
+  "magicShops": 1,
+  "raceRelationships": "La raza mayoritaria oprime a las minorías",
+  "placeCharacteristics": "Biblioteca o archivos de importancia",
+  "knownFor": "Ciudadanos maleducados",
+  "calamity": "Conílicto interno (que lleva a la anarquía)",
+  "__v": 0,
+  "notes": "- Ciudad origen de Yua",
+  "dominion": "elven_dominion",
+  "subdominion": "Táriel"
+},{
+  "_id": {
+    "$oid": "65b9179cc3c11e57fbeaf88b"
+  },
+  "id": "bac305c9-26b3-47b5-8cf5-2e4ccda69d6e",
+  "type": "city",
+  "name": "Iridalith",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/places/city/medium_river_castle_night_53464536.png",
+  "population": 15000,
+  "accommodation": [
+    "El Ópalo de Acero",
+    "El Guardián Rojo",
+    "La Tortuga Encantada",
+    "La Rosa Verde",
+    "La Daga Mágica",
+    "El Zafiro Profundo",
+    "La Moza Encantada",
+    "La Lanza Caliente"
+  ],
+  "government": {
+    "type": "PLUTOCRACY",
+    "situation": "Liderazgo disputado, lucha abierta",
+    "_id": {
+      "$oid": "65b97c7435e19479b897a48d"
+    }
+  },
+  "security": 100,
+  "securityType": "guards",
+  "commerces": [
+    "AGRICULTURE",
+    "TRADING",
+    "MAGIC"
+  ],
+  "religion": {
+    "temples": [
+      "Namtar (Espiritu)",
+      "Ilu (Energía)"
+    ],
+    "shrines": [
+      "Abnu (Materia)",
+      "Burumu (Espacio)"
+    ],
+    "_id": {
+      "$oid": "65b97c7435e19479b897a48c"
+    }
+  },
+  "magicShops": 2,
+  "raceRelationships": "La raza mayoritaria oprime a las minorías",
+  "placeCharacteristics": "Casi toda la población es rica",
+  "knownFor": "Duros guerreros",
+  "dominion": "elven_dominion",
+  "subdominion": "Elendëon Ëalëa",
+  "notes": "- Lugar de nacimiento de Lokiron",
+  "__v": 0
+}]
