@@ -1,0 +1,133 @@
+[{
+  "_id": {
+    "$oid": "656e25e8e607dfbdb42f7fc0"
+  },
+  "id": "5dbf53f8-02c6-4627-9a9b-edb4ea1f01f4",
+  "name": "Cueva",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1A_cave.png",
+  "description": "De pronto, un estruendo ensordecedor irrumpe en la cueva y un segundo después veis un torrente enorme de agua inundando el pasaje dirigiéndose cueva abajo hacia vosotros.\n\nEl agua viene con fuerza y el frente mide como 4 metros de altura.",
+  "notes": "Sesion 1A",
+  "__v": 0,
+  "group": "1A - Secuestradores de Talento"
+},{
+  "_id": {
+    "$oid": "659c9bb0198f61a4b0c2a246"
+  },
+  "id": "2d1aba90-1d9f-43e1-91fc-8f462d4f5386",
+  "name": "Taberna de Rosie",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1B_rosies_tavern.png",
+  "description": "La Taberna de Rosie es la posada que da alojamiento a los visitantes de Thalesferro y bebida y comida a los trabajadores de la fábrica.\n\nEn la planta baja, una pequeña barra da servicio a un enorme salón con mesas y sillas para los clientes.\n\nA través de una ventana del salón se sirve la comida y a través de una escalera se sube a las plantas superiores donde se encuentran las habitaciones.",
+  "notes": "Sesión 1B",
+  "__v": 0,
+  "group": "1B - Rufianes Marca Roja"
+},{
+  "_id": {
+    "$oid": "659c9cf345867226803dd2d6"
+  },
+  "id": "139c4d93-3d1b-4482-94c8-5cf1f04d029f",
+  "name": "Mansión Abandonada",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1B_mansion.png",
+  "description": "La mansión es claramente un edificio de una era pasada, completamente abandonada y en ruinas. En su exterior, la vegetación salvaje cubre la gran mayoría de su superficie. El resto de ella está completamente desgastada por el tiempo.\n\nEn el interior, todo está en oscuridad.",
+  "notes": "Sesión 1B",
+  "__v": 0,
+  "group": "1B - Rufianes Marca Roja"
+},{
+  "_id": {
+    "$oid": "659cac9892866f73fbb854cc"
+  },
+  "id": "fa4ee506-a0c5-44cf-984d-47bf53b4ae5e",
+  "name": "Exterior de la cueva",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1A_cave_exit.png",
+  "description": "Tras una estrecha galería cuesta abajo, con espacio justo para una persona, empieza a verse algo de luz. Al final de la galería se ve el sol del atardecer colándose entre los árboles del bosque.\n\nLa salida de la cueva da a un arroyo que cruza el bosque de lado a lado. Al otro lado del arroyo hay un claro en el que descansan unos guardias goblins.",
+  "notes": "Sesión 1A",
+  "__v": 0,
+  "group": "1A - Secuestradores de Talento"
+},{
+  "_id": {
+    "$oid": "659df47e041588095c443f99"
+  },
+  "id": "56e0bd22-f341-4a70-b033-7502c70f0c1d",
+  "name": "Fábrica Forjacero",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/2_forjacero.png",
+  "description": "La fábrica Forjacero se levanta imponente en el centro de Thalesferro. Es visible desde cualquier punto del asentamiento, ya que es con diferencia el edificio más alto y extenso del pueblo. Está dividida en varias extensiones que se conectan entre ellas por puentes, pasarelas, corredores y galerías de una forma aparentemente caótica, claramente improvisada a medida que la fábrica ha ido creciendo. Tiene un acceso directo al mar a través de un puerto industrial, donde los barcos se cargan con equipamiento para exportar. Grandes estructuras se yerguen por encima de los tejados. Algunas son torreones de observación y vigía. Otras son chimeneas, grúas, cúpulas, antenas de recepción arcana y construcciones con funcionalidades imposibles de adivinar.\n\nLa entrada cuenta con una serie de arcos que empiezan a unos 50 metros de la fábrica y dirigen a los visitantes y trabajadores hacia los enormes portones principales, suficientemente grandes como para rivalizar con los de los castillos más grandes.",
+  "notes": "Sesión 2",
+  "__v": 0,
+  "group": "2 - Fábrica Forjacero"
+},{
+  "_id": {
+    "$oid": "65e03ab194258dc6d4940536"
+  },
+  "id": "b75364fc-ffd9-47c9-81b2-77b73bdccaae",
+  "name": "Cueva inundada",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1A_floodedcave.png",
+  "description": "De pronto, un estruendo ensordecedor irrumpe en la cueva y un segundo después veis un torrente enorme de agua inundando el pasaje dirigiéndose cueva abajo hacia vosotros.\n\nEl agua viene con fuerza y el frente mide unos 4 metros de altura.",
+  "notes": "Sesión 1A",
+  "__v": 0,
+  "group": "1A - Secuestradores de Talento"
+},{
+  "_id": {
+    "$oid": "65e03d5232b6197ea9bd9ec8"
+  },
+  "id": "b498ef3c-6502-4cd6-8691-169b79f603fa",
+  "name": "Guarida de los goblins",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1A_goblin_den.png",
+  "description": "Es una gran galería dividida en dos por terraplén vertical de unos 3 metros de altura. Una escalinata natural muy empinada comunica ambos niveles al fondo de la sala. La atmósfera está cargada por el humo de una hoguera y hiede a pieles mal curadas y a goblin sudado.\n\nEn el piso de abajo, en frente de vosotros, hay dos hogueras con 6 goblins a su alrededor, cocinando y charlando en voz baja. Al veros entrar, el de mayor tamaño da un grito primero hacia el piso superior y luego hacia el resto de goblins. Todos se levantan preparándose para el combate.\n\nEn el piso superior aparece otro goblin mirando la escena.",
+  "notes": "Sesión 1A",
+  "__v": 0,
+  "group": "1A - Secuestradores de Talento"
+},{
+  "_id": {
+    "$oid": "65e03db832b6197ea9bd9ed8"
+  },
+  "id": "55f59ec1-d352-446b-b1dd-629ad8942cc3",
+  "name": "Sala de Klaarg",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1A_klarg.png",
+  "description": "Esta es la galería más grande que habéis visto en la cueva.\n\nHay sacos y cajas de diversos tamaños al final de la sala.\n\nA la derecha creeis vislumbrar un estrecho agujero negro en la unión de la pared y el suelo.\n\nA la izquierda la sala se curva y no veis el final.\n\nLa cascada resuena detrás.\n\nEn medio de la sala hay una gran hoguera encendida.",
+  "notes": "Sesión 1A",
+  "__v": 0,
+  "group": "1A - Secuestradores de Talento"
+},{
+  "_id": {
+    "$oid": "65f0fd53e058f91aea82e390"
+  },
+  "id": "9a3b4fb4-7e24-4574-a175-74bda4c4ef0a",
+  "group": "2 - Fábrica Forjacero",
+  "name": "Vestíbulo",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/2_hall.png",
+  "description": "El vestíbulo de entrada es enorme. En la planta baja tiene multitud de puertas y pasillos que dan acceso a diferentes partes de la fábrica. Tiene varios pisos de altura y en cada uno, un atrio recorre todo el perímetro del piso con más puertas conectando el cuerpo principal de la fábrica a otros edificios adyacentes.\n\nEl área de recepción, en el centro del vestíbulo, consiste en varias mesas descolocadas con varios trabajadores atareados consultando papeles y operando distintos artilugios arcanos.\n\nEn la pared detrás de la recepción hay un impresionante cuadro que ocupa gran parte de los dos primeros pisos de la pared. El cuadro tiene representados distintos materiales, pero parece estar pintado no con óleo u otro tipo de pigmento sino con los mismos materiales que aparecen en él. Agua, fuego, vapor, distintos tipos de metales… todos se entremezclan de forma que la interfase entre ellos cambia y se mueve haciendo que cada elemento se mueva de forma caótica por el cuadro. El sol que entra por los grandes ventanales de la fachada de la entrada se refleja en los distintos materiales confiriéndole un halo mágico cautivador.\n",
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65f4d1c5223fa56e4b7e2f19"
+  },
+  "id": "49d501f5-db82-43a2-bac6-8bc573d5058c",
+  "group": "1B - Rufianes Marca Roja",
+  "name": "Sótano de la mansión",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1B_cellar.png",
+  "description": "La puerta se abre a un rellano de metro y medio de ancho que está a unos 5 metros sobre una gran bodega que se puede ver abajo. A cada lado del rellano, unas escaleras de piedra descienden a otro rellano y otra vez hacia el suelo por alrededor de la bodega. Hay otra puerta debajo del segundo rellano de la derecha. Una gran cisterna de piedra ocupa el fondo de la habitación, cuyas paredes están repletas de barriles y toneles.",
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65f57227628a98dab8437946"
+  },
+  "id": "c7b0166d-09c8-42ab-8c11-a96f737664e6",
+  "group": "1B - Rufianes Marca Roja",
+  "name": "La Grieta",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1B_crevasse.png",
+  "description": "Una brisa fría llena esta cueva natural, llevando consigo un leve aroma a carne en descomposición. Una enorme grieta divide la cueva en dos y está flanqueada por dos gruesas columnas que soportan el peso del techo a 7 u 8 metros de altura. Dos puentes arqueados de madera cruzan el abismo.",
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "65f581defeae6aea2cb2bf82"
+  },
+  "id": "e02849e8-8a72-4cf3-b2c4-b5656aab1491",
+  "group": "1B - Rufianes Marca Roja",
+  "name": "El Taller del mago",
+  "img": "https://bayaz.s3.eu-north-1.amazonaws.com/images/sessions/1B_wizards_workshop.png",
+  "description": "Esta habitación tiene pinta de ser el taller de un mago. Una rata corretea por el suelo y toma refugio debajo de una gran mesa de trabajo rodeada de alambiques, vasijas, serpentines para destilación y otros materiales alquímicos, todos ellos funcionando, echando humo y burbujas.\n\nLas estanterías están repletas con fajos de pergaminos y tomos con pinta rara.",
+  "notes": "- Rata familiar de Malachai. Envía un mensaje telepático a Malachai en cuanto ve a los intrusos.\n      - Velocidad 7m, AC10, 1HP.\n      - Sigue a los PCs si no la persiguen.\n\n- Libros y notas.\n      - Relacionados con alquimia de pociones y mezclas.\n      - PC competente en Arcano -> equipamiento para elaborar pociones de invisibilidad.\n      - Si buscan entre los libros, dos llaman la atención:\n            - DC17 Investigación: Sobre una piedra arcana con poderes sobre la naturaleza (Fragmento de Éter).\n            - DC13 Investigación: Otro con pistas sobre equipamiento mágico interesante (futura quest)\n\n- Loot: PC con competencia en Arcano o algún conocimiento de Alquimia -> reagentes alquímicos: mercurio, bilis de dragón y hierba mora molida (3g cada)\n",
+  "__v": 0
+}]
