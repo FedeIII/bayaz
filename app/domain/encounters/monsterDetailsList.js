@@ -1,4 +1,69 @@
+/*
+
+'Example': {
+    'Armor Class': '12 (armadura natural)',
+    'Hit Points': '40 (8d8)',
+    Speed: '30 ft.',
+    stats: {
+      str: '9',
+      dex: '14',
+      con: '11',
+      int: '17',
+      wis: '12',
+      cha: '11',
+    },
+    'Saving Throws': 'Int +5, Wis +3',
+    Skills: 'Arcana +5, History +5',
+    'Damage Immunities': 'fire, poison',
+    'Condition Immunities': 'poisoned',
+    Senses: 'passive Perception 11',
+    Languages: 'Common, Draconic, Dwarvish, Elvish',
+    Challenge: '2 (450 XP)',
+    Spellcasting:
+      "The mage is a 6th·level spellcaster that uses Intelligence as its spellcasting ability (spell save DC 13; +6 to hit with spell attacks). The mage knows the following spells from the wizard's spell list:",
+    'Cantrips (at will)': 'light, mage hand, shocking grasp',
+    '1st level (4 slots)': 'charm person, magic missile',
+    '2nd level (3 slots)': 'hold person, misty step',
+    'Potent Cantrips':
+      'The spellcaster can add its spellcasting ability modifier to the damage it deals with any cantrip',
+    actions: {
+      Quarterstaff:
+        '<em>Melee Weapon Attack</em>: +1 to hit, reach 5 ft., one target. <em>Hit</em>: 3 (1d8 - 1) bludgeoning damage.',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (human), Lawful evil',
+*/
+
 export const MONSTER_DETAILS_LIST = {
+  Azer: {
+    'Armor Class': '17 (armadura natural, escudo)',
+    'Hit Points': '39 (6d8 + 12)',
+    Speed: '30 ft.',
+    stats: {
+      str: '17',
+      dex: '12',
+      con: '15',
+      int: '12',
+      wis: '13',
+      cha: '10',
+    },
+    'Saving Throws': 'Con +4',
+    Skills: 'Arcana +5, History +5',
+    'Damage Immunities': 'fire, poison',
+    'Condition Immunities': '<em>poisoned</em>',
+    Senses: 'passive Perception 11',
+    Languages: 'Ignan',
+    Challenge: '2 (450 XP)',
+    'Cuerpo Abrasador': 'Cualquier criatura que toque al azer o le impacte con un ataque cuerpo a cuerpo estando a 5 pies o menos de distancia recibirá 5 (1d10) de daño de fuego.',
+    'Armas Abrasadoras': 'Cuando el azer impacta con un arma cuerpo a cuerpo metálica, esta inflinge 3 (1d6) de daño de fuego adicional (ya incluido en el ataque)',
+    Iluminar: 'El azer emite luz brillante en un radio de 10 pies y luz tenue 10 pies más allá',
+    actions: {
+      'Martillo de guerra':
+        '<em>Melee Weapon Attack</em>: +5 to hit, reach 5 ft., one target. <em>Hit</em>: 7 (1d8 + 3) bludgeoning damage or 8 (1d10 + 3) two-handed. In both cases, also 3 (1d6) fire damage',
+    },
+    legendaryActions: {},
+    notes: 'Medium elemental, Lawful neutral',
+  },
   'Evil Mage': {
     'Armor Class': '12',
     'Hit Points': '40 (8d8)',
@@ -3251,37 +3316,6 @@ export const MONSTER_DETAILS_LIST = {
       cha: '7',
     },
     notes: 'Huge plant, unaligned',
-  },
-  Azer: {
-    actions: {
-      Warhammer:
-        '<em>Melee Weapon Attack</em>: +5 to hit, reach 5 ft., one target. <em>Hit</em>: 7 (1d8 + 3) bludgeoning damage, or 8 (1d10 + 3) bludgeoning damage if used with two hands to make a melee attack, plus 3 (1d6) fire damage.',
-    },
-    legendaryActions: {},
-    'Armor Class': '17 (natural armor, shield)',
-    'Hit Points': '39 (6d8 + 12)',
-    Speed: '30 ft.',
-    'Saving Throws': 'Con +4',
-    'Damage Immunities': 'fire, poison',
-    'Condition Immunities': '<em>poisoned</em>',
-    Senses: 'passive Perception 11',
-    Languages: 'Ignan',
-    Challenge: '2 (450 XP)',
-    'Heated Body':
-      'A creature that touches the azer or hits it with a melee attack while within 5 feet of it takes 5 (1d10) fire damage.',
-    'Heated Weapons':
-      'When the azer hits with a metal melee weapon, it deals an extra 3 (1d6) fire damage (included in the attack).',
-    Illumination:
-      'The azer sheds bright light in a 10-foot radius and dim light for an additional 10 feet.',
-    stats: {
-      str: '17',
-      dex: '12',
-      con: '15',
-      int: '12',
-      wis: '13',
-      cha: '10',
-    },
-    notes: 'Medium elemental, lawful neutral',
   },
   'Black Dragon Wyrmling': {
     actions: {
