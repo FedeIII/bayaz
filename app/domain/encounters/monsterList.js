@@ -1,4 +1,17 @@
 export const MONSTERS = {
+  Azer: {
+    challenge: '2',
+    size: 'Medium',
+    name: 'Azer',
+    type: 'Elemental',
+    environment: {
+      Mountain: 'yes',
+      Underdark: 'yes',
+    },
+    xp: '450',
+    alignment: 'LN',
+    page: 'mm 22',
+  },
   'Evil Mage': {
     challenge: '2',
     size: 'Medium',
@@ -3799,16 +3812,6 @@ export const MONSTERS = {
     size: 'Medium',
     challenge: '5',
     name: 'Mezzoloth',
-  },
-  Azer: {
-    type: 'Elemental',
-    name: 'Azer',
-    size: 'Medium',
-    challenge: '2',
-    page: 'mm 22',
-    alignment: 'LN',
-    xp: '450',
-    environment: {},
   },
   'Kobold Scale Sorcerer': {
     page: 'motm 165, vgm 167',

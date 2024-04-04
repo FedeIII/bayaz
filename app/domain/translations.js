@@ -297,6 +297,7 @@ export function t(key) {
     soldierSpecialty: 'Especialidad',
 
     //Encounters
+    trivial: 'Trivial',
     easy: 'Fácil',
     medium: 'Normal',
     hard: 'Difícil',

@@ -31,6 +31,8 @@ export const DIFFICULTIES = ['easy', 'medium', 'hard', 'deadly'];
 
 export function translateDifficulty(difficulty) {
   switch (difficulty) {
+    case 'trivial':
+      return 'Trivial';
     case 'easy':
       return 'Fácil';
     case 'medium':
@@ -336,17 +338,24 @@ export function getMonsterPositionStyle(i, total) {
 export function getEncounterDifficulty(monsters, pcLevels) {
   const encounterXp = getEncounterXp(monsters, pcLevels.length);
 
-  if (encounterXp > getPartyXpThreshold(pcLevels, 'deadly')) {
+  if (
+    encounterXp >=
+    getPartyXpThreshold(pcLevels, 'deadly') +
+      getPartyXpThreshold(pcLevels, 'easy')
+  ) {
     return 'impossible';
   }
-  if (encounterXp > getPartyXpThreshold(pcLevels, 'hard')) {
+  if (encounterXp >= getPartyXpThreshold(pcLevels, 'deadly')) {
     return 'deadly';
   }
-  if (encounterXp > getPartyXpThreshold(pcLevels, 'medium')) {
+  if (encounterXp >= getPartyXpThreshold(pcLevels, 'hard')) {
     return 'hard';
   }
-  if (encounterXp > getPartyXpThreshold(pcLevels, 'easy')) {
+  if (encounterXp >= getPartyXpThreshold(pcLevels, 'medium')) {
     return 'medium';
   }
-  return 'easy';
+  if (encounterXp >= getPartyXpThreshold(pcLevels, 'easy')) {
+    return 'easy';
+  }
+  return 'trivial';
 }

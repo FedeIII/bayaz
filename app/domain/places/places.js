@@ -67,17 +67,17 @@ export const DOMINIONS = {
   ],
   human_dominion: [
     'Feudo de Ultramar',
-    'Puertos Humanos',
-    'Reino de los Campos',
-    'Tierra de Sangre',
+    'Puertos Antígonos',
+    'Valle del Vintral',
+    'Tierra Estanza',
     'Marcas de la Frontera',
   ],
   dwarven_dominion: [
-    'Dominio de las Colinas',
+    'Koradûm', // Tierra dura, Dominio de las Colinas
     'Corazón de Piedra',
     'Enclave de la Montaña',
     'Cordillera Norte',
-  ],
+  ], 
   elven_dominion: [
     'Celembrin Lantëa', // Costa Noble
     'Táriel', // Magic
