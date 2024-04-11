@@ -1,3 +1,4 @@
+import { ChooseTrait } from '~/components/summary/skillStates';
 import { getPrimalPath, getSpiritTotem, getAspectOfTheBeast, getTotemicAttunement } from './barbarian';
 
 import styles from '~/components/sheet.css';
@@ -12,7 +13,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
         !getPrimalPath(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         )
       );
@@ -22,7 +23,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
       return (
         <>
           {trait}
-          {!totemType && <span className="sheet__pending-trait">(!)</span>}
+          {!totemType && <ChooseTrait />}
           {!!animal && (
             <>
               {': '}
@@ -38,7 +39,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          {!totemType && <span className="sheet__pending-trait">(!)</span>}
+          {!totemType && <ChooseTrait />}
           {!!animal && (
             <>
               {': '}
@@ -64,7 +65,7 @@ export function displayBarbarianTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          {!totemType && <span className="sheet__pending-trait">(!)</span>}
+          {!totemType && <ChooseTrait />}
           {!!animal && (
             <>
               {': '}

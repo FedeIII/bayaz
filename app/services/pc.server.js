@@ -11,6 +11,7 @@ import {
   getMaxHitPoints,
   CHARACTER_CLASSES,
   CHARACTER_RACES,
+  isTrait,
 } from '~/domain/characters';
 import {
   DRAGON_ANCESTORS,
@@ -244,6 +245,7 @@ const classAttrsSchema = new mongoose.Schema({
     { type: String, enum: [...SKILLS.map(s => s.name), 'thieves-tools'] },
   ],
   skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  seen: [String],
 });
 
 const halfElfSchema = new mongoose.Schema({
@@ -271,6 +273,14 @@ const notesSchema = new mongoose.Schema({
   position: [Number, Number],
   text: String,
 });
+
+///////////////////////
+///////////////////////
+////               ////
+////   PC SCHEMA   ////
+////               ////
+///////////////////////
+///////////////////////
 
 const pcSchema = new mongoose.Schema({
   // BASIC ATTRS
@@ -788,15 +798,15 @@ export async function learnBardLoreSpells(id, spells) {
         },
         has
           ? {
-              $set: {
-                'classAttrs.bard.loreSpells.$.forgotten': false,
-              },
-            }
-          : {
-              $push: {
-                'classAttrs.bard.loreSpells': { name: spells[i] },
-              },
+            $set: {
+              'classAttrs.bard.loreSpells.$.forgotten': false,
             },
+          }
+          : {
+            $push: {
+              'classAttrs.bard.loreSpells': { name: spells[i] },
+            },
+          },
         { new: true, upsert: true }
       ).exec()
     )
@@ -846,15 +856,15 @@ export async function learnBardMagicalSecretsSpells(id, spells) {
         },
         has
           ? {
-              $set: {
-                'classAttrs.bard.magicalSecretsSpells.$.forgotten': false,
-              },
-            }
-          : {
-              $push: {
-                'classAttrs.bard.magicalSecretsSpells': { name: spells[i] },
-              },
+            $set: {
+              'classAttrs.bard.magicalSecretsSpells.$.forgotten': false,
             },
+          }
+          : {
+            $push: {
+              'classAttrs.bard.magicalSecretsSpells': { name: spells[i] },
+            },
+          },
         { new: true, upsert: true }
       ).exec()
     )
@@ -1279,6 +1289,28 @@ export async function spendDivineSense(id) {
     { $inc: { 'classAttrs.paladin.divineSense': -1 } },
     { new: true, upsert: true }
   ).exec();
+
+  return updatedPc;
+}
+
+export async function markTraitSeen(id, traitName) {
+  const isRegularTrait = isTrait(traitName);
+
+  let updatedPc;
+
+  if (isRegularTrait) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { id },
+      {
+        $addToSet: {
+          "classAttrs.seen": traitName
+        }
+      },
+      { new: true, upsert: true }
+    ).exec();
+  } else {
+    updatedPc = await getPc(id);
+  }
 
   return updatedPc;
 }

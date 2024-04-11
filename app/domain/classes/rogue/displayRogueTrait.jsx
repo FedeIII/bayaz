@@ -1,5 +1,6 @@
 import { SNEAK_ATTACK_DAMAGE, getRoguishArchetype } from './rogue';
 import { hasToLearnArcaneTricksterSpell } from '~/domain/spells/rogue';
+import { ChooseTrait } from '~/components/summary/skillStates';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -25,7 +26,7 @@ export function displayRogueTrait(traitName, trait, pc) {
         !getRoguishArchetype(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         )
       );
@@ -35,7 +36,7 @@ export function displayRogueTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {hasToLearnArcaneTricksterSpell(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );

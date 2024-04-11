@@ -2,6 +2,7 @@ import { getArcaneTradition, getImprovedMinorIllusionSpell } from './wizard';
 import { translateSchool } from '~/domain/spells/spellTranslations';
 import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
+import { ChooseTrait } from '~/components/summary/skillStates';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -28,7 +29,7 @@ export function displayWizardTrait(traitName, trait, pc) {
         !getArcaneTradition(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         )
       );
@@ -82,7 +83,7 @@ export function displayWizardTrait(traitName, trait, pc) {
         <>
           <span>{trait}</span>
           {!getImprovedMinorIllusionSpell(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );

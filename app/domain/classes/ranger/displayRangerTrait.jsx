@@ -19,6 +19,7 @@ import {
 } from './ranger';
 import { getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
+import { ChooseTrait } from '~/components/summary/skillStates';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -37,7 +38,7 @@ export function displayRangerTrait(traitName, trait, pc) {
             {getFavoredEnemies(pc).map(translateFavoredEnemy).join(', ')}
           </span>
           {hasToPickFavoredEnemies(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );
@@ -52,7 +53,7 @@ export function displayRangerTrait(traitName, trait, pc) {
             {getFavoredTerrains(pc).map(translateFavoredTerrain).join(', ')}
           </span>
           {hasToPickFavoredTerrain(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );
@@ -64,7 +65,7 @@ export function displayRangerTrait(traitName, trait, pc) {
             <u>{trait}.</u>
           </strong>{' '}
           {!getRangerFightingStyle(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
           {!!getRangerFightingStyle(pc) && (
             <span className="app__small-text">
@@ -79,7 +80,7 @@ export function displayRangerTrait(traitName, trait, pc) {
         !getRangerConclave(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         )
       );
@@ -92,7 +93,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           </strong>
           .{' '}
           {!getHuntersPrey(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
           {!!getHuntersPrey(pc) && (
             <span className="app__small-text">
@@ -110,7 +111,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           </strong>
           .{' '}
           {!getHunterDefensiveTactics(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
           {!!getHunterDefensiveTactics(pc) && (
             <span className="app__small-text">
@@ -128,7 +129,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           </strong>
           .{' '}
           {!getHunterMultiattack(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
           {!!getHunterMultiattack(pc) && (
             <span className="app__small-text">
@@ -146,7 +147,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           </strong>
           .{' '}
           {!getSuperiorHuntersDefense(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
           {!!getSuperiorHuntersDefense(pc) && (
             <span className="app__small-text">

@@ -74,7 +74,7 @@ export const action = async ({ request }) => {
 
   const pc = await getPc(id);
 
-  const pcAttrs = { id, skills: classSkills, classAttrs: {} };
+  const pcAttrs = { id, skills: classSkills, classAttrs: { seen: [] } };
   if (items.length)
     pcAttrs.proficientItems = [
       ...pc.proficientItems,

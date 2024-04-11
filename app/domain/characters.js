@@ -2546,8 +2546,8 @@ export function skillCheckBonus(pc, skillName) {
   const bonus = isProficientSkill(pc, skillName)
     ? bonusForSkill(pc, skillName)
     : pClass === 'bard' && level >= 2
-    ? Math.floor(bonusForSkill(pc, skillName) / 2)
-    : 0;
+      ? Math.floor(bonusForSkill(pc, skillName) / 2)
+      : 0;
 
   return getStatMod(getStat(pc, statName)) + bonus;
 }
@@ -2775,8 +2775,8 @@ export function getAttackClassBonus(pc, weapons, weapon, weaponIndex) {
   return pClass === 'fighter'
     ? getAttackBonusForFightingStyles(pc, weapon, weaponIndex)
     : pClass === 'ranger'
-    ? getAttackBonusForRangerFightingStyles(pc, weapons, weapon, weaponIndex)
-    : 0;
+      ? getAttackBonusForRangerFightingStyles(pc, weapons, weapon, weaponIndex)
+      : 0;
 }
 
 export function getDamageDice(pc, w) {
@@ -3005,11 +3005,11 @@ export function getEquipmentWeight(pc) {
             sectionEncumbrance +
             (Array.isArray(subsection)
               ? subsection.reduce((subsectionEncumbrance, item) => {
-                  return (
-                    subsectionEncumbrance +
-                    (getItem(item)?.weight || 0) * (item?.amount || 1)
-                  );
-                }, 0)
+                return (
+                  subsectionEncumbrance +
+                  (getItem(item)?.weight || 0) * (item?.amount || 1)
+                );
+              }, 0)
               : (getItem(subsection)?.weight || 0) * (subsection?.amount || 1))
           );
         }, 0)
@@ -3245,12 +3245,12 @@ export const ALL_TRAITS = Object.entries(
               ...levelTraitDictionary,
               ...(traitKey !== 'traits'
                 ? Object.values(traitValue).reduce(
-                    (specialtyTraitDictionary, specialtyValue) => ({
-                      ...specialtyTraitDictionary,
-                      ...specialtyValue.traits,
-                    }),
-                    {}
-                  )
+                  (specialtyTraitDictionary, specialtyValue) => ({
+                    ...specialtyTraitDictionary,
+                    ...specialtyValue.traits,
+                  }),
+                  {}
+                )
                 : {}),
             }),
             {}
@@ -3273,6 +3273,14 @@ export const ALL_TRAITS = Object.entries(
     []
   )
 );
+
+export function isTrait(traitName) {
+  return !!ALL_TRAITS.find(t => t[0] === traitName);
+}
+
+export function isTraitSeen(pc, traitName) {
+  return isTrait(traitName) ? pc.classAttrs.seen.includes(traitName) : true;
+}
 
 export function canCopySpells(pc) {
   const { pClass } = pc;

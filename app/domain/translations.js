@@ -97,7 +97,7 @@ export function t(key) {
     lightArmors: 'Armaduras ligeras',
     mediumArmors: 'Armaduras medias',
     heavyArmors: 'Armaduras pesadas',
-    medium: 'Armadura media',
+    // medium: 'Armadura media',
     musicalInstruments: 'Instrumentos musicales',
     artisansTools: 'Herramientas artesanales',
     arcaneFocus: 'Foco arcano',

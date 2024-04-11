@@ -156,6 +156,7 @@
     border-radius: 50%;
     width: 0px;
   }
+
   100% {
     border-radius: 5px;
     width: 100%;
@@ -293,4 +294,82 @@
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.new-trait {
+  position: absolute;
+  font-size: var(--font-size-xs);
+  font-weight: bold;
+  line-height: 0.8;
+  animation: bouncing_trait 1s infinite;
+  transition: margin ease-in;
+  right: 0;
+}
+
+.choose-trait {
+  position: absolute;
+  font-size: var(--font-size-m);
+  font-weight: bold;
+  line-height: 0.8;
+  animation: bouncing_trait 1s infinite 0.5s;
+  transition: margin ease-in;
+}
+
+@keyframes bouncing_trait {
+  0% {
+    margin-top: 2px;
+    color: var(--color-green);
+    transition: margin ease-out;
+  }
+
+  33% {
+    margin-top: -3px;
+    transition: margin ease-in;
+  }
+
+  66% {
+    margin-top: 2px;
+    color: var(--color-green);
+    transition: margin ease-out;
+  }
+
+  70.25% {
+    color: var(--color-green);
+  }
+
+  74.5% {
+    margin-top: -3px;
+    color: var(--color-orange);
+    transition: margin ease-in;
+  }
+
+  78.75% {
+    color: var(--color-green);
+  }
+
+  83% {
+    margin-top: 2px;
+    color: var(--color-green);
+    transition: margin ease-out;
+  }
+
+  87.25% {
+    color: var(--color-green);
+  }
+
+  91.5% {
+    margin-top: -1px;
+    color: var(--color-orange);
+    transition: margin ease-in;
+  }
+
+  95.75% {
+    color: var(--color-green);
+  }
+
+  100% {
+    margin-top: 2px;
+    color: var(--color-green);
+    transition: margin ease-out;
+  }
 }

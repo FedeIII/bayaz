@@ -61,6 +61,7 @@ import {
   translateRangerFightingStyle,
 } from './classes/ranger/ranger';
 import { t } from './translations';
+import { ChooseTrait } from '~/components/summary/skillStates';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -522,7 +523,7 @@ export function displayTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          <span className="sheet__pending-trait">(!)</span>
+          <ChooseTrait />
         </>
       );
 
@@ -533,7 +534,7 @@ export function displayTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          <span className="sheet__pending-trait">(!)</span>
+          <ChooseTrait />
         </>
       );
 
@@ -541,7 +542,7 @@ export function displayTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          <span className="sheet__pending-trait">(!)</span>
+          <ChooseTrait />
         </>
       );
 

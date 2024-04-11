@@ -26,12 +26,19 @@ export function useSkillItems(
 
   function openSkillModal(sectionName, skillIndex = 0, actions) {
     return (skillName, skill, bigModal, position) => {
+      submit({
+        action: 'seeTrait',
+        trait: skillName,
+        id: pc.id,
+      }, { method: 'post' });
+
       setSelectedSkillRef(skillRefs[sectionName].current[skillIndex]);
 
       setTimeout(() => {
         const setModalContent = bigModal
           ? setSkillBigModalContent
           : setSkillModalContent;
+
         setModalContent(
           () => props =>
             skill === 'spell' ? (

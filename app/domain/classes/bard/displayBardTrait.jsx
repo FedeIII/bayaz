@@ -1,3 +1,4 @@
+import { ChooseTrait } from '~/components/summary/skillStates';
 import {
   CLASSES,
   getStat,
@@ -53,7 +54,7 @@ export function displayBardTrait(traitName, trait, pc) {
         !getBardCollege(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         )
       );
@@ -63,7 +64,7 @@ export function displayBardTrait(traitName, trait, pc) {
         <>
           {trait}
           {!getLoreCollegeProficiencies(pc).length && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );
@@ -73,7 +74,7 @@ export function displayBardTrait(traitName, trait, pc) {
         <>
           {trait}
           {hasToSelectExpertSkills(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );
@@ -86,7 +87,7 @@ export function displayBardTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {!getLoreSpells(pc).length && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );
@@ -96,7 +97,7 @@ export function displayBardTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {hasToLearnMagicalSecretsSpells(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );

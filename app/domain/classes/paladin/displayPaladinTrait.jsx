@@ -7,6 +7,7 @@ import {
 } from './paladin';
 import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
+import { ChooseTrait } from '~/components/summary/skillStates';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -48,7 +49,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          {!fightingStyle && <span className="sheet__pending-trait">(!)</span>}
+          {!fightingStyle && <ChooseTrait />}
           {!!fightingStyle && (
             <span className="app__small-text">
               {translateFightingStyle(fightingStyle)}
@@ -63,7 +64,7 @@ export function displayPaladinTrait(traitName, trait, pc) {
         !getSacredOath(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         )
       );

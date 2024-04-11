@@ -13,6 +13,7 @@ import { hasToLearnKnightSpell } from '~/domain/spells/fighter';
 import { getItem } from '~/domain/equipment/equipment';
 import { increment } from '~/domain/display';
 import { getStat, getStatMod } from '~/domain/characters';
+import { ChooseTrait } from '~/components/summary/skillStates';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -36,7 +37,7 @@ export function displayFighterTrait(traitName, trait, pc) {
             <u>{trait}.</u>
           </strong>{' '}
           {!getAllFightingStyles(pc).length && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
           {!!getAllFightingStyles(pc).length && (
             <span className="app__small-text">
@@ -61,7 +62,7 @@ export function displayFighterTrait(traitName, trait, pc) {
         !getMartialArchetype(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         )
       );
@@ -71,7 +72,7 @@ export function displayFighterTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {hasToLearnKnightSpell(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );
@@ -94,7 +95,7 @@ export function displayFighterTrait(traitName, trait, pc) {
             {getCombatSuperiorityDice(pc)}
           </span>
           {hasToLearnCombatSuperiorityManeuvers(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
           {!!getCombatSuperiorityManeuvers(pc).length && (
             <ul className="app__small-text">
@@ -113,7 +114,7 @@ export function displayFighterTrait(traitName, trait, pc) {
         <>
           <u>{trait}.</u>{' '}
           {!getStudentOfWar(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
           {!!getStudentOfWar(pc) && (
             <span className="app__small-text">
@@ -161,7 +162,7 @@ export function displayFighterTrait(traitName, trait, pc) {
       return (
         !getExtraFightingStyle(pc) && (
           <>
-            <u>{trait}.</u> <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         )
       );

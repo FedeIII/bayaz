@@ -7,6 +7,7 @@ import {
   translateMetamagic,
 } from './sorcerer';
 import { getSorcereryPoints } from '~/domain/spells/sorcerer';
+import { ChooseTrait } from '~/components/summary/skillStates';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -71,7 +72,7 @@ export function displaySorcererTrait(traitName, trait, pc) {
             <u>{trait}</u>
           </strong>{' '}
           {hasToLearnMetamagic(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
           {!hasToLearnMetamagic(pc) && (
             <span className="app__small-text">

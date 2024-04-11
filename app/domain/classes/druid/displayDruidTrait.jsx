@@ -1,3 +1,4 @@
+import { ChooseTrait } from '~/components/summary/skillStates';
 import { getBonusCantrip, getDruidCircle, getDruidLandCircle } from './druid';
 
 import styles from '~/components/sheet.css';
@@ -35,7 +36,7 @@ export function displayDruidTrait(traitName, trait, pc) {
         !getDruidCircle(pc) && (
           <>
             <strong>{trait}</strong>
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         )
       );
@@ -45,7 +46,7 @@ export function displayDruidTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {!getBonusCantrip(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );
@@ -55,7 +56,7 @@ export function displayDruidTrait(traitName, trait, pc) {
         <>
           <strong>{trait}</strong>
           {!getDruidLandCircle(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );

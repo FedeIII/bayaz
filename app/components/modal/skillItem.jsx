@@ -4,7 +4,8 @@ import { translateSpell } from '~/domain/spells/spells';
 import { displayInvocation } from '~/domain/classes/warlock/displayWarlockTrait';
 import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fighter';
 import { translateElementalDisciplines } from '~/domain/classes/monk/monk';
-import { BASE_CHARACTER } from '~/domain/characters';
+import { BASE_CHARACTER, isTraitSeen } from '~/domain/characters';
+import { NewTrait } from '../summary/skillStates';
 
 export const SkillItem = forwardRef(function SkillItem(props, ref) {
   const {
@@ -28,13 +29,15 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
   const style = useMemo(() => {
     return position
       ? {
-          left: position[0],
-          top: position[1],
-          display: position[0] ? 'block' : 'none',
-          position: 'absolute',
-        }
+        left: position[0],
+        top: position[1],
+        display: position[0] ? 'block' : 'none',
+        position: 'absolute',
+      }
       : null;
   }, [position?.[0], position?.[1]]);
+
+  const isSeen = isTraitSeen(pc, traitName);
 
   return (
     <>
@@ -61,13 +64,14 @@ export const SkillItem = forwardRef(function SkillItem(props, ref) {
           (trait === 'spell'
             ? translateSpell(traitName)
             : trait === 'invocation'
-            ? displayInvocation(traitName, trait, pc)
-            : trait === 'maneuver'
-            ? translateCombatSuperiorityManeuvers(traitName)
-            : trait === 'discipline'
-            ? translateElementalDisciplines(traitName)
-            : displayTrait(traitName, trait, pc))}
+              ? displayInvocation(traitName, trait, pc)
+              : trait === 'maneuver'
+                ? translateCombatSuperiorityManeuvers(traitName)
+                : trait === 'discipline'
+                  ? translateElementalDisciplines(traitName)
+                  : displayTrait(traitName, trait, pc))}
       </span>
+      {!isSeen && <NewTrait />}
     </>
   );
 });

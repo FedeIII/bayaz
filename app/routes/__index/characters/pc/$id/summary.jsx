@@ -21,6 +21,7 @@ import {
   changeEquipmentOtherAmount,
   spendLayOnHands,
   spendDivineSense,
+  markTraitSeen,
 } from '~/services/pc.server';
 import {
   CLASSES,
@@ -371,6 +372,13 @@ async function spendDivineSenseAction(formData) {
   return updatedPc;
 }
 
+async function markTraitSeenAction(formData) {
+  const id = formData.get('id');
+  const trait = formData.get('trait');
+  const updatedPc = await markTraitSeen(id, trait);
+  return updatedPc;
+}
+
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
@@ -433,6 +441,8 @@ export const action = async ({ request }) => {
     pc = await spendLayOnHandsAction(formData);
   } else if (action === 'spendDivineSense') {
     pc = await spendDivineSenseAction(formData);
+  } else if (action === 'seeTrait') {
+    pc = await markTraitSeenAction(formData);
   }
 
   return json({ pc });

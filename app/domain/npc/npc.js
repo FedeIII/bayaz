@@ -408,7 +408,7 @@ function singleNpcToMonster(npc) {
       actions: {},
       legendaryActions: {},
       notes: `${npc.size} humanoid (${npc.race})`,
-      notes: 'Medium humanoid (human), Lawful evil',
+      // notes: 'Medium humanoid (human), Lawful evil',
     },
   };
 }

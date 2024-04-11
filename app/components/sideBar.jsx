@@ -1,5 +1,5 @@
 import { Link } from '@remix-run/react';
-import { useContext } from 'react';
+import { useContext, Fragment } from 'react';
 import MenuContext from '~/components/contexts/menuContext';
 
 export function SideBar(props) {
@@ -17,8 +17,8 @@ export function SideBar(props) {
       url.pathname === '/'
         ? '/'
         : url.pathname[url.pathname.length - 1] === '/'
-        ? url.pathname.slice(0, -1)
-        : url.pathname;
+          ? url.pathname.slice(0, -1)
+          : url.pathname;
   }
 
   return (
@@ -29,30 +29,28 @@ export function SideBar(props) {
           (button.url !== '/' && location.includes(button.url));
 
         return (
-          <>
+          <Fragment key={button.header + button.name}>
             {!!button.header && (
               <span className="app__button-label">{button.header}</span>
             )}
             <Link
               key={button.url}
               to={button.url}
-              className={`app__button ${
-                button.level === 0 ? 'app__main-button' : ''
-              } ${
-                isSelected
+              className={`app__button ${button.level === 0 ? 'app__main-button' : ''
+                } ${isSelected
                   ? button.level === 0
                     ? 'app__button-selected'
                     : 'app__secondary-button app__button-selected'
                   : button.level === 0
-                  ? ''
-                  : 'app__secondary-button'
-              }`}
+                    ? ''
+                    : 'app__secondary-button'
+                }`}
             >
               <span className="app__button-shadow">
                 {isSelected ? '●' : '○'} {button.name}
               </span>
             </Link>
-          </>
+          </Fragment>
         );
       })}
     </div>

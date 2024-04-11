@@ -10,6 +10,7 @@ import {
   hasToSelectInvocations,
   translatePactBoon,
 } from './warlock';
+import { ChooseTrait } from '~/components/summary/skillStates';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -32,7 +33,7 @@ export function displayWarlockTrait(traitName, trait, pc) {
         return (
           <>
             {trait}
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           </>
         );
       } else {
@@ -46,10 +47,10 @@ export function displayWarlockTrait(traitName, trait, pc) {
       return (
         <>
           <u>{trait}</u>
-          {!boon && <span className="sheet__pending-trait">(!)</span>}
+          {!boon && <ChooseTrait />}
           {!!boon && <>: {translatePactBoon(boon)}</>}
           {hasToLearnTomeSpells(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );
@@ -60,7 +61,7 @@ export function displayWarlockTrait(traitName, trait, pc) {
         <>
           {trait}
           {hasToLearnArcanum(pc) && (
-            <span className="sheet__pending-trait">(!)</span>
+            <ChooseTrait />
           )}
         </>
       );
@@ -79,7 +80,7 @@ export function displayInvocation(invocationName, invocationTitle, pc) {
       <>
         {getInvocation(invocationName).translation}
         {!tomeRituals.length && (
-          <span className="sheet__pending-trait">(!)</span>
+          <ChooseTrait />
         )}
       </>
     );

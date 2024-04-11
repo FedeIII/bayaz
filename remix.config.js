@@ -26,4 +26,5 @@ module.exports = {
     /^@react-dnd\//,
     'react-dnd-html5-backend',
   ],
+  sourcemap: true,
 };
