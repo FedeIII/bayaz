@@ -3279,7 +3279,11 @@ export function isTrait(traitName) {
 }
 
 export function isTraitSeen(pc, traitName) {
-  return isTrait(traitName) ? pc.classAttrs.seen.includes(traitName) : true;
+  if (pc.id === BASE_CHARACTER.id) {
+    return true;
+  }
+
+  return isTrait(traitName) ? pc.classAttrs.seen?.includes(traitName) : true;
 }
 
 export function canCopySpells(pc) {
