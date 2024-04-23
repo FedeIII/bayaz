@@ -1,0 +1,205 @@
+[{
+  "_id": {
+    "$oid": "65561647fce0068c4840f76c"
+  },
+  "email": "fedelll@gmail.com",
+  "__v": 0,
+  "pcs": [],
+  "roles": [
+    "dm"
+  ],
+  "name": "Fedes"
+},
+{
+  "_id": {
+    "$oid": "65575858c90f7233d8271aed"
+  },
+  "id": "e880df1b-d6d3-4226-a7a4-b7e61d55f307",
+  "email": "fredeswindo.timeline@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Fredeswindo"
+},
+{
+  "_id": {
+    "$oid": "6561ee87c269a225cb62a1c8"
+  },
+  "id": "da399bee-8d3e-4daa-b5e8-51bb796aff17",
+  "email": "lb4you@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Jose"
+},
+{
+  "_id": {
+    "$oid": "656332b64520dafa2358fa31"
+  },
+  "id": "2d279bbb-79f9-4d6d-86d1-c2186ae54c6b",
+  "email": "sarafebrero87@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Sara"
+},
+{
+  "_id": {
+    "$oid": "656a16cb253b93f7e74e3e84"
+  },
+  "id": "be0ba1bc-0f20-4aab-aa6b-c9ca81fa7482",
+  "email": "nuriamartinsanchez91@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Nuria"
+},
+{
+  "_id": {
+    "$oid": "656dd67f4868a1de6c0cfb1d"
+  },
+  "id": "1b6a09de-5bf9-4da9-a253-d5fb52303d7b",
+  "email": "juanantoniofelixahedo@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Juan Antonio"
+},
+{
+  "_id": {
+    "$oid": "65733c3e6e029f4bf7113db2"
+  },
+  "id": "b6ad42fc-34aa-4578-b5be-b3f97e893bc9",
+  "email": "gonz777@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Gonzalo"
+},
+{
+  "_id": {
+    "$oid": "65734928c8e8676c130cfce9"
+  },
+  "id": "b0e79a13-4a76-47d8-9c62-bc116feac45e",
+  "email": "lbernatfernandez@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Lara"
+},
+{
+  "_id": {
+    "$oid": "657f2a9b6dbae1724e57178b"
+  },
+  "id": "d5415d71-2bb8-4e7c-8fd4-d26d73b345fb",
+  "email": "thenanox@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Nano"
+},
+{
+  "_id": {
+    "$oid": "65844d86923db9dd7a7d7d12"
+  },
+  "id": "91dfa1cd-f529-4b05-a5e5-b3e68e498f57",
+  "email": "soykempo@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Rafa"
+},
+{
+  "_id": {
+    "$oid": "6590433238c8541b4fe1a77f"
+  },
+  "id": "0e90c5c6-2bfa-4547-b4b0-4f9b49f6eb92",
+  "email": "tonigalaxy87@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Toni"
+},
+{
+  "_id": {
+    "$oid": "65904b90a8308875aa2bfb6e"
+  },
+  "id": "a8219d7b-54cd-456c-9152-6f1e26721b35",
+  "email": "mariaburgospulido@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Maria"
+},
+{
+  "_id": {
+    "$oid": "659c75084b8a9e15caa191f1"
+  },
+  "id": "2b3bcf16-d7f3-44b8-a9f8-a3874f6db776",
+  "email": "violoncellisto@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Álvaro"
+},
+{
+  "_id": {
+    "$oid": "65abf1a358850b0fc284ea1f"
+  },
+  "id": "3361fc21-857f-452d-82c4-8564b43478c8",
+  "email": "siropedealex@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0,
+  "name": "Alex"
+},
+{
+  "_id": {
+    "$oid": "65d0c22c6df2e3618b748031"
+  },
+  "id": "f6b43a7f-d06f-42b9-b33f-92ba16d60ae6",
+  "email": "daigamione@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65ddcb941c713576dd4bbfbe"
+  },
+  "id": "12a2bd7b-da07-43f3-9f65-63bb4f5d4dda",
+  "email": "joseantoniogarciay@gmail.com",
+  "roles": [
+    "player"
+  ],
+  "pcs": [],
+  "__v": 0
+}]
