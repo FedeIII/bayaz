@@ -242,11 +242,10 @@ function MonstersCombat(props) {
                     )}
                   />
                 )}
-                className={`encounters__character-card ${
-                  hover.mobs === i
-                    ? 'encounters__character-card--highlight'
-                    : ''
-                }`}
+                className={`encounters__character-card ${hover.mobs === i
+                  ? 'encounters__character-card--highlight'
+                  : ''
+                  }`}
                 titleClass="encounters__character-name"
                 key={monster.nick || monster.name + '-' + i}
                 style={getMonsterPositionStyle(i, all.length)}
@@ -360,30 +359,30 @@ function MonstersCombat(props) {
                 const levels = [
                   ...(tag > 10
                     ? [
-                        {
-                          size: Math.floor(10 / 2),
-                          thickness: 0,
-                          tag: 10,
-                          tooltip: 'Base',
-                          style: { color: 'var(--color-x-pale)' },
-                        },
-                        {
-                          size: Math.floor((acBreakdown.base - 10) / 2),
-                          thickness: 1,
-                          tag,
-                          tooltip: acBreakdown.title,
-                          style: { color: 'var(--color-x-pale)' },
-                        },
-                      ]
+                      {
+                        size: Math.floor(10 / 2),
+                        thickness: 0,
+                        tag: 10,
+                        tooltip: 'Base',
+                        style: { color: 'var(--color-x-pale)' },
+                      },
+                      {
+                        size: Math.floor((acBreakdown.base - 10) / 2),
+                        thickness: 1,
+                        tag,
+                        tooltip: acBreakdown.title,
+                        style: { color: 'var(--color-x-pale)' },
+                      },
+                    ]
                     : [
-                        {
-                          size: Math.floor(acBreakdown.base / 2),
-                          thickness: 0,
-                          tag,
-                          tooltip: 'Base',
-                          style: { color: 'var(--color-x-pale)' },
-                        },
-                      ]),
+                      {
+                        size: Math.floor(acBreakdown.base / 2),
+                        thickness: 0,
+                        tag,
+                        tooltip: 'Base',
+                        style: { color: 'var(--color-x-pale)' },
+                      },
+                    ]),
                   ...acBreakdown.extras.reduce((lvls, extra, extraIndex) => {
                     tag += extra.ac === '(+2)' ? 2 : Number(extra.ac || 0);
                     return [
@@ -402,11 +401,10 @@ function MonstersCombat(props) {
                 return (
                   <Card
                     title={pc.name}
-                    className={`encounters__character-card ${
-                      hover.pcs === pcIndex
-                        ? 'encounters__character-card--highlight'
-                        : ''
-                    }`}
+                    className={`encounters__character-card ${hover.pcs === pcIndex
+                      ? 'encounters__character-card--highlight'
+                      : ''
+                      }`}
                     titleClass="encounters__character-name"
                     key={pc.id}
                     style={getMonsterPositionStyle(pcIndex, all.length)}
@@ -618,11 +616,10 @@ function NpcsCombat(props) {
                     )}
                   />
                 )}
-                className={`encounters__character-card ${
-                  hover.mobs === i
-                    ? 'encounters__character-card--highlight'
-                    : ''
-                }`}
+                className={`encounters__character-card ${hover.mobs === i
+                  ? 'encounters__character-card--highlight'
+                  : ''
+                  }`}
                 titleClass="encounters__character-name"
                 key={npc.name + '-' + i}
                 style={getMonsterPositionStyle(i, all.length)}
@@ -728,30 +725,30 @@ function NpcsCombat(props) {
                 const levels = [
                   ...(tag > 10
                     ? [
-                        {
-                          size: Math.floor(10 / 2),
-                          thickness: 0,
-                          tag: 10,
-                          tooltip: 'Base',
-                          style: { color: 'var(--color-x-pale)' },
-                        },
-                        {
-                          size: Math.floor((acBreakdown.base - 10) / 2),
-                          thickness: 1,
-                          tag,
-                          tooltip: acBreakdown.title,
-                          style: { color: 'var(--color-x-pale)' },
-                        },
-                      ]
+                      {
+                        size: Math.floor(10 / 2),
+                        thickness: 0,
+                        tag: 10,
+                        tooltip: 'Base',
+                        style: { color: 'var(--color-x-pale)' },
+                      },
+                      {
+                        size: Math.floor((acBreakdown.base - 10) / 2),
+                        thickness: 1,
+                        tag,
+                        tooltip: acBreakdown.title,
+                        style: { color: 'var(--color-x-pale)' },
+                      },
+                    ]
                     : [
-                        {
-                          size: Math.floor(acBreakdown.base / 2),
-                          thickness: 0,
-                          tag,
-                          tooltip: 'Base',
-                          style: { color: 'var(--color-x-pale)' },
-                        },
-                      ]),
+                      {
+                        size: Math.floor(acBreakdown.base / 2),
+                        thickness: 0,
+                        tag,
+                        tooltip: 'Base',
+                        style: { color: 'var(--color-x-pale)' },
+                      },
+                    ]),
                   ...acBreakdown.extras.reduce((lvls, extra, extraIndex) => {
                     tag += extra.ac === '(+2)' ? 2 : Number(extra.ac || 0);
                     return [
@@ -770,11 +767,10 @@ function NpcsCombat(props) {
                 return (
                   <Card
                     title={pc.name}
-                    className={`encounters__character-card ${
-                      hover.pcs === pcIndex
-                        ? 'encounters__character-card--highlight'
-                        : ''
-                    }`}
+                    className={`encounters__character-card ${hover.pcs === pcIndex
+                      ? 'encounters__character-card--highlight'
+                      : ''
+                      }`}
                     titleClass="encounters__character-name"
                     key={pc.id}
                     style={getMonsterPositionStyle(pcIndex, all.length)}
@@ -904,21 +900,12 @@ function PartyCombat() {
 
   const monsterContext = useContext(MonstersContext) || {};
   const {
+    monstersState,
     setMonstersState,
     deleteMonstersState,
     setEncounterIdState,
     deleteEncounterIdState,
   } = monsterContext;
-
-  useEffect(() => {
-    setEncounterIdState(encounterId);
-    setMonstersState(
-      mobs.map(mob => ({
-        name: mob.name,
-        health: isNpcs ? npcHealth(mob) : health(mob),
-      }))
-    );
-  }, [encounterId, mobs]);
 
   function onSubmit(data) {
     if ([].slice.call(data.target).find(node => node.name === 'endCombat')) {
@@ -940,7 +927,7 @@ function PartyCombat() {
   ] = useCharacterItems(refsList);
 
   const [initiatives, setInitiatives] = useState({
-    mobs: mobs.map(() => 0),
+    mobs: mobs.map((_, i) => monstersState?.[i]?.initiative || 0),
     pcs: pcs.map(pc => pc.initiative || 0),
   });
 
@@ -949,7 +936,18 @@ function PartyCombat() {
       mobs: mobs.map((_, i) => old.mobs[i] || 0),
       pcs: pcs.map(pc => pc.initiative || 0),
     }));
-  }, [mobs.length, pcs.length, ...pcs.map(pc => pc.initiative)]);
+  }, [mobs, pcs]);
+
+  useEffect(() => {
+    setEncounterIdState(encounterId);
+    setMonstersState(
+      mobs.map((mob, i) => ({
+        name: mob.name,
+        health: isNpcs ? npcHealth(mob) : health(mob),
+        initiative: initiatives.mobs[i],
+      }))
+    );
+  }, [encounterId, mobs, initiatives.mobs]);
 
   const initiativesList = useMemo(() => {
     return [
