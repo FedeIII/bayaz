@@ -1,5 +1,6 @@
 import { RemixServer } from "@remix-run/react";
 import { renderToString } from "react-dom/server";
+import { createReadableStreamFromReadable } from "@remix-run/node";
 
 export default function handleRequest(
   request,
@@ -13,7 +14,7 @@ export default function handleRequest(
 
   responseHeaders.set("Content-Type", "text/html");
 
-  return new Response("<!DOCTYPE html>" + markup, {
+  return new Response(createReadableStreamFromReadable("<!DOCTYPE html>" + markup), {
     headers: responseHeaders,
     status: responseStatusCode,
   });

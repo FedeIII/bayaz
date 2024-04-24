@@ -122,6 +122,7 @@ function LoreBonusProficiencies() {
 }
 
 export function ErrorBoundary({ error }) {
+  const error = useRouteError();
   useTitle('Error');
 
   return (
