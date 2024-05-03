@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import { Form, useLoaderData, useNavigation } from '@remix-run/react';
 import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
@@ -33,8 +33,8 @@ function PcHumanSkills() {
   const { pc } = useLoaderData();
   const { id, name } = pc;
 
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isCreating = Boolean(navigation);
 
   const [isLanguageSelected, setIsLanguageSelected] = useState(false);
 
@@ -81,8 +81,8 @@ function PcHumanSkills() {
             {isCreating
               ? 'Creando...'
               : isLanguageSelected
-              ? 'Continuar'
-              : 'Elige habilidades'}
+                ? 'Continuar'
+                : 'Elige habilidades'}
           </button>
         </p>
       </div>

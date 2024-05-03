@@ -2,8 +2,8 @@ import { json, redirect } from '@remix-run/node';
 import {
   Form,
   useLoaderData,
+  useNavigation,
   useSubmit,
-  useTransition,
 } from '@remix-run/react';
 import {
   createRef,
@@ -264,8 +264,8 @@ function PcClassSkills() {
   const { pc } = useLoaderData();
   const { pClass, id, name } = pc;
 
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isCreating = Boolean(navigation);
 
   const [skillsToSelect, setSkills, setSkillsNamespace, areNamespacesReady] =
     useSkills(pc);

@@ -2,12 +2,12 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev"
+    "dev": "remix vite:dev",
+    "build": "remix vite:build",
+    "start": "remix-serve ./build/server/index.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.451.0",
-    "@remix-run/css-bundle": "2.9.0",
     "@remix-run/node": "2.9.0",
     "@remix-run/react": "2.9.0",
     "@remix-run/v1-route-convention": "^0.1.4",
@@ -33,8 +33,10 @@
     "@remix-run/eslint-config": "2.9.0",
     "@remix-run/serve": "2.9.0",
     "eslint": "^8.28.0",
-    "sass": "^1.57.1"
+    "sass": "^1.57.1",
+    "vite": "^5.2.10"
   },
+  "type": "module",
   "engines": {
     "node": ">=14"
   }

@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import { Form, useLoaderData, useNavigation } from '@remix-run/react';
 
 import { getPc, updatePc } from '~/services/pc.server';
 import { EquipmentCombo } from '~/components/equipment/equipmentCombo';
@@ -42,8 +42,8 @@ function PcEquipment() {
   const { pc } = useLoaderData();
   const { id, name, pClass } = pc;
 
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isCreating = Boolean(navigation);
 
   return (
     <Form method="post">
@@ -56,15 +56,14 @@ function PcEquipment() {
           <div className="cards cards--columns">
             {(getClassEquipment(pClass) || []).map((combo, comboSection) => (
               <div
-                className={`card ${
-                  combo.or?.length > 12
+                className={`card ${combo.or?.length > 12
                     ? 'characters__equipment-card'
                     : combo.or?.length < 7 && !combo.or?.[0].packName
-                    ? 'characters__equipment-card-small'
-                    : combo.or?.length > 9
-                    ? 'characters__equipment-card-small-2'
-                    : ''
-                }`}
+                      ? 'characters__equipment-card-small'
+                      : combo.or?.length > 9
+                        ? 'characters__equipment-card-small-2'
+                        : ''
+                  }`}
                 key={comboSection}
               >
                 <EquipmentCombo

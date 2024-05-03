@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import { Form, useLoaderData, useNavigation } from '@remix-run/react';
 import { useState } from 'react';
 import { useDrop } from 'react-dnd';
 
@@ -261,8 +261,8 @@ function PcStats() {
     setAreStatsPreloaded(false);
   }
 
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isCreating = Boolean(navigation);
 
   const [pStats, setPStats] = useState(initPStats);
 

@@ -112,7 +112,7 @@ function RangerFightingStyle() {
   );
 }
 
-export function ErrorBoundary({ error }) {
+export function ErrorBoundary() {
   const error = useRouteError();
   useTitle('Error');
 

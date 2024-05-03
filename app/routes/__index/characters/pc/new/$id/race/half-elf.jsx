@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import { Form, useLoaderData, useNavigation } from '@remix-run/react';
 import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
@@ -48,8 +48,8 @@ function PcHalfElfSkills() {
 
   const allSkills = [...skills, ...halfElfSkills];
 
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isCreating = Boolean(navigation);
 
   const [checks, setChecks] = useState(
     SKILLS.map(s => allSkills.includes(s.name))
@@ -147,8 +147,8 @@ function PcHalfElfSkills() {
             {isCreating
               ? 'Creando...'
               : canContinue
-              ? 'Continuar'
-              : 'Elige habilidades'}
+                ? 'Continuar'
+                : 'Elige habilidades'}
           </button>
         </p>
       </div>

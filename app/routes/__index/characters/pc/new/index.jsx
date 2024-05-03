@@ -3,7 +3,7 @@ import {
   Form,
   useActionData,
   useLoaderData,
-  useTransition,
+  useNavigation,
 } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import invariant from 'tiny-invariant';
@@ -118,8 +118,8 @@ function PcRace() {
   const { isDm } = useLoaderData();
   const errors = useActionData();
 
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isCreating = Boolean(navigation);
 
   const [name, setName] = useState('');
   const [race, setRace] = useState('human');

@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import { Form, useLoaderData, useNavigation } from '@remix-run/react';
 import { createRef, useRef, useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
@@ -39,8 +39,8 @@ function PcElfSkills() {
   const { pc } = useLoaderData();
   const { id, name } = pc;
 
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isCreating = Boolean(navigation);
 
   const [isLanguageSelected, setIsLanguageSelected] = useState(false);
   const [isCantripSelected, setIsCantripSelected] = useState(false);
@@ -154,8 +154,8 @@ function PcElfSkills() {
             {isCreating
               ? 'Creando...'
               : isLanguageSelected && isCantripSelected
-              ? 'Continuar'
-              : 'Elige habilidades'}
+                ? 'Continuar'
+                : 'Elige habilidades'}
           </button>
         </p>
       </div>

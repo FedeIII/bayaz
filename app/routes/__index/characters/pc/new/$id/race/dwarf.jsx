@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData, useTransition } from '@remix-run/react';
+import { Form, useLoaderData, useNavigation } from '@remix-run/react';
 import { useState } from 'react';
 
 import { getPc, updatePc } from '~/services/pc.server';
@@ -35,8 +35,8 @@ function PcDwarfSkills() {
   const { pc } = useLoaderData();
   const { id, name } = pc;
 
-  const transition = useTransition();
-  const isCreating = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isCreating = Boolean(navigation);
 
   const [isToolSelected, setIsToolSelected] = useState(false);
 
@@ -84,8 +84,8 @@ function PcDwarfSkills() {
             {isCreating
               ? 'Creando...'
               : isToolSelected
-              ? 'Continuar'
-              : 'Elige habilidades'}
+                ? 'Continuar'
+                : 'Elige habilidades'}
           </button>
         </p>
       </div>
