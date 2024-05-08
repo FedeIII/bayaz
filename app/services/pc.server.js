@@ -1070,6 +1070,19 @@ export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
   return updatedPc;
 }
 
+export async function unequipShield(id, shieldName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    {
+      $unset: { 'items.equipment.shield': '' },
+      $push: { 'items.treasure.armors': { name: shieldName } },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function unequipArmor(id, armorName) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
@@ -1196,6 +1209,42 @@ export async function reorderWeapons(id, weaponName, destinationSlot) {
       weapons,
     },
   });
+}
+
+export async function switchShield(id, shieldName) {
+  const pc = await getPc(id);
+
+  const { shield: pShield } = pc.items.equipment;
+
+  let updatedPc;
+  if (pShield) {
+    updatedPc = await Pc.findOneAndUpdate(
+      { id },
+      {
+        $set: { 'items.equipment.shield': { name: shieldName } },
+        $pull: { 'items.treasure.armors': { name: shieldName } },
+      },
+      { new: true }
+    );
+    updatedPc = await Pc.findOneAndUpdate(
+      { id },
+      {
+        $push: { 'items.treasure.armors': { name: pShield.name } },
+      },
+      { new: true }
+    );
+  } else {
+    updatedPc = await Pc.findOneAndUpdate(
+      { id },
+      {
+        $set: { 'items.equipment.shield': { name: shieldName } },
+        $pull: { 'items.treasure.armors': { name: shieldName } },
+      },
+      { new: true }
+    );
+  }
+
+  return updatedPc;
 }
 
 export async function switchArmor(id, armorName) {

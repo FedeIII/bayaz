@@ -22,6 +22,8 @@ import {
   spendLayOnHands,
   spendDivineSense,
   markTraitSeen,
+  switchShield,
+  unequipShield,
 } from '~/services/pc.server';
 import {
   CLASSES,
@@ -185,11 +187,25 @@ async function reorderWeaponsAction(formData) {
   return await reorderWeapons(id, weaponName, weaponSlot);
 }
 
+async function switchShieldAction(formData) {
+  const id = formData.get('id');
+  const newShieldName = formData.get('newShieldName');
+
+  return await switchShield(id, newShieldName);
+}
+
 async function switchArmorAction(formData) {
   const id = formData.get('id');
   const newArmorName = formData.get('newArmorName');
 
   return await switchArmor(id, newArmorName);
+}
+
+async function unequipShieldAction(formData) {
+  const id = formData.get('id');
+  const shieldName = formData.get('shieldName');
+
+  return await unequipShield(id, shieldName);
 }
 
 async function unequipArmorAction(formData) {
@@ -395,8 +411,12 @@ export const action = async ({ request }) => {
     pc = await setMagicWeaponChargesActions(formData);
   } else if (action === 'reorderWeapons') {
     pc = await reorderWeaponsAction(formData);
+  } else if (action === 'equipShield') {
+    pc = await switchShieldAction(formData);
   } else if (action === 'equipArmor') {
     pc = await switchArmorAction(formData);
+  } else if (action === 'unequipShield') {
+    pc = await unequipShieldAction(formData);
   } else if (action === 'unequipArmor') {
     pc = await unequipArmorAction(formData);
   } else if (action === 'spendHitDie') {

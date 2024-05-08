@@ -18,6 +18,7 @@ import {
   dropTreasureArmor,
   dropTreasureItem,
   changeTreasureItemAmount,
+  switchShield,
 } from '~/services/pc.server';
 import { getPackItems } from '~/domain/equipment/packs';
 import {
@@ -76,11 +77,25 @@ async function dropWeaponAction(formData) {
   await dropTreasureWeapon(id, weaponName);
 }
 
+async function equipShieldAction(formData) {
+  const id = formData.get('id');
+  const shieldName = formData.get('shieldName');
+
+  await switchShield(id, shieldName);
+}
+
 async function equipArmorAction(formData) {
   const id = formData.get('id');
   const armorName = formData.get('armorName');
 
   await switchArmor(id, armorName);
+}
+
+async function dropShieldAction(formData) {
+  const id = formData.get('id');
+  const shieldName = formData.get('shieldName');
+
+  await dropTreasureArmor(id, shieldName);
 }
 
 async function dropArmorAction(formData) {
@@ -136,9 +151,15 @@ export const action = async ({ request }) => {
   } else if (action === 'dropWeapon') {
     await dropWeaponAction(formData);
     return null;
+  } else if (action === 'equipShield') {
+    await equipShieldAction(formData);
+    return redirect(`/characters/pc/${id}/summary`);
   } else if (action === 'equipArmor') {
     await equipArmorAction(formData);
     return redirect(`/characters/pc/${id}/summary`);
+  } else if (action === 'dropShield') {
+    await dropShieldAction(formData);
+    return null;
   } else if (action === 'dropArmor') {
     await dropArmorAction(formData);
     return null;
@@ -301,12 +322,7 @@ function WeaponModalContent(props) {
 }
 
 function ArmorModalContent(props) {
-  const { pc, armor, equipArmor, dropArmor, closeModal } = props;
-  const {
-    items: {
-      equipment: { armor: pArmor },
-    },
-  } = pc;
+  const { armor, pArmor, equipArmor, dropArmor, closeModal } = props;
 
   function onEquipClick() {
     equipArmor(armor.name);
@@ -392,7 +408,7 @@ function PcBio() {
       : { weapons: [], armors: [], others: [] };
   }, [allMagicItems, pc.items.treasure]);
 
-  function onFormSubmit(e) {}
+  function onFormSubmit(e) { }
 
   const submit = useSubmit();
 
@@ -431,12 +447,34 @@ function PcBio() {
     );
   }
 
+  function equipShield(shieldName) {
+    submit(
+      {
+        action: 'equipShield',
+        id,
+        shieldName,
+      },
+      { method: 'post' }
+    );
+  }
+
   function equipArmor(armorName) {
     submit(
       {
         action: 'equipArmor',
         id,
         armorName,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function dropShield(shieldName) {
+    submit(
+      {
+        action: 'dropShield',
+        id,
+        shieldName,
       },
       { method: 'post' }
     );
@@ -564,15 +602,27 @@ function PcBio() {
             />
           );
         } else if (item.type === 'armor') {
-          content = props => (
-            <ArmorModalContent
-              pc={pc}
-              armor={item}
-              equipArmor={equipArmor}
-              dropArmor={dropArmor}
-              closeModal={() => setActionModalContent(null)}
-            />
-          );
+          if (item.subtype === 'shield') {
+            content = props => (
+              <ArmorModalContent
+                armor={item}
+                pArmor={pc.items.equipment.shield}
+                equipArmor={equipShield}
+                dropArmor={dropShield}
+                closeModal={() => setActionModalContent(null)}
+              />
+            );
+          } else {
+            content = props => (
+              <ArmorModalContent
+                armor={item}
+                pArmor={pc.items.equipment.armor}
+                equipArmor={equipArmor}
+                dropArmor={dropArmor}
+                closeModal={() => setActionModalContent(null)}
+              />
+            );
+          }
         }
 
         setActionModalContent(() => content);

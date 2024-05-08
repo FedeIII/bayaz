@@ -6,7 +6,7 @@ import { t } from '~/domain/translations';
 import MagicItemsContext from '../contexts/magicItemsContext';
 import { hasActions } from '~/domain/equipment/items';
 
-const noOp = () => {};
+const noOp = () => { };
 
 function ArmorModalContent(props) {
   const { pc, armor, onArmorChange, unequipArmor, closeModal } = props;
@@ -42,7 +42,7 @@ function ArmorModalContent(props) {
             Cambiar por:{' '}
             <select className="sheet__select-attack" onChange={onEquipClick}>
               <option value={armor.name}>{armor.translation}</option>
-              {armors.map(extraArmor => (
+              {armors.filter(armor => armor.name !== 'shield').map(extraArmor => (
                 <option value={extraArmor.name} key={extraArmor.name}>
                   {t(extraArmor.name)}
                 </option>
@@ -189,12 +189,34 @@ function SheetEquipment(props) {
       : [];
   }, [allMagicItems, pc.items.equipment, pc.items.treasure]);
 
+  function onShieldChange(newShieldName) {
+    submit(
+      {
+        action: 'equipShield',
+        id: pc.id,
+        newShieldName,
+      },
+      { method: 'post' }
+    );
+  }
+
   function onArmorChange(newArmorName) {
     submit(
       {
         action: 'equipArmor',
         id: pc.id,
         newArmorName,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function unequipShield(shieldName) {
+    submit(
+      {
+        action: 'unequipShield',
+        id: pc.id,
+        shieldName,
       },
       { method: 'post' }
     );
@@ -304,8 +326,8 @@ function SheetEquipment(props) {
             <ArmorModalContent
               pc={pc}
               armor={item}
-              onArmorChange={onArmorChange}
-              unequipArmor={unequipArmor}
+              onArmorChange={itemType === 'shield' ? onShieldChange : onArmorChange}
+              unequipArmor={itemType === 'shield' ? unequipShield : unequipArmor}
               closeModal={() => setActionModalContent(null)}
             />
           )),
@@ -344,8 +366,8 @@ function SheetEquipment(props) {
         const useItem = item.consumable
           ? dropOther
           : item.charges !== null
-          ? useCharge
-          : noOp;
+            ? useCharge
+            : noOp;
 
         setTimeout(
           () =>
@@ -391,6 +413,9 @@ function SheetEquipment(props) {
               ref={itemRefs.shield.current[0]}
               pItem={equipment.shield}
               isLast
+              onItemClick={
+                !!treasure.armors.length ? onArmorClick('shield') : noOp
+              }
               openModal={openItemModal('shield')}
               closeModal={closeItemModal}
               key={equipment.shield.name}
