@@ -47,6 +47,7 @@ import {
   npcHealth,
   npcsToMonsters,
 } from '~/domain/npc/npc';
+import { endPartyEncounter } from '~/domain/mutations/partyMutations';
 
 import styles from '~/components/randomEncounter.css';
 import charactersStyles from '~/components/characters/characters.css';
@@ -93,6 +94,9 @@ export const action = async ({ request }) => {
           addMonstersKilled(partyId, activeSession.id, mobsKilled),
         ]);
       }
+
+      await endPartyEncounter(partyId);
+
       return redirect(`/party/${partyId}`);
     }
   }

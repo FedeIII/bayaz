@@ -105,7 +105,7 @@ function CombatAttrs(props) {
           name="hitPoints"
           onBlur={onPcInitiativeChange}
           defaultValue={initiative || null}
-          placeholder={'1d20' + increment(getStatMod(getStat(pc, 'dex')))}
+          placeholder={increment(getStatMod(getStat(pc, 'dex')))}
           className="sheet__initiativeInput"
         />
       </span>
