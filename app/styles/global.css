@@ -30,17 +30,17 @@ body {
   --color-gray: #dadad8;
   --color-x-gray: #eaeaea;
 
-  --font-size-xxs: 10px;
-  --font-size-xs: 12px;
-  --font-size-s: 14px;
-  --font-size-m: 16px;
-  --font-size-l: 18px;
-  --font-size-xl: 20px;
-  --font-size-xxl: 22px;
-  --font-size-xxxl: 24px;
-  --font-size-big: 28px;
-  --font-size-xbig: 32px;
-  --font-size-huge: 40px;
-  --font-size-xhuge: 44px;
-  --font-size-gargantuan: 80px;
+  --font-size-xxs: 0.8vw;
+  --font-size-xs: 0.9vw;
+  --font-size-s: 1vw;
+  --font-size-m: 1.1vw;
+  --font-size-l: 1.2vw;
+  --font-size-xl: 1.33vw;
+  --font-size-xxl: 1.46vw;
+  --font-size-xxxl: 1.6vw;
+  --font-size-big: 2vw;
+  --font-size-xbig: 2.2vw;
+  --font-size-huge: 2.7vw;
+  --font-size-xhuge: 3vw;
+  --font-size-gargantuan: 5.4vw;
 }
