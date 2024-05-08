@@ -23,6 +23,7 @@ import MonstersContext from './components/contexts/monstersContext';
 import PartyTemplateContext from './components/contexts/partyTemplateContext';
 import { magicItemsStore, parseMagicItems } from './domain/equipment/items';
 import MagicItemsContext from './components/contexts/magicItemsContext';
+import { links as titleLinks } from '~/components/form/title';
 
 import styles from '~/styles/global.css';
 import menuStyles from '~/components/menus.css';
@@ -31,6 +32,8 @@ import itemStyles from '~/components/modal/inventoryItem.css';
 import barStyles from '~/components/indicators/bar.css';
 import checkboxStyles from '~/components/checkbox.css';
 import appStyles from '~/components/app.css';
+import profileStyles from '~/components/profile.css';
+import partyStyles from '~/components/party.css';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -38,17 +41,18 @@ export const meta = () => ({
   viewport: 'width=device-width,initial-scale=1',
 });
 
-export const links = () => {
-  return [
-    { rel: 'stylesheet', href: styles },
-    { rel: 'stylesheet', href: menuStyles },
-    { rel: 'stylesheet', href: cardStyles },
-    { rel: 'stylesheet', href: itemStyles },
-    { rel: 'stylesheet', href: barStyles },
-    { rel: 'stylesheet', href: checkboxStyles },
-    { rel: 'stylesheet', href: appStyles },
-  ];
-};
+export const links = () => [
+  ...titleLinks(),
+  { rel: 'stylesheet', href: styles },
+  { rel: 'stylesheet', href: menuStyles },
+  { rel: 'stylesheet', href: cardStyles },
+  { rel: 'stylesheet', href: itemStyles },
+  { rel: 'stylesheet', href: barStyles },
+  { rel: 'stylesheet', href: checkboxStyles },
+  { rel: 'stylesheet', href: appStyles },
+  { rel: 'stylesheet', href: profileStyles },
+  { rel: 'stylesheet', href: partyStyles },
+];
 
 function useStateValue(key) {
   const [stateValue, setStateValue] = useValueFromStore(key);
