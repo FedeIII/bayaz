@@ -37,7 +37,8 @@ html {
 }
 
 .app__sidebar {
-  position: relative;
+  position: sticky;
+  top: 8px;
   display: flex;
   flex-direction: column;
   width: 11vw;
@@ -57,6 +58,9 @@ html {
 }
 
 .app__sidebar-action {
+  position: sticky;
+  top: 4vh;
+  left: 11vw;
   font-size: var(--font-size-xs);
   line-height: var(--font-size-l);
   color: var(--color-pale);
@@ -73,7 +77,7 @@ html {
 }
 
 .app__sidebar-action--closed-sidebar {
-  transform: translate(-2.5vw);
+  transform: translate(-8.5vw);
 }
 
 .app__sidebar-action:hover {
@@ -96,7 +100,6 @@ html {
 .app__content--fullscreen {
   align-items: center;
   width: 100vw;
-  overflow-y: none;
 }
 
 .app__content--closed-sidebar {
