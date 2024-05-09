@@ -1,8 +1,10 @@
-.app {
+.app,
+html {
   text-align: center;
   display: flex;
   flex-direction: column;
   background-color: #12151c;
+  min-height: 100vh;
 }
 
 .app__header {
@@ -19,8 +21,8 @@
 .app__body {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  height: 92vh;
+  align-items: stretch;
+  flex-grow: 1;
 }
 
 .app__body--full-screen {

@@ -68,7 +68,7 @@ export default function Index() {
       {hasMenu && <header className="app__header">{menuTitle}</header>}
       <div
         className={classNames('app__body', {
-          'app__body--full-screen': hasMenu,
+          'app__body--full-screen': !hasMenu,
           'app__body--closed-sidebar': !sidebarState,
         })}
       >
