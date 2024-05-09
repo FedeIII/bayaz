@@ -158,6 +158,7 @@ const quickNpcSchema = new mongoose.Schema({
       weapons: [itemSchema],
       armors: [itemSchema],
       others: [itemSchema],
+      custom: [itemSchema],
     },
   },
   money: {
@@ -224,6 +225,7 @@ export async function createQuickNpc(npc) {
         weapons: [],
         armors: [],
         others: [],
+        custom: [],
       },
     },
     ...npc,

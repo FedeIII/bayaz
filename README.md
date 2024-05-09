@@ -53,6 +53,8 @@ npx prisma migrate dev
 
 ## TO DOsg
 
+- Add arbitrary items to treasure
+- Add arbirtrary items to traits
 - Add notes to items
 - Add temporary hitpoints to combats
 - Warlock's Eldritch Invocations can be swapped every level
@@ -61,6 +63,7 @@ npx prisma migrate dev
   - give to other player action
 - Fix padding left at spell selection
 - Allow to set max health for mobs in new encounters
+- Notes revamp
 - Add notes to npcs
 - Save quick npcs
 - Embedded youtube music

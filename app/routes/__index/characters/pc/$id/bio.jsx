@@ -19,6 +19,9 @@ import {
   dropTreasureItem,
   changeTreasureItemAmount,
   switchShield,
+  addCustomTreasure,
+  changeCustomItemAmount,
+  dropCustomItem,
 } from '~/services/pc.server';
 import { getPackItems } from '~/domain/equipment/packs';
 import {
@@ -108,16 +111,26 @@ async function dropArmorAction(formData) {
 async function dropItemAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
+  const section = formData.get('section');
 
-  await dropTreasureItem(id, itemName);
+  if (section === 'custom') {
+    await dropCustomItem(id, itemName);
+  } else {
+    await dropTreasureItem(id, itemName);
+  }
 }
 
 async function changeAmountAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
   const itemAmount = formData.get('itemAmount');
+  const section = formData.get('section');
 
-  await changeTreasureItemAmount(id, itemName, itemAmount);
+  if (section === 'custom') {
+    await changeCustomItemAmount(id, itemName, itemAmount);
+  } else {
+    await changeTreasureItemAmount(id, itemName, itemAmount);
+  }
 }
 
 async function addItemToTreasureAction(formData) {
@@ -126,6 +139,13 @@ async function addItemToTreasureAction(formData) {
   const itemAmount = formData.get('itemAmount');
 
   await addItemToTreasure(id, itemName, itemAmount);
+}
+
+async function addArbitraryItemAction(formData) {
+  const id = formData.get('id');
+  const itemName = formData.get('itemName');
+
+  await addCustomTreasure(id, itemName);
 }
 
 async function updateFreeTextsAction(formData) {
@@ -171,6 +191,8 @@ export const action = async ({ request }) => {
     return null;
   } else if (action === 'addItemToTreasure') {
     await addItemToTreasureAction(formData);
+  } else if (action === 'addArbitraryItem') {
+    await addArbitraryItemAction(formData);
   } else if (action === 'textChange') {
     await updateFreeTextsAction(formData);
   }
@@ -179,11 +201,12 @@ export const action = async ({ request }) => {
 };
 
 function ItemModalContent(props) {
-  const { item, dropItem, changeAmount, addToTreasure, closeModal } = props;
+  const { item, section, dropItem, changeAmount, addToTreasure, closeModal } =
+    props;
 
   function onDropClick(e) {
     const itemName = e.target.value;
-    dropItem(itemName);
+    dropItem(itemName, section);
     closeModal();
   }
 
@@ -193,7 +216,7 @@ function ItemModalContent(props) {
   }
 
   function onChangeAmountClick() {
-    changeAmount(item.name, amount);
+    changeAmount(item.name, amount, section);
     closeModal();
   }
 
@@ -204,7 +227,7 @@ function ItemModalContent(props) {
 
   return (
     <>
-      <h3 className="inventory-item__action-modal-title">{item.translation}</h3>
+      <h3 className="inventory-item__action-modal-title">{item.translatio || item.name}</h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
@@ -405,10 +428,10 @@ function PcBio() {
   const treasure = useMemo(() => {
     return !!allMagicItems.length
       ? pc.items.treasure
-      : { weapons: [], armors: [], others: [] };
+      : { weapons: [], armors: [], others: [], custom: [] };
   }, [allMagicItems, pc.items.treasure]);
 
-  function onFormSubmit(e) { }
+  function onFormSubmit(e) {}
 
   const submit = useSubmit();
 
@@ -491,24 +514,26 @@ function PcBio() {
     );
   }
 
-  function dropItem(itemName) {
+  function dropItem(itemName, section) {
     submit(
       {
         action: 'dropItem',
         id,
         itemName,
+        section,
       },
       { method: 'post' }
     );
   }
 
-  function changeAmount(itemName, itemAmount) {
+  function changeAmount(itemName, itemAmount, section) {
     submit(
       {
         action: 'changeAmount',
         id,
         itemName,
         itemAmount,
+        section,
       },
       { method: 'post' }
     );
@@ -521,6 +546,18 @@ function PcBio() {
         id,
         itemName,
         itemAmount,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function addArbitraryItem() {
+    setArbitraryItem('');
+    submit(
+      {
+        action: 'addArbitraryItem',
+        id,
+        itemName: arbitratyItem,
       },
       { method: 'post' }
     );
@@ -539,6 +576,7 @@ function PcBio() {
     weapons: useRef(treasure.weapons.map(createRef)),
     armors: useRef(treasure.armors.map(createRef)),
     others: useRef(treasure.others.map(createRef)),
+    custom: useRef(treasure.custom.map(createRef)),
     pack: useRef(getPackItems(pack).map(createRef)),
     inventorySearchResults: useRef(itemResults.map(createRef)),
   });
@@ -553,10 +591,19 @@ function PcBio() {
     if (treasure.others.length) {
       itemRefs.others.current = treasure.others.map(createRef);
     }
+    if (treasure.custom.length) {
+      itemRefs.custom.current = treasure.custom.map(createRef);
+    }
     if (itemResults.length) {
       itemRefs.inventorySearchResults.current = itemResults.map(createRef);
     }
-  }, [treasure.weapons, treasure.armors, treasure.others, itemResults]);
+  }, [
+    treasure.weapons,
+    treasure.armors,
+    treasure.others,
+    treasure.custom,
+    itemResults,
+  ]);
 
   const [
     itemModalContent,
@@ -574,10 +621,11 @@ function PcBio() {
         setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
 
         let content;
-        if (itemType === 'others') {
+        if (itemType === 'others' || itemType === 'custom') {
           content = props => (
             <ItemModalContent
               item={item}
+              section={itemType}
               dropItem={dropItem}
               changeAmount={changeAmount}
               closeModal={() => setActionModalContent(null)}
@@ -636,6 +684,12 @@ function PcBio() {
   }
   function closeTreasureScreen() {
     setIsTreasureScreenOpen(false);
+  }
+
+  const [arbitratyItem, setArbitraryItem] = useState('');
+
+  function onOtherItemChange(e) {
+    setArbitraryItem(e.target.value);
   }
 
   const equipmentWeight = random.roundTo(0.1, getEquipmentWeight(pc));
@@ -796,6 +850,38 @@ function PcBio() {
                 ))}
               </li>
             )}
+            {!!treasure.custom.length && (
+              <li className="bio__treasure-item">
+                {treasure.custom.map((treasureItem, i) => (
+                  <InventoryItem
+                    ref={itemRefs.custom.current[i]}
+                    pItem={treasureItem}
+                    isLast={i === treasure.custom.length - 1}
+                    onItemClick={onItemClick('custom', i)}
+                    openModal={openItemModal('custom', i)}
+                    closeModal={closeItemModal}
+                    key={treasureItem.name}
+                  />
+                ))}
+              </li>
+            )}
+            <li className="bio__treasure-item">
+              <input
+                type="text"
+                name="otherItem"
+                value={arbitratyItem}
+                onChange={onOtherItemChange}
+                className="bio__other-item-input"
+              />
+              {!!arbitratyItem && (
+                <span
+                  className="bio__add-other-item"
+                  onClick={addArbitraryItem}
+                >
+                  +
+                </span>
+              )}
+            </li>
           </ul>
           <div className="bio__total-treasure">
             Peso (kg):{' '}

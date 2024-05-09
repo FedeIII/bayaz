@@ -2546,8 +2546,8 @@ export function skillCheckBonus(pc, skillName) {
   const bonus = isProficientSkill(pc, skillName)
     ? bonusForSkill(pc, skillName)
     : pClass === 'bard' && level >= 2
-      ? Math.floor(bonusForSkill(pc, skillName) / 2)
-      : 0;
+    ? Math.floor(bonusForSkill(pc, skillName) / 2)
+    : 0;
 
   return getStatMod(getStat(pc, statName)) + bonus;
 }
@@ -2775,8 +2775,8 @@ export function getAttackClassBonus(pc, weapons, weapon, weaponIndex) {
   return pClass === 'fighter'
     ? getAttackBonusForFightingStyles(pc, weapon, weaponIndex)
     : pClass === 'ranger'
-      ? getAttackBonusForRangerFightingStyles(pc, weapons, weapon, weaponIndex)
-      : 0;
+    ? getAttackBonusForRangerFightingStyles(pc, weapons, weapon, weaponIndex)
+    : 0;
 }
 
 export function getDamageDice(pc, w) {
@@ -2923,6 +2923,8 @@ function putItemInInventory(inventory, pItem) {
     inventory.equipment.ammunition.push(pItem);
   } else if (canBeAlwaysEquipped(item)) {
     inventory.equipment.others.push(pItem);
+  } else if (item.custom) {
+    inventory.treasure.custom.push(pItem);
   } else {
     inventory.treasure.others.push(pItem);
   }
@@ -2956,6 +2958,7 @@ export function distributeItems(pc, items) {
         weapons: [...pTreasure.weapons],
         armors: [...pTreasure.armors],
         others: [...pTreasure.others],
+        custom: [...pTreasure.custom],
       },
     }
   );
@@ -2974,6 +2977,9 @@ export function distributeItems(pc, items) {
   );
   distributedItems.treasure.others = unifyEquipment(
     distributedItems.treasure.others
+  );
+  distributedItems.treasure.custom = unifyEquipment(
+    distributedItems.treasure.custom
   );
 
   return distributedItems;
@@ -3005,11 +3011,11 @@ export function getEquipmentWeight(pc) {
             sectionEncumbrance +
             (Array.isArray(subsection)
               ? subsection.reduce((subsectionEncumbrance, item) => {
-                return (
-                  subsectionEncumbrance +
-                  (getItem(item)?.weight || 0) * (item?.amount || 1)
-                );
-              }, 0)
+                  return (
+                    subsectionEncumbrance +
+                    (getItem(item)?.weight || 0) * (item?.amount || 1)
+                  );
+                }, 0)
               : (getItem(subsection)?.weight || 0) * (subsection?.amount || 1))
           );
         }, 0)
@@ -3228,6 +3234,7 @@ export const BASE_CHARACTER = {
       weapons: [],
       armors: [],
       others: [],
+      custom: [],
     },
   },
 };
@@ -3245,12 +3252,12 @@ export const ALL_TRAITS = Object.entries(
               ...levelTraitDictionary,
               ...(traitKey !== 'traits'
                 ? Object.values(traitValue).reduce(
-                  (specialtyTraitDictionary, specialtyValue) => ({
-                    ...specialtyTraitDictionary,
-                    ...specialtyValue.traits,
-                  }),
-                  {}
-                )
+                    (specialtyTraitDictionary, specialtyValue) => ({
+                      ...specialtyTraitDictionary,
+                      ...specialtyValue.traits,
+                    }),
+                    {}
+                  )
                 : {}),
             }),
             {}

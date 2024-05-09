@@ -347,6 +347,7 @@ const pcSchema = new mongoose.Schema({
       weapons: [itemSchema],
       armors: [itemSchema],
       others: [itemSchema],
+      custom: [itemSchema],
     },
   },
   pack: String,
@@ -435,6 +436,7 @@ export async function createPc(pc, userId) {
         weapons: [],
         armors: [],
         others: [],
+        custom: [],
       },
     },
   });
@@ -798,15 +800,15 @@ export async function learnBardLoreSpells(id, spells) {
         },
         has
           ? {
-            $set: {
-              'classAttrs.bard.loreSpells.$.forgotten': false,
-            },
-          }
+              $set: {
+                'classAttrs.bard.loreSpells.$.forgotten': false,
+              },
+            }
           : {
-            $push: {
-              'classAttrs.bard.loreSpells': { name: spells[i] },
+              $push: {
+                'classAttrs.bard.loreSpells': { name: spells[i] },
+              },
             },
-          },
         { new: true, upsert: true }
       ).exec()
     )
@@ -856,15 +858,15 @@ export async function learnBardMagicalSecretsSpells(id, spells) {
         },
         has
           ? {
-            $set: {
-              'classAttrs.bard.magicalSecretsSpells.$.forgotten': false,
-            },
-          }
+              $set: {
+                'classAttrs.bard.magicalSecretsSpells.$.forgotten': false,
+              },
+            }
           : {
-            $push: {
-              'classAttrs.bard.magicalSecretsSpells': { name: spells[i] },
+              $push: {
+                'classAttrs.bard.magicalSecretsSpells': { name: spells[i] },
+              },
             },
-          },
         { new: true, upsert: true }
       ).exec()
     )
@@ -1126,10 +1128,30 @@ export async function dropTreasureItem(id, itemName) {
   return updatedPc;
 }
 
+export async function dropCustomItem(id, itemName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    { $pull: { 'items.treasure.custom': { name: itemName } } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function changeTreasureItemAmount(id, itemName, itemAmount) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id, 'items.treasure.others.name': itemName },
     { $set: { 'items.treasure.others.$.amount': parseInt(itemAmount, 10) } },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
+export async function changeCustomItemAmount(id, itemName, itemAmount) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id, 'items.treasure.custom.name': itemName },
+    { $set: { 'items.treasure.custom.$.amount': parseInt(itemAmount, 10) } },
     { new: true }
   );
 
@@ -1196,6 +1218,30 @@ export async function addOtherEquipment(id, itemName) {
     { id },
     {
       $push: { 'items.equipment.others': { name: itemName, amount: 1 } },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
+export async function addOtherTreasure(id, itemName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    {
+      $push: { 'items.treasure.others': { name: itemName, amount: 1 } },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
+export async function addCustomTreasure(id, itemName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    {
+      $push: { 'items.treasure.custom': { name: itemName, amount: 1 } },
     },
     { new: true }
   );
@@ -1364,8 +1410,8 @@ export async function markTraitSeen(id, traitName) {
       { id },
       {
         $addToSet: {
-          "classAttrs.seen": traitName
-        }
+          'classAttrs.seen': traitName,
+        },
       },
       { new: true, upsert: true }
     ).exec();

@@ -324,3 +324,28 @@
 .bio__equip-armor:hover {
   background-color: var(--color-gray);
 }
+
+.bio__other-item-input {
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
+  border: 1px solid var(--color-x-pale);
+  border-radius: 2px;
+  text-align: left;
+  color: var(--color-blue-ink);
+}
+
+.bio__add-other-item {
+  width: 1.5vw;
+  height: 1.5vw;
+  position: absolute;
+  margin: 0 0 0 4px;
+  text-align: center;
+  border: 1px solid var(--color-blue-ink);
+  border-radius: 50%;
+}
+
+.bio__add-other-item:hover {
+  cursor: pointer;
+  color: var(--color-x-blue-ink);
+  border-color: var(--color-x-blue-ink);
+}
