@@ -102,7 +102,7 @@ function CombatAttrs(props) {
       <span className="sheet__data sheet__initiative">
         <input
           type="text"
-          name="hitPoints"
+          name="initiative"
           onBlur={onPcInitiativeChange}
           defaultValue={initiative || null}
           placeholder={increment(getStatMod(getStat(pc, 'dex')))}

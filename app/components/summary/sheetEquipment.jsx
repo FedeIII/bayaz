@@ -93,7 +93,7 @@ function ItemModalContent(props) {
 
   return (
     <>
-      <h3 className="inventory-item__action-modal-title">{item.translation}</h3>
+      <h3 className="inventory-item__action-modal-title">{item.translation || item.name}</h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
@@ -314,6 +314,18 @@ function SheetEquipment(props) {
     );
   }
 
+  function addArbitraryItem() {
+    setArbitraryItem('');
+    submit(
+      {
+        action: 'addArbitraryItem',
+        id: pc.id,
+        itemName: arbitratyItem,
+      },
+      { method: 'post' }
+    );
+  }
+
   function onArmorClick(itemType, itemIndex = 0) {
     return itemName => {
       const item = getItem(itemName);
@@ -387,6 +399,12 @@ function SheetEquipment(props) {
     };
   }
 
+  const [arbitratyItem, setArbitraryItem] = useState('');
+
+  function onOtherItemChange(e) {
+    setArbitraryItem(e.target.value);
+  }
+
   return (
     <>
       <ul className="sheet__data sheet__equipment">
@@ -453,6 +471,20 @@ function SheetEquipment(props) {
             ))}
           </li>
         )}
+        <li>
+          <input
+            type="text"
+            name="otherItem"
+            value={arbitratyItem}
+            onChange={onOtherItemChange}
+            className="sheet__other-item-input"
+          />
+          {!!arbitratyItem &&
+            <span className='sheet__add-other-item' onClick={addArbitraryItem}>
+              +
+            </span>
+          }
+        </li>
       </ul>
 
       <div className="sheet__data sheet__copper">

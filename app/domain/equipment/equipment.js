@@ -63,7 +63,7 @@ export function getItem(item) {
 
   if (!itemBuilder) {
     console.error('Item ' + itemName + ' not found');
-    return null;
+    return { name: itemName, amount: 1 };
   }
 
   return itemBuilder({ amount: itemAmount });

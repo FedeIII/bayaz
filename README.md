@@ -53,6 +53,7 @@ npx prisma migrate dev
 
 ## TO DOsg
 
+- Add notes to items
 - Add temporary hitpoints to combats
 - Warlock's Eldritch Invocations can be swapped every level
 - Magic items owners

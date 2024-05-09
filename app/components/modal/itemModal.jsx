@@ -28,7 +28,7 @@ export function ItemModalContent(props) {
   return (
     <>
       <h3 className="inventory-item__modal-title">
-        {item.translation}{' '}
+        {item.translation || item.name}{' '}
         {!!actions.addToTreasure && (
           <button
             type="button"

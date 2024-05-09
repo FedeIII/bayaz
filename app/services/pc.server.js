@@ -1191,6 +1191,18 @@ export async function changeEquipmentOtherAmount(id, itemName, itemAmount) {
   return updatedPc;
 }
 
+export async function addOtherEquipment(id, itemName) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    {
+      $push: { 'items.equipment.others': { name: itemName, amount: 1 } },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function reorderWeapons(id, weaponName, destinationSlot) {
   const pc = await getPc(id);
   const weapons = pc.items.weapons.slice();

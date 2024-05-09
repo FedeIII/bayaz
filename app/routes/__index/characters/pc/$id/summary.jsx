@@ -24,6 +24,7 @@ import {
   markTraitSeen,
   switchShield,
   unequipShield,
+  addOtherEquipment,
 } from '~/services/pc.server';
 import {
   CLASSES,
@@ -395,6 +396,13 @@ async function markTraitSeenAction(formData) {
   return updatedPc;
 }
 
+async function addArbitraryItemAction(formData) {
+  const id = formData.get('id');
+  const itemName = formData.get('itemName');
+  const updatedPc = await addOtherEquipment(id, itemName);
+  return updatedPc;
+}
+
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
@@ -463,6 +471,8 @@ export const action = async ({ request }) => {
     pc = await spendDivineSenseAction(formData);
   } else if (action === 'seeTrait') {
     pc = await markTraitSeenAction(formData);
+  } else if (action === 'addArbitraryItem') {
+    pc = await addArbitraryItemAction(formData);
   }
 
   return json({ pc });
