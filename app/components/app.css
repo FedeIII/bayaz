@@ -25,10 +25,17 @@
 
 .app__body--full-screen {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+}
+
+.app__body--closed-sidebar {
+  width: 100vw;
+  height: 100%;
+  justify-content: flex-start;
 }
 
 .app__sidebar {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 11vw;
@@ -39,6 +46,39 @@
   color: white;
   align-items: flex-start;
   overflow-y: scroll;
+  transition: width 0.5s ease-out;
+}
+
+.app__sidebar--closed {
+  width: 3vw;
+  padding: 10vh 4px;
+}
+
+.app__sidebar-action {
+  font-size: var(--font-size-xs);
+  line-height: var(--font-size-l);
+  color: var(--color-pale);
+  background-color: var(--color-dark);
+  width: 16px;
+  height: 16px;
+  transform: translate(-1vw);
+  margin-top: 4vh;
+  padding: 4px;
+  border: 1px solid var(--color-pale);
+  border-radius: 5px;
+  z-index: 1;
+  transition: transform 0.5s ease-out;
+}
+
+.app__sidebar-action--closed-sidebar {
+  transform: translate(-2.5vw);
+}
+
+.app__sidebar-action:hover {
+  cursor: pointer;
+  color: var(--color-x-pale);
+  background-color: var(--color-pale);
+  border-color: var(--color-x-pale);
 }
 
 .app__content {
@@ -55,6 +95,10 @@
   align-items: center;
   width: 100vw;
   overflow-y: none;
+}
+
+.app__content--closed-sidebar {
+  width: 100vw;
 }
 
 .app__content--fullscreen::-webkit-scrollbar {
@@ -125,6 +169,12 @@
   padding: 4px 8px;
 }
 
+.app__secondary-button .app__button-shadow--closed-sidebar {
+  overflow: hidden;
+  padding: 4px;
+  text-align: center;
+}
+
 .app__secondary-button:hover {
   margin: 0 0 4px 16px;
 }
@@ -161,6 +211,20 @@
     border-radius: 5px;
     width: 100%;
   }
+}
+
+.app__button--closed-sidebar {
+  margin: 0 0px 4px 4px;
+  width: 100%;
+}
+
+.app__button--closed-sidebar:hover {
+  margin: 0 0px 4px 4px;
+  width: 100%;
+}
+
+.app__button-shadow--closed-sidebar {
+  width: calc(100% - 16px);
 }
 
 .app__container {

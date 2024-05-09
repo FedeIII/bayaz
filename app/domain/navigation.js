@@ -62,16 +62,19 @@ export function getAllMenuItems({
             name: 'Principal',
             url: PATHS.summary(id),
             level: 1,
+            collapsedIcon: 'ጰ',
           },
           {
             name: 'Inventario',
             url: PATHS.bio(id),
             level: 2,
+            collapsedIcon: '⚔',
           },
           {
             name: 'Conjuros',
             url: PATHS.spells(id),
             level: 2,
+            collapsedIcon: '⛥',
           },
         ],
         []

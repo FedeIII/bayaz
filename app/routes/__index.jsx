@@ -9,6 +9,7 @@ import { getBasicMenuItems } from '~/domain/navigation';
 import PartyContext from '~/components/contexts/partyContext';
 import MonstersContext from '~/components/contexts/monstersContext';
 import { getCurrentPcPage } from '~/utils/paths';
+import classNames from 'classnames';
 
 export const loader = async ({ request }) => {
   const user = await getSessionUser(request);
@@ -54,17 +55,46 @@ export default function Index() {
     }
   }, [fetcher.data]);
 
+  const [sidebarState, setSidebarState] = useState(true);
+  function closeSidebar() {
+    setSidebarState(false);
+  }
+  function openSidebar() {
+    setSidebarState(true);
+  }
+
   return (
     <div className="app">
       {hasMenu && <header className="app__header">{menuTitle}</header>}
       <div
-        className={hasMenu ? 'app__body' : 'app__body app__body--full-screen'}
+        className={classNames('app__body', {
+          'app__body--full-screen': hasMenu,
+          'app__body--closed-sidebar': !sidebarState,
+        })}
       >
-        <SideBar menuItems={menuItems} location={location} />
+        <SideBar
+          menuItems={menuItems}
+          location={location}
+          state={sidebarState}
+        />
+        {sidebarState && (
+          <span className="app__sidebar-action" onClick={closeSidebar}>
+            ←
+          </span>
+        )}
+        {!sidebarState && (
+          <span
+            className="app__sidebar-action app__sidebar-action--closed-sidebar"
+            onClick={openSidebar}
+          >
+            →
+          </span>
+        )}
         <div
-          className={
-            hasMenu ? 'app__content' : 'app__content app__content--fullscreen'
-          }
+          className={classNames('app__content', {
+            'app__content--fullscreen': hasMenu,
+            'app__content--closed-sidebar': !sidebarState,
+          })}
         >
           <Outlet />
         </div>
