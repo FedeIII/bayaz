@@ -23,6 +23,7 @@ html {
   flex-direction: row;
   align-items: stretch;
   flex-grow: 1;
+  height: 92vh;
 }
 
 .app__body--full-screen {
@@ -38,6 +39,7 @@ html {
 
 .app__sidebar {
   position: sticky;
+  align-self: flex-start;
   top: 8px;
   display: flex;
   flex-direction: column;
@@ -48,8 +50,9 @@ html {
   background-color: transparent;
   color: white;
   align-items: flex-start;
-  overflow-y: scroll;
   transition: width 0.5s ease-out;
+  overflow-y: scroll;
+  height: calc(92vh - 16px);
 }
 
 .app__sidebar--closed {
