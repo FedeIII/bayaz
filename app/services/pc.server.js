@@ -274,6 +274,11 @@ const notesSchema = new mongoose.Schema({
   text: String,
 });
 
+const customTraitSchema = new mongoose.Schema({
+  id: String,
+  text: String,
+});
+
 ///////////////////////
 ///////////////////////
 ////               ////
@@ -362,6 +367,7 @@ const pcSchema = new mongoose.Schema({
   // FREETEXT
   freeText: freeTextSchema,
   notes: [notesSchema],
+  customTraits: [customTraitSchema],
 
   // FEATS & TRAITS
   halfElf: halfElfSchema,
@@ -1418,6 +1424,36 @@ export async function markTraitSeen(id, traitName) {
   } else {
     updatedPc = await getPc(id);
   }
+
+  return updatedPc;
+}
+
+export async function addCustomTrait(id, trait) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    { $push: { customTraits: { id: uuid(), text: trait } } },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function removeCustomTrait(id, traitId) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    { $pull: { customTraits: { id: traitId } } },
+    { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function modifyCustomTrait(id, traitId, trait) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id, 'customTraits.id': traitId },
+    { $set: { 'customTraits.$.text': trait } },
+    { new: true, upsert: true }
+  ).exec();
 
   return updatedPc;
 }

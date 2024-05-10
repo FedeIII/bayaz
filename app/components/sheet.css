@@ -853,6 +853,8 @@
   padding: 6px 0 0 0;
   margin: 0;
   hyphens: auto;
+  display: flex;
+  align-items: stretch;
 }
 
 .sheet__personality {
@@ -922,6 +924,10 @@
   text-align: left;
 }
 
+.sheet__trait-label--no-bullet {
+  list-style: none;
+}
+
 .sheet__trait-title {
   text-decoration: underline;
 }
@@ -944,16 +950,59 @@
   border-radius: 2px;
   text-align: left;
   color: var(--color-blue-ink);
+  background-color: transparent;
+}
+
+.sheet__other-item-input--no-border {
+  border: none;
+}
+
+.sheet__other-item-textarea {
+  resize: none;
+  background-color: transparent;
+  hyphens: auto;
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
+  border: none;
+  border-radius: 2px;
+  text-align: left;
+  color: var(--color-blue-ink);
+  width: 90%;
+  vertical-align: text-top;
+  line-height: 1;
+  margin: 0px;
+  padding: 2px 2px 0px;
+}
+
+.sheet__other-item-textarea:hover {
+  border: 1px solid var(--color-x-pale);
+  padding: 1px 1px 0 1px;
+  margin: 0 0 -1px 0;
+}
+
+.sheet__other-item-textarea--border {
+  border: 1px solid var(--color-x-pale);
+  padding: 1px 1px 0 1px;
+  margin: 0 0 -1px 0;
 }
 
 .sheet__add-other-item {
-  width: 1.5vw;
-  height: 1.5vw;
+  width: 12px;
+  height: 12px;
+  font-size: var(--font-size-big);
+  line-height: 0.6;
   position: absolute;
   margin: 0 0 0 4px;
   text-align: center;
   border: 1px solid var(--color-blue-ink);
   border-radius: 50%;
+}
+
+@media only screen and (min-width: 992px) {
+  .sheet__add-other-item {
+    line-height: 0.7;
+    font-size: var(--font-size-l);
+  }
 }
 
 .sheet__add-other-item:hover {

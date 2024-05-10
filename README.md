@@ -53,6 +53,7 @@ npx prisma migrate dev
 
 ## TO DOsg
 
+- Refactor summary.jsx to use actionDefinitions
 - Add arbirtrary items to traits
 - Add notes to items
 - Add temporary hitpoints to combats

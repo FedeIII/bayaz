@@ -557,7 +557,7 @@ function PcBio() {
       {
         action: 'addArbitraryItem',
         id,
-        itemName: arbitratyItem,
+        itemName: arbitraryItem,
       },
       { method: 'post' }
     );
@@ -686,8 +686,7 @@ function PcBio() {
     setIsTreasureScreenOpen(false);
   }
 
-  const [arbitratyItem, setArbitraryItem] = useState('');
-
+  const [arbitraryItem, setArbitraryItem] = useState('');
   function onOtherItemChange(e) {
     setArbitraryItem(e.target.value);
   }
@@ -869,11 +868,11 @@ function PcBio() {
               <input
                 type="text"
                 name="otherItem"
-                value={arbitratyItem}
+                value={arbitraryItem}
                 onChange={onOtherItemChange}
                 className="bio__other-item-input"
               />
-              {!!arbitratyItem && (
+              {!!arbitraryItem && (
                 <span
                   className="bio__add-other-item"
                   onClick={addArbitraryItem}

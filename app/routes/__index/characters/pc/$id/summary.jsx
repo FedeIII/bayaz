@@ -113,10 +113,14 @@ import SheetSkills from '~/components/summary/sheetSkills';
 import SheetAttacks from '~/components/summary/sheetAttacks';
 import SheetEquipment from '~/components/summary/sheetEquipment';
 import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLanguages';
+import CustomTraits, {
+  actions as customTraitsActions,
+} from '~/components/summary/customTraits';
 import { isDm } from '~/domain/user';
 import { getUser } from '~/services/user.server';
 import { getSessionUser } from '~/services/session.server';
 import { changeMagicCharges, useCharge } from '~/services/item.server';
+import processAction from '~/utils/remix/processAction';
 
 import styles from '~/components/sheet.css';
 import spellsStyles from '~/components/spells.css';
@@ -473,6 +477,8 @@ export const action = async ({ request }) => {
     pc = await markTraitSeenAction(formData);
   } else if (action === 'addArbitraryItem') {
     pc = await addArbitraryItemAction(formData);
+  } else {
+    pc = processAction(action, formData, { ...customTraitsActions });
   }
 
   return json({ pc });
@@ -1196,6 +1202,8 @@ function PcSummary() {
               </ul>
             </li>
           )}
+
+          <CustomTraits pc={pc} submit={submit} />
         </ul>
 
         {/* PROFICIENCIES & LANGUAGES */}
