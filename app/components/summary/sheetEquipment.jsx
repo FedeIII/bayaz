@@ -487,7 +487,7 @@ function SheetEquipment(props) {
             className="sheet__other-item-input"
           />
           {!!arbitratyItem && (
-            <span className="sheet__add-other-item" onClick={addArbitraryItem}>
+            <span className="sheet__add-other-item sheet__add-other-item--animated" onClick={addArbitraryItem}>
               +
             </span>
           )}

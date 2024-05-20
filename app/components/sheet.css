@@ -1003,6 +1003,28 @@
 
 .sheet__add-other-item:hover {
   cursor: pointer;
-  color: var(--color-x-blue-ink);
-  border-color: var(--color-x-blue-ink);
+  color: var(--color-green);
+  border-color: var(--color-green);
+  transform: scale(1.2);
+  animation: none;
+}
+
+.sheet__add-other-item--animated {
+  animation: bouncing_zoom 1s infinite;
+}
+
+@keyframes bouncing_zoom {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+    color: var(--color-green);
+    border-color: var(--color-green);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

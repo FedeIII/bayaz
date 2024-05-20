@@ -123,7 +123,7 @@ function CustomTraits(props) {
           className="sheet__other-item-textarea sheet__other-item-textarea--border"
         />
         {!!arbitraryTrait && (
-          <span className="sheet__add-other-item" onClick={addArbitraryTrait}>
+          <span className="sheet__add-other-item sheet__add-other-item--animated" onClick={addArbitraryTrait}>
             +
           </span>
         )}

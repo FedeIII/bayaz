@@ -873,7 +873,7 @@ function PcBio() {
               />
               {!!arbitraryItem && (
                 <span
-                  className="bio__add-other-item"
+                  className="bio__add-other-item bio__add-other-item--animated"
                   onClick={addArbitraryItem}
                 >
                   +
