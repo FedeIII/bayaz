@@ -77,14 +77,16 @@ export default function Index() {
           location={location}
           state={sidebarState}
         />
-        <span
-          className={classNames('app__sidebar-action', {
-            'app__sidebar-action--closed-sidebar': !sidebarState,
-          })}
-          onClick={sidebarState ? closeSidebar : openSidebar}
-        >
-          {sidebarState ? '←' : '→'}
-        </span>
+        {hasMenu && (
+          <span
+            className={classNames('app__sidebar-action', {
+              'app__sidebar-action--closed-sidebar': !sidebarState,
+            })}
+            onClick={sidebarState ? closeSidebar : openSidebar}
+          >
+            {sidebarState ? '←' : '→'}
+          </span>
+        )}
         <div
           className={classNames('app__content', {
             'app__content--fullscreen': !hasMenu,
