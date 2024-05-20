@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from '@remix-run/react';
 import { getStat, getStatMod } from '~/domain/characters';
 import { getSpellSavingThrow } from '~/domain/spells/spells';
@@ -9,9 +10,9 @@ import {
 } from './paladin';
 import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
+import NumericInput from '~/components/inputs/numeric';
 
 import styles from '~/components/modal/inventoryItem.css';
-import { useEffect, useState } from 'react';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
@@ -123,8 +124,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
 
             <div>
               <label>
-                <input
-                  type="number"
+                <NumericInput
                   defaultValue={layOnHands > 0 ? 1 : 0}
                   min="0"
                   max={layOnHands}

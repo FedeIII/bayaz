@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CLASSES, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
+import NumericInput from '../inputs/numeric';
 
 function HitDiceActions(props) {
   const { pc, submit, closeModal } = props;
@@ -80,8 +81,7 @@ function HitDiceActions(props) {
             className="inventory-item__input-button-row"
           >
             <span>Gastar</span>{' '}
-            <input
-              type="number"
+            <NumericInput
               id="diceAmount"
               name="diceAmount"
               onKeydown="return false"
@@ -113,8 +113,7 @@ function HitDiceActions(props) {
           <label htmlFor="realDie" className="app__input-button-column">
             <div className="app__input-with-tag">
               <span>Valor de los dados:</span>{' '}
-              <input
-                type="number"
+              <NumericInput
                 id="realDie"
                 name="hitPointsRealDie"
                 onKeydown="return false"

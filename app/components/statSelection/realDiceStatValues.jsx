@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDrag } from 'react-dnd';
 
 import { STATS } from '~/domain/characters';
+import NumericInput from '../inputs/numeric';
 
 export const ItemTypes = {
   ROLL: 'ROLL',
@@ -50,12 +51,11 @@ export function RealDiceStatValues(props) {
           );
 
           return (
-            <input
-              type="number"
+            <NumericInput
               ref={drag}
               value={stats[statName]}
               onChange={onStatChange(statName)}
-              onkeydown="return false"
+              onKeydown="return false"
               className="characters__stat-value"
               disabled={!canDrag}
             />

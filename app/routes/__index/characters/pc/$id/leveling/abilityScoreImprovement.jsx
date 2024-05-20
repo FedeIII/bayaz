@@ -16,6 +16,7 @@ import {
 } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 import { increment } from '~/domain/display';
+import NumericInput from '~/components/inputs/numeric';
 
 import styles from '~/components/stats.css';
 export const links = () => {
@@ -136,8 +137,7 @@ function AbilityScoreImprovement() {
             )}
             <span className="stats__cell app__big-text">+</span>
             <span className="stats__cell stats__rightCell app__big-text">
-              <input
-                type="number"
+              <NumericInput
                 id={statName}
                 name={statName}
                 value={extraStats[statName]}

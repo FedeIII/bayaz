@@ -44,6 +44,7 @@ import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
 import { useSearchResults } from '~/components/hooks/useSearchResults';
 import MagicItemsContext from '~/components/contexts/magicItemsContext';
+import NumericInput from '~/components/inputs/numeric';
 
 import styles from '~/components/bio.css';
 export const links = () => {
@@ -242,8 +243,7 @@ function ItemModalContent(props) {
               >
                 Añadir items
               </button>{' '}
-              <input
-                type="number"
+              <NumericInput
                 name="amount"
                 min="1"
                 value={amount}
@@ -261,8 +261,7 @@ function ItemModalContent(props) {
               >
                 Cambiar cantidad
               </button>{' '}
-              <input
-                type="number"
+              <NumericInput
                 name="amount"
                 min="1"
                 value={amount}

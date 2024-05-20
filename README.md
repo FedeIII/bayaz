@@ -53,8 +53,8 @@ npx prisma migrate dev
 
 ## TO DOsg
 
+- Extract textarea component
 - Refactor summary.jsx to use actionDefinitions
-- Add arbirtrary items to traits
 - Add notes to items
 - Add temporary hitpoints to combats
 - Warlock's Eldritch Invocations can be swapped every level

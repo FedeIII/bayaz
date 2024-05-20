@@ -13,6 +13,7 @@ import {
 import { increment } from '~/domain/display';
 import { SkillItem } from '../modal/skillItem';
 import DeathSavingThrows from './deathSavingThrows';
+import NumericInput from '../inputs/numeric';
 
 import styles from '~/components/indicators/bar.css';
 export const links = () => {
@@ -27,7 +28,6 @@ function CombatAttrs(props) {
     onPcInitiativeChange,
     onPcHitPointsChange,
     onTemporaryHitPointsChange,
-    isDm,
   } = props;
   const { hitPoints, temporaryHitPoints, initiative } = pc;
 
@@ -122,8 +122,7 @@ function CombatAttrs(props) {
         </SkillItem>
       </span>
       <div className={`sheet__data sheet__hit-points ${hitPointsStyle}`}>
-        <input
-          type="number"
+        <NumericInput
           name="hitPoints"
           onChange={changePcHitPoints}
           value={hitPointsState || 0}
@@ -136,8 +135,7 @@ function CombatAttrs(props) {
         )}
       </div>
       <span className="sheet__data sheet__temporary-hit-points">
-        <input
-          type="number"
+        <NumericInput
           name="temporaryHitPoints"
           onChange={onTemporaryHitPointsChange}
           defaultValue={temporaryHitPoints || ''}

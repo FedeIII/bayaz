@@ -15,6 +15,7 @@ import { RandomStatValues } from '~/components/statSelection/randomStatValues';
 import { CustomStatValues } from '~/components/statSelection/customStatValues';
 import { RealDiceStatValues } from '~/components/statSelection/realDiceStatValues';
 import { StatRoll } from '~/components/statSelection/statRoll';
+import NumericInput from '~/components/inputs/numeric';
 
 import styles from '~/components/stats.css';
 export const links = () => {
@@ -196,8 +197,7 @@ function AssignedStat(props) {
           setStat={stat.setValue}
           className="characters__stat-input-wrapper"
         >
-          <input
-            type="number"
+          <NumericInput
             id={stat.name}
             ref={stat.drop}
             name={stat.name}

@@ -9,9 +9,10 @@ import { t } from '~/domain/translations';
 import { getItem, updateItem } from '~/services/item.server';
 import { ALL_ARMORS, ARMORS } from '~/domain/equipment/armors';
 import { ALL_WEAPONS, WEAPONS } from '~/domain/equipment/weapons';
+import NumericInput from '~/components/inputs/numeric';
+import { ALL_SPELLS_BY_TRANSLATION } from '~/domain/spells/getSpells';
 
 import styles from '~/components/item.css';
-import { ALL_SPELLS_BY_TRANSLATION } from '~/domain/spells/getSpells';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }, ...titleLinks()];
 };
@@ -222,8 +223,7 @@ function NewItem() {
           {hasCharges && (
             <label htmlFor="charges" className="item__checkbox-label">
               <span className="item__checkbox-text">Cargas</span>
-              <input
-                type="number"
+              <NumericInput
                 name="charges"
                 id="charges"
                 defaultValue={item?.charges || 0}

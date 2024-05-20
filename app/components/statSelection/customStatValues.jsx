@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDrag } from 'react-dnd';
 
 import { STATS } from '~/domain/characters';
+import NumericInput from '../inputs/numeric';
 
 const MAX_POINTS = 27;
 
@@ -74,12 +75,11 @@ export function CustomStatValues(props) {
           );
 
           return (
-            <input
-              type="number"
+            <NumericInput
               ref={drag}
               value={stats[statName]}
               onChange={onStatChange(statName)}
-              onkeydown="return false"
+              onKeydown="return false"
               className="characters__stat-value"
               disabled={!canDrag}
             />

@@ -414,7 +414,6 @@
   background-color: transparent;
   border: none;
   margin: 4px 0px 0px 0px;
-  font-family: var(--font-family);
   color: var(--color-blue-ink);
   font-size: var(--font-size-xhuge);
   width: 100%;
@@ -808,9 +807,6 @@
 
 .sheet__coin-input {
   font-size: var(--font-size-l);
-  font-family: var(--font-family);
-  color: var(--color-blue-ink);
-  background: transparent;
   border: none;
   width: 100%;
   text-align: center;

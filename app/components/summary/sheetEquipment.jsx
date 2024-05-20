@@ -5,8 +5,9 @@ import { getItem } from '~/domain/equipment/equipment';
 import { t } from '~/domain/translations';
 import MagicItemsContext from '../contexts/magicItemsContext';
 import { hasActions } from '~/domain/equipment/items';
+import NumericInput from '../inputs/numeric';
 
-const noOp = () => { };
+const noOp = () => {};
 
 function ArmorModalContent(props) {
   const { pc, armor, onArmorChange, unequipArmor, closeModal } = props;
@@ -42,11 +43,13 @@ function ArmorModalContent(props) {
             Cambiar por:{' '}
             <select className="sheet__select-attack" onChange={onEquipClick}>
               <option value={armor.name}>{armor.translation}</option>
-              {armors.filter(armor => armor.name !== 'shield').map(extraArmor => (
-                <option value={extraArmor.name} key={extraArmor.name}>
-                  {t(extraArmor.name)}
-                </option>
-              ))}
+              {armors
+                .filter(armor => armor.name !== 'shield')
+                .map(extraArmor => (
+                  <option value={extraArmor.name} key={extraArmor.name}>
+                    {t(extraArmor.name)}
+                  </option>
+                ))}
             </select>
           </li>
           <li>
@@ -93,7 +96,9 @@ function ItemModalContent(props) {
 
   return (
     <>
-      <h3 className="inventory-item__action-modal-title">{item.translation || item.name}</h3>
+      <h3 className="inventory-item__action-modal-title">
+        {item.translation || item.name}
+      </h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
@@ -108,8 +113,7 @@ function ItemModalContent(props) {
               >
                 Cambiar cantidad
               </button>{' '}
-              <input
-                type="number"
+              <NumericInput
                 name="amount"
                 min="1"
                 value={amount}
@@ -128,8 +132,7 @@ function ItemModalContent(props) {
               >
                 Cambiar cargas
               </button>{' '}
-              <input
-                type="number"
+              <NumericInput
                 name="amount"
                 min="0"
                 max={item.maxCharges}
@@ -338,8 +341,12 @@ function SheetEquipment(props) {
             <ArmorModalContent
               pc={pc}
               armor={item}
-              onArmorChange={itemType === 'shield' ? onShieldChange : onArmorChange}
-              unequipArmor={itemType === 'shield' ? unequipShield : unequipArmor}
+              onArmorChange={
+                itemType === 'shield' ? onShieldChange : onArmorChange
+              }
+              unequipArmor={
+                itemType === 'shield' ? unequipShield : unequipArmor
+              }
               closeModal={() => setActionModalContent(null)}
             />
           )),
@@ -378,8 +385,8 @@ function SheetEquipment(props) {
         const useItem = item.consumable
           ? dropOther
           : item.charges !== null
-            ? useCharge
-            : noOp;
+          ? useCharge
+          : noOp;
 
         setTimeout(
           () =>
@@ -479,17 +486,16 @@ function SheetEquipment(props) {
             onChange={onOtherItemChange}
             className="sheet__other-item-input"
           />
-          {!!arbitratyItem &&
-            <span className='sheet__add-other-item' onClick={addArbitraryItem}>
+          {!!arbitratyItem && (
+            <span className="sheet__add-other-item" onClick={addArbitraryItem}>
               +
             </span>
-          }
+          )}
         </li>
       </ul>
 
       <div className="sheet__data sheet__copper">
-        <input
-          type="number"
+        <NumericInput
           defaultValue={money.cp}
           min="0"
           className="sheet__coin-input"
@@ -497,8 +503,7 @@ function SheetEquipment(props) {
         />
       </div>
       <div className="sheet__data sheet__silver">
-        <input
-          type="number"
+        <NumericInput
           defaultValue={money.sp}
           min="0"
           className="sheet__coin-input"
@@ -506,8 +511,7 @@ function SheetEquipment(props) {
         />
       </div>
       <div className="sheet__data sheet__electrum">
-        <input
-          type="number"
+        <NumericInput
           defaultValue={money.ep}
           min="0"
           className="sheet__coin-input"
@@ -515,8 +519,7 @@ function SheetEquipment(props) {
         />
       </div>
       <div className="sheet__data sheet__gold">
-        <input
-          type="number"
+        <NumericInput
           defaultValue={money.gp}
           min="0"
           className="sheet__coin-input"
@@ -524,8 +527,7 @@ function SheetEquipment(props) {
         />
       </div>
       <div className="sheet__data sheet__platinum">
-        <input
-          type="number"
+        <NumericInput
           defaultValue={money.pp}
           min="0"
           className="sheet__coin-input"

@@ -40,6 +40,7 @@ import PartyTemplateContext from '~/components/contexts/partyTemplateContext';
 import { getNpcs } from '~/services/pc.server';
 import { npcsToMonsters } from '~/domain/npc/npc';
 import { useArrayState } from '~/components/hooks/useArrayState';
+import NumericInput from '~/components/inputs/numeric';
 
 import styles from '~/components/newEncounter.css';
 import placesStyles from '~/components/places.css';
@@ -134,10 +135,9 @@ function Sidebar(props) {
             <div className="encounter__filter-options">
               {pcLevels.map((level, i) => (
                 <span>
-                  <input
+                  <NumericInput
                     key={i}
                     className="encounter__input-number"
-                    type="number"
                     value={level}
                     onChange={e =>
                       setPcLevels(old =>
@@ -209,8 +209,7 @@ function Sidebar(props) {
               </label>
               <label htmlFor="xp" className="encounter__filter-item">
                 <span className="encounter__filter-name">xp {'<='} </span>
-                <input
-                  type="number"
+                <NumericInput
                   name="xp"
                   value={filters.xp}
                   className="encounter__filter-input cards__button-card"
@@ -224,8 +223,7 @@ function Sidebar(props) {
               </label>
               <label htmlFor="cr" className="encounter__filter-item">
                 <span className="encounter__filter-name">CR {'>='} </span>
-                <input
-                  type="number"
+                <NumericInput
                   name="cr"
                   value={filters.cr}
                   className="encounter__filter-input cards__button-card"
@@ -240,7 +238,6 @@ function Sidebar(props) {
               <label htmlFor="size" className="encounter__filter-item">
                 <span className="encounter__filter-name">Tamaño</span>
                 <select
-                  type="number"
                   name="size"
                   value={filters.size}
                   className="encounter__filter-select cards__button-card"

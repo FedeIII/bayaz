@@ -48,6 +48,7 @@ import {
   npcsToMonsters,
 } from '~/domain/npc/npc';
 import { endPartyEncounter } from '~/domain/mutations/partyMutations';
+import NumericInput from '~/components/inputs/numeric';
 
 import styles from '~/components/randomEncounter.css';
 import charactersStyles from '~/components/characters/characters.css';
@@ -321,8 +322,7 @@ function MonstersCombat(props) {
                         }
                       >
                         Iniciativa{' '}
-                        <input
-                          type="number"
+                        <NumericInput
                           name={`initiative-${monsterId}`}
                           value={initiatives.mobs[i]}
                           onChange={e =>
@@ -473,8 +473,7 @@ function MonstersCombat(props) {
                                 className="encounters__initiative-label"
                               >
                                 Iniciativa{' '}
-                                <input
-                                  type="number"
+                                <NumericInput
                                   name={`initiative-${pc.id}`}
                                   value={initiatives.pcs[pcIndex]}
                                   onChange={e =>
@@ -691,8 +690,7 @@ function NpcsCombat(props) {
                         }
                       >
                         Iniciativa{' '}
-                        <input
-                          type="number"
+                        <NumericInput
                           name={`initiative-${npc.id}`}
                           value={initiatives.mobs[i]}
                           onChange={e =>
@@ -839,8 +837,7 @@ function NpcsCombat(props) {
                                 className="encounters__initiative-label"
                               >
                                 Iniciativa{' '}
-                                <input
-                                  type="number"
+                                <NumericInput
                                   name={`initiative-${pc.id}`}
                                   value={initiatives.pcs[pcIndex]}
                                   onChange={e =>

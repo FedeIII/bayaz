@@ -12,6 +12,7 @@ import { useTitle } from '~/components/hooks/useTitle';
 import { increment } from '~/domain/display';
 import { getExtraPreparedSpells } from '~/domain/spells/spells';
 import { substract } from '~/utils/insert';
+import NumericInput from '~/components/inputs/numeric';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -98,8 +99,7 @@ function LevelUp() {
           Utilizar valor fijo ({increment(getFixedHealthForLevelUp(pc))})
         </button>
         <label htmlFor="realDice" className="app__input-button">
-          <input
-            type="number"
+          <NumericInput
             id="realDice"
             name="hitPointsRealDice"
             onKeydown="return false"

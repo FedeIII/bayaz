@@ -245,7 +245,6 @@
 
 .inventory-item__amount-input {
   width: 45px;
-  font-family: var(--font-family);
 }
 
 .inventory-item__modal-content-title {

@@ -10,6 +10,7 @@ import { createItem } from '~/services/item.server';
 import { ALL_ARMORS, ARMORS } from '~/domain/equipment/armors';
 import { ALL_WEAPONS, WEAPONS } from '~/domain/equipment/weapons';
 import { ALL_SPELLS_BY_TRANSLATION } from '~/domain/spells/getSpells';
+import NumericInput from '~/components/inputs/numeric';
 
 import styles from '~/components/item.css';
 export const links = () => {
@@ -183,8 +184,7 @@ function NewItem() {
           {hasCharges && (
             <label htmlFor="charges" className="item__checkbox-label">
               <span className="item__checkbox-text">Cargas</span>
-              <input
-                type="number"
+              <NumericInput
                 name="charges"
                 id="charges"
                 defaultValue="0"

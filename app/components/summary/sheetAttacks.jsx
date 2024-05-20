@@ -9,6 +9,7 @@ import { SkillItem } from '../modal/skillItem';
 import { t } from '~/domain/translations';
 import MagicItemsContext from '../contexts/magicItemsContext';
 import classNames from 'classnames';
+import NumericInput from '../inputs/numeric';
 
 const noAttack = { weapon: noItem() };
 
@@ -103,8 +104,7 @@ function WeaponModalContent(props) {
               >
                 Cambiar cargas
               </button>{' '}
-              <input
-                type="number"
+              <NumericInput
                 name="charges"
                 min="0"
                 max={weapon.maxCharges}

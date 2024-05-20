@@ -20,9 +20,10 @@ import { createPc } from '~/services/pc.server';
 import { getSpell } from '~/domain/spells/getSpells';
 import { getSessionUser } from '~/services/session.server';
 import { Title, links as buildingDetailsLinks } from '~/components/form/title';
+import NumericInput from '~/components/inputs/numeric';
+import { isDm } from '~/domain/user';
 
 import styles from '~/components/cards/cards.css';
-import { isDm } from '~/domain/user';
 export const links = () => {
   return [...buildingDetailsLinks(), { rel: 'stylesheet', href: styles }];
 };
@@ -211,8 +212,7 @@ function PcRace() {
           <label htmlFor="age" className="characters__trait-label">
             <span className="characters__trait-title">
               Edad:{' '}
-              <input
-                type="number"
+              <NumericInput
                 id="age"
                 name="age"
                 value={age}
@@ -243,8 +243,7 @@ function PcRace() {
           <label htmlFor="height" className="characters__trait-label">
             <span className="characters__trait-title">
               Altura:{' '}
-              <input
-                type="number"
+              <NumericInput
                 id="height"
                 name="height"
                 value={height}
@@ -275,8 +274,7 @@ function PcRace() {
           <label htmlFor="weight" className="characters__trait-label">
             <span className="characters__trait-title">
               Peso:{' '}
-              <input
-                type="number"
+              <NumericInput
                 id="weight"
                 name="weight"
                 value={weight}

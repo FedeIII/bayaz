@@ -15,7 +15,6 @@ import {
   PLACE_CHARACTERISTICS,
   PLACE_KNOWN_FOR,
   RACE_RELATIONSHIPS,
-  SUBDOMINION_NAMES,
   TOWN,
   VILLAGE,
   getPopulation,
@@ -46,6 +45,7 @@ import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
 import { getSettlementImages } from '~/services/s3.server';
 import { getVillageSecurityType } from '~/domain/places/village';
+import NumericInput from '~/components/inputs/numeric';
 
 const TYPES = {
   city: CITY,
@@ -517,16 +517,6 @@ function SettlementScreen() {
                   ))}
                 </datalist>
               </span>
-              {/* <span>
-                <span className="places__trait-title">Población:</span> ≈
-                <input
-                  type="number"
-                  name="population"
-                  value={population}
-                  onChange={onPopulationChange}
-                  className="places__trait-input places__trait-input--number-4"
-                />
-              </span> */}
             </div>
 
             <hr className="places__section-divider" />
@@ -534,8 +524,7 @@ function SettlementScreen() {
               <span>{t(type)}</span>
               <span>
                 <span className="places__trait-title">Población:</span> ≈
-                <input
-                  type="number"
+                <NumericInput
                   name="population"
                   value={population}
                   onChange={onPopulationChange}
@@ -671,8 +660,7 @@ function SettlementScreen() {
               {!!magicShops && (
                 <span className="places__shared-trait-greedy">
                   <span className="places__trait-title">Tiendas:</span>{' '}
-                  <input
-                    type="number"
+                  <NumericInput
                     name="magicShops"
                     value={magicShops}
                     onChange={onMagicShopsChange}
@@ -683,8 +671,7 @@ function SettlementScreen() {
 
               <span className="places__shared-trait-greedy">
                 <span className="places__trait-title">Seguridad:</span>{' '}
-                <input
-                  type="number"
+                <NumericInput
                   name="security"
                   value={security}
                   onChange={onSecurityChange}
