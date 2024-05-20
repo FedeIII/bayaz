@@ -2284,6 +2284,13 @@ export function getFixedHealthForLevelUp(pc) {
   return parseInt(CLASSES[pClass].hitDice.match(/1d(\d+)/)?.[1], 10) / 2 + 1;
 }
 
+export function getMaxHealthForLevelUp(pc) {
+  const { pClass } = pc;
+  const { hitDice } = CLASSES[pClass];
+
+  return parseInt(hitDice.slice(hitDice.indexOf('d') + 1), 10);
+}
+
 export function getRandomLevelUpHitPoints(pc) {
   const { pClass } = pc;
   const result = random.roll.processCommand(CLASSES[pClass].hitDice);

@@ -1,9 +1,10 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form, useLoaderData, useNavigation } from '@remix-run/react';
 import { addLevelHitPoints, getPc, prepareSpells } from '~/services/pc.server';
 import {
   CLASSES,
   getFixedHealthForLevelUp,
+  getMaxHealthForLevelUp,
   getRandomLevelUpHitPoints,
   hasLeveledUp,
   translateClass,
@@ -64,6 +65,9 @@ function LevelUp() {
 
   useTitle(`${translateClass(pClass)} nivel ${level}`);
 
+  const navigation = useNavigation();
+  const isIdle = navigation.state === 'idle';
+
   return (
     <Form method="post">
       <input readOnly type="text" name="id" value={id} hidden />
@@ -85,6 +89,7 @@ function LevelUp() {
         <button
           type="submit"
           name="hitPoints"
+          disabled={!isIdle}
           value="random"
           className="cards__button-card app__button-big"
         >
@@ -93,6 +98,7 @@ function LevelUp() {
         <button
           type="submit"
           name="hitPoints"
+          disabled={!isIdle}
           value={getFixedHealthForLevelUp(pc)}
           className="cards__button-card app__button-big"
         >
@@ -103,10 +109,14 @@ function LevelUp() {
             id="realDice"
             name="hitPointsRealDice"
             onKeydown="return false"
-            max="20"
+            max={getMaxHealthForLevelUp(pc)}
             min="1"
           />
-          <button type="submit" className="cards__button-card app__button-big">
+          <button
+            type="submit"
+            disabled={!isIdle}
+            className="cards__button-card app__button-big"
+          >
             Lanzar Dado Real ({CLASSES[pClass].hitDice})
           </button>
         </label>
