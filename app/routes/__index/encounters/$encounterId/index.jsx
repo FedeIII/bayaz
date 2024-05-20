@@ -335,7 +335,7 @@ function MonstersCombat(props) {
                               ),
                             }))
                           }
-                          className="encounters__initiative-input cards__button-card"
+                          styleName="encounters__initiative-input cards__button-card"
                         />
                       </label>
                     </div>
@@ -486,7 +486,7 @@ function MonstersCombat(props) {
                                       ),
                                     }))
                                   }
-                                  className="encounters__initiative-input cards__button-card"
+                                  styleName="encounters__initiative-input cards__button-card"
                                 />
                               </label>
                             </div>
@@ -699,7 +699,7 @@ function NpcsCombat(props) {
                               mobs: replaceAt(i, old.mobs, e.target.value),
                             }))
                           }
-                          className="encounters__initiative-input cards__button-card"
+                          styleName="encounters__initiative-input cards__button-card"
                         />
                       </label>
                     </div>
@@ -850,7 +850,7 @@ function NpcsCombat(props) {
                                       ),
                                     }))
                                   }
-                                  className="encounters__initiative-input cards__button-card"
+                                  styleName="encounters__initiative-input cards__button-card"
                                 />
                               </label>
                             </div>

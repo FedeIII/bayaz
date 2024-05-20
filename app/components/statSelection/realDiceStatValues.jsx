@@ -56,7 +56,7 @@ export function RealDiceStatValues(props) {
               value={stats[statName]}
               onChange={onStatChange(statName)}
               onKeydown="return false"
-              className="characters__stat-value"
+              styleName="characters__stat-value"
               disabled={!canDrag}
             />
           );

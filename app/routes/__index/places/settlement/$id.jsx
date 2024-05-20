@@ -528,7 +528,7 @@ function SettlementScreen() {
                   name="population"
                   value={population}
                   onChange={onPopulationChange}
-                  className="places__trait-input places__trait-input--number-4"
+                  styleName="places__trait-input places__trait-input--number-4"
                 />
               </span>
             </div>
@@ -664,7 +664,7 @@ function SettlementScreen() {
                     name="magicShops"
                     value={magicShops}
                     onChange={onMagicShopsChange}
-                    className="places__trait-input places__trait-input--number-1"
+                    styleName="places__trait-input places__trait-input--number-1"
                   />
                 </span>
               )}
@@ -675,7 +675,7 @@ function SettlementScreen() {
                   name="security"
                   value={security}
                   onChange={onSecurityChange}
-                  className="places__trait-input places__trait-input--number-2"
+                  styleName="places__trait-input places__trait-input--number-2"
                 />{' '}
                 {securityType === 'militia' ? 'milicias' : 'guardias'}
               </span>

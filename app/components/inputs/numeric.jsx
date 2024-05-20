@@ -11,11 +11,11 @@ function preventWheel(e) {
 }
 
 export default function NumericInput(props) {
-  const { className } = props;
+  const { styleName } = props;
   return (
     <input
       type="number"
-      className={classNames('app__input-number', className)}
+      className={classNames({ 'app__input-number': true, [styleName]: true })}
       onWheel={preventWheel}
       {...props}
     />

@@ -137,7 +137,7 @@ function Sidebar(props) {
                 <span>
                   <NumericInput
                     key={i}
-                    className="encounter__input-number"
+                    styleName="encounter__input-number"
                     value={level}
                     onChange={e =>
                       setPcLevels(old =>
@@ -212,7 +212,7 @@ function Sidebar(props) {
                 <NumericInput
                   name="xp"
                   value={filters.xp}
-                  className="encounter__filter-input cards__button-card"
+                  styleName="encounter__filter-input cards__button-card"
                   onChange={e =>
                     setFilters(f => ({
                       ...f,
@@ -226,7 +226,7 @@ function Sidebar(props) {
                 <NumericInput
                   name="cr"
                   value={filters.cr}
-                  className="encounter__filter-input cards__button-card"
+                  styleName="encounter__filter-input cards__button-card"
                   onChange={e =>
                     setFilters(f => ({
                       ...f,

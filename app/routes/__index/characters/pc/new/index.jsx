@@ -216,7 +216,7 @@ function PcRace() {
                 id="age"
                 name="age"
                 value={age}
-                className="places__trait-input places__trait-input--number-3"
+                styleName="places__trait-input places__trait-input--number-3"
                 onChange={e => setAge(e.target.value)}
                 min={getMinAttr(race, subrace, 'age')}
                 max={getMaxAttr(race, subrace, 'age')}
@@ -247,7 +247,7 @@ function PcRace() {
                 id="height"
                 name="height"
                 value={height}
-                className="places__trait-input places__trait-input--number-3"
+                styleName="places__trait-input places__trait-input--number-3"
                 onChange={e => setHeight(e.target.value)}
                 min={getMinAttr(race, subrace, 'height')}
                 max={getMaxAttr(race, subrace, 'height')}
@@ -278,7 +278,7 @@ function PcRace() {
                 id="weight"
                 name="weight"
                 value={weight}
-                className="places__trait-input places__trait-input--number-3"
+                styleName="places__trait-input places__trait-input--number-3"
                 onChange={e => setWeight(e.target.value)}
                 min={getMinAttr(race, subrace, 'weight')}
                 max={getMaxAttr(race, subrace, 'weight')}

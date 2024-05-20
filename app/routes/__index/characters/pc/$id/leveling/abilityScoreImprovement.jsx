@@ -142,7 +142,7 @@ function AbilityScoreImprovement() {
                 name={statName}
                 value={extraStats[statName]}
                 readOnly
-                className="stats__statInput"
+                styleName="stats__statInput"
               />
               <button
                 type="button"

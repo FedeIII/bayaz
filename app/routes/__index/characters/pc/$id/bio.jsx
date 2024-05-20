@@ -248,7 +248,7 @@ function ItemModalContent(props) {
                 min="1"
                 value={amount}
                 onChange={onAmountChange}
-                className="inventory-item__amount-input"
+                styleName="inventory-item__amount-input"
               />
             </li>
           )}
@@ -266,7 +266,7 @@ function ItemModalContent(props) {
                 min="1"
                 value={amount}
                 onChange={onAmountChange}
-                className="inventory-item__amount-input"
+                styleName="inventory-item__amount-input"
               />
             </li>
           )}

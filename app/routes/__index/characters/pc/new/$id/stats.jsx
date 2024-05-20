@@ -202,7 +202,7 @@ function AssignedStat(props) {
             ref={stat.drop}
             name={stat.name}
             value={stat.value}
-            className={`characters__stat-input ${
+            styleName={`characters__stat-input ${
               stat.isOver && stat.canDrop
                 ? 'characters__stat-input--hover'
                 : stat.canDrop

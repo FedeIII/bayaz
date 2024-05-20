@@ -188,7 +188,7 @@ function NewItem() {
                 name="charges"
                 id="charges"
                 defaultValue="0"
-                className="item__input item__input--number-2"
+                styleName="item__input item__input--number-2"
               />
             </label>
           )}

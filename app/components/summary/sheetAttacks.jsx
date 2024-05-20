@@ -110,7 +110,7 @@ function WeaponModalContent(props) {
                 max={weapon.maxCharges}
                 value={charges}
                 onChange={e => setCharges(e.target.value)}
-                className="inventory-item__amount-input"
+                styleName="inventory-item__amount-input"
               />
             </li>
           )}

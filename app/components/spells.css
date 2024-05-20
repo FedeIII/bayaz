@@ -112,11 +112,6 @@
   align-items: center;
   font-size: var(--font-size-xbig);
   margin: 8px -12px 0 0px;
-  cursor: pointer;
-}
-
-.spells__spent-spaces:hover {
-  color: var(--color-x-blue-ink);
 }
 
 .spells__spent-spaces--disabled {
@@ -421,4 +416,12 @@
   border-color: var(--color-x-blue-ink);
   box-shadow: 0px 0px 4px var(--color-x-blue-ink);
   cursor: pointer;
+}
+
+.spells__spellslot-input {
+  color: var(--color-blue-ink);
+  border: none;
+  background-color: transparent;
+  width: 3vw;
+  font-size: var(--font-size-big);
 }

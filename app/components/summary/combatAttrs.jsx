@@ -126,7 +126,7 @@ function CombatAttrs(props) {
           name="hitPoints"
           onChange={changePcHitPoints}
           value={hitPointsState || 0}
-          className="sheet__temporary-hit-points-input"
+          styleName="sheet__temporary-hit-points-input"
         />
         {!!extraHitPoints && (
           <span className="sheet__data sheet__extra-hit-points">
@@ -139,7 +139,7 @@ function CombatAttrs(props) {
           name="temporaryHitPoints"
           onChange={onTemporaryHitPointsChange}
           defaultValue={temporaryHitPoints || ''}
-          className="sheet__temporary-hit-points-input"
+          styleName="sheet__temporary-hit-points-input"
         />
       </span>
 

@@ -89,7 +89,7 @@ function HitDiceActions(props) {
               min="0"
               value={amountOfDice}
               onChange={e => setAmountOfDice(e.target.value)}
-              className="inventory-item__modal-input inventory-item__modal-input-small"
+              styleName="inventory-item__modal-input inventory-item__modal-input-small"
             />{' '}
             <span>dado{amountOfDice !== 1 ? 's' : ''}:</span>
           </label>
@@ -120,7 +120,7 @@ function HitDiceActions(props) {
                 min="0"
                 value={realDie}
                 onChange={e => setRealDie(e.target.value)}
-                className="inventory-item__modal-input inventory-item__modal-input-small"
+                styleName="inventory-item__modal-input inventory-item__modal-input-small"
               />
             </div>
             <button

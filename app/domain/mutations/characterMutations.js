@@ -131,14 +131,14 @@ export async function longRest(id) {
   return pc;
 }
 
-export async function spendSpellSlot(id, spellSlotLevel) {
+export async function changeSpellSlot(id, spellSlotLevel, amount) {
   let pc = await getPc(id);
   const { magic } = pc;
   const spellSlots = getSpellSlots(pc);
-
-  if (magic.spentSpellSlots[spellSlotLevel] < spellSlots[spellSlotLevel]) {
+  
+  if (amount <= spellSlots[spellSlotLevel]) {
     const newSpentSpellSlots = magic.spentSpellSlots.slice();
-    newSpentSpellSlots[spellSlotLevel] += 1;
+    newSpentSpellSlots[spellSlotLevel] = amount;
     pc = await updatePc({
       id,
       magic: { ...magic, spentSpellSlots: newSpentSpellSlots },

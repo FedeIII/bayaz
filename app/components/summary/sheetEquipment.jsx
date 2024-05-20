@@ -118,7 +118,7 @@ function ItemModalContent(props) {
                 min="1"
                 value={amount}
                 onChange={e => setAmount(e.target.value)}
-                className="inventory-item__amount-input"
+                styleName="inventory-item__amount-input"
               />
             </li>
           )}
@@ -138,7 +138,7 @@ function ItemModalContent(props) {
                 max={item.maxCharges}
                 value={charges}
                 onChange={e => setCharges(e.target.value)}
-                className="inventory-item__amount-input"
+                styleName="inventory-item__amount-input"
               />
             </li>
           )}
@@ -498,7 +498,7 @@ function SheetEquipment(props) {
         <NumericInput
           defaultValue={money.cp}
           min="0"
-          className="sheet__coin-input"
+          styleName="sheet__coin-input"
           onChange={e => onMoneyChange('cp', e.target.value)}
         />
       </div>
@@ -506,7 +506,7 @@ function SheetEquipment(props) {
         <NumericInput
           defaultValue={money.sp}
           min="0"
-          className="sheet__coin-input"
+          styleName="sheet__coin-input"
           onChange={e => onMoneyChange('sp', e.target.value)}
         />
       </div>
@@ -514,7 +514,7 @@ function SheetEquipment(props) {
         <NumericInput
           defaultValue={money.ep}
           min="0"
-          className="sheet__coin-input"
+          styleName="sheet__coin-input"
           onChange={e => onMoneyChange('ep', e.target.value)}
         />
       </div>
@@ -522,7 +522,7 @@ function SheetEquipment(props) {
         <NumericInput
           defaultValue={money.gp}
           min="0"
-          className="sheet__coin-input"
+          styleName="sheet__coin-input"
           onChange={e => onMoneyChange('gp', e.target.value)}
         />
       </div>
@@ -530,7 +530,7 @@ function SheetEquipment(props) {
         <NumericInput
           defaultValue={money.pp}
           min="0"
-          className="sheet__coin-input"
+          styleName="sheet__coin-input"
           onChange={e => onMoneyChange('pp', e.target.value)}
         />
       </div>

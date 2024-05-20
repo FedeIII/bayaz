@@ -40,10 +40,14 @@ import {
   getLoreSpells,
   getMagicalSecretsSpells,
 } from '~/domain/classes/bard/bard';
-import { resetSpellSlots, spendSpellSlot } from '~/domain/mutations/characterMutations';
+import {
+  resetSpellSlots,
+  changeSpellSlot,
+} from '~/domain/mutations/characterMutations';
 import { isDm } from '~/domain/user';
 import { getSessionUser } from '~/services/session.server';
 import { translateSchool } from '~/domain/spells/spellTranslations';
+import NumericInput from '~/components/inputs/numeric';
 import { replaceAt } from '~/utils/insert';
 import classNames from 'classnames';
 
@@ -93,11 +97,12 @@ async function prepareSpellAction(formData) {
   return updatedPc;
 }
 
-async function useSpellSlotAction(formData) {
+async function changeSpellSlotAction(formData) {
   const id = formData.get('id');
   const spellSlotLevel = formData.get('spellSlotLevel');
+  const amount = formData.get('amount');
 
-  return await spendSpellSlot(id, spellSlotLevel);
+  return await changeSpellSlot(id, spellSlotLevel, amount);
 }
 
 async function resetSlotsAction(formData) {
@@ -115,8 +120,8 @@ export const action = async ({ request }) => {
   let updatedPc;
   if (action === 'prepareSpell') {
     updatedPc = await prepareSpellAction(formData);
-  } else if (action === 'useSpellSlot') {
-    updatedPc = await useSpellSlotAction(formData);
+  } else if (action === 'changeSpellSlot') {
+    updatedPc = await changeSpellSlotAction(formData);
   } else if (action === 'resetSlots') {
     updatedPc = await resetSlotsAction(formData);
   }
@@ -143,6 +148,10 @@ function PcSpells() {
 
   useEffect(() => {
     setIsUsingSpell(false);
+  }, [magic.spentSpellSlots]);
+
+  useEffect(() => {
+    setUsedSpellSlots(magic.spentSpellSlots);
   }, [magic.spentSpellSlots]);
 
   function onFormSubmit(e) {
@@ -177,23 +186,25 @@ function PcSpells() {
     };
   }
 
-  function onSpentSpacesClick(level) {
-    if (usedSpellSlots[level] < spellSlots[level] && !isUsingSpell) {
-      setUsedSpellSlots(oldList =>
-        replaceAt(level, oldList, oldList[level] + 1)
-      );
+  function onUsedSpellsChange(level) {
+    return e => {
+      const amount = parseInt(e.target.value, 10);
+      if (amount <= spellSlots[level] && !isUsingSpell) {
+        setUsedSpellSlots(old => replaceAt(level, old, amount));
 
-      setIsUsingSpell(true);
-    }
+        setIsUsingSpell(true);
 
-    submit(
-      {
-        action: 'useSpellSlot',
-        id,
-        spellSlotLevel: level,
-      },
-      { method: 'post' }
-    );
+        submit(
+          {
+            action: 'changeSpellSlot',
+            id,
+            spellSlotLevel: level,
+            amount,
+          },
+          { method: 'post' }
+        );
+      }
+    };
   }
 
   function onResetSlotsClick(level) {
@@ -312,9 +323,14 @@ function PcSpells() {
                     'spells__spent-spaces--disabled': isUsingSpell,
                   }
                 )}
-                onClick={() => onSpentSpacesClick(level)}
               >
-                {usedSpellSlots[level] || 0}
+                <NumericInput
+                  value={usedSpellSlots[level] || 0}
+                  min="0"
+                  max={spellSlots[level]}
+                  onChange={onUsedSpellsChange(level)}
+                  styleName="spells__spellslot-input"
+                />
                 {hasToPrepareSpells(pc) && (
                   <>
                     {' '}
