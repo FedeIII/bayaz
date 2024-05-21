@@ -230,7 +230,7 @@ export function getRangerConclaveTraits(pc) {
   const rangerConclave = getRangerConclave(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.ranger.leveling).reduce(
+    Object.entries(CLASSES().ranger.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

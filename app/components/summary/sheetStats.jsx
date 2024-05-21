@@ -15,7 +15,7 @@ function SheetStats(props) {
 
   return (
     <>
-      {STATS.map(statName => (
+      {STATS().map(statName => (
         <Fragment key={statName}>
           <span className={`sheet__data sheet__${statName}`}>
             {getStat(pc, statName)}
@@ -28,7 +28,7 @@ function SheetStats(props) {
       <span className="sheet__data sheet__proficiency-bonus">
         {increment(getProficiencyBonus(level))}
       </span>
-      {STATS.map(statName => (
+      {STATS().map(statName => (
         <Fragment key={statName}>
           {isProficientStat(statName, pClass) && (
             <span className={`sheet__data sheet__${statName}Prof`}>◍</span>

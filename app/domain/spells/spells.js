@@ -314,7 +314,7 @@ export function getSpellcastingAbility(pc, spellType) {
   const casterType = spellType || pClass;
 
   return (
-    CLASSES[casterType].spellcastingAbility ||
+    CLASSES()[casterType].spellcastingAbility ||
     RACES[race][subrace].spellcastingAbility ||
     '-'
   );

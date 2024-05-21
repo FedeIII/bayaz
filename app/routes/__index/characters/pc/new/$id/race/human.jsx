@@ -50,7 +50,7 @@ function PcHumanSkills() {
               Selecciona un idioma extra
             </span>
             <div className="characters__traits">
-              {LANGUAGES.filter(
+              {LANGUAGES().filter(
                 l => !RACES.human.subrace.languages.includes(l)
               ).map(language => (
                 <label

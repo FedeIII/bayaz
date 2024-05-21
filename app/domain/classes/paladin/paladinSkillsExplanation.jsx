@@ -11,27 +11,34 @@ import {
 import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
 import NumericInput from '~/components/inputs/numeric';
+import SpendTrait, { createActions } from '~/components/spendTrait';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
+export const getTraitActions = {
+  ...createActions('paladin', 'divineSense'),
+};
+
 export const PALADIN_SKILLS_EXPLANATION = {
   divineSense: (skill, pc, submit, closeModal) => {
-    function onDivineSenseClick(e) {
-      submit(
-        {
-          action: 'spendDivineSense',
-          id: pc.id,
-        },
-        { method: 'post' }
-      );
-      closeModal();
-    }
+    return (
+      <>
+        {PALADIN_SKILLS_EXPLANATION.divineSense_text(skill, pc)}
 
-    const divineSense = getDivineSense(pc);
+        <SpendTrait
+          pc={pc}
+          traitName="divineSense"
+          submit={submit}
+          traitGetter={getDivineSense}
+        />
+      </>
+    );
+  },
 
+  divineSense_text: (skill, pc) => {
     return (
       <>
         <p>
@@ -54,15 +61,6 @@ export const PALADIN_SKILLS_EXPLANATION = {
           Cuando finalices un descanso prolongado recuperas todos los usos
           gastados.
         </p>
-
-        <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
-          <span>Usos restantes: {divineSense}</span>
-          {divineSense > 0 && (
-            <button type="button" onClick={onDivineSenseClick}>
-              Gastar
-            </button>
-          )}
-        </div>
       </>
     );
   },
@@ -83,40 +81,9 @@ export const PALADIN_SKILLS_EXPLANATION = {
       closeModal();
     }
 
-    return PALADIN_SKILLS_EXPLANATION.layOnHands_text(
-      pc.level,
-      layOnHands,
-      setValue,
-      onLayOnHandsChange
-    );
-  },
-
-  layOnHands_text: (level, layOnHands, setValue, onLayOnHandsChange) => {
     return (
       <>
-        <p>
-          Tu toque bendito puede curar heridas. Tienes una reserva de poder
-          curativo que se regenera cuando haces un descanso prolongado. Con esa
-          reserva puedes restaurar un número total de {level * 5} HP igual a tu
-          nivel de paladín ({level}) x 5.
-        </p>
-        <p>
-          Como una acción, puedes tocar a una criatura y utilizar poder de tu
-          reserva de curación para restaurar un número de Puntos de Golpe a esa
-          criatura igual hasta, como máximo, el máximo que tengas en tu reserva.
-        </p>
-        <p>
-          De forma alternativa, puedes{' '}
-          <u>gastar 5 puntos de tu reserva de curación</u>
-          para sanar al objetivo de una enfermedad o neutralizar un veneno que
-          le esté afectando. Puedes curar varias enfermedades y neutralizar
-          diferentes venenos con un solo uso de Imposición de manos, gastando
-          puntos de tu reserva de curación por separado para cada uno de ellos.
-        </p>
-        <p>
-          Esta característica no tiene efecto en los muertos vivientes y los
-          constructos.
-        </p>
+        {PALADIN_SKILLS_EXPLANATION.layOnHands_text(skill, pc)}
 
         {!!(setValue && onLayOnHandsChange) && (
           <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
@@ -138,6 +105,36 @@ export const PALADIN_SKILLS_EXPLANATION = {
             </div>
           </div>
         )}
+      </>
+    );
+  },
+
+  layOnHands_text: (skill, pc) => {
+    return (
+      <>
+        <p>
+          Tu toque bendito puede curar heridas. Tienes una reserva de poder
+          curativo que se regenera cuando haces un descanso prolongado. Con esa
+          reserva puedes restaurar un número total de {pc.level * 5} HP igual a
+          tu nivel de paladín ({pc.level}) x 5.
+        </p>
+        <p>
+          Como una acción, puedes tocar a una criatura y utilizar poder de tu
+          reserva de curación para restaurar un número de Puntos de Golpe a esa
+          criatura igual hasta, como máximo, el máximo que tengas en tu reserva.
+        </p>
+        <p>
+          De forma alternativa, puedes{' '}
+          <u>gastar 5 puntos de tu reserva de curación</u>
+          para sanar al objetivo de una enfermedad o neutralizar un veneno que
+          le esté afectando. Puedes curar varias enfermedades y neutralizar
+          diferentes venenos con un solo uso de Imposición de manos, gastando
+          puntos de tu reserva de curación por separado para cada uno de ellos.
+        </p>
+        <p>
+          Esta característica no tiene efecto en los muertos vivientes y los
+          constructos.
+        </p>
       </>
     );
   },

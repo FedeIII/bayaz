@@ -112,7 +112,7 @@ export function getClericDomainTraits(pc) {
   const divineDomain = getDivineDomain(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.cleric.leveling).reduce(
+    Object.entries(CLASSES().cleric.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

@@ -49,7 +49,7 @@ export const SKILLS_EXPLANATION = {
   abilityScoreImprovement: (skill, pc) => {
     const {
       statImprove: [firstLevel, ...restLevels],
-    } = CLASSES[pc.pClass];
+    } = CLASSES()[pc.pClass];
     return (
       <>
         <p>

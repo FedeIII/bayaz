@@ -6,7 +6,6 @@ import {
   SKILLS,
   LANGUAGES,
   EXOTIC_LANGUAGES,
-  CLASSES,
   getLevelByXp,
   getMaxHitPoints,
   CHARACTER_CLASSES,
@@ -68,7 +67,7 @@ import { ROGISH_ARCHETYPES } from '~/domain/classes/rogue/rogue';
 
 const backgroundSchema = new mongoose.Schema({
   name: { type: String, enum: Object.keys(BACKGROUNDS) },
-  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
   guild: { type: String, enum: ARTISAN_GUILDS },
   routines: [{ type: String, enum: ENTERTAINER_ROUTINES }],
   favoriteScheme: { type: String, enum: CHARLATAN_FAVORITE_SCHEMES },
@@ -79,7 +78,7 @@ const backgroundSchema = new mongoose.Schema({
 });
 
 const statsSchema = new mongoose.Schema({
-  ...STATS.reduce(
+  ...STATS().reduce(
     (stats, statName) => ({
       ...stats,
       [statName]: Number,
@@ -95,7 +94,7 @@ const itemSchema = new mongoose.Schema({
 
 const spellSchema = new mongoose.Schema({
   name: String,
-  type: { type: String, enum: Object.keys(CLASSES) },
+  type: { type: String, enum: CHARACTER_CLASSES() },
   subtype: String,
 });
 
@@ -137,9 +136,10 @@ const bardSchema = new mongoose.Schema({
     type: String,
     enum: ['lore', 'valor'],
   },
-  loreCollegeProficiencies: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  loreCollegeProficiencies: [{ type: String, enum: SKILLS().map(s => s.name) }],
   loreSpells: [forgettableSpellSchema],
   magicalSecretsSpells: [forgettableSpellSchema],
+  bardicInspiration: Number,
 });
 
 const warlockSchema = new mongoose.Schema({
@@ -242,15 +242,15 @@ const classAttrsSchema = new mongoose.Schema({
   rogue: rogueSchema,
   // ALL
   expertSkills: [
-    { type: String, enum: [...SKILLS.map(s => s.name), 'thieves-tools'] },
+    { type: String, enum: [...SKILLS().map(s => s.name), 'thieves-tools'] },
   ],
-  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
   seen: [String],
 });
 
 const halfElfSchema = new mongoose.Schema({
   extraStats: statsSchema,
-  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
 });
 
 const freeTextSchema = new mongoose.Schema({
@@ -310,7 +310,7 @@ const pcSchema = new mongoose.Schema({
   },
   pClass: {
     type: String,
-    enum: CHARACTER_CLASSES,
+    enum: CHARACTER_CLASSES(),
   },
   level: Number,
   levelReady: Number,
@@ -325,7 +325,7 @@ const pcSchema = new mongoose.Schema({
   improvedStatsLevels: [Number],
 
   // SKILLS
-  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
 
   // COMBAT ATTRS
   initiative: Number,
@@ -375,7 +375,7 @@ const pcSchema = new mongoose.Schema({
 
   // PROFICIENCIES & LANGUAGES
   proficientItems: [itemSchema],
-  languages: [{ type: String, enum: [...LANGUAGES, ...EXOTIC_LANGUAGES] }],
+  languages: [{ type: String, enum: [...LANGUAGES(), ...EXOTIC_LANGUAGES()] }],
 
   // ADDITIONAL FEATURES
   age: Number,
@@ -1396,10 +1396,10 @@ export async function spendLayOnHands(id, hp) {
   return updatedPc;
 }
 
-export async function spendDivineSense(id) {
+export async function spendTrait(id, pClass, traitName) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
-    { $inc: { 'classAttrs.paladin.divineSense': -1 } },
+    { $inc: { [`classAttrs.${pClass}.${traitName}`]: -1 } },
     { new: true, upsert: true }
   ).exec();
 

@@ -52,7 +52,7 @@ function PcHalfElfSkills() {
   const isCreating = Boolean(transition.submission);
 
   const [checks, setChecks] = useState(
-    SKILLS.map(s => allSkills.includes(s.name))
+    SKILLS().map(s => allSkills.includes(s.name))
   );
   const [selectionCount, setSelectionCount] = useState(halfElfSkills.length);
 
@@ -86,7 +86,7 @@ function PcHalfElfSkills() {
               Selecciona un idioma extra
             </span>
             <div className="characters__traits">
-              {LANGUAGES.filter(
+              {LANGUAGES().filter(
                 l => !RACES['half-elf'].subrace.languages.includes(l)
               ).map(language => (
                 <label
@@ -112,7 +112,7 @@ function PcHalfElfSkills() {
               Selecciona dos habilidades en las que ser competente
             </span>
             <div className="characters__traits">
-              {SKILLS.map((skill, i) => (
+              {SKILLS().map((skill, i) => (
                 <label
                   htmlFor={skill.name}
                   key={skill.name}

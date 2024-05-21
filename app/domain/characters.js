@@ -7,7 +7,10 @@ import {
   getBardCollege,
   getLoreCollegeProficiencies,
 } from './classes/bard/bard';
-import { BARD_SKILLS_EXPLANATION } from './classes/bard/bardSkillsExplanation';
+import {
+  BARD_SKILLS_EXPLANATION,
+  getTraitActions as bardTraitActions,
+} from './classes/bard/bardSkillsExplanation';
 import {
   translateDivineDomain,
   getDivineDomain,
@@ -58,7 +61,10 @@ import {
   MONK_SKILLS_EXPLANATION,
   elementalDisciplineExplanation,
 } from './classes/monk/monkSkillsExplanation';
-import { PALADIN_SKILLS_EXPLANATION } from './classes/paladin/paladinSkillsExplanation';
+import {
+  PALADIN_SKILLS_EXPLANATION,
+  getTraitActions as paladinTraitActions,
+} from './classes/paladin/paladinSkillsExplanation';
 import {
   ELEMENTAL_DISCIPLINES,
   getExtraUnarmoredMovement,
@@ -381,1874 +387,1884 @@ export function getConditionalSkills(pc) {
   );
 }
 
-export const CLASSES = {
-  barbarian: {
-    initialHitPoints: 12,
-    hitDice: '1d12',
-    proficientStats: ['str', 'con'],
-    proficientItems: [
-      ...getAllLightArmors().map(armor => armor.name),
-      ...getAllMediumArmors().map(armor => armor.name),
-      'shield',
-      ...getAllWeapons().map(weapon => weapon.name),
-    ],
-    pickSkills: 2,
-    skillsToPick: [
-      'athletics',
-      'intimidation',
-      'nature',
-      'perception',
-      'survival',
-      'animal-handling',
-    ],
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      1: {
-        traits: {
-          rage: 'Furia',
-          unarmoredDefense: 'Defensa sin Armadura',
-        },
-      },
-      2: {
-        traits: {
-          recklessAttack: 'Ataque Temerario',
-          dangerSense: 'Sentido del Peligro',
-        },
-      },
-      3: {
-        traits: {
-          primalPath: 'Senda Primaria',
-        },
-        primalPath: {
-          berserker: {
-            traits: {
-              frenzy: 'Frenesí',
-            },
-          },
-          'totem-warrior': {
-            traits: {
-              spiritSeeker: 'Buscador Espiritual',
-              totemSpirit: 'Espíritu Tótem',
-            },
-          },
-        },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      5: {
-        traits: {
-          extraAttack: 'Ataque Extra',
-          fastMovement: 'Movimiento Rápido',
-        },
-      },
-      6: {
-        primalPath: {
-          berserker: {
-            traits: {
-              mindlessRage: 'Furia Inconsciente',
-            },
-          },
-          'totem-warrior': {
-            traits: {
-              aspectOfTheBeast: 'Aspecto de la Bestia',
-            },
-          },
-        },
-      },
-      7: {
-        traits: {
-          feralInstinct: 'Instinto Salvaje',
-        },
-      },
-      9: {
-        traits: {
-          brutalCritical: 'Crítico Brutal',
-        },
-      },
-      10: {
-        primalPath: {
-          berserker: {
-            traits: {
-              intimidatingPresence: 'Presencia Intimidante',
-            },
-          },
-          'totem-warrior': {
-            traits: {
-              spiritWalker: 'Caminante Espiritual',
-            },
-          },
-        },
-      },
-      11: {
-        traits: {
-          relentlessRage: 'Furia Implacable',
-        },
-      },
-      14: {
-        primalPath: {
-          berserker: {
-            traits: {
-              retaliation: 'Represalia',
-            },
-          },
-          'totem-warrior': {
-            traits: {
-              totemicAttunement: 'Sintonía Totémica',
-            },
-          },
-        },
-      },
-      15: {
-        traits: {
-          persistentRage: 'Furia Persistente',
-        },
-      },
-      18: {
-        traits: {
-          indomitableMight: 'Furia Indómita',
-        },
-      },
-      20: {
-        traits: {
-          primalChampion: 'Campeón Primario',
-        },
-      },
-    },
-  },
-  bard: {
-    initialHitPoints: 8,
-    hitDice: '1d8',
-    proficientStats: ['dex', 'cha'],
-    pickSkills: 3,
-    skillsToPick: [
-      'athletics',
-      'acrobatics',
-      'sleight-of-hand',
-      'stealth',
-      'arcana',
-      'history',
-      'investigation',
-      'nature',
-      'religion',
-      'animal-handling',
-      'insight',
-      'medicine',
-      'perception',
-      'survival',
-      'deception',
-      'intimidation',
-      'performance',
-      'persuasion',
-    ],
-    proficientItems: [
-      ...getAllLightArmors().map(armor => armor.name),
-      ...getAllSimpleMelee().map(weapon => weapon.name),
-      ...getAllSimpleRanged().map(weapon => weapon.name),
-      'handCrossbow',
-      'longsword',
-      'rapier',
-      'shortsword',
-    ],
-    spellcastingAbility: 'cha',
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      1: {
-        traits: {
-          bardicInspiration: 'Inspiración de Bardo',
-        },
-      },
-      2: {
-        traits: {
-          jackOfAllTrades: 'Polivalente',
-          songOfRest: 'Canción de Descanso',
-        },
-      },
-      3: {
-        traits: {
-          bardCollege: 'Colegio de Bardo',
-          expertise: 'Experto',
-        },
-        bardCollege: {
-          lore: {
-            traits: {
-              loreBonusProficiencies: 'Competencias Adicionales',
-              cuttingWords: 'Palabras Hirientes',
-            },
-          },
-          valor: {
-            traits: {
-              valorBonusProficiencies: 'Competencias Adicionales',
-              combatInspiration: 'Inspiración de Combate',
-            },
-          },
-        },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      5: {
-        traits: {
-          fontOfInspiration: 'Fuente de inspiración',
-        },
-      },
-      6: {
-        traits: {
-          countercharm: 'Contraoda',
-        },
-        bardCollege: {
-          lore: {
-            traits: {
-              additionalMagicalSecrets: 'Secretos Mágicos Adicionales',
-            },
-          },
-          valor: {
-            traits: {
-              extraAttack: 'Ataque Adicional',
-            },
-          },
-        },
-      },
-      10: {
-        traits: {
-          magicalSecrets: 'Secretos Mágicos',
-        },
-      },
-      14: {
-        traits: {
-          magicalSecrets: 'Secretos Mágicos',
-        },
-        bardCollege: {
-          lore: {
-            traits: {
-              peerlessSkill: 'Habilidad Incomparable',
-            },
-          },
-          valor: {
-            traits: {
-              battleMagic: 'Magia de Batalla',
-            },
-          },
-        },
-      },
-      18: {
-        traits: {
-          magicalSecrets: 'Secretos Mágicos',
-        },
-      },
-      20: {
-        traits: {
-          superiorInspiration: 'Inspiración Superior',
-        },
-      },
-    },
-  },
-  cleric: {
-    initialHitPoints: 8,
-    hitDice: '1d8',
-    proficientStats: ['wis', 'cha'],
-    pickSkills: 2,
-    skillsToPick: ['insight', 'history', 'medicine', 'persuasion', 'religion'],
-    proficientItems: [
-      ...getAllLightArmors().map(armor => armor.name),
-      ...getAllMediumArmors().map(armor => armor.name),
-      'shield',
-      ...getAllSimpleMelee().map(weapon => weapon.name),
-      ...getAllSimpleRanged().map(weapon => weapon.name),
-    ],
-    spellcastingAbility: 'wis',
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      1: {
-        divineDomain: {
-          knowledge: {
-            traits: {
-              blessingsOfKnowledge: 'Bendiciones del Conocimiento',
-            },
-          },
-          war: {
-            traits: {
-              warPriest: 'Clérigo de Guerra',
-            },
-          },
-          light: {
-            traits: {
-              wardingFlare: 'Fulgor Protector',
-            },
-          },
-          tempest: {
-            traits: {
-              wrathOfTheStorm: 'Ira de la Tormenta',
-            },
-          },
-          trickery: {
-            traits: {
-              blessingOfTheTrickster: 'Bendición del Tramposo',
-            },
-          },
-          life: {
-            traits: {
-              discipleOfLife: 'Discípulo de la Vida',
-            },
-          },
-        },
-      },
-      2: {
-        traits: {
-          channelDivinity: 'Canalizar Divinidad',
-        },
-        channelDivinity: {
+export function CLASSES() {
+  return {
+    barbarian: {
+      initialHitPoints: 12,
+      hitDice: '1d12',
+      proficientStats: ['str', 'con'],
+      proficientItems: [
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllMediumArmors().map(armor => armor.name),
+        'shield',
+        ...getAllWeapons().map(weapon => weapon.name),
+      ],
+      pickSkills: 2,
+      skillsToPick: [
+        'athletics',
+        'intimidation',
+        'nature',
+        'perception',
+        'survival',
+        'animal-handling',
+      ],
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        1: {
           traits: {
-            turnUndead: 'Expulsar Muertos Vivientes',
+            rage: 'Furia',
+            unarmoredDefense: 'Defensa sin Armadura',
           },
-          knowledge: {
-            traits: {
-              knowledgeOfTheAges: 'Conocimiento de las Edades',
+        },
+        2: {
+          traits: {
+            recklessAttack: 'Ataque Temerario',
+            dangerSense: 'Sentido del Peligro',
+          },
+        },
+        3: {
+          traits: {
+            primalPath: 'Senda Primaria',
+          },
+          primalPath: {
+            berserker: {
+              traits: {
+                frenzy: 'Frenesí',
+              },
+            },
+            'totem-warrior': {
+              traits: {
+                spiritSeeker: 'Buscador Espiritual',
+                totemSpirit: 'Espíritu Tótem',
+              },
             },
           },
-          war: {
-            traits: {
-              guidedStrike: 'Impacto Guiado',
+        },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        5: {
+          traits: {
+            extraAttack: 'Ataque Extra',
+            fastMovement: 'Movimiento Rápido',
+          },
+        },
+        6: {
+          primalPath: {
+            berserker: {
+              traits: {
+                mindlessRage: 'Furia Inconsciente',
+              },
+            },
+            'totem-warrior': {
+              traits: {
+                aspectOfTheBeast: 'Aspecto de la Bestia',
+              },
             },
           },
-          light: {
-            traits: {
-              radianceOfTheDawn: 'Resplandor del Alba',
+        },
+        7: {
+          traits: {
+            feralInstinct: 'Instinto Salvaje',
+          },
+        },
+        9: {
+          traits: {
+            brutalCritical: 'Crítico Brutal',
+          },
+        },
+        10: {
+          primalPath: {
+            berserker: {
+              traits: {
+                intimidatingPresence: 'Presencia Intimidante',
+              },
+            },
+            'totem-warrior': {
+              traits: {
+                spiritWalker: 'Caminante Espiritual',
+              },
             },
           },
-          nature: {
-            traits: {
-              charmAnimalsAndPlants: 'Hechizar Animales y Plantas',
+        },
+        11: {
+          traits: {
+            relentlessRage: 'Furia Implacable',
+          },
+        },
+        14: {
+          primalPath: {
+            berserker: {
+              traits: {
+                retaliation: 'Represalia',
+              },
+            },
+            'totem-warrior': {
+              traits: {
+                totemicAttunement: 'Sintonía Totémica',
+              },
             },
           },
-          tempest: {
-            traits: {
-              destructiveWrath: 'Ira Destructiva',
-            },
+        },
+        15: {
+          traits: {
+            persistentRage: 'Furia Persistente',
           },
-          trickery: {
-            traits: {
-              invokeDuplicity: 'Invocar Duplicidad',
-            },
+        },
+        18: {
+          traits: {
+            indomitableMight: 'Furia Indómita',
           },
-          life: {
-            traits: {
-              preserveLife: 'Preservar Vida',
-            },
+        },
+        20: {
+          traits: {
+            primalChampion: 'Campeón Primario',
           },
         },
       },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+    },
+    bard: {
+      initialHitPoints: 8,
+      hitDice: '1d8',
+      proficientStats: ['dex', 'cha'],
+      pickSkills: 3,
+      skillsToPick: [
+        'athletics',
+        'acrobatics',
+        'sleight-of-hand',
+        'stealth',
+        'arcana',
+        'history',
+        'investigation',
+        'nature',
+        'religion',
+        'animal-handling',
+        'insight',
+        'medicine',
+        'perception',
+        'survival',
+        'deception',
+        'intimidation',
+        'performance',
+        'persuasion',
+      ],
+      proficientItems: [
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllSimpleMelee().map(weapon => weapon.name),
+        ...getAllSimpleRanged().map(weapon => weapon.name),
+        'handCrossbow',
+        'longsword',
+        'rapier',
+        'shortsword',
+      ],
+      spellcastingAbility: 'cha',
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        1: {
+          traits: {
+            bardicInspiration: 'Inspiración de Bardo',
+          },
+        },
+        2: {
+          traits: {
+            jackOfAllTrades: 'Polivalente',
+            songOfRest: 'Canción de Descanso',
+          },
+        },
+        3: {
+          traits: {
+            bardCollege: 'Colegio de Bardo',
+            expertise: 'Experto',
+          },
+          bardCollege: {
+            lore: {
+              traits: {
+                loreBonusProficiencies: 'Competencias Adicionales',
+                cuttingWords: 'Palabras Hirientes',
+              },
+            },
+            valor: {
+              traits: {
+                valorBonusProficiencies: 'Competencias Adicionales',
+                combatInspiration: 'Inspiración de Combate',
+              },
+            },
+          },
+        },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        5: {
+          traits: {
+            fontOfInspiration: 'Fuente de inspiración',
+          },
+        },
+        6: {
+          traits: {
+            countercharm: 'Contraoda',
+          },
+          bardCollege: {
+            lore: {
+              traits: {
+                additionalMagicalSecrets: 'Secretos Mágicos Adicionales',
+              },
+            },
+            valor: {
+              traits: {
+                extraAttack: 'Ataque Adicional',
+              },
+            },
+          },
+        },
+        10: {
+          traits: {
+            magicalSecrets: 'Secretos Mágicos',
+          },
+        },
+        14: {
+          traits: {
+            magicalSecrets: 'Secretos Mágicos',
+          },
+          bardCollege: {
+            lore: {
+              traits: {
+                peerlessSkill: 'Habilidad Incomparable',
+              },
+            },
+            valor: {
+              traits: {
+                battleMagic: 'Magia de Batalla',
+              },
+            },
+          },
+        },
+        18: {
+          traits: {
+            magicalSecrets: 'Secretos Mágicos',
+          },
+        },
+        20: {
+          traits: {
+            superiorInspiration: 'Inspiración Superior',
+          },
         },
       },
-      6: {
-        divineDomain: {
-          nature: {
-            traits: {
-              dampenElements: 'Amortiguar Elementos',
+    },
+    cleric: {
+      initialHitPoints: 8,
+      hitDice: '1d8',
+      proficientStats: ['wis', 'cha'],
+      pickSkills: 2,
+      skillsToPick: [
+        'insight',
+        'history',
+        'medicine',
+        'persuasion',
+        'religion',
+      ],
+      proficientItems: [
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllMediumArmors().map(armor => armor.name),
+        'shield',
+        ...getAllSimpleMelee().map(weapon => weapon.name),
+        ...getAllSimpleRanged().map(weapon => weapon.name),
+      ],
+      spellcastingAbility: 'wis',
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        1: {
+          divineDomain: {
+            knowledge: {
+              traits: {
+                blessingsOfKnowledge: 'Bendiciones del Conocimiento',
+              },
             },
-          },
-          tempest: {
-            traits: {
-              thunderousStrike: 'Golpe de Rayo',
+            war: {
+              traits: {
+                warPriest: 'Clérigo de Guerra',
+              },
             },
-          },
-          life: {
-            traits: {
-              blessedHealer: 'Sanador Bendecido',
+            light: {
+              traits: {
+                wardingFlare: 'Fulgor Protector',
+              },
             },
-          },
-        },
-        channelDivinity: {
-          knowledge: {
-            traits: {
-              readThoughts: 'Leer Pensamientos',
+            tempest: {
+              traits: {
+                wrathOfTheStorm: 'Ira de la Tormenta',
+              },
             },
-          },
-          war: {
-            traits: {
-              warGodsBlessing: 'Bendición del Dios de la Guerra',
+            trickery: {
+              traits: {
+                blessingOfTheTrickster: 'Bendición del Tramposo',
+              },
             },
-          },
-          trickery: {
-            traits: {
-              cloakOfShadows: 'Capa de Sombras',
-            },
-          },
-        },
-      },
-      8: {
-        divineDomain: {
-          knowledge: {
-            traits: {
-              potentSpellcasting: 'Lanzamiento de Conjuros Potente',
-            },
-          },
-          war: {
-            traits: {
-              divineStrike: 'Golpe Divino',
-            },
-          },
-          light: {
-            traits: {
-              potentSpellcasting: 'Lanzamiento de Conjuros Potente',
-            },
-          },
-          nature: {
-            traits: {
-              divineStrike: 'Golpe Divino',
-            },
-          },
-          tempest: {
-            traits: {
-              divineStrike: 'Golpe Divino',
-            },
-          },
-          trickery: {
-            traits: {
-              divineStrike: 'Golpe Divino',
-            },
-          },
-          life: {
-            traits: {
-              divineStrike: 'Golpe Divino',
+            life: {
+              traits: {
+                discipleOfLife: 'Discípulo de la Vida',
+              },
             },
           },
         },
-      },
-      10: {
-        traits: {
-          divineIntervention: 'Intervención Divina',
+        2: {
+          traits: {
+            channelDivinity: 'Canalizar Divinidad',
+          },
+          channelDivinity: {
+            traits: {
+              turnUndead: 'Expulsar Muertos Vivientes',
+            },
+            knowledge: {
+              traits: {
+                knowledgeOfTheAges: 'Conocimiento de las Edades',
+              },
+            },
+            war: {
+              traits: {
+                guidedStrike: 'Impacto Guiado',
+              },
+            },
+            light: {
+              traits: {
+                radianceOfTheDawn: 'Resplandor del Alba',
+              },
+            },
+            nature: {
+              traits: {
+                charmAnimalsAndPlants: 'Hechizar Animales y Plantas',
+              },
+            },
+            tempest: {
+              traits: {
+                destructiveWrath: 'Ira Destructiva',
+              },
+            },
+            trickery: {
+              traits: {
+                invokeDuplicity: 'Invocar Duplicidad',
+              },
+            },
+            life: {
+              traits: {
+                preserveLife: 'Preservar Vida',
+              },
+            },
+          },
         },
-      },
-      17: {
-        divineDomain: {
-          knowledge: {
-            traits: {
-              visionsOfThePast: 'Visiones del Pasado',
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        6: {
+          divineDomain: {
+            nature: {
+              traits: {
+                dampenElements: 'Amortiguar Elementos',
+              },
+            },
+            tempest: {
+              traits: {
+                thunderousStrike: 'Golpe de Rayo',
+              },
+            },
+            life: {
+              traits: {
+                blessedHealer: 'Sanador Bendecido',
+              },
             },
           },
-          war: {
-            traits: {
-              avatarOfBattle: 'Avatar de Batalla',
+          channelDivinity: {
+            knowledge: {
+              traits: {
+                readThoughts: 'Leer Pensamientos',
+              },
+            },
+            war: {
+              traits: {
+                warGodsBlessing: 'Bendición del Dios de la Guerra',
+              },
+            },
+            trickery: {
+              traits: {
+                cloakOfShadows: 'Capa de Sombras',
+              },
             },
           },
-          light: {
-            traits: {
-              coronaOfLight: 'Corona de Luz',
+        },
+        8: {
+          divineDomain: {
+            knowledge: {
+              traits: {
+                potentSpellcasting: 'Lanzamiento de Conjuros Potente',
+              },
+            },
+            war: {
+              traits: {
+                divineStrike: 'Golpe Divino',
+              },
+            },
+            light: {
+              traits: {
+                potentSpellcasting: 'Lanzamiento de Conjuros Potente',
+              },
+            },
+            nature: {
+              traits: {
+                divineStrike: 'Golpe Divino',
+              },
+            },
+            tempest: {
+              traits: {
+                divineStrike: 'Golpe Divino',
+              },
+            },
+            trickery: {
+              traits: {
+                divineStrike: 'Golpe Divino',
+              },
+            },
+            life: {
+              traits: {
+                divineStrike: 'Golpe Divino',
+              },
             },
           },
-          nature: {
-            traits: {
-              masterOfNature: 'Maestro de la Naturaleza',
-            },
+        },
+        10: {
+          traits: {
+            divineIntervention: 'Intervención Divina',
           },
-          tempest: {
-            traits: {
-              stormborn: 'Hijo de la Tormenta',
+        },
+        17: {
+          divineDomain: {
+            knowledge: {
+              traits: {
+                visionsOfThePast: 'Visiones del Pasado',
+              },
             },
-          },
-          life: {
-            traits: {
-              supremeHealing: 'Sanación Suprema',
+            war: {
+              traits: {
+                avatarOfBattle: 'Avatar de Batalla',
+              },
+            },
+            light: {
+              traits: {
+                coronaOfLight: 'Corona de Luz',
+              },
+            },
+            nature: {
+              traits: {
+                masterOfNature: 'Maestro de la Naturaleza',
+              },
+            },
+            tempest: {
+              traits: {
+                stormborn: 'Hijo de la Tormenta',
+              },
+            },
+            life: {
+              traits: {
+                supremeHealing: 'Sanación Suprema',
+              },
             },
           },
         },
       },
     },
-  },
-  druid: {
-    initialHitPoints: 8,
-    hitDice: '1d8',
-    proficientStats: ['int', 'wis'],
-    pickSkills: 2,
-    skillsToPick: [
-      'arcana',
-      'insight',
-      'medicine',
-      'nature',
-      'perception',
-      'religion',
-      'survival',
-      'animal-handling',
-    ],
-    proficientItems: [
-      ...getAllLightArmors().map(armor => armor.name),
-      ...getAllMediumArmors().map(armor => armor.name),
-      'shield',
-      'quarterstaff',
-      'scimitar',
-      'club',
-      'dagger',
-      'dart',
-      'sickle',
-      'sling',
-      'spear',
-      'mace',
-      'herbalismKit',
-    ],
-    spellcastingAbility: 'wis',
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      2: {
-        traits: {
-          wildShape: 'Forma Salvaje',
-          druidCircle: 'Círculo Druídico',
-        },
-        druidCircle: {
-          land: {
-            traits: {
-              bonusCantrip: 'Truco Adicional',
-              naturalRecovery: 'Recuperación Natural',
-            },
+    druid: {
+      initialHitPoints: 8,
+      hitDice: '1d8',
+      proficientStats: ['int', 'wis'],
+      pickSkills: 2,
+      skillsToPick: [
+        'arcana',
+        'insight',
+        'medicine',
+        'nature',
+        'perception',
+        'religion',
+        'survival',
+        'animal-handling',
+      ],
+      proficientItems: [
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllMediumArmors().map(armor => armor.name),
+        'shield',
+        'quarterstaff',
+        'scimitar',
+        'club',
+        'dagger',
+        'dart',
+        'sickle',
+        'sling',
+        'spear',
+        'mace',
+        'herbalismKit',
+      ],
+      spellcastingAbility: 'wis',
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        2: {
+          traits: {
+            wildShape: 'Forma Salvaje',
+            druidCircle: 'Círculo Druídico',
           },
-          moon: {
-            traits: {
-              combatWildShape: 'Forma Salvaje de Combate',
-              circleForms: 'Formas del Círculo',
+          druidCircle: {
+            land: {
+              traits: {
+                bonusCantrip: 'Truco Adicional',
+                naturalRecovery: 'Recuperación Natural',
+              },
             },
-          },
-        },
-      },
-      3: {
-        druidCircle: {
-          land: {
-            traits: {
-              landCircle: 'Conjuros del Círculo',
+            moon: {
+              traits: {
+                combatWildShape: 'Forma Salvaje de Combate',
+                circleForms: 'Formas del Círculo',
+              },
             },
           },
         },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      6: {
-        druidCircle: {
-          land: {
-            traits: {
-              landsStride: 'Zancada Forestal',
-            },
-          },
-          moon: {
-            traits: {
-              primalStrike: 'Golpe Primitivo',
+        3: {
+          druidCircle: {
+            land: {
+              traits: {
+                landCircle: 'Conjuros del Círculo',
+              },
             },
           },
         },
-      },
-      10: {
-        druidCircle: {
-          land: {
-            traits: {
-              naturesWard: 'Protección de la Naturaleza',
-            },
-          },
-          moon: {
-            traits: {
-              elementalWildShape: 'Forma Salvaje Elemental',
-            },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
           },
         },
-      },
-      14: {
-        druidCircle: {
-          land: {
-            traits: {
-              naturesSanctuary: 'Santuario de la Naturaleza',
+        6: {
+          druidCircle: {
+            land: {
+              traits: {
+                landsStride: 'Zancada Forestal',
+              },
             },
-          },
-          moon: {
-            traits: {
-              thousandForms: 'Mil Formas',
+            moon: {
+              traits: {
+                primalStrike: 'Golpe Primitivo',
+              },
             },
           },
         },
-      },
-      18: {
-        traits: {
-          timelessBody: 'Cuerpo Eterno',
-          beastSpells: 'Conjuros Bestiales',
-        },
-      },
-      20: {
-        traits: {
-          archdruid: 'Archidruida',
-        },
-      },
-    },
-  },
-  fighter: {
-    initialHitPoints: 10,
-    hitDice: '1d10',
-    proficientStats: ['str', 'con'],
-    pickSkills: 2,
-    skillsToPick: [
-      'acrobatics',
-      'athletics',
-      'insight',
-      'history',
-      'intimidation',
-      'animal-handling',
-      'perception',
-      'survival',
-    ],
-    proficientItems: [
-      ...getAllLightArmors().map(armor => armor.name),
-      ...getAllMediumArmors().map(armor => armor.name),
-      ...getAllHeavyArmors().map(armor => armor.name),
-      'shield',
-      ...getAllSimpleMelee().map(weapon => weapon.name),
-      ...getAllSimpleRanged().map(weapon => weapon.name),
-      ...getAllMartialMelee().map(weapon => weapon.name),
-      ...getAllMartialRanged().map(weapon => weapon.name),
-    ],
-    spellcastingAbility: 'int',
-    statImprove: [4, 6, 8, 12, 14, 16, 19],
-    leveling: {
-      1: {
-        traits: {
-          secondWind: 'Nuevas Energías',
-          fightingStyle: 'Estilo de Combate',
-        },
-      },
-      2: {
-        traits: {
-          actionSurge: 'Oleada de Acción',
-        },
-      },
-      3: {
-        traits: {
-          martialArchetype: 'Arquetipo Marcial',
-        },
-        martialArchetype: {
-          eldritchKnight: {
-            traits: {
-              weaponBond: 'Ligadura de Arma',
-              knightSpell: 'Conjuros de Caballero Arcano',
+        10: {
+          druidCircle: {
+            land: {
+              traits: {
+                naturesWard: 'Protección de la Naturaleza',
+              },
             },
-          },
-          champion: {
-            traits: {
-              improvedCritical: 'Crítico Mejorado',
-            },
-          },
-          battleMaster: {
-            traits: {
-              combatSuperiority: 'Superioridad en Combate',
-              studentOfWar: 'Estudiante de Guerra',
+            moon: {
+              traits: {
+                elementalWildShape: 'Forma Salvaje Elemental',
+              },
             },
           },
         },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      5: {
-        traits: {
-          extraAttack: 'Ataque Extra',
-        },
-      },
-      7: {
-        martialArchetype: {
-          eldritchKnight: {
-            traits: {
-              warMagic: 'Magia de Guerra',
+        14: {
+          druidCircle: {
+            land: {
+              traits: {
+                naturesSanctuary: 'Santuario de la Naturaleza',
+              },
             },
-          },
-          champion: {
-            traits: {
-              remarkableAthlete: 'Atleta Destacado',
-            },
-          },
-          battleMaster: {
-            traits: {
-              knowYourEnemy: 'Conoce a tu Enemigo',
+            moon: {
+              traits: {
+                thousandForms: 'Mil Formas',
+              },
             },
           },
         },
-      },
-      9: {
-        traits: {
-          indomitable: 'Indomable',
-        },
-      },
-      10: {
-        martialArchetype: {
-          eldritchKnight: {
-            traits: {
-              eldritchStrike: 'Golpe Sobrenatural',
-            },
-          },
-          champion: {
-            traits: {
-              extraFightingStyle: 'Estilo de Combate Adicional',
-            },
+        18: {
+          traits: {
+            timelessBody: 'Cuerpo Eterno',
+            beastSpells: 'Conjuros Bestiales',
           },
         },
-      },
-      15: {
-        martialArchetype: {
-          eldritchKnight: {
-            traits: {
-              arcaneCharge: 'Carga Arcana',
-            },
-          },
-          battleMaster: {
-            traits: {
-              relentless: 'Implacable',
-            },
-          },
-        },
-      },
-      18: {
-        martialArchetype: {
-          champion: {
-            traits: {
-              survivor: 'Superviviente',
-            },
+        20: {
+          traits: {
+            archdruid: 'Archidruida',
           },
         },
       },
     },
-  },
-  monk: {
-    initialHitPoints: 8,
-    hitDice: '1d8',
-    proficientStats: ['str', 'dex'],
-    pickSkills: 2,
-    skillsToPick: [
-      'acrobatics',
-      'athletics',
-      'insight',
-      'history',
-      'religion',
-      'stealth',
-    ],
-    proficientItems: [
-      ...getAllSimpleMelee().map(weapon => weapon.name),
-      ...getAllSimpleRanged().map(weapon => weapon.name),
-      'shortsword',
-    ],
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      1: {
-        traits: {
-          unarmoredDefense: 'Defensa sin Armadura',
-          martialArts: 'Artes Marciales',
-        },
-      },
-      2: {
-        traits: {
-          ki: 'Ki',
-          flurryOfBlows: 'Ráfaga de Golpes',
-          patientDefense: 'Defensa Paciente',
-          stepOfTheWind: 'Andar del Viento',
-          unarmoredMovement: 'Movimiento sin Armadura',
-        },
-      },
-      3: {
-        traits: {
-          monasticTradition: 'Tradición Monástica',
-          deflectMissiles: 'Desviar Proyectiles',
-        },
-        monasticTradition: {
-          wayOfTheFourElements: {
-            traits: {
-              discipleOftheElements: 'Discípulo de los Elementos',
-            },
-          },
-          openHand: {
-            traits: {
-              openHandTechnique: 'Técnica de la Mano Abierta',
-            },
-          },
-          wayOfShadow: {
-            traits: {
-              shadowArts: 'Artes Sombrías',
-            },
+    fighter: {
+      initialHitPoints: 10,
+      hitDice: '1d10',
+      proficientStats: ['str', 'con'],
+      pickSkills: 2,
+      skillsToPick: [
+        'acrobatics',
+        'athletics',
+        'insight',
+        'history',
+        'intimidation',
+        'animal-handling',
+        'perception',
+        'survival',
+      ],
+      proficientItems: [
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllMediumArmors().map(armor => armor.name),
+        ...getAllHeavyArmors().map(armor => armor.name),
+        'shield',
+        ...getAllSimpleMelee().map(weapon => weapon.name),
+        ...getAllSimpleRanged().map(weapon => weapon.name),
+        ...getAllMartialMelee().map(weapon => weapon.name),
+        ...getAllMartialRanged().map(weapon => weapon.name),
+      ],
+      spellcastingAbility: 'int',
+      statImprove: [4, 6, 8, 12, 14, 16, 19],
+      leveling: {
+        1: {
+          traits: {
+            secondWind: 'Nuevas Energías',
+            fightingStyle: 'Estilo de Combate',
           },
         },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-          slowFall: 'Caída Lenta',
-        },
-      },
-      5: {
-        traits: {
-          extraAttack: 'Ataque Extra',
-          stunningStrike: 'Golpe Aturdidor',
-        },
-      },
-      6: {
-        traits: {
-          kiEmpoweredStrikes: 'Golpes Potenciados con Ki',
-        },
-        monasticTradition: {
-          openHand: {
-            traits: {
-              wholenessOfBody: 'Integridad del Cuerpo',
-            },
+        2: {
+          traits: {
+            actionSurge: 'Oleada de Acción',
           },
-          wayOfShadow: {
-            traits: {
-              shadowStep: 'Paso Sombrío',
+        },
+        3: {
+          traits: {
+            martialArchetype: 'Arquetipo Marcial',
+          },
+          martialArchetype: {
+            eldritchKnight: {
+              traits: {
+                weaponBond: 'Ligadura de Arma',
+                knightSpell: 'Conjuros de Caballero Arcano',
+              },
+            },
+            champion: {
+              traits: {
+                improvedCritical: 'Crítico Mejorado',
+              },
+            },
+            battleMaster: {
+              traits: {
+                combatSuperiority: 'Superioridad en Combate',
+                studentOfWar: 'Estudiante de Guerra',
+              },
             },
           },
         },
-      },
-      7: {
-        traits: {
-          evasion: 'Evasión',
-          stillnessOfMind: 'Quietud de la Mente',
-        },
-      },
-      8: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      10: {
-        traits: {
-          purityOfBody: 'Pureza del Cuerpo',
-        },
-      },
-      11: {
-        monasticTradition: {
-          openHand: {
-            traits: {
-              tranquility: 'Tranquilidad',
-            },
-          },
-          wayOfShadow: {
-            traits: {
-              cloakOfShadows: 'Capa de Sombras',
-            },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
           },
         },
-      },
-      12: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      13: {
-        traits: {
-          tongueOfTheSunAndMoon: 'Lengua del Sol y la Luna',
-        },
-      },
-      14: {
-        traits: {
-          diamondSoul: 'Alma Diamantina',
-        },
-      },
-      15: {
-        traits: {
-          timelessBody: 'Cuerpo Imperecedero',
-        },
-      },
-      16: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      17: {
-        monasticTradition: {
-          openHand: {
-            traits: {
-              quiveringPalm: 'Palma Temblorosa',
-            },
+        5: {
+          traits: {
+            extraAttack: 'Ataque Extra',
           },
-          wayOfShadow: {
-            traits: {
-              opportunist: 'Oportunista',
+        },
+        7: {
+          martialArchetype: {
+            eldritchKnight: {
+              traits: {
+                warMagic: 'Magia de Guerra',
+              },
+            },
+            champion: {
+              traits: {
+                remarkableAthlete: 'Atleta Destacado',
+              },
+            },
+            battleMaster: {
+              traits: {
+                knowYourEnemy: 'Conoce a tu Enemigo',
+              },
             },
           },
         },
-      },
-      18: {
-        traits: {
-          emptyBody: 'Cuerpo Vacío',
-        },
-      },
-      19: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      20: {
-        traits: {
-          perfectSelf: 'Perfección de Uno Mismo',
-        },
-      },
-    },
-  },
-  paladin: {
-    initialHitPoints: 10,
-    hitDice: '1d10',
-    proficientStats: ['str', 'cha'],
-    pickSkills: 2,
-    skillsToPick: [
-      'athletics',
-      'insight',
-      'intimidation',
-      'medicine',
-      'persuasion',
-      'religion',
-    ],
-    proficientItems: [
-      ...getAllLightArmors().map(armor => armor.name),
-      ...getAllMediumArmors().map(armor => armor.name),
-      ...getAllHeavyArmors().map(armor => armor.name),
-      'shield',
-      ...getAllSimpleMelee().map(weapon => weapon.name),
-      ...getAllSimpleRanged().map(weapon => weapon.name),
-      ...getAllMartialMelee().map(weapon => weapon.name),
-      ...getAllMartialRanged().map(weapon => weapon.name),
-    ],
-    spellcastingAbility: 'cha',
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      1: {
-        traits: {
-          divineSense: 'Sentido Divino',
-          layOnHands: 'Imposición de Manos',
-        },
-      },
-      2: {
-        traits: {
-          paladinFightingStyle: 'Estilo de Combate',
-          divineSmite: 'Castigo Divino',
-        },
-      },
-      3: {
-        traits: {
-          divineHealth: 'Salud Divina',
-          channelDivinity: 'Canalizar Divinidad',
-          sacredOath: 'Juramento Sagrado',
-        },
-        channelDivinity: {
-          Devotion: {
-            traits: {
-              sacredWeapon: 'Arma Sagrada',
-              turnTheUnholy: 'Expulsar al Profano',
-            },
+        9: {
+          traits: {
+            indomitable: 'Indomable',
           },
-          Ancients: {
-            traits: {
-              naturesWrath: 'Ira de la Naturaleza',
-              turnTheFaithless: 'Expulsar a los Infieles',
+        },
+        10: {
+          martialArchetype: {
+            eldritchKnight: {
+              traits: {
+                eldritchStrike: 'Golpe Sobrenatural',
+              },
             },
-          },
-          Vengeance: {
-            traits: {
-              abjureEnemy: 'Renunciar al Enemigo',
-              vowOfEnmity: 'Voto de Enemistad',
+            champion: {
+              traits: {
+                extraFightingStyle: 'Estilo de Combate Adicional',
+              },
             },
           },
         },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      5: {
-        traits: {
-          extraAttack: 'Ataque Extra',
-        },
-      },
-      6: {
-        traits: {
-          auraOfProtection: 'Aura de Protección',
-        },
-      },
-      7: {
-        sacredOath: {
-          Devotion: {
-            traits: {
-              auraOfDevotion: 'Aura de Devoción',
+        15: {
+          martialArchetype: {
+            eldritchKnight: {
+              traits: {
+                arcaneCharge: 'Carga Arcana',
+              },
             },
-          },
-          Ancients: {
-            traits: {
-              auraOfWarding: 'Aura de Custodia',
-            },
-          },
-          Vengeance: {
-            traits: {
-              relentlessAvenger: 'Venganza Implacable',
+            battleMaster: {
+              traits: {
+                relentless: 'Implacable',
+              },
             },
           },
         },
-      },
-      8: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      10: {
-        traits: {
-          auraOfCourage: 'Aura de Coraje',
-        },
-      },
-      12: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      14: {
-        traits: {
-          cleansingTouch: 'Toque de Purificación',
-        },
-      },
-      15: {
-        sacredOath: {
-          Devotion: {
-            traits: {
-              purityOfSpirit: 'Pureza de Espíritu',
-            },
-          },
-          Ancients: {
-            traits: {
-              undyingSentinel: 'Centinela Imperecedero',
-            },
-          },
-          Vengeance: {
-            traits: {
-              soulOfVengeance: 'Alma de Venganza',
-            },
-          },
-        },
-      },
-      16: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      19: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      20: {
-        sacredOath: {
-          Devotion: {
-            traits: {
-              holyNimbus: 'Aura Sagrada',
-            },
-          },
-          Ancients: {
-            traits: {
-              elderChampion: 'Campeón Ancestral',
-            },
-          },
-          Vengeance: {
-            traits: {
-              avengingAngel: 'Ángel Vengador',
+        18: {
+          martialArchetype: {
+            champion: {
+              traits: {
+                survivor: 'Superviviente',
+              },
             },
           },
         },
       },
     },
-  },
-  ranger: {
-    initialHitPoints: 10,
-    hitDice: '1d10',
-    proficientStats: ['str', 'dex'],
-    pickSkills: 3,
-    skillsToPick: [
-      'athletics',
-      'insight',
-      'animal-handling',
-      'nature',
-      'perception',
-      'stealth',
-      'survival',
-    ],
-    proficientItems: [
-      ...getAllLightArmors().map(armor => armor.name),
-      ...getAllMediumArmors().map(armor => armor.name),
-      'shield',
-      ...getAllSimpleMelee().map(weapon => weapon.name),
-      ...getAllSimpleRanged().map(weapon => weapon.name),
-      ...getAllMartialMelee().map(weapon => weapon.name),
-      ...getAllMartialRanged().map(weapon => weapon.name),
-    ],
-    spellcastingAbility: 'wis',
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      1: {
-        traits: {
-          favoredEnemy: 'Enemigo Predilecto',
-          naturalExplorer: 'Explorador de lo Natural',
-        },
-      },
-      2: {
-        traits: {
-          rangerFightingStyle: 'Estilo de Combate',
-        },
-      },
-      3: {
-        traits: {
-          rangerConclave: 'Arquetipo de Explorador',
-        },
-        rangerConclave: {
-          hunter: {
-            traits: {
-              huntersPrey: 'Presa del Cazador',
-            },
-          },
-          beastMaster: {
-            traits: {
-              rangersCompanion: 'Compañero Animal',
-            },
+    monk: {
+      initialHitPoints: 8,
+      hitDice: '1d8',
+      proficientStats: ['str', 'dex'],
+      pickSkills: 2,
+      skillsToPick: [
+        'acrobatics',
+        'athletics',
+        'insight',
+        'history',
+        'religion',
+        'stealth',
+      ],
+      proficientItems: [
+        ...getAllSimpleMelee().map(weapon => weapon.name),
+        ...getAllSimpleRanged().map(weapon => weapon.name),
+        'shortsword',
+      ],
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        1: {
+          traits: {
+            unarmoredDefense: 'Defensa sin Armadura',
+            martialArts: 'Artes Marciales',
           },
         },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      5: {
-        traits: {
-          extraAttack: 'Ataque Extra',
-        },
-      },
-      7: {
-        rangerConclave: {
-          hunter: {
-            traits: {
-              defensiveTactics: 'Tácticas Defensivas',
-            },
+        2: {
+          traits: {
+            ki: 'Ki',
+            flurryOfBlows: 'Ráfaga de Golpes',
+            patientDefense: 'Defensa Paciente',
+            stepOfTheWind: 'Andar del Viento',
+            unarmoredMovement: 'Movimiento sin Armadura',
           },
-          beastMaster: {
-            traits: {
-              exceptionalTraining: 'Entrenamiento Excepcional',
+        },
+        3: {
+          traits: {
+            monasticTradition: 'Tradición Monástica',
+            deflectMissiles: 'Desviar Proyectiles',
+          },
+          monasticTradition: {
+            wayOfTheFourElements: {
+              traits: {
+                discipleOftheElements: 'Discípulo de los Elementos',
+              },
+            },
+            openHand: {
+              traits: {
+                openHandTechnique: 'Técnica de la Mano Abierta',
+              },
+            },
+            wayOfShadow: {
+              traits: {
+                shadowArts: 'Artes Sombrías',
+              },
             },
           },
         },
-      },
-      8: {
-        traits: {
-          landsStride: 'Zancada Forestal',
-        },
-      },
-      10: {
-        traits: {
-          hideInPlainSight: 'Ocultarse a Plena Vista',
-        },
-      },
-      11: {
-        rangerConclave: {
-          hunter: {
-            traits: {
-              multiattack: 'Ataque Múltiple',
-            },
-          },
-          beastMaster: {
-            traits: {
-              bestialFury: 'Furia Bestial',
-            },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+            slowFall: 'Caída Lenta',
           },
         },
-      },
-      14: {
-        traits: {
-          vanish: 'Esfumarse',
-        },
-      },
-      15: {
-        rangerConclave: {
-          hunter: {
-            traits: {
-              superiorHuntersDefense: 'Defensa Superior del Cazador',
-            },
+        5: {
+          traits: {
+            extraAttack: 'Ataque Extra',
+            stunningStrike: 'Golpe Aturdidor',
           },
-          beastMaster: {
-            traits: {
-              shareSpells: 'Compartir Conjuros',
+        },
+        6: {
+          traits: {
+            kiEmpoweredStrikes: 'Golpes Potenciados con Ki',
+          },
+          monasticTradition: {
+            openHand: {
+              traits: {
+                wholenessOfBody: 'Integridad del Cuerpo',
+              },
+            },
+            wayOfShadow: {
+              traits: {
+                shadowStep: 'Paso Sombrío',
+              },
             },
           },
         },
-      },
-      18: {
-        traits: {
-          feralSenses: 'Sentidos Salvajes',
-        },
-      },
-      20: {
-        traits: {
-          foeSlayer: 'Asesino de Enemigos',
-        },
-      },
-    },
-  },
-  rogue: {
-    initialHitPoints: 8,
-    hitDice: '1d8',
-    proficientStats: ['dex', 'int'],
-    pickSkills: 4,
-    skillsToPick: [
-      'athletics',
-      'acrobatics',
-      'insight',
-      'deception',
-      'performance',
-      'intimidation',
-      'investigation',
-      'sleight-of-hand',
-      'perception',
-      'persuasion',
-      'stealth',
-    ],
-    proficientItems: [
-      ...getAllLightArmors().map(armor => armor.name),
-      ...getAllSimpleMelee().map(weapon => weapon.name),
-      ...getAllSimpleRanged().map(weapon => weapon.name),
-      'handCrossbow',
-      'longsword',
-      'rapier',
-      'shortsword',
-      'thievesTools',
-    ],
-    spellcastingAbility: 'int',
-    statImprove: [4, 8, 10, 12, 16, 19],
-    leveling: {
-      1: {
-        traits: {
-          sneakAttack: 'Ataque Furtivo',
-        },
-      },
-      2: {
-        traits: {
-          cunningAction: 'Acción Astuta',
-        },
-      },
-      3: {
-        traits: {
-          roguishArchetype: 'Arquetipo de Pícaro',
-        },
-        roguishArchetype: {
-          arcaneTrickster: {
-            traits: {
-              mageHandLegerdemain: 'Prestidigitación de Mano de Mago',
-              spellcasting: 'Lanzamiento de Conjuros',
-            },
+        7: {
+          traits: {
+            evasion: 'Evasión',
+            stillnessOfMind: 'Quietud de la Mente',
           },
-          assassin: {
-            traits: {
-              bonusProficiencies: 'Competencias Adicionales',
-              assassinate: 'Asesinar',
-            },
+        },
+        8: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
           },
-          thief: {
-            traits: {
-              fastHands: 'Manos Rápidas',
-              secondStoryWork: 'Trabajo en el Segundo Piso',
+        },
+        10: {
+          traits: {
+            purityOfBody: 'Pureza del Cuerpo',
+          },
+        },
+        11: {
+          monasticTradition: {
+            openHand: {
+              traits: {
+                tranquility: 'Tranquilidad',
+              },
+            },
+            wayOfShadow: {
+              traits: {
+                cloakOfShadows: 'Capa de Sombras',
+              },
             },
           },
         },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      5: {
-        traits: {
-          uncannyDodge: 'Esquiva Asombrosa',
-        },
-      },
-      7: {
-        traits: {
-          evasion: 'Evasión',
-        },
-      },
-      8: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      9: {
-        roguishArchetype: {
-          arcaneTrickster: {
-            traits: {
-              magicalAmbush: 'Emboscada Mágica',
-            },
-          },
-          thief: {
-            traits: {
-              supremeSneak: 'Sigilo Supremo',
-            },
-          },
-          assassin: {
-            traits: {
-              infiltrationExpertise: 'Experto en Infiltración',
-            },
+        12: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
           },
         },
-      },
-      10: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      11: {
-        traits: {
-          reliableTalent: 'Talento Seguro',
-        },
-      },
-      12: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      13: {
-        roguishArchetype: {
-          arcaneTrickster: {
-            traits: {
-              versatileTrickster: 'Bribón Versátil',
-            },
+        13: {
+          traits: {
+            tongueOfTheSunAndMoon: 'Lengua del Sol y la Luna',
           },
-          thief: {
-            traits: {
-              useMagicDevice: 'Usar Objeto Mágico',
-            },
+        },
+        14: {
+          traits: {
+            diamondSoul: 'Alma Diamantina',
           },
-          assassin: {
-            traits: {
-              impostor: 'Impostor',
+        },
+        15: {
+          traits: {
+            timelessBody: 'Cuerpo Imperecedero',
+          },
+        },
+        16: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        17: {
+          monasticTradition: {
+            openHand: {
+              traits: {
+                quiveringPalm: 'Palma Temblorosa',
+              },
+            },
+            wayOfShadow: {
+              traits: {
+                opportunist: 'Oportunista',
+              },
             },
           },
         },
-      },
-      14: {
-        traits: {
-          blindsense: 'Sentido Ciego',
-        },
-      },
-      15: {
-        traits: {
-          slipperyMind: 'Mente Escurridiza',
-        },
-      },
-      16: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      17: {
-        roguishArchetype: {
-          arcaneTrickster: {
-            traits: {
-              spellThief: 'Ladrón de Conjuros',
-            },
-          },
-          thief: {
-            traits: {
-              thiefsReflexes: 'Reflejos de Ladrón',
-            },
-          },
-          assassin: {
-            traits: {
-              deathStrike: 'Golpe Mortal',
-            },
+        18: {
+          traits: {
+            emptyBody: 'Cuerpo Vacío',
           },
         },
-      },
-      18: {
-        traits: {
-          elusive: 'Escurridizo',
+        19: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
         },
-      },
-      19: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      20: {
-        traits: {
-          strokeOfLuck: 'Golpe de Suerte',
+        20: {
+          traits: {
+            perfectSelf: 'Perfección de Uno Mismo',
+          },
         },
       },
     },
-  },
-  sorcerer: {
-    initialHitPoints: 6,
-    hitDice: '1d6',
-    proficientStats: ['con', 'cha'],
-    pickSkills: 2,
-    skillsToPick: [
-      'arcana',
-      'insight',
-      'deception',
-      'intimidation',
-      'persuasion',
-      'religion',
-    ],
-    proficientItems: [
-      'dagger',
-      'dart',
-      'sling',
-      'quarterstaff',
-      'lightCrossbow',
-    ],
-    spellcastingAbility: 'cha',
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      1: {
-        sorcererOrigin: {
-          draconicBloodline: {
-            traits: {
-              dragonAncestor: 'Ancestro Dragón',
-              draconicResilience: 'Resistencia Dracónica',
-            },
+    paladin: {
+      initialHitPoints: 10,
+      hitDice: '1d10',
+      proficientStats: ['str', 'cha'],
+      pickSkills: 2,
+      skillsToPick: [
+        'athletics',
+        'insight',
+        'intimidation',
+        'medicine',
+        'persuasion',
+        'religion',
+      ],
+      proficientItems: [
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllMediumArmors().map(armor => armor.name),
+        ...getAllHeavyArmors().map(armor => armor.name),
+        'shield',
+        ...getAllSimpleMelee().map(weapon => weapon.name),
+        ...getAllSimpleRanged().map(weapon => weapon.name),
+        ...getAllMartialMelee().map(weapon => weapon.name),
+        ...getAllMartialRanged().map(weapon => weapon.name),
+      ],
+      spellcastingAbility: 'cha',
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        1: {
+          traits: {
+            divineSense: 'Sentido Divino',
+            layOnHands: 'Imposición de Manos',
           },
-          wildMagic: {
-            traits: {
-              wildMagicSurge: 'Oleada de Magia Salvaje',
-              tidesOfChaos: 'Mareas de Caos',
+        },
+        2: {
+          traits: {
+            paladinFightingStyle: 'Estilo de Combate',
+            divineSmite: 'Castigo Divino',
+          },
+        },
+        3: {
+          traits: {
+            divineHealth: 'Salud Divina',
+            channelDivinity: 'Canalizar Divinidad',
+            sacredOath: 'Juramento Sagrado',
+          },
+          channelDivinity: {
+            Devotion: {
+              traits: {
+                sacredWeapon: 'Arma Sagrada',
+                turnTheUnholy: 'Expulsar al Profano',
+              },
+            },
+            Ancients: {
+              traits: {
+                naturesWrath: 'Ira de la Naturaleza',
+                turnTheFaithless: 'Expulsar a los Infieles',
+              },
+            },
+            Vengeance: {
+              traits: {
+                abjureEnemy: 'Renunciar al Enemigo',
+                vowOfEnmity: 'Voto de Enemistad',
+              },
             },
           },
         },
-      },
-      2: {
-        traits: {
-          fontOfMagic: 'Fuente de Magia',
-        },
-      },
-      3: {
-        traits: {
-          metamagic: 'Metamagia',
-        },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      6: {
-        sorcererOrigin: {
-          draconicBloodline: {
-            traits: {
-              elementalAffinity: 'Afinidad Elemental',
-            },
-          },
-          wildMagic: {
-            traits: {
-              bendLuck: 'Curvar la Suerte',
-            },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
           },
         },
-      },
-      14: {
-        sorcererOrigin: {
-          draconicBloodline: {
-            traits: {
-              dragonWings: 'Alas de Dragón',
-            },
+        5: {
+          traits: {
+            extraAttack: 'Ataque Extra',
           },
-          wildMagic: {
-            traits: {
-              controlledChaos: 'Caos Controlado',
+        },
+        6: {
+          traits: {
+            auraOfProtection: 'Aura de Protección',
+          },
+        },
+        7: {
+          sacredOath: {
+            Devotion: {
+              traits: {
+                auraOfDevotion: 'Aura de Devoción',
+              },
+            },
+            Ancients: {
+              traits: {
+                auraOfWarding: 'Aura de Custodia',
+              },
+            },
+            Vengeance: {
+              traits: {
+                relentlessAvenger: 'Venganza Implacable',
+              },
             },
           },
         },
-      },
-      18: {
-        sorcererOrigin: {
-          draconicBloodline: {
-            traits: {
-              draconicPresence: 'Presencia Draconiana',
-            },
+        8: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
           },
-          wildMagic: {
-            traits: {
-              spellBombardment: 'Bombardeo de conjuros',
+        },
+        10: {
+          traits: {
+            auraOfCourage: 'Aura de Coraje',
+          },
+        },
+        12: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        14: {
+          traits: {
+            cleansingTouch: 'Toque de Purificación',
+          },
+        },
+        15: {
+          sacredOath: {
+            Devotion: {
+              traits: {
+                purityOfSpirit: 'Pureza de Espíritu',
+              },
+            },
+            Ancients: {
+              traits: {
+                undyingSentinel: 'Centinela Imperecedero',
+              },
+            },
+            Vengeance: {
+              traits: {
+                soulOfVengeance: 'Alma de Venganza',
+              },
             },
           },
         },
-      },
-      20: {
-        traits: {
-          sorcerousRestoration: 'Restablecimiento de Hechicero',
-        },
-      },
-    },
-  },
-  warlock: {
-    initialHitPoints: 8,
-    hitDice: '1d8',
-    proficientStats: ['wis', 'cha'],
-    pickSkills: 2,
-    skillsToPick: [
-      'arcana',
-      'deception',
-      'history',
-      'intimidation',
-      'investigation',
-      'nature',
-      'religion',
-    ],
-    proficientItems: [
-      ...getAllLightArmors().map(armor => armor.name),
-      ...getAllSimpleMelee().map(armor => armor.name),
-      ...getAllSimpleRanged().map(armor => armor.name),
-    ],
-    spellcastingAbility: 'cha',
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      1: {
-        patron: {
-          archfey: {
-            traits: {
-              feyPresence: 'Presencia Feérica',
-            },
-          },
-          fiend: {
-            traits: {
-              darkOnesBlessing: 'Bendición del Oscuro',
-            },
-          },
-          greatOldOne: {
-            traits: {
-              awakenedMind: 'Mente Despierta',
-            },
+        16: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
           },
         },
-      },
-      2: {
-        traits: {
-          eldritchInvocations: 'Invocaciones Sobrenaturales',
-        },
-      },
-      3: {
-        traits: {
-          pactBoon: 'Don del Pacto',
-        },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      6: {
-        patron: {
-          archfey: {
-            traits: {
-              mistyEscape: 'Escape Brumoso',
-            },
-          },
-          fiend: {
-            traits: {
-              darkOnesOwnLuck: 'Suerte del Oscuro',
-            },
-          },
-          greatOldOne: {
-            traits: {
-              entropicWard: 'Guardia Entrópica',
-            },
+        19: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
           },
         },
-      },
-      10: {
-        patron: {
-          archfey: {
-            traits: {
-              beguilingDefenses: 'Defensas Seductoras',
+        20: {
+          sacredOath: {
+            Devotion: {
+              traits: {
+                holyNimbus: 'Aura Sagrada',
+              },
+            },
+            Ancients: {
+              traits: {
+                elderChampion: 'Campeón Ancestral',
+              },
+            },
+            Vengeance: {
+              traits: {
+                avengingAngel: 'Ángel Vengador',
+              },
             },
           },
-          fiend: {
-            traits: {
-              fiendishResilience: 'Resistencia Diabólica',
-            },
-          },
-          greatOldOne: {
-            traits: {
-              thoughtShield: 'Escudo de Pensamientos',
-            },
-          },
-        },
-      },
-      11: {
-        traits: {
-          mysticArcanum: 'Arcanum Místico',
-        },
-      },
-      14: {
-        patron: {
-          archfey: {
-            traits: {
-              darkDelirium: 'Delirio Oscuro',
-            },
-          },
-          fiend: {
-            traits: {
-              hurlThroughHell: 'Lanzar a Través del Infierno',
-            },
-          },
-          greatOldOne: {
-            traits: {
-              createThrall: 'Crear Esclavo',
-            },
-          },
-        },
-      },
-      20: {
-        traits: {
-          eldritchMaster: 'Maestro Arcano',
-        },
-      },
-    },
-  },
-  wizard: {
-    initialHitPoints: 6,
-    hitDice: '1d6',
-    proficientStats: ['int', 'wis'],
-    pickSkills: 2,
-    skillsToPick: [
-      'arcana',
-      'insight',
-      'history',
-      'investigation',
-      'medicine',
-      'religion',
-    ],
-    proficientItems: [
-      'quarterstaff',
-      'lightCrossbow',
-      'dagger',
-      'dart',
-      'sling',
-    ],
-    spellcastingAbility: 'int',
-    statImprove: [4, 8, 12, 16, 19],
-    leveling: {
-      1: {
-        traits: {
-          arcaneRecovery: 'Recuperación Arcana',
-        },
-      },
-      2: {
-        traits: {
-          arcaneTradition: 'Tradición Arcana',
-        },
-        arcaneTradition: {
-          all: {
-            traits: {
-              schoolSavant: 'Erudito de',
-            },
-          },
-          Abjuration: {
-            traits: {
-              arcaneWard: 'Guardián Arcano',
-            },
-          },
-          Divination: {
-            traits: {
-              portent: 'Portento',
-            },
-          },
-          Conjuration: {
-            traits: {
-              minorConjuration: 'Conjuración Menor',
-            },
-          },
-          Enchantment: {
-            traits: {
-              hypnoticGaze: 'Mirada Hipnótica',
-            },
-          },
-          Evocation: {
-            traits: {
-              sculptSpells: 'Esculpir Conjuros',
-            },
-          },
-          Illusion: {
-            traits: {
-              improvedMinorIllusion: 'Ilusión Menor Mejorada',
-            },
-          },
-          Necromancy: {
-            traits: {
-              grimHarvest: 'Cosecha Sombría',
-            },
-          },
-          Transmutation: {
-            traits: {
-              minorAlchemy: 'Alquimia Menor',
-            },
-          },
-        },
-      },
-      4: {
-        traits: {
-          abilityScoreImprovement: 'Mejora de Puntuación de Característica',
-        },
-      },
-      6: {
-        arcaneTradition: {
-          Abjuration: {
-            traits: {
-              projectedWard: 'Guardián Proyectado',
-            },
-          },
-          Divination: {
-            traits: {
-              expertDivination: 'Adivinación Experta',
-            },
-          },
-          Conjuration: {
-            traits: {
-              benignTransportation: 'Transposición Benigna',
-            },
-          },
-          Enchantment: {
-            traits: {
-              instinctiveCharm: 'Encantamiento Insintivo',
-            },
-          },
-          Evocation: {
-            traits: {
-              potentCantrip: 'Truco Potente',
-            },
-          },
-          Illusion: {
-            traits: {
-              malleableIllusions: 'Ilusiones Maleables',
-            },
-          },
-          Necromancy: {
-            traits: {
-              undeadThralls: 'Esclavos Muertos Vivientes',
-            },
-          },
-          Transmutation: {
-            traits: {
-              transmutersStone: 'Piedra del Transmutador',
-            },
-          },
-        },
-      },
-      10: {
-        arcaneTradition: {
-          Abjuration: {
-            traits: {
-              improvedAbjuration: 'Abjuración Mejorada',
-            },
-          },
-          Divination: {
-            traits: {
-              theThirdEye: 'El Tercer Ojo',
-            },
-          },
-          Conjuration: {
-            traits: {
-              focusedConjuration: 'Conjuración Concentrada',
-            },
-          },
-          Enchantment: {
-            traits: {
-              splitEnchantment: 'Encantamiento Dividido',
-            },
-          },
-          Evocation: {
-            traits: {
-              empoweredEvocation: 'Fortalecer evocación',
-            },
-          },
-          Illusion: {
-            traits: {
-              illusorySelf: 'Ser Ilusorio',
-            },
-          },
-          Necromancy: {
-            traits: {
-              inuredToUndeath: 'Acostumbrado a los Muertos Vivientes',
-            },
-          },
-          Transmutation: {
-            traits: {
-              shapechanger: 'Cambiaformas',
-            },
-          },
-        },
-      },
-      14: {
-        arcaneTradition: {
-          Abjuration: {
-            traits: {
-              spellResistance: 'Resistencia a Conjuros',
-            },
-          },
-          Conjuration: {
-            traits: {
-              durableSummons: 'Invocaciones Duraderas',
-            },
-          },
-          Enchantment: {
-            traits: {
-              alterMemories: 'Alterar Recuerdos',
-            },
-          },
-          Evocation: {
-            traits: {
-              overchannel: 'Sobrecargar',
-            },
-          },
-          Illusion: {
-            traits: {
-              illusoryReality: 'Realidad Ilusoria',
-            },
-          },
-          Necromancy: {
-            traits: {
-              commandUndead: 'Comandar Muertos Vivientes',
-            },
-          },
-          Transmutation: {
-            traits: {
-              masterTransmuter: 'Maestro Transmutador',
-            },
-          },
-        },
-      },
-      18: {
-        traits: {
-          spellMastery: 'Maestría de Conjuros',
-        },
-      },
-      20: {
-        traits: {
-          signatureSpells: 'Conjuros de Firma',
         },
       },
     },
-  },
-};
+    ranger: {
+      initialHitPoints: 10,
+      hitDice: '1d10',
+      proficientStats: ['str', 'dex'],
+      pickSkills: 3,
+      skillsToPick: [
+        'athletics',
+        'insight',
+        'animal-handling',
+        'nature',
+        'perception',
+        'stealth',
+        'survival',
+      ],
+      proficientItems: [
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllMediumArmors().map(armor => armor.name),
+        'shield',
+        ...getAllSimpleMelee().map(weapon => weapon.name),
+        ...getAllSimpleRanged().map(weapon => weapon.name),
+        ...getAllMartialMelee().map(weapon => weapon.name),
+        ...getAllMartialRanged().map(weapon => weapon.name),
+      ],
+      spellcastingAbility: 'wis',
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        1: {
+          traits: {
+            favoredEnemy: 'Enemigo Predilecto',
+            naturalExplorer: 'Explorador de lo Natural',
+          },
+        },
+        2: {
+          traits: {
+            rangerFightingStyle: 'Estilo de Combate',
+          },
+        },
+        3: {
+          traits: {
+            rangerConclave: 'Arquetipo de Explorador',
+          },
+          rangerConclave: {
+            hunter: {
+              traits: {
+                huntersPrey: 'Presa del Cazador',
+              },
+            },
+            beastMaster: {
+              traits: {
+                rangersCompanion: 'Compañero Animal',
+              },
+            },
+          },
+        },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        5: {
+          traits: {
+            extraAttack: 'Ataque Extra',
+          },
+        },
+        7: {
+          rangerConclave: {
+            hunter: {
+              traits: {
+                defensiveTactics: 'Tácticas Defensivas',
+              },
+            },
+            beastMaster: {
+              traits: {
+                exceptionalTraining: 'Entrenamiento Excepcional',
+              },
+            },
+          },
+        },
+        8: {
+          traits: {
+            landsStride: 'Zancada Forestal',
+          },
+        },
+        10: {
+          traits: {
+            hideInPlainSight: 'Ocultarse a Plena Vista',
+          },
+        },
+        11: {
+          rangerConclave: {
+            hunter: {
+              traits: {
+                multiattack: 'Ataque Múltiple',
+              },
+            },
+            beastMaster: {
+              traits: {
+                bestialFury: 'Furia Bestial',
+              },
+            },
+          },
+        },
+        14: {
+          traits: {
+            vanish: 'Esfumarse',
+          },
+        },
+        15: {
+          rangerConclave: {
+            hunter: {
+              traits: {
+                superiorHuntersDefense: 'Defensa Superior del Cazador',
+              },
+            },
+            beastMaster: {
+              traits: {
+                shareSpells: 'Compartir Conjuros',
+              },
+            },
+          },
+        },
+        18: {
+          traits: {
+            feralSenses: 'Sentidos Salvajes',
+          },
+        },
+        20: {
+          traits: {
+            foeSlayer: 'Asesino de Enemigos',
+          },
+        },
+      },
+    },
+    rogue: {
+      initialHitPoints: 8,
+      hitDice: '1d8',
+      proficientStats: ['dex', 'int'],
+      pickSkills: 4,
+      skillsToPick: [
+        'athletics',
+        'acrobatics',
+        'insight',
+        'deception',
+        'performance',
+        'intimidation',
+        'investigation',
+        'sleight-of-hand',
+        'perception',
+        'persuasion',
+        'stealth',
+      ],
+      proficientItems: [
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllSimpleMelee().map(weapon => weapon.name),
+        ...getAllSimpleRanged().map(weapon => weapon.name),
+        'handCrossbow',
+        'longsword',
+        'rapier',
+        'shortsword',
+        'thievesTools',
+      ],
+      spellcastingAbility: 'int',
+      statImprove: [4, 8, 10, 12, 16, 19],
+      leveling: {
+        1: {
+          traits: {
+            sneakAttack: 'Ataque Furtivo',
+          },
+        },
+        2: {
+          traits: {
+            cunningAction: 'Acción Astuta',
+          },
+        },
+        3: {
+          traits: {
+            roguishArchetype: 'Arquetipo de Pícaro',
+          },
+          roguishArchetype: {
+            arcaneTrickster: {
+              traits: {
+                mageHandLegerdemain: 'Prestidigitación de Mano de Mago',
+                spellcasting: 'Lanzamiento de Conjuros',
+              },
+            },
+            assassin: {
+              traits: {
+                bonusProficiencies: 'Competencias Adicionales',
+                assassinate: 'Asesinar',
+              },
+            },
+            thief: {
+              traits: {
+                fastHands: 'Manos Rápidas',
+                secondStoryWork: 'Trabajo en el Segundo Piso',
+              },
+            },
+          },
+        },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        5: {
+          traits: {
+            uncannyDodge: 'Esquiva Asombrosa',
+          },
+        },
+        7: {
+          traits: {
+            evasion: 'Evasión',
+          },
+        },
+        8: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        9: {
+          roguishArchetype: {
+            arcaneTrickster: {
+              traits: {
+                magicalAmbush: 'Emboscada Mágica',
+              },
+            },
+            thief: {
+              traits: {
+                supremeSneak: 'Sigilo Supremo',
+              },
+            },
+            assassin: {
+              traits: {
+                infiltrationExpertise: 'Experto en Infiltración',
+              },
+            },
+          },
+        },
+        10: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        11: {
+          traits: {
+            reliableTalent: 'Talento Seguro',
+          },
+        },
+        12: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        13: {
+          roguishArchetype: {
+            arcaneTrickster: {
+              traits: {
+                versatileTrickster: 'Bribón Versátil',
+              },
+            },
+            thief: {
+              traits: {
+                useMagicDevice: 'Usar Objeto Mágico',
+              },
+            },
+            assassin: {
+              traits: {
+                impostor: 'Impostor',
+              },
+            },
+          },
+        },
+        14: {
+          traits: {
+            blindsense: 'Sentido Ciego',
+          },
+        },
+        15: {
+          traits: {
+            slipperyMind: 'Mente Escurridiza',
+          },
+        },
+        16: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        17: {
+          roguishArchetype: {
+            arcaneTrickster: {
+              traits: {
+                spellThief: 'Ladrón de Conjuros',
+              },
+            },
+            thief: {
+              traits: {
+                thiefsReflexes: 'Reflejos de Ladrón',
+              },
+            },
+            assassin: {
+              traits: {
+                deathStrike: 'Golpe Mortal',
+              },
+            },
+          },
+        },
+        18: {
+          traits: {
+            elusive: 'Escurridizo',
+          },
+        },
+        19: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        20: {
+          traits: {
+            strokeOfLuck: 'Golpe de Suerte',
+          },
+        },
+      },
+    },
+    sorcerer: {
+      initialHitPoints: 6,
+      hitDice: '1d6',
+      proficientStats: ['con', 'cha'],
+      pickSkills: 2,
+      skillsToPick: [
+        'arcana',
+        'insight',
+        'deception',
+        'intimidation',
+        'persuasion',
+        'religion',
+      ],
+      proficientItems: [
+        'dagger',
+        'dart',
+        'sling',
+        'quarterstaff',
+        'lightCrossbow',
+      ],
+      spellcastingAbility: 'cha',
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        1: {
+          sorcererOrigin: {
+            draconicBloodline: {
+              traits: {
+                dragonAncestor: 'Ancestro Dragón',
+                draconicResilience: 'Resistencia Dracónica',
+              },
+            },
+            wildMagic: {
+              traits: {
+                wildMagicSurge: 'Oleada de Magia Salvaje',
+                tidesOfChaos: 'Mareas de Caos',
+              },
+            },
+          },
+        },
+        2: {
+          traits: {
+            fontOfMagic: 'Fuente de Magia',
+          },
+        },
+        3: {
+          traits: {
+            metamagic: 'Metamagia',
+          },
+        },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        6: {
+          sorcererOrigin: {
+            draconicBloodline: {
+              traits: {
+                elementalAffinity: 'Afinidad Elemental',
+              },
+            },
+            wildMagic: {
+              traits: {
+                bendLuck: 'Curvar la Suerte',
+              },
+            },
+          },
+        },
+        14: {
+          sorcererOrigin: {
+            draconicBloodline: {
+              traits: {
+                dragonWings: 'Alas de Dragón',
+              },
+            },
+            wildMagic: {
+              traits: {
+                controlledChaos: 'Caos Controlado',
+              },
+            },
+          },
+        },
+        18: {
+          sorcererOrigin: {
+            draconicBloodline: {
+              traits: {
+                draconicPresence: 'Presencia Draconiana',
+              },
+            },
+            wildMagic: {
+              traits: {
+                spellBombardment: 'Bombardeo de conjuros',
+              },
+            },
+          },
+        },
+        20: {
+          traits: {
+            sorcerousRestoration: 'Restablecimiento de Hechicero',
+          },
+        },
+      },
+    },
+    warlock: {
+      initialHitPoints: 8,
+      hitDice: '1d8',
+      proficientStats: ['wis', 'cha'],
+      pickSkills: 2,
+      skillsToPick: [
+        'arcana',
+        'deception',
+        'history',
+        'intimidation',
+        'investigation',
+        'nature',
+        'religion',
+      ],
+      proficientItems: [
+        ...getAllLightArmors().map(armor => armor.name),
+        ...getAllSimpleMelee().map(armor => armor.name),
+        ...getAllSimpleRanged().map(armor => armor.name),
+      ],
+      spellcastingAbility: 'cha',
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        1: {
+          patron: {
+            archfey: {
+              traits: {
+                feyPresence: 'Presencia Feérica',
+              },
+            },
+            fiend: {
+              traits: {
+                darkOnesBlessing: 'Bendición del Oscuro',
+              },
+            },
+            greatOldOne: {
+              traits: {
+                awakenedMind: 'Mente Despierta',
+              },
+            },
+          },
+        },
+        2: {
+          traits: {
+            eldritchInvocations: 'Invocaciones Sobrenaturales',
+          },
+        },
+        3: {
+          traits: {
+            pactBoon: 'Don del Pacto',
+          },
+        },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        6: {
+          patron: {
+            archfey: {
+              traits: {
+                mistyEscape: 'Escape Brumoso',
+              },
+            },
+            fiend: {
+              traits: {
+                darkOnesOwnLuck: 'Suerte del Oscuro',
+              },
+            },
+            greatOldOne: {
+              traits: {
+                entropicWard: 'Guardia Entrópica',
+              },
+            },
+          },
+        },
+        10: {
+          patron: {
+            archfey: {
+              traits: {
+                beguilingDefenses: 'Defensas Seductoras',
+              },
+            },
+            fiend: {
+              traits: {
+                fiendishResilience: 'Resistencia Diabólica',
+              },
+            },
+            greatOldOne: {
+              traits: {
+                thoughtShield: 'Escudo de Pensamientos',
+              },
+            },
+          },
+        },
+        11: {
+          traits: {
+            mysticArcanum: 'Arcanum Místico',
+          },
+        },
+        14: {
+          patron: {
+            archfey: {
+              traits: {
+                darkDelirium: 'Delirio Oscuro',
+              },
+            },
+            fiend: {
+              traits: {
+                hurlThroughHell: 'Lanzar a Través del Infierno',
+              },
+            },
+            greatOldOne: {
+              traits: {
+                createThrall: 'Crear Esclavo',
+              },
+            },
+          },
+        },
+        20: {
+          traits: {
+            eldritchMaster: 'Maestro Arcano',
+          },
+        },
+      },
+    },
+    wizard: {
+      initialHitPoints: 6,
+      hitDice: '1d6',
+      proficientStats: ['int', 'wis'],
+      pickSkills: 2,
+      skillsToPick: [
+        'arcana',
+        'insight',
+        'history',
+        'investigation',
+        'medicine',
+        'religion',
+      ],
+      proficientItems: [
+        'quarterstaff',
+        'lightCrossbow',
+        'dagger',
+        'dart',
+        'sling',
+      ],
+      spellcastingAbility: 'int',
+      statImprove: [4, 8, 12, 16, 19],
+      leveling: {
+        1: {
+          traits: {
+            arcaneRecovery: 'Recuperación Arcana',
+          },
+        },
+        2: {
+          traits: {
+            arcaneTradition: 'Tradición Arcana',
+          },
+          arcaneTradition: {
+            all: {
+              traits: {
+                schoolSavant: 'Erudito de',
+              },
+            },
+            Abjuration: {
+              traits: {
+                arcaneWard: 'Guardián Arcano',
+              },
+            },
+            Divination: {
+              traits: {
+                portent: 'Portento',
+              },
+            },
+            Conjuration: {
+              traits: {
+                minorConjuration: 'Conjuración Menor',
+              },
+            },
+            Enchantment: {
+              traits: {
+                hypnoticGaze: 'Mirada Hipnótica',
+              },
+            },
+            Evocation: {
+              traits: {
+                sculptSpells: 'Esculpir Conjuros',
+              },
+            },
+            Illusion: {
+              traits: {
+                improvedMinorIllusion: 'Ilusión Menor Mejorada',
+              },
+            },
+            Necromancy: {
+              traits: {
+                grimHarvest: 'Cosecha Sombría',
+              },
+            },
+            Transmutation: {
+              traits: {
+                minorAlchemy: 'Alquimia Menor',
+              },
+            },
+          },
+        },
+        4: {
+          traits: {
+            abilityScoreImprovement: 'Mejora de Puntuación de Característica',
+          },
+        },
+        6: {
+          arcaneTradition: {
+            Abjuration: {
+              traits: {
+                projectedWard: 'Guardián Proyectado',
+              },
+            },
+            Divination: {
+              traits: {
+                expertDivination: 'Adivinación Experta',
+              },
+            },
+            Conjuration: {
+              traits: {
+                benignTransportation: 'Transposición Benigna',
+              },
+            },
+            Enchantment: {
+              traits: {
+                instinctiveCharm: 'Encantamiento Insintivo',
+              },
+            },
+            Evocation: {
+              traits: {
+                potentCantrip: 'Truco Potente',
+              },
+            },
+            Illusion: {
+              traits: {
+                malleableIllusions: 'Ilusiones Maleables',
+              },
+            },
+            Necromancy: {
+              traits: {
+                undeadThralls: 'Esclavos Muertos Vivientes',
+              },
+            },
+            Transmutation: {
+              traits: {
+                transmutersStone: 'Piedra del Transmutador',
+              },
+            },
+          },
+        },
+        10: {
+          arcaneTradition: {
+            Abjuration: {
+              traits: {
+                improvedAbjuration: 'Abjuración Mejorada',
+              },
+            },
+            Divination: {
+              traits: {
+                theThirdEye: 'El Tercer Ojo',
+              },
+            },
+            Conjuration: {
+              traits: {
+                focusedConjuration: 'Conjuración Concentrada',
+              },
+            },
+            Enchantment: {
+              traits: {
+                splitEnchantment: 'Encantamiento Dividido',
+              },
+            },
+            Evocation: {
+              traits: {
+                empoweredEvocation: 'Fortalecer evocación',
+              },
+            },
+            Illusion: {
+              traits: {
+                illusorySelf: 'Ser Ilusorio',
+              },
+            },
+            Necromancy: {
+              traits: {
+                inuredToUndeath: 'Acostumbrado a los Muertos Vivientes',
+              },
+            },
+            Transmutation: {
+              traits: {
+                shapechanger: 'Cambiaformas',
+              },
+            },
+          },
+        },
+        14: {
+          arcaneTradition: {
+            Abjuration: {
+              traits: {
+                spellResistance: 'Resistencia a Conjuros',
+              },
+            },
+            Conjuration: {
+              traits: {
+                durableSummons: 'Invocaciones Duraderas',
+              },
+            },
+            Enchantment: {
+              traits: {
+                alterMemories: 'Alterar Recuerdos',
+              },
+            },
+            Evocation: {
+              traits: {
+                overchannel: 'Sobrecargar',
+              },
+            },
+            Illusion: {
+              traits: {
+                illusoryReality: 'Realidad Ilusoria',
+              },
+            },
+            Necromancy: {
+              traits: {
+                commandUndead: 'Comandar Muertos Vivientes',
+              },
+            },
+            Transmutation: {
+              traits: {
+                masterTransmuter: 'Maestro Transmutador',
+              },
+            },
+          },
+        },
+        18: {
+          traits: {
+            spellMastery: 'Maestría de Conjuros',
+          },
+        },
+        20: {
+          traits: {
+            signatureSpells: 'Conjuros de Firma',
+          },
+        },
+      },
+    },
+  };
+}
 
-export const CHARACTER_CLASSES = Object.keys(CLASSES);
+export function CHARACTER_CLASSES() {
+  return Object.keys(CLASSES());
+}
 
 export function getInitialHitPoints(pc) {
   const { pClass } = pc;
-  return CLASSES[pClass].initialHitPoints + getExtraHitPoints(pc);
+  return CLASSES()[pClass].initialHitPoints + getExtraHitPoints(pc);
 }
 
 export function isProficientStat(stat, pClass) {
-  return CLASSES[pClass].proficientStats.includes(stat);
+  return CLASSES()[pClass].proficientStats.includes(stat);
 }
 
 export function getExtraHitPoints(pc) {
@@ -2270,30 +2286,30 @@ export function getMaxHitPoints(pc) {
 
 export function getHitDice(pc) {
   const { pClass, hitDice } = pc;
-  return CLASSES[pClass].hitDice.replace('1', hitDice);
+  return CLASSES()[pClass].hitDice.replace('1', hitDice);
 }
 
 export function getRemainingHitDice(pc) {
   const { pClass, remainingHitDice } = pc;
-  return CLASSES[pClass].hitDice.replace('1', remainingHitDice);
+  return CLASSES()[pClass].hitDice.replace('1', remainingHitDice);
 }
 
 export function getFixedHealthForLevelUp(pc) {
   const { pClass } = pc;
 
-  return parseInt(CLASSES[pClass].hitDice.match(/1d(\d+)/)?.[1], 10) / 2 + 1;
+  return parseInt(CLASSES()[pClass].hitDice.match(/1d(\d+)/)?.[1], 10) / 2 + 1;
 }
 
 export function getMaxHealthForLevelUp(pc) {
   const { pClass } = pc;
-  const { hitDice } = CLASSES[pClass];
+  const { hitDice } = CLASSES()[pClass];
 
   return parseInt(hitDice.slice(hitDice.indexOf('d') + 1), 10);
 }
 
 export function getRandomLevelUpHitPoints(pc) {
   const { pClass } = pc;
-  const result = random.roll.processCommand(CLASSES[pClass].hitDice);
+  const result = random.roll.processCommand(CLASSES()[pClass].hitDice);
   return random.roll.calculateResult(result);
 }
 
@@ -2334,10 +2350,12 @@ export function translateClass(pClass) {
   }
 }
 
-export const STATS = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+export function STATS() {
+  return ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+}
 
 export function isStat(name) {
-  return STATS.includes(name);
+  return STATS().includes(name);
 }
 
 export function translateStat(stat) {
@@ -2403,7 +2421,7 @@ export function getStat(pc, statName) {
 }
 
 export function getStats(pc) {
-  return STATS.reduce(
+  return STATS().reduce(
     (allStats, statName) => ({
       ...allStats,
       [statName]: getStat(pc, statName),
@@ -2412,26 +2430,28 @@ export function getStats(pc) {
   );
 }
 
-export const SKILLS = [
-  { name: 'athletics', stat: 'str' },
-  { name: 'acrobatics', stat: 'dex' },
-  { name: 'sleight-of-hand', stat: 'dex' },
-  { name: 'stealth', stat: 'dex' },
-  { name: 'arcana', stat: 'int' },
-  { name: 'history', stat: 'int' },
-  { name: 'investigation', stat: 'int' },
-  { name: 'nature', stat: 'int' },
-  { name: 'religion', stat: 'int' },
-  { name: 'animal-handling', stat: 'wis' },
-  { name: 'insight', stat: 'wis' },
-  { name: 'medicine', stat: 'wis' },
-  { name: 'perception', stat: 'wis' },
-  { name: 'survival', stat: 'wis' },
-  { name: 'deception', stat: 'cha' },
-  { name: 'intimidation', stat: 'cha' },
-  { name: 'performance', stat: 'cha' },
-  { name: 'persuasion', stat: 'cha' },
-];
+export function SKILLS() {
+  return [
+    { name: 'athletics', stat: 'str' },
+    { name: 'acrobatics', stat: 'dex' },
+    { name: 'sleight-of-hand', stat: 'dex' },
+    { name: 'stealth', stat: 'dex' },
+    { name: 'arcana', stat: 'int' },
+    { name: 'history', stat: 'int' },
+    { name: 'investigation', stat: 'int' },
+    { name: 'nature', stat: 'int' },
+    { name: 'religion', stat: 'int' },
+    { name: 'animal-handling', stat: 'wis' },
+    { name: 'insight', stat: 'wis' },
+    { name: 'medicine', stat: 'wis' },
+    { name: 'perception', stat: 'wis' },
+    { name: 'survival', stat: 'wis' },
+    { name: 'deception', stat: 'cha' },
+    { name: 'intimidation', stat: 'cha' },
+    { name: 'performance', stat: 'cha' },
+    { name: 'persuasion', stat: 'cha' },
+  ];
+}
 
 export function translateSkill(skillName) {
   switch (skillName) {
@@ -2548,7 +2568,7 @@ export function specialProficiencyBonus(pc) {
 export function skillCheckBonus(pc, skillName) {
   const { pClass, level } = pc;
 
-  const statName = SKILLS.find(skill => skill.name === skillName).stat;
+  const statName = SKILLS().find(skill => skill.name === skillName).stat;
 
   const bonus = isProficientSkill(pc, skillName)
     ? bonusForSkill(pc, skillName)
@@ -2559,29 +2579,33 @@ export function skillCheckBonus(pc, skillName) {
   return getStatMod(getStat(pc, statName)) + bonus;
 }
 
-export const LANGUAGES = [
-  'common',
-  'dwarvish',
-  'elvish',
-  'giant',
-  'gnomish',
-  'goblin',
-  'halfling',
-  'orc',
-];
+export function LANGUAGES() {
+  return [
+    'common',
+    'dwarvish',
+    'elvish',
+    'giant',
+    'gnomish',
+    'goblin',
+    'halfling',
+    'orc',
+  ];
+}
 
-export const EXOTIC_LANGUAGES = [
-  'druidic',
-  'thieves-cant',
-  'abyssal',
-  'celestial',
-  'draconic',
-  'deep-speech',
-  'infernal',
-  'primordial',
-  'sylvan',
-  'undercommon',
-];
+export function EXOTIC_LANGUAGES() {
+  return [
+    'druidic',
+    'thieves-cant',
+    'abyssal',
+    'celestial',
+    'draconic',
+    'deep-speech',
+    'infernal',
+    'primordial',
+    'sylvan',
+    'undercommon',
+  ];
+}
 
 export function translateLanguage(language) {
   switch (language) {
@@ -2699,7 +2723,7 @@ export function getItemProficiencies(pc) {
 
   return [
     ...(RACES[race][subrace].proficientItems || []),
-    ...(CLASSES[pClass].proficientItems || []),
+    ...(CLASSES()[pClass].proficientItems || []),
     ...(pc.proficientItems?.map(item => item.name) || []),
     ...((divineDomain ? DIVINE_DOMAINS[divineDomain]?.proficientItems : []) ||
       []),
@@ -2867,7 +2891,9 @@ export function translateSavingThrowStatus(status) {
 function getLevelingTraits(pc) {
   const { pClass, level } = pc;
 
-  const levelingTraits = Object.entries(CLASSES[pClass]?.leveling || {}).reduce(
+  const levelingTraits = Object.entries(
+    CLASSES()[pClass]?.leveling || {}
+  ).reduce(
     (levelingTraits, [traitLevel, levelSkills]) => ({
       ...levelingTraits,
       ...(parseInt(traitLevel, 10) <= level ? levelSkills.traits : {}),
@@ -2886,7 +2912,7 @@ export function getTraits(pc) {
   return Object.entries({
     ...RACES[race][subrace].traits,
     ...(BACKGROUNDS[background.name]?.traits || {}),
-    ...CLASSES[pClass].traits,
+    ...CLASSES()[pClass].traits,
     ...getLevelingTraits(pc),
   }).filter(([traitName, trait]) => displayTrait(traitName, trait, pc));
 }
@@ -3149,6 +3175,13 @@ export function getSkillExplanation({
   );
 }
 
+export function getTraitActions() {
+  return {
+    ...bardTraitActions,
+    ...paladinTraitActions,
+  };
+}
+
 export function hasToImproveAbilityScore(pc) {
   return getPendingImproveAbilityLevels(pc).length > 0;
 }
@@ -3156,7 +3189,7 @@ export function hasToImproveAbilityScore(pc) {
 export function getPendingImproveAbilityLevels(pc) {
   const { level, improvedStatsLevels = [], pClass } = pc;
 
-  const improveAtLevels = CLASSES[pClass].statImprove.filter(
+  const improveAtLevels = CLASSES()[pClass].statImprove.filter(
     lvl => lvl <= level
   );
 
@@ -3188,7 +3221,7 @@ export function getChannelDivinityTraits(pc) {
   channelDivinitySource = divineDomain || sacredOath;
 
   return Object.entries(
-    Object.entries(CLASSES[pClass].leveling).reduce(
+    Object.entries(CLASSES()[pClass].leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level
@@ -3247,7 +3280,7 @@ export const BASE_CHARACTER = {
 };
 
 export const ALL_TRAITS = Object.entries(
-  Object.values(CLASSES).reduce(
+  Object.values(CLASSES()).reduce(
     (traitDictionary, classValues) => ({
       ...traitDictionary,
       ...Object.values(classValues.leveling).reduce(

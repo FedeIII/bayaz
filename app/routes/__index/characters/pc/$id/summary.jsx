@@ -20,7 +20,6 @@ import {
   dropEquipmentOther,
   changeEquipmentOtherAmount,
   spendLayOnHands,
-  spendDivineSense,
   markTraitSeen,
   switchShield,
   unequipShield,
@@ -31,6 +30,7 @@ import {
   getTraits,
   hasLeveledUp,
   getChannelDivinityTraits,
+  getTraitActions,
 } from '~/domain/characters';
 import {
   getSorcererOrigin,
@@ -387,12 +387,6 @@ async function spendLayOnHandsAction(formData) {
   return updatedPc;
 }
 
-async function spendDivineSenseAction(formData) {
-  const id = formData.get('id');
-  const updatedPc = await spendDivineSense(id);
-  return updatedPc;
-}
-
 async function markTraitSeenAction(formData) {
   const id = formData.get('id');
   const trait = formData.get('trait');
@@ -471,14 +465,15 @@ export const action = async ({ request }) => {
     pc = await updateTemporaryHitPoints(formData);
   } else if (action === 'spendLayOnHands') {
     pc = await spendLayOnHandsAction(formData);
-  } else if (action === 'spendDivineSense') {
-    pc = await spendDivineSenseAction(formData);
   } else if (action === 'seeTrait') {
     pc = await markTraitSeenAction(formData);
   } else if (action === 'addArbitraryItem') {
     pc = await addArbitraryItemAction(formData);
   } else {
-    pc = processAction(action, formData, { ...customTraitsActions });
+    pc = processAction(action, formData, {
+      ...customTraitsActions,
+      ...getTraitActions(),
+    });
   }
 
   return json({ pc });
@@ -1013,7 +1008,7 @@ function PcSummary() {
                 <SkillItem
                   ref={skillRefs.channelDivinity.current.main}
                   traitName="channelDivinity"
-                  trait={CLASSES.cleric.leveling[2].traits.channelDivinity}
+                  trait={CLASSES().cleric.leveling[2].traits.channelDivinity}
                   pc={pc}
                   openModal={openSkillModal('channelDivinity', 'main')}
                 />

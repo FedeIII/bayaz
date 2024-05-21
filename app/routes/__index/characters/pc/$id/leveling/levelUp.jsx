@@ -83,7 +83,7 @@ function LevelUp() {
         arriba).
       </p>
 
-      <h3>Dado de Golpe: {CLASSES[pClass].hitDice}</h3>
+      <h3>Dado de Golpe: {CLASSES()[pClass].hitDice}</h3>
 
       <div className="app__buttons">
         <button
@@ -93,7 +93,7 @@ function LevelUp() {
           value="random"
           className="cards__button-card app__button-big"
         >
-          Lanzar Dado ({CLASSES[pClass].hitDice})
+          Lanzar Dado ({CLASSES()[pClass].hitDice})
         </button>
         <button
           type="submit"
@@ -117,7 +117,7 @@ function LevelUp() {
             disabled={!isIdle}
             className="cards__button-card app__button-big"
           >
-            Lanzar Dado Real ({CLASSES[pClass].hitDice})
+            Lanzar Dado Real ({CLASSES()[pClass].hitDice})
           </button>
         </label>
       </div>

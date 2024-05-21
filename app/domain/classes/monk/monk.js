@@ -84,7 +84,7 @@ export function getMonasticTraditionTraits(pc) {
   const monasticTradition = getMonasticTradition(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.monk.leveling).reduce(
+    Object.entries(CLASSES().monk.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

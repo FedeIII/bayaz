@@ -35,7 +35,7 @@ export function RealDiceStatValues(props) {
   return (
     <>
       <p className="characters__stat-values">
-        {STATS.map((statName, index) => {
+        {STATS().map((statName, index) => {
           const canDrag = !usedRolls[index];
 
           const [{ isDragging }, drag] = useDrag(

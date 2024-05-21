@@ -177,7 +177,7 @@ function ClericSkills(props) {
                 Selecciona 2 idiomas extra
               </span>
               <div className="characters__traits">
-                {LANGUAGES.filter(l => !languages.includes(l)).map(language => (
+                {LANGUAGES().filter(l => !languages.includes(l)).map(language => (
                   <label
                     htmlFor={language}
                     key={language}

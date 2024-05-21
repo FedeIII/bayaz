@@ -48,7 +48,7 @@ function HitDiceActions(props) {
   const [action, setAction] = useState('');
 
   const extraConHp = amountOfDice * getStatMod(getStat(pc, 'con'));
-  const hpRecoveredNotation = `${amountOfDice}${CLASSES[pClass].hitDice.slice(
+  const hpRecoveredNotation = `${amountOfDice}${CLASSES()[pClass].hitDice.slice(
     1
   )} ${increment(extraConHp)}`;
 

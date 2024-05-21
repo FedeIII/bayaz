@@ -6,7 +6,7 @@ import {
   SKILLS,
   LANGUAGES,
   EXOTIC_LANGUAGES,
-  CLASSES,
+  CHARACTER_CLASSES,
 } from '~/domain/characters';
 import {
   BACKGROUNDS,
@@ -21,7 +21,7 @@ import {
 import { NPC_RACES_LIST } from '~/domain/npc/npc';
 
 const statsSchema = new mongoose.Schema({
-  ...STATS.reduce(
+  ...STATS().reduce(
     (stats, statName) => ({
       ...stats,
       [statName]: Number,
@@ -32,7 +32,7 @@ const statsSchema = new mongoose.Schema({
 
 const backgroundSchema = new mongoose.Schema({
   name: { type: String, enum: Object.keys(BACKGROUNDS) },
-  skills: [{ type: String, enum: SKILLS.map(s => s.name) }],
+  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
   guild: { type: String, enum: ARTISAN_GUILDS },
   routines: [{ type: String, enum: ENTERTAINER_ROUTINES }],
   favoriteScheme: { type: String, enum: CHARLATAN_FAVORITE_SCHEMES },
@@ -52,7 +52,7 @@ const freeTextSchema = new mongoose.Schema({
 });
 
 const skillSchema = new mongoose.Schema({
-  name: { type: String, enum: SKILLS.map(s => s.name) },
+  name: { type: String, enum: SKILLS().map(s => s.name) },
   value: Number,
 });
 
@@ -69,7 +69,7 @@ const faithSchema = new mongoose.Schema({
 
 const spellSchema = new mongoose.Schema({
   name: String,
-  type: { type: String, enum: Object.keys(CLASSES) },
+  type: { type: String, enum: CHARACTER_CLASSES() },
   subtype: String,
 });
 
@@ -173,7 +173,7 @@ const quickNpcSchema = new mongoose.Schema({
   freeText: freeTextSchema,
 
   // PROFICIENCIES & LANGUAGES
-  languages: [{ type: String, enum: [...LANGUAGES, ...EXOTIC_LANGUAGES] }],
+  languages: [{ type: String, enum: [...LANGUAGES(), ...EXOTIC_LANGUAGES()] }],
 
   // ADDITIONAL FEATURES
   age: Number,

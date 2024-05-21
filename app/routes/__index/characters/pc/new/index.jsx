@@ -12,9 +12,9 @@ import {
   RACES,
   SUBRACES,
   translateRace,
-  CLASSES,
   translateClass,
   setLanguages,
+  CHARACTER_CLASSES,
 } from '~/domain/characters';
 import { createPc } from '~/services/pc.server';
 import { getSpell } from '~/domain/spells/getSpells';
@@ -312,7 +312,7 @@ function PcRace() {
               className="cards__button-card"
               onChange={e => setClass(e.target.value)}
             >
-              {Object.keys(CLASSES).map(pClassName => (
+              {CHARACTER_CLASSES().map(pClassName => (
                 <option value={pClassName} key={pClassName}>
                   {translateClass(pClassName)}
                 </option>

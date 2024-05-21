@@ -123,7 +123,7 @@ function PcElfSkills() {
               Selecciona un idioma extra
             </span>
             <div className="characters__traits">
-              {LANGUAGES.filter(l => !RACES.elf.high.languages.includes(l)).map(
+              {LANGUAGES().filter(l => !RACES.elf.high.languages.includes(l)).map(
                 language => (
                   <label
                     htmlFor={language}

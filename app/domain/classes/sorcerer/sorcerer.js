@@ -71,7 +71,7 @@ export function getSorcererOriginTraits(pc) {
   const sorcererOrigin = getSorcererOrigin(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.sorcerer.leveling).reduce(
+    Object.entries(CLASSES().sorcerer.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

@@ -35,7 +35,7 @@ export function getDruidCircleTraits(pc) {
   const druidCircle = getDruidCircle(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.druid.leveling).reduce(
+    Object.entries(CLASSES().druid.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

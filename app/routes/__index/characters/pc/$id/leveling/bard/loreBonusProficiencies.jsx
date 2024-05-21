@@ -79,7 +79,7 @@ function LoreBonusProficiencies() {
         <div className="cards">
           <Card title="Habilidades" singleCard>
             <ul className="cards__card-list">
-              {SKILLS.map(skill => (
+              {SKILLS().map(skill => (
                 <li key={skill.name}>
                   <label
                     htmlFor={skill.name}

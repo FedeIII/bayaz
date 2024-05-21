@@ -59,7 +59,7 @@ export function CustomStatValues(props) {
         Puntos restantes: {MAX_POINTS - usedPoints}
       </div>
       <div className="characters__trait-columns characters__trait-columns--three">
-        {STATS.map((statName, index) => {
+        {STATS().map((statName, index) => {
           const canDrag = !usedRolls[index];
 
           const [{ isDragging }, drag] = useDrag(

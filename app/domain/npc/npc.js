@@ -380,7 +380,7 @@ function singleNpcToMonster(npc) {
       'Hit Points': `${getMaxHitPoints(npc)} (${getHitDice(npc)})`,
       Speed: npc.speed,
       stats: getStats(npc),
-      'Saving Throws': STATS.map(
+      'Saving Throws': STATS().map(
         statName =>
           `${statName} ${increment(
             statSavingThrow(
@@ -391,7 +391,7 @@ function singleNpcToMonster(npc) {
             )
           )}`
       ).join(', '),
-      Skills: SKILLS.map(
+      Skills: SKILLS().map(
         skill =>
           `${t(skill.name)} ${increment(skillCheckBonus(npc, skill.name))}`
       ).join(', '),

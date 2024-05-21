@@ -103,7 +103,11 @@ export const action = async ({ request }) => {
   if (sorcererOrigin || dragonAncestor)
     pcAttrs.classAttrs.sorcerer = { sorcererOrigin, dragonAncestor };
 
-  if (pc.pClass === 'paladin') {
+  if (pc.pClass === 'bard') {
+    pcAttrs.classAttrs.bard = {
+      bardicInspiration: getStatMod(getStat(pc, 'cha')),
+    };
+  } else if (pc.pClass === 'paladin') {
     pcAttrs.classAttrs.paladin = {
       layOnHands: 5,
       divineSense: 1 + getStatMod(getStat(pc, 'cha')),
@@ -142,7 +146,7 @@ export const action = async ({ request }) => {
 
   await updatePc({
     id,
-    totalHitPoints: [CLASSES[pc.pClass].initialHitPoints],
+    totalHitPoints: [CLASSES()[pc.pClass].initialHitPoints],
     hitPoints: getInitialHitPoints(updatedPc),
     hitDice: 1,
     remainingHitDice: 1,
@@ -185,9 +189,9 @@ function ClassSkills(props) {
 function getInitSkillsToSelect(pc) {
   return useMemo(() => {
     const initSelectedSkillNames = getSkills(pc);
-    const skillsToSelectForClass = CLASSES[pc.pClass].skillsToPick || [];
+    const skillsToSelectForClass = CLASSES()[pc.pClass].skillsToPick || [];
 
-    return SKILLS.reduce(
+    return SKILLS().reduce(
       (initSkills, nextSkill) => ({
         ...initSkills,
         [nextSkill.name]: {
@@ -270,7 +274,7 @@ function PcClassSkills() {
   const [skillsToSelect, setSkills, setSkillsNamespace, areNamespacesReady] =
     useSkills(pc);
 
-  const { pickSkills, skillsToPick } = CLASSES[pClass];
+  const { pickSkills, skillsToPick } = CLASSES()[pClass];
 
   const [checks, setChecks] = useState(skillsToPick.map(() => false));
 
@@ -343,7 +347,7 @@ function PcClassSkills() {
         <div className="characters__trait-columns characters__trait-columns--three">
           <label className="characters__trait-label">
             <span className="characters__trait-title">
-              Escoge {CLASSES[pClass].pickSkills} habilidades de{' '}
+              Escoge {CLASSES()[pClass].pickSkills} habilidades de{' '}
               {translateClass(pClass)}
             </span>
             <div className="characters__traits">

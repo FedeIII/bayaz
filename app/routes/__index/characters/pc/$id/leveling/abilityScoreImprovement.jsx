@@ -44,7 +44,7 @@ export const action = async ({ request }) => {
   const id = formData.get('id');
   const level = parseInt(formData.get('level'), 10);
 
-  const statsIncrease = STATS.reduce(
+  const statsIncrease = STATS().reduce(
     (s, statName) => ({
       ...s,
       [statName]: parseInt(formData.get(statName), 10),
@@ -120,7 +120,7 @@ function AbilityScoreImprovement() {
       </p>
 
       <div className="stats card">
-        {STATS.map(statName => (
+        {STATS().map(statName => (
           <div key={statName} className="stat">
             <div className="stats__cell stats__leftCell app__big-text">
               <span className="stats__statName">{translateStat(statName)}</span>

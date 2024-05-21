@@ -42,11 +42,11 @@ export const action = async ({ request }) => {
   const subrace = formData.get('subrace');
   const extraPoints = formData.getAll('extra-points[]');
   const selectedExtraPoints = formData.getAll('selected-extra-points[]');
-  const stats = STATS.reduce(
+  const stats = STATS().reduce(
     (acc, s) => ({ ...acc, [s]: formData.get(s) }),
     {}
   );
-  const extraStats = STATS.reduce(
+  const extraStats = STATS().reduce(
     (acc, s) => ({ ...acc, [s]: formData.get(`extra-${s}`) }),
     {}
   );
@@ -94,7 +94,7 @@ function useStatDrop(statValue, setStat, setUsedRolls) {
 }
 
 function useStats(setUsedRolls, pStats) {
-  return STATS.map(statName => {
+  return STATS().map(statName => {
     const [value, setValue] = useState(pStats?.[statName] || '');
     const [drop, isOver, canDrop] = useStatDrop(value, setValue, setUsedRolls);
 
@@ -256,7 +256,7 @@ function PcStats() {
   function reset() {
     setUsedRolls(Array(6).fill(false));
     setSelectedExtraPoints([]);
-    setPStats(STATS.reduce((acc, statName) => ({ [statName]: '' }), {}));
+    setPStats(STATS().reduce((acc, statName) => ({ [statName]: '' }), {}));
     stats.forEach(stat => stat.setValue(''));
     setAreStatsPreloaded(false);
   }

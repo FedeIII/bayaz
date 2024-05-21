@@ -3,9 +3,15 @@ import {
   CLASSES,
   getStat,
   getStatMod,
-  hasToSelectExpertSkills
+  hasToSelectExpertSkills,
 } from '../../characters';
-import { getBardCollege, getLoreCollegeProficiencies, getLoreSpells, hasToLearnMagicalSecretsSpells } from './bard';
+import {
+  getBardCollege,
+  getBardicInspiration,
+  getLoreCollegeProficiencies,
+  getLoreSpells,
+  hasToLearnMagicalSecretsSpells,
+} from './bard';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -16,19 +22,21 @@ export function displayBardTrait(traitName, trait, pc) {
   switch (traitName) {
     case 'bardicInspiration': {
       const { level } = pc;
-      const die = level >= 15
-        ? '1d12'
-        : level >= 10
+      const die =
+        level >= 15
+          ? '1d12'
+          : level >= 10
           ? '1d10'
           : level >= 5
-            ? '1d8'
-            : '1d6';
+          ? '1d8'
+          : '1d6';
       return (
         <>
-          <u>Inspiración de Bardo:</u> {getStatMod(getStat(pc, 'cha'))} veces{' '}
+          <u>Inspiración de Bardo:</u> {getBardicInspiration(pc)}/
+          {getStatMod(getStat(pc, 'cha'))} veces{' '}
           {level >= 5 ? 'entre descansos' : 'al día'}. {die}.{' '}
           {level >= 5 && (
-            <u>{CLASSES.bard.leveling[5].traits.fontOfInspiration}</u>
+            <u>{CLASSES().bard.leveling[5].traits.fontOfInspiration}</u>
           )}
         </>
       );
@@ -41,10 +49,10 @@ export function displayBardTrait(traitName, trait, pc) {
           {pc.level >= 17
             ? '1d12'
             : pc.level >= 13
-              ? '1d10'
-              : pc.level >= 9
-                ? '1d8'
-                : '1d6'}{' '}
+            ? '1d10'
+            : pc.level >= 9
+            ? '1d8'
+            : '1d6'}{' '}
           Puntos de Golpe
         </>
       );
@@ -63,9 +71,7 @@ export function displayBardTrait(traitName, trait, pc) {
       return (
         <>
           {trait}
-          {!getLoreCollegeProficiencies(pc).length && (
-            <ChooseTrait />
-          )}
+          {!getLoreCollegeProficiencies(pc).length && <ChooseTrait />}
         </>
       );
 
@@ -73,9 +79,7 @@ export function displayBardTrait(traitName, trait, pc) {
       return (
         <>
           {trait}
-          {hasToSelectExpertSkills(pc) && (
-            <ChooseTrait />
-          )}
+          {hasToSelectExpertSkills(pc) && <ChooseTrait />}
         </>
       );
 
@@ -86,9 +90,7 @@ export function displayBardTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          {!getLoreSpells(pc).length && (
-            <ChooseTrait />
-          )}
+          {!getLoreSpells(pc).length && <ChooseTrait />}
         </>
       );
 
@@ -96,9 +98,7 @@ export function displayBardTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          {hasToLearnMagicalSecretsSpells(pc) && (
-            <ChooseTrait />
-          )}
+          {hasToLearnMagicalSecretsSpells(pc) && <ChooseTrait />}
         </>
       );
 

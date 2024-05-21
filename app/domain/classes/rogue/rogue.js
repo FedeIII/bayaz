@@ -58,7 +58,7 @@ export function getRoguishArchetypeTraits(pc) {
   const roguishArchetype = getRoguishArchetype(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.rogue.leveling).reduce(
+    Object.entries(CLASSES().rogue.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

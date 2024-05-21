@@ -25,7 +25,7 @@ export function getArcaneTraditionTraits(pc) {
   const arcaneTradition = getArcaneTradition(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.wizard.leveling).reduce(
+    Object.entries(CLASSES().wizard.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

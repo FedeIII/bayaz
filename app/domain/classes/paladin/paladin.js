@@ -51,7 +51,7 @@ export function getSacredOathTraits(pc) {
   const sacredOath = getSacredOath(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.paladin.leveling).reduce(
+    Object.entries(CLASSES().paladin.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

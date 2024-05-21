@@ -128,7 +128,7 @@ export function getMartialArchetypeTraits(pc) {
   const martialArchetype = getMartialArchetype(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.fighter.leveling).reduce(
+    Object.entries(CLASSES().fighter.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

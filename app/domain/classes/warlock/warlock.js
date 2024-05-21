@@ -44,7 +44,7 @@ export function getWarlockPatronTraits(pc) {
   const patron = getWarlockPatron(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.warlock.leveling).reduce(
+    Object.entries(CLASSES().warlock.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level

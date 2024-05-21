@@ -15,7 +15,7 @@ function SheetSkills(props) {
 
   return (
     <>
-      {SKILLS.map(
+      {SKILLS().map(
         skill =>
           allSkills.includes(skill.name) && (
             <span
@@ -26,7 +26,7 @@ function SheetSkills(props) {
             </span>
           )
       )}
-      {SKILLS.map(skill => (
+      {SKILLS().map(skill => (
         <span
           className={`sheet__data sheet__${skill.name}Saving`}
           key={skill.name}

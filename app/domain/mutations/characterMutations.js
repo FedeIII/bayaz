@@ -28,7 +28,7 @@ export async function setPcStats(pcParams) {
     extraStats: paramExtraStats,
   } = pcParams;
 
-  const stats = STATS.reduce(
+  const stats = STATS().reduce(
     (pcStats, statName) => ({
       ...pcStats,
       [statName]: parseInt(paramStats[statName], 10),
@@ -92,7 +92,7 @@ export async function spendHitDie(id, diceAmount, dieValue) {
   }
 
   if (!dieValue) {
-    dieValue = rollDice(`${diceAmount}${CLASSES[pClass].hitDice.slice(1)}`);
+    dieValue = rollDice(`${diceAmount}${CLASSES()[pClass].hitDice.slice(1)}`);
   }
 
   dieValue += diceAmount * getStatMod(getStat(pc, 'con'));
@@ -121,6 +121,13 @@ export async function longRest(id) {
     magic: { ...magic, spentSpellSlots: Array(10).fill(0) },
   });
   pc = await healPc(id, Infinity);
+
+  if (pClass === 'bard') {
+    pc = await updateAttrsForClass(id, 'bard', {
+      bardicInspiration: getStatMod(getStat(pc, 'cha')),
+    });
+  }
+
   if (pClass === 'paladin') {
     pc = await updateAttrsForClass(id, 'paladin', {
       layOnHands: pc.level * 5,
@@ -135,7 +142,7 @@ export async function changeSpellSlot(id, spellSlotLevel, amount) {
   let pc = await getPc(id);
   const { magic } = pc;
   const spellSlots = getSpellSlots(pc);
-  
+
   if (amount <= spellSlots[spellSlotLevel]) {
     const newSpentSpellSlots = magic.spentSpellSlots.slice();
     newSpentSpellSlots[spellSlotLevel] = amount;

@@ -10,17 +10,23 @@ import { translateSpell } from '../../spells/spells';
 import {
   getAllLoreSpellsLearned,
   getAllMagicalSecretsSpellsLearned,
+  getBardicInspiration,
   getLoreCollegeProficiencies,
   hasToLearnMagicalSecretsSpells,
 } from './bard';
+import SpendTrait, { createActions } from '~/components/spendTrait';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
+export const getTraitActions = {
+  ...createActions('bard', 'bardicInspiration'),
+};
+
 export const BARD_SKILLS_EXPLANATION = {
-  bardicInspiration: (skill, pc) => (
+  bardicInspiration_text: (skill, pc) => (
     <>
       <p>
         Puedes inspirar a otros a través de palabras estimulantes o de la
@@ -56,13 +62,26 @@ export const BARD_SKILLS_EXPLANATION = {
         niveles. El dado se convierte en 1d8 al nivel 5, en 1d10 al nivel 10 y
         en 1d12 al nivel 15.
       </p>
+    </>
+  ),
+
+  bardicInspiration: (skill, pc, submit, closeModal) => (
+    <>
+      {BARD_SKILLS_EXPLANATION.bardicInspiration_text(skill, pc)}
 
       {pc.level >= 5 && (
         <>
-          <h3>{CLASSES.bard.leveling[5].traits.fontOfInspiration}</h3>
+          <h3>{CLASSES().bard.leveling[5].traits.fontOfInspiration}</h3>
           <p>{BARD_SKILLS_EXPLANATION.fontOfInspiration()}</p>
         </>
       )}
+
+      <SpendTrait
+        pc={pc}
+        traitName="bardicInspiration"
+        submit={submit}
+        traitGetter={getBardicInspiration}
+      />
     </>
   ),
 

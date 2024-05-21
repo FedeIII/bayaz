@@ -32,8 +32,8 @@ function ProficienciesAndLanguages(props) {
         )}
       </li>
 
-      {CLASSES[pClass].proficiencies &&
-        Object.entries(CLASSES[pClass].proficiencies).map(
+      {CLASSES()[pClass].proficiencies &&
+        Object.entries(CLASSES()[pClass].proficiencies).map(
           ([profName, profValue]) => (
             <li className="sheet__trait-label" key={profName}>
               {profName}:{' '}

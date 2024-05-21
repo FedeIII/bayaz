@@ -55,7 +55,7 @@ function BackgroundSelection(props) {
               Selecciona {BACKGROUNDS[backgroundName].languages} idiomas
             </span>
             <div className="characters__traits">
-              {LANGUAGES.filter(l => !languages.includes(l)).map(language => (
+              {LANGUAGES().filter(l => !languages.includes(l)).map(language => (
                 <label
                   htmlFor={language}
                   key={language}

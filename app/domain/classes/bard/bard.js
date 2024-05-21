@@ -7,10 +7,7 @@ import {
   getAllSimpleMelee,
   WEAPONS,
 } from '../../equipment/weapons';
-import {
-  CLASSES,
-} from '../../characters';
-
+import { CLASSES } from '../../characters';
 
 export const BARD_EQUIPMENT = [
   { or: [WEAPONS().rapier(), WEAPONS().longsword(), ...getAllSimpleMelee()] },
@@ -72,7 +69,7 @@ export function getBardCollegeTraits(pc) {
   const bardCollege = getBardCollege(pc);
 
   return Object.entries(
-    Object.entries(CLASSES.bard.leveling).reduce(
+    Object.entries(CLASSES().bard.leveling).reduce(
       (levelingTraits, [traitLevel, levelSkills]) => ({
         ...levelingTraits,
         ...(parseInt(traitLevel, 10) <= level
@@ -103,4 +100,8 @@ export function hasToLearnMagicalSecretsSpells(pc) {
   const magicalSecretsSpells = getAllMagicalSecretsSpellsLearned(pc);
 
   return maxMagicalSecretsSpells(pc) > magicalSecretsSpells.length;
+}
+
+export function getBardicInspiration(pc) {
+  return pc.classAttrs?.bard?.bardicInspiration || 0;
 }
