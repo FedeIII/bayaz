@@ -205,24 +205,12 @@ export const RANGER_FIGHTING_STYLES = [
   'twoWeaponFighting',
 ];
 
-export function translateRangerFightingStyle(style) {
-  switch (style) {
-    case 'archery':
-      return 'A Distancia';
-    case 'defense':
-      return 'Defensa';
-    case 'dueling':
-      return 'Duelista';
-    case 'twoWeaponFighting':
-      return 'Lucha con Dos Armas';
-
-    default:
-      return 'unknown fighting style';
-  }
-}
-
 export function getRangerFightingStyle(pc) {
   return pc.classAttrs?.ranger?.fightingStyle || null;
+}
+
+export function getIsRangerFightingStyleSettled(pc) {
+  return pc.classAttrs?.ranger?.isFightingStyleSettled || false;
 }
 
 export function getRangerConclaveTraits(pc) {

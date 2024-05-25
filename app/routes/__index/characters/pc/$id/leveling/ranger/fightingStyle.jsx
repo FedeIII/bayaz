@@ -4,9 +4,10 @@ import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
   RANGER_FIGHTING_STYLES,
+  getIsRangerFightingStyleSettled,
   getRangerFightingStyle,
-  translateRangerFightingStyle,
 } from '~/domain/classes/ranger/ranger';
+import { t } from '~/domain/translations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -14,7 +15,7 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (getRangerFightingStyle(pc)) {
+  if (getIsRangerFightingStyleSettled(pc)) {
     throw new Error('Ya has escogido Estilo de Combate de Explorador');
   }
 
@@ -42,6 +43,8 @@ function RangerFightingStyle() {
 
   useTitle('Explorador nivel 2');
 
+  const pFightingStyle = getRangerFightingStyle(pc);
+
   return (
     <Form method="post">
       <input readOnly type="text" name="id" value={pc.id} hidden />
@@ -59,45 +62,37 @@ function RangerFightingStyle() {
           <br />
           <select
             name="fightingStyle"
-            defaultValue=""
+            defaultValue={pFightingStyle}
             className="cards__button-card"
           >
             <option value="" disabled></option>
             {RANGER_FIGHTING_STYLES.map(fightingStyle => (
               <option value={fightingStyle} key={fightingStyle}>
-                {translateRangerFightingStyle(fightingStyle)}
+                {t(fightingStyle)}
               </option>
             ))}
           </select>
         </label>
       </p>
 
-      <h3 className="app__pale-text">
-        {translateRangerFightingStyle('archery')}
-      </h3>
+      <h3 className="app__pale-text">{t('archery')}</h3>
       <p className="app__paragraph">
         Ganas un bonificador de +2 a las tiradas de ataque que hagas con armas a
         distancia
       </p>
 
-      <h3 className="app__pale-text">
-        {translateRangerFightingStyle('defense')}
-      </h3>
+      <h3 className="app__pale-text">{t('defense')}</h3>
       <p className="app__paragraph">
         Mientras lleves puesta una armadura ganas un +1 a la CA.
       </p>
 
-      <h3 className="app__pale-text">
-        {translateRangerFightingStyle('dueling')}
-      </h3>
+      <h3 className="app__pale-text">{t('dueling')}</h3>
       <p className="app__paragraph">
         Cuando llevas un arma en una mano y ningún arma más, ganas un
         bonificador de +2 a las tiradas de daño con esa arma.
       </p>
 
-      <h3 className="app__pale-text">
-        {translateRangerFightingStyle('twoWeaponFighting')}
-      </h3>
+      <h3 className="app__pale-text">{t('twoWeaponFighting')}</h3>
       <p className="app__paragraph">
         Cuando luchas con el estilo de lucha de dos armas, puedes añadir tu
         modificador de característica al daño del segundo ataque

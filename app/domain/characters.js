@@ -9,7 +9,7 @@ import {
 } from './classes/bard/bard';
 import {
   BARD_SKILLS_EXPLANATION,
-  getTraitActions as bardTraitActions,
+  classTraitActions as bardTraitActions,
 } from './classes/bard/bardSkillsExplanation';
 import {
   translateDivineDomain,
@@ -47,7 +47,10 @@ import random from '~/domain/random';
 import { WARLOCK_SKILLS_EXPLANATION } from './classes/warlock/warlockSkillsExplanation';
 import { CLERIC_SKILLS_EXPLANATION } from './classes/cleric/clericSkillsExplanation';
 import { DRUID_SKILLS_EXPLANATION } from './classes/druid/druidSkillsExplanation';
-import { RANGER_SKILLS_EXPLANATION } from './classes/ranger/rangerSkillsExplanation';
+import {
+  RANGER_SKILLS_EXPLANATION,
+  classTraitActions as rangerTraitActions,
+} from './classes/ranger/rangerSkillsExplanation';
 import { FIGHTER_SKILLS_EXPLANATION } from './classes/fighter/fighterSkillsExplanation';
 import {
   getAllFightingStyles,
@@ -63,7 +66,7 @@ import {
 } from './classes/monk/monkSkillsExplanation';
 import {
   PALADIN_SKILLS_EXPLANATION,
-  getTraitActions as paladinTraitActions,
+  classTraitActions as paladinTraitActions,
 } from './classes/paladin/paladinSkillsExplanation';
 import {
   ELEMENTAL_DISCIPLINES,
@@ -3179,6 +3182,7 @@ export function getTraitActions() {
   return {
     ...bardTraitActions,
     ...paladinTraitActions,
+    ...rangerTraitActions,
   };
 }
 

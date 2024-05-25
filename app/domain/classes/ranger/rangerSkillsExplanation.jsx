@@ -5,6 +5,7 @@ import {
   getHunterDefensiveTactics,
   getHunterMultiattack,
   getHuntersPrey,
+  getIsRangerFightingStyleSettled,
   getRangerFightingStyle,
   getSuperiorHuntersDefense,
   hasToPickFavoredEnemies,
@@ -14,15 +15,26 @@ import {
   translateHunterMultiattack,
   translateHuntersDefensiveTactics,
   translateHuntersPrey,
-  translateRangerFightingStyle,
   translateSuperiorHuntersDefense,
 } from './ranger';
 import { getProficiencyBonus, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
+import { t } from '~/domain/translations';
+import { updateAttrsForClass } from '~/services/pc.server';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
+};
+
+export const classTraitActions = {
+  settleRangerFightingStyle: async formData => {
+    const id = formData.get('id');
+    const updatedPc = await updateAttrsForClass(id, 'ranger', {
+      isFightingStyleSettled: true,
+    });
+    return updatedPc;
+  },
 };
 
 export const RANGER_SKILLS_EXPLANATION = {
@@ -118,8 +130,19 @@ export const RANGER_SKILLS_EXPLANATION = {
     </>
   ),
 
-  rangerFightingStyle: (skill, pc) => {
+  rangerFightingStyle: (skill, pc, submit, closeModal) => {
     const fightingStyle = getRangerFightingStyle(pc);
+    const isFightingStyleSettled = getIsRangerFightingStyleSettled(pc);
+    function settleFightingStyle() {
+      submit(
+        {
+          action: 'settleRangerFightingStyle',
+          id: pc.id,
+        },
+        { method: 'post' }
+      );
+      closeModal();
+    }
     return (
       <>
         <p>
@@ -128,20 +151,26 @@ export const RANGER_SKILLS_EXPLANATION = {
           un Estilo de Combate más de una vez, incluso si tienes la opción de
           escoger otro más adelante.
         </p>
-        {!fightingStyle && (
+        {!isFightingStyleSettled && (
           <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.id}/leveling/ranger/fightingStyle`}
               className="inventory-item__modal-button"
             >
-              Escoge Estilo
+              Escoger Nuevo Estilo
             </Link>
+            <button
+              className="inventory-item__modal-button"
+              onClick={settleFightingStyle}
+            >
+              Adoptar {t(fightingStyle)}
+            </button>
           </div>
         )}
 
         {!!fightingStyle && (
           <>
-            <h3>{translateRangerFightingStyle(fightingStyle)}</h3>
+            <h3>{t(fightingStyle)}</h3>
             {fightingStyle === 'archery' && (
               <p className="app__paragraph">
                 Ganas un bonificador de +2 a las tiradas de ataque que hagas con

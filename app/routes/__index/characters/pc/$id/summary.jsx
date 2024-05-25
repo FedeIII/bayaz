@@ -35,7 +35,10 @@ import {
 } from '~/domain/classes/barbarian/barbarian';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import { ItemModal } from '~/components/modal/itemModal';
-import { useSkillItems } from '~/components/modal/useSkillItems';
+import {
+  useSkillItems,
+  actions as useSkillItemsActions,
+} from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useTitle } from '~/components/hooks/useTitle';
@@ -240,6 +243,7 @@ export const action = async ({ request }) => {
       ...sheetEquipmentActions,
       ...hitDiceActions,
       ...skillsExplanationActions,
+      ...useSkillItemsActions,
       ...customTraitsActions,
       ...getTraitActions(),
     });

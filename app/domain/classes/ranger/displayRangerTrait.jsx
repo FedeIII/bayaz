@@ -4,6 +4,7 @@ import {
   getHunterDefensiveTactics,
   getHunterMultiattack,
   getHuntersPrey,
+  getIsRangerFightingStyleSettled,
   getRangerConclave,
   getRangerFightingStyle,
   getSuperiorHuntersDefense,
@@ -14,12 +15,12 @@ import {
   translateHunterMultiattack,
   translateHuntersDefensiveTactics,
   translateHuntersPrey,
-  translateRangerFightingStyle,
   translateSuperiorHuntersDefense,
 } from './ranger';
 import { getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import { ChooseTrait } from '~/components/summary/skillStates';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -37,9 +38,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           <span className="app__small-text">
             {getFavoredEnemies(pc).map(translateFavoredEnemy).join(', ')}
           </span>
-          {hasToPickFavoredEnemies(pc) && (
-            <ChooseTrait />
-          )}
+          {hasToPickFavoredEnemies(pc) && <ChooseTrait />}
         </>
       );
 
@@ -52,9 +51,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           <span className="app__small-text">
             {getFavoredTerrains(pc).map(translateFavoredTerrain).join(', ')}
           </span>
-          {hasToPickFavoredTerrain(pc) && (
-            <ChooseTrait />
-          )}
+          {hasToPickFavoredTerrain(pc) && <ChooseTrait />}
         </>
       );
 
@@ -64,14 +61,12 @@ export function displayRangerTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          {!getRangerFightingStyle(pc) && (
-            <ChooseTrait />
-          )}
           {!!getRangerFightingStyle(pc) && (
             <span className="app__small-text">
-              {translateRangerFightingStyle(getRangerFightingStyle(pc))}
+              {t(getRangerFightingStyle(pc))}
             </span>
           )}
+          {!getIsRangerFightingStyleSettled(pc) && <ChooseTrait />}
         </>
       );
 
@@ -91,10 +86,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}</u>
           </strong>
-          .{' '}
-          {!getHuntersPrey(pc) && (
-            <ChooseTrait />
-          )}
+          . {!getHuntersPrey(pc) && <ChooseTrait />}
           {!!getHuntersPrey(pc) && (
             <span className="app__small-text">
               {translateHuntersPrey(getHuntersPrey(pc))}
@@ -109,10 +101,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}</u>
           </strong>
-          .{' '}
-          {!getHunterDefensiveTactics(pc) && (
-            <ChooseTrait />
-          )}
+          . {!getHunterDefensiveTactics(pc) && <ChooseTrait />}
           {!!getHunterDefensiveTactics(pc) && (
             <span className="app__small-text">
               {translateHuntersDefensiveTactics(getHunterDefensiveTactics(pc))}
@@ -127,10 +116,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}</u>
           </strong>
-          .{' '}
-          {!getHunterMultiattack(pc) && (
-            <ChooseTrait />
-          )}
+          . {!getHunterMultiattack(pc) && <ChooseTrait />}
           {!!getHunterMultiattack(pc) && (
             <span className="app__small-text">
               {translateHunterMultiattack(getHunterMultiattack(pc))}
@@ -145,10 +131,7 @@ export function displayRangerTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}</u>
           </strong>
-          .{' '}
-          {!getSuperiorHuntersDefense(pc) && (
-            <ChooseTrait />
-          )}
+          . {!getSuperiorHuntersDefense(pc) && <ChooseTrait />}
           {!!getSuperiorHuntersDefense(pc) && (
             <span className="app__small-text">
               {translateSuperiorHuntersDefense(getSuperiorHuntersDefense(pc))}

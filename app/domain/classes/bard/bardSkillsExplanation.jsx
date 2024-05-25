@@ -21,7 +21,7 @@ export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
-export const getTraitActions = {
+export const classTraitActions = {
   ...createSpendActions('bard', 'bardicInspiration'),
 };
 

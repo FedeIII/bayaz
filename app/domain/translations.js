@@ -344,6 +344,12 @@ export function t(key) {
     wildlands_north: 'Tierras salvajes del Norte',
     wildlands_south: 'Tierras salvajes del Sur',
     forgotten_dominions: 'Dominios Olvidados',
+
+    // Ranger Fighting Styles
+    archery: 'A Distancia',
+    defense: 'Defensa',
+    dueling: 'Duelista',
+    twoWeaponFighting: 'Lucha con Dos Armas',
   }[key];
 
   if (translation) return translation;

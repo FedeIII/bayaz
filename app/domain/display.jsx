@@ -56,10 +56,7 @@ import {
   translateFightingStyle,
 } from './classes/fighter/fighter';
 import { getPaladinFightingStyle } from './classes/paladin/paladin';
-import {
-  getRangerFightingStyle,
-  translateRangerFightingStyle,
-} from './classes/ranger/ranger';
+import { getRangerFightingStyle } from './classes/ranger/ranger';
 import { t } from './translations';
 import { ChooseTrait } from '~/components/summary/skillStates';
 
@@ -631,7 +628,7 @@ export function getAcBreakdown(pc) {
             ...(pClass === 'ranger' && getRangerFightingStyle(pc) === 'defense'
               ? [
                   {
-                    title: `Estilo de Combate: ${translateRangerFightingStyle(
+                    title: `Estilo de Combate: ${t(
                       getRangerFightingStyle(pc)
                     )}`,
                     ac: increment(1),
