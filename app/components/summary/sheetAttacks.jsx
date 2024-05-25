@@ -1,5 +1,6 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import classNames from 'classnames';
 
 import { getExtraWeapons, hasExtraWeapons } from '~/domain/characters';
 import { getAnyItem, noItem } from '~/domain/equipment/equipment';
@@ -8,10 +9,60 @@ import { InventoryItem } from '../modal/inventoryItem';
 import { SkillItem } from '../modal/skillItem';
 import { t } from '~/domain/translations';
 import MagicItemsContext from '../contexts/magicItemsContext';
-import classNames from 'classnames';
 import NumericInput from '../inputs/numeric';
+import {
+  equipWeapons,
+  getPc,
+  reorderWeapons,
+  unequipWeapon,
+} from '~/services/pc.server';
+import { changeMagicCharges, useCharge } from '~/services/item.server';
 
 const noAttack = { weapon: noItem() };
+
+export const actions = {
+  equipWeapons: async formData => {
+    const oldWeaponName = formData.get('oldWeaponName');
+    const newWeaponName = formData.get('newWeaponName');
+    const id = formData.get('id');
+
+    return await equipWeapons(id, oldWeaponName, newWeaponName);
+  },
+
+  unequipWeapon: async formData => {
+    const id = formData.get('id');
+    const weaponName = formData.get('weaponName');
+
+    return await unequipWeapon(id, weaponName);
+  },
+
+  useMagicWeapon: async formData => {
+    const id = formData.get('id');
+    const weaponId = formData.get('weaponId');
+
+    await useCharge(weaponId);
+
+    return await getPc(id);
+  },
+
+  setMagicWeaponCharges: async formData => {
+    const id = formData.get('id');
+    const weaponId = formData.get('weaponId');
+    const charges = formData.get('charges');
+
+    await changeMagicCharges(weaponId, charges);
+
+    return await getPc(id);
+  },
+
+  reorderWeapons: async formData => {
+    const id = formData.get('id');
+    const weaponName = formData.get('weaponName');
+    const weaponSlot = formData.get('weaponSlot');
+
+    return await reorderWeapons(id, weaponName, weaponSlot);
+  },
+};
 
 function WeaponModalContent(props) {
   const {

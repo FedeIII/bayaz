@@ -4,26 +4,11 @@ import { createRef, useEffect, useRef, useState } from 'react';
 
 import {
   getPc,
-  equipWeapons,
   updatePc,
-  reorderWeapons,
-  switchArmor,
-  createNotes,
   updateNotes,
   deleteNote,
   updateNotePosition,
-  unequipWeapon,
-  unequipArmor,
-  dropEquipmentAmmo,
-  changeEquipmentAmmoAmount,
   updatePcName,
-  dropEquipmentOther,
-  changeEquipmentOtherAmount,
-  spendLayOnHands,
-  markTraitSeen,
-  switchShield,
-  unequipShield,
-  addOtherEquipment,
 } from '~/services/pc.server';
 import {
   CLASSES,
@@ -104,14 +89,17 @@ import {
   getRoguishArchetypeTraits,
   translateRoguishArchetype,
 } from '~/domain/classes/rogue/rogue';
-import { longRest, spendHitDie } from '~/domain/mutations/characterMutations';
 import Note from '~/components/note/note';
 import BasicAttrs from '~/components/summary/basicAttrs';
 import CombatAttrs from '~/components/summary/combatAttrs';
 import SheetStats from '~/components/summary/sheetStats';
 import SheetSkills from '~/components/summary/sheetSkills';
-import SheetAttacks from '~/components/summary/sheetAttacks';
-import SheetEquipment from '~/components/summary/sheetEquipment';
+import SheetAttacks, {
+  actions as sheetAttacksActions,
+} from '~/components/summary/sheetAttacks';
+import SheetEquipment, {
+  actions as sheetEquipmentActions,
+} from '~/components/summary/sheetEquipment';
 import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLanguages';
 import CustomTraits, {
   actions as customTraitsActions,
@@ -119,8 +107,9 @@ import CustomTraits, {
 import { isDm } from '~/domain/user';
 import { getUser } from '~/services/user.server';
 import { getSessionUser } from '~/services/session.server';
-import { changeMagicCharges, useCharge } from '~/services/item.server';
 import processAction from '~/utils/remix/processAction';
+import { actions as hitDiceActions } from '~/components/skills/hitDiceActions';
+import { actions as skillsExplanationActions } from '~/domain/skillsExplanation';
 
 import styles from '~/components/sheet.css';
 import spellsStyles from '~/components/spells.css';
@@ -150,104 +139,6 @@ export const loader = async ({ request, params }) => {
   return json({ pc, playerName: owner.name, isDm: isDm(user) });
 };
 
-async function equipWeaponsAction(formData) {
-  const oldWeaponName = formData.get('oldWeaponName');
-  const newWeaponName = formData.get('newWeaponName');
-  const id = formData.get('id');
-
-  return await equipWeapons(id, oldWeaponName, newWeaponName);
-}
-
-async function unequipWeaponAction(formData) {
-  const id = formData.get('id');
-  const weaponName = formData.get('weaponName');
-
-  return await unequipWeapon(id, weaponName);
-}
-
-async function useMagicWeaponAction(formData) {
-  const id = formData.get('id');
-  const weaponId = formData.get('weaponId');
-
-  await useCharge(weaponId);
-
-  return await getPc(id);
-}
-
-async function setMagicWeaponChargesActions(formData) {
-  const id = formData.get('id');
-  const weaponId = formData.get('weaponId');
-  const charges = formData.get('charges');
-
-  await changeMagicCharges(weaponId, charges);
-
-  return await getPc(id);
-}
-
-async function reorderWeaponsAction(formData) {
-  const id = formData.get('id');
-  const weaponName = formData.get('weaponName');
-  const weaponSlot = formData.get('weaponSlot');
-
-  return await reorderWeapons(id, weaponName, weaponSlot);
-}
-
-async function switchShieldAction(formData) {
-  const id = formData.get('id');
-  const newShieldName = formData.get('newShieldName');
-
-  return await switchShield(id, newShieldName);
-}
-
-async function switchArmorAction(formData) {
-  const id = formData.get('id');
-  const newArmorName = formData.get('newArmorName');
-
-  return await switchArmor(id, newArmorName);
-}
-
-async function unequipShieldAction(formData) {
-  const id = formData.get('id');
-  const shieldName = formData.get('shieldName');
-
-  return await unequipShield(id, shieldName);
-}
-
-async function unequipArmorAction(formData) {
-  const id = formData.get('id');
-  const armorName = formData.get('armorName');
-
-  return await unequipArmor(id, armorName);
-}
-
-async function spendHitDieAction(formData) {
-  const id = formData.get('id');
-  const diceAmount = formData.get('diceAmount');
-
-  return await spendHitDie(id, parseInt(diceAmount, 10));
-}
-
-async function spendRealHitDieAction(formData) {
-  const id = formData.get('id');
-  const die = formData.get('die');
-  const diceAmount = formData.get('diceAmount');
-
-  return await spendHitDie(id, parseInt(diceAmount, 10), parseInt(die, 10));
-}
-
-async function longRestAction(formData) {
-  const id = formData.get('id');
-
-  return await longRest(id);
-}
-
-async function createNotesAction(formData) {
-  const id = formData.get('id');
-  const position = formData.get('position');
-
-  return await createNotes(id, position.split(','));
-}
-
 async function deleteNoteAction(formData) {
   const id = formData.get('id');
   const noteId = formData.get('noteId');
@@ -269,63 +160,6 @@ async function updateNoteTextAction(formData) {
   const text = formData.get('text');
 
   return await updateNotes(id, noteId, text);
-}
-
-async function dropAmmoAction(formData) {
-  const id = formData.get('id');
-  const itemName = formData.get('itemName');
-
-  await dropEquipmentAmmo(id, itemName);
-}
-
-async function dropOtherAction(formData) {
-  const id = formData.get('id');
-  const itemName = formData.get('itemName');
-
-  await dropEquipmentOther(id, itemName);
-}
-
-async function useChargeAction(formData) {
-  const id = formData.get('id');
-  const itemId = formData.get('itemId');
-
-  await useCharge(itemId);
-
-  return await getPc(id);
-}
-
-async function changeAmmoAmountAction(formData) {
-  const id = formData.get('id');
-  const itemName = formData.get('itemName');
-  const itemAmount = formData.get('itemAmount');
-
-  await changeEquipmentAmmoAmount(id, itemName, itemAmount);
-}
-
-async function changeOtherAmountAction(formData) {
-  const id = formData.get('id');
-  const itemName = formData.get('itemName');
-  const itemAmount = formData.get('itemAmount');
-
-  await changeEquipmentOtherAmount(id, itemName, itemAmount);
-}
-
-async function changeMagicChargesAction(formData) {
-  const id = formData.get('id');
-  const itemId = formData.get('itemId');
-  const charges = formData.get('charges');
-
-  await changeMagicCharges(itemId, charges);
-
-  return await getPc(id);
-}
-
-async function changeMoneyAction(formData) {
-  const id = formData.get('id');
-  const coin = formData.get('coin');
-  const amount = formData.get('amount');
-
-  return await updatePc({ id, [`money.${coin}`]: amount });
 }
 
 async function updateNameAction(formData) {
@@ -378,81 +212,18 @@ async function updateTemporaryHitPoints(formData) {
   return updatedPc;
 }
 
-async function spendLayOnHandsAction(formData) {
-  const id = formData.get('id');
-  const hp = formData.get('hp');
-
-  const updatedPc = await spendLayOnHands(id, parseInt(hp, 10));
-
-  return updatedPc;
-}
-
-async function markTraitSeenAction(formData) {
-  const id = formData.get('id');
-  const trait = formData.get('trait');
-  const updatedPc = await markTraitSeen(id, trait);
-  return updatedPc;
-}
-
-async function addArbitraryItemAction(formData) {
-  const id = formData.get('id');
-  const itemName = formData.get('itemName');
-  const updatedPc = await addOtherEquipment(id, itemName);
-  return updatedPc;
-}
-
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const action = formData.get('action');
 
   let pc = null;
-  if (action === 'equipWeapons') {
-    pc = await equipWeaponsAction(formData);
-  } else if (action === 'unequipWeapon') {
-    pc = await unequipWeaponAction(formData);
-  } else if (action === 'useMagicWeapon') {
-    pc = await useMagicWeaponAction(formData);
-  } else if (action === 'setMagicWeaponCharges') {
-    pc = await setMagicWeaponChargesActions(formData);
-  } else if (action === 'reorderWeapons') {
-    pc = await reorderWeaponsAction(formData);
-  } else if (action === 'equipShield') {
-    pc = await switchShieldAction(formData);
-  } else if (action === 'equipArmor') {
-    pc = await switchArmorAction(formData);
-  } else if (action === 'unequipShield') {
-    pc = await unequipShieldAction(formData);
-  } else if (action === 'unequipArmor') {
-    pc = await unequipArmorAction(formData);
-  } else if (action === 'spendHitDie') {
-    pc = await spendHitDieAction(formData);
-  } else if (action === 'spendRealHitDie') {
-    pc = await spendRealHitDieAction(formData);
-  } else if (action === 'longRest') {
-    pc = await longRestAction(formData);
-  } else if (action === 'createNotes') {
-    pc = await createNotesAction(formData);
-  } else if (action === 'deleteNote') {
+  if (action === 'deleteNote') {
     pc = await deleteNoteAction(formData);
   } else if (action === 'updateNotePosition') {
     pc = await updateNotePositionAction(formData);
   } else if (action === 'updateNoteText') {
     pc = await updateNoteTextAction(formData);
-  } else if (action === 'dropAmmo') {
-    pc = await dropAmmoAction(formData);
-  } else if (action === 'dropOther') {
-    pc = await dropOtherAction(formData);
-  } else if (action === 'useCharge') {
-    pc = await useChargeAction(formData);
-  } else if (action === 'changeAmmoAmount') {
-    pc = await changeAmmoAmountAction(formData);
-  } else if (action === 'changeOtherAmount') {
-    pc = await changeOtherAmountAction(formData);
-  } else if (action === 'changeMagicCharges') {
-    pc = await changeMagicChargesAction(formData);
-  } else if (action === 'changeMoney') {
-    pc = await changeMoneyAction(formData);
   } else if (action === 'updateName') {
     return await updateNameAction(formData);
   } else if (action === 'freeTextChange') {
@@ -463,14 +234,12 @@ export const action = async ({ request }) => {
     pc = await hitPointsChangeAction(formData);
   } else if (action === 'temporaryHitPointsChange') {
     pc = await updateTemporaryHitPoints(formData);
-  } else if (action === 'spendLayOnHands') {
-    pc = await spendLayOnHandsAction(formData);
-  } else if (action === 'seeTrait') {
-    pc = await markTraitSeenAction(formData);
-  } else if (action === 'addArbitraryItem') {
-    pc = await addArbitraryItemAction(formData);
   } else {
     pc = processAction(action, formData, {
+      ...sheetAttacksActions,
+      ...sheetEquipmentActions,
+      ...hitDiceActions,
+      ...skillsExplanationActions,
       ...customTraitsActions,
       ...getTraitActions(),
     });

@@ -6,8 +6,116 @@ import { t } from '~/domain/translations';
 import MagicItemsContext from '../contexts/magicItemsContext';
 import { hasActions } from '~/domain/equipment/items';
 import NumericInput from '../inputs/numeric';
+import {
+  addOtherEquipment,
+  changeEquipmentAmmoAmount,
+  changeEquipmentOtherAmount,
+  dropEquipmentAmmo,
+  dropEquipmentOther,
+  getPc,
+  switchArmor,
+  switchShield,
+  unequipArmor,
+  unequipShield,
+  updatePc,
+} from '~/services/pc.server';
+import { changeMagicCharges, useCharge } from '~/services/item.server';
 
 const noOp = () => {};
+
+export const actions = {
+  equipShield: async formData => {
+    const id = formData.get('id');
+    const newShieldName = formData.get('newShieldName');
+
+    return await switchShield(id, newShieldName);
+  },
+
+  equipArmor: async formData => {
+    const id = formData.get('id');
+    const newArmorName = formData.get('newArmorName');
+
+    return await switchArmor(id, newArmorName);
+  },
+
+  unequipShield: async formData => {
+    const id = formData.get('id');
+    const shieldName = formData.get('shieldName');
+
+    return await unequipShield(id, shieldName);
+  },
+
+  unequipArmor: async formData => {
+    const id = formData.get('id');
+    const armorName = formData.get('armorName');
+
+    return await unequipArmor(id, armorName);
+  },
+
+  dropAmmo: async formData => {
+    const id = formData.get('id');
+    const itemName = formData.get('itemName');
+
+    await dropEquipmentAmmo(id, itemName);
+  },
+
+  dropOther: async formData => {
+    const id = formData.get('id');
+    const itemName = formData.get('itemName');
+
+    await dropEquipmentOther(id, itemName);
+  },
+
+  useCharge: async formData => {
+    const id = formData.get('id');
+    const itemId = formData.get('itemId');
+
+    await useCharge(itemId);
+
+    return await getPc(id);
+  },
+
+  changeAmmoAmount: async formData => {
+    const id = formData.get('id');
+    const itemName = formData.get('itemName');
+    const itemAmount = formData.get('itemAmount');
+
+    await changeEquipmentAmmoAmount(id, itemName, itemAmount);
+  },
+
+  changeOtherAmount: async formData => {
+    const id = formData.get('id');
+    const itemName = formData.get('itemName');
+    const itemAmount = formData.get('itemAmount');
+
+    await changeEquipmentOtherAmount(id, itemName, itemAmount);
+  },
+
+  changeMagicCharges: async formData => {
+    const id = formData.get('id');
+    const itemId = formData.get('itemId');
+    const charges = formData.get('charges');
+
+    await changeMagicCharges(itemId, charges);
+
+    return await getPc(id);
+  },
+
+  changeMoney: async formData => {
+    const id = formData.get('id');
+    const coin = formData.get('coin');
+    const amount = formData.get('amount');
+
+    return await updatePc({ id, [`money.${coin}`]: amount });
+  },
+
+  addArbitraryItem: async formData => {
+    const id = formData.get('id');
+    const itemName = formData.get('itemName');
+
+    return await addOtherEquipment(id, itemName);
+  },
+};
 
 function ArmorModalContent(props) {
   const { pc, armor, onArmorChange, unequipArmor, closeModal } = props;
@@ -487,7 +595,10 @@ function SheetEquipment(props) {
             className="sheet__other-item-input"
           />
           {!!arbitratyItem && (
-            <span className="sheet__add-other-item sheet__add-other-item--animated" onClick={addArbitraryItem}>
+            <span
+              className="sheet__add-other-item sheet__add-other-item--animated"
+              onClick={addArbitraryItem}
+            >
               +
             </span>
           )}

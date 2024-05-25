@@ -7,8 +7,18 @@ import {
   ManeuverModalContent,
 } from './skillModal';
 import { BASE_CHARACTER } from '~/domain/characters';
+import { markTraitSeen } from '~/services/pc.server';
 
 const noOp = () => {};
+
+export const actions = {
+  seeTrait: async formData => {
+    const id = formData.get('id');
+    const trait = formData.get('trait');
+    const updatedPc = await markTraitSeen(id, trait);
+    return updatedPc;
+  },
+};
 
 export function useSkillItems(
   pc = BASE_CHARACTER,
@@ -26,11 +36,14 @@ export function useSkillItems(
 
   function openSkillModal(sectionName, skillIndex = 0, actions) {
     return (skillName, skill, bigModal, position) => {
-      submit({
-        action: 'seeTrait',
-        trait: skillName,
-        id: pc.id,
-      }, { method: 'post' });
+      submit(
+        {
+          action: 'seeTrait',
+          trait: skillName,
+          id: pc.id,
+        },
+        { method: 'post' }
+      );
 
       setSelectedSkillRef(skillRefs[sectionName].current[skillIndex]);
 

@@ -14,7 +14,7 @@ import {
   getLoreCollegeProficiencies,
   hasToLearnMagicalSecretsSpells,
 } from './bard';
-import SpendTrait, { createActions } from '~/components/spendTrait';
+import SpendTrait, { createSpendActions } from '~/components/spendTrait';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
@@ -22,7 +22,7 @@ export const links = () => {
 };
 
 export const getTraitActions = {
-  ...createActions('bard', 'bardicInspiration'),
+  ...createSpendActions('bard', 'bardicInspiration'),
 };
 
 export const BARD_SKILLS_EXPLANATION = {

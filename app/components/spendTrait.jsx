@@ -3,11 +3,16 @@ import { spendTrait } from '~/services/pc.server';
 
 const capitalize = name => name.slice(0, 1).toUpperCase() + name.slice(1);
 
-export function createActions(pClass, traitName) {
+export function createSpendActions(pClass, traitName, amountPropName) {
   return {
     [`spend${capitalize(traitName)}`]: async formData => {
       const id = formData.get('id');
-      const updatedPc = await spendTrait(id, pClass, traitName);
+      const restArgs = [pClass, traitName];
+      if (amountPropName) {
+        const amount = formData.get(amountPropName);
+        restArgs.push(amount);
+      }
+      const updatedPc = await spendTrait(id, ...restArgs);
       return updatedPc;
     },
   };

@@ -11,7 +11,7 @@ import {
 import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
 import NumericInput from '~/components/inputs/numeric';
-import SpendTrait, { createActions } from '~/components/spendTrait';
+import SpendTrait, { createSpendActions } from '~/components/spendTrait';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
@@ -19,7 +19,8 @@ export const links = () => {
 };
 
 export const getTraitActions = {
-  ...createActions('paladin', 'divineSense'),
+  ...createSpendActions('paladin', 'layOnHands', 'hp'),
+  ...createSpendActions('paladin', 'divineSense'),
 };
 
 export const PALADIN_SKILLS_EXPLANATION = {

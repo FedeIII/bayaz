@@ -15,10 +15,20 @@ import { getItem } from './equipment/equipment';
 import { useContext, useMemo } from 'react';
 import MagicItemsContext from '~/components/contexts/magicItemsContext';
 import { t } from './translations';
+import { createNotes } from '~/services/pc.server';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
+};
+
+export const actions = {
+  createNotes: async formData => {
+    const id = formData.get('id');
+    const position = formData.get('position');
+
+    return await createNotes(id, position.split(','));
+  },
 };
 
 export const SKILLS_EXPLANATION = {

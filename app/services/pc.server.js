@@ -1396,10 +1396,10 @@ export async function spendLayOnHands(id, hp) {
   return updatedPc;
 }
 
-export async function spendTrait(id, pClass, traitName) {
+export async function spendTrait(id, pClass, traitName, amount = 1) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
-    { $inc: { [`classAttrs.${pClass}.${traitName}`]: -1 } },
+    { $inc: { [`classAttrs.${pClass}.${traitName}`]: -amount } },
     { new: true, upsert: true }
   ).exec();
 
