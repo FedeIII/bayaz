@@ -146,8 +146,8 @@ function BardCollege() {
           <div className="app__paragraph">
             <h4 className="app__h4">Competencias Adicionales</h4>
             <p className="app__paragraph">
-              Cuando te unes al Colegio del Valor en el nivel 3, ganas com-
-              petencia con armadura media, escudos y armas marciales.
+              Cuando te unes al Colegio del Valor en el nivel 3, ganas
+              competencia con armadura media, escudos y armas marciales.
             </p>
             <h4 className="app__h4">Inspiración de Combate</h4>
             <p className="app__paragraph">

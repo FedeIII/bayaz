@@ -83,8 +83,8 @@ function ExpertSkills() {
         duplica para cualquier prueba de habilidad que realices con ellas.
       </p>
       <p className="app__paragraph">
-        Al nivel 10 eliges otras dos habilidades en las que seas com- petente
-        que ganarán este beneficio.
+        Al nivel 10 eliges otras dos habilidades en las que seas competente que
+        ganarán este beneficio.
       </p>
       <p>
         <h3 className="app__pale-text">
@@ -94,44 +94,48 @@ function ExpertSkills() {
           <Card title="Habilidades" singleCard>
             <>
               <h4>
-                Bonificador por competencia{' '}
+                Bonificador por competencia:{' '}
                 {increment(getProficiencyBonus(pc.level))}
               </h4>
               <ul className="cards__card-list">
-                {proficientSkills.map(skillName => (
-                  <li key={skillName}>
-                    <label
-                      htmlFor={skillName}
-                      className={`checkbox__toSelect ${
-                        skills.includes(skillName) && 'checkboxselectedToSelect'
-                      } ${
-                        expertSkills.includes(skillName) &&
-                        'checkbox__disabledToSelect'
-                      }`}
-                    >
-                      <input
-                        hidden
-                        type="checkbox"
-                        id={skillName}
-                        name="skills[]"
-                        value={skillName}
-                        checked={skills.includes(skillName)}
-                        onChange={e => {
-                          if (e.target.checked) addSkill(skillName);
-                          else removeSkill(skillName);
-                        }}
-                      />
-                      {translateSkill(skillName)} (
-                      {increment(
-                        skillCheckBonus(pc, skillName) +
-                          (skills.includes(skillName)
-                            ? getProficiencyBonus(pc.level)
-                            : 0)
-                      )}
-                      )
-                    </label>
-                  </li>
-                ))}
+                {proficientSkills.map(skillName => {
+                  const oldBonus = increment(skillCheckBonus(pc, skillName));
+                  const newBonus = increment(
+                    skillCheckBonus(pc, skillName) +
+                      getProficiencyBonus(pc.level)
+                  );
+                  const isSelected = skills.includes(skillName);
+
+                  return (
+                    <li key={skillName}>
+                      <label
+                        htmlFor={skillName}
+                        className={`checkbox__toSelect ${
+                          skills.includes(skillName) &&
+                          'checkbox__selectedToSelect'
+                        } ${
+                          expertSkills.includes(skillName) &&
+                          'checkbox__disabledToSelect'
+                        }`}
+                      >
+                        <input
+                          hidden
+                          type="checkbox"
+                          id={skillName}
+                          name="skills[]"
+                          value={skillName}
+                          checked={isSelected}
+                          onChange={e => {
+                            if (e.target.checked) addSkill(skillName);
+                            else removeSkill(skillName);
+                          }}
+                        />
+                        {translateSkill(skillName)} ({oldBonus} ={'>'}{' '}
+                        {newBonus})
+                      </label>
+                    </li>
+                  );
+                })}
               </ul>
             </>
           </Card>
@@ -160,8 +164,8 @@ export function ErrorBoundary({ error }) {
         duplica para cualquier prueba de habilidad que realices con ellas.
       </p>
       <p className="app__paragraph">
-        Al nivel 10 eliges otras dos habilidades en las que seas com- petente
-        que ganarán este beneficio.
+        Al nivel 10 eliges otras dos habilidades en las que seas competente que
+        ganarán este beneficio.
       </p>
 
       <p className="app__error-stack">{error.stack}</p>
