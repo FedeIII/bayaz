@@ -3,15 +3,23 @@ import { getStat, getStatMod } from '../../characters';
 import {
   getDragonAncestor,
   getMetamagic,
+  getTidesOfChaos,
   hasToLearnMetamagic,
   translateDragonAncestor,
   translateMetamagic,
 } from './sorcerer';
 import { WILD_MAGIC_SURGE_TABLE } from './WILD_MAGIC_SURGE_TABLE';
+import SpendTrait, { createSpendActions } from '~/components/spendTrait';
+import { getCurrentSorcereryPoints } from '~/domain/spells/sorcerer';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
+};
+
+export const classTraitActions = {
+  ...createSpendActions('sorcerer', 'fontOfMagic'),
+  ...createSpendActions('sorcerer', 'tidesOfChaos'),
 };
 
 export const SORCERER_SKILLS_EXPLANATION = {
@@ -87,7 +95,7 @@ export const SORCERER_SKILLS_EXPLANATION = {
             <tbody>
               {WILD_MAGIC_SURGE_TABLE.reduce(
                 (rows, row, i) =>
-                  i < WILD_MAGIC_SURGE_TABLE.length - 2 && i % 2 === 0
+                  i < WILD_MAGIC_SURGE_TABLE.length - 1 && i % 2 === 0
                     ? [
                         ...rows,
                         <tr className="inventory-item__table-row">
@@ -115,7 +123,7 @@ export const SORCERER_SKILLS_EXPLANATION = {
     </>
   ),
 
-  tidesOfChaos: (skill, pc) => (
+  tidesOfChaos_text: (skill, pc) => (
     <>
       <p>
         A partir del nivel 1 puedes manipular las fuerzas de la probabilidad y
@@ -132,13 +140,29 @@ export const SORCERER_SKILLS_EXPLANATION = {
     </>
   ),
 
-  fontOfMagic: (skill, pc) => (
+  tidesOfChaos: (skill, pc, submit) => (
     <>
-      <p>
-        En el nivel 2 te conectas con una profunda fuente de magia en tu
-        interior. Esta fuente es representada por los puntos de hechicería, que
-        te permite crear una gran variedad de efectos mágicos.
-      </p>
+      {SORCERER_SKILLS_EXPLANATION.tidesOfChaos_text(skill, pc)}
+
+      <SpendTrait
+        pc={pc}
+        traitName="tidesOfChaos"
+        submit={submit}
+        traitGetter={getTidesOfChaos}
+      />
+    </>
+  ),
+
+  fontOfMagic_text1: (skill, pc) => (
+    <p>
+      En el nivel 2 te conectas con una profunda fuente de magia en tu interior.
+      Esta fuente es representada por los puntos de hechicería, que te permite
+      crear una gran variedad de efectos mágicos.
+    </p>
+  ),
+
+  fontOfMagic_text2: (skill, pc) => (
+    <>
       <h4>Puntos de Hechicería</h4>
       <p>
         Tienes 2 puntos de hechicería y ganas más cuando alcanzas niveles
@@ -213,6 +237,19 @@ export const SORCERER_SKILLS_EXPLANATION = {
         Como acción adicional en tu turno, puedes gastar un espacio de conjuro y
         ganar un número de puntos de hechicería igual al nivel del espacio.
       </p>
+    </>
+  ),
+
+  fontOfMagic: (skill, pc, submit) => (
+    <>
+      {SORCERER_SKILLS_EXPLANATION.fontOfMagic_text1(skill, pc)}
+      <SpendTrait
+        pc={pc}
+        traitName="fontOfMagic"
+        submit={submit}
+        traitGetter={getCurrentSorcereryPoints}
+      />
+      {SORCERER_SKILLS_EXPLANATION.fontOfMagic_text2(skill, pc)}
     </>
   ),
 

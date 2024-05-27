@@ -58,7 +58,10 @@ import {
   getFightingStyle,
   getStudentOfWar,
 } from './classes/fighter/fighter';
-import { SORCERER_SKILLS_EXPLANATION } from './classes/sorcerer/sorcererSkillsExplanation';
+import {
+  SORCERER_SKILLS_EXPLANATION,
+  classTraitActions as sorcererTraitActions,
+} from './classes/sorcerer/sorcererSkillsExplanation';
 import { WIZARD_SKILLS_EXPLANATION } from './classes/wizard/wizardSkillsExplanation';
 import {
   MONK_SKILLS_EXPLANATION,
@@ -86,6 +89,7 @@ import {
   getAttackBonusForRangerFightingStyles,
   getRangerFightingStyle,
 } from './classes/ranger/ranger';
+import { getChildrenText } from '~/utils/getChildrenText';
 
 export const RACES = {
   dwarf: {
@@ -3120,19 +3124,39 @@ export function getSkillExplanationText({
     ...PALADIN_SKILLS_EXPLANATION,
     ...ROGUE_SKILLS_EXPLANATION,
   };
-  const getExplanation =
-    skillExplanationGetters[skillName + '_text'] ||
-    skillExplanationGetters[skillName];
+
+  const getExplanationArguments = [
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+  ];
+
+  if (
+    Object.keys(skillExplanationGetters).find(key =>
+      key.includes(skillName + '_text')
+    )
+  ) {
+    return Object.keys(skillExplanationGetters)
+      .filter(key => key.includes(skillName + '_text'))
+      .reduce(
+        (text, key) =>
+          getChildrenText(
+            text,
+            skillExplanationGetters[key](...getExplanationArguments)
+          ),
+        ''
+      );
+  }
+
   return (
-    getExplanation?.(
-      skill,
-      pc,
-      submit,
-      closeModal,
-      skillIndex,
-      position,
-      isDm,
-      actions
+    getChildrenText(
+      '',
+      skillExplanationGetters[skillName]?.(...getExplanationArguments)
     ) || skill
   );
 }
@@ -3183,6 +3207,7 @@ export function getTraitActions() {
     ...bardTraitActions,
     ...paladinTraitActions,
     ...rangerTraitActions,
+    ...sorcererTraitActions,
   };
 }
 

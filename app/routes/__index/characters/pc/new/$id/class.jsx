@@ -22,8 +22,6 @@ import {
   translateClass,
   SKILLS,
   getInitialHitPoints,
-  getStatMod,
-  getStat,
 } from '~/domain/characters';
 import BardSkills from '~/components/classSkillsSelection/bardSkills';
 import WarlockSkills from '~/components/classSkillsSelection/warlockSkills';
@@ -44,6 +42,13 @@ import {
 import { ALL_SPELLS_BY_LEVEL, getSpell } from '~/domain/spells/getSpells';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
+import { getMaxSorcereryPoints } from '~/domain/spells/sorcerer';
+import {
+  getMaxDivineSense,
+  getMaxLayOnHands,
+} from '~/domain/classes/paladin/paladin';
+import { getMaxTidesOfChaos } from '~/domain/classes/sorcerer/sorcerer';
+import { getMaxBardicInspiration } from '~/domain/classes/bard/bard';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -105,12 +110,21 @@ export const action = async ({ request }) => {
 
   if (pc.pClass === 'bard') {
     pcAttrs.classAttrs.bard = {
-      bardicInspiration: getStatMod(getStat(pc, 'cha')),
+      bardicInspiration: getMaxBardicInspiration(pc),
     };
-  } else if (pc.pClass === 'paladin') {
+  }
+
+  if (pc.pClass === 'paladin') {
     pcAttrs.classAttrs.paladin = {
-      layOnHands: 5,
-      divineSense: 1 + getStatMod(getStat(pc, 'cha')),
+      layOnHands: getMaxLayOnHands(pc),
+      divineSense: getMaxDivineSense(pc),
+    };
+  }
+
+  if (pc.pClass === 'sorcerer') {
+    pcAttrs.classAttrs.sorcerer = {
+      fontOfMagic: getMaxSorcereryPoints(pc),
+      tidesOfChaos: getMaxTidesOfChaos(),
     };
   }
 

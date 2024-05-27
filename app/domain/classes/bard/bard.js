@@ -7,7 +7,7 @@ import {
   getAllSimpleMelee,
   WEAPONS,
 } from '../../equipment/weapons';
-import { CLASSES } from '../../characters';
+import { CLASSES, getStat, getStatMod } from '../../characters';
 
 export const BARD_EQUIPMENT = [
   { or: [WEAPONS().rapier(), WEAPONS().longsword(), ...getAllSimpleMelee()] },
@@ -104,4 +104,8 @@ export function hasToLearnMagicalSecretsSpells(pc) {
 
 export function getBardicInspiration(pc) {
   return pc.classAttrs?.bard?.bardicInspiration || 0;
+}
+
+export function getMaxBardicInspiration(pc) {
+  return getStatMod(getStat(pc, 'cha'))
 }

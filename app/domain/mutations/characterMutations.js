@@ -18,6 +18,12 @@ import { rollDice } from '~/domain/random';
 import { getSpellSlots } from '../spells/spells';
 import { getAnyItem, isAmmo, isArmor, isWeapon } from '../equipment/equipment';
 import { isEquipmentItem } from '../equipment/items';
+import { getMaxSorcereryPoints } from '../spells/sorcerer';
+import {
+  getMaxDivineSense,
+  getMaxLayOnHands,
+} from '../classes/paladin/paladin';
+import { getMaxTidesOfChaos } from '../classes/sorcerer/sorcerer';
 
 export async function setPcStats(pcParams) {
   const {
@@ -130,8 +136,15 @@ export async function longRest(id) {
 
   if (pClass === 'paladin') {
     pc = await updateAttrsForClass(id, 'paladin', {
-      layOnHands: pc.level * 5,
-      divineSense: 1 + getStatMod(getStat(pc, 'cha')),
+      layOnHands: getMaxLayOnHands(pc),
+      divineSense: getMaxDivineSense(pc),
+    });
+  }
+
+  if (pClass === 'sorcerer') {
+    pc = await updateAttrsForClass(id, 'sorcerer', {
+      fontOfMagic: getMaxSorcereryPoints(pc),
+      tidesOfChaos: getMaxTidesOfChaos(),
     });
   }
 

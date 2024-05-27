@@ -5,6 +5,8 @@ import { getSpellSavingThrow } from '~/domain/spells/spells';
 import {
   getDivineSense,
   getLayOnHands,
+  getMaxDivineSense,
+  getMaxLayOnHands,
   getPaladinFightingStyle,
   getSacredOath,
 } from './paladin';
@@ -57,10 +59,9 @@ export const PALADIN_SKILLS_EXPLANATION = {
           conjuro sacralizar
         </p>
         <p>
-          Puedes usar esta característica {1 + getStatMod(getStat(pc, 'cha'))}{' '}
-          veces: 1 + modificador de Carisma ({getStatMod(getStat(pc, 'cha'))}).
-          Cuando finalices un descanso prolongado recuperas todos los usos
-          gastados.
+          Puedes usar esta característica {getMaxDivineSense(pc)} veces: 1 +
+          modificador de Carisma ({getStatMod(getStat(pc, 'cha'))}). Cuando
+          finalices un descanso prolongado recuperas todos los usos gastados.
         </p>
       </>
     );
@@ -116,8 +117,8 @@ export const PALADIN_SKILLS_EXPLANATION = {
         <p>
           Tu toque bendito puede curar heridas. Tienes una reserva de poder
           curativo que se regenera cuando haces un descanso prolongado. Con esa
-          reserva puedes restaurar un número total de {pc.level * 5} HP igual a
-          tu nivel de paladín ({pc.level}) x 5.
+          reserva puedes restaurar un número total de {getMaxLayOnHands(pc)} HP
+          igual a tu nivel de paladín ({pc.level}) x 5.
         </p>
         <p>
           Como una acción, puedes tocar a una criatura y utilizar poder de tu

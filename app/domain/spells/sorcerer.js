@@ -55,11 +55,15 @@ export function getSorcererTotalSpells(pc) {
   ][level - 1]
 }
 
-export function getSorcereryPoints(pc) {
+export function getMaxSorcereryPoints(pc) {
   const { level } = pc;
   return [
     0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ][level - 1];
+}
+
+export function getCurrentSorcereryPoints(pc) {
+  return pc.classAttrs?.sorcerer?.fontOfMagic || 0;
 }
 
 export function hasNewSorcererCantrips(pc) {

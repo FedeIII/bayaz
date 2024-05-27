@@ -65,7 +65,7 @@ export const BARD_SKILLS_EXPLANATION = {
     </>
   ),
 
-  bardicInspiration: (skill, pc, submit, closeModal) => (
+  bardicInspiration: (skill, pc, submit) => (
     <>
       {BARD_SKILLS_EXPLANATION.bardicInspiration_text(skill, pc)}
 

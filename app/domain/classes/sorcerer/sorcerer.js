@@ -57,7 +57,9 @@ export function getDragonAncestor(pc) {
 export const SORCERER_EQUIPMENT = [
   {
     or: [
-      { and: [WEAPONS().lightCrossbow(), TOOLS().crossbowBolts({ amount: 20 })] },
+      {
+        and: [WEAPONS().lightCrossbow(), TOOLS().crossbowBolts({ amount: 20 })],
+      },
       ...getAllSimpleMelee(),
       ...getAllSimpleRanged(),
     ],
@@ -140,4 +142,12 @@ export function getMetamagicAmountToLearn(pc) {
   if (pClass !== 'sorcerer') return 0;
 
   return getMaxMetamagic(pc) - getMetamagic(pc).length;
+}
+
+export function getTidesOfChaos(pc) {
+  return pc.classAttrs?.sorcerer?.tidesOfChaos || 0;
+}
+
+export function getMaxTidesOfChaos() {
+  return 1;
 }

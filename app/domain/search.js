@@ -1,3 +1,4 @@
+import { getChildrenText } from '~/utils/getChildrenText';
 import {
   ALL_TRAITS,
   BASE_CHARACTER,
@@ -59,14 +60,6 @@ async function findEquipment(search) {
 }
 
 // TRAITS //
-function getChildrenText(text, reactNode) {
-  return reactNode?.props
-    ? Array.isArray(reactNode.props.children)
-      ? reactNode.props.children.reduce(getChildrenText, text)
-      : text + reactNode.props.children
-    : text + reactNode;
-}
-
 function getExplanationText(traitName, trait) {
   const skillExplanation = getSkillExplanationText({
     skillName: traitName,

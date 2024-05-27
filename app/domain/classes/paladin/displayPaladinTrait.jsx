@@ -2,6 +2,8 @@ import { getStat, getStatMod } from '~/domain/characters';
 import {
   getDivineSense,
   getLayOnHands,
+  getMaxDivineSense,
+  getMaxLayOnHands,
   getPaladinFightingStyle,
   getSacredOath,
 } from './paladin';
@@ -25,19 +27,20 @@ export function displayPaladinTrait(traitName, trait, pc) {
             <u>{trait}.</u>
           </strong>{' '}
           <span className="app__small-text">
-            18m, {getDivineSense(pc)} veces al día
+            18m, {getDivineSense(pc)}/{getMaxDivineSense(pc)} veces al día
           </span>
         </>
       );
 
     case 'layOnHands': {
-      const layOnHands = getLayOnHands(pc);
       return (
         <>
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          <span className="app__small-text">{layOnHands} HP</span>
+          <span className="app__small-text">
+            {getLayOnHands(pc)}/{getMaxLayOnHands(pc)} HP
+          </span>
         </>
       );
     }

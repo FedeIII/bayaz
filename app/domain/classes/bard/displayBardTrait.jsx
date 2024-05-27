@@ -1,15 +1,11 @@
 import { ChooseTrait } from '~/components/summary/skillStates';
-import {
-  CLASSES,
-  getStat,
-  getStatMod,
-  hasToSelectExpertSkills,
-} from '../../characters';
+import { CLASSES, hasToSelectExpertSkills } from '../../characters';
 import {
   getBardCollege,
   getBardicInspiration,
   getLoreCollegeProficiencies,
   getLoreSpells,
+  getMaxBardicInspiration,
   hasToLearnMagicalSecretsSpells,
 } from './bard';
 
@@ -33,7 +29,7 @@ export function displayBardTrait(traitName, trait, pc) {
       return (
         <>
           <u>Inspiración de Bardo:</u> {getBardicInspiration(pc)}/
-          {getStatMod(getStat(pc, 'cha'))} veces{' '}
+          {getMaxBardicInspiration(pc)} veces{' '}
           {level >= 5 ? 'entre descansos' : 'al día'}. {die}.{' '}
           {level >= 5 && (
             <u>{CLASSES().bard.leveling[5].traits.fontOfInspiration}</u>

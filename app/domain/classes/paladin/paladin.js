@@ -70,6 +70,14 @@ export function getLayOnHands(pc) {
   return pc.classAttrs?.paladin?.layOnHands || 0;
 }
 
+export function getMaxLayOnHands(pc) {
+  return pc.level * 5;
+}
+
 export function getDivineSense(pc) {
   return pc.classAttrs?.paladin?.divineSense || 0;
+}
+
+export function getMaxDivineSense(pc) {
+  return 1 + getStatMod(getStat(pc, 'cha'));
 }

@@ -200,6 +200,8 @@ const fighterSchema = new mongoose.Schema({
 const sorcererSchema = new mongoose.Schema({
   sorcererOrigin: { type: String, enum: SORCERER_ORIGINS },
   dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
+  fontOfMagic: Number,
+  tidesOfChaos: Number,
   metamagic: [{ type: String, enum: METAMAGIC }],
 });
 

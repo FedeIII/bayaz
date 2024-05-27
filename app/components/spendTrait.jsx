@@ -1,3 +1,4 @@
+import { useNavigation } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import { spendTrait } from '~/services/pc.server';
 
@@ -21,6 +22,9 @@ export function createSpendActions(pClass, traitName, amountPropName) {
 export default function SpendTrait(props) {
   const { pc, traitName, submit, traitGetter } = props;
 
+  const navigation = useNavigation();
+  const isIdle = navigation.state === 'idle';
+
   function onSpendTraitClick() {
     setTrait(old => (old - 1 < 0 ? 0 : old - 1));
     submit(
@@ -43,7 +47,7 @@ export default function SpendTrait(props) {
     <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
       <span>Usos restantes: {trait}</span>
       {trait > 0 && (
-        <button type="button" onClick={onSpendTraitClick}>
+        <button type="button" disabled={!isIdle} onClick={onSpendTraitClick}>
           Gastar
         </button>
       )}
