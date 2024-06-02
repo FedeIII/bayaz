@@ -10,9 +10,9 @@ import {
   getMetamagic,
   getMetamagicAmountToLearn,
   hasToLearnMetamagic,
-  translateMetamagic,
 } from '~/domain/classes/sorcerer/sorcerer';
 import { METAMAGIC_EXPLANATION } from '~/domain/classes/sorcerer/sorcererSkillsExplanation';
+import { t } from '~/domain/translations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -116,7 +116,7 @@ function Metamagic() {
                         checked={selectedMetamagic.includes(metamagic)}
                         onChange={changeSelectedMetamagic(metamagic)}
                       />
-                      {translateMetamagic(metamagic)}
+                      {t(metamagic)}
                     </label>
                   </li>
                 );
@@ -131,7 +131,7 @@ function Metamagic() {
           ([metamagic, explanation]) => (
             <div>
               <h3 className="app__pale-text">
-                {translateMetamagic(metamagic)}
+                {t(metamagic)}
                 {pMetamagic.includes(metamagic) ? ' (Conocido)' : ''}
               </h3>
               {explanation}

@@ -1,4 +1,4 @@
-import { CLASSES } from '~/domain/characters';
+import { CLASSES, getStat, getStatMod } from '~/domain/characters';
 import { ARMORS } from '~/domain/equipment/armors';
 import { EXPLORERS_PACK, PRIESTS_PACK } from '~/domain/equipment/packs';
 import { TOOLS } from '~/domain/equipment/tools';

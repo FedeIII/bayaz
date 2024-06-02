@@ -6,11 +6,11 @@ import {
   getTidesOfChaos,
   hasToLearnMetamagic,
   translateDragonAncestor,
-  translateMetamagic,
 } from './sorcerer';
 import { WILD_MAGIC_SURGE_TABLE } from './WILD_MAGIC_SURGE_TABLE';
 import SpendTrait, { createSpendActions } from '~/components/spendTrait';
 import { getCurrentSorcereryPoints } from '~/domain/spells/sorcerer';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
@@ -277,7 +277,7 @@ export const SORCERER_SKILLS_EXPLANATION = {
       {getMetamagic(pc).map(metamagic => (
         <>
           <h3>
-            <u>{translateMetamagic(metamagic)}</u>
+            <u>{t(metamagic)}</u>
           </h3>
           {METAMAGIC_EXPLANATION[metamagic]}
         </>
@@ -465,3 +465,13 @@ export const METAMAGIC_EXPLANATION = {
     </p>
   ),
 };
+
+export const METAMAGIC_EXPLANATION_GETTERS = Object.entries(
+  METAMAGIC_EXPLANATION
+).reduce(
+  (getters, [name, description]) => ({
+    ...getters,
+    [name]: () => description,
+  }),
+  {}
+);

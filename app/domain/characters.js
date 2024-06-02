@@ -59,6 +59,8 @@ import {
   getStudentOfWar,
 } from './classes/fighter/fighter';
 import {
+  METAMAGIC_EXPLANATION,
+  METAMAGIC_EXPLANATION_GETTERS,
   SORCERER_SKILLS_EXPLANATION,
   classTraitActions as sorcererTraitActions,
 } from './classes/sorcerer/sorcererSkillsExplanation';
@@ -90,6 +92,7 @@ import {
   getRangerFightingStyle,
 } from './classes/ranger/ranger';
 import { getChildrenText } from '~/utils/getChildrenText';
+import { t } from './translations';
 
 export const RACES = {
   dwarf: {
@@ -3123,6 +3126,7 @@ export function getSkillExplanationText({
     ...elementalDisciplineExplanation(skillName),
     ...PALADIN_SKILLS_EXPLANATION,
     ...ROGUE_SKILLS_EXPLANATION,
+    ...METAMAGIC_EXPLANATION_GETTERS,
   };
 
   const getExplanationArguments = [
@@ -3189,6 +3193,7 @@ export function getSkillExplanation({
       ...elementalDisciplineExplanation(skillName),
       ...PALADIN_SKILLS_EXPLANATION,
       ...ROGUE_SKILLS_EXPLANATION,
+      ...METAMAGIC_EXPLANATION_GETTERS,
     }[skillName]?.(
       skill,
       pc,
@@ -3337,18 +3342,22 @@ export const ALL_TRAITS = Object.entries(
     }),
     {}
   )
-).concat(
-  Object.values(ELEMENTAL_DISCIPLINES).reduce(
-    (elementalDisciplinesTraits, elementalDiscipline) => [
-      ...elementalDisciplinesTraits,
-      [
-        elementalDiscipline.name,
-        translateElementalDisciplines(elementalDiscipline.name),
+)
+  .concat(
+    Object.values(ELEMENTAL_DISCIPLINES).reduce(
+      (elementalDisciplinesTraits, elementalDiscipline) => [
+        ...elementalDisciplinesTraits,
+        [
+          elementalDiscipline.name,
+          translateElementalDisciplines(elementalDiscipline.name),
+        ],
       ],
-    ],
-    []
+      []
+    )
   )
-);
+  .concat(
+    Object.entries(METAMAGIC_EXPLANATION).map(([name]) => [name, t(name)])
+  );
 
 export function isTrait(traitName) {
   return !!ALL_TRAITS.find(t => t[0] === traitName);

@@ -6,13 +6,13 @@ import {
   getTidesOfChaos,
   hasToLearnMetamagic,
   translateDragonAncestor,
-  translateMetamagic,
 } from './sorcerer';
 import {
   getCurrentSorcereryPoints,
   getMaxSorcereryPoints,
 } from '~/domain/spells/sorcerer';
 import { ChooseTrait } from '~/components/summary/skillStates';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -81,7 +81,7 @@ export function displaySorcererTrait(traitName, trait, pc) {
           {hasToLearnMetamagic(pc) && <ChooseTrait />}
           {!hasToLearnMetamagic(pc) && (
             <span className="app__small-text">
-              {getMetamagic(pc).map(translateMetamagic).join(', ')}
+              {getMetamagic(pc).map(t).join(', ')}
             </span>
           )}
         </>

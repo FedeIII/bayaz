@@ -350,6 +350,16 @@ export function t(key) {
     defense: 'Defensa',
     dueling: 'Duelista',
     twoWeaponFighting: 'Lucha con Dos Armas',
+
+    // Metamagic
+    carefulSpell: 'Conjuro Cuidadoso',
+    distantSpell: 'Conjuro Distante',
+    empoweredSpell: 'Conjuro Potenciado',
+    extendedSpell: 'Ampliar Conjuro',
+    heightenedSpell: 'Conjuro Aumentado',
+    quickenedSpell: 'Conjuro Acelerado',
+    subtleSpell: 'Conjuro sutil',
+    twinnedSpell: 'Conjuro Duplicado',
   }[key];
 
   if (translation) return translation;

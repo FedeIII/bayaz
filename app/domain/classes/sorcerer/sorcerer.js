@@ -100,30 +100,6 @@ export function getMetamagic(pc) {
   return pc.classAttrs?.sorcerer?.metamagic || [];
 }
 
-export function translateMetamagic(metamagic) {
-  switch (metamagic) {
-    case 'carefulSpell':
-      return 'Conjuro Cuidadoso';
-    case 'distantSpell':
-      return 'Conjuro Distante';
-    case 'empoweredSpell':
-      return 'Conjuro Potenciado';
-    case 'extendedSpell':
-      return 'Ampliar Conjuro';
-    case 'heightenedSpell':
-      return 'Conjuro Aumentado';
-    case 'quickenedSpell':
-      return 'Conjuro Acelerado';
-    case 'subtleSpell':
-      return 'Conjuro sutil';
-    case 'twinnedSpell':
-      return 'Conjuro Duplicado';
-
-    default:
-      return 'unknown metamagic';
-  }
-}
-
 function getMaxMetamagic(pc) {
   const { level } = pc;
 
