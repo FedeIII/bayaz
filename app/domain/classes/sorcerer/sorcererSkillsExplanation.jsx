@@ -253,7 +253,7 @@ export const SORCERER_SKILLS_EXPLANATION = {
     </>
   ),
 
-  metamagic: (skill, pc) => (
+  metamagic: (skill, pc, submit) => (
     <>
       <p>
         A nivel 3 ganas la habilidad de moldear tus conjuros para que se adapten
@@ -279,6 +279,15 @@ export const SORCERER_SKILLS_EXPLANATION = {
           <h3>
             <u>{t(metamagic)}</u>
           </h3>
+          {!!METAMAGIC_FONT_OF_MAGOC_MAP[metamagic] && (
+            <SpendTrait
+              pc={pc}
+              traitName="fontOfMagic"
+              submit={submit}
+              atHeader
+              traitGetter={getCurrentSorcereryPoints}
+            />
+          )}
           {METAMAGIC_EXPLANATION[metamagic]}
         </>
       ))}
@@ -396,30 +405,33 @@ export const METAMAGIC_EXPLANATION = {
     <p>
       Cuando lances un conjuro que fuerce a otras criaturas a efectuar una
       tirada de salvación. Puedes proteger a algunas de esas criaturas de toda
-      la fuerza del conjuro. Para ello, gastas 1 punto de hechicería y escoges
-      un número de criaturas igual a tu modificador de Carisma como máximo
-      (mínimo una criatura). Las criaturas elegidas pasan automáticamente la
-      tirada de salvación del conjuro
+      la fuerza del conjuro. Para ello, gastas <u>1 punto de hechicería</u> y
+      escoges un número de criaturas igual a tu modificador de Carisma como
+      máximo (mínimo una criatura). Las criaturas elegidas pasan automáticamente
+      la tirada de salvación del conjuro
     </p>
   ),
   distantSpell: (
     <>
       <p>
         Cuando lanzas un conjuro con un rango de 5 pies (1,5 metros) o superior.
-        Puedes gastar 1 punto de hechicería para doblar el rango del conjuro.
+        Puedes gastar <u>1 punto de hechicería</u> para doblar el rango del
+        conjuro.
       </p>
       <p>
-        Cuando lanzas un conjuro con un rango de toque, puedes gastar 1 punto de
-        hechicería para hacer el rango del conjuro de 30 (9 metros) pies.
+        Cuando lanzas un conjuro con un rango de toque, puedes gastar{' '}
+        <u>1 punto de hechicería</u> para hacer el rango del conjuro de 30 (9
+        metros) pies.
       </p>
     </>
   ),
   empoweredSpell: (
     <>
       <p>
-        Cuando tiras el daño de un conjuro, puedes gastar un punto de hechicería
-        para volver a lanzar un número de dados de daño igual a tu modificador
-        de Carisma (mínimo de uno). Debes usar las nuevas tiradas.
+        Cuando tiras el daño de un conjuro, puedes gastar un{' '}
+        <u>1 punto de hechicería</u> para volver a lanzar un número de dados de
+        daño igual a tu modificador de Carisma (mínimo de uno). Debes usar las
+        nuevas tiradas.
       </p>
       <p>
         Puedes usar Conjuro Potenciado incluso si ya has usado una metamagia
@@ -430,38 +442,38 @@ export const METAMAGIC_EXPLANATION = {
   extendedSpell: (
     <p>
       Cuando lanzas un conjuro que tenga una duración de 1 minuto o más, puedes
-      usar 1 punto de hechicería para doblar su duración, hasta un máximo de 24
-      horas
+      usar <u>1 punto de hechicería</u> para doblar su duración, hasta un máximo
+      de 24 horas
     </p>
   ),
   heightenedSpell: (
     <p>
       Cuando lances un conjuro que fuerce a una criatura a realizar una tirada
-      de salvación para resistir sus efectos, puedes gastar 3 puntos de
-      hechicería para dar desventaja a un objetivo del conjuro en la primera
-      tirada de salvación hecha contra el conjuro.
+      de salvación para resistir sus efectos, puedes gastar{' '}
+      <u>3 puntos de hechicería</u> para dar desventaja a un objetivo del
+      conjuro en la primera tirada de salvación hecha contra el conjuro.
     </p>
   ),
   quickenedSpell: (
     <p>
       Cuando lances un conjuro que tenga un tiempo de lanzamiento igual a 1
-      acción. Puedes gastar 2 puntos de hechicería para cambiar el tiempo de
-      lanzamiento a 1 acción adicional para este lanzamiento.
+      acción. Puedes gastar <u>2 puntos de hechicería</u> para cambiar el tiempo
+      de lanzamiento a 1 acción adicional para este lanzamiento.
     </p>
   ),
   subtleSpell: (
     <p>
-      Cuando lanzas un conjuro puedes gastar 1 punto de hechicería para lanzarlo
-      sin componentes verbales o somáticos.
+      Cuando lanzas un conjuro puedes gastar <u>1 punto de hechicería</u> para
+      lanzarlo sin componentes verbales o somáticos.
     </p>
   ),
   twinnedSpell: (
     <p>
       Cuando lanzas un conjuro que tenga como objetivo a una sola criatura y no
-      tenga un rango “Personal”, puedes gastar un número de puntos de hechicería
-      igual al nivel del conjuro para apuntar a una segunda criatura dentro del
-      alcance con el mismo conjuro (1 punto de hechicería si el conjuro es un
-      truco).
+      tenga un rango “Personal”, puedes gastar{' '}
+      <u>un número de puntos de hechicería igual al nivel del conjuro</u> para
+      apuntar a una segunda criatura dentro del alcance con el mismo conjuro (1
+      punto de hechicería si el conjuro es un truco).
     </p>
   ),
 };
@@ -475,3 +487,14 @@ export const METAMAGIC_EXPLANATION_GETTERS = Object.entries(
   }),
   {}
 );
+
+const METAMAGIC_FONT_OF_MAGOC_MAP = {
+  carefulSpell: 1,
+  distantSpell: 1,
+  empoweredSpell: 1,
+  extendedSpell: 1,
+  heightenedSpell: 3,
+  quickenedSpell: 2,
+  subtleSpell: 1,
+  twinnedSpell: 'n',
+};

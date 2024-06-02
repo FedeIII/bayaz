@@ -205,6 +205,15 @@
   justify-content: space-evenly;
 }
 
+.inventory-item__modal-buttons--at-header {
+  float: right;
+  margin-top: -42px;
+}
+
+.inventory-item__modal-buttons--at-header span {
+  margin-right: 1em;
+}
+
 .inventory-item__modal-buttons-column {
   display: flex;
   justify-content: space-between;

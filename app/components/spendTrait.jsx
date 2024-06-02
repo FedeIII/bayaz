@@ -1,4 +1,5 @@
 import { useNavigation } from '@remix-run/react';
+import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { spendTrait } from '~/services/pc.server';
 
@@ -20,7 +21,7 @@ export function createSpendActions(pClass, traitName, amountPropName) {
 }
 
 export default function SpendTrait(props) {
-  const { pc, traitName, submit, traitGetter } = props;
+  const { pc, traitName, submit, traitGetter, atHeader } = props;
 
   const navigation = useNavigation();
   const isIdle = navigation.state === 'idle';
@@ -44,7 +45,12 @@ export default function SpendTrait(props) {
   }, [pc]);
 
   return (
-    <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
+    <div
+      className={classNames('inventory-item__modal-buttons', {
+        'inventory-item__modal-buttons--wide': !atHeader,
+        'inventory-item__modal-buttons--at-header': atHeader,
+      })}
+    >
       <span>Usos restantes: {trait}</span>
       {trait > 0 && (
         <button type="button" disabled={!isIdle} onClick={onSpendTraitClick}>
