@@ -58,7 +58,7 @@ export function MonsterContent(props) {
         <hr className="characters__section-divider" />
 
         <div className="characters__attr-section">
-          {STATS.map(stat => (
+          {STATS().map(stat => (
             <div key={stat} className="characters__attr-block">
               <div>
                 <strong className="characters__bold">
