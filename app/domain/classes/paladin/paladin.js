@@ -32,6 +32,10 @@ export function getPaladinFightingStyle(pc) {
   return pc.classAttrs?.paladin?.fightingStyle || null;
 }
 
+export function getIsPaladinFightingStyleSettled(pc) {
+  return pc.classAttrs?.paladin?.isFightingStyleSettled || false;
+}
+
 export const SACRED_OATHS = ['Devotion', 'Ancients', 'Vengeance'];
 
 export function translateSacredOath(oath) {

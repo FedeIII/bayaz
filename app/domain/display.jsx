@@ -51,10 +51,7 @@ import {
   isDraconicBloodline,
   translateSorcererOrigin,
 } from './classes/sorcerer/sorcerer';
-import {
-  getFightingStyle,
-  translateFightingStyle,
-} from './classes/fighter/fighter';
+import { getFightingStyle } from './classes/fighter/fighter';
 import { getPaladinFightingStyle } from './classes/paladin/paladin';
 import { getRangerFightingStyle } from './classes/ranger/ranger';
 import { t } from './translations';
@@ -618,9 +615,7 @@ export function getAcBreakdown(pc) {
             ...(pClass === 'fighter' && getFightingStyle(pc) === 'defense'
               ? [
                   {
-                    title: `Estilo de Combate: ${translateFightingStyle(
-                      getFightingStyle(pc)
-                    )}`,
+                    title: `Estilo de Combate: ${t(getFightingStyle(pc))}`,
                     ac: increment(1),
                   },
                 ]
@@ -639,7 +634,7 @@ export function getAcBreakdown(pc) {
             getPaladinFightingStyle(pc) === 'defense'
               ? [
                   {
-                    title: `Estilo de Combate: ${translateFightingStyle(
+                    title: `Estilo de Combate: ${t(
                       getPaladinFightingStyle(pc)
                     )}`,
                     ac: increment(1),

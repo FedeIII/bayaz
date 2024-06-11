@@ -220,6 +220,7 @@ const monkSchema = new mongoose.Schema({
 
 const paladinSchema = new mongoose.Schema({
   fightingStyle: { type: String, enum: PALADIN_FIGHTING_STYLES },
+  isFightingStyleSettled: Boolean,
   sacredOath: { type: String, enum: SACRED_OATHS },
   layOnHands: Number,
   divineSense: Number,

@@ -159,12 +159,14 @@ export const RANGER_SKILLS_EXPLANATION = {
             >
               Escoger Nuevo Estilo
             </Link>
-            <button
-              className="inventory-item__modal-button"
-              onClick={settleFightingStyle}
-            >
-              Adoptar {t(fightingStyle)}
-            </button>
+            {!!fightingStyle && (
+              <button
+                className="inventory-item__modal-button"
+                onClick={settleFightingStyle}
+              >
+                Adoptar {t(fightingStyle)}
+              </button>
+            )}
           </div>
         )}
 

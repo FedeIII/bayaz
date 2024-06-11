@@ -4,16 +4,18 @@ import { getStat, getStatMod } from '~/domain/characters';
 import { getSpellSavingThrow } from '~/domain/spells/spells';
 import {
   getDivineSense,
+  getIsPaladinFightingStyleSettled,
   getLayOnHands,
   getMaxDivineSense,
   getMaxLayOnHands,
   getPaladinFightingStyle,
   getSacredOath,
 } from './paladin';
-import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
 import NumericInput from '~/components/inputs/numeric';
 import SpendTrait, { createSpendActions } from '~/components/spendTrait';
+import { t } from '~/domain/translations';
+import { updateAttrsForClass } from '~/services/pc.server';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
@@ -23,6 +25,13 @@ export const links = () => {
 export const classTraitActions = {
   ...createSpendActions('paladin', 'layOnHands', 'hp'),
   ...createSpendActions('paladin', 'divineSense'),
+  settlePaladinFightingStyle: async formData => {
+    const id = formData.get('id');
+    const updatedPc = await updateAttrsForClass(id, 'paladin', {
+      isFightingStyleSettled: true,
+    });
+    return updatedPc;
+  },
 };
 
 export const PALADIN_SKILLS_EXPLANATION = {
@@ -141,8 +150,19 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  paladinFightingStyle: (skill, pc) => {
+  paladinFightingStyle: (skill, pc, submit, closeModal) => {
     const fightingStyle = getPaladinFightingStyle(pc);
+    const isFightingStyleSettled = getIsPaladinFightingStyleSettled(pc);
+    function settleFightingStyle() {
+      submit(
+        {
+          action: 'settlePaladinFightingStyle',
+          id: pc.id,
+        },
+        { method: 'post' }
+      );
+      closeModal();
+    }
     return (
       <>
         <p>
@@ -151,7 +171,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
           de una vez, incluso si tienes la opción de escoger otro más adelante.
         </p>
 
-        {!fightingStyle && (
+        {!isFightingStyleSettled && (
           <div className="inventory-item__modal-buttons">
             <Link
               to={`/characters/pc/${pc.id}/leveling/paladin/fightingStyle`}
@@ -159,25 +179,33 @@ export const PALADIN_SKILLS_EXPLANATION = {
             >
               Escoge Estilo de Combate
             </Link>
+            {!!fightingStyle && (
+              <button
+                className="inventory-item__modal-button"
+                onClick={settleFightingStyle}
+              >
+                Adoptar {t(fightingStyle)}
+              </button>
+            )}
           </div>
         )}
 
         {fightingStyle === 'defense' && (
           <div className="app__paragraph">
-            <h3>{translateFightingStyle('defense')}</h3>
+            <h3>{t('defense')}</h3>
             Mientras lleves puesta una armadura ganas un +1 la CA
           </div>
         )}
         {fightingStyle === 'dueling' && (
           <div className="app__paragraph">
-            <h3>{translateFightingStyle('dueling')}</h3>
+            <h3>{t('dueling')}</h3>
             Cuando llevas un arma cuerpo a cuerpo en una mano y ningún arma más,
             ganas un bonificador de +2 a las tiradas de daño con esa arma.
           </div>
         )}
         {fightingStyle === 'great-Weapon-fighting' && (
           <div className="app__paragraph">
-            <h3>{translateFightingStyle('great-Weapon-fighting')}</h3>
+            <h3>{t('great-Weapon-fighting')}</h3>
             Cuando obtienes un 1 o un 2 en un dado de daño con un arma a dos
             manos, puedes volver a realizar la tirada de daño y debiendo usar la
             nueva tirada, incluso si vuelve a ser un 1 o un 2. El arma debe ser
@@ -187,7 +215,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
         )}
         {fightingStyle === 'protection' && (
           <div className="app__paragraph">
-            <h3>{translateFightingStyle('protection')}</h3>
+            <h3>{t('protection')}</h3>
             Cuando una criatura que puedes ver ataca a un objetivo que no eres
             tú y está a 5 pies o menos de ti, puedes usar tu reacción para hacer
             que el enemigo tenga desventaja en la tirada de ataque. Debes estar

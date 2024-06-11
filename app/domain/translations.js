@@ -346,10 +346,15 @@ export function t(key) {
     forgotten_dominions: 'Dominios Olvidados',
 
     // Ranger Fighting Styles
-    archery: 'A Distancia',
+    archery: 'A distancia',
     defense: 'Defensa',
     dueling: 'Duelista',
     twoWeaponFighting: 'Lucha con Dos Armas',
+
+    //Paladin Fighting Styles
+    'great-Weapon-fighting': 'Lucha con Arma a dos Manos',
+    protection: 'Protección',
+    'two-weapon-fighting': 'Lucha con Dos Armas',
 
     // Metamagic
     carefulSpell: 'Conjuro Cuidadoso',

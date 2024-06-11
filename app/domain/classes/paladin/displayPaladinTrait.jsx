@@ -1,15 +1,16 @@
 import { getStat, getStatMod } from '~/domain/characters';
 import {
   getDivineSense,
+  getIsPaladinFightingStyleSettled,
   getLayOnHands,
   getMaxDivineSense,
   getMaxLayOnHands,
   getPaladinFightingStyle,
   getSacredOath,
 } from './paladin';
-import { translateFightingStyle } from '../fighter/fighter';
 import { increment } from '~/domain/display';
 import { ChooseTrait } from '~/components/summary/skillStates';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -52,12 +53,10 @@ export function displayPaladinTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          {!fightingStyle && <ChooseTrait />}
           {!!fightingStyle && (
-            <span className="app__small-text">
-              {translateFightingStyle(fightingStyle)}
-            </span>
+            <span className="app__small-text">{t(fightingStyle)}</span>
           )}
+          {!getIsPaladinFightingStyleSettled(pc) && <ChooseTrait />}
         </>
       );
     }

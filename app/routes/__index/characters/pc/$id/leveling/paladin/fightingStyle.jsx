@@ -2,11 +2,11 @@ import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
-import { translateFightingStyle } from '~/domain/classes/fighter/fighter';
 import {
   PALADIN_FIGHTING_STYLES,
-  getPaladinFightingStyle,
+  getIsPaladinFightingStyleSettled,
 } from '~/domain/classes/paladin/paladin';
+import { t } from '~/domain/translations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -14,7 +14,7 @@ export const loader = async ({ params }) => {
     throw new Error('PC not found');
   }
 
-  if (getPaladinFightingStyle(pc)) {
+  if (getIsPaladinFightingStyleSettled(pc)) {
     throw new Error('Ya has escogido Estilo de Combate');
   }
 
@@ -64,7 +64,7 @@ function PaladinFightingStyle() {
             <option value="" disabled></option>
             {PALADIN_FIGHTING_STYLES.map(fightingStyle => (
               <option value={fightingStyle} key={fightingStyle}>
-                {translateFightingStyle(fightingStyle)}
+                {t(fightingStyle)}
               </option>
             ))}
           </select>
@@ -72,19 +72,19 @@ function PaladinFightingStyle() {
       </p>
 
       <div className="app__paragraph">
-        <h3 className="app__pale-text">{translateFightingStyle('defense')}</h3>
+        <h3 className="app__pale-text">{t('defense')}</h3>
         Mientras lleves puesta una armadura ganas un +1 la CA.
       </div>
 
       <div className="app__paragraph">
-        <h3 className="app__pale-text">{translateFightingStyle('dueling')}</h3>
+        <h3 className="app__pale-text">{t('dueling')}</h3>
         Cuando llevas un arma cuerpo a cuerpo en una mano y ningún arma más,
         ganas un bonificador de +2 a las tiradas de daño con esa arma.
       </div>
 
       <div className="app__paragraph">
         <h3 className="app__pale-text">
-          {translateFightingStyle('great-Weapon-fighting')}
+          {t('great-Weapon-fighting')}
         </h3>
         Cuando obtienes un 1 o un 2 en un dado de daño con un arma a dos manos,
         puedes volver a realizar la tirada de daño y debiendo usar la nueva
@@ -94,7 +94,7 @@ function PaladinFightingStyle() {
 
       <div className="app__paragraph">
         <h3 className="app__pale-text">
-          {translateFightingStyle('protection')}
+          {t('protection')}
         </h3>
         Cuando una criatura que puedes ver ataca a un objetivo que no eres tú y
         está a 5 pies o menos de ti, puedes usar tu reacción para hacer que el

@@ -7,8 +7,8 @@ import {
   getExtraFightingStyle,
   getFightingStyle,
   isChampion,
-  translateFightingStyle,
 } from '~/domain/classes/fighter/fighter';
+import { t } from '~/domain/translations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -71,7 +71,7 @@ function ExtraFightingStyle() {
             {FIGHTING_STYLES.filter(style => style !== fightingStyle).map(
               extraFightingStyle => (
                 <option value={extraFightingStyle} key={extraFightingStyle}>
-                  {translateFightingStyle(extraFightingStyle)}
+                  {t(extraFightingStyle)}
                 </option>
               )
             )}
@@ -80,26 +80,24 @@ function ExtraFightingStyle() {
       </p>
 
       <div className="app__paragraph">
-        <h3 className="app__pale-text">{translateFightingStyle('archery')}</h3>
+        <h3 className="app__pale-text">{t('archery')}</h3>
         Ganas un bonificador de +2 a las tiradas de ataque que hagas con armas a
         distancia.
       </div>
 
       <div className="app__paragraph">
-        <h3 className="app__pale-text">{translateFightingStyle('defense')}</h3>
+        <h3 className="app__pale-text">{t('defense')}</h3>
         Mientras lleves puesta una armadura ganas un +1 la CA.
       </div>
 
       <div className="app__paragraph">
-        <h3 className="app__pale-text">{translateFightingStyle('dueling')}</h3>
+        <h3 className="app__pale-text">{t('dueling')}</h3>
         Cuando llevas un arma cuerpo a cuerpo en una mano y ningún arma más,
         ganas un bonificador de +2 a las tiradas de daño con esa arma.
       </div>
 
       <div className="app__paragraph">
-        <h3 className="app__pale-text">
-          {translateFightingStyle('great-Weapon-fighting')}
-        </h3>
+        <h3 className="app__pale-text">{t('great-Weapon-fighting')}</h3>
         Cuando obtienes un 1 o un 2 en un dado de daño con un arma a dos manos,
         puedes volver a realizar la tirada de daño y debiendo usar la nueva
         tirada, incluso si vuelve a ser un 1 o un 2. El arma debe ser un arma a
@@ -107,9 +105,7 @@ function ExtraFightingStyle() {
       </div>
 
       <div className="app__paragraph">
-        <h3 className="app__pale-text">
-          {translateFightingStyle('protection')}
-        </h3>
+        <h3 className="app__pale-text">{t('protection')}</h3>
         Cuando una criatura que puedes ver ataca a un objetivo que no eres tú y
         está a 5 pies o menos de ti, puedes usar tu reacción para hacer que el
         enemigo tenga desventaja en la tirada de ataque. Debes estar usando un
@@ -117,9 +113,7 @@ function ExtraFightingStyle() {
       </div>
 
       <div className="app__paragraph">
-        <h3 className="app__pale-text">
-          {translateFightingStyle('two-weapon-fighting')}
-        </h3>
+        <h3 className="app__pale-text">{t('two-weapon-fighting')}</h3>
         Cuando luchas con el estilo de lucha de dos armas, puedes añadir tu
         modificador de característica al daño del segundo ataque.
       </div>

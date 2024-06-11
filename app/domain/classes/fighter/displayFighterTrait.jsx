@@ -7,13 +7,13 @@ import {
   getStudentOfWar,
   hasToLearnCombatSuperiorityManeuvers,
   translateCombatSuperiorityManeuvers,
-  translateFightingStyle,
 } from './fighter';
 import { hasToLearnKnightSpell } from '~/domain/spells/fighter';
 import { getItem } from '~/domain/equipment/equipment';
 import { increment } from '~/domain/display';
 import { getStat, getStatMod } from '~/domain/characters';
 import { ChooseTrait } from '~/components/summary/skillStates';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -36,12 +36,10 @@ export function displayFighterTrait(traitName, trait, pc) {
           <strong>
             <u>{trait}.</u>
           </strong>{' '}
-          {!getAllFightingStyles(pc).length && (
-            <ChooseTrait />
-          )}
+          {!getAllFightingStyles(pc).length && <ChooseTrait />}
           {!!getAllFightingStyles(pc).length && (
             <span className="app__small-text">
-              {getAllFightingStyles(pc).map(translateFightingStyle).join(', ')}
+              {getAllFightingStyles(pc).map(t).join(', ')}
             </span>
           )}
         </>
@@ -71,9 +69,7 @@ export function displayFighterTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          {hasToLearnKnightSpell(pc) && (
-            <ChooseTrait />
-          )}
+          {hasToLearnKnightSpell(pc) && <ChooseTrait />}
         </>
       );
 
@@ -94,9 +90,7 @@ export function displayFighterTrait(traitName, trait, pc) {
           <span className="app__small-text">
             {getCombatSuperiorityDice(pc)}
           </span>
-          {hasToLearnCombatSuperiorityManeuvers(pc) && (
-            <ChooseTrait />
-          )}
+          {hasToLearnCombatSuperiorityManeuvers(pc) && <ChooseTrait />}
           {!!getCombatSuperiorityManeuvers(pc).length && (
             <ul className="app__small-text">
               {getCombatSuperiorityManeuvers(pc).map(maneuver => (
@@ -112,10 +106,7 @@ export function displayFighterTrait(traitName, trait, pc) {
     case 'studentOfWar':
       return (
         <>
-          <u>{trait}.</u>{' '}
-          {!getStudentOfWar(pc) && (
-            <ChooseTrait />
-          )}
+          <u>{trait}.</u> {!getStudentOfWar(pc) && <ChooseTrait />}
           {!!getStudentOfWar(pc) && (
             <span className="app__small-text">
               {getItem(getStudentOfWar(pc)).translation}
