@@ -5,7 +5,9 @@ export default async function processAction(
 ) {
   const actionDefinition = actionDefinitions[action];
 
-  if (actionDefinition) return await actionDefinition(formData);
+  if (actionDefinition) {
+    return await actionDefinition(formData);
+  }
 
   return null;
 }

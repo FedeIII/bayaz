@@ -59,6 +59,7 @@ export function getAllMenuItems({
           ...newItems,
           {
             header: allPcNames[i],
+            pc: allPcNames[i],
             name: 'Principal',
             url: PATHS.summary(id),
             level: 1,
@@ -66,12 +67,14 @@ export function getAllMenuItems({
           },
           {
             name: 'Inventario',
+            pc: allPcNames[i],
             url: PATHS.bio(id),
             level: 2,
             collapsedIcon: '⚔',
           },
           {
             name: 'Conjuros',
+            pc: allPcNames[i],
             url: PATHS.spells(id),
             level: 2,
             collapsedIcon: '⛥',

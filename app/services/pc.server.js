@@ -1266,7 +1266,7 @@ export async function reorderWeapons(id, weaponName, destinationSlot) {
   const selectedWeapon = await getAnyItem(weaponName);
   const replacedWeapon = weapons[destinationSlot];
 
-  weapons[originSlot] = replacedWeapon;
+  weapons[originSlot] = replacedWeapon?.toJSON();
   weapons[destinationSlot] = selectedWeapon;
 
   return updatePc({

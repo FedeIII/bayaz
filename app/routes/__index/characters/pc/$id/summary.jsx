@@ -238,7 +238,7 @@ export const action = async ({ request }) => {
   } else if (action === 'temporaryHitPointsChange') {
     pc = await updateTemporaryHitPoints(formData);
   } else {
-    pc = processAction(action, formData, {
+    pc = await processAction(action, formData, {
       ...sheetAttacksActions,
       ...sheetEquipmentActions,
       ...hitDiceActions,

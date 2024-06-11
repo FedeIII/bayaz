@@ -33,7 +33,7 @@ export function SideBar(props) {
             (menuItem.url !== '/' && location.includes(menuItem.url));
 
           return (
-            <Fragment key={menuItem.header + menuItem.name}>
+            <Fragment key={menuItem.pc + menuItem.name}>
               {!!menuItem.header && (
                 <span className="app__button-label">{menuItem.header}</span>
               )}

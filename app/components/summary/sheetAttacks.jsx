@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import classNames from 'classnames';
 
@@ -8,7 +8,6 @@ import { getAttacks, getSpecialAttacks, increment } from '~/domain/display';
 import { InventoryItem } from '../modal/inventoryItem';
 import { SkillItem } from '../modal/skillItem';
 import { t } from '~/domain/translations';
-import MagicItemsContext from '../contexts/magicItemsContext';
 import NumericInput from '../inputs/numeric';
 import {
   equipWeapons,
@@ -184,26 +183,19 @@ function SheetAttacks(props) {
     submit,
   } = props;
 
-  const allMagicItems = useContext(MagicItemsContext);
-
   const [weaponsLoading, setWeaponsLoading] = useState([false, false, false]);
   const [weaponsState, setWeaponsState] = useState(pc.items.weapons);
-  useEffect(() => {
-    setWeaponsState(pc.items.weapons);
-    setWeaponsLoading([false, false, false]);
-  }, [pc.items.weapons]);
-
-  const weapons =
-    useMemo(() => {
-      return !!allMagicItems?.length && weaponsState;
-    }, [allMagicItems, weaponsState]) || [];
-
   const [attacks, setAttacks] = useState([noAttack, noAttack, noAttack]);
+
   useEffect(() => {
-    if (weapons.length) {
-      setAttacks(getAttacks(pc, weapons));
+    const newWeaponsState = pc.items.weapons.map(w => ({ name: w?.name }));
+    setWeaponsState(newWeaponsState);
+    setWeaponsLoading([false, false, false]);
+    if (newWeaponsState.length) {
+      const newAttacks = getAttacks(pc, newWeaponsState);
+      setAttacks(newAttacks);
     }
-  }, [pc, weapons]);
+  }, [pc]);
 
   function onWeaponChange(i) {
     return newWeaponName => {
@@ -211,7 +203,7 @@ function SheetAttacks(props) {
         {
           action: 'equipWeapons',
           id: pc.id,
-          oldWeaponName: weapons[i].name,
+          oldWeaponName: weaponsState[i].name,
           newWeaponName,
         },
         { method: 'post' }
@@ -225,7 +217,7 @@ function SheetAttacks(props) {
         {
           action: 'unequipWeapon',
           id: pc.id,
-          weaponName: weapons[i].name,
+          weaponName: weaponsState[i].name,
         },
         { method: 'post' }
       );
@@ -321,54 +313,73 @@ function SheetAttacks(props) {
     };
   }
 
+  const [selectedSlot, setSelectedSlot] = useState(null);
+
   return (
     <>
-      {attacks.map((attack, i) => {
+      {attacks.map((attack, slot) => {
         const [_1, drag] = useDrag(
           () => ({
             type: 'WEAPON',
             item: { value: attack.weapon.name },
-            canDrag: () => !!attack.weapon.name && !weaponsLoading[i],
+            canDrag: () => !!attack.weapon.name && !weaponsLoading[slot],
           }),
-          [attack.weapon.name, weaponsLoading[i]]
+          [attack.weapon.name, weaponsLoading[slot]]
         );
 
         const [{ isOver, canDrop }, drop] = useDrop(
           () => ({
             accept: 'WEAPON',
-            drop: item => onWeaponDrop(item.value, i),
-            canDrop: () => !weaponsLoading[i],
+            drop: item => onWeaponDrop(item.value, slot),
+            canDrop: () => !weaponsLoading[slot],
             collect: monitor => ({
               isOver: !!monitor.isOver(),
               canDrop: !!monitor.canDrop(),
             }),
           }),
-          [attack.weapon.name, weaponsLoading[i]]
+          [attack.weapon.name, weaponsLoading[slot]]
         );
 
+        const onHandleClick = () => {
+          if (selectedSlot === slot) {
+            cancel: setSelectedSlot(null);
+          } else if (selectedSlot !== null) {
+            drop: onWeaponDrop(attacks[selectedSlot].weapon.name, slot);
+            setSelectedSlot(null);
+          } else {
+            pick: setSelectedSlot(slot);
+          }
+        };
+
         return (
-          <Fragment key={i}>
+          <Fragment key={slot}>
             <div
-              className={`sheet__data sheet__attack-name-${i} ${
-                isOver && canDrop ? 'sheet__attack-name--hover' : ''
-              }`}
+              className={classNames(`sheet__data sheet__attack-name-${slot}`, {
+                'sheet__attack-name--hover':
+                  (isOver && canDrop) || selectedSlot === slot,
+              })}
               ref={el => {
                 drop(el);
                 drag(el);
               }}
             >
               <label className="sheet__attack-handler">
-                <span className="sheet__attack-handler-character">░</span>
+                <span
+                  className="sheet__attack-handler-character"
+                  onClick={onHandleClick}
+                >
+                  ░
+                </span>
                 <InventoryItem
-                  ref={itemRefs.weapons.current[i]}
+                  ref={itemRefs.weapons.current[slot]}
                   pItem={attack.weapon}
                   isLast
-                  onItemClick={onWeaponClick('weapons', i)}
-                  openModal={openItemModal('weapons', i)}
+                  onItemClick={onWeaponClick('weapons', slot)}
+                  openModal={openItemModal('weapons', slot)}
                   closeModal={closeItemModal}
                   className={classNames('inventory-item__centered-item', {
                     'inventory-item__centered-item--selected':
-                      weaponsLoading[i],
+                      weaponsLoading[slot],
                   })}
                   key={attack.weapon.name}
                 />
@@ -381,20 +392,20 @@ function SheetAttacks(props) {
               )}
             </div>
             {!!(attack.bonus || attack.bonus === 0) && (
-              <span className={`sheet__data sheet__attack-bonus-${i}`}>
+              <span className={`sheet__data sheet__attack-bonus-${slot}`}>
                 <SkillItem
-                  ref={skillRefs.attackBonus.current[i]}
+                  ref={skillRefs.attackBonus.current[slot]}
                   traitName="attackBonus"
                   trait="Bonificador de ataque"
                   pc={pc}
-                  openModal={openSkillModal('attackBonus', i)}
+                  openModal={openSkillModal('attackBonus', slot)}
                 >
                   {increment(attack.bonus)}
                 </SkillItem>
               </span>
             )}
             {!!attack.damage && (
-              <span className={`sheet__data sheet__attack-type-${i}`}>
+              <span className={`sheet__data sheet__attack-type-${slot}`}>
                 {attack.damage}
                 <br />
                 {attack.type}
@@ -404,8 +415,8 @@ function SheetAttacks(props) {
         );
       })}
       <ul className="sheet__data sheet__special-attacks">
-        {getSpecialAttacks(pc, weapons).map((specialAttack, i) => (
-          <li className="sheet__special-attack" key={i}>
+        {getSpecialAttacks(pc, weaponsState).map((specialAttack, slot) => (
+          <li className="sheet__special-attack" key={slot}>
             {specialAttack}
           </li>
         ))}
