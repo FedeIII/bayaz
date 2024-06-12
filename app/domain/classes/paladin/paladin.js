@@ -38,14 +38,6 @@ export function getIsPaladinFightingStyleSettled(pc) {
 
 export const SACRED_OATHS = ['Devotion', 'Ancients', 'Vengeance'];
 
-export function translateSacredOath(oath) {
-  if (oath === 'Devotion') return 'Juramento de Devoción';
-  if (oath === 'Ancients') return 'Juramento de los Ancestros';
-  if (oath === 'Vengeance') return 'Juramento de Venganza';
-
-  return 'unknown oath';
-}
-
 export function getSacredOath(pc) {
   return pc.classAttrs?.paladin?.sacredOath || null;
 }
@@ -84,4 +76,12 @@ export function getDivineSense(pc) {
 
 export function getMaxDivineSense(pc) {
   return 1 + getStatMod(getStat(pc, 'cha'));
+}
+
+export function getChannelDivinity(pc) {
+  return pc.classAttrs?.paladin?.channelDivinity || 0;
+}
+
+export function getMaxChannelDivinity() {
+  return 1;
 }

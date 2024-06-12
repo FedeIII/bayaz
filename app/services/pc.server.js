@@ -39,6 +39,7 @@ import {
   SPELL_SCHOOLS,
   getExtraPreparedSpells,
   getMaxPreparedSpells,
+  getSpellSlots,
 } from '~/domain/spells/spells';
 import {
   BACKGROUNDS,
@@ -224,6 +225,7 @@ const paladinSchema = new mongoose.Schema({
   sacredOath: { type: String, enum: SACRED_OATHS },
   layOnHands: Number,
   divineSense: Number,
+  channelDivinity: Number,
 });
 
 const rogueSchema = new mongoose.Schema({
@@ -643,6 +645,20 @@ export async function addImprovedStatsLevel(id, level) {
   ).exec();
 
   return updatedPc;
+}
+
+export async function spendSpellSlot(id, spellSlot) {
+  const pcModel = await getPc(id);
+  const pc = pcModel.toJSON();
+  const maxSpellSlots = getSpellSlots(pc);
+
+  if (pc && pc.magic.spentSpellSlots[spellSlot] < maxSpellSlots[spellSlot]) {
+    pcModel.magic.spentSpellSlots[spellSlot] += 1;
+
+    return await pcModel.save();
+  }
+
+  return pc;
 }
 
 export async function learnSpells(id, toLearn) {

@@ -351,7 +351,7 @@ export function t(key) {
     dueling: 'Duelista',
     twoWeaponFighting: 'Lucha con Dos Armas',
 
-    //Paladin Fighting Styles
+    // Paladin Fighting Styles
     'great-Weapon-fighting': 'Lucha con Arma a dos Manos',
     protection: 'Protección',
     'two-weapon-fighting': 'Lucha con Dos Armas',
@@ -365,6 +365,11 @@ export function t(key) {
     quickenedSpell: 'Conjuro Acelerado',
     subtleSpell: 'Conjuro sutil',
     twinnedSpell: 'Conjuro Duplicado',
+
+    // Sacred oaths
+    Devotion: 'Juramento de Devoción',
+    Ancients: 'Juramento de los Ancestros',
+    Vengeance: 'Juramento de Venganza',
   }[key];
 
   if (translation) return translation;

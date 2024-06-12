@@ -6,8 +6,8 @@ import { useTitle } from '~/components/hooks/useTitle';
 import {
   SACRED_OATHS,
   getSacredOath,
-  translateSacredOath,
 } from '~/domain/classes/paladin/paladin';
+import { t } from '~/domain/translations';
 
 export const loader = async ({ params }) => {
   const pc = await getPc(params.id);
@@ -72,7 +72,7 @@ function SacredOath() {
           >
             {SACRED_OATHS.map(sacredOath => (
               <option value={sacredOath} key={sacredOath}>
-                {translateSacredOath(sacredOath)}
+                {t(sacredOath)}
               </option>
             ))}
           </select>
@@ -81,7 +81,7 @@ function SacredOath() {
 
       <div className="app__paragraph">
         <h3 className="app__pale-text">
-          {translateSacredOath(selectedSacredOath)}
+          {t(selectedSacredOath)}
         </h3>
 
         {selectedSacredOath === 'Devotion' && (

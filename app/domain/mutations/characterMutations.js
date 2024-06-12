@@ -20,6 +20,7 @@ import { getAnyItem, isAmmo, isArmor, isWeapon } from '../equipment/equipment';
 import { isEquipmentItem } from '../equipment/items';
 import { getMaxSorcereryPoints } from '../spells/sorcerer';
 import {
+  getMaxChannelDivinity,
   getMaxDivineSense,
   getMaxLayOnHands,
 } from '../classes/paladin/paladin';
@@ -89,7 +90,7 @@ export async function setPcStats(pcParams) {
   });
 }
 
-export async function spendHitDie(id, diceAmount, dieValue) {
+export async function shortRest(id, diceAmount, dieValue) {
   let pc = await getPc(id);
   const { remainingHitDice, pClass } = pc;
 
@@ -108,6 +109,12 @@ export async function spendHitDie(id, diceAmount, dieValue) {
     remainingHitDice: remainingHitDice - diceAmount,
   });
   pc = await healPc(id, dieValue);
+
+  if (pClass === 'paladin') {
+    pc = await updateAttrsForClass(id, 'paladin', {
+      channelDivinity: getMaxChannelDivinity(),
+    });
+  }
 
   return pc;
 }
@@ -138,6 +145,7 @@ export async function longRest(id) {
     pc = await updateAttrsForClass(id, 'paladin', {
       layOnHands: getMaxLayOnHands(pc),
       divineSense: getMaxDivineSense(pc),
+      channelDivinity: getMaxChannelDivinity(),
     });
   }
 

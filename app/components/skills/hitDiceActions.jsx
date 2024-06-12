@@ -2,22 +2,15 @@ import { useState } from 'react';
 import { CLASSES, getStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import NumericInput from '../inputs/numeric';
-import { longRest, spendHitDie } from '~/domain/mutations/characterMutations';
+import { longRest, shortRest } from '~/domain/mutations/characterMutations';
 
 export const actions = {
-  spendHitDie: async formData => {
-    const id = formData.get('id');
-    const diceAmount = formData.get('diceAmount');
-
-    return await spendHitDie(id, parseInt(diceAmount, 10));
-  },
-
-  spendRealHitDie: async formData => {
+  shortRest: async formData => {
     const id = formData.get('id');
     const die = formData.get('die');
     const diceAmount = formData.get('diceAmount');
 
-    return await spendHitDie(id, parseInt(diceAmount, 10), parseInt(die, 10));
+    return shortRest(id, parseInt(diceAmount, 10), parseInt(die, 10));
   },
 
   longRest: async formData => {
@@ -35,7 +28,7 @@ function HitDiceActions(props) {
     closeModal();
     submit(
       {
-        action: 'spendHitDie',
+        action: 'shortRest',
         id: pc.id,
         diceAmount: amountOfDice,
       },
@@ -47,7 +40,7 @@ function HitDiceActions(props) {
     closeModal();
     submit(
       {
-        action: 'spendRealHitDie',
+        action: 'shortRest',
         id: pc.id,
         die: realDie,
         diceAmount: amountOfDice,

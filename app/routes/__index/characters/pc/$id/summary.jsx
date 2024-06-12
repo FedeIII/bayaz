@@ -85,7 +85,6 @@ import {
 import {
   getSacredOath,
   getSacredOathTraits,
-  translateSacredOath,
 } from '~/domain/classes/paladin/paladin';
 import {
   getRoguishArchetype,
@@ -113,6 +112,7 @@ import { getSessionUser } from '~/services/session.server';
 import processAction from '~/utils/remix/processAction';
 import { actions as hitDiceActions } from '~/components/skills/hitDiceActions';
 import { actions as skillsExplanationActions } from '~/domain/skillsExplanation';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/sheet.css';
 import spellsStyles from '~/components/spells.css';
@@ -437,7 +437,13 @@ function PcSummary() {
     sorcererOrigin: useRef(sorcererOriginTraits.map(createRef)),
     arcaneTradition: useRef(arcaneTradicionTraits.map(createRef)),
     monasticTradition: useRef(monasticTraditionTraits.map(createRef)),
-    sacredOath: useRef(sacredOathTraits.map(createRef)),
+    sacredOath: useRef(
+      (() => {
+        const refs = sacredOathTraits.map(createRef);
+        refs.main = createRef();
+        return refs;
+      })()
+    ),
     roguishArchetype: useRef(roguishArchetypeTraits.map(createRef)),
     ac: useRef([createRef()]),
     hp: useRef([createRef()]),
@@ -932,7 +938,13 @@ function PcSummary() {
           {!!getSacredOath(pc) && (
             <li className="sheet__trait-label">
               <strong className="sheet__trait">
-                {translateSacredOath(getSacredOath(pc))}
+                <SkillItem
+                  ref={skillRefs.sacredOath.current.main}
+                  traitName={getSacredOath(pc)}
+                  trait={t(getSacredOath(pc))}
+                  pc={pc}
+                  openModal={openSkillModal('sacredOath', 'main')}
+                />
               </strong>
               <ul>
                 {sacredOathTraits.map(([traitName, trait], i) => (

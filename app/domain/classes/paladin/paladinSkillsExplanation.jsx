@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from '@remix-run/react';
 import { getStat, getStatMod } from '~/domain/characters';
-import { getSpellSavingThrow } from '~/domain/spells/spells';
+import { getSpellSavingThrow, getSpellSlots } from '~/domain/spells/spells';
 import {
+  getChannelDivinity,
   getDivineSense,
   getIsPaladinFightingStyleSettled,
   getLayOnHands,
@@ -15,7 +16,7 @@ import { increment } from '~/domain/display';
 import NumericInput from '~/components/inputs/numeric';
 import SpendTrait, { createSpendActions } from '~/components/spendTrait';
 import { t } from '~/domain/translations';
-import { updateAttrsForClass } from '~/services/pc.server';
+import { spendSpellSlot, updateAttrsForClass } from '~/services/pc.server';
 
 import styles from '~/components/modal/inventoryItem.css';
 export const links = () => {
@@ -25,11 +26,20 @@ export const links = () => {
 export const classTraitActions = {
   ...createSpendActions('paladin', 'layOnHands', 'hp'),
   ...createSpendActions('paladin', 'divineSense'),
+  ...createSpendActions('paladin', 'channelDivinity'),
+
   settlePaladinFightingStyle: async formData => {
     const id = formData.get('id');
     const updatedPc = await updateAttrsForClass(id, 'paladin', {
       isFightingStyleSettled: true,
     });
+    return updatedPc;
+  },
+
+  spendSpellSlot: async formData => {
+    const id = formData.get('id');
+    const spellSlot = formData.get('spellSlot');
+    const updatedPc = await spendSpellSlot(id, spellSlot);
     return updatedPc;
   },
 };
@@ -226,7 +236,25 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  divineSmite: (skill, pc) => {
+  divineSmite: (skill, pc, submit, closeModal) => {
+    const spentSpellSlots = pc.magic.spentSpellSlots.slice(1, 6);
+    const spellSlots = getSpellSlots(pc).slice(1, 6);
+    const [selectedSpellSlot, setSelectedSpellSlot] = useState(
+      spellSlots.findIndex((slots, level) => spentSpellSlots[level] < slots) + 1
+    );
+
+    function spendSpellSlot() {
+      submit(
+        {
+          action: 'spendSpellSlot',
+          id: pc.id,
+          spellSlot: selectedSpellSlot,
+        },
+        { method: 'post' }
+      );
+      closeModal();
+    }
+
     return (
       <>
         <p>
@@ -247,6 +275,35 @@ export const PALADIN_SKILLS_EXPLANATION = {
             añades este daño al daño extra de tu Castigo Divino.
           </p>
         )}
+
+        <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
+          <label>
+            <select
+              name="use-spell-slot"
+              id="use-spell-slot"
+              className="app__input-number"
+              value={selectedSpellSlot}
+              onChange={e => setSelectedSpellSlot(e.target.value)}
+            >
+              {spellSlots.map((slots, level) => {
+                const slotsLeft = slots - spentSpellSlots[level];
+                return (
+                  <option
+                    disabled={spentSpellSlots[level] >= slots}
+                    value={level + 1}
+                    key={level}
+                  >
+                    Nivel {level + 1} ({slotsLeft} hueco
+                    {slotsLeft === 1 ? '' : 's'})
+                  </option>
+                );
+              })}
+            </select>
+          </label>{' '}
+          <button type="button" onClick={spendSpellSlot}>
+            Gastar
+          </button>
+        </div>
       </>
     );
   },
@@ -261,6 +318,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
   },
 
   sacredOath: (skill, pc) => {
+    const sacredOath = getSacredOath(pc);
     return (
       <>
         <p>
@@ -276,20 +334,176 @@ export const PALADIN_SKILLS_EXPLANATION = {
           7, 15 y 20. Estos rasgos incluyen conjuros de juramento y el rasgo
           Canalizar Divinidad.
         </p>
-        <div className="inventory-item__modal-buttons">
-          <Link
-            to={`/characters/pc/${pc.id}/leveling/paladin/sacredOath`}
-            className="inventory-item__modal-button"
-          >
-            Escoge Juramento
-          </Link>
-        </div>
+        {!sacredOath && (
+          <div className="inventory-item__modal-buttons">
+            <Link
+              to={`/characters/pc/${pc.id}/leveling/paladin/sacredOath`}
+              className="inventory-item__modal-button"
+            >
+              Escoge Juramento
+            </Link>
+          </div>
+        )}
+        {!!sacredOath && (
+          <div className="app__paragraph">
+            <h3>{t(sacredOath)}</h3>
+          </div>
+        )}
       </>
     );
   },
 
-  channelDivinity: (skill, pc) => {
-    const sacredOath = getSacredOath(pc);
+  Devotion: (skill, pc) => {
+    return (
+      <>
+        <p>
+          El Juramento de Devoción une al paladín a los más nobles ideales de
+          justicia, virtud y orden. Algunas veces llamados caballeros,
+          caballeros blancos o guerreros sagrados, estos paladines encarnan el
+          ideal del caballero de brillante armadura, actuando con honor en busca
+          de la justicia y el bien común. Se mantienen a sí mismos en los más
+          altos estándares de conducta, y algunos, para bien o para mal, piensan
+          que el resto del mundo debe mantenerse también en esos estándares.
+          Muchos de estos paladines son devotos de dioses de la ley y la bondad,
+          y siguen sus principios tanto como demuestran su devoción por ellos.
+          Piensan en los ángeles (los sirvientes perfectos de los dioses) como
+          sus ideales, e incorporan imágenes de alas angelicales en sus yelmos y
+          en sus heráldicas.
+        </p>
+        <h4>Credo de la Devoción</h4>
+        <p>
+          Aunque las restricciones y palabras exactas del Juramento de Devoción
+          pueden cambiar, los paladines de este juramento comparten estas
+          creencias.
+        </p>
+        <ul>
+          <li>
+            <u>Honestidad.</u> No mientas o hagas trampas. Deja que tu palabra
+            sea tu promesa.
+          </li>
+          <li>
+            <u>Valentía.</u> Nunca temas actuar, aunque ser cauteloso es de
+            sabios.
+          </li>
+          <li>
+            <u>Compasión.</u> Ayuda a los demás, protege al débil y castiga a
+            aquellos que los amenacen. Ten piedad de tus enemigos, pero hazlo
+            con sabiduría.
+          </li>
+          <li>
+            <u>Honor.</u> Trata bien a los demás y deja que tus honorables actos
+            sean un ejemplo para los demás. Realiza todo el bien que te sea
+            posible causando la menor cantidad de daño posible.
+          </li>
+          <li>
+            <u>Deber.</u> Se responsable de tus acciones y sus consecuencias,
+            protege a aquellos que se encuentran bajo tus cuidados y obedece a
+            aquellos que tienen autoridad por encima de ti.
+          </li>
+        </ul>
+      </>
+    );
+  },
+
+  Ancients: (skill, pc) => {
+    return (
+      <>
+        <p>
+          El Juramento de los Ancestros es tan antiguo como la raza élfica y los
+          rituales de los druidas. Llamados algunas veces caballeros feéricos,
+          caballeros verdes, o caballeros astados, los paladines que hacen este
+          juramento luchan del lado de la luz en el conflicto cósmico en contra
+          de la oscuridad porque aman la belleza y las cosas llenas de vida que
+          hay en el mundo, no necesariamente porque crean en los principios del
+          honor, el coraje o la justicia. Adornan sus armaduras y ropajes con
+          imágenes de cosas que crecen (hojas, cornamentas, o flores) para
+          reflejar su compromiso de preservar la vida y la luz en el mundo.
+        </p>
+        <h4>Credo de los Ancestros</h4>
+        <p>
+          Las creencias del Juramento de los Ancestros han sido preservadas
+          durante más siglos de los que pueden contarse. Este juramento enfatiza
+          los principios de lo bueno por encima de la ley o el caos. Sus cuatro
+          principios básicos son simples.
+        </p>
+        <ul>
+          <li>
+            <u>Aviva la Luz.</u> A través de tus actos de piedad, amabilidad y
+            perdón, aviva la luz de la esperanza en el mundo, haciendo
+            retroceder la desesperación.
+          </li>
+          <li>
+            <u>Cobija a la Luz.</u> Donde hay bondad, belleza, amor y alegría en
+            el mundo, combate contra la maldad que las ahogaría. Donde la vida
+            florece, combate contra las fuerzas que arrasarían las tierras hasta
+            convertirlas en un yermo.
+          </li>
+          <li>
+            <u>Conserva tu Propia Luz.</u> Deléitate con la música y la risa, la
+            belleza y el arte. Si dejas morir la luz en tu corazón, no podrás
+            preservarla en el mundo.
+          </li>
+          <li>
+            <u>Se la Luz.</u> Sé un glorioso faro para todos aquellos que viven
+            en la desesperación. Deja que la luz de tu alegría y tu coraje
+            brille en todas tus acciones.
+          </li>
+        </ul>
+      </>
+    );
+  },
+
+  Vengeance: (skill, pc) => {
+    return (
+      <>
+        <p>
+          El Juramento de Venganza es una solemne promesa de castigar a aquellos
+          que han cometido un gravísimo pecado. Cuando las fuerzas del mal
+          asesinan a los indefensos aldeanos, cuando un pueblo entero se vuelve
+          en contra de la voluntad de los dioses, cuando una hermandad de
+          ladrones se torna demasiado violenta y poderosa, cuando un dragón
+          masacra toda una villa; en momentos así, los paladines surgen y
+          realizan un Juramento de Venganza para enderezar aquello que ha ido
+          mal. Para estos paladines (que algunos llaman vengadores o caballeros
+          oscuros) su propia pureza no es tan importante como el impartir
+          justicia.
+        </p>
+        <h4>Credo de la Venganza</h4>
+        <p>
+          Las creencias del Juramento de la Venganza pueden variar de un paladín
+          a otro, pero todo su credo gira en torno a castigar a los malhechores
+          empleando cualquier medio necesario. Los paladines que se entregan a
+          esta creencia sacrifican voluntariamente su propia rectitud con tal de
+          impartir la justicia necesaria a aquellos que han hecho el mal, por lo
+          que estos paladines normalmente son de alineamiento neutral o legal
+          neutral. Los principios centrales de este credo son brutalmente
+          simples.
+        </p>
+        <ul>
+          <li>
+            <u>Combatir el Mal Mayor.</u> Enfrentado a una elección de luchar
+            con los enemigos de mi juramento o combatir un mal menor, escojo el
+            mal mayor.
+          </li>
+          <li>
+            <u>No hay Piedad Para los Malvados.</u> . Los enemigos normales
+            puede que merezcan mi piedad, pero los enemigos de mi juramento no.
+          </li>
+          <li>
+            <u>El Fin Justifica los Medios.</u> No tengo reparos a la hora de
+            exterminar a mis enemigos.
+          </li>
+          <li>
+            <u>Restitución.</u> Si mis enemigos traen la ruina al mundo es
+            debido a que yo no pude pararlos. Debo ayudar a aquellos que sufren
+            por sus fechorías.
+          </li>
+        </ul>
+      </>
+    );
+  },
+
+  channelDivinity_text: (skill, pc) => {
     return (
       <>
         <p>
@@ -311,7 +525,21 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  sacredWeapon: (skill, pc) => {
+  channelDivinity: (skill, pc, submit) => {
+    return (
+      <>
+        {PALADIN_SKILLS_EXPLANATION.channelDivinity_text(skill, pc)}
+        <SpendTrait
+          pc={pc}
+          traitName="channelDivinity"
+          submit={submit}
+          traitGetter={getChannelDivinity}
+        />
+      </>
+    );
+  },
+
+  sacredWeapon_text: (skill, pc) => {
     return (
       <>
         <p>
@@ -332,7 +560,21 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  turnTheUnholy: (skill, pc) => {
+  sacredWeapon: (skill, pc, submit) => {
+    return (
+      <>
+        {PALADIN_SKILLS_EXPLANATION.sacredWeapon_text(skill, pc)}
+        <SpendTrait
+          pc={pc}
+          traitName="channelDivinity"
+          submit={submit}
+          traitGetter={getChannelDivinity}
+        />
+      </>
+    );
+  },
+
+  turnTheUnholy_text: (skill, pc) => {
     return (
       <>
         <p>
@@ -356,7 +598,21 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  naturesWrath: (skill, pc) => {
+  turnTheUnholy: (skill, pc, submit) => {
+    return (
+      <>
+        {PALADIN_SKILLS_EXPLANATION.turnTheUnholy_text(skill, pc)}
+        <SpendTrait
+          pc={pc}
+          traitName="channelDivinity"
+          submit={submit}
+          traitGetter={getChannelDivinity}
+        />
+      </>
+    );
+  },
+
+  naturesWrath_text: (skill, pc) => {
     return (
       <p>
         Puedes usar tu Canalizar Divinidad para invocar fuerzas primigenias que
@@ -371,7 +627,21 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  turnTheFaithless: (skill, pc) => {
+  turnTheUnholy: (skill, pc, submit) => {
+    return (
+      <>
+        {PALADIN_SKILLS_EXPLANATION.naturesWrath_text(skill, pc)}
+        <SpendTrait
+          pc={pc}
+          traitName="channelDivinity"
+          submit={submit}
+          traitGetter={getChannelDivinity}
+        />
+      </>
+    );
+  },
+
+  turnTheFaithless_text: (skill, pc) => {
     return (
       <>
         <p>
@@ -398,7 +668,21 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  abjureEnemy: (skill, pc) => {
+  turnTheFaithless: (skill, pc, submit) => {
+    return (
+      <>
+        {PALADIN_SKILLS_EXPLANATION.turnTheFaithless_text(skill, pc)}
+        <SpendTrait
+          pc={pc}
+          traitName="channelDivinity"
+          submit={submit}
+          traitGetter={getChannelDivinity}
+        />
+      </>
+    );
+  },
+
+  abjureEnemy_text: (skill, pc) => {
     return (
       <>
         <p>
@@ -424,7 +708,21 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  vowOfEnmity: (skill, pc) => {
+  abjureEnemy: (skill, pc, submit) => {
+    return (
+      <>
+        {PALADIN_SKILLS_EXPLANATION.abjureEnemy_text(skill, pc)}
+        <SpendTrait
+          pc={pc}
+          traitName="channelDivinity"
+          submit={submit}
+          traitGetter={getChannelDivinity}
+        />
+      </>
+    );
+  },
+
+  vowOfEnmity_text: (skill, pc) => {
     return (
       <p>
         Como acción adicional, puedes realizar un voto de enemistad contra una
@@ -433,6 +731,20 @@ export const PALADIN_SKILLS_EXPLANATION = {
         contra esa criatura durante 1 minuto o hasta que sus Puntos de Golpe
         lleguen a 0 o caiga inconsciente.
       </p>
+    );
+  },
+
+  vowOfEnmity: (skill, pc, submit) => {
+    return (
+      <>
+        {PALADIN_SKILLS_EXPLANATION.vowOfEnmity_text(skill, pc)}
+        <SpendTrait
+          pc={pc}
+          traitName="channelDivinity"
+          submit={submit}
+          traitGetter={getChannelDivinity}
+        />
+      </>
     );
   },
 

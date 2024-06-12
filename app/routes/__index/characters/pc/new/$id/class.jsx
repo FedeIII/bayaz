@@ -44,6 +44,7 @@ import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { getMaxSorcereryPoints } from '~/domain/spells/sorcerer';
 import {
+  getMaxChannelDivinity,
   getMaxDivineSense,
   getMaxLayOnHands,
 } from '~/domain/classes/paladin/paladin';
@@ -118,6 +119,7 @@ export const action = async ({ request }) => {
     pcAttrs.classAttrs.paladin = {
       layOnHands: getMaxLayOnHands(pc),
       divineSense: getMaxDivineSense(pc),
+      channelDivinity: getMaxChannelDivinity(),
     };
   }
 

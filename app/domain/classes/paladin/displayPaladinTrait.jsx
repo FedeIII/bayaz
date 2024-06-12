@@ -1,5 +1,6 @@
 import { getStat, getStatMod } from '~/domain/characters';
 import {
+  getChannelDivinity,
   getDivineSense,
   getIsPaladinFightingStyleSettled,
   getLayOnHands,
@@ -63,22 +64,23 @@ export function displayPaladinTrait(traitName, trait, pc) {
 
     case 'sacredOath':
       return (
-        !getSacredOath(pc) && (
-          <>
-            <strong>{trait}</strong>
-            <ChooseTrait />
-          </>
-        )
-      );
-
-    case 'channelDivinity':
-      return (
         <>
-          {trait}.{' '}
-          <span className="app__small-text">1 vez entre descansos</span>
+          <strong>{trait}</strong>
+          {!getSacredOath(pc) && <ChooseTrait />}
         </>
       );
 
+    case 'channelDivinity': {
+      const channelDivinity = getChannelDivinity(pc);
+      return (
+        <>
+          {trait}.{' '}
+          <span className="app__small-text">
+            {channelDivinity > 0 ? '1 vez entre descansos' : 'Gastada'}
+          </span>
+        </>
+      );
+    }
     case 'auraOfProtection':
       return (
         <>
