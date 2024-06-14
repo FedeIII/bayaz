@@ -236,6 +236,31 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
+  divineSmite_text: (skill, pc) => {
+    return (
+      <>
+        <p>
+          Comenzando en el nivel 2, cuando golpeas a una criatura con un ataque
+          con un arma cuerpo a cuerpo, puedes gastar uno de tus espacios de
+          conjuro de paladín para infligir <u>daño radiante</u> al objetivo,
+          además del daño del arma. El daño extra es <u>2d8</u> para un espacio
+          de conjuro de <u>nivel 1</u>, más <u>1d8</u> por <u>cada nivel</u> de
+          conjuro superior a 1, hasta un máximo de 5d8. El daño se incrementa en
+          1d8 si el objetivo es un muerto viviente o infernal.
+        </p>
+        {pc.level >= 11 && (
+          <p>
+            En nivel 11, estás tan imbuido de poder justiciero que todos tus
+            golpes con armas portan tu poder divino. Siempre que golpees a una
+            criatura con un ataque con armas, la criatura recibe 1d8 de daño
+            radiante extra. Además, si usas tu Castigo Divino con un ataque,
+            añades este daño al daño extra de tu Castigo Divino.
+          </p>
+        )}
+      </>
+    );
+  },
+
   divineSmite: (skill, pc, submit, closeModal) => {
     const spentSpellSlots = pc.magic.spentSpellSlots.slice(1, 6);
     const spellSlots = getSpellSlots(pc).slice(1, 6);
@@ -257,24 +282,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
 
     return (
       <>
-        <p>
-          Comenzando en el nivel 2, cuando golpeas a una criatura con un ataque
-          con un arma cuerpo a cuerpo, puedes gastar uno de tus espacios de
-          conjuro de paladín para infligir <u>daño radiante</u> al objetivo,
-          además del daño del arma. El daño extra es <u>2d8</u> para un espacio
-          de conjuro de <u>nivel 1</u>, más <u>1d8</u> por <u>cada nivel</u> de
-          conjuro superior a 1, hasta un máximo de 5d8. El daño se incrementa en
-          1d8 si el objetivo es un muerto viviente o infernal.
-        </p>
-        {pc.level >= 11 && (
-          <p>
-            En nivel 11, estás tan imbuido de poder justiciero que todos tus
-            golpes con armas portan tu poder divino. Siempre que golpees a una
-            criatura con un ataque con armas, la criatura recibe 1d8 de daño
-            radiante extra. Además, si usas tu Castigo Divino con un ataque,
-            añades este daño al daño extra de tu Castigo Divino.
-          </p>
-        )}
+        {PALADIN_SKILLS_EXPLANATION.divineSmite_text(skill, pc)}
 
         <div className="inventory-item__modal-buttons inventory-item__modal-buttons--wide">
           <label>
