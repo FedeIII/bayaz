@@ -53,6 +53,7 @@ npx prisma migrate dev
 
 ## TO DOsg
 
+- Bug: right click on spells during character creation advances to next step
 - Extract textarea component
 - Add notes to items
 - Add temporary hitpoints to combats
@@ -72,7 +73,6 @@ npx prisma migrate dev
 - Buildings in settlements
 - Characters in places
 - Audio in places
-- 
 - id for NPCs
 - Review more player options in sheets
 - Background: {trait}
@@ -80,8 +80,6 @@ npx prisma migrate dev
 - bug: when a party is active, selecting a PC outside the party ends up bugging the menu
 - Ranger:
   - choose companion
-- Bard:
-  - track usages of bardic inspiration
 - Fighter:
   - track superiority dice consumption
 - Sorcerer:
