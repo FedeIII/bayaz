@@ -3,7 +3,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import classNames from 'classnames';
 
 import { getExtraWeapons, hasExtraWeapons } from '~/domain/characters';
-import { getAnyItem, noItem } from '~/domain/equipment/equipment';
+import { getItem, noItem } from '~/domain/equipment/equipment';
 import { getAttacks, getSpecialAttacks, increment } from '~/domain/display';
 import { InventoryItem } from '../modal/inventoryItem';
 import { SkillItem } from '../modal/skillItem';
@@ -252,29 +252,26 @@ function SheetAttacks(props) {
   }
 
   function onWeaponDrop(weaponName, weaponSlot) {
-    getAnyItem(weaponName).then(selectedWeapon => {
-      setWeaponsState(w => {
-        const newW = w.slice();
+    const selectedWeapon = getItem(weaponName);
+    setWeaponsState(w => {
+      const newW = w.slice();
 
-        const originSlot = newW.findIndex(
-          weapon => weapon?.name === weaponName
-        );
-        const replacedWeapon = newW[weaponSlot];
+      const originSlot = newW.findIndex(weapon => weapon?.name === weaponName);
+      const replacedWeapon = newW[weaponSlot];
 
-        newW[originSlot] = replacedWeapon;
-        newW[weaponSlot] = selectedWeapon;
+      newW[originSlot] = replacedWeapon;
+      newW[weaponSlot] = selectedWeapon;
 
-        if (originSlot !== weaponSlot) {
-          setWeaponsLoading(l => {
-            const newL = l.slice();
-            newL[originSlot] = true;
-            newL[weaponSlot] = true;
-            return newL;
-          });
-        }
+      if (originSlot !== weaponSlot) {
+        setWeaponsLoading(l => {
+          const newL = l.slice();
+          newL[originSlot] = true;
+          newL[weaponSlot] = true;
+          return newL;
+        });
+      }
 
-        return newW;
-      });
+      return newW;
     });
 
     submit(
@@ -290,26 +287,26 @@ function SheetAttacks(props) {
 
   function onWeaponClick(itemType, itemIndex = 0) {
     return itemName => {
-      getAnyItem(itemName).then(item => {
-        setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
-        setTimeout(
-          () =>
-            setActionModalContent(() => props => (
-              <WeaponModalContent
-                pc={pc}
-                weapon={item}
-                onWeaponChange={onWeaponChange(itemIndex)}
-                onWeaponUnequip={onWeaponUnequip(itemIndex)}
-                onUseItem={item.charges && onUseMagicWeapon(item.id)}
-                onSetItemCharges={
-                  !!item.maxCharges && onSetMagicWeaponCharges(item.id)
-                }
-                closeModal={() => setActionModalContent(null)}
-              />
-            )),
-          0
-        );
-      });
+      const item = getItem(itemName);
+
+      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+      setTimeout(
+        () =>
+          setActionModalContent(() => props => (
+            <WeaponModalContent
+              pc={pc}
+              weapon={item}
+              onWeaponChange={onWeaponChange(itemIndex)}
+              onWeaponUnequip={onWeaponUnequip(itemIndex)}
+              onUseItem={item.charges && onUseMagicWeapon(item.id)}
+              onSetItemCharges={
+                !!item.maxCharges && onSetMagicWeaponCharges(item.id)
+              }
+              closeModal={() => setActionModalContent(null)}
+            />
+          )),
+        0
+      );
     };
   }
 

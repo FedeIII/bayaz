@@ -16,7 +16,7 @@ import {
 } from '~/services/pc.server';
 import { rollDice } from '~/domain/random';
 import { getSpellSlots } from '../spells/spells';
-import { getAnyItem, isAmmo, isArmor, isWeapon } from '../equipment/equipment';
+import { getItem, isAmmo, isArmor, isWeapon } from '../equipment/equipment';
 import { isEquipmentItem } from '../equipment/items';
 import { getMaxSorcereryPoints } from '../spells/sorcerer';
 import {
@@ -217,7 +217,7 @@ export async function damagePc(id, damage) {
 
 export async function addItemToTreasure(id, itemName, itemAmount) {
   const pc = await getPc(id);
-  const item = await getAnyItem(itemName);
+  const item = getItem(itemName);
   const section = isEquipmentItem(item) ? 'equipment' : 'treasure';
   const subsection = isAmmo(item)
     ? 'ammunition'

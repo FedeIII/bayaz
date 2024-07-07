@@ -1,13 +1,6 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData, useSubmit } from '@remix-run/react';
-import {
-  createRef,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 
 import {
   equipWeaponInSlot,
@@ -24,11 +17,7 @@ import {
   dropCustomItem,
 } from '~/services/pc.server';
 import { getPackItems } from '~/domain/equipment/packs';
-import {
-  getAnyItem,
-  getItem,
-  translatePack,
-} from '~/domain/equipment/equipment';
+import { getItem, translatePack } from '~/domain/equipment/equipment';
 import {
   getLightEncumbrance,
   getHeavyEncumbrance,
@@ -43,7 +32,6 @@ import { addItemToTreasure } from '~/domain/mutations/characterMutations';
 import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
 import { useSearchResults } from '~/components/hooks/useSearchResults';
-import MagicItemsContext from '~/components/contexts/magicItemsContext';
 import NumericInput from '~/components/inputs/numeric';
 
 import styles from '~/components/bio.css';
@@ -228,7 +216,9 @@ function ItemModalContent(props) {
 
   return (
     <>
-      <h3 className="inventory-item__action-modal-title">{item.translatio || item.name}</h3>
+      <h3 className="inventory-item__action-modal-title">
+        {item.translatio || item.name}
+      </h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
@@ -412,6 +402,7 @@ function PcBio() {
     height,
     weight,
     pack,
+    items: { treasure = {} } = {},
     freeText: {
       eyes,
       skin,
@@ -422,13 +413,6 @@ function PcBio() {
       extraTraits2,
     } = {},
   } = pc;
-
-  const allMagicItems = useContext(MagicItemsContext);
-  const treasure = useMemo(() => {
-    return !!allMagicItems.length
-      ? pc.items.treasure
-      : { weapons: [], armors: [], others: [], custom: [] };
-  }, [allMagicItems, pc.items.treasure]);
 
   function onFormSubmit(e) {}
 
@@ -616,64 +600,64 @@ function PcBio() {
 
   function onItemClick(itemType, itemIndex) {
     return pItem => {
-      getAnyItem(pItem).then(item => {
-        setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+      const item = getItem(pItem);
 
-        let content;
-        if (itemType === 'others' || itemType === 'custom') {
+      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+
+      let content;
+      if (itemType === 'others' || itemType === 'custom') {
+        content = props => (
+          <ItemModalContent
+            item={item}
+            section={itemType}
+            dropItem={dropItem}
+            changeAmount={changeAmount}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
+      } else if (itemType === 'inventorySearchResults') {
+        content = props => (
+          <ItemModalContent
+            item={item}
+            addToTreasure={addToTreasure}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
+      } else if (item.type === 'weapon') {
+        content = props => (
+          <WeaponModalContent
+            pc={pc}
+            weapon={item}
+            equipWeapon={equipWeapon}
+            dropWeapon={dropWeapon}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
+      } else if (item.type === 'armor') {
+        if (item.subtype === 'shield') {
           content = props => (
-            <ItemModalContent
-              item={item}
-              section={itemType}
-              dropItem={dropItem}
-              changeAmount={changeAmount}
+            <ArmorModalContent
+              armor={item}
+              pArmor={pc.items.equipment.shield}
+              equipArmor={equipShield}
+              dropArmor={dropShield}
               closeModal={() => setActionModalContent(null)}
             />
           );
-        } else if (itemType === 'inventorySearchResults') {
+        } else {
           content = props => (
-            <ItemModalContent
-              item={item}
-              addToTreasure={addToTreasure}
+            <ArmorModalContent
+              armor={item}
+              pArmor={pc.items.equipment.armor}
+              equipArmor={equipArmor}
+              dropArmor={dropArmor}
               closeModal={() => setActionModalContent(null)}
             />
           );
-        } else if (item.type === 'weapon') {
-          content = props => (
-            <WeaponModalContent
-              pc={pc}
-              weapon={item}
-              equipWeapon={equipWeapon}
-              dropWeapon={dropWeapon}
-              closeModal={() => setActionModalContent(null)}
-            />
-          );
-        } else if (item.type === 'armor') {
-          if (item.subtype === 'shield') {
-            content = props => (
-              <ArmorModalContent
-                armor={item}
-                pArmor={pc.items.equipment.shield}
-                equipArmor={equipShield}
-                dropArmor={dropShield}
-                closeModal={() => setActionModalContent(null)}
-              />
-            );
-          } else {
-            content = props => (
-              <ArmorModalContent
-                armor={item}
-                pArmor={pc.items.equipment.armor}
-                equipArmor={equipArmor}
-                dropArmor={dropArmor}
-                closeModal={() => setActionModalContent(null)}
-              />
-            );
-          }
         }
+      }
 
-        setActionModalContent(() => content);
-      });
+      setActionModalContent(() => content);
     };
   }
 

@@ -1,6 +1,6 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef } from 'react';
 import { itemWithAmount } from '~/domain/display';
-import { getAnyItem, getItem } from '~/domain/equipment/equipment';
+import { getItem } from '~/domain/equipment/equipment';
 
 const noOp = () => {};
 
@@ -16,12 +16,7 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
     openModalOnClick,
     dontCloseOnMouseOut,
   } = props;
-  const [item, setItem] = useState(getItem(pItem));
-  useEffect(() => {
-    if (!item && pItem.name) {
-      getAnyItem(pItem.name).then(i => setItem(i));
-    }
-  }, [pItem.name, item]);
+  const item = getItem(pItem);
 
   if (!item?.name) return null;
 

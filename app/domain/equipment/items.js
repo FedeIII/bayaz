@@ -1,7 +1,5 @@
-import { isServer } from '~/utils/isServer';
 import { ARMORS } from './armors';
 import { WEAPONS } from './weapons';
-import { getItemByName, getItems } from '~/services/item.server';
 import { isAmmo } from './equipment';
 
 export const ITEM_RARITY = [
@@ -61,59 +59,6 @@ export function parseMagicItems(magicItems) {
     return props => itemBuilder({ ...magicItemProps, ...props });
   });
 }
-
-export const magicItemsStore = {
-  itemMap: new Map(),
-  items: [],
-
-  set(items) {
-    this.items = items;
-
-    for (let item of items) {
-      this.itemMap.set(item().name, item);
-    }
-  },
-
-  getSync(itemName) {
-    if (typeof process !== 'undefined') {
-      console.error(
-        'magicItemsStore.getSync is intended for the browser store, use async magicItemsStore.get in the server'
-      );
-
-      return null;
-    }
-
-    return this.itemMap.get(itemName);
-  },
-
-  async get(itemName) {
-    if (isServer()) {
-      return await getItemByName(itemName);
-    }
-
-    return Promise.resolve(this.itemMap.get(itemName));
-  },
-
-  getAllSync() {
-    if (typeof process !== 'undefined') {
-      console.error(
-        'magicItemsStore.getAllSync is intended for the browser store, use async magicItemsStore.getAll in the server'
-      );
-
-      return [];
-    }
-
-    return this.items;
-  },
-
-  async getAll() {
-    if (isServer()) {
-      return await getItems();
-    }
-
-    return Promise.resolve(this.items);
-  },
-};
 
 export function isEquipmentItem(item) {
   return (

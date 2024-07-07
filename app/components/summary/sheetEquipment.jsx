@@ -1,9 +1,8 @@
-import { useContext, useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
 import { t } from '~/domain/translations';
-import MagicItemsContext from '../contexts/magicItemsContext';
 import { hasActions } from '~/domain/equipment/items';
 import NumericInput from '../inputs/numeric';
 import {
@@ -290,15 +289,7 @@ function SheetEquipment(props) {
     setActionModalContent,
     submit,
   } = props;
-  const { money } = pc;
-
-  const allMagicItems = useContext(MagicItemsContext);
-
-  const [equipment = {}, treasure = {}] = useMemo(() => {
-    return !!allMagicItems?.length
-      ? [pc.items.equipment, pc.items.treasure]
-      : [];
-  }, [allMagicItems, pc.items.equipment, pc.items.treasure]);
+  const { money, items: { equipment = {}, treasure = {} } = {} } = pc;
 
   function onShieldChange(newShieldName) {
     submit(

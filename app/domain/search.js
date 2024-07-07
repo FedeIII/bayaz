@@ -8,7 +8,6 @@ import { MONSTERS } from './encounters/monsterList';
 import { translateMonster } from './encounters/monsterTranslations';
 import { Monster, getSpecialSkills } from './encounters/monsters';
 import { getAllItems } from './equipment/equipment';
-import { magicItemsStore } from './equipment/items';
 import { SPELL_LIST } from './spells/spellList';
 import { translateSchool } from './spells/spellTranslations';
 import { translateSpell } from './spells/spells';
@@ -54,7 +53,7 @@ function isItemMatch(itemBuilder, search) {
 }
 
 async function findEquipment(search) {
-  return [...getAllItems(), ...(await magicItemsStore.getAll())]
+  return getAllItems()
     .filter(itemBuilder => isItemMatch(itemBuilder, search))
     .map(i => i?.());
 }

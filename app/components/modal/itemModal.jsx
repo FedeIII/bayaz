@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import OutsideAlerter from '~/components/HOCs/outsideAlerter';
 import { displayDamage } from '~/domain/display';
@@ -6,16 +6,10 @@ import { t } from '~/domain/translations';
 import { getItemArmorClass, translateMoney } from '~/domain/characters';
 import { translateDamage } from '~/domain/equipment/weapons';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
-import MagicItemsContext from '../contexts/magicItemsContext';
 
 export function ItemModalContent(props) {
-  const { pc, actions = {}, isDm } = props;
-
-  const allMagicItems = useContext(MagicItemsContext);
-
-  const [item, weapons] = useMemo(() => {
-    return !!allMagicItems?.length ? [props.item, pc.items.weapons] : [];
-  }, [allMagicItems, props.item, pc.items.weapons]);
+  const { item, pc, actions = {}, isDm } = props;
+  const { weapons } = pc.items;
 
   if (!item) {
     return null;

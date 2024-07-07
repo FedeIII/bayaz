@@ -12,8 +12,6 @@ import {
 } from './characters';
 import { getAcBreakdown, increment } from './display';
 import { getItem } from './equipment/equipment';
-import { useContext, useMemo } from 'react';
-import MagicItemsContext from '~/components/contexts/magicItemsContext';
 import { t } from './translations';
 import { createNotes } from '~/services/pc.server';
 
@@ -178,12 +176,7 @@ export const SKILLS_EXPLANATION = {
   savingThrows: (skill, pc) => <></>,
 
   attackBonus: (skill, pc, submit, closeModal, skillIndex) => {
-    const { pClass } = pc;
-
-    const allMagicItems = useContext(MagicItemsContext);
-    const weapons = useMemo(() => {
-      return !!allMagicItems.length && pc.items.weapons;
-    }, [allMagicItems, pc.items.weapons]);
+    const { pClass, items: { weapons = {} } = {} } = pc;
 
     const w = weapons[skillIndex];
     const weapon = getItem(w);

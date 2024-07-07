@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getAnyItem } from '~/domain/equipment/equipment';
+import { getItem } from '~/domain/equipment/equipment';
 
 import { ItemModalContent } from './itemModal';
 import { BASE_CHARACTER } from '~/domain/characters';
@@ -15,23 +15,23 @@ export function useInventoryItems(
 
   function openItemModal(sectionName, itemIndex = 0) {
     return (itemName, actions) => {
-      getAnyItem(itemName).then(item => {
-        if (!otherModalContent) {
-          setSelectedItemRef(itemRefs[sectionName].current[itemIndex]);
-          setTimeout(
-            () =>
-              setItemModalContent(() => props => (
-                <ItemModalContent
-                  pc={pc}
-                  item={item}
-                  actions={actions}
-                  {...props}
-                />
-              )),
-            0
-          );
-        }
-      });
+      const item = getItem(itemName);
+
+      if (!otherModalContent) {
+        setSelectedItemRef(itemRefs[sectionName].current[itemIndex]);
+        setTimeout(
+          () =>
+            setItemModalContent(() => props => (
+              <ItemModalContent
+                pc={pc}
+                item={item}
+                actions={actions}
+                {...props}
+              />
+            )),
+          0
+        );
+      }
     };
   }
 

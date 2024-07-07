@@ -34,7 +34,7 @@ import {
   SUPERIOR_HUNTERS_DEFENSE,
 } from '~/domain/classes/ranger/ranger';
 import { DIVINE_DOMAINS } from '~/domain/classes/cleric/cleric';
-import { getAnyItem } from '~/domain/equipment/equipment';
+import { getItem } from '~/domain/equipment/equipment';
 import {
   SPELL_SCHOOLS,
   getExtraPreparedSpells,
@@ -998,7 +998,7 @@ export async function equipWeapons(id, weaponToUnequipName, weaponToEquipName) {
       { id },
       {
         $push: {
-          'items.treasure.weapons': await getAnyItem(weaponToUnequipName),
+          'items.treasure.weapons': getItem(weaponToUnequipName),
         },
       },
       { new: true }
@@ -1007,7 +1007,7 @@ export async function equipWeapons(id, weaponToUnequipName, weaponToEquipName) {
 
   updatedPc = await Pc.findOneAndUpdate(
     { id, 'items.weapons.name': weaponToUnequipName },
-    { $set: { 'items.weapons.$': await getAnyItem(weaponToEquipName) } },
+    { $set: { 'items.weapons.$': getItem(weaponToEquipName) } },
     { new: true }
   );
 
@@ -1056,7 +1056,7 @@ export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
   updatedPc = await Pc.findOneAndUpdate(
     { id },
     {
-      $set: { [`items.weapons.${slot}`]: await getAnyItem(weaponToEquipName) },
+      $set: { [`items.weapons.${slot}`]: getItem(weaponToEquipName) },
     },
     { new: true }
   );
@@ -1087,7 +1087,7 @@ export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
         { id },
         {
           $push: {
-            'items.treasure.weapons': await getAnyItem(weaponToUnequipName),
+            'items.treasure.weapons': getItem(weaponToUnequipName),
           },
         },
         { new: true }
@@ -1280,7 +1280,7 @@ export async function reorderWeapons(id, weaponName, destinationSlot) {
   const weapons = pc.items.weapons.slice();
 
   const originSlot = weapons.findIndex(weapon => weapon?.name === weaponName);
-  const selectedWeapon = await getAnyItem(weaponName);
+  const selectedWeapon = getItem(weaponName);
   const replacedWeapon = weapons[destinationSlot];
 
   weapons[originSlot] = replacedWeapon?.toJSON();
