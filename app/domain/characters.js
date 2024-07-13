@@ -1653,6 +1653,7 @@ export function CLASSES() {
         1: {
           traits: {
             sneakAttack: 'Ataque Furtivo',
+            thievesCant: 'Jerga de Ladrones',
           },
         },
         2: {

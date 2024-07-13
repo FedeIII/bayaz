@@ -75,8 +75,8 @@ export const DOMINIONS = {
   dwarven_dominion: [
     'Koradûm', // Tierra dura, Dominio de las Colinas
     'Corazón de Piedra',
-    'Enclave de la Montaña',
-    'Cordillera Norte',
+    'Claustro de la Montaña',
+    'Bastión Rúnico',
   ], 
   elven_dominion: [
     'Celembrin Lantëa', // Costa Noble

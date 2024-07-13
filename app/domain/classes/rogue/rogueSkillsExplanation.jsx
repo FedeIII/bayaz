@@ -27,6 +27,26 @@ export const ROGUE_SKILLS_EXPLANATION = {
     </>
   ),
 
+  thievesCant: (skill, pc) => (
+    <>
+      <p>
+        Durante tu entrenamiento como pícaro, aprendes la jerga de ladrones, una
+        mezcla de dialecto, argot y código secretos que te permite enviar
+        mensajes en una conversación aparentemente normal. Solo otra criatura
+        que conozca la germanía puede entender tales mensajes. Transmitir un
+        mensaje de este tipo cuesta cuatro veces más que decir la misma idea
+        directamente.
+      </p>
+      <p>
+        Además, entiendes una serie de signos y símbolos que se usan para
+        esconder mensajes cortos y sencillos, como si un área es peligrosa o es
+        territorio de un gremio de ladrones, si hay un botín cerca o si las
+        gentes que viven en la zona son presas fáciles u ofrecerán cobijo a un
+        ladrón a la fuga.
+      </p>
+    </>
+  ),
+
   cunningAction: (skill, pc) => (
     <p>
       Comenzando en el nivel 2 tu rapidez mental y agilidad permiten que te

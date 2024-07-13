@@ -21,6 +21,15 @@ export function displayRogueTrait(traitName, trait, pc) {
         </>
       );
 
+    case 'thievesCant':
+      return (
+        <>
+          <strong>
+            <u>{trait}.</u>
+          </strong>
+        </>
+      );
+
     case 'roguishArchetype':
       return (
         !getRoguishArchetype(pc) && (
@@ -35,9 +44,7 @@ export function displayRogueTrait(traitName, trait, pc) {
       return (
         <>
           <strong>{trait}</strong>
-          {hasToLearnArcaneTricksterSpell(pc) && (
-            <ChooseTrait />
-          )}
+          {hasToLearnArcaneTricksterSpell(pc) && <ChooseTrait />}
         </>
       );
 
