@@ -8,6 +8,7 @@ const monsterSchema = new mongoose.Schema({
   nick: String,
   maxHp: Number,
   hp: Number,
+  notes: String,
 });
 
 const encounterSchema = new mongoose.Schema({
@@ -20,6 +21,18 @@ const encounterSchema = new mongoose.Schema({
 
 const Encounter =
   mongoose.models.Encounter || mongoose.model('Encounter', encounterSchema);
+
+encounterSchema.index({ id: 1 });
+
+const ensureIndexes = async () => {
+  try {
+    await Encounter.createIndexes();
+    console.log('Indexes created');
+  } catch (err) {
+    console.error('Error creating indexes:', err);
+  }
+};
+ensureIndexes();
 
 export async function createEncounter({
   id: existingId,
@@ -87,6 +100,17 @@ export async function healMonster(encounterId, monsterId, healing) {
   }
 
   return updatedEncounter;
+}
+
+export async function updateMonsterNotes(encounterId, monsterIndex, notes) {
+  return await Encounter.updateOne(
+    { _id: encounterId },
+    {
+      $set: {
+        [`monsters.${monsterIndex}.notes`]: notes,
+      },
+    }
+  );
 }
 
 export async function getEncountersByGroup() {
