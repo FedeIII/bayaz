@@ -192,7 +192,7 @@ function getModifier(command) {
 
 function processCommand(command) {
   const normalizedCommand = command
-    .replace(' ', '')
+    .replaceAll(' ', '')
     .replace('d', 'D')
     .replace('r', 'R')
     .replace('p', 'P');

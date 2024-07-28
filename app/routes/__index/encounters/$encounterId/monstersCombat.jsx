@@ -14,7 +14,6 @@ import { MultiLevelBar } from '~/components/indicators/multiLevelBar';
 import { getAcBreakdown } from '~/domain/display';
 import { CharacterItem } from '~/components/modal/characterItem';
 import { replaceAt } from '~/utils/array';
-import { rollDice } from '~/domain/random';
 import { useTitle } from '~/components/hooks/useTitle';
 import NumericInput from '~/components/inputs/numeric';
 import { useMemo, useState } from 'react';
@@ -25,7 +24,10 @@ export function MonstersCombat(props) {
     openCharacterModal,
     initiativesList,
     initiatives,
-    setInitiatives,
+    setMonsterRandomInitiative,
+    setMonsterInitiative,
+    setLocalPcInitiative,
+    setRemotePcInitiative,
     hover,
     setHover,
     resetInitiatives,
@@ -76,13 +78,15 @@ export function MonstersCombat(props) {
             <button
               type="button"
               className="encounters__damage-button cards__button-card"
-              onClick={setMobInitiatives}
+              onClick={setMobInitiatives(
+                monsters.map(m => m.details.stats.dex)
+              )}
             >
               Lanzar
             </button>
           </div>
           <ol className="encounters__initiative-list">
-            {initiativesList.map((obj, i) => (
+            {initiativesList.map((obj, initiativeIndex) => (
               <li
                 className="encounters__initiative-item"
                 onMouseEnter={() =>
@@ -91,7 +95,7 @@ export function MonstersCombat(props) {
                 onMouseLeave={() =>
                   setHover(old => ({ ...old, [obj.type]: null }))
                 }
-                key={i}
+                key={initiativeIndex}
               >
                 (<span>{obj.value}</span>) <span>{obj.name}</span>
               </li>
@@ -103,34 +107,38 @@ export function MonstersCombat(props) {
       <div className="encounters__container">
         <h2>Enemigos</h2>
         <div className="cards encounters__monster-list">
-          {monsters?.map((monster, i, all) => {
-            const { hp, maxHp, id: monsterId } = monstersStats[i] || {};
+          {monsters?.map((monster, monsterIndex, all) => {
+            const {
+              hp,
+              maxHp,
+              id: monsterId,
+            } = monstersStats[monsterIndex] || {};
             const isAlive = hp > 0;
 
             return (
               <Card
                 title={() => (
                   <CharacterItem
-                    ref={refsList.mobs.current[i]}
+                    ref={refsList.mobs.current[monsterIndex]}
                     character={Monster(monster.name)}
                     nick={monster.nick}
                     charSection="mobs"
-                    charIndex={i}
+                    charIndex={monsterIndex}
                     openModal={openCharacterModal(
                       Monster(monster.name),
                       'mobs',
-                      i
+                      monsterIndex
                     )}
                   />
                 )}
                 className={`encounters__character-card ${
-                  hover.mobs === i
+                  hover.mobs === monsterIndex
                     ? 'encounters__character-card--highlight'
                     : ''
                 }`}
                 titleClass="encounters__character-name"
-                key={monster.nick || monster.name + '-' + i}
-                style={getMonsterPositionStyle(i, all.length)}
+                key={monster.nick || monster.name + '-' + monsterIndex}
+                style={getMonsterPositionStyle(monsterIndex, all.length)}
               >
                 {isAlive && (
                   <div className="encounters__bar">
@@ -138,8 +146,8 @@ export function MonstersCombat(props) {
                     <ShrinkBar
                       cursorPos={hp}
                       maxValue={maxHp}
-                      midValue={hurtHP(monstersStats[i])}
-                      lowValue={badlyHurtHP(monstersStats[i])}
+                      midValue={hurtHP(monstersStats[monsterIndex])}
+                      lowValue={badlyHurtHP(monstersStats[monsterIndex])}
                     />
                   </div>
                 )}
@@ -187,31 +195,17 @@ export function MonstersCombat(props) {
                       <label
                         htmlFor={`initiative-${monsterId}`}
                         className="encounters__initiative-label"
-                        onClick={() =>
-                          setInitiatives(old => ({
-                            ...old,
-                            monsters: replaceAt(
-                              i,
-                              old.monsters,
-                              rollDice('1d20')
-                            ),
-                          }))
-                        }
+                        onClick={setMonsterRandomInitiative(
+                          monsterIndex,
+                          monsters[monsterIndex].details.stats.dex
+                        )}
                       >
                         Iniciativa{' '}
                         <NumericInput
                           name={`initiative-${monsterId}`}
-                          value={initiatives.mobs[i]}
-                          onChange={e =>
-                            setInitiatives(old => ({
-                              ...old,
-                              monsters: replaceAt(
-                                i,
-                                old.monsters,
-                                e.target.value
-                              ),
-                            }))
-                          }
+                          value={initiatives.mobs[monsterIndex]}
+                          onClick={e => e.stopPropagation()}
+                          onChange={setMonsterInitiative(monsterIndex)}
                           styleName="encounters__initiative-input cards__button-card"
                         />
                       </label>
@@ -222,9 +216,11 @@ export function MonstersCombat(props) {
                   className="encounters__notes"
                   name={`notes-${monsterId}`}
                   defaultValue={''}
-                  value={notes[i]}
+                  value={notes[monsterIndex]}
                   onChange={e =>
-                    setNotes(old => replaceAt(i, old, e.target.value))
+                    setNotes(old =>
+                      replaceAt(monsterIndex, old, e.target.value)
+                    )
                   }
                 ></textarea>
               </Card>
@@ -358,16 +354,8 @@ export function MonstersCombat(props) {
                                 <NumericInput
                                   name={`initiative-${pc.id}`}
                                   value={initiatives.pcs[pcIndex]}
-                                  onChange={e =>
-                                    setInitiatives(old => ({
-                                      ...old,
-                                      pcs: replaceAt(
-                                        pcIndex,
-                                        old.pcs,
-                                        e.target.value
-                                      ),
-                                    }))
-                                  }
+                                  onChange={setLocalPcInitiative(pcIndex)}
+                                  onBlur={setRemotePcInitiative(pcIndex)}
                                   styleName="encounters__initiative-input cards__button-card"
                                 />
                               </label>

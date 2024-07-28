@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form, useLoaderData, useSubmit } from '@remix-run/react';
 import {
   createRef,
   useContext,
@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 
-import { getPc, healPc } from '~/services/pc.server';
+import { getPc, healPc, updatePc } from '~/services/pc.server';
 import { addMonstersKilled, getParty } from '~/services/party.server';
 import { health } from '~/domain/encounters/monsters';
 import {
@@ -29,6 +29,9 @@ import { npcHealth } from '~/domain/npc/npc';
 import { endPartyEncounter } from '~/domain/mutations/partyMutations';
 import { NpcsCombat } from './npcsCombat';
 import { MonstersCombat } from './monstersCombat';
+import { replaceAt } from '~/utils/array';
+import { getStatMod } from '~/domain/characters';
+import { increment } from '~/domain/display';
 
 import styles from '~/components/randomEncounter.css';
 import charactersStyles from '~/components/characters/characters.css';
@@ -57,8 +60,23 @@ export const action = async ({ request }) => {
   const encounterId = formData.get('encounterId');
   const partyId = formData.get('partyId');
   const isNpcs = formData.get('isNpcs');
+  const action = formData.get('action');
+
+  if (action === 'set-initiative') {
+    const pcId = formData.get('id');
+    const newInitiative = formData.get('value');
+
+    await updatePc({
+      id: pcId,
+      initiative: Number(newInitiative),
+    });
+  }
 
   const encounter = await getEncounter(encounterId);
+
+  if (action === 'set-initiative') {
+    return encounter;
+  }
 
   if (partyId) {
     const party = await getParty(partyId);
@@ -134,6 +152,7 @@ function PartyCombat() {
   const { encounter, npcs } = useLoaderData();
   const { id: encounterId, monsters } = encounter;
   const [pcs, partyId, updatePcs] = usePcsFromSession();
+  const submit = useSubmit();
 
   const isNpcs = !!npcs?.length;
   const mobs = isNpcs ? npcs : monsters;
@@ -219,11 +238,14 @@ function PartyCombat() {
     });
   }
 
-  function setMobInitiatives() {
-    setInitiatives(old => ({
-      ...old,
-      mobs: mobs.map(() => rollDice('1d20')),
-    }));
+  function setMobInitiatives(mobDexes) {
+    return () =>
+      setInitiatives(old => ({
+        ...old,
+        mobs: mobs.map((_, i) =>
+          rollDice('1d20' + increment(getStatMod(mobDexes[i])))
+        ),
+      }));
   }
 
   const [hover, setHover] = useState({
@@ -282,7 +304,38 @@ function PartyCombat() {
           openCharacterModal={openCharacterModal}
           initiativesList={initiativesList}
           initiatives={initiatives}
-          setInitiatives={setInitiatives}
+          setMonsterRandomInitiative={(i, dex) => e => {
+            setInitiatives(old => ({
+              ...old,
+              mobs: replaceAt(
+                i,
+                old.mobs,
+                rollDice('1d20' + increment(getStatMod(dex)))
+              ),
+            }));
+          }}
+          setMonsterInitiative={i => e => {
+            setInitiatives(old => ({
+              ...old,
+              mobs: replaceAt(i, old.mobs, e.target.value),
+            }));
+          }}
+          setLocalPcInitiative={i => e => {
+            setInitiatives(old => ({
+              ...old,
+              pcs: replaceAt(i, old.pcs, e.target.value),
+            }));
+          }}
+          setRemotePcInitiative={i => e => {
+            submit(
+              {
+                action: 'set-initiative',
+                id: pcs[i].id,
+                value: e.target.value,
+              },
+              { method: 'post' }
+            );
+          }}
           hover={hover}
           setHover={setHover}
           resetInitiatives={resetInitiatives}
