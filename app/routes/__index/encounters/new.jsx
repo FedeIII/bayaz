@@ -558,7 +558,7 @@ function NewEncounter() {
         const mob = isMonster(m) ? Monster(m) : m;
         return (
           mob.translation
-            .toLowerCase()
+            ?.toLowerCase()
             .includes(filters.mobName.toLowerCase()) &&
           (!filters.xp || mob.xp <= filters.xp) &&
           (!filters.cr || mob.challenge >= filters.cr) &&

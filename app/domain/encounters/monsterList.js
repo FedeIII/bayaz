@@ -1,4 +1,6 @@
-export const MONSTERS = {
+import { NPCS } from "./npcs";
+
+const ONLY_MONSTERS = {
   Azer: {
     challenge: '2',
     size: 'Medium',
@@ -8489,3 +8491,8 @@ export const MONSTERS = {
     type: 'Plant',
   },
 };
+
+export const MONSTERS = {
+  ...ONLY_MONSTERS,
+  ...NPCS,
+}
