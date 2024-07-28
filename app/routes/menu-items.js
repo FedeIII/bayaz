@@ -3,7 +3,7 @@ import { getAllMenuItems } from '~/domain/navigation';
 import { isDm } from '~/domain/user';
 import { getPcName } from '~/services/pc.server';
 import { getSessionUser } from '~/services/session.server';
-import { unique } from '~/utils/insert';
+import { unique } from '~/utils/array';
 
 export const loader = async ({ request }) => {
   const user = await getSessionUser(request);

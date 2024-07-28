@@ -1,4 +1,4 @@
-import { insertAfter, unique } from '~/utils/insert';
+import { insertAfter, unique } from '~/utils/array';
 import { PATHS } from '~/utils/paths';
 import { isDm } from './user';
 

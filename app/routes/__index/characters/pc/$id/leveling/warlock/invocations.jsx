@@ -3,7 +3,7 @@ import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
-import { removeItem } from '~/utils/insert';
+import { removeItem } from '~/utils/array';
 import { Card } from '~/components/cards/card';
 import {
   INVOCATIONS,

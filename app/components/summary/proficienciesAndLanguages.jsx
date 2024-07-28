@@ -5,7 +5,7 @@ import {
 } from '~/domain/characters';
 import { getItemDisplayList } from '~/domain/display';
 import { t } from '~/domain/translations';
-import { unique } from '~/utils/insert';
+import { unique } from '~/utils/array';
 
 function ProficienciesAndLanguages(props) {
   const { pc } = props;

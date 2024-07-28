@@ -1,4 +1,4 @@
-import { removeItem } from '~/utils/insert';
+import { removeItem } from '~/utils/array';
 
 ///////////
 // TESTS //

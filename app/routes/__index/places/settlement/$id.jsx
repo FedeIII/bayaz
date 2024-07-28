@@ -40,7 +40,7 @@ import {
   getSettlement,
   updateSettlement,
 } from '~/services/settlements.server';
-import { changeLength, replaceAt } from '~/utils/insert';
+import { changeLength, replaceAt } from '~/utils/array';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
 import { getSettlementImages } from '~/services/s3.server';

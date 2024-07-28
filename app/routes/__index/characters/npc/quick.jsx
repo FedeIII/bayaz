@@ -5,7 +5,7 @@ import { createRandomNpc } from '~/domain/npc/npc';
 import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
 import { NPC_DEITIES } from '~/domain/npc/attrs/npcFaith';
 import { t } from '~/domain/translations';
-import { removeItem } from '~/utils/insert';
+import { removeItem } from '~/utils/array';
 import { CharacterInfo } from '~/components/characters/characterInfo';
 
 import styles from '~/components/filters.css';

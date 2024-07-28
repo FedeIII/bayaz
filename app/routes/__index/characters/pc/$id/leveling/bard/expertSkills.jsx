@@ -12,7 +12,7 @@ import {
   skillCheckBonus,
   translateSkill,
 } from '~/domain/characters';
-import { removeItem } from '~/utils/insert';
+import { removeItem } from '~/utils/array';
 import { Card } from '~/components/cards/card';
 import { increment } from '~/domain/display';
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { replaceAt } from '~/utils/insert';
+import { replaceAt } from '~/utils/array';
 
 export function useArrayState(initArray) {
   const [arrayState, setArrayState] = useState(initArray || []);

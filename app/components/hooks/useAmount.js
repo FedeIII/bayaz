@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { changeLength } from '~/utils/insert';
+import { changeLength } from '~/utils/array';
 
 export default function useAmount(
   array,

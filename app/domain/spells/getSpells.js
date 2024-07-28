@@ -1,4 +1,4 @@
-import { unique } from '~/utils/insert';
+import { unique } from '~/utils/array';
 import { getLoreSpells, getMagicalSecretsSpells } from '../classes/bard/bard';
 import { getBonusCantrip } from '../classes/druid/druid';
 import { getKnightSpells } from '../classes/fighter/fighter';

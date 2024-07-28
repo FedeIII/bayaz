@@ -12,7 +12,7 @@ import {
 import { useTitle } from '~/components/hooks/useTitle';
 import { increment } from '~/domain/display';
 import { getExtraPreparedSpells } from '~/domain/spells/spells';
-import { substract } from '~/utils/insert';
+import { substract } from '~/utils/array';
 import NumericInput from '~/components/inputs/numeric';
 
 export const loader = async ({ params }) => {

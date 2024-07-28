@@ -18,7 +18,7 @@ import {
 } from '~/domain/spells/spells';
 import { getAllPcSpells } from '~/domain/spells/getSpells';
 import { Card } from '~/components/cards/card';
-import { replaceAt } from '~/utils/insert';
+import { replaceAt } from '~/utils/array';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';

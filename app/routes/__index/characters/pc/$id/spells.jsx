@@ -48,7 +48,7 @@ import { isDm } from '~/domain/user';
 import { getSessionUser } from '~/services/session.server';
 import { translateSchool } from '~/domain/spells/spellTranslations';
 import NumericInput from '~/components/inputs/numeric';
-import { replaceAt } from '~/utils/insert';
+import { replaceAt } from '~/utils/array';
 import classNames from 'classnames';
 
 import styles from '~/components/spells.css';

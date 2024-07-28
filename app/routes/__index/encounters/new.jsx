@@ -32,7 +32,7 @@ import { useTitle } from '~/components/hooks/useTitle';
 import { useCharacterItems } from '~/components/modal/useCharacterItems';
 import { CharacterModal } from '~/components/modal/characterModal';
 import { CharacterItem } from '~/components/modal/characterItem';
-import { replaceAt } from '~/utils/insert';
+import { replaceAt } from '~/utils/array';
 import useAmount from '~/components/hooks/useAmount';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';

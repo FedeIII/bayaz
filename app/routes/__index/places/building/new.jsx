@@ -3,7 +3,7 @@ import { json, redirect } from '@remix-run/node';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { t } from '~/domain/translations';
-import { removeItem } from '~/utils/insert';
+import { removeItem } from '~/utils/array';
 import {
   ALL_SUBTYPES,
   BUILDING_TYPES,
