@@ -77,7 +77,7 @@ export const DOMINIONS = {
     'Corazón de Piedra',
     'Claustro de la Montaña',
     'Bastión Rúnico',
-  ], 
+  ],
   elven_dominion: [
     'Celembrin Lantëa', // Costa Noble
     'Táriel', // Magic
@@ -108,6 +108,7 @@ export function getPopulation(PLACE) {
 }
 
 export const COMMERCE = [
+  [7, 'HUNTING'],
   [10, 'FISHING'],
   [7, 'TRADING'],
   [5, 'WOODWORK'],

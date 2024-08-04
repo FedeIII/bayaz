@@ -438,6 +438,7 @@ export const MONSTER_TRANSLATIONS = {
   'demilich (not in lair)': 'Semiliche (fuera de su guarida)',
   demilich: 'Semiliche',
   balor: 'Balor',
+  bulezau: 'Bulezau',
   'ancient black dragon': 'Dragón negro anciano',
   'ancient copper dragon': 'Dragón de cobre anciano',
   'lich (not in lair)': 'Liche (fuera de su guarida)',

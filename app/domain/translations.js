@@ -79,6 +79,7 @@ export function t(key) {
     TEOCRACY: 'Teocracia',
 
     // Economies
+    HUNTING: 'Caza',
     FISHING: 'Pesca',
     TRADING: 'Bienes manufacturados',
     WOODWORK: 'Carpintería',

@@ -37,6 +37,7 @@ export const MONSTER_IMAGES = {
   Azer: 'https://www.aidedd.org/dnd/images/azer.jpg',
   Badger: 'https://www.aidedd.org/dnd/images/badger.jpg',
   Balor: 'https://www.aidedd.org/dnd/images/demon-balor.jpg',
+  Bulezau: 'https://www.aidedd.org/dnd/images/bulezau.jpg',
   'Bandit Captain': 'https://www.aidedd.org/dnd/images/bandit-captain.jpg',
   Banshee: 'https://www.aidedd.org/dnd/images/banshee.jpg',
   'Barbed Devil': 'https://www.aidedd.org/dnd/images/barbed-devil.jpg',

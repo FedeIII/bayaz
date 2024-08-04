@@ -54,9 +54,12 @@ export const MONSTER_DETAILS_LIST = {
     Senses: 'passive Perception 11',
     Languages: 'Ignan',
     Challenge: '2 (450 XP)',
-    'Cuerpo Abrasador': 'Cualquier criatura que toque al azer o le impacte con un ataque cuerpo a cuerpo estando a 5 pies o menos de distancia recibirá 5 (1d10) de daño de fuego.',
-    'Armas Abrasadoras': 'Cuando el azer impacta con un arma cuerpo a cuerpo metálica, esta inflinge 3 (1d6) de daño de fuego adicional (ya incluido en el ataque)',
-    Iluminar: 'El azer emite luz brillante en un radio de 10 pies y luz tenue 10 pies más allá',
+    'Cuerpo Abrasador':
+      'Cualquier criatura que toque al azer o le impacte con un ataque cuerpo a cuerpo estando a 5 pies o menos de distancia recibirá 5 (1d10) de daño de fuego.',
+    'Armas Abrasadoras':
+      'Cuando el azer impacta con un arma cuerpo a cuerpo metálica, esta inflinge 3 (1d6) de daño de fuego adicional (ya incluido en el ataque)',
+    Iluminar:
+      'El azer emite luz brillante en un radio de 10 pies y luz tenue 10 pies más allá',
     actions: {
       'Martillo de guerra':
         '<em>Melee Weapon Attack</em>: +5 to hit, reach 5 ft., one target. <em>Hit</em>: 7 (1d8 + 3) bludgeoning damage or 8 (1d10 + 3) two-handed. In both cases, also 3 (1d6) fire damage',
@@ -7633,6 +7636,38 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Huge fiend (demon), chaotic evil',
   },
+  Bulezau: {
+    actions: {
+      'Barbed Tail':
+        'Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 8 (1d12 + 2) piercing damage. If the target is a creature, it must succeed on a DC 13 Constitution saving throw against disease or become poisoned until the disease ends. While poisoned in this way, the target sports festering boils, coughs up flies, and sheds rotting skin, and the target must repeat the saving throw after every 24 hours that elapse. On a successful save, the disease ends. On a failed save, the target’s hit point maximum is reduced by 4 (1d8). The target dies if its hit point maximum is reduced to 0.',
+    },
+    legendaryActions: {},
+    'Armor Class': '14 (natural armor)',
+    'Hit Points': '52 (7d8 + 21)',
+    Speed: '40 ft.',
+    'Saving Throws': '',
+    'Damage Resistances': 'cold, fire, lightning',
+    'Damage Immunities': 'poison',
+    'Condition Immunities': 'charmed, frightened, poisoned',
+    Senses: 'darkvision 120 ft., passive Perception 9',
+    Languages: 'Abyssal, telepathy 60 ft.',
+    Challenge: '3 (700 XP)',
+    'Rotting Presence':
+      'When any creature that isn’t a demon starts its turn within 30 feet one or more bulezaus, that creature must succeed on a DC 13 Constitution saving throw or take 1d6 necrotic damage plus 1 necrotic damage for each bulezau within 30 feet of it.',
+    'Standing Leap':
+      'The bulezau’s long jump is up to 20 feet and its high jump is up to 10 feet, with or without a running start.',
+    'Sure-Footed':
+      'The bulezau has advantage on Strength and Dexterity saving throws made against effects that would knock it prone.',
+    stats: {
+      str: '15',
+      dex: '14',
+      con: '17',
+      int: '8',
+      wis: '9',
+      cha: '6',
+    },
+    notes: 'Infernal mediano (demonio), caótico maligno',
+  },
   'Pit Fiend': {
     actions: {
       Multiattack:
@@ -8611,7 +8646,15 @@ export const MONSTER_DETAILS_LIST = {
     Challenge: '1/2 (100 XP)',
   },
   Thug: {
-    actions: {},
+    '': 'Los matones son sicarios despiadados con talento para la intimidación y la violencia. Solo les mueve el dinero y carecen casi por completo de escrúpulos.',
+    'Atacar en Manada':
+      'El matón tiene ventaja en las tiradas de ataque contra criaturas que estén a 5 pies o menos de, al menos, un aliado del matón que no esté incapacitado.',
+    actions: {
+      'Ataque Múltiple': 'El matón realiza dos ataques cuerpo a cuerpo',
+      Maza: '<em>Ataque con arma cuerpo a cuerpo</em>: +4 a impactar, alcance 5 pies, una criatura. <em>Impacto:</em> 5 (1d6 + 2) de daño contundente.',
+      'Ballesta pesada':
+        '<em>Ataque con arma a distancia</em>: +2 a impactar, alcance 30/120 metros, un objetivo. <em>Impacto:</em> 5 (1d10) de daño perforante.',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (any race), any non-good alignment',
     stats: {

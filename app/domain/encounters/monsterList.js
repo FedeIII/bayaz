@@ -7577,6 +7577,17 @@ const ONLY_MONSTERS = {
     alignment: 'CE',
     page: 'mm 55',
   },
+  Bulezau: {
+    size: 'Medium',
+    challenge: '3',
+    name: 'Bulezau',
+    type: 'Fiend',
+    tags: 'demon',
+    xp: '700',
+    environment: {},
+    alignment: 'CE',
+    page: 'mtof 131',
+  },
   Nightwalker: {
     page: 'motm 194, mtf 216',
     alignment: 'CE',
