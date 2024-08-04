@@ -223,11 +223,6 @@ function ItemModalContent(props) {
   const [amount, setAmount] = useState(item.amount);
   const [weight, setWeight] = useState(item.weight);
 
-  function onChangeAmountClick() {
-    changeAmount(item.name, amount, section);
-    closeModal();
-  }
-
   function onAddToTreasureClick() {
     addToTreasure(item.name, amount);
     closeModal();
@@ -238,8 +233,20 @@ function ItemModalContent(props) {
       if (weight !== item.weight) {
         changeWeight(item.name, weight, section);
       }
+      if (amount !== item.amount) {
+        changeAmount(item.name, amount, section);
+      }
     });
-  }, [setOnCloseModalCallback, weight, item.weight, changeWeight, section]);
+  }, [
+    setOnCloseModalCallback,
+    weight,
+    item.weight,
+    changeWeight,
+    section,
+    amount,
+    item.amount,
+    changeAmount,
+  ]);
 
   return (
     <>
@@ -271,13 +278,7 @@ function ItemModalContent(props) {
           )}
           {!!changeAmount && (
             <li>
-              <button
-                type="button"
-                className="inventory-item__drop-item-button"
-                onClick={onChangeAmountClick}
-              >
-                Cambiar cantidad
-              </button>{' '}
+              Cantidad:{' '}
               <NumericInput
                 name="amount"
                 min="1"
@@ -296,7 +297,8 @@ function ItemModalContent(props) {
                 value={weight}
                 onChange={e => setWeight(e.target.value)}
                 styleName="inventory-item__amount-input"
-              />
+              />{' '}
+              kg
             </li>
           )}
           {!!dropItem && (
