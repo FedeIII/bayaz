@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
@@ -176,8 +176,15 @@ function ArmorModalContent(props) {
 }
 
 function ItemModalContent(props) {
-  const { item, dropItem, useItem, changeAmount, changeCharges, closeModal } =
-    props;
+  const {
+    item,
+    dropItem,
+    useItem,
+    changeAmount,
+    changeCharges,
+    closeModal,
+    setOnCloseModalCallback,
+  } = props;
 
   function onDropClick() {
     dropItem(item);
@@ -190,16 +197,19 @@ function ItemModalContent(props) {
   }
 
   const [amount, setAmount] = useState(item.amount);
-  function onChangeAmountClick() {
-    changeAmount(item.name, amount);
-    closeModal();
-  }
-
   const [charges, setCharges] = useState(item.charges);
   function onChangeChargesClick() {
     changeCharges(item.id, charges);
     closeModal();
   }
+
+  useEffect(() => {
+    setOnCloseModalCallback(() => {
+      if (amount !== item.amount) {
+        changeAmount(item.name, amount);
+      }
+    });
+  }, [setOnCloseModalCallback, amount, item.amount, item.name, changeAmount]);
 
   return (
     <>
@@ -213,13 +223,7 @@ function ItemModalContent(props) {
         <ul className="inventory-item__modal-options">
           {!!changeAmount && (
             <li>
-              <button
-                type="button"
-                className="inventory-item__drop-item-button"
-                onClick={onChangeAmountClick}
-              >
-                Cambiar cantidad
-              </button>{' '}
+              Cantidad:{' '}
               <NumericInput
                 name="amount"
                 min="1"
@@ -287,6 +291,7 @@ function SheetEquipment(props) {
     closeItemModal,
     setSelectedItemRef,
     setActionModalContent,
+    setOnCloseModalCallback,
     submit,
   } = props;
   const { money, items: { equipment = {}, treasure = {} } = {} } = pc;
@@ -468,6 +473,7 @@ function SheetEquipment(props) {
               dropItem={dropAmmo}
               changeAmount={changeAmmoAmount}
               closeModal={() => setActionModalContent(null)}
+              setOnCloseModalCallback={setOnCloseModalCallback}
             />
           )),
         0
@@ -497,6 +503,7 @@ function SheetEquipment(props) {
                 useItem={useItem}
                 changeCharges={changeMagicCharges}
                 closeModal={() => setActionModalContent(null)}
+                setOnCloseModalCallback={setOnCloseModalCallback}
               />
             )),
           0

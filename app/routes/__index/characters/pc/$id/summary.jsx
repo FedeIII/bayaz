@@ -401,6 +401,7 @@ function PcSummary() {
     openItemModal,
     selectedItemRef,
     setSelectedItemRef,
+    setOnCloseModalCallback,
   ] = useInventoryItems(pc, itemRefs, actionModalContent);
 
   const traits = getTraits(pc);
@@ -615,6 +616,7 @@ function PcSummary() {
           closeItemModal={closeItemModal}
           setSelectedItemRef={setSelectedItemRef}
           setActionModalContent={setActionModalContent}
+          setOnCloseModalCallback={setOnCloseModalCallback}
           submit={submit}
         />
 

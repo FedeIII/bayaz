@@ -242,6 +242,7 @@ function ItemModalContent(props) {
     weight,
     item.weight,
     changeWeight,
+    item.name,
     section,
     amount,
     item.amount,
