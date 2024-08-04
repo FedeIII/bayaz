@@ -50,7 +50,11 @@ export function getItem(item) {
     };
   }
 
-  return itemBuilder({ amount: itemAmount, weight: itemWeight });
+  const transientProps = { amount: itemAmount };
+  if (itemWeight) {
+    transientProps.weight = itemWeight;
+  }
+  return itemBuilder(transientProps);
 }
 
 export function noItem() {
