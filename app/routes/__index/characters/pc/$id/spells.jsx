@@ -226,10 +226,18 @@ function PcSpells() {
   }
 
   const [skillRefs, setSkillRefs] = useState({
-    ...spellsByLevel.map(spells => useRef(spells.map(createRef))),
-    resetSpellSlots: useRef(Array.from(Array(10), createRef)),
-    copySpell: useRef([createRef()]),
+    ...spellsByLevel.map(spells => spells.map(createRef)),
+    resetSpellSlots: Array.from(Array(10), createRef),
+    copySpell: [createRef()],
   });
+
+  useEffect(() => {
+    setSkillRefs({
+      ...spellsByLevel.map(spells => spells.map(createRef)),
+      resetSpellSlots: Array.from(Array(10), createRef),
+      copySpell: [createRef()],
+    });
+  }, [spellsByLevel]);
 
   const [
     skillModalContent,
@@ -269,7 +277,7 @@ function PcSpells() {
         {!!isDm && canCopySpells(pc) && (
           <div className="spells__copy-spell">
             <SkillItem
-              ref={skillRefs.copySpell.current[0]}
+              ref={skillRefs.copySpell[0]}
               pc={pc}
               traitName="copySpell"
               trait="Copiar conjuro"
@@ -300,7 +308,7 @@ function PcSpells() {
             {level > 0 && (
               <span className={`spells__data spells__total-spaces-${level}`}>
                 <SkillItem
-                  ref={skillRefs.resetSpellSlots.current[level]}
+                  ref={skillRefs.resetSpellSlots[level]}
                   pc={pc}
                   traitName="resetSpellSlots"
                   trait={level}
@@ -382,7 +390,7 @@ function PcSpells() {
                   )}
                   <span>
                     <SkillItem
-                      ref={skillRefs[level].current[i]}
+                      ref={skillRefs[level][i]}
                       traitName={spell.name}
                       trait="spell"
                       openModal={openSkillModal(level, i)}

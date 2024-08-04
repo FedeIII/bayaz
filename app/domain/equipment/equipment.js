@@ -37,15 +37,20 @@ export function getItem(item) {
 
   const itemName = typeof item === 'string' ? item : item.name;
   const itemAmount = typeof item === 'string' ? 1 : item.amount;
+  const itemWeight = typeof item === 'string' ? 0 : item.weight;
 
   const itemBuilder = getAllItems().find(item => item().name === itemName);
 
   if (!itemBuilder) {
-    console.error('Item ' + itemName + ' not found');
-    return { name: itemName, amount: 1, custom: true };
+    return {
+      name: itemName,
+      amount: item.amount || 1,
+      weight: item.weight || 0,
+      custom: true,
+    };
   }
 
-  return itemBuilder({ amount: itemAmount });
+  return itemBuilder({ amount: itemAmount, weight: itemWeight });
 }
 
 export function noItem() {

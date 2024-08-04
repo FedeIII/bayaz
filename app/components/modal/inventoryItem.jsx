@@ -22,7 +22,7 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
 
   const internalDontCloseOnMouseOut = dontCloseOnMouseOut || !!item.description;
 
-  const openModalForItem = () => openModal(pItem.name, actions);
+  const openModalForItem = () => openModal(pItem, actions);
   const onClickForItem = () => onItemClick?.(pItem);
 
   return (

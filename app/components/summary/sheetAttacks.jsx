@@ -289,7 +289,7 @@ function SheetAttacks(props) {
     return itemName => {
       const item = getItem(itemName);
 
-      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+      setSelectedItemRef(itemRefs[itemType][itemIndex]);
       setTimeout(
         () =>
           setActionModalContent(() => props => (
@@ -368,7 +368,7 @@ function SheetAttacks(props) {
                   ░
                 </span>
                 <InventoryItem
-                  ref={itemRefs.weapons.current[slot]}
+                  ref={itemRefs.weapons[slot]}
                   pItem={attack.weapon}
                   isLast
                   onItemClick={onWeaponClick('weapons', slot)}

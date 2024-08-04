@@ -91,6 +91,7 @@ const statsSchema = new mongoose.Schema({
 const itemSchema = new mongoose.Schema({
   name: String,
   amount: Number,
+  weight: Number,
 });
 
 const spellSchema = new mongoose.Schema({
@@ -1182,6 +1183,18 @@ export async function changeCustomItemAmount(id, itemName, itemAmount) {
   );
 
   return updatedPc;
+}
+
+export async function changeItemWeight(id, itemName, weight, section) {
+  const pc = await Pc.findOne({ id });
+
+  pc.items.treasure[section].forEach(item => {
+    if (item.name === itemName) {
+      item.weight = weight;
+    }
+  });
+
+  return await pc.save();
 }
 
 export async function dropEquipmentAmmo(id, itemName) {

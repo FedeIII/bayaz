@@ -432,7 +432,7 @@ function SheetEquipment(props) {
     return itemName => {
       const item = getItem(itemName);
 
-      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+      setSelectedItemRef(itemRefs[itemType][itemIndex]);
 
       setTimeout(
         () =>
@@ -458,7 +458,7 @@ function SheetEquipment(props) {
     return itemName => {
       const item = getItem(itemName);
 
-      setSelectedItemRef(itemRefs.ammunition.current[itemIndex]);
+      setSelectedItemRef(itemRefs.ammunition[itemIndex]);
 
       setTimeout(
         () =>
@@ -479,7 +479,7 @@ function SheetEquipment(props) {
     return itemName => {
       const item = getItem(itemName);
       if (hasActions(item)) {
-        setSelectedItemRef(itemRefs.others.current[itemIndex]);
+        setSelectedItemRef(itemRefs.others[itemIndex]);
 
         const useItem = item.consumable
           ? dropOther
@@ -518,7 +518,7 @@ function SheetEquipment(props) {
           <li>
             <u>Armadura:</u>{' '}
             <InventoryItem
-              ref={itemRefs.armor.current[0]}
+              ref={itemRefs.armor[0]}
               pItem={equipment.armor}
               isLast
               onItemClick={
@@ -534,7 +534,7 @@ function SheetEquipment(props) {
           <li>
             <u>Escudo:</u>{' '}
             <InventoryItem
-              ref={itemRefs.shield.current[0]}
+              ref={itemRefs.shield[0]}
               pItem={equipment.shield}
               isLast
               onItemClick={
@@ -551,7 +551,7 @@ function SheetEquipment(props) {
             <u>Proyectiles:</u>{' '}
             {equipment.ammunition.map((ammo, i) => (
               <InventoryItem
-                ref={itemRefs.ammunition.current[i]}
+                ref={itemRefs.ammunition[i]}
                 pItem={ammo}
                 isLast={i === equipment.ammunition.length - 1}
                 onItemClick={onAmmoClick(i)}
@@ -567,7 +567,7 @@ function SheetEquipment(props) {
             {equipment.others.map((otherItem, i) => (
               <InventoryItem
                 key={otherItem.name}
-                ref={itemRefs.others.current[i]}
+                ref={itemRefs.others[i]}
                 pItem={otherItem}
                 isLast={i === equipment.others.length - 1}
                 onItemClick={onMagicItemClick(i)}

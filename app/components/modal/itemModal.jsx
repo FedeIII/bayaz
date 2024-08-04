@@ -108,10 +108,16 @@ export function ItemModal(props) {
   } = props;
 
   const ref = useRef(null);
-  const [selfPosition, setSelfPosition] = useState(null);
-  const elPos = elRef?.current?.getBoundingClientRect();
   const formPos = formRef?.current?.getBoundingClientRect();
 
+  const [elPos, setElPos] = useState(null);
+  useEffect(() => {
+    if (elRef) {
+      setElPos(elRef?.current?.getBoundingClientRect());
+    }
+  }, [setElPos, elRef?.current]);
+
+  const [selfPosition, setSelfPosition] = useState(null);
   useEffect(() => {
     setSelfPosition(ref?.current?.getBoundingClientRect());
   }, [setSelfPosition, ref?.current]);

@@ -15,6 +15,7 @@ import {
   addCustomTreasure,
   changeCustomItemAmount,
   dropCustomItem,
+  changeItemWeight,
 } from '~/services/pc.server';
 import { getPackItems } from '~/domain/equipment/packs';
 import { getItem, translatePack } from '~/domain/equipment/equipment';
@@ -122,6 +123,15 @@ async function changeAmountAction(formData) {
   }
 }
 
+async function changeWeightAction(formData) {
+  const id = formData.get('id');
+  const itemName = formData.get('itemName');
+  const weight = formData.get('weight');
+  const section = formData.get('section');
+
+  await changeItemWeight(id, itemName, weight, section);
+}
+
 async function addItemToTreasureAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
@@ -154,12 +164,13 @@ export const action = async ({ request }) => {
   const id = formData.get('id');
   const action = formData.get('action');
 
+  let updatedPc = null;
+
   if (action === 'equipWeapon') {
     await equipWeaponAction(formData);
     return redirect(`/characters/pc/${id}/summary`);
   } else if (action === 'dropWeapon') {
-    await dropWeaponAction(formData);
-    return null;
+    updatedPc = await dropWeaponAction(formData);
   } else if (action === 'equipShield') {
     await equipShieldAction(formData);
     return redirect(`/characters/pc/${id}/summary`);
@@ -167,31 +178,41 @@ export const action = async ({ request }) => {
     await equipArmorAction(formData);
     return redirect(`/characters/pc/${id}/summary`);
   } else if (action === 'dropShield') {
-    await dropShieldAction(formData);
-    return null;
+    updatedPc = await dropShieldAction(formData);
   } else if (action === 'dropArmor') {
-    await dropArmorAction(formData);
-    return null;
+    updatedPc = await dropArmorAction(formData);
   } else if (action === 'dropItem') {
-    await dropItemAction(formData);
-    return null;
+    updatedPc = await dropItemAction(formData);
   } else if (action === 'changeAmount') {
-    await changeAmountAction(formData);
-    return null;
+    updatedPc = await changeAmountAction(formData);
+  } else if (action === 'changeWeight') {
+    updatedPc = await changeWeightAction(formData);
   } else if (action === 'addItemToTreasure') {
-    await addItemToTreasureAction(formData);
+    updatedPc = await addItemToTreasureAction(formData);
   } else if (action === 'addArbitraryItem') {
-    await addArbitraryItemAction(formData);
+    updatedPc = await addArbitraryItemAction(formData);
   } else if (action === 'textChange') {
-    await updateFreeTextsAction(formData);
+    updatedPc = await updateFreeTextsAction(formData);
   }
 
-  return null;
+  if (!updatedPc) {
+    updatedPc = getPc(id);
+  }
+
+  return json({ pc: updatedPc });
 };
 
 function ItemModalContent(props) {
-  const { item, section, dropItem, changeAmount, addToTreasure, closeModal } =
-    props;
+  const {
+    item,
+    section,
+    dropItem,
+    changeAmount,
+    changeWeight,
+    addToTreasure,
+    closeModal,
+    setOnCloseModalCallback,
+  } = props;
 
   function onDropClick(e) {
     const itemName = e.target.value;
@@ -200,9 +221,7 @@ function ItemModalContent(props) {
   }
 
   const [amount, setAmount] = useState(item.amount);
-  function onAmountChange(e) {
-    setAmount(e.target.value);
-  }
+  const [weight, setWeight] = useState(item.weight);
 
   function onChangeAmountClick() {
     changeAmount(item.name, amount, section);
@@ -213,6 +232,14 @@ function ItemModalContent(props) {
     addToTreasure(item.name, amount);
     closeModal();
   }
+
+  useEffect(() => {
+    setOnCloseModalCallback(() => {
+      if (weight !== item.weight) {
+        changeWeight(item.name, weight, section);
+      }
+    });
+  }, [setOnCloseModalCallback, weight, item.weight, changeWeight, section]);
 
   return (
     <>
@@ -237,7 +264,7 @@ function ItemModalContent(props) {
                 name="amount"
                 min="1"
                 value={amount}
-                onChange={onAmountChange}
+                onChange={e => setAmount(e.target.value)}
                 styleName="inventory-item__amount-input"
               />
             </li>
@@ -255,7 +282,19 @@ function ItemModalContent(props) {
                 name="amount"
                 min="1"
                 value={amount}
-                onChange={onAmountChange}
+                onChange={e => setAmount(e.target.value)}
+                styleName="inventory-item__amount-input"
+              />
+            </li>
+          )}
+          {!!changeWeight && (
+            <li>
+              Peso{' '}
+              <NumericInput
+                name="weight"
+                min="0"
+                value={weight}
+                onChange={e => setWeight(e.target.value)}
                 styleName="inventory-item__amount-input"
               />
             </li>
@@ -522,6 +561,19 @@ function PcBio() {
     );
   }
 
+  function changeWeight(itemName, weight, section) {
+    submit(
+      {
+        action: 'changeWeight',
+        id,
+        itemName,
+        weight,
+        section,
+      },
+      { method: 'post' }
+    );
+  }
+
   function addToTreasure(itemName, itemAmount) {
     submit(
       {
@@ -556,36 +608,29 @@ function PcBio() {
   const itemResults = useSearchResults(itemSearch, ['equipment']).equipment;
 
   const [itemRefs, setItemRefs] = useState({
-    weapons: useRef(treasure.weapons.map(createRef)),
-    armors: useRef(treasure.armors.map(createRef)),
-    others: useRef(treasure.others.map(createRef)),
-    custom: useRef(treasure.custom.map(createRef)),
-    pack: useRef(getPackItems(pack).map(createRef)),
-    inventorySearchResults: useRef(itemResults.map(createRef)),
+    weapons: treasure.weapons.map(createRef),
+    armors: treasure.armors.map(createRef),
+    others: treasure.others.map(createRef),
+    custom: treasure.custom.map(createRef),
+    pack: getPackItems(pack).map(createRef),
+    inventorySearchResults: itemResults.map(createRef),
   });
 
   useEffect(() => {
-    if (treasure.weapons.length) {
-      itemRefs.weapons.current = treasure.weapons.map(createRef);
-    }
-    if (treasure.armors.length) {
-      itemRefs.armors.current = treasure.armors.map(createRef);
-    }
-    if (treasure.others.length) {
-      itemRefs.others.current = treasure.others.map(createRef);
-    }
-    if (treasure.custom.length) {
-      itemRefs.custom.current = treasure.custom.map(createRef);
-    }
-    if (itemResults.length) {
-      itemRefs.inventorySearchResults.current = itemResults.map(createRef);
-    }
+    setItemRefs({
+      weapons: treasure.weapons.map(createRef),
+      armors: treasure.armors.map(createRef),
+      others: treasure.others.map(createRef),
+      custom: treasure.custom.map(createRef),
+      pack: getPackItems(pack).map(createRef),
+      inventorySearchResults: itemResults.map(createRef),
+    });
   }, [
-    treasure.weapons,
-    treasure.armors,
-    treasure.others,
-    treasure.custom,
-    itemResults,
+    treasure.weapons.length,
+    treasure.armors.length,
+    treasure.others.length,
+    treasure.custom.length,
+    itemResults.length,
   ]);
 
   const [
@@ -594,6 +639,7 @@ function PcBio() {
     openItemModal,
     selectedItemRef,
     setSelectedItemRef,
+    setOnCloseModalCallback,
   ] = useInventoryItems(pc, itemRefs, actionModalContent);
 
   const formRef = useRef(null);
@@ -602,10 +648,22 @@ function PcBio() {
     return pItem => {
       const item = getItem(pItem);
 
-      setSelectedItemRef(itemRefs[itemType].current[itemIndex]);
+      setSelectedItemRef(itemRefs[itemType][itemIndex]);
 
       let content;
-      if (itemType === 'others' || itemType === 'custom') {
+      if (itemType === 'custom') {
+        content = props => (
+          <ItemModalContent
+            item={item}
+            section={itemType}
+            dropItem={dropItem}
+            changeAmount={changeAmount}
+            changeWeight={changeWeight}
+            setOnCloseModalCallback={setOnCloseModalCallback}
+            closeModal={() => setActionModalContent(null)}
+          />
+        );
+      } else if (itemType === 'custom') {
         content = props => (
           <ItemModalContent
             item={item}
@@ -695,7 +753,10 @@ function PcBio() {
           <ItemModal
             elRef={selectedItemRef}
             formRef={formRef}
-            closeModal={() => setActionModalContent(null)}
+            closeModal={() => {
+              closeItemModal();
+              setActionModalContent(null);
+            }}
             isDm={isDm}
           >
             {actionModalContent}
@@ -775,7 +836,7 @@ function PcBio() {
                 <u>Armas:</u>{' '}
                 {treasure.weapons.map((treasureWeapon, i) => (
                   <InventoryItem
-                    ref={itemRefs.weapons.current[i]}
+                    ref={itemRefs.weapons[i]}
                     pItem={treasureWeapon}
                     isLast={i === treasure.weapons.length - 1}
                     onItemClick={onItemClick('weapons', i)}
@@ -791,7 +852,7 @@ function PcBio() {
                 <u>Armaduras:</u>{' '}
                 {treasure.armors.map((treasureArmor, i) => (
                   <InventoryItem
-                    ref={itemRefs.armors.current[i]}
+                    ref={itemRefs.armors[i]}
                     pItem={treasureArmor}
                     isLast={i === treasure.armors.length - 1}
                     onItemClick={onItemClick('armors', i)}
@@ -806,7 +867,7 @@ function PcBio() {
               <li className="bio__treasure-item">
                 {treasure.others.map((treasureItem, i) => (
                   <InventoryItem
-                    ref={itemRefs.others.current[i]}
+                    ref={itemRefs.others[i]}
                     pItem={treasureItem}
                     isLast={i === treasure.others.length - 1}
                     onItemClick={onItemClick('others', i)}
@@ -822,7 +883,7 @@ function PcBio() {
                 <u>{translatePack(pack) + ':'}</u>{' '}
                 {getPackItems(pack).map((packItem, i, packItems) => (
                   <InventoryItem
-                    ref={itemRefs.pack.current[i]}
+                    ref={itemRefs.pack[i]}
                     pItem={packItem}
                     isLast={i === packItems.length - 1}
                     openModal={openItemModal('pack', i)}
@@ -836,7 +897,7 @@ function PcBio() {
               <li className="bio__treasure-item">
                 {treasure.custom.map((treasureItem, i) => (
                   <InventoryItem
-                    ref={itemRefs.custom.current[i]}
+                    ref={itemRefs.custom[i]}
                     pItem={treasureItem}
                     isLast={i === treasure.custom.length - 1}
                     onItemClick={onItemClick('custom', i)}
@@ -911,7 +972,7 @@ function PcBio() {
               {itemResults.map((item, i) => (
                 <li className="bio__section-item" key={item.name}>
                   <InventoryItem
-                    ref={itemRefs.inventorySearchResults.current[i]}
+                    ref={itemRefs.inventorySearchResults[i]}
                     pItem={item}
                     isLast
                     onItemClick={onItemClick('inventorySearchResults', i)}

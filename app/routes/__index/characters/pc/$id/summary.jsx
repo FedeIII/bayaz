@@ -378,19 +378,22 @@ function PcSummary() {
   const [actionModalContent, setActionModalContent] = useState(null);
 
   const [itemRefs, setItemRefs] = useState({
-    weapons: useRef([createRef(), createRef(), createRef()]),
-    armor: useRef([createRef()]),
-    shield: useRef([createRef()]),
-    ammunition: useRef(equipment.ammunition.map(createRef)),
-    others: useRef(equipment.others.map(createRef)),
+    weapons: [createRef(), createRef(), createRef()],
+    armor: [createRef()],
+    shield: [createRef()],
+    ammunition: equipment.ammunition.map(createRef),
+    others: equipment.others.map(createRef),
   });
 
   useEffect(() => {
-    if (equipment.ammunition.length)
-      itemRefs.ammunition.current = equipment.ammunition.map(createRef);
-    if (equipment.others.length)
-      itemRefs.others.current = equipment.others.map(createRef);
-  }, [equipment.ammunition, equipment.others, itemRefs]);
+    setItemRefs({
+      weapons: [createRef(), createRef(), createRef()],
+      armor: [createRef()],
+      shield: [createRef()],
+      ammunition: equipment.ammunition.map(createRef),
+      others: equipment.others.map(createRef),
+    });
+  }, [equipment.ammunition.length, equipment.others.length]);
 
   const [
     itemModalContent,
@@ -508,7 +511,10 @@ function PcSummary() {
           <ItemModal
             elRef={selectedItemRef}
             formRef={formRef}
-            closeModal={() => setActionModalContent(null)}
+            closeModal={() => {
+              closeItemModal();
+              setActionModalContent(null);
+            }}
             dropShadow
             isDm={isDm}
           >

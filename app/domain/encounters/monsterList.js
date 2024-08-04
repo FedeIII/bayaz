@@ -5384,17 +5384,6 @@ const ONLY_MONSTERS = {
     name: 'Specter (poltergeist)',
     type: 'Undead',
   },
-  Bulezau: {
-    name: 'Bulezau',
-    challenge: '3',
-    size: 'Medium',
-    tags: 'demon',
-    type: 'Fiend',
-    environment: {},
-    xp: '700',
-    page: 'motm 67, mtf 131',
-    alignment: 'CE',
-  },
   Scorpion: {
     type: 'Beast',
     size: 'Tiny',
@@ -7585,8 +7574,8 @@ const ONLY_MONSTERS = {
     tags: 'demon',
     xp: '700',
     environment: {},
+    page: 'motm 67, mtf 131',
     alignment: 'CE',
-    page: 'mtof 131',
   },
   Nightwalker: {
     page: 'motm 194, mtf 216',
