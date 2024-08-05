@@ -1,3 +1,4 @@
+import { getTotalAttackBonus } from '../characters';
 import { getItem } from './equipment';
 
 export function WEAPONS() {
@@ -523,9 +524,30 @@ export function WEAPONS() {
         unidentifiedName: 'Daga ceremonial',
         rarity: 'uncommon',
         price: { gp: 450, sp: 0, cp: 0 },
-        bonus: 1,
-        description: `<p>Una vez al día, puedes usar un ataque exitoso con la daga para lanzar Enmarañar (tirada de salvación DC8 + bonus de ataque + bonus de competencia).</p>
-          <p>Adicionalmente, tienes ventaja en las pruebas de Naturaleza mientras lleves la daga.</p>`,
+        bonus: {
+          damage: 1,
+        },
+        description: pc => {
+          let wIndex = null;
+          const pWeapon = pc.items.weapons.find((pW, i) => {
+            if (pW.name === 'sylvanBlade') {
+              wIndex = i;
+              return true;
+            }
+            return false;
+          });
+          return `<p>Bonificador de +1 al ataque y al daño</p>
+          <p>Una vez al día, puedes usar un ataque exitoso con la daga para lanzar Enmarañar (tirada de salvación DC${
+            8 +
+            getTotalAttackBonus(
+              pc,
+              pc.items.weapons,
+              WEAPONS().sylvanBlade(pWeapon),
+              wIndex
+            )
+          }).</p>
+            <p>Adicionalmente, tienes ventaja en las pruebas de Naturaleza mientras lleves la daga.</p>`;
+        },
         ...props,
       });
     },

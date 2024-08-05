@@ -88,7 +88,7 @@ export function ItemModalContent(props) {
         {!!((item.identified || isDm) && item.description) && (
           <div
             className="inventory-item__modal-description"
-            dangerouslySetInnerHTML={{ __html: item.description }}
+            dangerouslySetInnerHTML={{ __html: item.description(pc) }}
           />
         )}
       </div>

@@ -2803,9 +2803,7 @@ export function getAttackBonus(pc, weapons, weapon, weaponIndex) {
 
   const classBonus = getAttackClassBonus(pc, weapons, weapon, weaponIndex);
 
-  const magicBonus = weapon.bonus?.hit || 0;
-
-  return { statMod, proficiencyBonus, classBonus, magicBonus };
+  return { statMod, proficiencyBonus, classBonus };
 }
 
 export function getTotalAttackBonus(...args) {
@@ -2856,7 +2854,12 @@ function isTwoWeaponFighterSecondWeapon(pc, weapon, weaponIndex) {
 export function getDamageBonus(pc, weapons, w, weaponIndex) {
   const { pClass } = pc;
   const weapon = getItem(w);
-  const { subtype, properties: { finesse, light, twoHanded } = {} } = weapon;
+  const {
+    subtype,
+    properties: { finesse, light, twoHanded } = {},
+    bonus,
+    identified,
+  } = weapon;
   let statMod = 0;
 
   const strMod = getStatMod(getStat(pc, 'str'));
@@ -2890,7 +2893,9 @@ export function getDamageBonus(pc, weapons, w, weaponIndex) {
     statMod += 2;
   }
 
-  return statMod;
+  const magicBonus = bonus?.damage && identified ? bonus.damage : 0;
+
+  return statMod + magicBonus;
 }
 
 export function translateSavingThrowStatus(status) {

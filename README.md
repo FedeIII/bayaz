@@ -51,18 +51,13 @@ create migration file for schema changes
 npx prisma migrate dev
 ```
 
-## TO DO
-
-- TO DO: item se desidentifica cuando pasa por summary
+## TO DOs
 
 - Bug: right click on spells during character creation advances to next step
 - Extract textarea component
 - Add notes to items
 - Add temporary hitpoints to combats
 - Warlock's Eldritch Invocations can be swapped every level
-- Magic items owners
-  - on assignation create instance?
-  - give to other player action
 - Fix padding left at spell selection
 - Allow to set max health for mobs in new encounters
 - Notes revamp
