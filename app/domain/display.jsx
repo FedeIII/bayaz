@@ -27,6 +27,7 @@ import {
 } from './equipment/armors';
 import { getItem, noItem } from './equipment/equipment';
 import {
+  WEAPONS,
   getAllMartialMelee,
   getAllMartialRanged,
   getAllSimpleMelee,
@@ -56,6 +57,7 @@ import { getPaladinFightingStyle } from './classes/paladin/paladin';
 import { getRangerFightingStyle } from './classes/ranger/ranger';
 import { t } from './translations';
 import { ChooseTrait } from '~/components/summary/skillStates';
+import { renderItemNameWithAmount } from './equipment/items';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -82,8 +84,6 @@ export function listItems(items) {
 
 export function ItemWithInfo(props) {
   const { item, pc } = props;
-  let info = itemWithAmount(item.translation, item.amount);
-
   let propsInfo = '';
 
   if (item.damage) {
@@ -110,7 +110,7 @@ export function ItemWithInfo(props) {
 
   return (
     <span className="tooltip">
-      {info}
+      {renderItemNameWithAmount(item)}
       {!!propsInfo && <span className="tooltiptext">{propsInfo}</span>}
     </span>
   );
@@ -228,7 +228,8 @@ export function displayDamage(pc, weapons, weapon, weaponIndex) {
 }
 
 function getAttackFromWeapon(pc, weapons, w, specialAttackIndex, weaponIndex) {
-  const weapon = getItem(w);
+  const pWeapon = pc.items.weapons.find(pW => pW?.name === w.name);
+  const weapon = WEAPONS()[w.name]?.(pWeapon);
   return weapon?.name
     ? {
         weapon,

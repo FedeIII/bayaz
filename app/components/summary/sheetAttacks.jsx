@@ -7,32 +7,41 @@ import { getItem, noItem } from '~/domain/equipment/equipment';
 import { getAttacks, getSpecialAttacks, increment } from '~/domain/display';
 import { InventoryItem } from '../modal/inventoryItem';
 import { SkillItem } from '../modal/skillItem';
-import { t } from '~/domain/translations';
 import NumericInput from '../inputs/numeric';
 import {
-  equipWeapons,
+  equipWeaponInSlot,
   getPc,
+  identifyItem,
   reorderWeapons,
   unequipWeapon,
 } from '~/services/pc.server';
 import { changeMagicCharges, useCharge } from '~/services/item.server';
+import { renderItemName } from '~/domain/equipment/items';
 
 const noAttack = { weapon: noItem() };
 
 export const actions = {
+  identifyItem: async formData => {
+    const id = formData.get('id');
+    const section = formData.get('section');
+    const itemName = formData.get('itemName');
+
+    return await identifyItem(id, section, itemName);
+  },
+
   equipWeapons: async formData => {
-    const oldWeaponName = formData.get('oldWeaponName');
+    const slot = formData.get('slot');
     const newWeaponName = formData.get('newWeaponName');
     const id = formData.get('id');
 
-    return await equipWeapons(id, oldWeaponName, newWeaponName);
+    return await equipWeaponInSlot(id, newWeaponName, slot);
   },
 
   unequipWeapon: async formData => {
     const id = formData.get('id');
-    const weaponName = formData.get('weaponName');
+    const slot = formData.get('slot');
 
-    return await unequipWeapon(id, weaponName);
+    return await unequipWeapon(id, parseInt(slot, 10));
   },
 
   useMagicWeapon: async formData => {
@@ -66,7 +75,9 @@ export const actions = {
 function WeaponModalContent(props) {
   const {
     pc,
+    isDm,
     weapon,
+    identifyItem,
     onWeaponChange,
     onWeaponUnequip,
     onUseItem,
@@ -77,6 +88,12 @@ function WeaponModalContent(props) {
   function onEquipClick(e) {
     const newWeaponName = e.target.value;
     onWeaponChange(newWeaponName);
+    closeModal();
+  }
+
+  function onIdentifyClick(e) {
+    const weaponName = e.target.value;
+    identifyItem(pc.id, 'weapons', weaponName);
     closeModal();
   }
 
@@ -97,11 +114,11 @@ function WeaponModalContent(props) {
 
   const [charges, setCharges] = useState(weapon.charges);
 
+  const weaponDisplay = renderItemName(getItem(weapon));
+
   return (
     <>
-      <h3 className="inventory-item__action-modal-title">
-        {weapon.translation}
-      </h3>
+      <h3 className="inventory-item__action-modal-title">{weaponDisplay}</h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
@@ -114,14 +131,27 @@ function WeaponModalContent(props) {
               disabled={!hasExtraWeapons(pc)}
               onChange={onEquipClick}
             >
-              <option value={weapon.name}>{weapon.translation}</option>
+              <option value={weapon.name}>{weaponDisplay}</option>
               {getExtraWeapons(pc).map(extraWeapon => (
                 <option value={extraWeapon.name} key={extraWeapon.name}>
-                  {t(extraWeapon.name)}
+                  {renderItemName(getItem(extraWeapon))}
                 </option>
               ))}
             </select>
           </li>
+
+          {!!(isDm && weapon.description && !weapon.identified) && (
+            <li>
+              <button
+                type="button"
+                value={weapon.name}
+                className="sheet__select-attack"
+                onClick={onIdentifyClick}
+              >
+                Identificar {weaponDisplay}
+              </button>
+            </li>
+          )}
 
           <li>
             <button
@@ -140,7 +170,7 @@ function WeaponModalContent(props) {
                 className="sheet__select-attack"
                 onClick={onUseItemClick}
               >
-                Usar {weapon.translation}
+                Usar {weaponDisplay}
               </button>
             </li>
           )}
@@ -173,6 +203,7 @@ function WeaponModalContent(props) {
 function SheetAttacks(props) {
   const {
     pc,
+    isDm,
     itemRefs,
     setSelectedItemRef,
     setActionModalContent,
@@ -197,13 +228,25 @@ function SheetAttacks(props) {
     }
   }, [pc]);
 
+  function identifyItem(pcId, section, itemName) {
+    submit(
+      {
+        action: 'identifyItem',
+        id: pcId,
+        section,
+        itemName,
+      },
+      { method: 'post' }
+    );
+  }
+
   function onWeaponChange(i) {
     return newWeaponName => {
       submit(
         {
           action: 'equipWeapons',
           id: pc.id,
-          oldWeaponName: weaponsState[i].name,
+          slot: i,
           newWeaponName,
         },
         { method: 'post' }
@@ -217,7 +260,7 @@ function SheetAttacks(props) {
         {
           action: 'unequipWeapon',
           id: pc.id,
-          weaponName: weaponsState[i].name,
+          slot: i,
         },
         { method: 'post' }
       );
@@ -295,7 +338,9 @@ function SheetAttacks(props) {
           setActionModalContent(() => props => (
             <WeaponModalContent
               pc={pc}
+              isDm={isDm}
               weapon={item}
+              identifyItem={identifyItem}
               onWeaponChange={onWeaponChange(itemIndex)}
               onWeaponUnequip={onWeaponUnequip(itemIndex)}
               onUseItem={item.charges && onUseMagicWeapon(item.id)}

@@ -216,6 +216,7 @@ export async function damagePc(id, damage) {
 }
 
 export async function addItemToTreasure(id, itemName, itemAmount) {
+  const amount = Number.isInteger(itemAmount) ? itemAmount : 1;
   const pc = await getPc(id);
   const item = getItem(itemName);
   const section = isEquipmentItem(item) ? 'equipment' : 'treasure';
@@ -228,15 +229,9 @@ export async function addItemToTreasure(id, itemName, itemAmount) {
     : 'others';
 
   if (pc.items[section][subsection].find(item => item.name === itemName)) {
-    return await increaseItemAmount(
-      id,
-      itemName,
-      section,
-      subsection,
-      itemAmount
-    );
+    return await increaseItemAmount(id, itemName, section, subsection, amount);
   }
 
-  const pItem = { name: itemName, amount: itemAmount };
+  const pItem = { name: itemName, amount };
   return await addItemToSection(id, pItem, section, subsection);
 }

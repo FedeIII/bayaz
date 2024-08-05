@@ -6,6 +6,7 @@ import { t } from '~/domain/translations';
 import { getItemArmorClass, translateMoney } from '~/domain/characters';
 import { translateDamage } from '~/domain/equipment/weapons';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
+import { renderItemName } from '~/domain/equipment/items';
 
 export function ItemModalContent(props) {
   const { item, pc, actions = {}, isDm } = props;
@@ -22,7 +23,7 @@ export function ItemModalContent(props) {
   return (
     <>
       <h3 className="inventory-item__modal-title">
-        {item.translation || item.name}{' '}
+        {renderItemName(item)}{' '}
         {!!actions.addToTreasure && (
           <button
             type="button"
@@ -84,7 +85,7 @@ export function ItemModalContent(props) {
           )} */}
         </ul>
 
-        {!!(isDm && item.description) && (
+        {!!((item.identified || isDm) && item.description) && (
           <div
             className="inventory-item__modal-description"
             dangerouslySetInnerHTML={{ __html: item.description }}

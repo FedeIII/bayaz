@@ -65,6 +65,7 @@ import {
   SACRED_OATHS,
 } from '~/domain/classes/paladin/paladin';
 import { ROGISH_ARCHETYPES } from '~/domain/classes/rogue/rogue';
+import { getter } from '~/utils/objects';
 
 const backgroundSchema = new mongoose.Schema({
   name: { type: String, enum: Object.keys(BACKGROUNDS) },
@@ -92,6 +93,7 @@ const itemSchema = new mongoose.Schema({
   name: String,
   amount: Number,
   weight: Number,
+  identified: Boolean,
 });
 
 const spellSchema = new mongoose.Schema({
@@ -957,83 +959,18 @@ export async function deletePreparedSpell(id, spell) {
   return updatedPc;
 }
 
-export async function equipWeapons(id, weaponToUnequipName, weaponToEquipName) {
+export async function unequipWeapon(id, slot) {
   const pc = await getPc(id);
-  let updatedPc = null;
 
-  const {
-    items: {
-      treasure: { weapons },
-    },
-  } = pc;
-
-  const weaponToEquipInTreasure = weapons.find(
-    w => w.name === weaponToEquipName
-  );
-  const weaponToUnequipInTreasure = weapons.find(
-    w => w.name === weaponToUnequipName
-  );
-
-  if (weaponToEquipInTreasure.amount > 1) {
-    updatedPc = await Pc.findOneAndUpdate(
-      { id, 'items.treasure.weapons.name': weaponToEquipName },
-      { $inc: { 'items.treasure.weapons.$.amount': -1 } },
-      { new: true }
-    );
-  } else {
-    updatedPc = await Pc.findOneAndUpdate(
-      { id },
-      { $pull: { 'items.treasure.weapons': { name: weaponToEquipName } } },
-      { new: true }
-    );
+  if (!Number.isInteger(slot) || slot < 0 || slot > 2) {
+    return pc;
   }
 
-  if (weaponToUnequipInTreasure) {
-    updatedPc = await Pc.findOneAndUpdate(
-      { id, 'items.treasure.weapons.name': weaponToUnequipName },
-      { $inc: { 'items.treasure.weapons.$.amount': 1 } },
-      { new: true }
-    );
-  } else {
-    updatedPc = await Pc.findOneAndUpdate(
-      { id },
-      {
-        $push: {
-          'items.treasure.weapons': getItem(weaponToUnequipName),
-        },
-      },
-      { new: true }
-    );
-  }
+  const weaponToUnequip = pc.items.weapons[slot];
+  pc.items.treasure.weapons.push(weaponToUnequip);
+  pc.items.weapons.pull(weaponToUnequip._id);
 
-  updatedPc = await Pc.findOneAndUpdate(
-    { id, 'items.weapons.name': weaponToUnequipName },
-    { $set: { 'items.weapons.$': getItem(weaponToEquipName) } },
-    { new: true }
-  );
-
-  return updatedPc;
-}
-
-export async function unequipWeapon(id, weaponName) {
-  let pc = await Pc.findOneAndUpdate(
-    { id, 'items.weapons.name': weaponName },
-    {
-      $unset: { 'items.weapons.$': '' },
-    },
-    { new: true }
-  );
-
-  pc = await Pc.findOneAndUpdate(
-    { id, 'items.weapons': null },
-    {
-      $pull: { 'items.weapons': null },
-      $push: { 'items.treasure.weapons': { name: weaponName } },
-    },
-    { new: true }
-  );
-
-  return pc;
+  return await pc.save();
 }
 
 export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
@@ -1044,7 +981,7 @@ export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
       treasure: { weapons: treasureWeapons },
     },
   } = pc;
-  let updatedPc = null;
+
   const weaponToUnequip = weapons[slot];
   const weaponToUnequipName = weaponToUnequip?.name;
   const weaponToEquipInTreasure = treasureWeapons.find(
@@ -1054,49 +991,23 @@ export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
     w => w.name === weaponToUnequipName
   );
 
-  updatedPc = await Pc.findOneAndUpdate(
-    { id },
-    {
-      $set: { [`items.weapons.${slot}`]: getItem(weaponToEquipName) },
-    },
-    { new: true }
-  );
+  pc.items.weapons[slot] = weaponToEquipInTreasure;
 
   if (weaponToEquipInTreasure.amount > 1) {
-    updatedPc = await Pc.findOneAndUpdate(
-      { id, 'items.treasure.weapons.name': weaponToEquipName },
-      { $inc: { 'items.treasure.weapons.$.amount': -1 } },
-      { new: true }
-    );
+    weaponToEquipInTreasure.amount -= 1;
   } else {
-    updatedPc = await Pc.findOneAndUpdate(
-      { id },
-      { $pull: { 'items.treasure.weapons': { name: weaponToEquipName } } },
-      { new: true }
-    );
+    treasureWeapons.pull(weaponToEquipInTreasure._id);
   }
 
   if (weaponToUnequip) {
     if (weaponToUnequipInTreasure) {
-      updatedPc = await Pc.findOneAndUpdate(
-        { id, 'items.treasure.weapons.name': weaponToUnequipName },
-        { $inc: { 'items.treasure.weapons.$.amount': 1 } },
-        { new: true }
-      );
+      weaponToUnequipInTreasure.amount += 1;
     } else {
-      updatedPc = await Pc.findOneAndUpdate(
-        { id },
-        {
-          $push: {
-            'items.treasure.weapons': getItem(weaponToUnequipName),
-          },
-        },
-        { new: true }
-      );
+      treasureWeapons.push(weaponToUnequip);
     }
   }
 
-  return updatedPc;
+  return await pc.save();
 }
 
 export async function unequipShield(id, shieldName) {
@@ -1252,6 +1163,18 @@ export async function changeEquipmentOtherAmount(id, itemName, itemAmount) {
   return updatedPc;
 }
 
+export async function identifyItem(id, section, itemName) {
+  const pc = await getPc(id);
+  const item = getter(pc.items, section)?.find(item => item.name === itemName);
+
+  if (!item) {
+    return pc;
+  }
+
+  item.identified = true;
+  return await pc.save();
+}
+
 export async function addOtherEquipment(id, itemName) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
@@ -1290,22 +1213,21 @@ export async function addCustomTreasure(id, itemName) {
 
 export async function reorderWeapons(id, weaponName, destinationSlot) {
   const pc = await getPc(id);
-  const weapons = pc.items.weapons.slice();
 
-  const originSlot = weapons.findIndex(weapon => weapon?.name === weaponName);
-  const selectedWeapon = getItem(weaponName);
-  const replacedWeapon = weapons[destinationSlot];
-
-  weapons[originSlot] = replacedWeapon?.toJSON();
-  weapons[destinationSlot] = selectedWeapon;
-
-  return updatePc({
-    id,
-    items: {
-      ...pc.items,
-      weapons,
-    },
+  let originSlot = null;
+  const { weapons: pcWeapons } = pc.items;
+  const selectedWeapon = pcWeapons.find((pW, i) => {
+    if (pW?.name === weaponName) {
+      originSlot = i;
+      return true;
+    }
+    return false;
   });
+  const replacedWeapon = pcWeapons[destinationSlot];
+  pcWeapons[originSlot] = replacedWeapon;
+  pcWeapons[destinationSlot] = selectedWeapon;
+
+  return await pc.save();
 }
 
 export async function switchShield(id, shieldName) {

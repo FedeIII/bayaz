@@ -598,6 +598,7 @@ function PcSummary() {
         {/* ATTACKS */}
         <SheetAttacks
           pc={pc}
+          isDm={isDm}
           itemRefs={itemRefs}
           setSelectedItemRef={setSelectedItemRef}
           setActionModalContent={setActionModalContent}

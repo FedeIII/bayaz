@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
 import { t } from '~/domain/translations';
-import { hasActions } from '~/domain/equipment/items';
+import { hasActions, renderItemName } from '~/domain/equipment/items';
 import NumericInput from '../inputs/numeric';
 import {
   addOtherEquipment,
@@ -136,11 +136,11 @@ function ArmorModalContent(props) {
     closeModal();
   }
 
+  const armorDisplay = renderItemName(getItem(armor));
+
   return (
     <>
-      <h3 className="inventory-item__action-modal-title">
-        {armor.translation}
-      </h3>
+      <h3 className="inventory-item__action-modal-title">{armorDisplay}</h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
@@ -149,7 +149,7 @@ function ArmorModalContent(props) {
           <li>
             Cambiar por:{' '}
             <select className="sheet__select-attack" onChange={onEquipClick}>
-              <option value={armor.name}>{armor.translation}</option>
+              <option value={armor.name}>{armorDisplay}</option>
               {armors
                 .filter(armor => armor.name !== 'shield')
                 .map(extraArmor => (
@@ -166,7 +166,7 @@ function ArmorModalContent(props) {
               value={armor.name}
               onClick={onUnequipClick}
             >
-              Desequipar {armor.translation}
+              Desequipar {armorDisplay}
             </button>
           </li>
         </ul>
@@ -211,11 +211,11 @@ function ItemModalContent(props) {
     });
   }, [setOnCloseModalCallback, amount, item.amount, item.name, changeAmount]);
 
+  const itemName = renderItemName(getItem(item));
+
   return (
     <>
-      <h3 className="inventory-item__action-modal-title">
-        {item.translation || item.name}
-      </h3>
+      <h3 className="inventory-item__action-modal-title">{itemName}</h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
@@ -261,7 +261,7 @@ function ItemModalContent(props) {
                 className="inventory-item__drop-item-button"
                 onClick={onDropClick}
               >
-                Tirar {item.translation}
+                Tirar {itemName}
               </button>
             </li>
           )}
@@ -273,7 +273,7 @@ function ItemModalContent(props) {
                 className="inventory-item__drop-item-button"
                 onClick={onUseClick}
               >
-                Usar {item.translation}
+                Usar {itemName}
               </button>
             </li>
           )}

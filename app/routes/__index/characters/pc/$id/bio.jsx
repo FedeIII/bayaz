@@ -16,6 +16,7 @@ import {
   changeCustomItemAmount,
   dropCustomItem,
   changeItemWeight,
+  identifyItem,
 } from '~/services/pc.server';
 import { getPackItems } from '~/domain/equipment/packs';
 import { getItem, translatePack } from '~/domain/equipment/equipment';
@@ -36,6 +37,7 @@ import { useSearchResults } from '~/components/hooks/useSearchResults';
 import NumericInput from '~/components/inputs/numeric';
 
 import styles from '~/components/bio.css';
+import { renderItemName } from '~/domain/equipment/items';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
@@ -60,42 +62,50 @@ async function equipWeaponAction(formData) {
   const weaponName = formData.get('weaponName');
   const weaponSlot = formData.get('weaponSlot');
 
-  await equipWeaponInSlot(id, weaponName, weaponSlot);
+  return await equipWeaponInSlot(id, weaponName, weaponSlot);
+}
+
+async function identifyItemAction(formData) {
+  const id = formData.get('id');
+  const section = formData.get('section');
+  const itemName = formData.get('itemName');
+
+  return await identifyItem(id, section, itemName);
 }
 
 async function dropWeaponAction(formData) {
   const id = formData.get('id');
   const weaponName = formData.get('weaponName');
 
-  await dropTreasureWeapon(id, weaponName);
+  return await dropTreasureWeapon(id, weaponName);
 }
 
 async function equipShieldAction(formData) {
   const id = formData.get('id');
   const shieldName = formData.get('shieldName');
 
-  await switchShield(id, shieldName);
+  return await switchShield(id, shieldName);
 }
 
 async function equipArmorAction(formData) {
   const id = formData.get('id');
   const armorName = formData.get('armorName');
 
-  await switchArmor(id, armorName);
+  return await switchArmor(id, armorName);
 }
 
 async function dropShieldAction(formData) {
   const id = formData.get('id');
   const shieldName = formData.get('shieldName');
 
-  await dropTreasureArmor(id, shieldName);
+  return await dropTreasureArmor(id, shieldName);
 }
 
 async function dropArmorAction(formData) {
   const id = formData.get('id');
   const armorName = formData.get('armorName');
 
-  await dropTreasureArmor(id, armorName);
+  return await dropTreasureArmor(id, armorName);
 }
 
 async function dropItemAction(formData) {
@@ -104,9 +114,9 @@ async function dropItemAction(formData) {
   const section = formData.get('section');
 
   if (section === 'custom') {
-    await dropCustomItem(id, itemName);
+    return await dropCustomItem(id, itemName);
   } else {
-    await dropTreasureItem(id, itemName);
+    return await dropTreasureItem(id, itemName);
   }
 }
 
@@ -117,9 +127,9 @@ async function changeAmountAction(formData) {
   const section = formData.get('section');
 
   if (section === 'custom') {
-    await changeCustomItemAmount(id, itemName, itemAmount);
+    return await changeCustomItemAmount(id, itemName, itemAmount);
   } else {
-    await changeTreasureItemAmount(id, itemName, itemAmount);
+    return await changeTreasureItemAmount(id, itemName, itemAmount);
   }
 }
 
@@ -129,7 +139,7 @@ async function changeWeightAction(formData) {
   const weight = formData.get('weight');
   const section = formData.get('section');
 
-  await changeItemWeight(id, itemName, weight, section);
+  return await changeItemWeight(id, itemName, weight, section);
 }
 
 async function addItemToTreasureAction(formData) {
@@ -137,14 +147,14 @@ async function addItemToTreasureAction(formData) {
   const itemName = formData.get('itemName');
   const itemAmount = formData.get('itemAmount');
 
-  await addItemToTreasure(id, itemName, itemAmount);
+  return await addItemToTreasure(id, itemName, itemAmount);
 }
 
 async function addArbitraryItemAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
 
-  await addCustomTreasure(id, itemName);
+  return await addCustomTreasure(id, itemName);
 }
 
 async function updateFreeTextsAction(formData) {
@@ -152,7 +162,7 @@ async function updateFreeTextsAction(formData) {
   const fieldName = formData.get('fieldName');
   const text = formData.get('text');
 
-  await updatePc({
+  return await updatePc({
     id,
     [`freeText.${fieldName}`]: text,
   });
@@ -169,6 +179,8 @@ export const action = async ({ request }) => {
   if (action === 'equipWeapon') {
     await equipWeaponAction(formData);
     return redirect(`/characters/pc/${id}/summary`);
+  } else if (action === 'identifyItem') {
+    updatedPc = await identifyItemAction(formData);
   } else if (action === 'dropWeapon') {
     updatedPc = await dropWeaponAction(formData);
   } else if (action === 'equipShield') {
@@ -204,7 +216,7 @@ export const action = async ({ request }) => {
 
 function ItemModalContent(props) {
   const {
-    item,
+    item: pItem,
     section,
     dropItem,
     changeAmount,
@@ -213,6 +225,8 @@ function ItemModalContent(props) {
     closeModal,
     setOnCloseModalCallback,
   } = props;
+
+  const item = getItem(pItem);
 
   function onDropClick(e) {
     const itemName = e.target.value;
@@ -229,14 +243,16 @@ function ItemModalContent(props) {
   }
 
   useEffect(() => {
-    setOnCloseModalCallback(() => {
-      if (weight !== item.weight) {
-        changeWeight(item.name, weight, section);
-      }
-      if (amount !== item.amount) {
-        changeAmount(item.name, amount, section);
-      }
-    });
+    if (changeWeight || changeAmount) {
+      setOnCloseModalCallback(() => {
+        if (changeWeight && weight !== item.weight) {
+          changeWeight(item.name, weight, section);
+        }
+        if (changeAmount && amount !== item.amount) {
+          changeAmount(item.name, amount, section);
+        }
+      });
+    }
   }, [
     setOnCloseModalCallback,
     weight,
@@ -249,11 +265,11 @@ function ItemModalContent(props) {
     changeAmount,
   ]);
 
+  const itemDisplay = renderItemName(item);
+
   return (
     <>
-      <h3 className="inventory-item__action-modal-title">
-        {item.translatio || item.name}
-      </h3>
+      <h3 className="inventory-item__action-modal-title">{itemDisplay}</h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
@@ -310,7 +326,7 @@ function ItemModalContent(props) {
                 value={item.name}
                 onClick={onDropClick}
               >
-                Tirar {item.translation}
+                Tirar {itemDisplay}
               </button>
             </li>
           )}
@@ -321,7 +337,16 @@ function ItemModalContent(props) {
 }
 
 function WeaponModalContent(props) {
-  const { pc, weapon, equipWeapon, dropWeapon, closeModal } = props;
+  const {
+    pc,
+    weapon,
+    equipWeapon,
+    identifyItem,
+    dropWeapon,
+    closeModal,
+    isDm,
+  } = props;
+
   const {
     items: { weapons },
   } = pc;
@@ -332,17 +357,23 @@ function WeaponModalContent(props) {
     closeModal();
   }
 
+  function onIdentifyClick(e) {
+    const weaponName = e.target.value;
+    identifyItem(pc.id, 'treasure.weapons', weaponName);
+    closeModal();
+  }
+
   function onDropClick(e) {
     const weaponName = e.target.value;
     dropWeapon(weaponName);
     closeModal();
   }
 
+  const weaponDisplay = renderItemName(getItem(weapon));
+
   return (
     <>
-      <h3 className="inventory-item__action-modal-title">
-        {weapon.translation}
-      </h3>
+      <h3 className="inventory-item__action-modal-title">{weaponDisplay}</h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
       </span>
@@ -354,11 +385,23 @@ function WeaponModalContent(props) {
               <option value="">Escoge hueco</option>
               {Array.from(Array(3), (_, i) => (
                 <option value={i} key={i}>
-                  {i}: {getItem(weapons[i])?.translation || '-'}
+                  {i}: {weapons[i] ? renderItemName(getItem(weapons[i])) : '-'}
                 </option>
               ))}
             </select>
           </li>
+          {!!(isDm && weapon.description && !weapon.identified) && (
+            <li>
+              <button
+                type="button"
+                className="inventory-item__drop-item-button"
+                value={weapon.name}
+                onClick={onIdentifyClick}
+              >
+                Identificar {weaponDisplay}
+              </button>
+            </li>
+          )}
           <li>
             <button
               type="button"
@@ -366,7 +409,7 @@ function WeaponModalContent(props) {
               value={weapon.name}
               onClick={onDropClick}
             >
-              Tirar {weapon.translation}
+              Tirar {weaponDisplay}
             </button>
           </li>
         </ul>
@@ -389,10 +432,12 @@ function ArmorModalContent(props) {
     closeModal();
   }
 
+  const armorDisplay = renderItemName(getItem(pArmor));
+
   return (
     <>
       <h3 className="inventory-item__action-modal-title">
-        {armor.translation}
+        {renderItemName(armor)}
       </h3>
       <span className="inventory-item__modal-close" onClick={closeModal}>
         ⨉
@@ -406,7 +451,7 @@ function ArmorModalContent(props) {
                 className="bio__equip-armor"
                 onClick={onEquipClick}
               >
-                Equipar en lugar de {getItem(pArmor).translation}
+                Equipar en lugar de {armorDisplay}
               </button>
             )}
             {!pArmor && (
@@ -426,7 +471,7 @@ function ArmorModalContent(props) {
               value={armor.name}
               onClick={onDropClick}
             >
-              Tirar {armor.translation}
+              Tirar {armorDisplay}
             </button>
           </li>
         </ul>
@@ -479,6 +524,18 @@ function PcBio() {
         id,
         weaponName,
         weaponSlot,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function identifyItem(pcId, section, itemName) {
+    submit(
+      {
+        action: 'identifyItem',
+        id: pcId,
+        section,
+        itemName,
       },
       { method: 'post' }
     );
@@ -608,7 +665,9 @@ function PcBio() {
     setItemSearch(e.target.value);
   }
 
-  const itemResults = useSearchResults(itemSearch, ['equipment']).equipment;
+  const itemResults = useSearchResults(itemSearch, isDm, [
+    'equipment',
+  ]).equipment;
 
   const [itemRefs, setItemRefs] = useState({
     weapons: treasure.weapons.map(createRef),
@@ -662,8 +721,8 @@ function PcBio() {
             dropItem={dropItem}
             changeAmount={changeAmount}
             changeWeight={changeWeight}
-            setOnCloseModalCallback={setOnCloseModalCallback}
             closeModal={() => setActionModalContent(null)}
+            setOnCloseModalCallback={setOnCloseModalCallback}
           />
         );
       } else if (itemType === 'custom') {
@@ -674,6 +733,7 @@ function PcBio() {
             dropItem={dropItem}
             changeAmount={changeAmount}
             closeModal={() => setActionModalContent(null)}
+            setOnCloseModalCallback={setOnCloseModalCallback}
           />
         );
       } else if (itemType === 'inventorySearchResults') {
@@ -682,6 +742,7 @@ function PcBio() {
             item={item}
             addToTreasure={addToTreasure}
             closeModal={() => setActionModalContent(null)}
+            setOnCloseModalCallback={setOnCloseModalCallback}
           />
         );
       } else if (item.type === 'weapon') {
@@ -690,8 +751,10 @@ function PcBio() {
             pc={pc}
             weapon={item}
             equipWeapon={equipWeapon}
+            identifyItem={identifyItem}
             dropWeapon={dropWeapon}
             closeModal={() => setActionModalContent(null)}
+            isDm={isDm}
           />
         );
       } else if (item.type === 'armor') {

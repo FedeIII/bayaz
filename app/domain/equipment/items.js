@@ -1,6 +1,8 @@
 import { ARMORS } from './armors';
 import { WEAPONS } from './weapons';
 import { isAmmo } from './equipment';
+import { itemWithAmount } from '../display';
+import { t } from '../translations';
 
 export const ITEM_RARITY = [
   'common',
@@ -74,4 +76,18 @@ export function isEquipmentItem(item) {
 
 export function hasActions(item) {
   return item.consumable || item.charges !== null;
+}
+
+export function renderItemName(item) {
+  return item.unidentifiedName && !item.identified
+    ? item.unidentifiedName
+    : item.translation || t(item.name);
+}
+
+export function renderItemNameWithAmount(item) {
+  if (item.unidentifiedName && !item.identified) {
+    return itemWithAmount(item.unidentifiedName, item.amount);
+  }
+
+  return itemWithAmount(item.translation || item.name, item.amount);
 }

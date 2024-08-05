@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
-import { itemWithAmount } from '~/domain/display';
 import { getItem } from '~/domain/equipment/equipment';
+import { renderItemNameWithAmount } from '~/domain/equipment/items';
 
 const noOp = () => {};
 
@@ -36,7 +36,7 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
           openModalOnClick || internalDontCloseOnMouseOut ? noOp : closeModal
         }
       >
-        {itemWithAmount(item.translation || item.name, pItem.amount)}
+        {renderItemNameWithAmount(item)}
       </strong>
       {!isLast && ', '}
     </>

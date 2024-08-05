@@ -514,6 +514,21 @@ export function WEAPONS() {
         ...props,
       };
     },
+
+    // MAGIC WEAPONS
+    sylvanBlade(props) {
+      return WEAPONS().dagger({
+        name: 'sylvanBlade',
+        translation: 'Hoja Silvana',
+        unidentifiedName: 'Daga ceremonial',
+        rarity: 'uncommon',
+        price: { gp: 450, sp: 0, cp: 0 },
+        bonus: 1,
+        description: `<p>Una vez al día, puedes usar un ataque exitoso con la daga para lanzar Enmarañar (tirada de salvación DC8 + bonus de ataque + bonus de competencia).</p>
+          <p>Adicionalmente, tienes ventaja en las pruebas de Naturaleza mientras lleves la daga.</p>`,
+        ...props,
+      });
+    },
   };
 }
 

@@ -52,9 +52,18 @@ function isItemMatch(itemBuilder, search) {
   ].some(str => str?.toLowerCase().includes(search));
 }
 
-async function findEquipment(search) {
+function isAllowedItem(itemBuilder, isDm) {
+  if (isDm) return true;
+  if (!!itemBuilder().rarity) return false;
+  return true;
+}
+
+async function findEquipment(search, isDm) {
   return getAllItems()
-    .filter(itemBuilder => isItemMatch(itemBuilder, search))
+    .filter(
+      itemBuilder =>
+        isItemMatch(itemBuilder, search) && isAllowedItem(itemBuilder, isDm)
+    )
     .map(i => i?.());
 }
 
@@ -125,7 +134,11 @@ export function emptySearch(sections = ALL_SECTIONS) {
   return sections.reduce((res, element) => ({ ...res, [element]: [] }), {});
 }
 
-export async function getSearchResults(search, searchSections = ALL_SECTIONS) {
+export async function getSearchResults(
+  search,
+  isDm,
+  searchSections = ALL_SECTIONS
+) {
   if (!search) {
     return Promise.resolve(emptySearch(searchSections));
   }
@@ -133,7 +146,7 @@ export async function getSearchResults(search, searchSections = ALL_SECTIONS) {
   const lowercaseSearch = search?.toLowerCase();
   const searchResults = {};
   for (let element of searchSections) {
-    searchResults[element] = await finders[element](lowercaseSearch);
+    searchResults[element] = await finders[element](lowercaseSearch, isDm);
   }
 
   return searchResults;

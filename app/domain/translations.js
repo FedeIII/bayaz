@@ -378,9 +378,6 @@ export function t(key) {
   translation = NPC_RACES[key]?.translation;
   if (translation) return translation;
 
-  translation = getItem(key)?.translation;
-  if (translation) return translation;
-
   translation = translateSpell(key);
   if (translation && translation.indexOf('[[<---') !== 0) return translation;
 
@@ -394,6 +391,9 @@ export function t(key) {
   if (translation && translation !== 'unknown skill') return translation;
 
   translation = translateSchool(key);
+  if (translation) return translation;
+
+  translation = getItem(key)?.translation;
   if (translation) return translation;
 
   return key;

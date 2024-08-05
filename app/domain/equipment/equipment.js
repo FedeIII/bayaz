@@ -37,7 +37,6 @@ export function getItem(item) {
 
   const itemName = typeof item === 'string' ? item : item.name;
   const itemAmount = typeof item === 'string' ? 1 : item.amount;
-  const itemWeight = typeof item === 'string' ? 0 : item.weight;
 
   const itemBuilder = getAllItems().find(item => item().name === itemName);
 
@@ -51,9 +50,8 @@ export function getItem(item) {
   }
 
   const transientProps = { amount: itemAmount };
-  if (itemWeight) {
-    transientProps.weight = itemWeight;
-  }
+  if (item.weight) transientProps.weight = item.weight;
+  if (item.identified) transientProps.identified = item.identified;
   return itemBuilder(transientProps);
 }
 

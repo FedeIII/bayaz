@@ -51,7 +51,9 @@ create migration file for schema changes
 npx prisma migrate dev
 ```
 
-## TO DOsg
+## TO DO
+
+- TO DO: item se desidentifica cuando pasa por summary
 
 - Bug: right click on spells during character creation advances to next step
 - Extract textarea component
