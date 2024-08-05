@@ -7,6 +7,7 @@ const noOp = () => {};
 export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
   const {
     pItem,
+    isDm,
     isLast,
     onItemClick,
     openModal,
@@ -36,7 +37,7 @@ export const InventoryItem = forwardRef(function InventoryItem(props, ref) {
           openModalOnClick || internalDontCloseOnMouseOut ? noOp : closeModal
         }
       >
-        {renderItemNameWithAmount(item)}
+        {renderItemNameWithAmount(item, isDm)}
       </strong>
       {!isLast && ', '}
     </>

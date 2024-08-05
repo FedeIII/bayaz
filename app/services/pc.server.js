@@ -34,7 +34,6 @@ import {
   SUPERIOR_HUNTERS_DEFENSE,
 } from '~/domain/classes/ranger/ranger';
 import { DIVINE_DOMAINS } from '~/domain/classes/cleric/cleric';
-import { getItem } from '~/domain/equipment/equipment';
 import {
   SPELL_SCHOOLS,
   getExtraPreparedSpells,

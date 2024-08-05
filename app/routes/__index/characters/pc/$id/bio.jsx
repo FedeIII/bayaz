@@ -216,17 +216,26 @@ export const action = async ({ request }) => {
 
 function ItemModalContent(props) {
   const {
+    pc,
     item: pItem,
     section,
     dropItem,
+    identifyItem,
     changeAmount,
     changeWeight,
     addToTreasure,
     closeModal,
     setOnCloseModalCallback,
+    isDm,
   } = props;
 
   const item = getItem(pItem);
+
+  function onIdentifyClick(e) {
+    const itemName = e.target.value;
+    identifyItem(pc.id, 'treasure.others', itemName);
+    closeModal();
+  }
 
   function onDropClick(e) {
     const itemName = e.target.value;
@@ -316,6 +325,18 @@ function ItemModalContent(props) {
                 styleName="inventory-item__amount-input"
               />{' '}
               kg
+            </li>
+          )}
+          {!!(isDm && item.description && !item.identified) && (
+            <li>
+              <button
+                type="button"
+                className="inventory-item__drop-item-button"
+                value={item.name}
+                onClick={onIdentifyClick}
+              >
+                Identificar {itemDisplay}
+              </button>
             </li>
           )}
           {!!dropItem && (
@@ -716,6 +737,7 @@ function PcBio() {
       if (itemType === 'custom') {
         content = props => (
           <ItemModalContent
+            pc={pc}
             item={item}
             section={itemType}
             dropItem={dropItem}
@@ -725,15 +747,18 @@ function PcBio() {
             setOnCloseModalCallback={setOnCloseModalCallback}
           />
         );
-      } else if (itemType === 'custom') {
+      } else if (itemType === 'others') {
         content = props => (
           <ItemModalContent
+            pc={pc}
             item={item}
             section={itemType}
             dropItem={dropItem}
+            identifyItem={identifyItem}
             changeAmount={changeAmount}
             closeModal={() => setActionModalContent(null)}
             setOnCloseModalCallback={setOnCloseModalCallback}
+            isDm={isDm}
           />
         );
       } else if (itemType === 'inventorySearchResults') {
@@ -1040,6 +1065,7 @@ function PcBio() {
                   <InventoryItem
                     ref={itemRefs.inventorySearchResults[i]}
                     pItem={item}
+                    isDm={isDm}
                     isLast
                     onItemClick={onItemClick('inventorySearchResults', i)}
                     openModal={openItemModal('inventorySearchResults', i)}

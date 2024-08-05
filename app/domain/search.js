@@ -49,6 +49,7 @@ function isItemMatch(itemBuilder, search) {
     item.subtype,
     item.damage?.[1],
     t(item.subtype),
+    item.description?.(BASE_CHARACTER),
   ].some(str => str?.toLowerCase().includes(search));
 }
 

@@ -84,7 +84,11 @@ export function renderItemName(item) {
     : item.translation || t(item.name);
 }
 
-export function renderItemNameWithAmount(item) {
+export function renderItemNameWithAmount(item, isDm) {
+  if (isDm) {
+    return itemWithAmount(item.translation || item.name, item.amount);
+  }
+
   if (item.unidentifiedName && !item.identified) {
     return itemWithAmount(item.unidentifiedName, item.amount);
   }

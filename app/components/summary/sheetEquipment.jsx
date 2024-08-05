@@ -261,7 +261,7 @@ function ItemModalContent(props) {
                 className="inventory-item__drop-item-button"
                 onClick={onDropClick}
               >
-                Tirar {itemName}
+                Quitar {itemName}
               </button>
             </li>
           )}

@@ -1,5 +1,6 @@
 import { PACKS, getAllPackItems } from './packs';
 import { WEAPONS } from './weapons';
+import { MAGIC_ITEMS } from './magicItems';
 import { TOOLS } from './tools';
 import { ARMORS } from './armors';
 import { BARBARIAN_EQUIPMENT } from '../classes/barbarian/barbarian';
@@ -65,6 +66,7 @@ export function getAllItems() {
     ...ARMORS(),
     ...TOOLS(),
     ...getAllPackItems(),
+    ...MAGIC_ITEMS,
     noItem,
   });
 }

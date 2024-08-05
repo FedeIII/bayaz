@@ -3280,6 +3280,7 @@ export const BASE_CHARACTER = {
   id: '1',
   name: 'Base Character',
   race: 'human',
+  subrace: 'subrace',
   size: 'M',
   speed: 10,
   pClass: 'fighter',
