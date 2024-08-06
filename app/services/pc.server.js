@@ -65,6 +65,7 @@ import {
 } from '~/domain/classes/paladin/paladin';
 import { ROGISH_ARCHETYPES } from '~/domain/classes/rogue/rogue';
 import { getter } from '~/utils/objects';
+import { isSameScroll } from '~/domain/equipment/magicItems';
 
 const backgroundSchema = new mongoose.Schema({
   name: { type: String, enum: Object.keys(BACKGROUNDS) },
@@ -93,6 +94,7 @@ const itemSchema = new mongoose.Schema({
   amount: Number,
   weight: Number,
   identified: Boolean,
+  spellName: String,
 });
 
 const spellSchema = new mongoose.Schema({
@@ -409,6 +411,10 @@ function weaponLimit(val) {
 
 const Pc = mongoose.models.Pc || mongoose.model('Pc', pcSchema);
 
+/////////////
+// GET PCS //
+/////////////
+
 export async function getPcs() {
   const pcs = await Pc.find({ npc: { $ne: true } });
   return pcs;
@@ -486,6 +492,10 @@ export async function getPcName(id) {
 export async function deletePc(id) {
   await Pc.deleteOne({ id });
 }
+
+///////////
+// NOTES //
+///////////
 
 export async function createNotes(id, position) {
   const updatedPc = await Pc.findOneAndUpdate(
@@ -566,6 +576,10 @@ export async function addXp(id, xp) {
 
   return updatedPc;
 }
+
+/////////////////
+// CLASS ATTRS //
+/////////////////
 
 export async function updateClassAttrs(id, classAttrs) {
   const updatedPc = await Pc.findOneAndUpdate(
@@ -648,6 +662,10 @@ export async function addImprovedStatsLevel(id, level) {
 
   return updatedPc;
 }
+
+////////////
+// SPELLS //
+////////////
 
 export async function spendSpellSlot(id, spellSlot) {
   const pcModel = await getPc(id);
@@ -958,6 +976,10 @@ export async function deletePreparedSpell(id, spell) {
   return updatedPc;
 }
 
+///////////////
+// EQUIPMENT //
+///////////////
+
 export async function unequipWeapon(id, slot) {
   const pc = await getPc(id);
 
@@ -1055,12 +1077,13 @@ export async function dropTreasureArmor(id, armorName) {
   return updatedPc;
 }
 
-export async function dropTreasureItem(id, itemName) {
-  const updatedPc = await Pc.findOneAndUpdate(
-    { id },
-    { $pull: { 'items.treasure.others': { name: itemName } } },
-    { new: true }
-  );
+export async function dropTreasureItem(id, itemName, scrollSpellName) {
+  const selector = { $pull: { 'items.treasure.others': { name: itemName } } };
+  if (scrollSpellName) {
+    selector.$pull['items.treasure.others'].spellName = scrollSpellName;
+  }
+
+  const updatedPc = await Pc.findOneAndUpdate({ id }, selector, { new: true });
 
   return updatedPc;
 }
@@ -1162,9 +1185,13 @@ export async function changeEquipmentOtherAmount(id, itemName, itemAmount) {
   return updatedPc;
 }
 
-export async function identifyItem(id, section, itemName) {
+export async function identifyItem(id, section, itemName, itemSpellName) {
   const pc = await getPc(id);
-  const item = getter(pc.items, section)?.find(item => item.name === itemName);
+  const item = getter(pc.items, section)?.find(
+    item =>
+      item.name === itemName &&
+      (!itemSpellName || item.spellName === itemSpellName)
+  );
 
   if (!item) {
     return pc;
@@ -1302,13 +1329,23 @@ export async function switchArmor(id, armorName) {
 }
 
 export async function addItemToSection(id, item, section, subsection) {
-  const updatedPc = await Pc.findOneAndUpdate(
-    { id },
-    { $push: { [`items.${section}.${subsection}`]: item } },
-    { new: true }
+  const pc = await getPc(id);
+
+  const sameItem = pc.items[section][subsection].find(
+    pItem => pItem.name === item.name
   );
 
-  return updatedPc;
+  if (sameItem) {
+    if (isSameScroll(sameItem, item)) {
+      sameItem.amount += 1;
+    } else {
+      pc.items[section][subsection].push(item);
+    }
+  } else {
+    pc.items[section][subsection].push(item);
+  }
+
+  return await pc.save();
 }
 
 export async function increaseItemAmount(
@@ -1316,10 +1353,21 @@ export async function increaseItemAmount(
   itemName,
   section,
   subsection,
-  amount
+  amount,
+  scrollSpellName
 ) {
+  const filter = {
+    id,
+    [`items.${section}.${subsection}.name`]: itemName,
+    [`items.${section}.${subsection}.scpellName`]: scrollSpellName,
+  };
+
+  if (scrollSpellName) {
+    filter[`items.${section}.${subsection}.scpellName`] = scrollSpellName;
+  }
+
   const updatedPc = await Pc.findOneAndUpdate(
-    { id, [`items.${section}.${subsection}.name`]: itemName },
+    filter,
     { $inc: { [`items.${section}.${subsection}.$.amount`]: amount } },
     { new: true }
   );

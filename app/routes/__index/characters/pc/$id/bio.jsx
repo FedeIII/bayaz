@@ -35,9 +35,14 @@ import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
 import { useSearchResults } from '~/components/hooks/useSearchResults';
 import NumericInput from '~/components/inputs/numeric';
+import {
+  renderItemName,
+  renderItemNameWithAmount,
+} from '~/domain/equipment/items';
+import { ALL_SPELLS_BY_LEVEL } from '~/domain/spells/getSpells';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/bio.css';
-import { renderItemName } from '~/domain/equipment/items';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
@@ -69,8 +74,9 @@ async function identifyItemAction(formData) {
   const id = formData.get('id');
   const section = formData.get('section');
   const itemName = formData.get('itemName');
+  const scrollSpellName = formData.get('scrollSpellName');
 
-  return await identifyItem(id, section, itemName);
+  return await identifyItem(id, section, itemName, scrollSpellName);
 }
 
 async function dropWeaponAction(formData) {
@@ -112,11 +118,12 @@ async function dropItemAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
   const section = formData.get('section');
+  const scrollSpellName = formData.get('scrollSpellName');
 
   if (section === 'custom') {
     return await dropCustomItem(id, itemName);
   } else {
-    return await dropTreasureItem(id, itemName);
+    return await dropTreasureItem(id, itemName, scrollSpellName);
   }
 }
 
@@ -146,8 +153,9 @@ async function addItemToTreasureAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
   const itemAmount = formData.get('itemAmount');
+  const scrollSpellName = formData.get('scrollSpellName');
 
-  return await addItemToTreasure(id, itemName, itemAmount);
+  return await addItemToTreasure(id, itemName, itemAmount, scrollSpellName);
 }
 
 async function addArbitraryItemAction(formData) {
@@ -227,27 +235,29 @@ function ItemModalContent(props) {
     closeModal,
     setOnCloseModalCallback,
     isDm,
+    isInventorySearchResults,
   } = props;
 
   const item = getItem(pItem);
 
   function onIdentifyClick(e) {
-    const itemName = e.target.value;
-    identifyItem(pc.id, 'treasure.others', itemName);
+    const [itemName, itemSpellName] = e.target.value.split(':');
+    identifyItem(pc.id, 'treasure.others', itemName, itemSpellName);
     closeModal();
   }
 
   function onDropClick(e) {
-    const itemName = e.target.value;
-    dropItem(itemName, section);
+    const [itemName, itemSpellName] = e.target.value.split(':');
+    dropItem(itemName, section, itemSpellName);
     closeModal();
   }
 
   const [amount, setAmount] = useState(item.amount);
   const [weight, setWeight] = useState(item.weight);
+  const [spellName, setSpellName] = useState(item.spellName);
 
   function onAddToTreasureClick() {
-    addToTreasure(item.name, amount);
+    addToTreasure(item.name, amount, spellName);
     closeModal();
   }
 
@@ -275,6 +285,7 @@ function ItemModalContent(props) {
   ]);
 
   const itemDisplay = renderItemName(item);
+  const itemDisplayWithAmount = renderItemNameWithAmount(item, isDm);
 
   return (
     <>
@@ -302,6 +313,29 @@ function ItemModalContent(props) {
               />
             </li>
           )}
+
+          {item.type === 'scroll' && isDm && (
+            <li>
+              Conjuro:{' '}
+              <select
+                className="bio__weapon-select"
+                disabled={!isInventorySearchResults}
+                onChange={e => setSpellName(e.target.value)}
+              >
+                <option value="">-</option>
+                {ALL_SPELLS_BY_LEVEL[item.subtype].map(spell => (
+                  <option
+                    value={spell.name}
+                    key={spell.name}
+                    selected={spell.name === item.spellName}
+                  >
+                    {t(spell.name)}
+                  </option>
+                ))}
+              </select>
+            </li>
+          )}
+
           {!!changeAmount && (
             <li>
               Cantidad:{' '}
@@ -314,6 +348,7 @@ function ItemModalContent(props) {
               />
             </li>
           )}
+
           {!!changeWeight && (
             <li>
               Peso{' '}
@@ -327,27 +362,42 @@ function ItemModalContent(props) {
               kg
             </li>
           )}
-          {!!(isDm && item.description && !item.identified) && (
+
+          {!!(
+            isDm &&
+            item.description &&
+            !item.identified &&
+            !isInventorySearchResults
+          ) && (
             <li>
               <button
                 type="button"
                 className="inventory-item__drop-item-button"
-                value={item.name}
+                value={
+                  item.type === 'scroll'
+                    ? `${item.name}:${item.spellName}`
+                    : item.name
+                }
                 onClick={onIdentifyClick}
               >
                 Identificar {itemDisplay}
               </button>
             </li>
           )}
+
           {!!dropItem && (
             <li>
               <button
                 type="button"
                 className="inventory-item__drop-item-button"
-                value={item.name}
+                value={
+                  item.type === 'scroll'
+                    ? `${item.name}:${item.spellName}`
+                    : item.name
+                }
                 onClick={onDropClick}
               >
-                Tirar {itemDisplay}
+                Tirar {itemDisplayWithAmount}
               </button>
             </li>
           )}
@@ -550,13 +600,14 @@ function PcBio() {
     );
   }
 
-  function identifyItem(pcId, section, itemName) {
+  function identifyItem(pcId, section, itemName, scrollSpellName) {
     submit(
       {
         action: 'identifyItem',
         id: pcId,
         section,
         itemName,
+        scrollSpellName,
       },
       { method: 'post' }
     );
@@ -617,13 +668,14 @@ function PcBio() {
     );
   }
 
-  function dropItem(itemName, section) {
+  function dropItem(itemName, section, scrollSpellName) {
     submit(
       {
         action: 'dropItem',
         id,
         itemName,
         section,
+        scrollSpellName,
       },
       { method: 'post' }
     );
@@ -655,13 +707,14 @@ function PcBio() {
     );
   }
 
-  function addToTreasure(itemName, itemAmount) {
+  function addToTreasure(itemName, itemAmount, scrollSpellName) {
     submit(
       {
         action: 'addItemToTreasure',
         id,
         itemName,
         itemAmount,
+        scrollSpellName,
       },
       { method: 'post' }
     );
@@ -768,6 +821,8 @@ function PcBio() {
             addToTreasure={addToTreasure}
             closeModal={() => setActionModalContent(null)}
             setOnCloseModalCallback={setOnCloseModalCallback}
+            isDm={isDm}
+            isInventorySearchResults
           />
         );
       } else if (item.type === 'weapon') {

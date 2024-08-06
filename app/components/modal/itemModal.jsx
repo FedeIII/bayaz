@@ -8,6 +8,14 @@ import { translateDamage } from '~/domain/equipment/weapons';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
 import { renderItemName } from '~/domain/equipment/items';
 
+function getSubtypeTranslation(item) {
+  if (item.type === 'scroll') {
+    return item.subtype ? `Conjuro nivel ${item.subtype}` : `Truco`;
+  }
+
+  return item.subtype && t(item.subtype);
+}
+
 export function ItemModalContent(props) {
   const { item, pc, actions = {}, isDm } = props;
   const { weapons } = pc.items;
@@ -16,7 +24,7 @@ export function ItemModalContent(props) {
     return null;
   }
 
-  const subtypeTranslation = item.subtype && t(item.subtype);
+  const subtypeTranslation = getSubtypeTranslation(item);
   const isWeapon = item.type === 'weapon';
   const isArmor = item.type === 'armor';
 

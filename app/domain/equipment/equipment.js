@@ -53,6 +53,7 @@ export function getItem(item) {
   const transientProps = { amount: itemAmount };
   if (item.weight) transientProps.weight = item.weight;
   if (item.identified) transientProps.identified = item.identified;
+  if (item.spellName) transientProps.spellName = item.spellName;
   return itemBuilder(transientProps);
 }
 

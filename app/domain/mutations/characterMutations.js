@@ -215,7 +215,12 @@ export async function damagePc(id, damage) {
   return pc;
 }
 
-export async function addItemToTreasure(id, itemName, itemAmount) {
+export async function addItemToTreasure(
+  id,
+  itemName,
+  itemAmount,
+  scrollSpellName
+) {
   const amount = Number.isInteger(itemAmount) ? itemAmount : 1;
   const pc = await getPc(id);
   const item = getItem(itemName);
@@ -228,10 +233,26 @@ export async function addItemToTreasure(id, itemName, itemAmount) {
     ? 'armors'
     : 'others';
 
-  if (pc.items[section][subsection].find(item => item.name === itemName)) {
-    return await increaseItemAmount(id, itemName, section, subsection, amount);
+  if (
+    pc.items[section][subsection].find(
+      pItem =>
+        pItem.name === itemName &&
+        (item.type !== 'scroll' || pItem.spellName === item.spellName)
+    )
+  ) {
+    return await increaseItemAmount(
+      id,
+      itemName,
+      section,
+      subsection,
+      amount,
+      scrollSpellName
+    );
   }
 
   const pItem = { name: itemName, amount };
+  if (scrollSpellName) {
+    pItem.spellName = scrollSpellName;
+  }
   return await addItemToSection(id, pItem, section, subsection);
 }
