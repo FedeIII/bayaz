@@ -65,19 +65,18 @@ const POTIONS = {
 };
 
 const SCROLLS = {
-  spell0(props) {
+  spellScroll(props) {
+    const translation = props?.spellName
+      ? `Pergamino de ${t(props?.spellName)}`
+      : `Pergamino de Conjuro`;
     return {
-      name: 'spell0',
+      name: 'spellScroll',
       type: 'scroll',
-      subtype: 0,
-      translation: props?.spellName
-        ? `Pergamino de ${t(props?.spellName)}`
-        : `Pergamino de Truco`,
-      unidentifiedName: props?.spellName
-        ? `Pergamino de ${t(props?.spellName)}`
-        : `Pergamino de Truco`,
+      subtype: props?.spellLevel || 0,
+      translation,
+      unidentifiedName: translation,
       rarity: 'common',
-      price: { gp: 50 },
+      price: { gp: getScrollGoldPieces(props?.spellLevel || 0) },
       weight: 0.05,
       description: () => {
         const spell = getSpell(props?.spellName);
@@ -89,6 +88,21 @@ const SCROLLS = {
     };
   },
 };
+
+function getScrollGoldPieces(spellLevel) {
+  return {
+    0: 50,
+    1: 70,
+    2: 100,
+    3: 260,
+    4: 500,
+    5: 2300,
+    6: 5000,
+    7: 18000,
+    8: 50000,
+    9: 100000,
+  }[spellLevel];
+}
 
 export function isSameScroll(item1, item2) {
   return (

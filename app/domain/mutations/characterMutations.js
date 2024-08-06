@@ -219,6 +219,7 @@ export async function addItemToTreasure(
   id,
   itemName,
   itemAmount,
+  scrollSpellLevel,
   scrollSpellName
 ) {
   const amount = Number.isInteger(itemAmount) ? itemAmount : 1;
@@ -252,6 +253,7 @@ export async function addItemToTreasure(
 
   const pItem = { name: itemName, amount };
   if (scrollSpellName) {
+    pItem.spellLevel = scrollSpellLevel;
     pItem.spellName = scrollSpellName;
   }
   return await addItemToSection(id, pItem, section, subsection);

@@ -153,9 +153,16 @@ async function addItemToTreasureAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
   const itemAmount = formData.get('itemAmount');
+  const scrollSpellLevel = parseInt(formData.get('scrollSpellLevel'), 10);
   const scrollSpellName = formData.get('scrollSpellName');
 
-  return await addItemToTreasure(id, itemName, itemAmount, scrollSpellName);
+  return await addItemToTreasure(
+    id,
+    itemName,
+    itemAmount,
+    scrollSpellLevel,
+    scrollSpellName
+  );
 }
 
 async function addArbitraryItemAction(formData) {
@@ -255,9 +262,10 @@ function ItemModalContent(props) {
   const [amount, setAmount] = useState(item.amount);
   const [weight, setWeight] = useState(item.weight);
   const [spellName, setSpellName] = useState(item.spellName);
+  const [spellLevel, setSpellLevel] = useState(String(item.subtype));
 
   function onAddToTreasureClick() {
-    addToTreasure(item.name, amount, spellName);
+    addToTreasure(item.name, amount, spellLevel, spellName);
     closeModal();
   }
 
@@ -316,6 +324,31 @@ function ItemModalContent(props) {
 
           {item.type === 'scroll' && isDm && (
             <li>
+              Nivel:{' '}
+              <select
+                className="bio__weapon-select"
+                disabled={!isInventorySearchResults}
+                onChange={e => setSpellLevel(e.target.value)}
+              >
+                {Array.from(Array(10), (_, i) => i).map(index => (
+                  <option
+                    value={index}
+                    key={index}
+                    selected={
+                      Number.isInteger(item.subtype)
+                        ? index == item.subtype
+                        : index == 0
+                    }
+                  >
+                    {index}
+                  </option>
+                ))}
+              </select>
+            </li>
+          )}
+
+          {item.type === 'scroll' && isDm && (
+            <li>
               Conjuro:{' '}
               <select
                 className="bio__weapon-select"
@@ -323,7 +356,7 @@ function ItemModalContent(props) {
                 onChange={e => setSpellName(e.target.value)}
               >
                 <option value="">-</option>
-                {ALL_SPELLS_BY_LEVEL[item.subtype].map(spell => (
+                {ALL_SPELLS_BY_LEVEL[spellLevel].map(spell => (
                   <option
                     value={spell.name}
                     key={spell.name}
@@ -707,13 +740,19 @@ function PcBio() {
     );
   }
 
-  function addToTreasure(itemName, itemAmount, scrollSpellName) {
+  function addToTreasure(
+    itemName,
+    itemAmount,
+    scrollSpellLevel,
+    scrollSpellName
+  ) {
     submit(
       {
         action: 'addItemToTreasure',
         id,
         itemName,
         itemAmount,
+        scrollSpellLevel,
         scrollSpellName,
       },
       { method: 'post' }

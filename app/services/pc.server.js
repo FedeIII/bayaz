@@ -94,6 +94,7 @@ const itemSchema = new mongoose.Schema({
   amount: Number,
   weight: Number,
   identified: Boolean,
+  spellLevel: Number,
   spellName: String,
 });
 
@@ -1359,7 +1360,7 @@ export async function increaseItemAmount(
   const filter = {
     id,
     [`items.${section}.${subsection}.name`]: itemName,
-    [`items.${section}.${subsection}.scpellName`]: scrollSpellName,
+    [`items.${section}.${subsection}.spellName`]: scrollSpellName,
   };
 
   if (scrollSpellName) {
