@@ -104,6 +104,25 @@ function getScrollGoldPieces(spellLevel) {
   }[spellLevel];
 }
 
+const LOCKETS = {
+  burningShadows(props) {
+    return {
+      name: 'burningShadows',
+      type: 'locket',
+      translation: 'Colgante de Sombras Abrasadoras',
+      unidentifiedName: 'Colgante misterioso',
+      rarity: 'rare',
+      price: { gp: 2000 },
+      weight: 0.02,
+      description: () => `<p>Requiere sintonización</p>
+    <p>Una vez al día, el portador puede lanzar el conjuro Represión Infernal a nivel 2 sin gastar espacio de conjuro</p>`,
+      dmDescription: () =>
+        `<p><u>Maldito:</u> Cada vez que el portador hace un ataque cuerpo a cuerpo, tiene que superar una tirada de salvación de Constitución DC10 o recibir 1d4 puntos de daño necrótico</p>`,
+      ...props,
+    };
+  },
+};
+
 export function isSameScroll(item1, item2) {
   return (
     item1.spellName && item2.spellName && item1.spellName === item2.spellName
@@ -113,4 +132,5 @@ export function isSameScroll(item1, item2) {
 export const MAGIC_ITEMS = {
   ...POTIONS,
   ...SCROLLS,
+  ...LOCKETS,
 };

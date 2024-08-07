@@ -28,6 +28,10 @@ export function ItemModalContent(props) {
   const isWeapon = item.type === 'weapon';
   const isArmor = item.type === 'armor';
 
+  const itemDescription =
+    (item.description ? item.description(pc) : '') +
+    (isDm && item.dmDescription ? item.dmDescription(pc) : '');
+
   return (
     <>
       <h3 className="inventory-item__modal-title">
@@ -93,10 +97,12 @@ export function ItemModalContent(props) {
           )} */}
         </ul>
 
-        {!!((item.identified || isDm) && item.description) && (
+        {!!((item.identified || isDm) && itemDescription) && (
           <div
             className="inventory-item__modal-description"
-            dangerouslySetInnerHTML={{ __html: item.description(pc) }}
+            dangerouslySetInnerHTML={{
+              __html: itemDescription,
+            }}
           />
         )}
       </div>

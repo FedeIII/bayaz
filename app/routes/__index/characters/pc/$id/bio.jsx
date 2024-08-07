@@ -76,7 +76,12 @@ async function identifyItemAction(formData) {
   const itemName = formData.get('itemName');
   const scrollSpellName = formData.get('scrollSpellName');
 
-  return await identifyItem(id, section, itemName, scrollSpellName);
+  return await identifyItem(
+    id,
+    section,
+    itemName,
+    scrollSpellName !== 'undefined' ? scrollSpellName : null
+  );
 }
 
 async function dropWeaponAction(formData) {
@@ -153,15 +158,15 @@ async function addItemToTreasureAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
   const itemAmount = formData.get('itemAmount');
-  const scrollSpellLevel = parseInt(formData.get('scrollSpellLevel'), 10);
+  const scrollSpellLevel = formData.get('scrollSpellLevel');
   const scrollSpellName = formData.get('scrollSpellName');
 
   return await addItemToTreasure(
     id,
     itemName,
     itemAmount,
-    scrollSpellLevel,
-    scrollSpellName
+    scrollSpellLevel !== 'undefiend' ? parseInt(scrollSpellLevel, 10) : null,
+    scrollSpellName !== 'undefined' ? scrollSpellName : null
   );
 }
 

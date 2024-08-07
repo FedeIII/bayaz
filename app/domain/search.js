@@ -50,7 +50,7 @@ function isItemMatch(itemBuilder, search) {
     item.damage?.[1],
     t(item.subtype),
     item.description?.(BASE_CHARACTER),
-  ].some(str => str?.toLowerCase().includes(search));
+  ].some(str => str?.toLowerCase?.().includes(search));
 }
 
 function isAllowedItem(itemBuilder, isDm) {
