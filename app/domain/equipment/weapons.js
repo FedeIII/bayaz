@@ -406,6 +406,19 @@ export function WEAPONS() {
         ...props,
       };
     },
+    trident1(props) {
+      return WEAPONS().trident({
+        name: 'trident1',
+        translation: 'Tridente (+1)',
+        rarity: 'uncommon',
+        price: { gp: 250 },
+        identified: true,
+        bonus: {
+          damage: 1,
+        },
+        ...props,
+      });
+    },
     warPick(props) {
       return {
         name: 'warPick',
