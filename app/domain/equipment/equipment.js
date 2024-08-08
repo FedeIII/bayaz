@@ -55,6 +55,7 @@ export function getItem(item) {
   if (item.identified) transientProps.identified = item.identified;
   if (item.spellLevel) transientProps.spellLevel = item.spellLevel;
   if (item.spellName) transientProps.spellName = item.spellName;
+  if (item.chargesLeft) transientProps.chargesLeft = item.chargesLeft;
   return itemBuilder(transientProps);
 }
 
@@ -139,17 +140,25 @@ export function getEquippedArmor(pc) {
 }
 
 export function isWeapon(item) {
-  return (
-    item.type === 'weapon' ||
-    item.category === 'weapon' ||
-    item.category === 'staff'
-  );
+  return item.type === 'weapon';
 }
 
 export function isArmor(item) {
-  return item.type === 'armor' || item.category === 'armor';
+  return item.type === 'armor';
+}
+
+export function isShield(item) {
+  return item.subtype === 'shield';
 }
 
 export function isAmmo(item) {
   return item.subtype === 'ammunition';
+}
+
+export function hasArmorEquipped(pc) {
+  return !!pc.items.equipment.armor;
+}
+
+export function hasShieldEquipped(pc) {
+  return !!pc.items.equipment.shield;
 }

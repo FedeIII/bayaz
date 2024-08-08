@@ -7,15 +7,12 @@ import { getItem, noItem } from '~/domain/equipment/equipment';
 import { getAttacks, getSpecialAttacks, increment } from '~/domain/display';
 import { InventoryItem } from '../modal/inventoryItem';
 import { SkillItem } from '../modal/skillItem';
-import NumericInput from '../inputs/numeric';
 import {
   equipWeaponInSlot,
-  getPc,
   identifyItem,
   reorderWeapons,
   unequipWeapon,
 } from '~/services/pc.server';
-import { changeMagicCharges, useCharge } from '~/services/item.server';
 import { renderItemName } from '~/domain/equipment/items';
 
 const noAttack = { weapon: noItem() };
@@ -23,10 +20,10 @@ const noAttack = { weapon: noItem() };
 export const actions = {
   identifyItem: async formData => {
     const id = formData.get('id');
-    const section = formData.get('section');
+    const sectionPath = formData.get('sectionPath');
     const itemName = formData.get('itemName');
 
-    return await identifyItem(id, section, itemName);
+    return await identifyItem(id, sectionPath, itemName);
   },
 
   equipWeapons: async formData => {
@@ -42,25 +39,6 @@ export const actions = {
     const slot = formData.get('slot');
 
     return await unequipWeapon(id, parseInt(slot, 10));
-  },
-
-  useMagicWeapon: async formData => {
-    const id = formData.get('id');
-    const weaponId = formData.get('weaponId');
-
-    await useCharge(weaponId);
-
-    return await getPc(id);
-  },
-
-  setMagicWeaponCharges: async formData => {
-    const id = formData.get('id');
-    const weaponId = formData.get('weaponId');
-    const charges = formData.get('charges');
-
-    await changeMagicCharges(weaponId, charges);
-
-    return await getPc(id);
   },
 
   reorderWeapons: async formData => {
@@ -80,8 +58,6 @@ function WeaponModalContent(props) {
     identifyItem,
     onWeaponChange,
     onWeaponUnequip,
-    onUseItem,
-    onSetItemCharges,
     closeModal,
   } = props;
 
@@ -101,18 +77,6 @@ function WeaponModalContent(props) {
     onWeaponUnequip();
     closeModal();
   }
-
-  function onUseItemClick() {
-    onUseItem();
-    closeModal();
-  }
-
-  function onSetItemChargesClick() {
-    onSetItemCharges(charges);
-    closeModal();
-  }
-
-  const [charges, setCharges] = useState(weapon.charges);
 
   const weaponDisplay = renderItemName(getItem(weapon));
 
@@ -162,38 +126,6 @@ function WeaponModalContent(props) {
               Desequipar
             </button>
           </li>
-
-          {!!onUseItem && (
-            <li>
-              <button
-                type="button"
-                className="sheet__select-attack"
-                onClick={onUseItemClick}
-              >
-                Usar {weaponDisplay}
-              </button>
-            </li>
-          )}
-
-          {!!onSetItemCharges && (
-            <li>
-              <button
-                type="button"
-                className="sheet__select-attack"
-                onClick={() => onSetItemChargesClick(charges)}
-              >
-                Cambiar cargas
-              </button>{' '}
-              <NumericInput
-                name="charges"
-                min="0"
-                max={weapon.maxCharges}
-                value={charges}
-                onChange={e => setCharges(e.target.value)}
-                styleName="inventory-item__amount-input"
-              />
-            </li>
-          )}
         </ul>
       </div>
     </>
@@ -228,12 +160,12 @@ function SheetAttacks(props) {
     }
   }, [pc]);
 
-  function identifyItem(pcId, section, itemName) {
+  function identifyItem(pcId, sectionPath, itemName) {
     submit(
       {
         action: 'identifyItem',
         id: pcId,
-        section,
+        sectionPath,
         itemName,
       },
       { method: 'post' }
@@ -261,33 +193,6 @@ function SheetAttacks(props) {
           action: 'unequipWeapon',
           id: pc.id,
           slot: i,
-        },
-        { method: 'post' }
-      );
-    };
-  }
-
-  function onUseMagicWeapon(weaponId) {
-    return () => {
-      submit(
-        {
-          action: 'useMagicWeapon',
-          id: pc.id,
-          weaponId,
-        },
-        { method: 'post' }
-      );
-    };
-  }
-
-  function onSetMagicWeaponCharges(weaponId) {
-    return charges => {
-      submit(
-        {
-          action: 'setMagicWeaponCharges',
-          id: pc.id,
-          weaponId,
-          charges,
         },
         { method: 'post' }
       );
@@ -343,10 +248,6 @@ function SheetAttacks(props) {
               identifyItem={identifyItem}
               onWeaponChange={onWeaponChange(itemIndex)}
               onWeaponUnequip={onWeaponUnequip(itemIndex)}
-              onUseItem={item.charges && onUseMagicWeapon(item.id)}
-              onSetItemCharges={
-                !!item.maxCharges && onSetMagicWeaponCharges(item.id)
-              }
               closeModal={() => setActionModalContent(null)}
             />
           )),

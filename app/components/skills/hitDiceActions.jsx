@@ -101,7 +101,7 @@ function HitDiceActions(props) {
             <NumericInput
               id="diceAmount"
               name="diceAmount"
-              onKeydown="return false"
+              onKeyDown="return false"
               max={remainingHitDice}
               min="0"
               value={amountOfDice}
@@ -133,7 +133,7 @@ function HitDiceActions(props) {
               <NumericInput
                 id="realDie"
                 name="hitPointsRealDie"
-                onKeydown="return false"
+                onKeyDown="return false"
                 min="0"
                 value={realDie}
                 onChange={e => setRealDie(e.target.value)}

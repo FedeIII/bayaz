@@ -1,6 +1,6 @@
 import { ARMORS } from './armors';
 import { WEAPONS } from './weapons';
-import { isAmmo } from './equipment';
+import { isAmmo, isArmor, isShield, isWeapon } from './equipment';
 import { itemWithAmount } from '../display';
 import { t } from '../translations';
 
@@ -65,12 +65,10 @@ export function parseMagicItems(magicItems) {
 export function isEquipmentItem(item) {
   return (
     isAmmo(item) ||
-    item.category === 'scroll' ||
-    item.category === 'potion' ||
-    item.category === 'wondrous' ||
-    item.category === 'ring' ||
-    item.category === 'rod' ||
-    item.category === 'wand'
+    item.type === 'scroll' ||
+    item.type === 'potion' ||
+    item.type === 'locket' ||
+    item.type === 'ring'
   );
 }
 
@@ -94,4 +92,20 @@ export function renderItemNameWithAmount(item, isDm) {
   }
 
   return itemWithAmount(item.translation || item.name, item.amount);
+}
+
+export function getSectionPath(item) {
+  if (isWeapon(item)) {
+    return 'treasure.weapons';
+  }
+  if (isArmor(item) || isShield(item)) {
+    return 'treasure.armors';
+  }
+  if (isAmmo(item)) {
+    return 'equipment.ammunition';
+  }
+  if (isEquipmentItem(item)) {
+    return 'equipment.others';
+  }
+  return 'treasure.others';
 }

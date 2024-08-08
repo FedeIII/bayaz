@@ -79,7 +79,7 @@ export function CustomStatValues(props) {
               ref={drag}
               value={stats[statName]}
               onChange={onStatChange(statName)}
-              onKeydown="return false"
+              onKeyDown="return false"
               styleName="characters__stat-value"
               disabled={!canDrag}
             />

@@ -16,8 +16,7 @@ import {
 } from '~/services/pc.server';
 import { rollDice } from '~/domain/random';
 import { getSpellSlots } from '../spells/spells';
-import { getItem, isAmmo, isArmor, isWeapon } from '../equipment/equipment';
-import { isEquipmentItem } from '../equipment/items';
+import { getItem } from '../equipment/equipment';
 import { getMaxSorcereryPoints } from '../spells/sorcerer';
 import {
   getMaxChannelDivinity,
@@ -25,6 +24,7 @@ import {
   getMaxLayOnHands,
 } from '../classes/paladin/paladin';
 import { getMaxTidesOfChaos } from '../classes/sorcerer/sorcerer';
+import { getter } from '~/utils/objects';
 
 export async function setPcStats(pcParams) {
   const {
@@ -215,37 +215,31 @@ export async function damagePc(id, damage) {
   return pc;
 }
 
-export async function addItemToTreasure(
+export async function addItemToPc(
   id,
   itemName,
   itemAmount,
+  sectionPath,
   scrollSpellLevel,
   scrollSpellName
 ) {
-  const amount = Number.isInteger(itemAmount) ? itemAmount : 1;
+  const amount = Number.isInteger(parseInt(itemAmount, 10)) ? itemAmount : 1;
   const pc = await getPc(id);
   const item = getItem(itemName);
-  const section = isEquipmentItem(item) ? 'equipment' : 'treasure';
-  const subsection = isAmmo(item)
-    ? 'ammunition'
-    : isWeapon(item)
-    ? 'weapons'
-    : isArmor(item)
-    ? 'armors'
-    : 'others';
+  const stash = getter(pc.items, sectionPath);
+  console.log('FEDE');
+  const existingItem = stash.find(
+    pItem =>
+      pItem.name === itemName &&
+      (item.type !== 'scroll' || pItem.spellName === item.spellName)
+  );
+  console.log('FEDE');
 
-  if (
-    pc.items[section][subsection].find(
-      pItem =>
-        pItem.name === itemName &&
-        (item.type !== 'scroll' || pItem.spellName === item.spellName)
-    )
-  ) {
+  if (existingItem) {
     return await increaseItemAmount(
       id,
       itemName,
-      section,
-      subsection,
+      sectionPath,
       amount,
       scrollSpellName
     );
@@ -256,5 +250,5 @@ export async function addItemToTreasure(
     pItem.spellLevel = scrollSpellLevel;
     pItem.spellName = scrollSpellName;
   }
-  return await addItemToSection(id, pItem, section, subsection);
+  return await addItemToSection(id, pItem, ...sectionPath.split('.'));
 }

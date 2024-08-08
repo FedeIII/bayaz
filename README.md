@@ -53,6 +53,7 @@ npx prisma migrate dev
 
 ## TO DOs
 
+- Remove magic-items and deps
 - Select scroll level on creation
 - Bug: right click on spells during character creation advances to next step
 - Extract textarea component

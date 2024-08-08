@@ -17,6 +17,7 @@ import {
   dropCustomItem,
   changeItemWeight,
   identifyItem,
+  changeItemCharges,
 } from '~/services/pc.server';
 import { getPackItems } from '~/domain/equipment/packs';
 import { getItem, translatePack } from '~/domain/equipment/equipment';
@@ -30,12 +31,13 @@ import { ItemModal } from '~/components/modal/itemModal';
 import { InventoryItem } from '~/components/modal/inventoryItem';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import { GrowBar } from '~/components/indicators/growBar';
-import { addItemToTreasure } from '~/domain/mutations/characterMutations';
+import { addItemToPc } from '~/domain/mutations/characterMutations';
 import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
 import { useSearchResults } from '~/components/hooks/useSearchResults';
 import NumericInput from '~/components/inputs/numeric';
 import {
+  getSectionPath,
   renderItemName,
   renderItemNameWithAmount,
 } from '~/domain/equipment/items';
@@ -145,6 +147,15 @@ async function changeAmountAction(formData) {
   }
 }
 
+async function changeChargesAction(formData) {
+  const id = formData.get('id');
+  const itemName = formData.get('itemName');
+  const newCharges = formData.get('newCharges');
+  const sectionPath = formData.get('sectionPath');
+
+  return await changeItemCharges(id, itemName, newCharges, sectionPath);
+}
+
 async function changeWeightAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
@@ -154,17 +165,19 @@ async function changeWeightAction(formData) {
   return await changeItemWeight(id, itemName, weight, section);
 }
 
-async function addItemToTreasureAction(formData) {
+async function addItemToPcAction(formData) {
   const id = formData.get('id');
   const itemName = formData.get('itemName');
   const itemAmount = formData.get('itemAmount');
+  const sectionPath = formData.get('sectionPath');
   const scrollSpellLevel = formData.get('scrollSpellLevel');
   const scrollSpellName = formData.get('scrollSpellName');
 
-  return await addItemToTreasure(
+  return await addItemToPc(
     id,
     itemName,
     itemAmount,
+    sectionPath,
     scrollSpellLevel !== 'undefiend' ? parseInt(scrollSpellLevel, 10) : null,
     scrollSpellName !== 'undefined' ? scrollSpellName : null
   );
@@ -217,10 +230,12 @@ export const action = async ({ request }) => {
     updatedPc = await dropItemAction(formData);
   } else if (action === 'changeAmount') {
     updatedPc = await changeAmountAction(formData);
+  } else if (action === 'changeCharges') {
+    updatedPc = await changeChargesAction(formData);
   } else if (action === 'changeWeight') {
     updatedPc = await changeWeightAction(formData);
-  } else if (action === 'addItemToTreasure') {
-    updatedPc = await addItemToTreasureAction(formData);
+  } else if (action === 'addItemToPc') {
+    updatedPc = await addItemToPcAction(formData);
   } else if (action === 'addArbitraryItem') {
     updatedPc = await addArbitraryItemAction(formData);
   } else if (action === 'textChange') {
@@ -242,8 +257,9 @@ function ItemModalContent(props) {
     dropItem,
     identifyItem,
     changeAmount,
+    changeCharges,
     changeWeight,
-    addToTreasure,
+    addItem,
     closeModal,
     setOnCloseModalCallback,
     isDm,
@@ -268,20 +284,26 @@ function ItemModalContent(props) {
   const [weight, setWeight] = useState(item.weight);
   const [spellName, setSpellName] = useState(item.spellName);
   const [spellLevel, setSpellLevel] = useState(String(item.subtype));
+  const [chargesLeft, setChargesLeft] = useState(
+    Number.isInteger(item.chargesLeft) ? item.chargesLeft : item.maxCharges
+  );
 
   function onAddToTreasureClick() {
-    addToTreasure(item.name, amount, spellLevel, spellName);
+    addItem(item.name, amount, getSectionPath(item), spellLevel, spellName);
     closeModal();
   }
 
   useEffect(() => {
-    if (changeWeight || changeAmount) {
+    if (changeWeight || changeAmount || item.maxCharges) {
       setOnCloseModalCallback(() => {
         if (changeWeight && weight !== item.weight) {
           changeWeight(item.name, weight, section);
         }
         if (changeAmount && amount !== item.amount) {
           changeAmount(item.name, amount, section);
+        }
+        if (item.maxCharges && chargesLeft !== item.chargesLeft) {
+          changeCharges(item.name, chargesLeft, getSectionPath(item));
         }
       });
     }
@@ -295,6 +317,11 @@ function ItemModalContent(props) {
     amount,
     item.amount,
     changeAmount,
+    item.maxCharges,
+    chargesLeft,
+    changeCharges,
+    getSectionPath,
+    item,
   ]);
 
   const itemDisplay = renderItemName(item);
@@ -308,7 +335,7 @@ function ItemModalContent(props) {
       </span>
       <div className="inventory-item__modal-content">
         <ul className="inventory-item__modal-options">
-          {!!addToTreasure && (
+          {!!addItem && (
             <li>
               <button
                 type="button"
@@ -382,6 +409,24 @@ function ItemModalContent(props) {
                 min="1"
                 value={amount}
                 onChange={e => setAmount(e.target.value)}
+                styleName="inventory-item__amount-input"
+              />
+            </li>
+          )}
+
+          {!!(
+            item.maxCharges &&
+            !isInventorySearchResults &&
+            (item.identified || isDm)
+          ) && (
+            <li>
+              Cargas:{' '}
+              <NumericInput
+                onKeyDown="return false"
+                max={item.maxCharges}
+                min="0"
+                value={chargesLeft}
+                onChange={e => setChargesLeft(e.target.value)}
                 styleName="inventory-item__amount-input"
               />
             </li>
@@ -732,6 +777,19 @@ function PcBio() {
     );
   }
 
+  function changeCharges(itemName, newCharges, sectionPath) {
+    submit(
+      {
+        action: 'changeCharges',
+        id,
+        itemName,
+        newCharges,
+        sectionPath,
+      },
+      { method: 'post' }
+    );
+  }
+
   function changeWeight(itemName, weight, section) {
     submit(
       {
@@ -745,18 +803,20 @@ function PcBio() {
     );
   }
 
-  function addToTreasure(
+  function addItem(
     itemName,
     itemAmount,
+    sectionPath,
     scrollSpellLevel,
     scrollSpellName
   ) {
     submit(
       {
-        action: 'addItemToTreasure',
+        action: 'addItemToPc',
         id,
         itemName,
         itemAmount,
+        sectionPath,
         scrollSpellLevel,
         scrollSpellName,
       },
@@ -853,6 +913,7 @@ function PcBio() {
             dropItem={dropItem}
             identifyItem={identifyItem}
             changeAmount={changeAmount}
+            changeCharges={changeCharges}
             closeModal={() => setActionModalContent(null)}
             setOnCloseModalCallback={setOnCloseModalCallback}
             isDm={isDm}
@@ -862,7 +923,7 @@ function PcBio() {
         content = props => (
           <ItemModalContent
             item={item}
-            addToTreasure={addToTreasure}
+            addItem={addItem}
             closeModal={() => setActionModalContent(null)}
             setOnCloseModalCallback={setOnCloseModalCallback}
             isDm={isDm}

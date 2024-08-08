@@ -29,8 +29,8 @@ export function ItemModalContent(props) {
   const isArmor = item.type === 'armor';
 
   const itemDescription =
-    (item.description ? item.description(pc) : '') +
-    (isDm && item.dmDescription ? item.dmDescription(pc) : '');
+    (item.description ? item.description(pc) || '' : '') +
+    (isDm && item.dmDescription ? item.dmDescription(pc) || '' : '');
 
   return (
     <>
@@ -87,14 +87,14 @@ export function ItemModalContent(props) {
               {item.weight ? item.weight + ' kg' : '-'}
             </strong>
           </li>
-          {/* {item.charges !== null && (
+          {!!(item.maxCharges && (item.identified || isDm)) && (
             <li className="inventory-item__modal-item">
               <span className="inventory-item__modal-row-title">Cargas:</span>{' '}
               <strong className="inventory-item__modal-row-value">
-                {item.charges}/{item.maxCharges}
+                {item.chargesLeft || item.maxCharges}/{item.maxCharges}
               </strong>
             </li>
-          )} */}
+          )}
         </ul>
 
         {!!((item.identified || isDm) && itemDescription) && (

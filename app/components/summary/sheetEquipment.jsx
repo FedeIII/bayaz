@@ -3,22 +3,26 @@ import { useEffect, useState } from 'react';
 import { InventoryItem } from '../modal/inventoryItem';
 import { getItem } from '~/domain/equipment/equipment';
 import { t } from '~/domain/translations';
-import { hasActions, renderItemName } from '~/domain/equipment/items';
+import {
+  getSectionPath,
+  hasActions,
+  renderItemName,
+} from '~/domain/equipment/items';
 import NumericInput from '../inputs/numeric';
 import {
   addOtherEquipment,
   changeEquipmentAmmoAmount,
   changeEquipmentOtherAmount,
+  changeItemCharges,
   dropEquipmentAmmo,
   dropEquipmentOther,
-  getPc,
+  identifyItem,
   switchArmor,
   switchShield,
   unequipArmor,
   unequipShield,
   updatePc,
 } from '~/services/pc.server';
-import { changeMagicCharges, useCharge } from '~/services/item.server';
 
 const noOp = () => {};
 
@@ -65,15 +69,6 @@ export const actions = {
     await dropEquipmentOther(id, itemName);
   },
 
-  useCharge: async formData => {
-    const id = formData.get('id');
-    const itemId = formData.get('itemId');
-
-    await useCharge(itemId);
-
-    return await getPc(id);
-  },
-
   changeAmmoAmount: async formData => {
     const id = formData.get('id');
     const itemName = formData.get('itemName');
@@ -90,16 +85,6 @@ export const actions = {
     await changeEquipmentOtherAmount(id, itemName, itemAmount);
   },
 
-  changeMagicCharges: async formData => {
-    const id = formData.get('id');
-    const itemId = formData.get('itemId');
-    const charges = formData.get('charges');
-
-    await changeMagicCharges(itemId, charges);
-
-    return await getPc(id);
-  },
-
   changeMoney: async formData => {
     const id = formData.get('id');
     const coin = formData.get('coin');
@@ -113,6 +98,29 @@ export const actions = {
     const itemName = formData.get('itemName');
 
     return await addOtherEquipment(id, itemName);
+  },
+
+  identifyItem: async formData => {
+    const id = formData.get('id');
+    const section = formData.get('section');
+    const itemName = formData.get('itemName');
+    const itemSpellName = formData.get('itemSpellName');
+
+    return await identifyItem(
+      id,
+      section,
+      itemName,
+      itemSpellName !== 'undefined' ? itemSpellName : null
+    );
+  },
+
+  changeCharges: async formData => {
+    const id = formData.get('id');
+    const itemName = formData.get('itemName');
+    const newCharges = formData.get('newCharges');
+    const sectionPath = formData.get('sectionPath');
+
+    return await changeItemCharges(id, itemName, newCharges, sectionPath);
   },
 };
 
@@ -178,12 +186,14 @@ function ArmorModalContent(props) {
 function ItemModalContent(props) {
   const {
     item,
+    pc,
     dropItem,
-    useItem,
     changeAmount,
-    changeCharges,
     closeModal,
+    identifyItem,
+    changeCharges,
     setOnCloseModalCallback,
+    isDm,
   } = props;
 
   function onDropClick() {
@@ -191,25 +201,44 @@ function ItemModalContent(props) {
     closeModal();
   }
 
-  function onUseClick() {
-    useItem(item);
+  function onIdentifyClick(e) {
+    const [itemName, itemSpellName] = e.target.value.split(':');
+    identifyItem(
+      pc.id,
+      getSectionPath(getItem(itemName)),
+      itemName,
+      itemSpellName
+    );
     closeModal();
   }
 
   const [amount, setAmount] = useState(item.amount);
-  const [charges, setCharges] = useState(item.charges);
-  function onChangeChargesClick() {
-    changeCharges(item.id, charges);
-    closeModal();
-  }
+  const [chargesLeft, setChargesLeft] = useState(
+    Number.isInteger(item.chargesLeft) ? item.chargesLeft : item.maxCharges
+  );
 
   useEffect(() => {
     setOnCloseModalCallback(() => {
       if (amount !== item.amount) {
         changeAmount(item.name, amount);
       }
+      if (item.maxCharges && chargesLeft !== item.chargesLeft) {
+        changeCharges(item.name, chargesLeft, getSectionPath(item));
+      }
     });
-  }, [setOnCloseModalCallback, amount, item.amount, item.name, changeAmount]);
+  }, [
+    setOnCloseModalCallback,
+    amount,
+    item.amount,
+    item.name,
+    changeAmount,
+    item.maxCharges,
+    chargesLeft,
+    item.chargesLeft,
+    changeCharges,
+    getSectionPath,
+    item,
+  ]);
 
   const itemName = renderItemName(getItem(item));
 
@@ -234,23 +263,34 @@ function ItemModalContent(props) {
             </li>
           )}
 
-          {!!(changeCharges && item.charges) && (
+          {!!(item.maxCharges && (item.identified || isDm)) && (
+            <li>
+              Cargas:{' '}
+              <NumericInput
+                onKeyDown="return false"
+                max={item.maxCharges}
+                min="0"
+                value={chargesLeft}
+                onChange={e => setChargesLeft(e.target.value)}
+                styleName="inventory-item__amount-input"
+              />
+            </li>
+          )}
+
+          {!!(isDm && item.description && !item.identified) && (
             <li>
               <button
                 type="button"
-                className="inventory-item__drop-item-button"
-                onClick={onChangeChargesClick}
+                className="sheet__select-attack"
+                value={
+                  item.type === 'scroll'
+                    ? `${item.name}:${item.spellName}`
+                    : item.name
+                }
+                onClick={onIdentifyClick}
               >
-                Cambiar cargas
-              </button>{' '}
-              <NumericInput
-                name="amount"
-                min="0"
-                max={item.maxCharges}
-                value={charges}
-                onChange={e => setCharges(e.target.value)}
-                styleName="inventory-item__amount-input"
-              />
+                Identificar {itemName}
+              </button>
             </li>
           )}
 
@@ -262,18 +302,6 @@ function ItemModalContent(props) {
                 onClick={onDropClick}
               >
                 Quitar {itemName}
-              </button>
-            </li>
-          )}
-
-          {!!useItem && (
-            <li>
-              <button
-                type="button"
-                className="inventory-item__drop-item-button"
-                onClick={onUseClick}
-              >
-                Usar {itemName}
               </button>
             </li>
           )}
@@ -293,6 +321,7 @@ function SheetEquipment(props) {
     setActionModalContent,
     setOnCloseModalCallback,
     submit,
+    isDm,
   } = props;
   const { money, items: { equipment = {}, treasure = {} } = {} } = pc;
 
@@ -374,17 +403,6 @@ function SheetEquipment(props) {
     );
   }
 
-  function useCharge(item) {
-    submit(
-      {
-        action: 'useCharge',
-        id: pc.id,
-        itemId: item.id,
-      },
-      { method: 'post' }
-    );
-  }
-
   function changeAmmoAmount(itemName, itemAmount) {
     submit(
       {
@@ -409,18 +427,6 @@ function SheetEquipment(props) {
     );
   }
 
-  function changeMagicCharges(itemId, charges) {
-    submit(
-      {
-        action: 'changeMagicCharges',
-        id: pc.id,
-        itemId,
-        charges,
-      },
-      { method: 'post' }
-    );
-  }
-
   function addArbitraryItem() {
     setArbitraryItem('');
     submit(
@@ -428,6 +434,32 @@ function SheetEquipment(props) {
         action: 'addArbitraryItem',
         id: pc.id,
         itemName: arbitratyItem,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function identifyItem(pcId, section, itemName, itemSpellName) {
+    submit(
+      {
+        action: 'identifyItem',
+        id: pcId,
+        section,
+        itemName,
+        itemSpellName,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function changeCharges(itemName, newCharges, sectionPath) {
+    submit(
+      {
+        action: 'changeCharges',
+        id: pc.id,
+        itemName,
+        newCharges,
+        sectionPath,
       },
       { method: 'post' }
     );
@@ -470,10 +502,13 @@ function SheetEquipment(props) {
           setActionModalContent(() => props => (
             <ItemModalContent
               item={item}
+              pc={pc}
               dropItem={dropAmmo}
               changeAmount={changeAmmoAmount}
+              identifyItem={identifyItem}
               closeModal={() => setActionModalContent(null)}
               setOnCloseModalCallback={setOnCloseModalCallback}
+              isDm={isDm}
             />
           )),
         0
@@ -487,23 +522,19 @@ function SheetEquipment(props) {
       if (hasActions(item)) {
         setSelectedItemRef(itemRefs.others[itemIndex]);
 
-        const useItem = item.consumable
-          ? dropOther
-          : item.charges !== null
-          ? useCharge
-          : noOp;
-
         setTimeout(
           () =>
             setActionModalContent(() => props => (
               <ItemModalContent
                 item={item}
+                pc={pc}
                 changeAmount={changeOtherAmount}
                 dropItem={dropOther}
-                useItem={useItem}
-                changeCharges={changeMagicCharges}
+                identifyItem={identifyItem}
+                changeCharges={changeCharges}
                 closeModal={() => setActionModalContent(null)}
                 setOnCloseModalCallback={setOnCloseModalCallback}
+                isDm={isDm}
               />
             )),
           0

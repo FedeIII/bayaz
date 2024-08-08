@@ -68,23 +68,3 @@ export async function deleteItem(id) {
   const { deletedCount } = await Item.deleteOne({ id });
   return deletedCount;
 }
-
-export async function useCharge(id) {
-  const updatedItem = await Item.findOneAndUpdate(
-    { id },
-    { $inc: { charges: -1 } },
-    { new: true }
-  ).exec();
-
-  return updatedItem;
-}
-
-export async function changeMagicCharges(id, charges) {
-  const updatedItem = await Item.findOneAndUpdate(
-    { id },
-    { $set: { charges } },
-    { new: true }
-  ).exec();
-
-  return updatedItem;
-}

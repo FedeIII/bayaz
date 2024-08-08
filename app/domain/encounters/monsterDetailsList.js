@@ -9140,10 +9140,14 @@ export const MONSTER_DETAILS_LIST = {
     Skills: 'Deception +4, Persuasion +4, Religion +2',
     Senses: 'passive Perception 11',
     Languages: 'any one language (usually Common)',
+    'Devoción Oscura':
+      ' El fanático tiene ventaja en las tiradas de salvación para evitar ser hechizado o asustado.',
     Challenge: '2 (450 XP)',
-    'Cantrips (at will): ': '',
-    '1st level (4 slots): ': '',
-    '2nd level (3 slots): ': '',
+    Spellcasting:
+      'El fanático es un lanzador de conjuros de nivel 4. Su aptitud mágica es Sabiduría (salvación de conjuros CD 11, +3 a impactar con ataques de conjuro). Tiene preparados los conjuros de clérigo siguientes',
+    'Trucos: ': 'llama sagrada, luz, taumaturgia',
+    'Nivel 1 (4 huecos): ': 'escudo de fe, infligir heridas, orden imperiosa',
+    'Nivel 2 (3 huecos): ': 'arma espiritual, inmovilizar persona',
   },
   Druid: {
     actions: {},

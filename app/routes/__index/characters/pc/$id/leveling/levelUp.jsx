@@ -108,7 +108,7 @@ function LevelUp() {
           <NumericInput
             id="realDice"
             name="hitPointsRealDice"
-            onKeydown="return false"
+            onKeyDown="return false"
             max={getMaxHealthForLevelUp(pc)}
             min="1"
           />

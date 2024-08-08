@@ -96,6 +96,7 @@ const itemSchema = new mongoose.Schema({
   identified: Boolean,
   spellLevel: Number,
   spellName: String,
+  chargesLeft: Number,
 });
 
 const spellSchema = new mongoose.Schema({
@@ -1119,6 +1120,21 @@ export async function changeCustomItemAmount(id, itemName, itemAmount) {
   return updatedPc;
 }
 
+export async function changeItemCharges(id, itemName, newCharges, sectionPath) {
+  console.log('FEDE');
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id, [`items.${sectionPath}.name`]: itemName },
+    {
+      $set: {
+        [`items.${sectionPath}.$.chargesLeft`]: parseInt(newCharges, 10),
+      },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
 export async function changeItemWeight(id, itemName, weight, section) {
   const pc = await Pc.findOne({ id });
 
@@ -1141,25 +1157,24 @@ export async function dropEquipmentAmmo(id, itemName) {
   return updatedPc;
 }
 
-export async function dropEquipmentOther(id, itemName) {
-  let updatedPc = await Pc.findOneAndUpdate(
-    { id, 'items.equipment.others.name': itemName },
-    { $inc: { 'items.equipment.others.$.amount': -1 } },
-    { new: true }
+export async function dropEquipmentOther(id, itemName, itemSpellName) {
+  const pc = await getPc(id);
+
+  const item = pc.items.equipment.others.find(pItem =>
+    itemSpellName
+      ? pItem.name === itemName && pItem.spellName === itemSpellName
+      : pItem.name === itemName
   );
 
-  if (
-    updatedPc.items.equipment.others.find(item => item.name === itemName)
-      .amount === 0
-  ) {
-    updatedPc = await Pc.findOneAndUpdate(
-      { id },
-      { $pull: { 'items.equipment.others': { name: itemName } } },
-      { new: true }
-    );
+  if (!item) return pc;
+
+  if (item.amount > 1) {
+    item.amount -= 1;
+  } else {
+    pc.items.equipment.others.pull(item._id);
   }
 
-  return updatedPc;
+  return await pc.save();
 }
 
 export async function changeEquipmentAmmoAmount(id, itemName, itemAmount) {
@@ -1186,9 +1201,9 @@ export async function changeEquipmentOtherAmount(id, itemName, itemAmount) {
   return updatedPc;
 }
 
-export async function identifyItem(id, section, itemName, itemSpellName) {
+export async function identifyItem(id, sectionPath, itemName, itemSpellName) {
   const pc = await getPc(id);
-  const item = getter(pc.items, section)?.find(
+  const item = getter(pc.items, sectionPath)?.find(
     item =>
       item.name === itemName &&
       (!itemSpellName || item.spellName === itemSpellName)
@@ -1352,24 +1367,22 @@ export async function addItemToSection(id, item, section, subsection) {
 export async function increaseItemAmount(
   id,
   itemName,
-  section,
-  subsection,
+  sectionPath,
   amount,
   scrollSpellName
 ) {
   const filter = {
     id,
-    [`items.${section}.${subsection}.name`]: itemName,
-    [`items.${section}.${subsection}.spellName`]: scrollSpellName,
+    [`items.${sectionPath}.name`]: itemName,
   };
 
   if (scrollSpellName) {
-    filter[`items.${section}.${subsection}.scpellName`] = scrollSpellName;
+    filter[`items.${sectionPath}.scpellName`] = scrollSpellName;
   }
 
   const updatedPc = await Pc.findOneAndUpdate(
     filter,
-    { $inc: { [`items.${section}.${subsection}.$.amount`]: amount } },
+    { $inc: { [`items.${sectionPath}.$.amount`]: amount } },
     { new: true }
   );
 

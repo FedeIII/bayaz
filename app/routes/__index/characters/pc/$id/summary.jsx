@@ -619,6 +619,7 @@ function PcSummary() {
           setActionModalContent={setActionModalContent}
           setOnCloseModalCallback={setOnCloseModalCallback}
           submit={submit}
+          isDm={isDm}
         />
 
         {/* FREETEXT */}

@@ -104,6 +104,12 @@ function getScrollGoldPieces(spellLevel) {
   }[spellLevel];
 }
 
+export function isSameScroll(item1, item2) {
+  return (
+    item1.spellName && item2.spellName && item1.spellName === item2.spellName
+  );
+}
+
 const LOCKETS = {
   burningShadows(props) {
     return {
@@ -123,14 +129,28 @@ const LOCKETS = {
   },
 };
 
-export function isSameScroll(item1, item2) {
-  return (
-    item1.spellName && item2.spellName && item1.spellName === item2.spellName
-  );
-}
+const RINGS = {
+  ramRing(props) {
+    return {
+      name: 'ramRing',
+      type: 'ring',
+      translation: 'Anillo del Carnero',
+      unidentifiedName: 'Anillo con cuernos',
+      rarity: 'rare',
+      price: { gp: 1000 },
+      weight: 0.05,
+      maxCharges: 3,
+      description: () => `<p>Require sintonización</p>
+      <p>Este anillo tiene 3 cargas, y recupera 1d3 cargas empleadas cada día, al amanecer. Mientras lo lleves, puedes utilizar una acción y gastar de 1 a 3 cargas para atacar a una criatura que puedas ver y que se encuentre a 60 pies o menos de ti. El anillo produce una cabeza de carne ro espectral, que hace su tirada de ataque con un bonificador de +7. Si impacta, el objetivo recibe 2d10 de daño de fuerza por cada carga gastada y es empujado 5 pies en dirección contraria a ti.</p>
+      <p>De forma alternativa, puedes utilizar una acción y gastar 1 de las 3 cargas del anillo para intentar romper un objeto que puedas ver, esté situado a 60 pies o menos de ti y no lleve o vista nadie. El anillo realiza una prueba de Fuerza con un bonificador de +5 por cada carga que gastes.</p>`,
+      ...props,
+    };
+  },
+};
 
 export const MAGIC_ITEMS = {
   ...POTIONS,
   ...SCROLLS,
   ...LOCKETS,
+  ...RINGS,
 };
