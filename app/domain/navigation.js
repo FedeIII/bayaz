@@ -6,6 +6,7 @@ const menuLinks = [
   { name: 'Perfil', url: '/', level: 0, isForPlayers: true },
   { name: 'Dados', url: '/dice', level: 0, isForPlayers: true },
   { name: 'Lugares', url: '/places', level: 0, isForPlayers: false },
+  { name: 'Mapa', url: '/map', level: 0, isForPlayers: false },
   { name: 'Personajes', url: '/characters', level: 0, isForPlayers: true },
   { name: 'Party', url: '/party', level: 0, isForPlayers: false },
   { name: 'Encuentros', url: '/encounters', level: 0, isForPlayers: false },
