@@ -85,6 +85,7 @@ function attrToSchema(attrs) {
   if (attrs.knownFor) newAttrs.knownFor = attrs.knownFor;
   if (attrs.calamity) newAttrs.calamity = attrs.calamity;
   if (attrs.notes) newAttrs.notes = attrs.notes;
+  if (attrs.location) newAttrs.location = attrs.location;
 
   return newAttrs;
 }

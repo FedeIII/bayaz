@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLoaderData } from '@remix-run/react';
-import { json } from '@remix-run/node';
-import { getSettlements } from '~/services/settlements.server';
+import { Form, useLoaderData } from '@remix-run/react';
+import { json, redirect } from '@remix-run/node';
+import {
+  createSettlement,
+  getSettlements,
+} from '~/services/settlements.server';
 
 // x c [0, 100] left to right
 // y c [0, 120] bottom to top
@@ -38,16 +41,33 @@ export const loader = async () => {
   });
 };
 
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+
+  const lat = formData.get('lat');
+  const lng = formData.get('lng');
+  const type = formData.get('type');
+
+  const settlement = await createSettlement({
+    location: { lat: parseFloat(lat), lng: parseFloat(lng) },
+    type,
+  });
+
+  return redirect(`/places/settlement/${settlement.id}`);
+};
+
 function Map() {
   const { settlements } = useLoaderData();
   const [L, setL] = useState(null);
   const [Lb, setLb] = useState(null);
   const [zoom, setZoom] = useState(initZoom);
+  const [newLocation, setNewLocation] = useState(null);
 
   function MapEvents() {
     L.useMapEvents({
       click: e => {
         console.log('Click', [e.latlng.lat, e.latlng.lng], e);
+        setNewLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
       },
       zoom: e => {
         console.log('Zoom', e.target._zoom, e);
@@ -67,7 +87,25 @@ function Map() {
   }, [Lb]);
 
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <Form method="post" style={{ width: '100vw', height: '100vh' }}>
+      {!!newLocation && (
+        <>
+          <input
+            readOnly
+            type="text"
+            name="lat"
+            value={newLocation.lat}
+            hidden
+          />
+          <input
+            readOnly
+            type="text"
+            name="lng"
+            value={newLocation.lng}
+            hidden
+          />
+        </>
+      )}
       {!!L && !!Lb && (
         <L.MapContainer
           // center={[y^, x>]}
@@ -93,36 +131,77 @@ function Map() {
               <L.Popup>{settlement.name}</L.Popup>
             </L.CircleMarker>
           ))}
+          {!!newLocation && (
+            <L.CircleMarker
+              center={[newLocation.lat, newLocation.lng]}
+              pathOptions={{ color: '#dd2a2a' }}
+              radius={5}
+            >
+              <L.Popup>
+                <select name="type" defaultValue="village">
+                  <option value="village">Aldea</option>
+                  <option value="town">Pueblo</option>
+                  <option value="city">Ciudad</option>
+                </select>
+                <button type="submit">Crear</button>
+              </L.Popup>
+            </L.CircleMarker>
+          )}
           <L.SVGOverlay bounds={bounds}>
-            {zoom > 4 &&
-              settlements.map(settlement => (
-                <text
-                  key={settlement.name}
-                  // x >
-                  // y v
-                  x={`${
-                    (settlement.location.lng / bounds[1][1]) * 100 -
-                    0.1 +
-                    getLabelOffset(zoom) * (zoom - initZoom)
-                  }%`}
-                  y={`${
-                    (1 - settlement.location.lat / bounds[1][0]) * 100 -
-                    0.1 +
-                    getLabelOffset(zoom) * (zoom - initZoom)
-                  }%`}
-                  textAnchor="end"
-                  fontFamily="Rosarivo"
-                  fontSize="16px"
-                  stroke="#dd2a2a"
-                >
-                  {settlement.name}
-                </text>
-              ))}
+            {zoom > 4 && (
+              <>
+                {settlements.map(settlement => (
+                  <text
+                    key={settlement.name}
+                    // x >
+                    // y v
+                    x={`${
+                      (settlement.location.lng / bounds[1][1]) * 100 -
+                      0.1 +
+                      getLabelOffset(zoom) * (zoom - initZoom)
+                    }%`}
+                    y={`${
+                      (1 - settlement.location.lat / bounds[1][0]) * 100 -
+                      0.1 +
+                      getLabelOffset(zoom) * (zoom - initZoom)
+                    }%`}
+                    textAnchor="end"
+                    fontFamily="Rosarivo"
+                    fontSize="16px"
+                    stroke="#dd2a2a"
+                  >
+                    {settlement.name}
+                  </text>
+                ))}
+                {!!newLocation && (
+                  <text
+                    // x >
+                    // y v
+                    x={`${
+                      (newLocation.lng / bounds[1][1]) * 100 -
+                      0.1 +
+                      getLabelOffset(zoom) * (zoom - initZoom)
+                    }%`}
+                    y={`${
+                      (1 - newLocation.lat / bounds[1][0]) * 100 -
+                      0.1 +
+                      getLabelOffset(zoom) * (zoom - initZoom)
+                    }%`}
+                    textAnchor="end"
+                    fontFamily="Rosarivo"
+                    fontSize="16px"
+                    stroke="#dd2a2a"
+                  >
+                    New
+                  </text>
+                )}
+              </>
+            )}
           </L.SVGOverlay>
           <MapEvents />
         </L.MapContainer>
       )}
-    </div>
+    </Form>
   );
 }
 

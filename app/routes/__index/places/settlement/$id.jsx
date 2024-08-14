@@ -147,6 +147,45 @@ export const action = async ({ request }) => {
   return redirect(`/places/settlement/${settlement.id}`);
 };
 
+function createRandomPlace(type, files) {
+  const population = getPopulation(TYPES[type]);
+  const accommodation = getSettlementAccommodation(type, population);
+  const government = getSettlementGovernment(type);
+  const commerces = getSettlementCommerces(type);
+  const religion = getSettlementReligion(type);
+  const placeCharacteristics = getSettlementPlaceCharacteristics(type);
+  const img = randomSettlementImage(type, {
+    files,
+    population,
+    accommodation,
+    government,
+    commerces,
+    religion,
+    placeCharacteristics,
+  });
+
+  return {
+    name: randomSettlementName(),
+    type: type,
+    img,
+    dominion: '',
+    subdominion: '',
+    population,
+    accommodation,
+    government,
+    security: getSettlementSecurity(type, population),
+    securityType:
+      type === 'village' ? getVillageSecurityType(population) : 'guards',
+    commerces,
+    religion,
+    magicShops: getSettlementMagicShops(type, population),
+    raceRelationships: getSettlementRaceRelationships(type),
+    placeCharacteristics,
+    knownFor: getSettlementKnownFor(type),
+    calamity: getSettlementCalamity(type),
+  };
+}
+
 function SettlementScreen() {
   const { place, id, typeParam, files, rng } = useLoaderData();
 
@@ -252,80 +291,49 @@ function SettlementScreen() {
 
   useEffect(() => {
     if (id) {
-      setPlaceState(old => ({
-        ...old,
-        type: typeParam || place.type,
-        name: place.name,
-        img: place.img,
-        dominion: place.dominion,
-        subdominion: place.subdominion,
-        population: place.population,
-        accommodation: place.accommodation,
-        government: [place.government?.type, place.government?.situation],
-        securityType: place.securityType,
-        security: place.security,
-        commerces: place.commerces,
-        religion: place.religion,
-        magicShops: place.magicShops,
-        raceRelationships: place.raceRelationships,
-        placeCharacteristics: place.placeCharacteristics,
-        knownFor: place.knownFor,
-        calamity: place.calamity,
-        notes: place.notes,
-      }));
+      let randomPlace = place;
+      if (place.name) {
+        setPlaceState(old => ({
+          ...old,
+          type: typeParam || place.type,
+          name: place.name,
+          img: place.img,
+          dominion: place.dominion,
+          subdominion: place.subdominion,
+          population: place.population,
+          accommodation: place.accommodation,
+          government: [place.government?.type, place.government?.situation],
+          securityType: place.securityType,
+          security: place.security,
+          commerces: place.commerces,
+          religion: place.religion,
+          magicShops: place.magicShops,
+          raceRelationships: place.raceRelationships,
+          placeCharacteristics: place.placeCharacteristics,
+          knownFor: place.knownFor,
+          calamity: place.calamity,
+          notes: place.notes,
+        }));
+      } else {
+        randomPlace = createRandomPlace(typeParam || place.type, files);
+        setPlaceState(randomPlace);
+      }
 
-      setTavernsAmount(place.accommodation?.length || 0);
-      setCommercesAmount(place.commerces?.length || 0);
-      setTemplesAmount(place.religion?.temples?.length || 0);
-      setShrinesAmount(place.religion?.shrines?.length || 0);
+      setTavernsAmount(randomPlace.accommodation?.length || 0);
+      setCommercesAmount(randomPlace.commerces?.length || 0);
+      setTemplesAmount(randomPlace.religion?.temples?.length || 0);
+      setShrinesAmount(randomPlace.religion?.shrines?.length || 0);
     }
   }, [place]);
 
   useEffect(() => {
     if (typeParam) {
-      const population = getPopulation(TYPES[typeParam]);
-      const accommodation = getSettlementAccommodation(typeParam, population);
-      const government = getSettlementGovernment(typeParam);
-      const commerces = getSettlementCommerces(typeParam);
-      const religion = getSettlementReligion(typeParam);
-      const placeCharacteristics = getSettlementPlaceCharacteristics(typeParam);
-      const img = randomSettlementImage(typeParam, {
-        files,
-        population,
-        accommodation,
-        government,
-        commerces,
-        religion,
-        placeCharacteristics,
-      });
-
-      setPlaceState({
-        name: randomSettlementName(),
-        type: typeParam,
-        img,
-        dominion: '',
-        subdominion: '',
-        population,
-        accommodation,
-        government,
-        security: getSettlementSecurity(typeParam, population),
-        securityType:
-          typeParam === 'village'
-            ? getVillageSecurityType(population)
-            : 'guards',
-        commerces,
-        religion,
-        magicShops: getSettlementMagicShops(typeParam, population),
-        raceRelationships: getSettlementRaceRelationships(typeParam),
-        placeCharacteristics,
-        knownFor: getSettlementKnownFor(typeParam),
-        calamity: getSettlementCalamity(typeParam),
-      });
-
-      setTavernsAmount(accommodation?.length || 0);
-      setCommercesAmount(commerces?.length || 0);
-      setTemplesAmount(religion?.temples?.length || 0);
-      setShrinesAmount(religion?.shrines?.length || 0);
+      const randomPlace = createRandomPlace(typeParam, files);
+      setPlaceState(randomPlace);
+      setTavernsAmount(randomPlace.accommodation?.length || 0);
+      setCommercesAmount(randomPlace.commerces?.length || 0);
+      setTemplesAmount(randomPlace.religion?.temples?.length || 0);
+      setShrinesAmount(randomPlace.religion?.shrines?.length || 0);
     }
   }, [rng, typeParam]);
 
