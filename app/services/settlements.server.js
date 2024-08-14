@@ -22,6 +22,11 @@ const religionSchema = new mongoose.Schema({
   shrines: [String],
 });
 
+const locationSchema = new mongoose.Schema({
+  lat: Number,
+  lng: Number,
+});
+
 const settlementSchema = new mongoose.Schema({
   id: String,
   type: { type: String, enum: ['village', 'town', 'city'] },
@@ -42,6 +47,7 @@ const settlementSchema = new mongoose.Schema({
   dominion: { type: String, enum: DOMINION_NAMES },
   subdominion: String,
   notes: String,
+  location: locationSchema,
 });
 
 const Settlement =

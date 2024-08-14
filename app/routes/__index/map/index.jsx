@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useLoaderData } from '@remix-run/react';
+import { json } from '@remix-run/node';
+import { getSettlements } from '~/services/settlements.server';
 
 // x c [0, 100] left to right
 // y c [0, 120] bottom to top
-
-const markers = [
-  { x: 31.556205070206275, y: 53.690155029296875, label: 'Thalesferro' },
-  { x: 31.56792092039059, y: 54.319061279296875, label: 'Bahía del Hierro' },
-  // { x: 75, y: 0, label: 'Test' },
-  // { x: 75, y: 25, label: 'Test1.5' },
-  // { x: 75, y: 50, label: 'Test2' },
-  // { x: 75, y: 75, label: 'Test2.5' },
-  // { x: 75, y: 100, label: 'Test3' },
-];
 
 const bounds = [
   [0, 0],
@@ -34,7 +27,19 @@ function getLabelOffset(zoom) {
   return labelOffsetMap[zoom];
 }
 
+export const loader = async () => {
+  const settlements = await getSettlements();
+  if (!settlements) {
+    throw new Error('Party not found');
+  }
+
+  return json({
+    settlements: settlements.filter(settlement => !!settlement.location),
+  });
+};
+
 function Map() {
+  const { settlements } = useLoaderData();
   const [L, setL] = useState(null);
   const [Lb, setLb] = useState(null);
   const [zoom, setZoom] = useState(initZoom);
@@ -78,30 +83,30 @@ function Map() {
             url="http://localhost:3000/images/map_raw.png"
             bounds={bounds}
           />
-          {markers.map(marker => (
+          {settlements.map(settlement => (
             <L.CircleMarker
-              key={marker.label}
-              center={[marker.y, marker.x]}
+              key={settlement.name}
+              center={[settlement.location.lat, settlement.location.lng]}
               pathOptions={{ color: '#dd2a2a' }}
               radius={5}
             >
-              <L.Popup>{marker.label}</L.Popup>
+              <L.Popup>{settlement.name}</L.Popup>
             </L.CircleMarker>
           ))}
           <L.SVGOverlay bounds={bounds}>
             {zoom > 4 &&
-              markers.map(marker => (
+              settlements.map(settlement => (
                 <text
-                  key={marker.label}
+                  key={settlement.name}
                   // x >
                   // y v
                   x={`${
-                    (marker.x / bounds[1][1]) * 100 -
+                    (settlement.location.lng / bounds[1][1]) * 100 -
                     0.1 +
                     getLabelOffset(zoom) * (zoom - initZoom)
                   }%`}
                   y={`${
-                    (1 - marker.y / bounds[1][0]) * 100 -
+                    (1 - settlement.location.lat / bounds[1][0]) * 100 -
                     0.1 +
                     getLabelOffset(zoom) * (zoom - initZoom)
                   }%`}
@@ -110,7 +115,7 @@ function Map() {
                   fontSize="16px"
                   stroke="#dd2a2a"
                 >
-                  {marker.label}
+                  {settlement.name}
                 </text>
               ))}
           </L.SVGOverlay>
