@@ -391,6 +391,11 @@ html {
   transition: margin ease-in;
 }
 
+.leaflet-container {
+  background: #000; /* Map background color */
+  border: 2px solid #333; /* Optional: border around the map */
+}
+
 @keyframes bouncing_trait {
   0% {
     margin-top: 2px;

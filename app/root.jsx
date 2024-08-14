@@ -95,6 +95,8 @@ export default function App() {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Rosarivo"
         />
+        <link rel="stylesheet" href="/lib/leaflet/leaflet.css" />
+        <script src="/lib/leaflet/leaflet.js"></script>
       </head>
       <body>
         <DndProvider backend={HTML5Backend}>
