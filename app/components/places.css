@@ -116,6 +116,12 @@
   width: 50%;
 }
 
+.places__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .places__group-title {
   display: flex;
 }
@@ -272,6 +278,15 @@
 
 .places__trait-input--number-4 {
   width: 60px;
+}
+
+.places__trait-input--highlight {
+  border: 1px solid var(--color-light);
+}
+
+.places__trait-inputs-vertical {
+  display: flex;
+  flex-direction: column;
 }
 
 .places__trait-select {

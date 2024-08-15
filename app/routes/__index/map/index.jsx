@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form, Link, useLoaderData } from '@remix-run/react';
 import { json, redirect } from '@remix-run/node';
 import {
   createSettlement,
   getSettlements,
 } from '~/services/settlements.server';
+import MapPopup from '~/components/map/mapPopup';
+
+import styles from '~/components/map/map.css';
+export const links = () => {
+  return [{ rel: 'stylesheet', href: styles }];
+};
 
 // x c [0, 100] left to right
 // y c [0, 120] bottom to top
@@ -30,14 +36,22 @@ function getLabelOffset(zoom) {
   return labelOffsetMap[zoom];
 }
 
-export const loader = async () => {
+export const loader = async ({ request }) => {
+  const url = new URL(request.url);
+  let lat = url.searchParams.get('lat');
+  let lng = url.searchParams.get('lng');
+
   const settlements = await getSettlements();
   if (!settlements) {
     throw new Error('Party not found');
   }
 
+  const center =
+    lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : null;
+
   return json({
     settlements: settlements.filter(settlement => !!settlement.location),
+    center,
   });
 };
 
@@ -57,11 +71,13 @@ export const action = async ({ request }) => {
 };
 
 function Map() {
-  const { settlements } = useLoaderData();
+  const { settlements, center: initCenter } = useLoaderData();
   const [L, setL] = useState(null);
   const [Lb, setLb] = useState(null);
   const [zoom, setZoom] = useState(initZoom);
   const [newLocation, setNewLocation] = useState(null);
+
+  const center = initCenter || [52, 35];
 
   function MapEvents() {
     L.useMapEvents({
@@ -109,7 +125,7 @@ function Map() {
       {!!L && !!Lb && (
         <L.MapContainer
           // center={[y^, x>]}
-          center={[52, 35]}
+          center={center}
           zoom={initZoom}
           minZoom="2"
           maxZoom="10"
@@ -128,7 +144,19 @@ function Map() {
               pathOptions={{ color: '#dd2a2a' }}
               radius={5}
             >
-              <L.Popup>{settlement.name}</L.Popup>
+              <MapPopup L={L} title={settlement.name}>
+                <ul className="map__popup-options">
+                  <li>
+                    <Link
+                      to={`/places/settlement/${settlement.id}`}
+                      target="_blank"
+                      className="places__save"
+                    >
+                      {settlement.name || 'Sin nombre'}
+                    </Link>
+                  </li>
+                </ul>
+              </MapPopup>
             </L.CircleMarker>
           ))}
           {!!newLocation && (
@@ -137,14 +165,14 @@ function Map() {
               pathOptions={{ color: '#dd2a2a' }}
               radius={5}
             >
-              <L.Popup>
+              <MapPopup L={L} title="Nuevo asentamiento">
                 <select name="type" defaultValue="village">
                   <option value="village">Aldea</option>
                   <option value="town">Pueblo</option>
                   <option value="city">Ciudad</option>
                 </select>
                 <button type="submit">Crear</button>
-              </L.Popup>
+              </MapPopup>
             </L.CircleMarker>
           )}
           <L.SVGOverlay bounds={bounds}>

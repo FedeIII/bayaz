@@ -47,7 +47,7 @@ const settlementSchema = new mongoose.Schema({
   dominion: { type: String, enum: DOMINION_NAMES },
   subdominion: String,
   notes: String,
-  location: locationSchema,
+  location: { type: locationSchema, default: null },
 });
 
 const Settlement =

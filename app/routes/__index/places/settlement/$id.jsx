@@ -114,6 +114,10 @@ export const loader = async ({ params, request }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const id = formData.get('id');
+  const lat = formData.get('lat');
+  const lng = formData.get('lng');
+  const location =
+    lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : null;
 
   const attrs = {
     type: formData.get('type'),
@@ -135,6 +139,8 @@ export const action = async ({ request }) => {
     knownFor: formData.get('knownFor'),
     calamity: formData.get('calamity'),
     notes: formData.get('notes'),
+    notes: formData.get('notes'),
+    location,
   };
 
   let settlement;
@@ -183,6 +189,7 @@ function createRandomPlace(type, files) {
     placeCharacteristics,
     knownFor: getSettlementKnownFor(type),
     calamity: getSettlementCalamity(type),
+    location: null,
   };
 }
 
@@ -222,6 +229,7 @@ function SettlementScreen() {
     placeCharacteristics: '',
     knownFor: '',
     calamity: '',
+    location: null,
   });
 
   const {
@@ -243,6 +251,7 @@ function SettlementScreen() {
     knownFor,
     calamity,
     notes,
+    location,
   } = placeState;
 
   const [setTavernsAmount, reduceTavernAmount, increaseTavernAmount] =
@@ -313,6 +322,7 @@ function SettlementScreen() {
           knownFor: place.knownFor,
           calamity: place.calamity,
           notes: place.notes,
+          location: place.location,
         }));
       } else {
         randomPlace = createRandomPlace(typeParam || place.type, files);
@@ -429,6 +439,20 @@ function SettlementScreen() {
     setPlaceState(p => ({ ...p, notes: e.target.value }));
   }
 
+  function onLatChange(e) {
+    setPlaceState(p => ({
+      ...p,
+      location: { ...location, lat: e.target.value },
+    }));
+  }
+
+  function onLngChange(e) {
+    setPlaceState(p => ({
+      ...p,
+      location: { ...location, lng: e.target.value },
+    }));
+  }
+
   function onImageClick() {
     setPlaceState(p => ({
       ...p,
@@ -480,12 +504,43 @@ function SettlementScreen() {
           )}
 
           <div className="places__info">
-            <Title
-              inputName="name"
-              value={name}
-              onChange={onNameChange}
-              onReroll={onNameReroll}
-            />
+            <div className="places__header">
+              <Title
+                inputName="name"
+                value={name}
+                onChange={onNameChange}
+                onReroll={onNameReroll}
+              />
+              {place.location && location ? (
+                <Link
+                  to={`/map?lat=${location.lat}&lng=${location.lng}`}
+                  className="places__save"
+                >
+                  Mapa
+                </Link>
+              ) : (
+                <div className="places__trait-inputs-vertical">
+                  <label htmlFor="lat">
+                    Lat:{' '}
+                    <NumericInput
+                      name="lat"
+                      value={location?.lat}
+                      onChange={onLatChange}
+                      styleName="places__trait-input places__trait-input--highlight"
+                    />
+                  </label>
+                  <label htmlFor="lng">
+                    Lng:{' '}
+                    <NumericInput
+                      name="lng"
+                      value={location?.lng}
+                      onChange={onLngChange}
+                      styleName="places__trait-input places__trait-input--highlight"
+                    />
+                  </label>
+                </div>
+              )}
+            </div>
 
             <hr className="places__section-divider" />
             <div className="places__subtitle">
