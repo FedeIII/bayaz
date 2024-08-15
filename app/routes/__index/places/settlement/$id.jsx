@@ -519,30 +519,28 @@ function SettlementScreen() {
                   Mapa
                 </Link>
               )}
-              {!!location && (
-                <div className="places__trait-inputs-vertical">
-                  <label htmlFor="lat">
-                    Lat:{' '}
-                    <NumericInput
-                      name="lat"
-                      step="any"
-                      value={location?.lat}
-                      onChange={onLatChange}
-                      styleName="places__trait-input places__trait-input--highlight"
-                    />
-                  </label>
-                  <label htmlFor="lng">
-                    Lng:{' '}
-                    <NumericInput
-                      name="lng"
-                      step="any"
-                      value={location?.lng}
-                      onChange={onLngChange}
-                      styleName="places__trait-input places__trait-input--highlight"
-                    />
-                  </label>
-                </div>
-              )}
+              <div className="places__trait-inputs-vertical">
+                <label htmlFor="lat">
+                  Lat:{' '}
+                  <NumericInput
+                    name="lat"
+                    step="any"
+                    value={location?.lat}
+                    onChange={onLatChange}
+                    styleName="places__trait-input places__trait-input--highlight"
+                  />
+                </label>
+                <label htmlFor="lng">
+                  Lng:{' '}
+                  <NumericInput
+                    name="lng"
+                    step="any"
+                    value={location?.lng}
+                    onChange={onLngChange}
+                    styleName="places__trait-input places__trait-input--highlight"
+                  />
+                </label>
+              </div>
             </div>
 
             <hr className="places__section-divider" />
