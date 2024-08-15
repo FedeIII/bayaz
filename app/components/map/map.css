@@ -74,3 +74,11 @@
   align-items: start;
   row-gap: 8px;
 }
+
+.map__popup-text-input {
+  background: transparent;
+  border: 1px solid var(--color-gray);
+  font-family: var(--font-family);
+  color: black;
+  font-size: var(--font-size-s);
+}

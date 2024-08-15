@@ -1,15 +1,23 @@
 import { useEffect, useState } from 'react';
-import { Form, Link, useLoaderData } from '@remix-run/react';
+import { Form, useLoaderData } from '@remix-run/react';
 import { json, redirect } from '@remix-run/node';
 import {
   createSettlement,
   getSettlements,
 } from '~/services/settlements.server';
-import MapPopup from '~/components/map/mapPopup';
+import { createRegion, getRegions } from '~/services/regions.server';
+import MapMarkers from '~/components/map/mapMarkers';
+import MapLabels from '~/components/map/mapLabels';
+import MapRegions from '~/components/map/mapRegions';
+import { removeItem } from '~/utils/array';
 
 import styles from '~/components/map/map.css';
+import placesStyles from '~/components/places.css';
 export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [
+    { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: placesStyles },
+  ];
 };
 
 // x c [0, 100] left to right
@@ -22,60 +30,82 @@ const bounds = [
 
 const initZoom = 6;
 
-const labelOffsetMap = {
-  4: 0.035,
-  5: 0.035,
-  6: 0.025,
-  7: 0.035,
-  8: 0.035,
-  9: 0.03,
-  10: 0.022,
-};
-
-function getLabelOffset(zoom) {
-  return labelOffsetMap[zoom];
-}
+const polygon = [
+  [61.0810546875, 30.381518785650385],
+  [57.4560546875, 36.41127634718001],
+  [55.9248046875, 30.22530744985946],
+];
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
   let lat = url.searchParams.get('lat');
   let lng = url.searchParams.get('lng');
-
-  const settlements = await getSettlements();
-  if (!settlements) {
-    throw new Error('Party not found');
-  }
-
   const center =
     lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : null;
 
+  const [settlements, regions] = await Promise.all([
+    getSettlements(),
+    getRegions(),
+  ]);
+
   return json({
-    settlements: settlements.filter(settlement => !!settlement.location),
     center,
+    settlements: settlements.filter(settlement => !!settlement.location),
+    regions,
   });
 };
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
-  const lat = formData.get('lat');
-  const lng = formData.get('lng');
-  const type = formData.get('type');
+  const action = formData.get('action');
 
-  const settlement = await createSettlement({
-    location: { lat: parseFloat(lat), lng: parseFloat(lng) },
-    type,
-  });
+  if (action === 'createSettlement') {
+    const lat = formData.get('lat');
+    const lng = formData.get('lng');
+    const type = formData.get('type');
 
-  return redirect(`/places/settlement/${settlement.id}`);
+    const settlement = await createSettlement({
+      location: { lat: parseFloat(lat), lng: parseFloat(lng) },
+      type,
+    });
+
+    return redirect(`/places/settlement/${settlement.id}`);
+  } else if (action === 'createRegion') {
+    const regionName = formData.get('regionName');
+    const regionColor = formData.get('regionColor');
+    const verticesRaw = formData.getAll('region[]');
+    const vertices = verticesRaw.map(vertexRaw => vertexRaw.split('-'));
+
+    return await createRegion({
+      name: regionName,
+      type: 'subdomain',
+      color: regionColor,
+      vertices: vertices.map(([lat, lng]) => ({ lat, lng })),
+    });
+  }
+
+  return null;
 };
 
 function Map() {
-  const { settlements, center: initCenter } = useLoaderData();
+  const { center: initCenter, settlements, regions } = useLoaderData();
   const [L, setL] = useState(null);
   const [Lb, setLb] = useState(null);
   const [zoom, setZoom] = useState(initZoom);
   const [newLocation, setNewLocation] = useState(null);
+  const [newRegion, setNewRegion] = useState([]);
+  function addLocationToRegion(location) {
+    setNewRegion(old => [...old, location]);
+  }
+  function removeLocationFromRegion(location) {
+    setNewRegion(old =>
+      removeItem(
+        vertex => vertex.lat === location.lat && vertex.lng === location.lng,
+        old
+      )
+    );
+  }
 
   const center = initCenter || [52, 35];
 
@@ -122,6 +152,19 @@ function Map() {
           />
         </>
       )}
+      {!!newRegion.length && (
+        <>
+          {newRegion.map(vertex => (
+            <input
+              readOnly
+              type="text"
+              name="region[]"
+              value={`${vertex.lat}-${vertex.lng}`}
+              hidden
+            />
+          ))}
+        </>
+      )}
       {!!L && !!Lb && (
         <L.MapContainer
           // center={[y^, x>]}
@@ -137,95 +180,31 @@ function Map() {
             url="http://localhost:3000/images/map_raw.png"
             bounds={bounds}
           />
-          {settlements.map(settlement => (
-            <L.CircleMarker
-              key={settlement.name}
-              center={[settlement.location.lat, settlement.location.lng]}
-              pathOptions={{ color: '#dd2a2a' }}
-              radius={5}
-            >
-              <MapPopup L={L} title={settlement.name}>
-                <ul className="map__popup-options">
-                  <li>
-                    <Link
-                      to={`/places/settlement/${settlement.id}`}
-                      target="_blank"
-                      className="places__save"
-                    >
-                      {settlement.name || 'Sin nombre'}
-                    </Link>
-                  </li>
-                </ul>
-              </MapPopup>
-            </L.CircleMarker>
-          ))}
-          {!!newLocation && (
-            <L.CircleMarker
-              center={[newLocation.lat, newLocation.lng]}
-              pathOptions={{ color: '#dd2a2a' }}
-              radius={5}
-            >
-              <MapPopup L={L} title="Nuevo asentamiento">
-                <select name="type" defaultValue="village">
-                  <option value="village">Aldea</option>
-                  <option value="town">Pueblo</option>
-                  <option value="city">Ciudad</option>
-                </select>
-                <button type="submit">Crear</button>
-              </MapPopup>
-            </L.CircleMarker>
-          )}
+          <MapMarkers
+            L={L}
+            settlements={settlements}
+            newLocation={newLocation}
+            region={newRegion}
+            addLocationToRegion={addLocationToRegion}
+            removeLocationFromRegion={removeLocationFromRegion}
+          />
           <L.SVGOverlay bounds={bounds}>
-            {zoom > 4 && (
-              <>
-                {settlements.map(settlement => (
-                  <text
-                    key={settlement.name}
-                    // x >
-                    // y v
-                    x={`${
-                      (settlement.location.lng / bounds[1][1]) * 100 -
-                      0.1 +
-                      getLabelOffset(zoom) * (zoom - initZoom)
-                    }%`}
-                    y={`${
-                      (1 - settlement.location.lat / bounds[1][0]) * 100 -
-                      0.1 +
-                      getLabelOffset(zoom) * (zoom - initZoom)
-                    }%`}
-                    textAnchor="end"
-                    fontFamily="Rosarivo"
-                    fontSize="16px"
-                    stroke="#dd2a2a"
-                  >
-                    {settlement.name}
-                  </text>
-                ))}
-                {!!newLocation && (
-                  <text
-                    // x >
-                    // y v
-                    x={`${
-                      (newLocation.lng / bounds[1][1]) * 100 -
-                      0.1 +
-                      getLabelOffset(zoom) * (zoom - initZoom)
-                    }%`}
-                    y={`${
-                      (1 - newLocation.lat / bounds[1][0]) * 100 -
-                      0.1 +
-                      getLabelOffset(zoom) * (zoom - initZoom)
-                    }%`}
-                    textAnchor="end"
-                    fontFamily="Rosarivo"
-                    fontSize="16px"
-                    stroke="#dd2a2a"
-                  >
-                    New
-                  </text>
-                )}
-              </>
-            )}
+            <MapLabels
+              zoom={zoom}
+              settlements={settlements}
+              initZoom={initZoom}
+              newLocation={newLocation}
+              bounds={bounds}
+            />
           </L.SVGOverlay>
+          <MapRegions
+            L={L}
+            regions={regions}
+            newRegion={newRegion}
+            bounds={bounds}
+            zoom={zoom}
+            initZoom={initZoom}
+          />
           <MapEvents />
         </L.MapContainer>
       )}
