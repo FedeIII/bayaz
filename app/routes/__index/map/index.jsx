@@ -176,10 +176,7 @@ function Map() {
           crs={Lb.default.CRS.Simple}
           style={{ height: '100%' }}
         >
-          <L.ImageOverlay
-            url="http://localhost:3000/images/map_raw.png"
-            bounds={bounds}
-          />
+          <L.ImageOverlay url="/images/map_raw.png" bounds={bounds} />
           <MapMarkers
             L={L}
             settlements={settlements}
