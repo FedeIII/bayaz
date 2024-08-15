@@ -326,7 +326,7 @@ function SettlementScreen() {
         }));
       } else {
         randomPlace = createRandomPlace(typeParam || place.type, files);
-        setPlaceState(randomPlace);
+        setPlaceState({ ...randomPlace, location: place.location });
       }
 
       setTavernsAmount(randomPlace.accommodation?.length || 0);
@@ -511,19 +511,21 @@ function SettlementScreen() {
                 onChange={onNameChange}
                 onReroll={onNameReroll}
               />
-              {place.location && location ? (
+              {!!place.location && (
                 <Link
-                  to={`/map?lat=${location.lat}&lng=${location.lng}`}
+                  to={`/map?lat=${place.location.lat}&lng=${place.location.lng}`}
                   className="places__save"
                 >
                   Mapa
                 </Link>
-              ) : (
+              )}
+              {!!location && (
                 <div className="places__trait-inputs-vertical">
                   <label htmlFor="lat">
                     Lat:{' '}
                     <NumericInput
                       name="lat"
+                      step="any"
                       value={location?.lat}
                       onChange={onLatChange}
                       styleName="places__trait-input places__trait-input--highlight"
@@ -533,6 +535,7 @@ function SettlementScreen() {
                     Lng:{' '}
                     <NumericInput
                       name="lng"
+                      step="any"
                       value={location?.lng}
                       onChange={onLngChange}
                       styleName="places__trait-input places__trait-input--highlight"
