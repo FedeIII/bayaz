@@ -2,6 +2,49 @@ import { Link, useSubmit } from '@remix-run/react';
 import { useRef, useState } from 'react';
 import MapPopup from '~/components/map/mapPopup';
 
+function SettlementMarker(props) {
+  const { L, settlement, locationOver, setLocationOver } = props;
+
+  return (
+    <L.CircleMarker
+      key={settlement.id}
+      pane="settlementsPane"
+      center={[settlement.location.lat, settlement.location.lng]}
+      pathOptions={{
+        color:
+          locationOver?.lat === settlement.location.lat &&
+          locationOver?.lng === settlement.location.lng
+            ? '#2b8c47'
+            : '#dd2a2a',
+      }}
+      radius={
+        locationOver?.lat === settlement.location.lat &&
+        locationOver?.lng === settlement.location.lng
+          ? 6
+          : 5
+      }
+      eventHandlers={{
+        mouseover: e => setLocationOver(e.latlng),
+        mouseout: () => setLocationOver(null),
+      }}
+    >
+      <MapPopup L={L} title={settlement.name}>
+        <ul className="map__popup-options">
+          <li>
+            <Link
+              to={`/places/settlement/${settlement.id}`}
+              target="_blank"
+              className="places__save"
+            >
+              {settlement.name || 'Sin nombre'}
+            </Link>
+          </li>
+        </ul>
+      </MapPopup>
+    </L.CircleMarker>
+  );
+}
+
 export default function MapMarkers(props) {
   const {
     L,
@@ -14,47 +57,19 @@ export default function MapMarkers(props) {
 
   const submit = useSubmit();
   const typeRef = useRef(null);
+  const newLocationPopupRef = useRef(null);
   const [locationOver, setLocationOver] = useState(null);
 
   return (
     <>
       {settlements.map(settlement => (
-        <L.CircleMarker
+        <SettlementMarker
           key={settlement.id}
-          pane="settlementsPane"
-          center={[settlement.location.lat, settlement.location.lng]}
-          pathOptions={{
-            color:
-              locationOver?.lat === settlement.location.lat &&
-              locationOver?.lng === settlement.location.lng
-                ? '#2b8c47'
-                : '#dd2a2a',
-          }}
-          radius={
-            locationOver?.lat === settlement.location.lat &&
-            locationOver?.lng === settlement.location.lng
-              ? 6
-              : 5
-          }
-          eventHandlers={{
-            mouseover: e => setLocationOver(e.latlng),
-            mouseout: e => setLocationOver(null),
-          }}
-        >
-          <MapPopup L={L} title={settlement.name}>
-            <ul className="map__popup-options">
-              <li>
-                <Link
-                  to={`/places/settlement/${settlement.id}`}
-                  target="_blank"
-                  className="places__save"
-                >
-                  {settlement.name || 'Sin nombre'}
-                </Link>
-              </li>
-            </ul>
-          </MapPopup>
-        </L.CircleMarker>
+          L={L}
+          settlement={settlement}
+          locationOver={locationOver}
+          setLocationOver={setLocationOver}
+        />
       ))}
       {!!newLocation && (
         <L.CircleMarker
@@ -63,7 +78,7 @@ export default function MapMarkers(props) {
           pathOptions={{ color: '#d84343' }}
           radius={5}
         >
-          <MapPopup L={L} title="Nuevo asentamiento">
+          <MapPopup L={L} title="Nuevo asentamiento" ref={newLocationPopupRef}>
             <ul className="map__popup-options">
               <li>
                 <select name="type" defaultValue="village" ref={typeRef}>
@@ -103,9 +118,12 @@ export default function MapMarkers(props) {
                 ) : (
                   <button
                     type="button"
-                    onClick={() => addLocationToRegion(newLocation)}
+                    onClick={() => {
+                      addLocationToRegion(newLocation);
+                      newLocationPopupRef.current._closeButton.click();
+                    }}
                   >
-                    Añadir vértice
+                    Añadir vértice;
                   </button>
                 )}
               </li>

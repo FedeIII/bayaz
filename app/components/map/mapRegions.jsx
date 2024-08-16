@@ -16,6 +16,146 @@ function getLabelOffset(zoom) {
   return labelOffsetMap[zoom];
 }
 
+function RegionVertexMarker(props) {
+  const {
+    L,
+    vertex,
+    vertexOver,
+    region,
+    onMapClick,
+    setVertexOver,
+    addLocationToRegion,
+    newLocation,
+  } = props;
+
+  const regionVertexPopupRef = useRef(null);
+
+  return (
+    <L.CircleMarker
+      key={`${vertex.lat}-${vertex.lng}`}
+      pane="subdomainsPane"
+      center={[vertex.lat, vertex.lng]}
+      pathOptions={{
+        color: vertexOver === vertex._id ? '#2b8c47' : region.color,
+      }}
+      radius={vertexOver === vertex._id ? 5 : 2}
+      eventHandlers={{
+        click: onMapClick,
+        mouseover: () => setVertexOver(vertex._id),
+        mouseout: () => setVertexOver(null),
+      }}
+    >
+      <MapPopup L={L} title={region.name} ref={regionVertexPopupRef}>
+        <ul className="map__popup-options">
+          <li>
+            <button
+              type="button"
+              onClick={() =>
+                submit(
+                  {
+                    action: 'deleteVertex',
+                    id: region.id,
+                    vertexId: vertex._id,
+                  },
+                  { method: 'post' }
+                )
+              }
+            >
+              Quitar vértice de {region.name}
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={() => {
+                addLocationToRegion(newLocation);
+                regionVertexPopupRef.current._closeButton.click();
+              }}
+            >
+              Añadir vértice
+            </button>
+          </li>
+        </ul>
+      </MapPopup>
+    </L.CircleMarker>
+  );
+}
+
+function Region(props) {
+  const {
+    L,
+    selectedRegion,
+    region,
+    vertexOver,
+    onMapClick,
+    setVertexOver,
+    addLocationToRegion,
+    newLocation,
+    regionOver,
+    setSelectedRegion,
+    setRegionOver,
+  } = props;
+
+  const regionPopupRef = useRef(null);
+
+  return (
+    <>
+      {selectedRegion === region.id &&
+        region.vertices.map(vertex => (
+          <RegionVertexMarker
+            L={L}
+            vertex={vertex}
+            vertexOver={vertexOver}
+            region={region}
+            onMapClick={onMapClick}
+            setVertexOver={setVertexOver}
+            addLocationToRegion={addLocationToRegion}
+            newLocation={newLocation}
+          />
+        ))}
+
+      <L.Polygon
+        pane="subdomainsPane"
+        pathOptions={{
+          color: region.color,
+          opacity:
+            selectedRegion === region.id
+              ? 1.0
+              : regionOver === region.id
+              ? 0.5
+              : 0.2,
+        }}
+        positions={region.vertices}
+        eventHandlers={{
+          click: e => {
+            onMapClick(e);
+            setSelectedRegion(region.id);
+          },
+          mouseover: () => setRegionOver(region.id),
+          mouseout: () => setRegionOver(null),
+        }}
+      >
+        <MapPopup L={L} title={region.name} ref={regionPopupRef}>
+          <ul className="map__popup-options">
+            <li>{region.name}</li>
+            <li>
+              <button
+                type="button"
+                onClick={() => {
+                  addLocationToRegion(newLocation);
+                  regionPopupRef.current._closeButton.click();
+                }}
+              >
+                Añadir vértice
+              </button>
+            </li>
+          </ul>
+        </MapPopup>
+      </L.Polygon>
+    </>
+  );
+}
+
 function ExistingRegions(props) {
   const {
     L,
@@ -37,91 +177,20 @@ function ExistingRegions(props) {
     <>
       {!!regions.length &&
         regions.map(region => (
-          <Fragment key={region.id}>
-            {selectedRegion === region.id &&
-              region.vertices.map(vertex => (
-                <L.CircleMarker
-                  key={`${vertex.lat}-${vertex.lng}`}
-                  pane="subdomainsPane"
-                  center={[vertex.lat, vertex.lng]}
-                  pathOptions={{
-                    color: vertexOver === vertex._id ? '#2b8c47' : region.color,
-                  }}
-                  radius={vertexOver === vertex._id ? 5 : 2}
-                  eventHandlers={{
-                    click: onMapClick,
-                    mouseover: () => setVertexOver(vertex._id),
-                    mouseout: () => setVertexOver(null),
-                  }}
-                >
-                  <MapPopup L={L} title={region.name}>
-                    <ul className="map__popup-options">
-                      <li>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            submit(
-                              {
-                                action: 'deleteVertex',
-                                id: region.id,
-                                vertexId: vertex._id,
-                              },
-                              { method: 'post' }
-                            )
-                          }
-                        >
-                          Quitar vértice de {region.name}
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          type="button"
-                          onClick={() => addLocationToRegion(newLocation)}
-                        >
-                          Añadir vértice
-                        </button>
-                      </li>
-                    </ul>
-                  </MapPopup>
-                </L.CircleMarker>
-              ))}
-
-            <L.Polygon
-              pane="subdomainsPane"
-              pathOptions={{
-                color: region.color,
-                opacity:
-                  selectedRegion === region.id
-                    ? 1.0
-                    : regionOver === region.id
-                    ? 0.5
-                    : 0.2,
-              }}
-              positions={region.vertices}
-              eventHandlers={{
-                click: e => {
-                  onMapClick(e);
-                  setSelectedRegion(region.id);
-                },
-                mouseover: () => setRegionOver(region.id),
-                mouseout: () => setRegionOver(null),
-              }}
-            >
-              <MapPopup L={L} title={region.name}>
-                <ul className="map__popup-options">
-                  <li>{region.name}</li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => addLocationToRegion(newLocation)}
-                    >
-                      Añadir vértice
-                    </button>
-                  </li>
-                </ul>
-              </MapPopup>
-            </L.Polygon>
-          </Fragment>
+          <Region
+            key={region.id}
+            L={L}
+            selectedRegion={selectedRegion}
+            region={region}
+            vertexOver={vertexOver}
+            onMapClick={onMapClick}
+            setVertexOver={setVertexOver}
+            addLocationToRegion={addLocationToRegion}
+            newLocation={newLocation}
+            regionOver={regionOver}
+            setSelectedRegion={setSelectedRegion}
+            setRegionOver={setRegionOver}
+          />
         ))}
       <L.SVGOverlay bounds={bounds}>
         {!!regions.length &&
@@ -171,11 +240,13 @@ function NewRegion(props) {
   const [regionColor, setRegionColor] = useState('#d84343');
   const submit = useSubmit();
   const nameRef = useRef(null);
+  const newRegionPopupRef = useRef(null);
 
   return (
     <>
       {newRegion.map(vertex => (
         <L.CircleMarker
+          key={`${vertex.lat}-${vertex.lng}`}
           pane="newElementsPane"
           center={[vertex.lat, vertex.lng]}
           radius={5}
@@ -200,7 +271,7 @@ function NewRegion(props) {
         positions={newRegion}
         eventHandlers={{ click: onMapClick }}
       >
-        <MapPopup L={L} title="Nueva región">
+        <MapPopup L={L} title="Nueva región" ref={newRegionPopupRef}>
           <ul className="map__popup-options">
             <li>
               Nombre:{' '}
@@ -247,7 +318,10 @@ function NewRegion(props) {
             <li>
               <button
                 type="button"
-                onClick={() => addLocationToRegion(newLocation)}
+                onClick={() => {
+                  addLocationToRegion(newLocation);
+                  newRegionPopupRef.current._closeButton.click();
+                }}
               >
                 Añadir vértice
               </button>
