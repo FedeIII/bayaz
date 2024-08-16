@@ -17,7 +17,16 @@ function getLabelOffset(zoom) {
 }
 
 function ExistingRegions(props) {
-  const { L, regions = [], bounds, zoom, initZoom } = props;
+  const {
+    L,
+    regions = [],
+    bounds,
+    zoom,
+    initZoom,
+    newLocation,
+    addLocationToRegion,
+    onMapClick,
+  } = props;
 
   const submit = useSubmit();
 
@@ -31,6 +40,7 @@ function ExistingRegions(props) {
                 center={[vertex.lat, vertex.lng]}
                 pathOptions={{ color: region.color }}
                 radius={5}
+                eventHandlers={{ click: onMapClick }}
               >
                 <MapPopup L={L} title={region.name}>
                   <ul className="map__popup-options">
@@ -51,6 +61,14 @@ function ExistingRegions(props) {
                         Quitar vértice de {region.name}
                       </button>
                     </li>
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => addLocationToRegion(newLocation)}
+                      >
+                        Añadir vértice
+                      </button>
+                    </li>
                   </ul>
                 </MapPopup>
               </L.CircleMarker>
@@ -58,9 +76,20 @@ function ExistingRegions(props) {
             <L.Polygon
               pathOptions={{ color: region.color }}
               positions={region.vertices}
+              eventHandlers={{ click: onMapClick }}
             >
               <MapPopup L={L} title={region.name}>
-                {region.name}
+                <ul className="map__popup-options">
+                  <li>{region.name}</li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => addLocationToRegion(newLocation)}
+                    >
+                      Añadir vértice
+                    </button>
+                  </li>
+                </ul>
               </MapPopup>
             </L.Polygon>
           </>
@@ -215,6 +244,9 @@ export default function MapRegions(props) {
         bounds={bounds}
         zoom={zoom}
         initZoom={initZoom}
+        newLocation={newLocation}
+        addLocationToRegion={addLocationToRegion}
+        onMapClick={onMapClick}
       />
       {!!newRegion.length && (
         <NewRegion
