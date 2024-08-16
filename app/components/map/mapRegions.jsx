@@ -113,7 +113,7 @@ function ExistingRegions(props) {
               }%`}
               textAnchor="end"
               fontFamily="Rosarivo"
-              fontSize="16px"
+              fontSize="22px"
               stroke={region.color}
             >
               {region.name}
