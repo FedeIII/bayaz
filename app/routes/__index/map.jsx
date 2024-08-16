@@ -165,6 +165,13 @@ function Map() {
           style={{ height: '100%' }}
         >
           <L.ImageOverlay url="/images/map_raw.png" bounds={bounds} />
+
+          <L.Pane name="domainsPane" style={{ zIndex: 500 }} />
+          <L.Pane name="subdomainsPane" style={{ zIndex: 600 }} />
+          <L.Pane name="settlementsPane" style={{ zIndex: 700 }} />
+          <L.Pane name="newElementsPane" style={{ zIndex: 800 }} />
+          <L.Pane name="popupsPane" style={{ zIndex: 900 }} />
+
           <MapMarkers
             L={L}
             settlements={settlements}
@@ -173,6 +180,7 @@ function Map() {
             addLocationToRegion={addLocationToRegion}
             removeLocationFromRegion={removeLocationFromRegion}
           />
+
           <L.SVGOverlay bounds={bounds}>
             <MapLabels
               zoom={zoom}
@@ -182,6 +190,7 @@ function Map() {
               bounds={bounds}
             />
           </L.SVGOverlay>
+
           <MapRegions
             L={L}
             regions={regions}
@@ -195,6 +204,7 @@ function Map() {
             addLocationToRegion={addLocationToRegion}
             removeLocationFromRegion={removeLocationFromRegion}
           />
+
           <MapEvents />
         </L.MapContainer>
       )}

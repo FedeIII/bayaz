@@ -1,5 +1,5 @@
 import { Link, useSubmit } from '@remix-run/react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import MapPopup from '~/components/map/mapPopup';
 
 export default function MapMarkers(props) {
@@ -14,15 +14,32 @@ export default function MapMarkers(props) {
 
   const submit = useSubmit();
   const typeRef = useRef(null);
+  const [locationOver, setLocationOver] = useState(null);
 
   return (
     <>
       {settlements.map(settlement => (
         <L.CircleMarker
-          key={settlement.name}
+          key={settlement.id}
+          pane="settlementsPane"
           center={[settlement.location.lat, settlement.location.lng]}
-          pathOptions={{ color: '#dd2a2a' }}
-          radius={5}
+          pathOptions={{
+            color:
+              locationOver?.lat === settlement.location.lat &&
+              locationOver?.lng === settlement.location.lng
+                ? '#2b8c47'
+                : '#dd2a2a',
+          }}
+          radius={
+            locationOver?.lat === settlement.location.lat &&
+            locationOver?.lng === settlement.location.lng
+              ? 6
+              : 5
+          }
+          eventHandlers={{
+            mouseover: e => setLocationOver(e.latlng),
+            mouseout: e => setLocationOver(null),
+          }}
         >
           <MapPopup L={L} title={settlement.name}>
             <ul className="map__popup-options">
@@ -41,6 +58,7 @@ export default function MapMarkers(props) {
       ))}
       {!!newLocation && (
         <L.CircleMarker
+          pane="newElementsPane"
           center={[newLocation.lat, newLocation.lng]}
           pathOptions={{ color: '#d84343' }}
           radius={5}

@@ -21,7 +21,7 @@ export default function MapLabels(props) {
         <>
           {settlements.map(settlement => (
             <text
-              key={settlement.name}
+              key={settlement.id}
               // x >
               // y v
               x={`${
