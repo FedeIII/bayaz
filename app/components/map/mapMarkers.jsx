@@ -1,4 +1,5 @@
-import { Link } from '@remix-run/react';
+import { Link, useSubmit } from '@remix-run/react';
+import { useRef } from 'react';
 import MapPopup from '~/components/map/mapPopup';
 
 export default function MapMarkers(props) {
@@ -10,6 +11,9 @@ export default function MapMarkers(props) {
     addLocationToRegion,
     removeLocationFromRegion,
   } = props;
+
+  const submit = useSubmit();
+  const typeRef = useRef(null);
 
   return (
     <>
@@ -38,18 +42,31 @@ export default function MapMarkers(props) {
       {!!newLocation && (
         <L.CircleMarker
           center={[newLocation.lat, newLocation.lng]}
-          pathOptions={{ color: '#dd2a2a' }}
+          pathOptions={{ color: '#d84343' }}
           radius={5}
         >
           <MapPopup L={L} title="Nuevo asentamiento">
             <ul className="map__popup-options">
               <li>
-                <select name="type" defaultValue="village">
+                <select name="type" defaultValue="village" ref={typeRef}>
                   <option value="village">Aldea</option>
                   <option value="town">Pueblo</option>
                   <option value="city">Ciudad</option>
                 </select>
-                <button name="action" value="createSettlement" type="submit">
+                <button
+                  type="button"
+                  onClick={() =>
+                    submit(
+                      {
+                        action: 'createSettlement',
+                        lat: newLocation.lat,
+                        lng: newLocation.lng,
+                        type: typeRef.current.value,
+                      },
+                      { method: 'post' }
+                    )
+                  }
+                >
                   Crear asentamiento
                 </button>
               </li>
@@ -59,11 +76,17 @@ export default function MapMarkers(props) {
                     vertex.lat === newLocation.lat &&
                     vertex.lng === newLocation.lng
                 ) ? (
-                  <button onClick={() => removeLocationFromRegion(newLocation)}>
+                  <button
+                    type="button"
+                    onClick={() => removeLocationFromRegion(newLocation)}
+                  >
                     Quitar vértice
                   </button>
                 ) : (
-                  <button onClick={() => addLocationToRegion(newLocation)}>
+                  <button
+                    type="button"
+                    onClick={() => addLocationToRegion(newLocation)}
+                  >
                     Añadir vértice
                   </button>
                 )}

@@ -5,7 +5,11 @@ import {
   createSettlement,
   getSettlements,
 } from '~/services/settlements.server';
-import { createRegion, getRegions } from '~/services/regions.server';
+import {
+  createRegion,
+  deleteVertex,
+  getRegions,
+} from '~/services/regions.server';
 import MapMarkers from '~/components/map/mapMarkers';
 import MapLabels from '~/components/map/mapLabels';
 import MapRegions from '~/components/map/mapRegions';
@@ -29,12 +33,6 @@ const bounds = [
 ];
 
 const initZoom = 6;
-
-const polygon = [
-  [61.0810546875, 30.381518785650385],
-  [57.4560546875, 36.41127634718001],
-  [55.9248046875, 30.22530744985946],
-];
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
@@ -74,15 +72,26 @@ export const action = async ({ request }) => {
   } else if (action === 'createRegion') {
     const regionName = formData.get('regionName');
     const regionColor = formData.get('regionColor');
-    const verticesRaw = formData.getAll('region[]');
-    const vertices = verticesRaw.map(vertexRaw => vertexRaw.split('-'));
+    const vertices = formData.get('vertices');
 
-    return await createRegion({
+    await createRegion({
       name: regionName,
       type: 'subdomain',
       color: regionColor,
-      vertices: vertices.map(([lat, lng]) => ({ lat, lng })),
+      vertices: vertices.split('|').map(latLng => {
+        const [lat, lng] = latLng.split(',');
+        return { lat: parseFloat(lat), lng: parseFloat(lng) };
+      }),
     });
+
+    return json({ regions: await getRegions() });
+  } else if (action === 'deleteVertex') {
+    const id = formData.get('id');
+    const vertexId = formData.get('vertexId');
+
+    await deleteVertex(id, vertexId);
+
+    return json({ regions: await getRegions() });
   }
 
   return null;
@@ -106,15 +115,25 @@ function Map() {
       )
     );
   }
+  function resetRegion(e) {
+    e?.preventDefault();
+    setNewRegion([]);
+  }
+
+  useEffect(() => {
+    resetRegion();
+  }, [regions.length]);
 
   const center = initCenter || [52, 35];
 
+  function onMapClick(e) {
+    console.log('Click', [e.latlng.lat, e.latlng.lng], e);
+    setNewLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
+  }
+
   function MapEvents() {
     L.useMapEvents({
-      click: e => {
-        console.log('Click', [e.latlng.lat, e.latlng.lng], e);
-        setNewLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
-      },
+      click: onMapClick,
       zoom: e => {
         console.log('Zoom', e.target._zoom, e);
         setZoom(e.target._zoom);
@@ -134,37 +153,6 @@ function Map() {
 
   return (
     <Form method="post" style={{ width: '100vw', height: '100vh' }}>
-      {!!newLocation && (
-        <>
-          <input
-            readOnly
-            type="text"
-            name="lat"
-            value={newLocation.lat}
-            hidden
-          />
-          <input
-            readOnly
-            type="text"
-            name="lng"
-            value={newLocation.lng}
-            hidden
-          />
-        </>
-      )}
-      {!!newRegion.length && (
-        <>
-          {newRegion.map(vertex => (
-            <input
-              readOnly
-              type="text"
-              name="region[]"
-              value={`${vertex.lat}-${vertex.lng}`}
-              hidden
-            />
-          ))}
-        </>
-      )}
       {!!L && !!Lb && (
         <L.MapContainer
           // center={[y^, x>]}
@@ -198,9 +186,14 @@ function Map() {
             L={L}
             regions={regions}
             newRegion={newRegion}
+            newLocation={newLocation}
             bounds={bounds}
             zoom={zoom}
             initZoom={initZoom}
+            onMapClick={onMapClick}
+            resetRegion={resetRegion}
+            addLocationToRegion={addLocationToRegion}
+            removeLocationFromRegion={removeLocationFromRegion}
           />
           <MapEvents />
         </L.MapContainer>

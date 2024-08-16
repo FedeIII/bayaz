@@ -49,3 +49,9 @@ export async function deleteRegion(id) {
   const { deletedCount } = await Region.deleteOne({ id });
   return deletedCount;
 }
+
+export async function deleteVertex(id, vertexId) {
+  const region = await getRegion(id);
+  region.vertices.pull(vertexId);
+  return await region.save();
+}

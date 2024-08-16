@@ -37,7 +37,7 @@ export default function MapLabels(props) {
               textAnchor="end"
               fontFamily="Rosarivo"
               fontSize="16px"
-              stroke="#dd2a2a"
+              stroke="#d84343"
             >
               {settlement.name}
             </text>
@@ -59,7 +59,7 @@ export default function MapLabels(props) {
               textAnchor="end"
               fontFamily="Rosarivo"
               fontSize="16px"
-              stroke="#dd2a2a"
+              stroke="#d84343"
             >
               New
             </text>

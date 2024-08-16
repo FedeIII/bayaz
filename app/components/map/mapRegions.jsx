@@ -1,3 +1,5 @@
+import { useRef, useState } from 'react';
+import { useSubmit } from '@remix-run/react';
 import MapPopup from './mapPopup';
 
 const labelOffsetMap = {
@@ -14,21 +16,54 @@ function getLabelOffset(zoom) {
   return labelOffsetMap[zoom];
 }
 
-export default function MapRegions(props) {
-  const { L, regions, newRegion, bounds, zoom, initZoom } = props;
+function ExistingRegions(props) {
+  const { L, regions = [], bounds, zoom, initZoom } = props;
+
+  const submit = useSubmit();
 
   return (
     <>
       {!!regions.length &&
         regions.map(region => (
-          <L.Polygon
-            pathOptions={{ color: region.color }}
-            positions={region.vertices}
-          >
-            <MapPopup L={L} title={region.name}>
-              {region.name}
-            </MapPopup>
-          </L.Polygon>
+          <>
+            {region.vertices.map(vertex => (
+              <L.CircleMarker
+                center={[vertex.lat, vertex.lng]}
+                pathOptions={{ color: region.color }}
+                radius={5}
+              >
+                <MapPopup L={L} title={region.name}>
+                  <ul className="map__popup-options">
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          submit(
+                            {
+                              action: 'deleteVertex',
+                              id: region.id,
+                              vertexId: vertex._id,
+                            },
+                            { method: 'post' }
+                          )
+                        }
+                      >
+                        Quitar vértice de {region.name}
+                      </button>
+                    </li>
+                  </ul>
+                </MapPopup>
+              </L.CircleMarker>
+            ))}
+            <L.Polygon
+              pathOptions={{ color: region.color }}
+              positions={region.vertices}
+            >
+              <MapPopup L={L} title={region.name}>
+                {region.name}
+              </MapPopup>
+            </L.Polygon>
+          </>
         ))}
       <L.SVGOverlay bounds={bounds}>
         {!!regions.length &&
@@ -56,12 +91,54 @@ export default function MapRegions(props) {
             </text>
           ))}
       </L.SVGOverlay>
-      <L.Polygon pathOptions={{ color: 'red' }} positions={newRegion}>
+    </>
+  );
+}
+
+function NewRegion(props) {
+  const {
+    L,
+    newRegion,
+    newLocation,
+    onMapClick,
+    resetRegion,
+    addLocationToRegion,
+    removeLocationFromRegion,
+  } = props;
+
+  const [regionColor, setRegionColor] = useState('#d84343');
+  const submit = useSubmit();
+  const nameRef = useRef(null);
+
+  return (
+    <>
+      {newRegion.map(vertex => (
+        <L.CircleMarker center={[vertex.lat, vertex.lng]} radius={5}>
+          <MapPopup L={L} title="Nueva región">
+            <ul className="map__popup-options">
+              <li>
+                <button
+                  type="button"
+                  onClick={() => removeLocationFromRegion(vertex)}
+                >
+                  Quitar vértice
+                </button>
+              </li>
+            </ul>
+          </MapPopup>
+        </L.CircleMarker>
+      ))}
+      <L.Polygon
+        pathOptions={{ color: regionColor }}
+        positions={newRegion}
+        eventHandlers={{ click: onMapClick }}
+      >
         <MapPopup L={L} title="Nueva región">
           <ul className="map__popup-options">
             <li>
               Nombre:{' '}
               <input
+                ref={nameRef}
                 name="regionName"
                 type="text"
                 className="map__popup-text-input"
@@ -73,16 +150,83 @@ export default function MapRegions(props) {
                 name="regionColor"
                 type="text"
                 className="map__popup-text-input"
+                value={regionColor}
+                onChange={e => setRegionColor(e.target.value)}
               />
             </li>
             <li>
-              <button name="action" value="createRegion" type="submit">
+              <button
+                type="button"
+                onClick={() =>
+                  submit(
+                    {
+                      action: 'createRegion',
+                      regionName: nameRef.current.value,
+                      regionColor: regionColor,
+                      vertices: newRegion
+                        .map(v => `${v.lat},${v.lng}`)
+                        .join('|'),
+                    },
+                    { method: 'post' }
+                  )
+                }
+              >
                 Crear región
+              </button>{' '}
+              <button type="button" onClick={resetRegion}>
+                Borrar región
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => addLocationToRegion(newLocation)}
+              >
+                Añadir vértice
               </button>
             </li>
           </ul>
         </MapPopup>
       </L.Polygon>
+    </>
+  );
+}
+
+export default function MapRegions(props) {
+  const {
+    L,
+    regions,
+    newRegion,
+    newLocation,
+    bounds,
+    zoom,
+    initZoom,
+    onMapClick,
+    resetRegion,
+    addLocationToRegion,
+    removeLocationFromRegion,
+  } = props;
+
+  return (
+    <>
+      <ExistingRegions
+        L={L}
+        regions={regions}
+        bounds={bounds}
+        zoom={zoom}
+        initZoom={initZoom}
+      />
+      {!!newRegion.length && (
+        <NewRegion
+          L={L}
+          newRegion={newRegion}
+          newLocation={newLocation}
+          onMapClick={onMapClick}
+          resetRegion={resetRegion}
+          addLocationToRegion={addLocationToRegion}
+          removeLocationFromRegion={removeLocationFromRegion}
+        />
+      )}
     </>
   );
 }
