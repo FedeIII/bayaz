@@ -8,6 +8,7 @@ import {
 import {
   createRegion,
   deleteVertex,
+  editNameLocation,
   editVertex,
   getRegions,
 } from '~/services/regions.server';
@@ -35,12 +36,18 @@ const bounds = [
 
 const initZoom = 6;
 
+function parseLocation(lat, lng) {
+  return {
+    lat: parseFloat(lat),
+    lng: parseFloat(lng),
+  };
+}
+
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
   let lat = url.searchParams.get('lat');
   let lng = url.searchParams.get('lng');
-  const center =
-    lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : null;
+  const center = lat && lng ? parseLocation(lat, lng) : null;
 
   const [settlements, regions] = await Promise.all([
     getSettlements(),
@@ -65,7 +72,7 @@ export const action = async ({ request }) => {
     const type = formData.get('type');
 
     const settlement = await createSettlement({
-      location: { lat: parseFloat(lat), lng: parseFloat(lng) },
+      location: parseLocation(lat, lng),
       type,
     });
 
@@ -81,7 +88,7 @@ export const action = async ({ request }) => {
       color: regionColor,
       vertices: vertices.split('|').map(latLng => {
         const [lat, lng] = latLng.split(',');
-        return { lat: parseFloat(lat), lng: parseFloat(lng) };
+        return parseLocation(lat, lng);
       }),
     });
   } else if (action === 'deleteVertex') {
@@ -95,10 +102,13 @@ export const action = async ({ request }) => {
     const lat = formData.get('lat');
     const lng = formData.get('lng');
 
-    await editVertex(regionId, vertexId, {
-      lat: parseFloat(lat),
-      lng: parseFloat(lng),
-    });
+    await editVertex(regionId, vertexId, parseLocation(lat, lng));
+  } else if (action === 'moveRegionName') {
+    const regionId = formData.get('id');
+    const lat = formData.get('lat');
+    const lng = formData.get('lng');
+
+    await editNameLocation(regionId, parseLocation(lat, lng));
   }
 
   return json({ regions: await getRegions() });

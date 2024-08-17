@@ -128,6 +128,25 @@ function Region(props) {
 
   const regionPopupRef = useRef(null);
   const [isEditingVertices, setIsEditingVertices] = useState(false);
+  const [isEditingLabel, setIsEditingLabel] = useState(false);
+  const submit = useSubmit();
+
+  function onRegionClick(e) {
+    onMapClick(e);
+    setSelectedRegion(region.id);
+    if (isEditingLabel) {
+      setIsEditingLabel(false);
+      submit(
+        {
+          action: 'moveRegionName',
+          id: region.id,
+          lat: e.latlng.lat,
+          lng: e.latlng.lng,
+        },
+        { method: 'post' }
+      );
+    }
+  }
 
   return (
     <>
@@ -160,17 +179,25 @@ function Region(props) {
         }}
         positions={region.vertices}
         eventHandlers={{
-          click: e => {
-            onMapClick(e);
-            setSelectedRegion(region.id);
-          },
+          click: onRegionClick,
           mouseover: () => setRegionOver(region.id),
           mouseout: () => setRegionOver(null),
         }}
       >
         <MapPopup L={L} title={region.name} ref={regionPopupRef}>
           <ul className="map__popup-options">
-            <li>{region.name}</li>
+            <li>
+              {region.name}{' '}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsEditingLabel(true);
+                  regionPopupRef.current._closeButton.click();
+                }}
+              >
+                Colocar nombre
+              </button>
+            </li>
             <li>
               <button
                 type="button"
@@ -255,12 +282,17 @@ function ExistingRegions(props) {
                   // x >
                   // y v
                   x={`${
-                    (region.vertices[0].lng / bounds[1][1]) * 100 -
+                    ((region.nameLocation || region.vertices[0]).lng /
+                      bounds[1][1]) *
+                      100 -
                     0.1 +
                     getLabelOffset(zoom) * (zoom - initZoom)
                   }%`}
                   y={`${
-                    (1 - region.vertices[0].lat / bounds[1][0]) * 100 -
+                    (1 -
+                      (region.nameLocation || region.vertices[0]).lat /
+                        bounds[1][0]) *
+                      100 -
                     0.1 +
                     getLabelOffset(zoom) * (zoom - initZoom)
                   }%`}

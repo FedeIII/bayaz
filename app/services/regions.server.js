@@ -12,6 +12,7 @@ const regionSchema = new mongoose.Schema({
   name: String,
   color: String,
   vertices: [locationSchema],
+  nameLocation: locationSchema,
 });
 
 const Region = mongoose.models.Region || mongoose.model('Region', regionSchema);
@@ -20,6 +21,7 @@ export async function createRegion(attrs) {
   const newRegion = await Region.create({
     id: uuid(),
     ...attrs,
+    nameLocation: attrs.vertices[0],
   });
 
   return newRegion;
@@ -62,4 +64,12 @@ export async function editVertex(id, vertexId, location) {
   vertex.lat = location.lat;
   vertex.lng = location.lng;
   return await region.save();
+}
+
+export async function editNameLocation(id, location) {
+  return await Region.findOneAndUpdate(
+    { id },
+    { $set: { nameLocation: location } },
+    { new: true }
+  ).exec();
 }
