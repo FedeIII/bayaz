@@ -8,6 +8,7 @@ import {
 import {
   createRegion,
   deleteVertex,
+  editVertex,
   getRegions,
 } from '~/services/regions.server';
 import MapMarkers from '~/components/map/mapMarkers';
@@ -83,18 +84,24 @@ export const action = async ({ request }) => {
         return { lat: parseFloat(lat), lng: parseFloat(lng) };
       }),
     });
-
-    return json({ regions: await getRegions() });
   } else if (action === 'deleteVertex') {
     const id = formData.get('id');
     const vertexId = formData.get('vertexId');
 
     await deleteVertex(id, vertexId);
+  } else if (action === 'editVertex') {
+    const regionId = formData.get('regionId');
+    const vertexId = formData.get('vertexId');
+    const lat = formData.get('lat');
+    const lng = formData.get('lng');
 
-    return json({ regions: await getRegions() });
+    await editVertex(regionId, vertexId, {
+      lat: parseFloat(lat),
+      lng: parseFloat(lng),
+    });
   }
 
-  return null;
+  return json({ regions: await getRegions() });
 };
 
 function Map() {

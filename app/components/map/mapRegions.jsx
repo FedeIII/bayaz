@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSubmit } from '@remix-run/react';
 import MapPopup from './mapPopup';
 
@@ -20,6 +20,7 @@ function RegionVertexMarker(props) {
   const {
     L,
     vertex,
+    isEditingVertices,
     vertexOver,
     region,
     onMapClick,
@@ -29,18 +30,47 @@ function RegionVertexMarker(props) {
   } = props;
 
   const regionVertexPopupRef = useRef(null);
+  const markerRef = useRef(null);
+  const [position, setPosition] = useState([vertex.lat, vertex.lng]);
+  const submit = useSubmit();
+  function placeVertex(id, location) {
+    submit(
+      {
+        action: 'editVertex',
+        regionId: region.id,
+        vertexId: id,
+        lat: location.lat,
+        lng: location.lng,
+      },
+      { method: 'post' }
+    );
+  }
+
+  const MarkerComponent = isEditingVertices ? L.Marker : L.CircleMarker;
 
   return (
-    <L.CircleMarker
+    <MarkerComponent
       key={`${vertex.lat}-${vertex.lng}`}
+      ref={markerRef}
       pane="subdomainsPane"
-      center={[vertex.lat, vertex.lng]}
+      center={position}
+      position={position}
       pathOptions={{
         color: vertexOver === vertex._id ? '#2b8c47' : region.color,
       }}
       radius={vertexOver === vertex._id ? 5 : 2}
+      draggable
       eventHandlers={{
         click: onMapClick,
+        // dragend: e => placeVertex(e, e.latlng),
+        dragend() {
+          const marker = markerRef.current;
+          if (marker != null) {
+            const newPosition = marker.getLatLng();
+            setPosition(marker.getLatLng());
+            placeVertex(vertex._id, newPosition);
+          }
+        },
         mouseover: () => setVertexOver(vertex._id),
         mouseout: () => setVertexOver(null),
       }}
@@ -77,7 +107,7 @@ function RegionVertexMarker(props) {
           </li>
         </ul>
       </MapPopup>
-    </L.CircleMarker>
+    </MarkerComponent>
   );
 }
 
@@ -97,14 +127,17 @@ function Region(props) {
   } = props;
 
   const regionPopupRef = useRef(null);
+  const [isEditingVertices, setIsEditingVertices] = useState(false);
 
   return (
     <>
       {selectedRegion === region.id &&
         region.vertices.map(vertex => (
           <RegionVertexMarker
+            key={vertex._id}
             L={L}
             vertex={vertex}
+            isEditingVertices={isEditingVertices}
             vertexOver={vertexOver}
             region={region}
             onMapClick={onMapClick}
@@ -147,7 +180,28 @@ function Region(props) {
                 }}
               >
                 Añadir vértice
-              </button>
+              </button>{' '}
+              {isEditingVertices ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsEditingVertices(false);
+                    regionPopupRef.current._closeButton.click();
+                  }}
+                >
+                  Parar edición
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsEditingVertices(true);
+                    regionPopupRef.current._closeButton.click();
+                  }}
+                >
+                  Editar vértices
+                </button>
+              )}
             </li>
           </ul>
         </MapPopup>
@@ -168,7 +222,6 @@ function ExistingRegions(props) {
     onMapClick,
   } = props;
 
-  const submit = useSubmit();
   const [regionOver, setRegionOver] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [vertexOver, setVertexOver] = useState(null);

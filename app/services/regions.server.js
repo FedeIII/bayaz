@@ -55,3 +55,11 @@ export async function deleteVertex(id, vertexId) {
   region.vertices.pull(vertexId);
   return await region.save();
 }
+
+export async function editVertex(id, vertexId, location) {
+  const region = await getRegion(id);
+  const vertex = region.vertices.find(v => v._id.toString() === vertexId);
+  vertex.lat = location.lat;
+  vertex.lng = location.lng;
+  return await region.save();
+}
