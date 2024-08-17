@@ -169,8 +169,9 @@ function Map() {
           <L.Pane name="domainsPane" style={{ zIndex: 500 }} />
           <L.Pane name="subdomainsPane" style={{ zIndex: 600 }} />
           <L.Pane name="settlementsPane" style={{ zIndex: 700 }} />
-          <L.Pane name="newElementsPane" style={{ zIndex: 800 }} />
-          <L.Pane name="popupsPane" style={{ zIndex: 900 }} />
+          <L.Pane name="textPane" style={{ zIndex: 800 }} />
+          <L.Pane name="newElementsPane" style={{ zIndex: 900 }} />
+          <L.Pane name="popupsPane" style={{ zIndex: 1000 }} />
 
           <MapMarkers
             L={L}
@@ -181,7 +182,7 @@ function Map() {
             removeLocationFromRegion={removeLocationFromRegion}
           />
 
-          <L.SVGOverlay bounds={bounds}>
+          <L.SVGOverlay bounds={bounds} pane="textPane">
             <MapLabels
               zoom={zoom}
               settlements={settlements}

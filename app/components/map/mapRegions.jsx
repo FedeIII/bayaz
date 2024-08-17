@@ -192,7 +192,7 @@ function ExistingRegions(props) {
             setRegionOver={setRegionOver}
           />
         ))}
-      <L.SVGOverlay bounds={bounds}>
+      <L.SVGOverlay bounds={bounds} pane="textPane">
         {!!regions.length &&
           regions.map(
             region =>
