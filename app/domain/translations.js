@@ -338,10 +338,10 @@ export function t(key) {
     cha: 'Carisma',
 
     // Dominions
-    central_dominion: 'Dominio Central',
-    human_dominion: 'Dominio Humano',
-    dwarven_dominion: 'Dominio Enano',
-    elven_dominion: 'Dominio Élfico',
+    central_dominion: 'Dominios Centrales',
+    human_dominion: 'Dominios Humanos',
+    dwarven_dominion: 'Dominios Enanos',
+    elven_dominion: 'Dominios Élficos',
     wildlands_north: 'Tierras salvajes del Norte',
     wildlands_south: 'Tierras salvajes del Sur',
     forgotten_dominions: 'Dominios Olvidados',

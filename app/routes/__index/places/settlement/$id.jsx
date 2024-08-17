@@ -563,7 +563,7 @@ function SettlementScreen() {
               </span>
               <span>
                 <label for="subdominion">
-                  Search subdominion:{' '}
+                  Subdominio:{' '}
                   <input
                     list="subdominion"
                     name="subdominion"
