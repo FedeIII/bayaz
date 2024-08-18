@@ -45,6 +45,11 @@ export async function getPlace(id) {
   return place;
 }
 
+export async function getPlaceByName(name) {
+  const region = await Place.findOne({ name }).exec();
+  return region;
+}
+
 export async function deletePlace(id) {
   const { deletedCount } = await Place.deleteOne({ id });
   return deletedCount;

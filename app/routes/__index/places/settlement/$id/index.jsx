@@ -489,6 +489,9 @@ function SettlementScreen() {
         <Link to={`players`} target="_blank" className="places__save">
           ⇨ Presentar
         </Link>
+        <Link to={`export`} target="_blank" className="places__save">
+          ⇪ Exportar
+        </Link>
       </div>
 
       <div className="places__horizontal-sections">

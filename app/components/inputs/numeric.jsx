@@ -12,14 +12,18 @@ function preventWheel(e) {
 }
 
 export default forwardRef(function NumericInput(props, ref) {
-  const { styleName, ...restProps } = props;
+  const { styleName, onChange, value, ...restProps } = props;
+
   return (
     <input
       ref={ref}
       type="number"
+      value={onChange ? value : undefined}
+      defaultValue={onChange ? undefined : value}
+      onChange={onChange}
       className={classNames({ 'app__input-number': true, [styleName]: true })}
       onWheel={preventWheel}
       {...restProps}
     />
   );
-})
+});
