@@ -3,7 +3,8 @@ import { json } from '@remix-run/node';
 import { getSettlement } from '~/services/settlements.server';
 import { t } from '~/domain/translations';
 import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
-import { getPlaceByName } from '../../../../../services/place.server';
+import { getPlaceByName } from '~/services/place.server';
+import { PlaceSummaryItem } from '~/components/exports';
 
 export const loader = async ({ params }) => {
   const { id } = params;
@@ -169,29 +170,9 @@ function ExportSettlement() {
           </li>
         )}
 
-        <li>
-          {dominionPlace.name}
-          <ul>
-            {dominionPlace.description.split('\n').map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-            {dominionPlace.notes.split('\n').map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-          </ul>
-        </li>
+        <PlaceSummaryItem place={dominionPlace} />
 
-        <li>
-          {subdominionPlace.name}
-          <ul>
-            {subdominionPlace.description.split('\n').map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-            {subdominionPlace.notes.split('\n').map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-          </ul>
-        </li>
+        <PlaceSummaryItem place={subdominionPlace} />
       </ul>
     </div>
   );

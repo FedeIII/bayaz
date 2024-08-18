@@ -1,5 +1,5 @@
 {
-  "exclude": ["./cypress", "./cypress.config.ts"],
+  "exclude": ["./cypress", "./cypress.config.ts", "./node_modules"],
   "include": [
     "remix.env.d.ts",
     "**/*.js",
@@ -8,7 +8,6 @@
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "types": ["vitest/globals"],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
@@ -21,7 +20,8 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],
+      "~/services/*": ["./app/services/*"],
     },
     "skipLibCheck": true,
 
