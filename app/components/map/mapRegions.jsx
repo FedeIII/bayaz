@@ -127,6 +127,7 @@ function Region(props) {
   } = props;
 
   const regionPopupRef = useRef(null);
+  const typeRef = useRef(null);
   const [isEditingVertices, setIsEditingVertices] = useState(false);
   const [isEditingLabel, setIsEditingLabel] = useState(false);
   const submit = useSubmit();
@@ -196,6 +197,33 @@ function Region(props) {
                 }}
               >
                 Colocar nombre
+              </button>
+            </li>
+            <li>
+              <select
+                name="settlementType"
+                defaultValue="village"
+                ref={typeRef}
+              >
+                <option value="village">Aldea</option>
+                <option value="town">Pueblo</option>
+                <option value="city">Ciudad</option>
+              </select>
+              <button
+                type="button"
+                onClick={() =>
+                  submit(
+                    {
+                      action: 'createSettlement',
+                      lat: newLocation.lat,
+                      lng: newLocation.lng,
+                      type: typeRef.current.value,
+                    },
+                    { method: 'post' }
+                  )
+                }
+              >
+                Crear asentamiento
               </button>
             </li>
             <li>
