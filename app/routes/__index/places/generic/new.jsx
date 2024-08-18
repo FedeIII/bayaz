@@ -1,7 +1,8 @@
-import { Form, Link } from '@remix-run/react';
-import { redirect } from '@remix-run/node';
+import { Form, Link, useLoaderData } from '@remix-run/react';
+import { json, redirect } from '@remix-run/node';
 import { useEffect, useRef, useState } from 'react';
 import { createPlace } from '~/services/place.server';
+import { getRegions } from '~/services/regions.server';
 import { Title } from '~/components/form/title';
 
 import styles from '~/components/newEncounter.css';
@@ -14,6 +15,12 @@ function textareaCallback(textareaNode) {
   textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
 }
 
+export const loader = async () => {
+  const regions = await getRegions();
+
+  return json({ regions });
+};
+
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const group = formData.get('group');
@@ -21,13 +28,26 @@ export const action = async ({ request }) => {
   const img = formData.get('img');
   const description = formData.get('description');
   const notes = formData.get('notes');
+  const belongsTo = formData.get('belongsTo') || null;
+  const isRegion = formData.get('isRegion') === 'true';
+  const region = formData.get('region') || null;
 
-  const place = await createPlace({ group, name, img, description, notes });
+  const place = await createPlace({
+    group,
+    name,
+    img,
+    description,
+    notes,
+    belongsTo,
+    isRegion,
+    region,
+  });
 
   return redirect(`/places/generic/${place.id}`);
 };
 
 function GenerateGenericPlace() {
+  const { regions } = useLoaderData();
   const formRef = useRef();
 
   const [place, setPlace] = useState({
@@ -36,6 +56,9 @@ function GenerateGenericPlace() {
     img: '',
     description: '',
     notes: '',
+    belongsTo: null,
+    isRegion: false,
+    region: null,
   });
 
   const descriptionRef = useRef();
@@ -104,6 +127,66 @@ function GenerateGenericPlace() {
                   }
                 />
               </label>
+            </div>
+
+            <hr className="places__section-divider" />
+
+            <div className="places__trait">
+              <div className="places__horizontal-sections" />
+              <div className="places__vertical-sections places__vertical-sections--main">
+                Pertenece a:{' '}
+                <select
+                  name="belongsTo"
+                  defaultValue="-"
+                  className="places__trait-select"
+                >
+                  <option value="-" disabled></option>
+                  {regions.map(region => (
+                    <option value={region.id} key={region.id}>
+                      {region.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <br />
+
+            <div className="places__trait">
+              <div className="places__horizontal-sections">
+                <div className="places__trait-title">
+                  <label htmlFor="isRegion" className="places__input-label">
+                    <input
+                      type="checkbox"
+                      name="isRegion"
+                      id="isRegion"
+                      value={place.isRegion}
+                      onChange={() =>
+                        setPlace(p => ({ ...p, isRegion: !p.isRegion }))
+                      }
+                    />{' '}
+                    Es región
+                  </label>
+                </div>
+              </div>
+
+              {!!place.isRegion && (
+                <div className="places__vertical-sections">
+                  Región:{' '}
+                  <select
+                    name="region"
+                    defaultValue="-"
+                    className="places__trait-select"
+                  >
+                    <option value="-" disabled></option>
+                    {regions.map(region => (
+                      <option value={region.id} key={region.id}>
+                        {region.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
 
             <hr className="places__section-divider" />

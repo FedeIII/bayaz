@@ -9,6 +9,9 @@ const placeSchema = new mongoose.Schema({
   img: String,
   description: String,
   notes: String,
+  belongsTo: String,
+  isRegion: Boolean,
+  region: String,
 });
 
 const Place = mongoose.models.Place || mongoose.model('Place', placeSchema);

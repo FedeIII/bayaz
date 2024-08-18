@@ -564,22 +564,21 @@ function SettlementScreen() {
               <span>
                 <label for="subdominion">
                   Subdominio:{' '}
-                  <input
-                    list="subdominion"
-                    name="subdominion"
+                  <select
                     type="text"
-                    className="places__trait-select"
+                    name="subdominion"
                     value={subdominion}
                     onChange={onSubdominionChange}
-                  />
+                    className="places__trait-select"
+                  >
+                    <option value="">-</option>
+                    {getSubdominionNames(dominion).map(domName => (
+                      <option key={domName} value={domName}>
+                        {t(domName)}
+                      </option>
+                    ))}
+                  </select>
                 </label>
-                <datalist id="subdominion">
-                  {getSubdominionNames(dominion).map(domName => (
-                    <option key={domName} value={domName}>
-                      {domName}
-                    </option>
-                  ))}
-                </datalist>
               </span>
             </div>
 

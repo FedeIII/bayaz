@@ -46,6 +46,10 @@
   column-gap: 32px;
 }
 
+.places__vertical-sections--main {
+  flex-shrink: 0;
+}
+
 .places__image-container {
   position: relative;
   float: left;
@@ -399,4 +403,10 @@
     url(http://localhost:3000/images/city.png);
   background-position: center;
   background-size: cover;
+}
+
+.places__input-label {
+  display: block;
+  cursor: pointer;
+  width: fit-content;
 }
