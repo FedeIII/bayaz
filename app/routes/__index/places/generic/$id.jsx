@@ -188,9 +188,10 @@ function GenericPlace() {
                       type="checkbox"
                       name="isRegion"
                       id="isRegion"
+                      checked={!!place?.isRegion}
                       value={!!place?.isRegion}
-                      onChange={() =>
-                        setPlace(p => ({ ...p, isRegion: !p.isRegion }))
+                      onChange={e =>
+                        setPlace(p => ({ ...p, isRegion: !!e.target.checked }))
                       }
                     />{' '}
                     Es región
