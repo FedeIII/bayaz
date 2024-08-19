@@ -78,6 +78,28 @@ export function t(key) {
     REPUBLIC: 'República',
     TEOCRACY: 'Teocracia',
 
+    // Government situations
+    ['Tirano temido']: 'Gobernada por un tirano temido',
+    ['Débil de voluntad manipulado por otros']:
+      'Gobierno débil de voluntad manipulado por otros',
+    ['Gobernante ilegítimo, se cuece una guerra civil']:
+      'Gobernante ilegítimo, se cuece una guerra civil',
+    ['Dominados o controlados por un monstruo poderoso']:
+      'Dominados o controlados por un monstruo poderoso',
+    ['Cábala anónima y misteriosa']:
+      'Gobernada por una cábala anónima y misteriosa',
+    ['Liderazgo disputado, lucha abierta']:
+      'Liderazgo disputado, lucha abierta',
+    ['Cábala que se hizo con el poder abiertamente']:
+      'Gobernada por una cábala que se hizo con el poder abiertamente',
+    ['Patán incompetente']: 'Liderados por un patán incompetente',
+    ['En su lecho de muerte, los herederos compiten por el poder']:
+      'Líder en su lecho de muerte, los herederos compiten por el poder',
+    ['Respetado, justo y equitativo']: 'Gobierno respetado, justo y equitativo',
+    ['De voluntad férrea pero respetado']:
+      'Gobierno de voluntad férrea pero respetado',
+    ['Líder religioso']: 'Gobernada por un líder religioso',
+
     // Economies
     HUNTING: 'Caza',
     FISHING: 'Pesca',

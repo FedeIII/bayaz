@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useSubmit } from '@remix-run/react';
+import { Link, useSubmit } from '@remix-run/react';
 import MapPopup from './mapPopup';
 
 const labelOffsetMap = {
@@ -188,7 +188,13 @@ function Region(props) {
         <MapPopup L={L} title={region.name} ref={regionPopupRef}>
           <ul className="map__popup-options">
             <li>
-              {region.name}{' '}
+              <Link
+                to={`/places/generic/${region.name}`}
+                target="_blank"
+                className="places__save"
+              >
+                {region.name || 'Sin nombre'}
+              </Link>{' '}
               <button
                 type="button"
                 onClick={() => {

@@ -70,7 +70,7 @@ function ExportSettlement() {
         {!!government?.type ? (
           <li>
             Su sitema de gobierno es {t(government.type)}.{' '}
-            {government.situation}
+            {t(government.situation)}
           </li>
         ) : (
           <li>Alguacil {Math.random() > 0.5 && 'no '}presente</li>

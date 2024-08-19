@@ -2,7 +2,7 @@ import { Form, Link, useLoaderData } from '@remix-run/react';
 import { useEffect, useRef, useState } from 'react';
 import { json, redirect } from '@remix-run/node';
 
-import { getPlace, updatePlace } from '~/services/place.server';
+import { getPlace, getPlaceByName, updatePlace } from '~/services/place.server';
 import { getRegions } from '~/services/regions.server';
 import { Title } from '~/components/form/title';
 
@@ -21,13 +21,14 @@ function textareaCallback(textareaNode) {
 }
 
 export const loader = async ({ params }) => {
-  const [place, regions] = await Promise.all([
-    getPlace(params.id),
-    getRegions(),
-  ]);
+  let [place, regions] = await Promise.all([getPlace(params.id), getRegions()]);
 
   if (!place) {
-    throw new Error('Place not found');
+    place = await getPlaceByName(params.id);
+    if (!place) {
+      throw new Error('Place not found');
+    }
+    return redirect(`/places/generic/${place.id}`);
   }
 
   return json({ place, regions });

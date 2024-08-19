@@ -311,7 +311,7 @@ function SettlementScreen() {
           subdominion: place.subdominion,
           population: place.population,
           accommodation: place.accommodation,
-          government: [place.government?.type, place.government?.situation],
+          government: [place.government?.type, t(place.government?.situation)],
           securityType: place.securityType,
           security: place.security,
           commerces: place.commerces,
