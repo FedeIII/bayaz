@@ -11,6 +11,7 @@ const placeSchema = new mongoose.Schema({
   notes: String,
   belongsTo: String,
   isRegion: Boolean,
+  isDominion: Boolean,
   region: String,
 });
 

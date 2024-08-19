@@ -16,11 +16,17 @@ export const loader = async ({ params }) => {
     belongsToPlace = await getPlaceByName(belongsToRegion.name);
   }
 
-  return json({ place, belongsToPlace });
+  let inTheRegionOfPlace = null;
+  if (belongsToPlace?.belongsTo) {
+    const inTheRegionOf = await getRegion(belongsToPlace.belongsTo);
+    inTheRegionOfPlace = await getPlaceByName(inTheRegionOf.name);
+  }
+
+  return json({ place, belongsToPlace, inTheRegionOfPlace });
 };
 
 function ExportPlace() {
-  const { place, belongsToPlace } = useLoaderData();
+  const { place, belongsToPlace, inTheRegionOfPlace } = useLoaderData();
 
   const { group, isRegion } = place;
 
@@ -37,10 +43,21 @@ function ExportPlace() {
               place={belongsToPlace}
               title={
                 <>
-                  {belongsToPlace && <>Perteneciente a {belongsToPlace.name}</>}
+                  {belongsToPlace && (
+                    <>
+                      Perteneciente a {belongsToPlace.name}
+                      {inTheRegionOfPlace && (
+                        <>, en {inTheRegionOfPlace.name}</>
+                      )}
+                    </>
+                  )}
                 </>
               }
-            />
+            >
+              {inTheRegionOfPlace && (
+                <PlaceSummaryItem place={inTheRegionOfPlace} />
+              )}
+            </PlaceSummaryItem>
           )}
         </PlaceSummaryItem>
       </ul>

@@ -40,6 +40,7 @@ export const action = async ({ request }) => {
   const notes = formData.get('notes');
   const belongsTo = formData.get('belongsTo') || null;
   const isRegion = formData.get('isRegion') === 'true';
+  const isDominion = formData.get('isDominion') === 'true';
   const region = formData.get('region') || null;
 
   const place = await updatePlace(id, {
@@ -48,8 +49,9 @@ export const action = async ({ request }) => {
     img,
     description,
     notes,
-    belongsTo,
+    belongsTo: isDominion ? null : belongsTo,
     isRegion,
+    isDominion,
     region,
   });
 
@@ -146,25 +148,43 @@ function GenericPlace() {
             <hr className="places__section-divider" />
 
             <div className="places__trait">
-              <div className="places__horizontal-sections" />
-              <div className="places__vertical-sections places__vertical-sections--main">
-                Pertenece a:{' '}
-                <select
-                  name="belongsTo"
-                  value={place?.belongsTo}
-                  onChange={e =>
-                    setPlace(p => ({ ...p, belongsTo: e.target.value }))
-                  }
-                  className="places__trait-select"
-                >
-                  <option value="-" disabled></option>
-                  {regions.map(region => (
-                    <option value={region.id} key={region.id}>
-                      {region.name}
-                    </option>
-                  ))}
-                </select>
+              <div className="places__horizontal-sections">
+                <div className="places__trait-title">
+                  <label htmlFor="isDominion" className="places__input-label">
+                    <input
+                      type="checkbox"
+                      name="isDominion"
+                      id="isDominion"
+                      checked={!!place?.isDominion}
+                      value={!!place?.isDominion}
+                      onChange={() =>
+                        setPlace(p => ({ ...p, isDominion: !p.isDominion }))
+                      }
+                    />{' '}
+                    Son Dominios
+                  </label>
+                </div>
               </div>
+              {!place?.isDominion && (
+                <div className="places__vertical-sections places__vertical-sections--main">
+                  Pertenece a:{' '}
+                  <select
+                    name="belongsTo"
+                    value={place?.belongsTo}
+                    onChange={e =>
+                      setPlace(p => ({ ...p, belongsTo: e.target.value }))
+                    }
+                    className="places__trait-select"
+                  >
+                    <option value="-" disabled></option>
+                    {regions.map(region => (
+                      <option value={region.id} key={region.id}>
+                        {region.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
 
             <br />

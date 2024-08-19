@@ -51,14 +51,16 @@ export function PlaceSummaryItem(props) {
                   }}
                 />
               ) : (
-                <li>
-                  Descripción:{' '}
-                  <ul>
-                    {place.description
-                      .split('\n')
-                      .map((line, i) => line && <li key={i}>{line}</li>)}
-                  </ul>
-                </li>
+                place.description && (
+                  <li>
+                    Descripción:{' '}
+                    <ul>
+                      {place.description
+                        .split('\n')
+                        .map((line, i) => line && <li key={i}>{line}</li>)}
+                    </ul>
+                  </li>
+                )
               )}
 
               {isNotesHtml ? (
@@ -68,6 +70,34 @@ export function PlaceSummaryItem(props) {
                   }}
                 />
               ) : (
+                place.notes && (
+                  <li>
+                    Notas:{' '}
+                    <ul>
+                      {place.notes
+                        .split('\n')
+                        .map((line, i) => line && <li key={i}>{line}</li>)}
+                    </ul>
+                  </li>
+                )
+              )}
+            </>
+          )}
+
+          {/* Neither is HTML */}
+          {!isDescriptionHtml && !isNotesHtml && (
+            <>
+              {place.description && (
+                <li>
+                  Descripción:{' '}
+                  <ul>
+                    {place.description
+                      .split('\n')
+                      .map((line, i) => line && <li key={i}>{line}</li>)}
+                  </ul>
+                </li>
+              )}
+              {place.notes && (
                 <li>
                   Notas:{' '}
                   <ul>
@@ -77,28 +107,6 @@ export function PlaceSummaryItem(props) {
                   </ul>
                 </li>
               )}
-            </>
-          )}
-
-          {/* Neither is HTML */}
-          {!isDescriptionHtml && !isNotesHtml && (
-            <>
-              <li>
-                Descripción:{' '}
-                <ul>
-                  {place.description
-                    .split('\n')
-                    .map((line, i) => line && <li key={i}>{line}</li>)}
-                </ul>
-              </li>
-              <li>
-                Notas:{' '}
-                <ul>
-                  {place.notes
-                    .split('\n')
-                    .map((line, i) => line && <li key={i}>{line}</li>)}
-                </ul>
-              </li>
             </>
           )}
 

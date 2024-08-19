@@ -30,6 +30,7 @@ export const action = async ({ request }) => {
   const notes = formData.get('notes');
   const belongsTo = formData.get('belongsTo') || null;
   const isRegion = formData.get('isRegion') === 'true';
+  const isDominion = formData.get('isDominion') === 'true';
   const region = formData.get('region') || null;
 
   const place = await createPlace({
@@ -40,6 +41,7 @@ export const action = async ({ request }) => {
     notes,
     belongsTo,
     isRegion,
+    isDominion,
     region,
   });
 
@@ -58,6 +60,7 @@ function GenerateGenericPlace() {
     notes: '',
     belongsTo: null,
     isRegion: false,
+    isDominion: false,
     region: null,
   });
 
@@ -132,22 +135,40 @@ function GenerateGenericPlace() {
             <hr className="places__section-divider" />
 
             <div className="places__trait">
-              <div className="places__horizontal-sections" />
-              <div className="places__vertical-sections places__vertical-sections--main">
-                Pertenece a:{' '}
-                <select
-                  name="belongsTo"
-                  defaultValue="-"
-                  className="places__trait-select"
-                >
-                  <option value="-" disabled></option>
-                  {regions.map(region => (
-                    <option value={region.id} key={region.id}>
-                      {region.name}
-                    </option>
-                  ))}
-                </select>
+              <div className="places__horizontal-sections">
+                <div className="places__trait-title">
+                  <label htmlFor="isDominion" className="places__input-label">
+                    <input
+                      type="checkbox"
+                      name="isDominion"
+                      id="isDominion"
+                      checked={!!place.isDominion}
+                      value={!!place.isDominion}
+                      onChange={() =>
+                        setPlace(p => ({ ...p, isDominion: !p.isDominion }))
+                      }
+                    />{' '}
+                    Son Dominios
+                  </label>
+                </div>
               </div>
+              {!place?.isDominion && (
+                <div className="places__vertical-sections places__vertical-sections--main">
+                  Pertenece a:{' '}
+                  <select
+                    name="belongsTo"
+                    defaultValue="-"
+                    className="places__trait-select"
+                  >
+                    <option value="-" disabled></option>
+                    {regions.map(region => (
+                      <option value={region.id} key={region.id}>
+                        {region.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
 
             <br />
@@ -155,12 +176,13 @@ function GenerateGenericPlace() {
             <div className="places__trait">
               <div className="places__horizontal-sections">
                 <div className="places__trait-title">
-                  <label htmlFor="isRegion" className="places__input-label">
+                  <label htmFor="isRegion" className="places__input-label">
                     <input
                       type="checkbox"
                       name="isRegion"
                       id="isRegion"
-                      value={place.isRegion}
+                      checked={!!place.isRegion}
+                      value={!!place.isRegion}
                       onChange={() =>
                         setPlace(p => ({ ...p, isRegion: !p.isRegion }))
                       }

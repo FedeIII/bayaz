@@ -157,20 +157,25 @@ function ExportSettlement() {
 
         {calamity && <li>Últimas noticias: {calamity}</li>}
 
-        {notes && (
-          <li>
-            Notas sobre el asentamiento:
-            <ul>
-              {notes.split('\n').map((line, i) => (
-                <li key={i}>{line}</li>
-              ))}
-            </ul>
-          </li>
-        )}
-
-        <PlaceSummaryItem place={dominionPlace} />
-
-        <PlaceSummaryItem place={subdominionPlace} />
+        <PlaceSummaryItem place={place}>
+          {subdominionPlace && (
+            <PlaceSummaryItem
+              place={subdominionPlace}
+              title={
+                <>
+                  {subdominionPlace && (
+                    <>
+                      Perteneciente a {subdominionPlace.name}
+                      {dominionPlace && <>, en {dominionPlace.name}</>}
+                    </>
+                  )}
+                </>
+              }
+            >
+              {dominionPlace && <PlaceSummaryItem place={dominionPlace} />}
+            </PlaceSummaryItem>
+          )}
+        </PlaceSummaryItem>
       </ul>
     </div>
   );

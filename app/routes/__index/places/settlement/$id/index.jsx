@@ -46,17 +46,13 @@ import { Title } from '~/components/form/title';
 import { getSettlementImages } from '~/services/s3.server';
 import { getVillageSecurityType } from '~/domain/places/village';
 import NumericInput from '~/components/inputs/numeric';
+import HtmlInput from '~/components/inputs/htmlInput';
 
 const TYPES = {
   city: CITY,
   town: TOWN,
   village: VILLAGE,
 };
-
-function textareaCallback(textareaNode) {
-  textareaNode.target.style.height = '';
-  textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
-}
 
 function useAmount(array, randomElement, setNewArray, MAX = Infinity) {
   const [amount, setAmount] = useState(0);
@@ -205,11 +201,6 @@ function SettlementScreen() {
   }, [showNameInput]);
 
   const notesRef = useRef();
-  useEffect(() => {
-    if (notesRef.current) {
-      textareaCallback({ target: notesRef.current });
-    }
-  }, [notesRef.current]);
 
   const [placeState, setPlaceState] = useState({
     type: typeParam,
@@ -906,14 +897,13 @@ function SettlementScreen() {
 
         <div className="places__notes">
           <h2 className="places__notes-title">Notas</h2>
-          <textarea
-            ref={notesRef}
+          <HtmlInput
             name="notes"
             value={notes}
+            htmlInputRef={notesRef}
             className="places__notes-text"
             onChange={onNotesChange}
-            onInput={textareaCallback}
-          ></textarea>
+          />
         </div>
       </div>
     </Form>
