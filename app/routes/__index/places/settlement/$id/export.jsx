@@ -48,9 +48,7 @@ function ExportSettlement() {
   useRemoveMenu();
 
   return (
-    <div
-      style={{ textAlign: 'left', backgroundColor: 'white', color: 'black' }}
-    >
+    <div className="html-export">
       {name}
       <ul>
         <li>

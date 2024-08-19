@@ -396,6 +396,26 @@ html {
   border: 2px solid #333; /* Optional: border around the map */
 }
 
+.html-input,
+.html-input * {
+  font-family: var(--font-family) !important;
+  color: white !important;
+  font-size: var(--font-size-m);
+}
+
+.html-export,
+.html-export * {
+  font-family: var(--font-family) !important;
+  font-size: var(--font-size-m);
+  text-align: left !important;
+  background-color: white !important;
+  color: black !important;
+}
+
+.html-export p {
+  margin: 0 !important;
+}
+
 @keyframes bouncing_trait {
   0% {
     margin-top: 2px;

@@ -5,6 +5,7 @@ import { json, redirect } from '@remix-run/node';
 import { getPlace, getPlaceByName, updatePlace } from '~/services/place.server';
 import { getRegions } from '~/services/regions.server';
 import { Title } from '~/components/form/title';
+import HtmlInput from '~/components/inputs/htmlInput';
 
 import styles from '~/components/filters.css';
 import encounterStyles from '~/components/newEncounter.css';
@@ -14,11 +15,6 @@ export const links = () => {
     { rel: 'stylesheet', href: encounterStyles },
   ];
 };
-
-function textareaCallback(textareaNode) {
-  textareaNode.target.style.height = '';
-  textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
-}
 
 export const loader = async ({ params }) => {
   let [place, regions] = await Promise.all([getPlace(params.id), getRegions()]);
@@ -73,23 +69,12 @@ function GenericPlace() {
     }
   }, [initPlace]);
 
-  const descriptionRef = useRef();
-  useEffect(() => {
-    if (descriptionRef.current) {
-      textareaCallback({ target: descriptionRef.current });
-    }
-  }, [descriptionRef.current]);
-
-  const notesRef = useRef();
-  useEffect(() => {
-    if (notesRef.current) {
-      textareaCallback({ target: notesRef.current });
-    }
-  }, [notesRef.current]);
+  const descriptionRef = useRef(null);
+  const notesRef = useRef(null);
 
   return (
     <Form method="post" ref={formRef}>
-      <input readOnly type="text" name="id" value={place?.id} hidden />
+      <input readOnly type="text" name="id" value={place?.id || ''} hidden />
 
       <div className="places__buttons">
         <Link to="/places/generic/list" className="menus__back-button">
@@ -119,7 +104,7 @@ function GenericPlace() {
                   readOnly
                   type="text"
                   name="img"
-                  value={place?.img}
+                  value={place?.img || ''}
                   hidden
                 />
               </>
@@ -230,16 +215,18 @@ function GenericPlace() {
             <div className="places__trait">
               <div className="places__horizontal-sections">
                 <div className="places__trait-title">Descripción</div>
-                <textarea
-                  ref={descriptionRef}
+                <HtmlInput
                   name="description"
                   value={place?.description}
+                  htmlInputRef={descriptionRef}
                   className="places__trait-input"
-                  onChange={e =>
-                    setPlace(p => ({ ...p, description: e.target.value }))
+                  onChange={() =>
+                    setPlace(p => ({
+                      ...p,
+                      description: descriptionRef.current?.innerHTML,
+                    }))
                   }
-                  onInput={textareaCallback}
-                ></textarea>
+                />
               </div>
             </div>
 
@@ -249,14 +236,18 @@ function GenericPlace() {
 
         <div className="places__notes">
           <h2 className="places__notes-title">Notas</h2>
-          <textarea
-            ref={notesRef}
+          <HtmlInput
             name="notes"
             value={place?.notes}
+            htmlInputRef={notesRef}
             className="places__notes-text"
-            onChange={e => setPlace(p => ({ ...p, notes: e.target.value }))}
-            onInput={textareaCallback}
-          ></textarea>
+            onChange={() =>
+              setPlace(p => ({
+                ...p,
+                notes: notesRef.current?.innerHTML,
+              }))
+            }
+          />
         </div>
       </div>
     </Form>

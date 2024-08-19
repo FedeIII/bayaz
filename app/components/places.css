@@ -258,6 +258,7 @@
   font-size: var(--font-size-m);
   padding: 16px 0 0 16px;
   scrollbar-color: white;
+  text-align: left;
 }
 
 .places__trait-input {

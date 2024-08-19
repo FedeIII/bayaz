@@ -29,7 +29,10 @@ function getCapitalizedTitle(title) {
           {
             capitalized: [
               ...acc.capitalized.slice(0, acc.capitalized.length - 1),
-              <span className="places__title-capital">
+              <span
+                key={acc.capitalized[acc.capitalized.length - 1]}
+                className="places__title-capital"
+              >
                 {acc.capitalized[acc.capitalized.length - 1]}
               </span>,
               char,
@@ -53,7 +56,10 @@ function getCapitalizedTitle(title) {
     const { capitalized } = capitalizedTitle;
     capitalizedTitle.capitalized = [
       ...capitalized.slice(0, capitalized.length - 1),
-      <span className="places__title-capital">
+      <span
+        key={capitalized[capitalized.length - 1]}
+        className="places__title-capital"
+      >
         {capitalized[capitalized.length - 1]}
       </span>,
     ];
@@ -131,7 +137,7 @@ function TitleContent(props) {
             type="text"
             name={inputName}
             placeholder={placeholder || value}
-            value={value}
+            value={value || ''}
             className={`places__title-input ${inputClass} ${
               showInputHighlight ? 'places__title-input--empty' : ''
             }`}
@@ -150,7 +156,7 @@ function TitleContent(props) {
             type="text"
             name={inputName}
             placeholder={placeholder}
-            defaultValue={defaultValue}
+            defaultValue={defaultValue || ''}
             className={`places__title-input ${inputClass} ${
               showInputHighlight ? 'places__title-input--empty' : ''
             }`}

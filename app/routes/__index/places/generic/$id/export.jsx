@@ -1,9 +1,9 @@
 import { useLoaderData } from '@remix-run/react';
 import { json } from '@remix-run/node';
 import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
-import { getPlace, getPlaceByName } from '../../../../../services/place.server';
-import { PlaceSummaryItem } from '../../../../../components/exports';
-import { getRegion } from '../../../../../services/regions.server';
+import { getPlace, getPlaceByName } from '~/services/place.server';
+import { PlaceSummaryItem } from '~/components/exports';
+import { getRegion } from '~/services/regions.server';
 
 export const loader = async ({ params }) => {
   const { id } = params;
@@ -19,17 +19,15 @@ export const loader = async ({ params }) => {
   return json({ place, belongsToPlace });
 };
 
-function ExportSettlement() {
+function ExportPlace() {
   const { place, belongsToPlace } = useLoaderData();
 
-  const { name, group, isRegion } = place;
+  const { group, isRegion } = place;
 
   useRemoveMenu();
 
   return (
-    <div
-      style={{ textAlign: 'left', backgroundColor: 'white', color: 'black' }}
-    >
+    <div className="html-export">
       <ul>
         <PlaceSummaryItem place={place}>
           {!isRegion && <li>Capítulo: {group}</li>}
@@ -50,4 +48,4 @@ function ExportSettlement() {
   );
 }
 
-export default ExportSettlement;
+export default ExportPlace;
