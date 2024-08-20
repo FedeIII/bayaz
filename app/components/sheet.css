@@ -569,11 +569,12 @@
 
 .sheet__special-attacks {
   grid-area: sAt;
+  overflow-y: scroll;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   list-style: decimal;
-  padding-left: 12px;
+  padding-left: 18px;
   font-size: var(--font-size-s);
   margin: 4px 0px 0px -20px;
   line-height: 1.5;

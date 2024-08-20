@@ -127,6 +127,20 @@ const LOCKETS = {
       ...props,
     };
   },
+  hobgoblinAmuletOfLuck(props) {
+    return {
+      name: 'hobgoblinAmuletOfLuck',
+      type: 'locket',
+      translation: 'Amuleto Hobgoblin de la Suerte',
+      unidentifiedName: 'Amuleto Hobgoblin',
+      rarity: 'rare',
+      price: { gp: 2000 },
+      weight: 0.02,
+      description: () => `<p>Requiere sintonización</p>
+    <p>Una vez al día, el portador puede repetir una tirada de salvación o prueba de habilidad antes de saber el resultado de la misma.</p>`,
+      ...props,
+    };
+  },
 };
 
 const RINGS = {
