@@ -47,7 +47,7 @@ export function PlaceSummaryItem(props) {
               {isDescriptionHtml ? (
                 <li
                   dangerouslySetInnerHTML={{
-                    __html: place.description,
+                    __html: 'Descripción' + place.description,
                   }}
                 />
               ) : (
@@ -66,7 +66,7 @@ export function PlaceSummaryItem(props) {
               {isNotesHtml ? (
                 <li
                   dangerouslySetInnerHTML={{
-                    __html: place.notes,
+                    __html: 'Notas' + place.notes,
                   }}
                 />
               ) : (
