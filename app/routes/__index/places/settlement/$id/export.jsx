@@ -157,25 +157,19 @@ function ExportSettlement() {
 
         {calamity && <li>Últimas noticias: {calamity}</li>}
 
-        <PlaceSummaryItem place={place}>
-          {subdominionPlace && (
-            <PlaceSummaryItem
-              place={subdominionPlace}
-              title={
-                <>
-                  {subdominionPlace && (
-                    <>
-                      Perteneciente a {subdominionPlace.name}
-                      {dominionPlace && <>, en {dominionPlace.name}</>}
-                    </>
-                  )}
-                </>
-              }
-            >
-              {dominionPlace && <PlaceSummaryItem place={dominionPlace} />}
-            </PlaceSummaryItem>
-          )}
-        </PlaceSummaryItem>
+        {subdominionPlace && (
+          <PlaceSummaryItem
+            place={subdominionPlace}
+            title={<>Perteneciente a {subdominionPlace.name}</>}
+          >
+            {dominionPlace && (
+              <PlaceSummaryItem
+                place={dominionPlace}
+                title={<>{subdominionPlace.name} pertenece a {dominionPlace.name}</>}
+              />
+            )}
+          </PlaceSummaryItem>
+        )}
       </ul>
     </div>
   );
