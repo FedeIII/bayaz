@@ -9700,7 +9700,15 @@ export const MONSTER_DETAILS_LIST = {
     Challenge: '3 (700 XP)',
   },
   'Hobgoblin Captain': {
-    actions: {},
+    actions: {
+      'Ataque múltiple': 'El hobgoblin realiza dos ataques con su espadón.',
+      Espadón:
+        'Ataque con arma cuerpo a cuerpo: +4 a impactar, alcance 5 pies, un objetivo. Impacto: 9 (2d6 + 2) de daño perforante.',
+      Jabalina:
+        'Ataque con arma cuerpo a cuerpo o a distancia: +4 a impactar, alcance 5 pies o alcance 30/120 pies, un objetivo. Impacto: 5 (1d6 + 2) de daño perforante.',
+      'Liderazgo (se recarga tras un descanso corto o largo)':
+        'Durante 1 minuto, el capitán hobgoblin puede pronunciar una orden o advertencia especial cada vez que una criatura no hostil que pueda ver y se encuentre a 30 pies o menos de distancia de él haga una tirada de ataque o de salvación. Si puede oír al capitán y entiende el idioma del hobgoblin, la criatura podrá añadir un d4 a su tirada, pero solo podrá beneficiarse de un dado de liderazgo al mismo tiempo. Este efecto termina si el capitán hobgoblin resulta incapacitado.',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (goblinoid), lawful evil',
     stats: {
@@ -9711,7 +9719,7 @@ export const MONSTER_DETAILS_LIST = {
       wis: '10',
       cha: '13',
     },
-    'Armor Class': '17 (half plate)',
+    'Armor Class': '17 (media armadura)',
     'Hit Points': '39 (6d8 + 12)',
     Speed: '30 ft.',
     Senses: 'darkvision 60 ft., passive Perception 10',

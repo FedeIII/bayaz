@@ -161,6 +161,7 @@ export const MONSTER_IMAGES = {
   Hobgoblin: 'https://www.aidedd.org/dnd/images/hobgoblin.jpg',
   'Hobgoblin Warlord': 'https://www.aidedd.org/dnd/images/hobgoblin.jpg',
   'Hobgoblin Devastator': 'https://www.aidedd.org/dnd/images/hobgoblin-devastator.jpg',
+  'Hobgoblin Captain': 'https://www.aidedd.org/dnd/images/hobgoblin.jpg',
   Homunculus: 'https://www.aidedd.org/dnd/images/homunculus.jpg',
   'Hook Horror': 'https://www.aidedd.org/dnd/images/hook-horror.jpg',
   'Horned Devil': 'https://www.aidedd.org/dnd/images/horned-devil.jpg',
