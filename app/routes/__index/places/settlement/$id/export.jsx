@@ -157,6 +157,14 @@ function ExportSettlement() {
 
         {calamity && <li>Últimas noticias: {calamity}</li>}
 
+        {notes && (
+          <li
+            dangerouslySetInnerHTML={{
+              __html: 'Notas' + place.notes,
+            }}
+          />
+        )}
+
         {subdominionPlace && (
           <PlaceSummaryItem
             place={subdominionPlace}
@@ -165,7 +173,11 @@ function ExportSettlement() {
             {dominionPlace && (
               <PlaceSummaryItem
                 place={dominionPlace}
-                title={<>{subdominionPlace.name} pertenece a {dominionPlace.name}</>}
+                title={
+                  <>
+                    {subdominionPlace.name} pertenece a {dominionPlace.name}
+                  </>
+                }
               />
             )}
           </PlaceSummaryItem>
