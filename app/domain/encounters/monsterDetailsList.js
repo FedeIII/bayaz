@@ -2182,6 +2182,43 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium humanoid (goblinoid), lawful evil',
   },
+  'Hobgoblin Devastator': {
+    actions: {
+      Bastón:
+        '<em>Melee Weapon Attack</em>: +3 to hit, reach 5 ft., one target. <em>Hit</em>: 4 (1d6 + 1) daño contundente, o 5 (1d18 + 1) daño contundente a dos manos.',
+    },
+    legendaryActions: {},
+    'Armor Class': '13 (cuero tachonado)',
+    'Hit Points': '45 (7d8 + 14)',
+    Speed: '30 ft.',
+    Senses: 'visión en la oscuridad 60 pies, Percepción pasiva 11',
+    Skills: 'Conocimiento Arcano +5',
+    Languages: 'Common, Goblin',
+    Challenge: '4 (1.100 PX)',
+    'Lanzamiento de Conjuros':
+      'El hobgoblin es un lanzador de conjuros de nivel 7. Su aptitud mágica es Inteligencia (salvación de conjuros CD 13, +5 a impactar con ataques de conjuro). Tiene los siguientes conjuros de mago preparados:',
+    'Trucos (a voluntad)':
+      '<em>agarre electrizante, descarga de fuego, rayo de escarcha, salpicadura ácida</em>',
+    'Nivel 1 (4 huecos)':
+      '<em>nube de oscurecimiento, ola de atronadora, proyectil mágico</em>',
+    'Nivel 2 (3 huecos)':
+      '<em>flecha ácida de Melf, ráfaga de viento, rayo abrasador</em>',
+    'Nivel 3 (3 huecos)': '<em>bola de fuego, relámpago, volar</em>',
+    'Nivel 4 (1 hueco)': '<em>tormenta de hielo</em>',
+    'Taumaturgia Militar':
+      'Cuando el hobgoblin lanza un conjuro que causa daño u obliga a otras criaturas a realizar una tirada de salvación, puede elegirse a sí mismo y a cualquier número de aliados para ser inmunes al daño causado por el conjuro y tener éxito en la tirada de salvación requerida.',
+    'Ventaja Arcana':
+      ' Una vez por turno, el hobgoblin puede infligir 7 (2d6) de daño adicional a una criatura que impacte con un ataque de conjuro que provoque daño, siempre que ese objetivo se encuentre a 5 pies o menos de un aliado del hobgoblin y este último no esté incapacitado.',
+    stats: {
+      str: '13',
+      dex: '12',
+      con: '14',
+      int: '16',
+      wis: '13',
+      cha: '11',
+    },
+    notes: 'Humanoide Mediano (trasgo), legal malvado',
+  },
   'Ice Mephit': {
     actions: {
       Claws:

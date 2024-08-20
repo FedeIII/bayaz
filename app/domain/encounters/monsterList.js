@@ -1963,6 +1963,23 @@ const ONLY_MONSTERS = {
       Hill: 'yes',
     },
   },
+  'Hobgoblin Devastator': {
+    tags: 'goblinoid',
+    type: 'Humanoid',
+    name: 'Hobgoblin Devastator',
+    size: 'Medium',
+    challenge: '4',
+    page: 'vgm 158',
+    alignment: 'LE',
+    xp: '1100',
+    environment: {
+      Desert: 'yes',
+      Grassland: 'yes',
+      Underdark: 'yes',
+      Forest: 'yes',
+      Hill: 'yes',
+    },
+  },
   Ulitharid: {
     name: 'Ulitharid',
     challenge: '9',
