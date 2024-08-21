@@ -2219,6 +2219,43 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Humanoide Mediano (trasgo), legal malvado',
   },
+  'Hobgoblin Iron Shadow': {
+    actions: {
+      'Ataque múltiple':
+        'La hobgoblin hace cuatro ataques, cada uno de los cuales puede ser un ataque sin armas o un ataque de dardo. También puede usar paseo en las sombras una vez, antes o después de uno de los ataques.',
+      'Ataque sin armas':
+        'Ataque con arma cuerpo a cuerpo: +5 a impactar, alcance 5 pies, un objetivo. Impacto: 5 (1d4 + 3) de daño contundente.',
+      Dardo:
+        'Ataque con arma a distancia: +5 a impactar, alcance 20/60 pies, un objetivo. Impacto: 5 (1d4 + 3) de daño perforante.',
+      'Paseo en las sombras':
+        ' La hobgoblin se teletransporta mágicamente, junto con cualquier equipo que lleve o vista, a un espacio desocupado que pueda ver y se encuentre a una distancia de hasta 30 pies. Tanto el espacio que está dejando como su destino deben estar en condiciones de luz tenue u oscuridad.',
+    },
+    legendaryActions: {},
+    'Armor Class': '15',
+    'Hit Points': '32 (5d8 + 10)',
+    Speed: '40 ft.',
+    Senses: 'visión en la oscuridad 60 pies, Percepción pasiva 12',
+    Skills: 'Acrobacias +5, Atletismo +4, Sigilo +5',
+    Languages: 'Common, Goblin',
+    Challenge: '2 (450 PX)',
+    'Defensa sin Armadura':
+      'Mientras la hobgoblin no lleve puesta armadura ni porte escudo, se añadirá su modificador de Sabiduría a su CA.',
+    'Lanzamiento de Conjuros':
+      'La hobgoblin es una lanzadora de conjuros de nivel 2. Su aptitud mágica es Inteligencia (salvación de conjuros CD 12, +4 a impactar con ataques de conjuro). Tiene los siguientes conjuros de mago preparados:',
+    'Trucos (a voluntad)':
+      '<em> ilusión menor, impacto certero, prestidigitación</em>',
+    'Nivel 1 (4 huecos)':
+      '<em>disfrazarse, hechizar persona, imagen silenciosa, retirada expeditiva</em>',
+    stats: {
+      str: '14',
+      dex: '16',
+      con: '15',
+      int: '14',
+      wis: '15',
+      cha: '11',
+    },
+    notes: 'Humanoide Mediano (trasgo), legal malvado',
+  },
   'Ice Mephit': {
     actions: {
       Claws:

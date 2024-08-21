@@ -330,6 +330,7 @@ export const MONSTER_TRANSLATIONS = {
   'galeb duhr': 'Galeb duhr',
   'githzerai zerth': 'Zerth githzerai',
   'hobgoblin warlord': 'Señor de la guerra hobgoblin',
+  'hobgoblin iron shadow': 'Hobgoblin sombra férrea',
   'invisible stalker': 'Acechador invisible',
   'kuo-toa archpriest': 'Arcipreste kuo-toa',
   mage: 'Mago',
