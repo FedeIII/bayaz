@@ -276,6 +276,19 @@ export function WEAPONS() {
         ...props,
       };
     },
+    greatsword1(props) {
+      return WEAPONS().greatsword({
+        name: 'greatsword1',
+        translation: 'Espadón (+1)',
+        rarity: 'uncommon',
+        price: { gp: 250 },
+        identified: true,
+        bonus: {
+          damage: 1,
+        },
+        ...props,
+      });
+    },
     halberd(props) {
       return {
         name: 'halberd',
@@ -530,6 +543,7 @@ export function WEAPONS() {
     },
 
     // MAGIC WEAPONS
+    
     sylvanBlade(props) {
       return WEAPONS().dagger({
         name: 'sylvanBlade',
