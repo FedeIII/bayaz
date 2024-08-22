@@ -158,11 +158,14 @@ function ExportSettlement() {
         {calamity && <li>Últimas noticias: {calamity}</li>}
 
         {notes && (
-          <li
-            dangerouslySetInnerHTML={{
-              __html: 'Notas' + place.notes,
-            }}
-          />
+          <li>
+            Notas{' '}
+            <ul
+              dangerouslySetInnerHTML={{
+                __html: place.notes,
+              }}
+            />
+          </li>
         )}
 
         {subdominionPlace && (
