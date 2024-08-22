@@ -10,6 +10,10 @@ import { CharacterModal } from '~/components/modal/characterModal';
 import { CharacterItem } from '~/components/modal/characterItem';
 import { Monster } from '~/domain/encounters/monsters';
 import { useSearchResults } from '~/components/hooks/useSearchResults';
+import { getSessionUser } from '~/services/session.server';
+import { useLoaderData } from '@remix-run/react';
+import { json } from '@remix-run/node';
+import { isDm } from '~/domain/user';
 
 import styles from '~/components/glossary.css';
 import charactersStyles from '~/components/characters/characters.css';
@@ -23,6 +27,12 @@ export const links = () => {
 };
 
 const ITEM_HEIGHT = 67;
+
+export const loader = async ({ request }) => {
+  const user = await getSessionUser(request);
+
+  return json({ isDm: isDm(user) });
+};
 
 function Sidebar(props) {
   const { filters, setFilters } = props;
@@ -53,10 +63,11 @@ function Sidebar(props) {
 }
 
 function Glossary() {
+  const { isDm } = useLoaderData();
   const [filters, setFilters] = useState({ search: '' });
   const { search } = filters;
 
-  const searchResults = useSearchResults(search);
+  const searchResults = useSearchResults(search, isDm);
 
   const [refsList, setRefsList] = useState({
     spells: useRef(searchResults.spells.map(createRef)),
