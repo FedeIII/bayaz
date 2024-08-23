@@ -32,6 +32,7 @@
   background-color: #232d40;
   padding: 16px;
   width: calc(100% - 32px);
+  text-align: left;
 }
 
 .glossary__filter {
@@ -156,4 +157,37 @@
   cursor: pointer;
   text-align: left;
   margin: 0 32px 0 0;
+}
+
+.glossary__table-head {
+  font-size: var(--font-size-l);
+}
+
+.glossary__table-odd {
+  background-color: var(--color-dark);
+}
+
+.glossary__table-even {
+  background-color: var(--color-base);
+}
+
+.glossary__table-head-cell {
+  padding: 8px 8px 4px;
+  background-color: var(--color-x-pale);
+  font-size: var(--font-size-xl);
+  color: black;
+  min-width: 10vw;
+}
+
+.glossary__table-column {
+  text-align: right;
+  padding: 4px 12px 2px;
+}
+
+.glossary__table-column--first {
+  text-align: left;
+}
+
+.glossary__table-column--align-left {
+  text-align: left;
 }
