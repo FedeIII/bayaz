@@ -93,6 +93,7 @@ import {
 } from './classes/ranger/ranger';
 import { getChildrenText } from '~/utils/getChildrenText';
 import { t } from './translations';
+import { parseGoldToMoney } from './equipment/money';
 
 export const RACES = {
   dwarf: {
@@ -2935,13 +2936,18 @@ export function getTraits(pc) {
 
 export function translateMoney(money) {
   if (!money) return '-';
+
+  if (typeof money === 'number') {
+    money = parseGoldToMoney(money);
+  }
+
   return Object.entries(money)
     .map(([coin, amount]) => {
-      if (amount && coin === 'cp') return amount + ' Cobre';
-      if (amount && coin === 'sp') return amount + ' Plata';
-      if (amount && coin === 'ep') return amount + ' Electrum';
-      if (amount && coin === 'gp') return amount + ' Oro';
       if (amount && coin === 'pp') return amount + ' Platino';
+      if (amount && coin === 'gp') return amount + ' Oro';
+      if (amount && coin === 'ep') return amount + ' Electrum';
+      if (amount && coin === 'sp') return amount + ' Plata';
+      if (amount && coin === 'cp') return amount + ' Cobre';
     })
     .filter(v => v)
     .join(', ');

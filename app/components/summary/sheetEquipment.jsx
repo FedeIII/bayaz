@@ -12,7 +12,9 @@ import NumericInput from '../inputs/numeric';
 import {
   addOtherEquipment,
   changeEquipmentAmmoAmount,
+  changeEquipmentCost,
   changeEquipmentOtherAmount,
+  changeEquipmentWeight,
   changeItemCharges,
   dropEquipmentAmmo,
   dropEquipmentOther,
@@ -83,6 +85,22 @@ export const actions = {
     const itemAmount = formData.get('itemAmount');
 
     await changeEquipmentOtherAmount(id, itemName, itemAmount);
+  },
+
+  changeCustomItemWeight: async formData => {
+    const id = formData.get('id');
+    const itemName = formData.get('itemName');
+    const weight = formData.get('weight');
+
+    return await changeEquipmentWeight(id, itemName, weight);
+  },
+
+  changeEquipmentCost: async formData => {
+    const id = formData.get('id');
+    const itemName = formData.get('itemName');
+    const price = formData.get('price');
+
+    return await changeEquipmentCost(id, itemName, parseFloat(price || 0));
   },
 
   changeMoney: async formData => {
@@ -189,6 +207,8 @@ function ItemModalContent(props) {
     pc,
     dropItem,
     changeAmount,
+    changeWeight,
+    changeCost,
     closeModal,
     identifyItem,
     changeCharges,
@@ -213,24 +233,40 @@ function ItemModalContent(props) {
   }
 
   const [amount, setAmount] = useState(item.amount);
+  const [weight, setWeight] = useState(item.weight);
+  const [price, setPrice] = useState(item.price || 0);
   const [chargesLeft, setChargesLeft] = useState(
     Number.isInteger(item.chargesLeft) ? item.chargesLeft : item.maxCharges
   );
 
   useEffect(() => {
-    setOnCloseModalCallback(() => {
-      if (amount !== item.amount) {
-        changeAmount(item.name, amount);
-      }
-      if (item.maxCharges && chargesLeft !== item.chargesLeft) {
-        changeCharges(item.name, chargesLeft, getSectionPath(item));
-      }
-    });
+    if (changeWeight || changeCost || changeAmount || item.maxCharges) {
+      setOnCloseModalCallback(() => {
+        if (amount !== item.amount) {
+          changeAmount(item.name, amount);
+        }
+        if (changeWeight && weight !== item.weight) {
+          changeWeight(item.name, weight);
+        }
+        if (changeCost && price !== item.price) {
+          changeCost(item.name, price);
+        }
+        if (item.maxCharges && chargesLeft !== item.chargesLeft) {
+          changeCharges(item.name, chargesLeft, getSectionPath(item));
+        }
+      });
+    }
   }, [
     setOnCloseModalCallback,
     amount,
     item.amount,
     item.name,
+    weight,
+    item.weight,
+    changeWeight,
+    price,
+    item.price,
+    changeCost,
     changeAmount,
     item.maxCharges,
     chargesLeft,
@@ -274,6 +310,34 @@ function ItemModalContent(props) {
                 onChange={e => setChargesLeft(e.target.value)}
                 styleName="inventory-item__amount-input"
               />
+            </li>
+          )}
+
+          {!!changeWeight && (
+            <li>
+              Peso{' '}
+              <NumericInput
+                name="weight"
+                min="0"
+                value={weight}
+                onChange={e => setWeight(e.target.value)}
+                styleName="inventory-item__amount-input"
+              />{' '}
+              kg
+            </li>
+          )}
+
+          {!!changeCost && (
+            <li>
+              Coste{' '}
+              <NumericInput
+                name="price"
+                min="0"
+                value={price}
+                onChange={e => setPrice(e.target.value)}
+                styleName="inventory-item__amount-input"
+              />{' '}
+              po
             </li>
           )}
 
@@ -427,6 +491,30 @@ function SheetEquipment(props) {
     );
   }
 
+  function changeCustomItemWeight(itemName, weight) {
+    submit(
+      {
+        action: 'changeCustomItemWeight',
+        id: pc.id,
+        itemName,
+        weight,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function changeEquipmentCost(itemName, price) {
+    submit(
+      {
+        action: 'changeEquipmentCost',
+        id: pc.id,
+        itemName,
+        price,
+      },
+      { method: 'post' }
+    );
+  }
+
   function addArbitraryItem() {
     setArbitraryItem('');
     submit(
@@ -529,6 +617,8 @@ function SheetEquipment(props) {
                 item={item}
                 pc={pc}
                 changeAmount={changeOtherAmount}
+                changeWeight={changeCustomItemWeight}
+                changeCost={changeEquipmentCost}
                 dropItem={dropOther}
                 identifyItem={identifyItem}
                 changeCharges={changeCharges}

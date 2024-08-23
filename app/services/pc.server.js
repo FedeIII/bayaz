@@ -93,6 +93,7 @@ const itemSchema = new mongoose.Schema({
   name: String,
   amount: Number,
   weight: Number,
+  price: Number,
   identified: Boolean,
   spellLevel: Number,
   spellName: String,
@@ -1141,6 +1142,30 @@ export async function changeItemWeight(id, itemName, weight, section) {
   pc.items.treasure[section].forEach(item => {
     if (item.name === itemName) {
       item.weight = weight;
+    }
+  });
+
+  return await pc.save();
+}
+
+export async function changeEquipmentWeight(id, itemName, weight) {
+  const pc = await Pc.findOne({ id });
+
+  pc.items.equipment.others.forEach(item => {
+    if (item.name === itemName) {
+      item.weight = weight;
+    }
+  });
+
+  return await pc.save();
+}
+
+export async function changeEquipmentCost(id, itemName, price) {
+  const pc = await Pc.findOne({ id });
+
+  pc.items.equipment.others.forEach(item => {
+    if (item.name === itemName) {
+      item.price = price;
     }
   });
 

@@ -46,12 +46,14 @@ export function getItem(item) {
       name: itemName,
       amount: item.amount || 1,
       weight: item.weight || 0,
+      price: item.price || 0,
       custom: true,
     };
   }
 
   const transientProps = { amount: itemAmount };
   if (item.weight) transientProps.weight = item.weight;
+  if (item.price) transientProps.price = item.price;
   if (item.identified) transientProps.identified = item.identified;
   if (item.spellLevel) transientProps.spellLevel = item.spellLevel;
   if (item.spellName) transientProps.spellName = item.spellName;
