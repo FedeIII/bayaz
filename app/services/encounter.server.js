@@ -8,7 +8,6 @@ const monsterSchema = new mongoose.Schema({
   nick: String,
   maxHp: Number,
   hp: Number,
-  notes: String,
 });
 
 const encounterSchema = new mongoose.Schema({
@@ -17,6 +16,10 @@ const encounterSchema = new mongoose.Schema({
   name: String,
   monsters: [monsterSchema],
   npcs: [String],
+  notes: {
+    type: Map,
+    of: String,
+  },
 });
 
 const Encounter =
@@ -102,15 +105,16 @@ export async function healMonster(encounterId, monsterId, healing) {
   return updatedEncounter;
 }
 
-export async function updateMonsterNotes(encounterId, monsterIndex, notes) {
-  return await Encounter.updateOne(
-    { _id: encounterId },
-    {
-      $set: {
-        [`monsters.${monsterIndex}.notes`]: notes,
-      },
-    }
+export async function updateEncounterNotes(encounterId, notes) {
+  const encounter = await getEncounter(encounterId);
+  if (!encounter.notes) {
+    encounter.notes = {};
+    await encounter.save();
+  }
+  Object.entries(notes).forEach(([key, value]) =>
+    encounter.notes.set(key, value)
   );
+  return await encounter.save();
 }
 
 export async function getEncountersByGroup() {

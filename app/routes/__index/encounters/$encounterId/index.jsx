@@ -16,6 +16,7 @@ import {
   damageMonster,
   getEncounter,
   healMonster,
+  updateEncounterNotes,
 } from '~/services/encounter.server';
 import MonstersContext from '~/components/contexts/monstersContext';
 import { getActiveSession } from '~/domain/party/party';
@@ -76,6 +77,20 @@ export const action = async ({ request }) => {
 
   if (action === 'set-initiative') {
     return encounter;
+  }
+
+  if (action === 'set-notes') {
+    const notesEntries = formData
+      .entries()
+      .filter(([key]) => key !== 'action' && key !== 'encounterId');
+
+    return await updateEncounterNotes(
+      encounterId,
+      notesEntries.reduce(
+        (notes, notesEntry) => ({ ...notes, [notesEntry[0]]: notesEntry[1] }),
+        {}
+      )
+    );
   }
 
   if (partyId) {
@@ -248,6 +263,10 @@ function PartyCombat() {
       }));
   }
 
+  function setEncounterNotes(encounterId, notes) {
+    submit({ action: 'set-notes', encounterId, ...notes }, { method: 'post' });
+  }
+
   const [hover, setHover] = useState({
     mobs: null,
     pcs: null,
@@ -336,6 +355,7 @@ function PartyCombat() {
               { method: 'post' }
             );
           }}
+          setEncounterNotes={setEncounterNotes}
           hover={hover}
           setHover={setHover}
           resetInitiatives={resetInitiatives}

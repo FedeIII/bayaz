@@ -53,7 +53,6 @@ npx prisma migrate dev
 
 ## TO DOs
 
-- Save combat notes
 - Remove magic-items and deps
 - Bug: right click on spells during character creation advances to next step
 - Extract textarea component

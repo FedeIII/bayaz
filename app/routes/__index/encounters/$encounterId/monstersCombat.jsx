@@ -13,10 +13,9 @@ import { getMaxHitPoints } from '~/domain/characters';
 import { MultiLevelBar } from '~/components/indicators/multiLevelBar';
 import { getAcBreakdown } from '~/domain/display';
 import { CharacterItem } from '~/components/modal/characterItem';
-import { replaceAt } from '~/utils/array';
 import { useTitle } from '~/components/hooks/useTitle';
 import NumericInput from '~/components/inputs/numeric';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 export function MonstersCombat(props) {
   const {
@@ -28,6 +27,7 @@ export function MonstersCombat(props) {
     setMonsterInitiative,
     setLocalPcInitiative,
     setRemotePcInitiative,
+    setEncounterNotes,
     hover,
     setHover,
     resetInitiatives,
@@ -38,7 +38,11 @@ export function MonstersCombat(props) {
   } = props;
 
   const { encounter } = useLoaderData();
-  const { id: encounterId, monsters: monstersStats } = encounter;
+  const {
+    id: encounterId,
+    monsters: monstersStats,
+    notes: initNotes = {},
+  } = encounter;
 
   useTitle(`${encounter.group} - ${encounter.name}`);
 
@@ -49,12 +53,15 @@ export function MonstersCombat(props) {
     )
   );
 
-  const initNotes = useMemo(
-    () => Array(monsters.length).fill(null),
-    [monsters.length]
-  );
-
   const [notes, setNotes] = useState(initNotes);
+
+  function onNotesChange(characterId, newNotes) {
+    setNotes(old => ({ ...old, [characterId]: newNotes }));
+  }
+
+  function saveNotes() {
+    setEncounterNotes(encounterId, notes);
+  }
 
   return (
     <>
@@ -215,13 +222,9 @@ export function MonstersCombat(props) {
                 <textarea
                   className="encounters__notes"
                   name={`notes-${monsterId}`}
-                  defaultValue={''}
-                  value={notes[monsterIndex]}
-                  onChange={e =>
-                    setNotes(old =>
-                      replaceAt(monsterIndex, old, e.target.value)
-                    )
-                  }
+                  value={notes[monsterId]}
+                  onChange={e => onNotesChange(monsterId, e.target.value)}
+                  onBlur={saveNotes}
                 ></textarea>
               </Card>
             );
@@ -365,7 +368,9 @@ export function MonstersCombat(props) {
                         <textarea
                           className="encounters__notes"
                           name={`notes-${pc.id}`}
-                          defaultValue={''}
+                          value={notes[pc.id]}
+                          onChange={e => onNotesChange(pc.id, e.target.value)}
+                          onBlur={saveNotes}
                         ></textarea>
                       </>
                     )}
