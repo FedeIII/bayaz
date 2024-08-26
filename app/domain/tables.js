@@ -197,6 +197,58 @@ export const TABLES = [
       },
     ],
   },
+
+  {
+    name: 'Entidades militares',
+    keywords: ['unidades', 'tamaño', 'grupos', 'mando'],
+    rows: [
+      {
+        Entidad: 'Binomio',
+        Mando: 'Soldado',
+        Personal: '2',
+      },
+      {
+        Entidad: 'Escuadra',
+        Mando: 'Cabo',
+        Personal: '4-6',
+      },
+      {
+        Entidad: 'Pelotón',
+        Mando: 'Sargento',
+        Personal: '8-15',
+      },
+      {
+        Entidad: 'Sección',
+        Mando: 'Teniente',
+        Personal: '20-40',
+      },
+      {
+        Entidad: `Compañía, Escuadrón (caballería)`,
+        Mando: 'Capitán, Comandante (caballería)',
+        Personal: '60-200',
+      },
+      {
+        Entidad: 'Batallón',
+        Mando: 'Teniente coronel',
+        Personal: '300-700',
+      },
+      {
+        Entidad: 'Regimiento',
+        Mando: 'Coronel',
+        Personal: '700-2.000',
+      },
+      {
+        Entidad: 'Brigada',
+        Mando: 'General de brigada',
+        Personal: '3.000-6.000',
+      },
+      {
+        Entidad: 'División',
+        Mando: 'General de división',
+        Personal: '10.000-15.000',
+      },
+    ],
+  },
 ];
 
 export const TABLE_MAP = new Map();
