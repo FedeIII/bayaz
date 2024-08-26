@@ -8,7 +8,7 @@ const locationSchema = new mongoose.Schema({
 
 const regionSchema = new mongoose.Schema({
   id: String,
-  type: { type: String, enum: ['domain', 'subdomain'] },
+  type: { type: String, enum: ['dominion', 'subdominion', 'other'] },
   name: String,
   color: String,
   vertices: [locationSchema],

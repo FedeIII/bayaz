@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link, useSubmit } from '@remix-run/react';
 import MapPopup from './mapPopup';
+import { RegionPaneMap } from '~/domain/places/regions';
 
 const labelOffsetMap = {
   4: 0.035,
@@ -52,7 +53,7 @@ function RegionVertexMarker(props) {
     <MarkerComponent
       key={`${vertex.lat}-${vertex.lng}`}
       ref={markerRef}
-      pane="subdomainsPane"
+      pane="regionMarkersPane"
       center={position}
       position={position}
       pathOptions={{
@@ -168,7 +169,7 @@ function Region(props) {
         ))}
 
       <L.Polygon
-        pane="subdomainsPane"
+        pane={RegionPaneMap[region.type]}
         pathOptions={{
           color: region.color,
           opacity:

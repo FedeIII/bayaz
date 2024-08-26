@@ -183,12 +183,14 @@ function Map() {
         >
           <L.ImageOverlay url="/images/map_raw.png" bounds={bounds} />
 
-          <L.Pane name="domainsPane" style={{ zIndex: 500 }} />
-          <L.Pane name="subdomainsPane" style={{ zIndex: 600 }} />
-          <L.Pane name="settlementsPane" style={{ zIndex: 700 }} />
-          <L.Pane name="textPane" style={{ zIndex: 800 }} />
-          <L.Pane name="newElementsPane" style={{ zIndex: 900 }} />
-          <L.Pane name="popupsPane" style={{ zIndex: 1000 }} />
+          <L.Pane name="dominionsPane" style={{ zIndex: 500 }} />
+          <L.Pane name="subdominionsPane" style={{ zIndex: 600 }} />
+          <L.Pane name="otherRegionsPane" style={{ zIndex: 700 }} />
+          <L.Pane name="regionMarkersPane" style={{ zIndex: 800 }} />
+          <L.Pane name="settlementsPane" style={{ zIndex: 900 }} />
+          <L.Pane name="textPane" style={{ zIndex: 1000 }} />
+          <L.Pane name="newElementsPane" style={{ zIndex: 1100 }} />
+          <L.Pane name="popupsPane" style={{ zIndex: 1200 }} />
 
           <MapMarkers
             L={L}
