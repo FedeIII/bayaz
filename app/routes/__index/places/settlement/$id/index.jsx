@@ -505,9 +505,9 @@ function SettlementScreen() {
                 onChange={onNameChange}
                 onReroll={onNameReroll}
               />
-              {!!place.location && (
+              {!!placeState.location && (
                 <Link
-                  to={`/map?lat=${place.location.lat}&lng=${place.location.lng}`}
+                  to={`/map?lat=${placeState.location.lat}&lng=${placeState.location.lng}`}
                   className="places__save"
                 >
                   Mapa
