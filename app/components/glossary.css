@@ -159,16 +159,33 @@
   margin: 0 32px 0 0;
 }
 
+.glossary__table {
+  border-collapse: collapse;
+}
+
 .glossary__table-head {
   font-size: var(--font-size-l);
 }
 
-.glossary__table-odd {
+.glossary__row {
+  cursor: pointer;
+}
+
+.glossary__row:hover {
+  background-color: var(--color-light);
+}
+
+.glossary__row--odd {
   background-color: var(--color-dark);
 }
 
-.glossary__table-even {
+.glossary__row--even {
   background-color: var(--color-base);
+}
+
+.glossary__row--selected {
+  background-color: var(--color-x-light);
+  border: 2px solid var(--color-x-pale);
 }
 
 .glossary__table-head-cell {

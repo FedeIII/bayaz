@@ -11,7 +11,7 @@ import { CharacterItem } from '~/components/modal/characterItem';
 import { Monster } from '~/domain/encounters/monsters';
 import { useSearchResults } from '~/components/hooks/useSearchResults';
 import { getSessionUser } from '~/services/session.server';
-import { useLoaderData } from '@remix-run/react';
+import { useLoaderData, useSearchParams } from '@remix-run/react';
 import { json } from '@remix-run/node';
 import { isDm } from '~/domain/user';
 import { useSearchTable } from '~/components/hooks/useSearchTable';
@@ -112,8 +112,58 @@ function Glossary() {
   const searchResults = useSearchResults(search, isDm);
   const tableResults = useSearchTable(table);
 
-  const [selectedTableName, setSelectedTableName] = useState(null);
-  const selectedTable = TABLE_MAP.get(selectedTableName);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [selectedTableName, setSelectedTableName] = useState(
+    searchParams.get('table')
+  );
+  const selectedTable =
+    selectedTableName &&
+    selectedTableName !== 'null' &&
+    TABLE_MAP.get(selectedTableName);
+  const [selectedRow, setSelectedRow] = useState(searchParams.get('row'));
+
+  useEffect(() => {
+    if (searchParams.get('table') && searchParams.get('table') !== 'null') {
+      setSelectedTableName(searchParams.get('table'));
+    }
+  }, [searchParams.get('table')]);
+
+  useEffect(() => {
+    if (selectedTableName) {
+      setSearchParams(
+        prev => {
+          prev.set('table', selectedTableName);
+          return prev;
+        },
+        {
+          replace: false,
+          state: { table: selectedTableName },
+        }
+      );
+    }
+  }, [selectedTableName]);
+
+  useEffect(() => {
+    if (searchParams.get('row') !== null || !!selectedRow) {
+      setSelectedRow(searchParams.get('row'));
+    }
+  }, [searchParams.get('row')]);
+
+  useEffect(() => {
+    if (selectedRow !== null) {
+      setSearchParams(
+        prev => {
+          prev.set('row', selectedRow);
+          return prev;
+        },
+        {
+          replace: false,
+          state: { row: selectedRow },
+        }
+      );
+    }
+  }, [selectedRow]);
 
   const [refsList, setRefsList] = useState({
     spells: useRef(searchResults.spells.map(createRef)),
@@ -295,14 +345,14 @@ function Glossary() {
             </div>
           )}
 
-          {!!selectedTableName && (
+          {!!selectedTable && (
             <div className="glossary__results-section">
               <div className="glossary__section-header">
                 <span className="glossary__header-title">
-                  {selectedTableName}
+                  {selectedTable.name}
                 </span>
               </div>
-              <table>
+              <table className="glossary__table">
                 <thead className="glossary__table-head">
                   <tr>
                     {Object.keys(selectedTable.rows[0]).map((key, i) => (
@@ -322,9 +372,12 @@ function Glossary() {
                   {selectedTable.rows.map((row, i) => (
                     <tr
                       key={i}
-                      className={
-                        i % 2 ? 'glossary__table-odd' : 'glossary__table-even'
-                      }
+                      className={classNames('glossary__row', {
+                        'glossary__row--odd': i % 2 === 1,
+                        'glossary__row--even': i % 2 === 0,
+                        'glossary__row--selected': selectedRow == i,
+                      })}
+                      onClick={() => setSelectedRow(i)}
                     >
                       {Object.values(row).map((val, j) => (
                         <td
