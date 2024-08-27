@@ -45,3 +45,11 @@ export function substract(minuend, subtrahend, isEqualFn) {
 export function changeLength(arr, length) {
   return Array.from(Array(length), (_, i) => arr?.[i] || null);
 }
+
+export function includesAny(stringOrArray, includedWords) {
+  return includedWords.some(word => stringOrArray.includes(word));
+}
+
+export function includesAll(stringOrArray, includedWords) {
+  return includedWords.every(word => stringOrArray.includes(word));
+}

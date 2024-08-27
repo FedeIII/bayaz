@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { getTable } from '~/domain/tables';
+import { newEmpyTableResults, getTable } from '~/domain/tables/searchTables';
+
+const defaultEmptyResults = newEmpyTableResults();
 
 export function useSearchTable(search) {
-  const [tableResults, setTableResults] = useState([]);
+  const [tableResults, setTableResults] = useState(defaultEmptyResults);
 
   useEffect(() => {
     if (search.length < 3) {
-      setTableResults([]);
+      setTableResults(defaultEmptyResults);
     } else {
       getTable(search).then(res => {
         setTableResults(res);

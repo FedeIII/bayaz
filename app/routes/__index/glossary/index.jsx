@@ -15,7 +15,7 @@ import { useLoaderData } from '@remix-run/react';
 import { json } from '@remix-run/node';
 import { isDm } from '~/domain/user';
 import { useSearchTable } from '~/components/hooks/useSearchTable';
-import { TABLE_MAP } from '~/domain/tables';
+import { TABLE_MAP } from '~/domain/tables/tables';
 import classNames from 'classnames';
 
 import styles from '~/components/glossary.css';
@@ -50,6 +50,12 @@ function Sidebar(props) {
     setFilters(f => ({ ...f, ...newFilters }));
   }
 
+  const hasResults = !!(
+    tables.title.length ||
+    tables.keywords.length ||
+    tables.rows.length
+  );
+
   return (
     <div className="glossary__sidebar">
       <div className="glossary__sidebar-content">
@@ -76,19 +82,21 @@ function Sidebar(props) {
           </div>
         </div>
 
-        {!!tables?.length && (
+        {hasResults && (
           <div className="glossary__sidebar-section">
-            {tables.map(table => (
-              <div key={table.name} className="glossary__filter">
-                <button
-                  type="button"
-                  className="cards__button-card"
-                  onClick={() => setSelectedTable(table.name)}
-                >
-                  {table.name}
-                </button>
-              </div>
-            ))}
+            {[...tables.title, ...tables.keywords, ...tables.rows].map(
+              table => (
+                <div key={table.name} className="glossary__filter">
+                  <button
+                    type="button"
+                    className="cards__button-card"
+                    onClick={() => setSelectedTable(table.name)}
+                  >
+                    {table.name}
+                  </button>
+                </div>
+              )
+            )}
           </div>
         )}
       </div>
@@ -310,27 +318,29 @@ function Glossary() {
                     ))}
                   </tr>
                 </thead>
-                {selectedTable.rows.map((row, i) => (
-                  <tr
-                    key={i}
-                    className={
-                      i % 2 ? 'glossary__table-odd' : 'glossary__table-even'
-                    }
-                  >
-                    {Object.values(row).map((val, j) => (
-                      <td
-                        key={val}
-                        className={classNames('glossary__table-column', {
-                          'glossary__table-column--first': j === 0,
-                          [selectedTable.classNames?.td]:
-                            !!selectedTable.classNames?.td,
-                        })}
-                      >
-                        {val}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                <tbody>
+                  {selectedTable.rows.map((row, i) => (
+                    <tr
+                      key={i}
+                      className={
+                        i % 2 ? 'glossary__table-odd' : 'glossary__table-even'
+                      }
+                    >
+                      {Object.values(row).map((val, j) => (
+                        <td
+                          key={val + j}
+                          className={classNames('glossary__table-column', {
+                            'glossary__table-column--first': j === 0,
+                            [selectedTable.classNames?.td]:
+                              !!selectedTable.classNames?.td,
+                          })}
+                        >
+                          {val}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           )}

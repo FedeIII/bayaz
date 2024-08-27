@@ -1,19 +1,3 @@
-export async function getTable(search) {
-  const lowercaseSearch = search.toLowerCase();
-  return TABLES.filter(
-    table =>
-      table.name.toLowerCase().includes(lowercaseSearch) ||
-      table.keywords.some(keyword => keyword.includes(lowercaseSearch)) ||
-      table.rows.some(row =>
-        Object.entries(row).some(
-          ([key, value]) =>
-            key.toLowerCase().includes(lowercaseSearch) ||
-            value.toLowerCase().includes(lowercaseSearch)
-        )
-      )
-  );
-}
-
 export const TABLES = [
   {
     name: 'Gastos por nivel de vida',
@@ -251,7 +235,7 @@ export const TABLES = [
   },
 
   {
-    name: 'Tesoro Personal - CR 0-4 (Resultados / 2)',
+    name: 'Tesoro Personal - CR 0-4 (Res / 2)',
     keywords: ['recompensa', 'loot'],
     rows: [
       {
@@ -298,7 +282,7 @@ export const TABLES = [
   },
 
   {
-    name: 'Tesoro Personal - CR 5-10 (Resultados / 2)',
+    name: 'Tesoro Personal - CR 5-10 (Res / 2)',
     keywords: ['recompensa', 'loot'],
     rows: [
       {
@@ -345,7 +329,7 @@ export const TABLES = [
   },
 
   {
-    name: 'Tesoro Personal - CR 11-16 (Resultados / 2)',
+    name: 'Tesoro Personal - CR 11-16 (Res / 2)',
     keywords: ['recompensa', 'loot'],
     rows: [
       {
@@ -384,14 +368,14 @@ export const TABLES = [
   },
 
   {
-    name: 'Tesoro Acumulado - CR 0-4 Monedas (Resultados / 2)',
+    name: 'Tesoro Acumulado - CR 0-4 Monedas (Res / 2)',
     keywords: ['recompensa', 'loot'],
     rows: [
       {
         '': 'Monedas',
         PC: '6d6 * 100 (2.100)',
         PP: '3d6 * 100 (1.050)',
-        PC: '--',
+        PE: '--',
         PO: '2d6 * 10 (70)',
         PPT: '--',
       },
@@ -399,7 +383,7 @@ export const TABLES = [
   },
 
   {
-    name: 'Tesoro Acumulado - CR 0-4 (Resultados / 2)',
+    name: 'Tesoro Acumulado - CR 0-4 (Res / 2)',
     keywords: ['recompensa', 'loot'],
     rows: [
       {
@@ -491,14 +475,14 @@ export const TABLES = [
   },
 
   {
-    name: 'Tesoro Acumulado - CR 5-10 Monedas (Resultados / 2)',
+    name: 'Tesoro Acumulado - CR 5-10 Monedas (Res / 2)',
     keywords: ['recompensa', 'loot'],
     rows: [
       {
         '': 'Monedas',
         PC: '2d6 * 100 (700)',
         PP: '2d6 * 1,000 (7.000)',
-        PC: '--',
+        PE: '--',
         PO: '6d6 * 100 (2.100)',
         PPT: '3d6 * 10 (105)',
       },
@@ -506,7 +490,7 @@ export const TABLES = [
   },
 
   {
-    name: 'Tesoro Acumulado - CR 0-4 (Resultados / 2)',
+    name: 'Tesoro Acumulado - CR 5-10 (Res / 2)',
     keywords: ['recompensa', 'loot'],
     rows: [
       {
@@ -1654,7 +1638,7 @@ export const TABLES = [
     rows: [
       {
         d100: '01-15',
-        'Objeto mágico': 'Arma +l',
+        'Objeto mágico': 'Arma +1',
       },
       {
         d100: '16-18',
