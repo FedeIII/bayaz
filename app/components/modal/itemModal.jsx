@@ -97,6 +97,12 @@ export function ItemModalContent(props) {
           )}
         </ul>
 
+        {!!item.definition && (
+          <div className="inventory-item__modal-description">
+            {item.definition}
+          </div>
+        )}
+
         {!!((item.identified || isDm) && itemDescription) && (
           <div
             className="inventory-item__modal-description"
