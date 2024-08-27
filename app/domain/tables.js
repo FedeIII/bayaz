@@ -753,7 +753,7 @@ export const TABLES = [
       },
       {
         d12: '6',
-        'Descripción de la gema': 'Jaspe (opaco, azul, negro o marrón) ',
+        'Descripción de la gema': 'Jaspe (opaco, azul, negro o marrón)',
       },
       {
         d12: '7',
@@ -829,7 +829,7 @@ export const TABLES = [
       {
         d10: '8',
         'Descripción de la gema':
-          'Perla (opaco, blanco lustroso, amarillo o rosa) ',
+          'Perla (opaco, blanco lustroso, amarillo o rosa)',
       },
       {
         d10: '9',
@@ -1407,6 +1407,490 @@ export const TABLES = [
       {
         d100: '00',
         'Objeto mágico': 'Varita de secretos',
+      },
+    ],
+  },
+
+  {
+    name: 'Tabla de objetos mágicos C',
+    keywords: ['loot'],
+    classNames: {
+      td: 'glossary__table-column--align-left',
+    },
+    rows: [
+      {
+        d100: '01-15',
+        'Objeto mágico': 'Poción de curación superior',
+      },
+      {
+        d100: '16-22',
+        'Objeto mágico': 'Pergamino de conjuro (nivel 4)',
+      },
+      {
+        d100: '23-27',
+        'Objeto mágico': 'Munición +2',
+      },
+      {
+        d100: '28-32',
+        'Objeto mágico': 'Poción de clarividencia',
+      },
+      {
+        d100: '33-37',
+        'Objeto mágico': 'Poción de encoger',
+      },
+      {
+        d100: '38-42',
+        'Objeto mágico': 'Poción de forma gaseosa',
+      },
+      {
+        d100: '43-47',
+        'Objeto mágico': 'Poción de fuerza de gigante de escarcha',
+      },
+      {
+        d100: '48-52',
+        'Objeto mágico': 'Poción de fuerza de gigante de piedra',
+      },
+      {
+        d100: '53-57',
+        'Objeto mágico': 'Poción de heroísmo',
+      },
+      {
+        d100: '58-62',
+        'Objeto mágico': 'Poción de invulnerabilidad',
+      },
+      {
+        d100: '63-67',
+        'Objeto mágico': 'Poción de leer mentes',
+      },
+      {
+        d100: '68-72',
+        'Objeto mágico': 'Pergamino de conjuro (nivel 5)',
+      },
+      {
+        d100: '73-75',
+        'Objeto mágico': 'Elixir de salud',
+      },
+      {
+        d100: '76-78',
+        'Objeto mágico': 'Aceite de etereidad',
+      },
+      {
+        d100: '79-81',
+        'Objeto mágico': 'Poción de fuerza de gigante de fuego',
+      },
+      {
+        d100: '82-84',
+        'Objeto mágico': 'Ficha pluma de Quall',
+      },
+      {
+        d100: '85-87',
+        'Objeto mágico': 'Pergamino de protección',
+      },
+      {
+        d100: '88-89',
+        'Objeto mágico': 'Bolsa de judías',
+      },
+      {
+        d100: '90-91',
+        'Objeto mágico': 'Canica de fuerza',
+      },
+      {
+        d100: '92',
+        'Objeto mágico': 'Carillón de apertura',
+      },
+      {
+        d100: '93',
+        'Objeto mágico': 'Decantador de agua interminable',
+      },
+      {
+        d100: '94',
+        'Objeto mágico': 'Anteojos de visión minuciosa',
+      },
+      {
+        d100: '95',
+        'Objeto mágico': 'Bote plegable',
+      },
+      {
+        d100: '96',
+        'Objeto mágico': 'Morral práctico de Heward',
+      },
+      {
+        d100: '97',
+        'Objeto mágico': 'Herraduras de velocidad',
+      },
+      {
+        d100: '98',
+        'Objeto mágico': 'Collar de bolas de fuego',
+      },
+      {
+        d100: '99',
+        'Objeto mágico': 'Talismán de salud',
+      },
+      {
+        d100: '00',
+        'Objeto mágico': 'Piedras mensajeras',
+      },
+    ],
+  },
+
+  {
+    name: 'Tabla de objetos mágicos D',
+    keywords: ['loot'],
+    classNames: {
+      td: 'glossary__table-column--align-left',
+    },
+    rows: [
+      {
+        d100: '01-20',
+        'Objeto mágico': 'Poción de curación suprema',
+      },
+      {
+        d100: '21-30',
+        'Objeto mágico': 'Poción de invisibilidad',
+      },
+      {
+        d100: '31-40',
+        'Objeto mágico': 'Poción de velocidad',
+      },
+      {
+        d100: '41-50',
+        'Objeto mágico': 'Pergamino de conjuro (nivel 6)',
+      },
+      {
+        d100: '51-57',
+        'Objeto mágico': 'Pergamino de conjuro (nivel 7)',
+      },
+      {
+        d100: '58-62',
+        'Objeto mágico': 'Munición +3',
+      },
+      {
+        d100: '63-67',
+        'Objeto mágico': 'Aceite de afilado',
+      },
+      {
+        d100: '68-72',
+        'Objeto mágico': 'Poción de vuelo',
+      },
+      {
+        d100: '73-79',
+        'Objeto mágico': 'Poción de fuerza de gigante de las nubes',
+      },
+      {
+        d100: '78-82',
+        'Objeto mágico': 'Poción de longevidad',
+      },
+      {
+        d100: '83-87',
+        'Objeto mágico': 'Poción de vitalidad',
+      },
+      {
+        d100: '88-92',
+        'Objeto mágico': 'Pergamino de conjuro (nivel 8)',
+      },
+      {
+        d100: '93-95',
+        'Objeto mágico': 'Herraduras del céfiro',
+      },
+      {
+        d100: '96-98',
+        'Objeto mágico': 'Maravillosos pigmentos de Nolzur',
+      },
+      {
+        d100: '99',
+        'Objeto mágico': 'Bolsa devoradora',
+      },
+      {
+        d100: '00',
+        'Objeto mágico': 'Agujero portátil',
+      },
+    ],
+  },
+
+  {
+    name: 'Tabla de objetos mágicos E',
+    keywords: ['loot'],
+    classNames: {
+      td: 'glossary__table-column--align-left',
+    },
+    rows: [
+      {
+        d100: '01-30',
+        'Objeto mágico': 'Pergamino de conjuro (nivel 8)',
+      },
+      {
+        d100: '31-55',
+        'Objeto mágico': 'Poción de fuerza de gigante de las tormentas',
+      },
+      {
+        d100: '56-70',
+        'Objeto mágico': 'Poción de curación suprema',
+      },
+      {
+        d100: '71-85',
+        'Objeto mágico': 'Pergamino de conjuro (nivel 9)',
+      },
+      {
+        d100: '86-93',
+        'Objeto mágico': 'Disolvente universal',
+      },
+      {
+        d100: '94-98',
+        'Objeto mágico': 'Flecha asesina',
+      },
+      {
+        d100: '99-00',
+        'Objeto mágico': 'Pegamento soberano',
+      },
+    ],
+  },
+
+  {
+    name: 'Tabla de objetos mágicos F',
+    keywords: ['loot'],
+    classNames: {
+      td: 'glossary__table-column--align-left',
+    },
+    rows: [
+      {
+        d100: '01-15',
+        'Objeto mágico': 'Arma +l',
+      },
+      {
+        d100: '16-18',
+        'Objeto mágico': 'Escudo +1',
+      },
+      {
+        d100: '19-21',
+        'Objeto mágico': 'Escudo centinela',
+      },
+      {
+        d100: '22-23',
+        'Objeto mágico': 'Amuleto a prueba de detección y localización',
+      },
+      {
+        d100: '24-25',
+        'Objeto mágico': 'Botas élficas',
+      },
+      {
+        d100: '26-27',
+        'Objeto mágico': 'Botas de zancadas y brincos',
+      },
+      {
+        d100: '28-29',
+        'Objeto mágico': 'Brazales de arquería',
+      },
+      {
+        d100: '30-31',
+        'Objeto mágico': 'Broche escudo',
+      },
+      {
+        d100: '32-33',
+        'Objeto mágico': 'Escoba voladora',
+      },
+      {
+        d100: '34-35',
+        'Objeto mágico': 'Capa élfica',
+      },
+      {
+        d100: '36-37',
+        'Objeto mágico': 'Capa de protección',
+      },
+      {
+        d100: '38-39',
+        'Objeto mágico': 'Guanteletes de fuerza de ogro',
+      },
+      {
+        d100: '40-41',
+        'Objeto mágico': 'Sombrero de disfraz',
+      },
+      {
+        d100: '42-43',
+        'Objeto mágico': 'Jabalina del relámpago',
+      },
+      {
+        d100: '44-45',
+        'Objeto mágico': 'Perla de poder',
+      },
+      {
+        d100: '46-47',
+        'Objeto mágico': 'Vara del pacto +1',
+      },
+      {
+        d100: '48-49',
+        'Objeto mágico': 'Babuchas de trepar cual arácnido',
+      },
+      {
+        d100: '50-51',
+        'Objeto mágico': 'Bastón de la víbora',
+      },
+      {
+        d100: '52-53',
+        'Objeto mágico': 'Bastón de la pitón',
+      },
+      {
+        d100: '54-55',
+        'Objeto mágico': 'Espada de la venganza',
+      },
+      {
+        d100: '56-57',
+        'Objeto mágico': 'Tridente de comandar peces',
+      },
+      {
+        d100: '58-59',
+        'Objeto mágico': 'Varita de proyectiles mágicos',
+      },
+      {
+        d100: '60-61',
+        'Objeto mágico': 'Varita del mago de guerra +1',
+      },
+      {
+        d100: '62-63',
+        'Objeto mágico': 'Varita de telaraña',
+      },
+      {
+        d100: '64-65',
+        'Objeto mágico': 'Arma de advertencia',
+      },
+      {
+        d100: '66',
+        'Objeto mágico': 'Armadura adamantina (cota de malla)',
+      },
+      {
+        d100: '67',
+        'Objeto mágico': 'Armadura adamantina (camisa de malla)',
+      },
+      {
+        d100: '68',
+        'Objeto mágico': 'Armadura adamantina (cota de escamas)',
+      },
+      {
+        d100: '69',
+        'Objeto mágico': 'Bolsa de trucos (gris)',
+      },
+      {
+        d100: '70',
+        'Objeto mágico': 'Bolsa de trucos (rojiza)',
+      },
+      {
+        d100: '71',
+        'Objeto mágico': 'Bolsa de trucos (marrón)',
+      },
+      {
+        d100: '72',
+        'Objeto mágico': 'Botas de las tierras invernales',
+      },
+      {
+        d100: '73',
+        'Objeto mágico': 'Diadema de estallidos',
+      },
+      {
+        d100: '74',
+        'Objeto mágico': 'Baraja de ilusiones',
+      },
+      {
+        d100: '75',
+        'Objeto mágico': 'Botella siemprehumeante',
+      },
+      {
+        d100: '76',
+        'Objeto mágico': 'Anteojos de encantamiento',
+      },
+      {
+        d100: '77',
+        'Objeto mágico': 'Anteojos de vista de águila',
+      },
+      {
+        d100: '78',
+        'Objeto mágico': 'Estatuilla de poder maravilloso (cuervo de plata)',
+      },
+      {
+        d100: '79',
+        'Objeto mágico': 'Gema del resplandor',
+      },
+      {
+        d100: '80',
+        'Objeto mágico': 'Guantes atrapaflechas',
+      },
+      {
+        d100: '81',
+        'Objeto mágico': 'Guantes de natación y escalada',
+      },
+      {
+        d100: '82',
+        'Objeto mágico': 'Guantes de ladrón',
+      },
+      {
+        d100: '83',
+        'Objeto mágico': 'Diadema de intelecto',
+      },
+      {
+        d100: '84',
+        'Objeto mágico': 'Yelmo de telepatía',
+      },
+      {
+        d100: '85',
+        'Objeto mágico': 'Instrumento de los bardos (laúd de Doss)',
+      },
+      {
+        d100: '86',
+        'Objeto mágico': 'Instrumento de los bardos (bandera de Fochlucan)',
+      },
+      {
+        d100: '87',
+        'Objeto mágico': 'Instrumento de los bardos (cistro de Mac-Fuirmidh)',
+      },
+      {
+        d100: '88',
+        'Objeto mágico': 'Medallón de los pensamientos',
+      },
+      {
+        d100: '89',
+        'Objeto mágico': 'Collar de adaptación',
+      },
+      {
+        d100: '90',
+        'Objeto mágico': 'Talismán de cerrar heridas',
+      },
+      {
+        d100: '91',
+        'Objeto mágico': 'Flauta de la aparición',
+      },
+      {
+        d100: '92',
+        'Objeto mágico': 'Flauta de las cloacas',
+      },
+      {
+        d100: '93',
+        'Objeto mágico': 'Anillo de salto',
+      },
+      {
+        d100: '94',
+        'Objeto mágico': 'Anillo de escudo mental',
+      },
+      {
+        d100: '95',
+        'Objeto mágico': 'Anillo de calidez',
+      },
+      {
+        d100: '96',
+        'Objeto mágico': 'Anillo de caminar sobre las aguas',
+      },
+      {
+        d100: '97',
+        'Objeto mágico': 'Carcaj de Ehlonna',
+      },
+      {
+        d100: '98',
+        'Objeto mágico': 'Piedra de la buena fortuna',
+      },
+      {
+        d100: '99',
+        'Objeto mágico': 'Abanico del viento',
+      },
+      {
+        d100: '00',
+        'Objeto mágico': 'Botas aladas',
       },
     ],
   },
