@@ -1,4 +1,4 @@
-import { NPCS } from "./npcs";
+import { NPCS } from './npcs';
 
 const ONLY_MONSTERS = {
   Azer: {
@@ -8512,4 +8512,4 @@ const ONLY_MONSTERS = {
 export const MONSTERS = {
   ...ONLY_MONSTERS,
   ...NPCS,
-}
+};

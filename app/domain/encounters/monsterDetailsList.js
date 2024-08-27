@@ -8131,7 +8131,10 @@ export const MONSTER_DETAILS_LIST = {
     'Telepathic Shroud.': '',
   },
   Guard: {
-    actions: {},
+    actions: {
+      Lanza:
+        'Ataque con arma cuerpo a cuerpo o a distancia: +3 a impactar, alcance 5 pies o alcance 20/60 pies, un objetivo. Impacto: 4 (1d6 + 1) de daño perforante, o 5 (1d8 + 1) de daño perforante si se usa a dos manos para hacer un ataque cuerpo a cuerpo',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (any race), any alignment',
     stats: {
