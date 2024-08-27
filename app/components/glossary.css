@@ -208,3 +208,17 @@
 .glossary__table-column--align-left {
   text-align: left;
 }
+
+.glossary__cell-button {
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
+  text-align: inherit;
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.glossary__cell-button:hover {
+  background-color: var(--color-pale);
+}

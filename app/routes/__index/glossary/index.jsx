@@ -16,7 +16,8 @@ import { json } from '@remix-run/node';
 import { isDm } from '~/domain/user';
 import { useSearchTable } from '~/components/hooks/useSearchTable';
 import { TABLE_MAP } from '~/domain/tables/tables';
-import classNames from 'classnames';
+import Sidebar from '~/components/glossary/sidebar';
+import SelectedTable from '~/components/glossary/selectedTable';
 
 import styles from '~/components/glossary.css';
 import charactersStyles from '~/components/characters/characters.css';
@@ -36,73 +37,6 @@ export const loader = async ({ request }) => {
 
   return json({ isDm: isDm(user) });
 };
-
-function Sidebar(props) {
-  const { filters, setFilters, tables, setSelectedTable } = props;
-
-  function onSearchChange(e) {
-    const newFilters = { search: e.target.value };
-    setFilters(f => ({ ...f, ...newFilters }));
-  }
-
-  function onTableChange(e) {
-    const newFilters = { table: e.target.value };
-    setFilters(f => ({ ...f, ...newFilters }));
-  }
-
-  const hasResults = !!(
-    tables.title.length ||
-    tables.keywords.length ||
-    tables.rows.length
-  );
-
-  return (
-    <div className="glossary__sidebar">
-      <div className="glossary__sidebar-content">
-        <div className="glossary__sidebar-section">
-          <div className="glossary__filter">
-            <label className="glossary__filter-label-inline">
-              Búsqueda:{' '}
-              <input
-                className="cards__button-card cards__button-card-big"
-                value={filters.search}
-                onChange={onSearchChange}
-              />
-            </label>
-          </div>
-          <div className="glossary__filter">
-            <label className="glossary__filter-label-inline">
-              Tabla:{' '}
-              <input
-                className="cards__button-card cards__button-card-big"
-                value={filters.table}
-                onChange={onTableChange}
-              />
-            </label>
-          </div>
-        </div>
-
-        {hasResults && (
-          <div className="glossary__sidebar-section">
-            {[...tables.title, ...tables.keywords, ...tables.rows].map(
-              table => (
-                <div key={table.name} className="glossary__filter">
-                  <button
-                    type="button"
-                    className="cards__button-card"
-                    onClick={() => setSelectedTable(table.name)}
-                  >
-                    {table.name}
-                  </button>
-                </div>
-              )
-            )}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 function Glossary() {
   const { isDm } = useLoaderData();
@@ -346,56 +280,12 @@ function Glossary() {
           )}
 
           {!!selectedTable && (
-            <div className="glossary__results-section">
-              <div className="glossary__section-header">
-                <span className="glossary__header-title">
-                  {selectedTable.name}
-                </span>
-              </div>
-              <table className="glossary__table">
-                <thead className="glossary__table-head">
-                  <tr>
-                    {Object.keys(selectedTable.rows[0]).map((key, i) => (
-                      <th
-                        key={key}
-                        className={classNames('glossary__table-head-cell', {
-                          'glossary__table-odd': i % 2,
-                          'glossary__table-even': !(i % 2),
-                        })}
-                      >
-                        {key}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedTable.rows.map((row, i) => (
-                    <tr
-                      key={i}
-                      className={classNames('glossary__row', {
-                        'glossary__row--odd': i % 2 === 1,
-                        'glossary__row--even': i % 2 === 0,
-                        'glossary__row--selected': selectedRow == i,
-                      })}
-                      onClick={() => setSelectedRow(i)}
-                    >
-                      {Object.values(row).map((val, j) => (
-                        <td
-                          key={val + j}
-                          className={classNames('glossary__table-column', {
-                            'glossary__table-column--first': j === 0,
-                            [selectedTable.classNames?.td]:
-                              !!selectedTable.classNames?.td,
-                          })}
-                        >
-                          {val}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <SelectedTable
+              table={selectedTable}
+              selectedRow={selectedRow}
+              setSelectedRow={setSelectedRow}
+              setSelectedTableName={setSelectedTableName}
+            />
           )}
         </div>
       </div>

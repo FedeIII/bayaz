@@ -1,5 +1,5 @@
 import { includesAll } from '~/utils/array';
-import { TABLES } from './tables';
+import { TABLE_MAP, TABLES } from './tables';
 
 export const newEmpyTableResults = () => ({
   title: [],
@@ -31,4 +31,21 @@ export async function getTable(search) {
 
     return tableResults;
   }, newEmpyTableResults());
+}
+
+export function getAssociatedTable(text) {
+  const gemsMatch = text.match(/gemas.*valor.*([\d].+) po/);
+  if (gemsMatch) {
+    return TABLE_MAP.get(`Piedras Preciosas de ${gemsMatch[1]} po`);
+  }
+
+  const artMatch = text.match(/obras.*arte.*([\d].+) po/);
+  if (artMatch) {
+    return TABLE_MAP.get(`Obras de arte de ${artMatch[1]} po`);
+  }
+
+  const magicMatch = text.match(/objetos mágicos ([A-Z])/);
+  if (magicMatch) {
+    return TABLE_MAP.get(`Tabla de objetos mágicos ${magicMatch[1]}`);
+  }
 }
