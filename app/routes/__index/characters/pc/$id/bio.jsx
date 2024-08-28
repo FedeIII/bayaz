@@ -175,7 +175,13 @@ async function addItemToPcAction(formData) {
   const itemAmount = formData.get('itemAmount');
   const sectionPath = formData.get('sectionPath');
   const scrollSpellLevel = formData.get('scrollSpellLevel');
-  const scrollSpellName = formData.get('scrollSpellName');
+  let scrollSpellName = formData.get('scrollSpellName');
+
+  if (itemName === 'spellScroll' && scrollSpellName === 'undefined') {
+    scrollSpellName = random.element(
+      ALL_SPELLS_BY_LEVEL[scrollSpellLevel]
+    ).name;
+  }
 
   return await addItemToPc(
     id,

@@ -186,6 +186,7 @@ export function translateSize(size) {
 
 const NON_SPECIAL_SKILLS = [
   'actions',
+  'reactions',
   'legendaryActions',
   'Armor Class',
   'Hit Points',
