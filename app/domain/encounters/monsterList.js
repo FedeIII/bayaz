@@ -4566,6 +4566,19 @@ const ONLY_MONSTERS = {
     type: 'Humanoid',
     tags: 'kuo-toa',
   },
+  'Kuo-toa Monitor': {
+    environment: {
+      Underdark: 'yes',
+    },
+    xp: '700',
+    alignment: 'NE',
+    page: 'mm 200',
+    challenge: '3',
+    size: 'Medium',
+    name: 'Kuo-toa Monitor',
+    type: 'Humanoid',
+    tags: 'kuo-toa',
+  },
   'Intellect Devourer': {
     page: 'mm 191',
     alignment: 'LE',

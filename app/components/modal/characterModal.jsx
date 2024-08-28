@@ -26,6 +26,7 @@ export function MonsterContent(props) {
       Languages,
       Challenge,
       actions = {},
+      reactions = {},
       legendaryActions = {},
     },
   } = character;
@@ -124,6 +125,28 @@ export function MonsterContent(props) {
 
             <div className="characters__section">
               {Object.entries(actions).map(([action, description]) => (
+                <p className="characters__p">
+                  <o className="characters__bold">{action}.</o>{' '}
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: description,
+                    }}
+                  />
+                </p>
+              ))}
+            </div>
+          </>
+        )}
+
+        {!!Object.keys(reactions).length && (
+          <>
+            <h4 className="characters__section-title">
+              R<span className="app__tiny-text">EACCIONES</span>
+            </h4>
+            <hr className="characters__actions-divider" />
+
+            <div className="characters__section">
+              {Object.entries(reactions).map(([action, description]) => (
                 <p className="characters__p">
                   <o className="characters__bold">{action}.</o>{' '}
                   <span

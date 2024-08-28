@@ -53,6 +53,7 @@ npx prisma migrate dev
 
 ## TO DOs
 
+- Keep names of monsters for nicks as default
 - Remove magic-items and deps
 - Bug: right click on spells during character creation advances to next step
 - Extract textarea component

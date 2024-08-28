@@ -217,6 +217,7 @@ export const MONSTER_TRANSLATIONS = {
   hippogriff: 'Hipogrifo',
   lmp: 'Diablillo',
   'kuo-toa whip': 'Látigo Kuo-toa',
+  'kuo-toa monitor': 'Vigilante Kuo-toa',
   lion: 'Leon',
   quadrone: 'Cuadron',
   'quaggoth spore servant': 'Siervo espora Quaggoth',

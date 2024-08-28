@@ -8440,7 +8440,18 @@ export const MONSTER_DETAILS_LIST = {
     Challenge: '1/4 (50 XP)',
   },
   'Kuo-toa': {
-    actions: {},
+    actions: {
+      Mordisco:
+        'Ataque con arma cuerpo a cuerpo: +3 a impactar, alcance 5 pies, un objetivo. Impacto: 3 (1d4 + 1) de daño perforante.',
+      Lanza:
+        'Ataque con arma cuerpo a cuerpo o a distancia: +3 a impactar, alcance 5 pies o alcance 20/60 pies, un objetivo. Impacto: 4 (1d6 + 1) de daño perforante, o 5 (1d8 + 1) de daño perforante si se usa a dos manos para hacer un ataque cuerpo a cuerpo.',
+      Red: 'Ataque con arma a distancia: +3 a impactar, alcance 5/15 pies, una criatura Grande o más pequeña. Impacto: El objetivo está apresado. Una criatura puede invertir su acción en hacer una prueba de Fuerza CD 10, logrando liberarse a sí misma a otra criatura dentro de su alcance si tiene éxito.',
+      '': 'Causar 5 de daño cortante a la red (CA 10) también liberará a la criatura sin causarle daño alguno, acabando este efecto y destruyendo la red.',
+    },
+    reactions: {
+      'Escudo pegajoso':
+        'Cuando una criatura falle al intentar atacar al kuo-toa con un ataque con arma cuerpo a cuerpo, este podrá utilizar su escudo pegajoso para atrapar el arma. El atacante deberá superar una tirada de salvación de Fuerza CD 11 o su arma se quedará pegada al escudo del kuo-toa. Si quien empuña el arma no quiere (o no puede) soltarla, estará agarrado mientras el arma siga pegada. No se puede utilizar un arma pegada. Una criatura puede emplear su acción para intentar liberar el arma, lográndolo si tiene éxito en una prueba de Fuerza CD 11.',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (kuo-toa), neutral evil',
     stats: {
@@ -8458,6 +8469,14 @@ export const MONSTER_DETAILS_LIST = {
     Senses: 'darkvision 120 ft., passive Perception 14',
     Languages: 'Undercommon',
     Challenge: '1/4 (50 XP)',
+    Anfibio:
+      'El kuo-toa puede respirar tanto dentro del agua como fuera de ella.',
+    'Percepción Sobrenatural':
+      'El kuo-toa puede sentir la presencia de cualquier criatura situada a 30 pies o menos y que sea invisible se encuentre en el Plano Etéreo. También podrá indicar con precisión donde se hallan estas criaturas cuando se mueven.',
+    Escurridizo:
+      'El kuo-toa tiene ventaja en las pruebas de característica y las tiradas de salvación para escapar de un agarre.',
+    'Sensibilidad a la Luz Solar':
+      'El kuo-toa tiene desventaja en las tiradas de ataque y las pruebas de Sabiduría (Percepción) que dependan de la vista hechas bajo la luz del sol',
   },
   'Mud Mephit': {
     actions: {},
@@ -8887,7 +8906,14 @@ export const MONSTER_DETAILS_LIST = {
     Challenge: '1 (200 XP)',
   },
   'Kuo-toa Whip': {
-    actions: {},
+    actions: {
+      'Ataque múltiple':
+        'El kuo-toa realiza dos ataques: uno con su mordisco y otro con su bastón tenaza.',
+      Mordisco:
+        'Ataque con arma cuerpo a cuerpo: +4 a impactar, alcance 5 pies, un objetivo. Impacto: 4 (1d4 + 2) de daño perforante.',
+      'Bastón tenaza':
+        'Ataque con arma cuerpo a cuerpo: +4 a impactar, alcance 10 pies, un objetivo. Impacto: 5 (1d6 + 2) de daño perforante. Si el objetivo es una criatura Mediana o más pequeña, es agarrada (CD 14 para escapar). Hasta que el agarre finalice, el kuo-toa no puede usar su bastón tenaza con otro objetivo.',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (kuo-toa), neutral evil',
     stats: {
@@ -8905,8 +8931,53 @@ export const MONSTER_DETAILS_LIST = {
     Senses: 'darkvision 120 ft., passive Perception 16',
     Languages: 'Undercommon',
     Challenge: '1 (200 XP)',
-    'Cantrips (at will): ': '',
-    '1st level (3 slots): ': '',
+    Anfibio:
+      'El kuo-toa puede respirar tanto dentro del agua como fuera de ella.',
+    'Percepción Sobrenatural':
+      'El kuo-toa puede sentir la presencia de cualquier criatura situada a 30 pies o menos y que sea invisible se encuentre en el Plano Etéreo. También podrá indicar con precisión donde se hallan estas criaturas cuando se mueven.',
+    Escurridizo:
+      'El kuo-toa tiene ventaja en las pruebas de característica y las tiradas de salvación para escapar de un agarre.',
+    'Sensibilidad a la Luz Solar':
+      'El kuo-toa tiene desventaja en las tiradas de ataque y las pruebas de Sabiduría (Percepción) que dependan de la vista hechas bajo la luz del sol',
+    'Lanzamiento de Conjuros':
+      ' El kuo-toa es un lanzador de conjuros de nivel 2. Su aptitud mágica es Sabiduría (salvación de conjuros CD 12, +4 a impactar con ataques de conjuro). Tiene preparados los conjuros de clérigo siguientes:',
+    'Trucos (a voluntad)': '<em>llama sagrada, taumaturgia</em>',
+    'Nivel 1 (3 huecos)': '<em>: escudo de fe, perdición</em>',
+  },
+  'Kuo-toa Monitor': {
+    actions: {
+      'Ataque múltiple':
+        'El kuo-toa realiza un ataque de mordisco y dos ataques sin armas.',
+      Mordisco:
+        'Ataque con arma cuerpo a cuerpo: +6 a impactar, alcance 5 pies, un objetivo. Impacto: 4 (1d4 + 2) de daño perforante.',
+      'Ataque sin armas':
+        'Ataque con arma cuerpo a cuerpo: +6 a impactar, alcance 5 pies, un objetivo. Impacto: 5 (1d6 + 2) de daño contundente y 3 (1d6) de daño de relámpago, y el objetivo no podrá llevar a cabo reacciones hasta el final del siguiente turno del kuo-toa.',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (kuo-toa), neutral evil',
+    stats: {
+      str: '14',
+      dex: '10',
+      con: '14',
+      int: '12',
+      wis: '14',
+      cha: '11',
+    },
+    'Armor Class': '13 (natural armor)',
+    'Hit Points': '65 (10d8 + 20)',
+    Speed: '30 ft., swim 30 ft.',
+    Skills: 'Perception +6, Religion +4',
+    Senses: 'darkvision 120 ft., passive Perception 16',
+    Languages: 'Undercommon',
+    Challenge: '3 (700 XP)',
+    Anfibio:
+      'El kuo-toa puede respirar tanto dentro del agua como fuera de ella.',
+    'Percepción Sobrenatural':
+      'El kuo-toa puede sentir la presencia de cualquier criatura situada a 30 pies o menos y que sea invisible se encuentre en el Plano Etéreo. También podrá indicar con precisión donde se hallan estas criaturas cuando se mueven.',
+    Escurridizo:
+      'El kuo-toa tiene ventaja en las pruebas de característica y las tiradas de salvación para escapar de un agarre.',
+    'Sensibilidad a la Luz Solar':
+      'El kuo-toa tiene desventaja en las tiradas de ataque y las pruebas de Sabiduría (Percepción) que dependan de la vista hechas bajo la luz del sol',
   },
   Quadrone: {
     actions: {
