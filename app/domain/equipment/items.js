@@ -68,7 +68,8 @@ export function isEquipmentItem(item) {
     item.type === 'scroll' ||
     item.type === 'potion' ||
     item.type === 'locket' ||
-    item.type === 'ring'
+    item.type === 'ring' ||
+    item.type === 'wand'
   );
 }
 

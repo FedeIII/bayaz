@@ -162,9 +162,30 @@ const RINGS = {
   },
 };
 
+const WANDS = {
+  wandOfBinding(props) {
+    return {
+      name: 'wandOfBinding',
+      type: 'wand',
+      translation: 'Varita de atadura',
+      unidentifiedName: 'Varita de cadena',
+      rarity: 'rare',
+      price: { gp: 2000 },
+      weight: 0.5,
+      maxCharges: 7,
+      description: () => `<p>Requiere sintonización</p>
+    <p>Esta varita tiene 7 cargas, utilizables para las propiedades siguientes. Recupera 1d6 + 1 cargas empleadas cada día, al amanecer. Si gastas la última carga, tira 1d20. Si obtienes un 1, la varita se convierte en cenizas y es destruida.</p>
+    <p><b><u>Conjuros.</u></b> Mientras empuñes la varita, puedes usar una acción para gastar algunas de sus cargas en lanzar uno de los siguientes conjuros (con salvación CD 17): inmovilizar monstruo (5 cargas) o inmovilizar persona (2 cargas).</p>
+    <p><b><u>Escape asistido.</u></b> Mientras empuñes la varita, puedes usar tu reacción para gastar 1 carga y disfrutar de ventaja en una tirada de salvación que realices para evitar quedar paralizado o apresado, o puedes emplear 1 carga para obtener ventaja en cualquier prueba hecha para escapar de un agarre.</p>`,
+      ...props,
+    };
+  },
+};
+
 export const MAGIC_ITEMS = {
   ...POTIONS,
   ...SCROLLS,
   ...LOCKETS,
   ...RINGS,
+  ...WANDS,
 };

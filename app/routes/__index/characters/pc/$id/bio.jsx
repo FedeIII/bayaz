@@ -130,7 +130,11 @@ async function dropItemAction(formData) {
   if (section === 'custom') {
     return await dropCustomItem(id, itemName);
   } else {
-    return await dropTreasureItem(id, itemName, scrollSpellName);
+    return await dropTreasureItem(
+      id,
+      itemName,
+      scrollSpellName !== 'undefined' ? scrollSpellName : null
+    );
   }
 }
 
