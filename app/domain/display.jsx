@@ -16,6 +16,7 @@ import {
   getStatMod,
   getStats,
   getTotalAttackBonus,
+  getAttackExtraBonus,
   hasToImproveAbilityScore,
   translateClass,
   translateSavingThrowStatus,
@@ -217,13 +218,24 @@ export function displayDamage(pc, weapons, weapon, weaponIndex) {
   const { properties: { versatile } = {} } = weapon;
   const damageDice = getDamageDice(pc, weapon);
   const damageBonus = getDamageBonus(pc, weapons, weapon, weaponIndex);
-  const bonusOperator = damageBonus > 0 ? '+' : '';
+  const extraDamageBonus = getAttackExtraBonus(pc, weapon);
+  const bonusOperator = damageBonus >= 0 ? '+' : '';
+  const extraBonusOperators = extraDamageBonus.map(([_, bonus]) =>
+    damageBonus + bonus >= 0 ? '+' : ''
+  );
+
+  const extraBonusString = extraDamageBonus.length
+    ? `(${extraDamageBonus
+        .map(([_, bonus], i) => extraBonusOperators[i] + (damageBonus + bonus))
+        .join(', ')})`
+    : '';
 
   if (versatile)
-    if (damageBonus)
-      return `${damageDice} (${versatile}) ${bonusOperator} ${damageBonus}`;
+    if (damageBonus || extraBonusString)
+      return `${damageDice} (${versatile}) ${bonusOperator}${damageBonus} ${extraBonusString}`;
     else return `${damageDice} (${versatile})`;
-  if (damageBonus) return `${damageDice} ${bonusOperator} ${damageBonus}`;
+  if (damageBonus || extraBonusString)
+    return `${damageDice} ${bonusOperator}${damageBonus} ${extraBonusString}`;
   else return `${damageDice}`;
 }
 
@@ -235,6 +247,7 @@ function getAttackFromWeapon(pc, weapons, w, specialAttackIndex, weaponIndex) {
         weapon,
         specialAttackIndex,
         bonus: getTotalAttackBonus(pc, weapons, weapon, weaponIndex),
+        extraBonus: getAttackExtraBonus(pc, weapon),
         damage: displayDamage(pc, weapons, weapon, weaponIndex),
         type: `(${translateDamage(weapon.damage[1])})`,
       }
@@ -242,6 +255,7 @@ function getAttackFromWeapon(pc, weapons, w, specialAttackIndex, weaponIndex) {
         weapon: noItem(),
         specialAttackIndex: null,
         bonus: null,
+        extraBonus: [],
         damage: null,
         type: null,
       };

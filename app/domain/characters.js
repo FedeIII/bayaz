@@ -35,6 +35,7 @@ import {
   getAllSimpleRanged,
   getAllWeapons,
   isMeleeWeapon,
+  isRangedWeapon,
 } from './equipment/weapons';
 import { SKILLS_EXPLANATION } from './skillsExplanation';
 import { isDraconicBloodline } from './classes/sorcerer/sorcerer';
@@ -2807,8 +2808,34 @@ export function getAttackBonus(pc, weapons, weapon, weaponIndex) {
   return { statMod, proficiencyBonus, classBonus };
 }
 
-export function getTotalAttackBonus(...args) {
-  return Object.values(getAttackBonus(...args)).reduce((a, b) => a + b);
+export function getAttackExtraBonus(pc, weapon) {
+  if (isRangedWeapon(weapon)) {
+    const ammo = getCharacterAmmo(pc);
+    return ammo
+      .filter(ammoItem => weapon.ammoType === ammoItem.ammoType)
+      .map(ammoItem => [ammoItem.name, ammoItem.bonus?.damage || 0])
+      .filter(([_, bonus]) => !!bonus)
+      .sort((a, b) => a[1] - b[1]);
+  }
+
+  return [];
+}
+
+export function getTotalAttackBonus(pc, weapons, weapon, weaponIndex) {
+  return Object.values(getAttackBonus(pc, weapons, weapon, weaponIndex)).reduce(
+    (a, b) => a + b
+  );
+}
+
+export function getTotalAttackBonusWithExtras(
+  pc,
+  weapons,
+  weapon,
+  weaponIndex
+) {
+  const baseTotalBonus = getTotalAttackBonus(pc, weapons, weapon, weaponIndex);
+  const extraBonus = getAttackExtraBonus(pc, weapon);
+  return [[null, 0], ...extraBonus].map(([_, bonus]) => baseTotalBonus + bonus);
 }
 
 export function getAttackClassBonus(pc, weapons, weapon, weaponIndex) {
@@ -3407,4 +3434,8 @@ export function isProficientWithWeapon(pc, weapon) {
 
 export function getExperience(pc) {
   return Math.floor(pc.exp);
+}
+
+export function getCharacterAmmo(pc) {
+  return pc.items.equipment.ammunition.map(getItem);
 }

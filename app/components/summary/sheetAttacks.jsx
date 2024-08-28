@@ -17,6 +17,16 @@ import { renderItemName } from '~/domain/equipment/items';
 
 const noAttack = { weapon: noItem() };
 
+const ATTACK_BONUS_MAX_FONT_SIZE = 1.2;
+function getAttackBonusFontSize(attackBonusText) {
+  return (
+    Math.min(
+      -0.05 * attackBonusText.length + 1.55,
+      ATTACK_BONUS_MAX_FONT_SIZE
+    ) + 'cqw'
+  );
+}
+
 export const actions = {
   identifyItem: async formData => {
     const id = formData.get('id');
@@ -294,6 +304,16 @@ function SheetAttacks(props) {
           }
         };
 
+        const attackBonusText = !!(attack.bonus || attack.bonus === 0)
+          ? `${increment(attack.bonus)}${
+              !!attack.extraBonus.length
+                ? ` (${attack.extraBonus
+                    .map(([_, bonus]) => increment(attack.bonus + bonus))
+                    .join(', ')})`
+                : ''
+            }`
+          : '';
+
         return (
           <Fragment key={slot}>
             <div
@@ -334,8 +354,13 @@ function SheetAttacks(props) {
                 </sup>
               )}
             </div>
-            {!!(attack.bonus || attack.bonus === 0) && (
-              <span className={`sheet__data sheet__attack-bonus-${slot}`}>
+            {!!attackBonusText && (
+              <span
+                className={`sheet__data sheet__attack-bonus-${slot}`}
+                style={{
+                  fontSize: getAttackBonusFontSize(attackBonusText),
+                }}
+              >
                 <SkillItem
                   ref={skillRefs.attackBonus.current[slot]}
                   traitName="attackBonus"
@@ -343,7 +368,7 @@ function SheetAttacks(props) {
                   pc={pc}
                   openModal={openSkillModal('attackBonus', slot)}
                 >
-                  {increment(attack.bonus)}
+                  {attackBonusText}
                 </SkillItem>
               </span>
             )}

@@ -411,6 +411,7 @@ export function TOOLS() {
         translation: 'Virotes',
         type: 'tool',
         subtype: 'ammunition',
+        ammoType: 'bolts',
         price: { gp: 0, sp: 0, cp: 5 },
         weight: 0.03,
         ...props,
@@ -422,10 +423,35 @@ export function TOOLS() {
         translation: 'Flechas',
         type: 'tool',
         subtype: 'ammunition',
+        ammoType: 'arrows',
         price: { gp: 0, sp: 0, cp: 5 },
         weight: 0.05,
         ...props,
       };
+    },
+    arrows1(props) {
+      return TOOLS().arrows({
+        name: 'arrows1',
+        translation: 'Flechas (+1)',
+        price: { gp: 15 },
+        identified: true,
+        bonus: {
+          damage: 1,
+        },
+        ...props,
+      });
+    },
+    arrows2(props) {
+      return TOOLS().arrows({
+        name: 'arrows2',
+        translation: 'Flechas (+2)',
+        price: { gp: 150 },
+        identified: true,
+        bonus: {
+          damage: 2,
+        },
+        ...props,
+      });
     },
 
     //BACKGROUNDS

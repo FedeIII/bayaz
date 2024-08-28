@@ -315,6 +315,7 @@
   text-align: center;
   padding: 4px 8px 4px 8px;
   border-left: 1px solid black;
+  white-space: nowrap;
 }
 
 .inventory-item__table-cell-small {

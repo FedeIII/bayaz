@@ -4,10 +4,11 @@ import {
   CLASSES,
   getArmorClass,
   getAttackBonus,
+  getAttackExtraBonus,
   getExtraHitPoints,
   getStat,
   getStatMod,
-  getTotalAttackBonus,
+  getTotalAttackBonusWithExtras,
   translateClass,
 } from './characters';
 import { getAcBreakdown, increment } from './display';
@@ -203,6 +204,11 @@ export const SKILLS_EXPLANATION = {
     const { statMod, proficiencyBonus, classBonus, magicBonus } =
       getAttackBonus(pc, weapons, weapon);
 
+    const extraBonus = getAttackExtraBonus(pc, weapon);
+
+    const [baseTotalAttackBonus, ...totalAttackBonusWithExtras] =
+      getTotalAttackBonusWithExtras(pc, weapons, weapon);
+
     return (
       <div className="inventory-item__hp-container">
         <table className="inventory-item__table">
@@ -224,6 +230,15 @@ export const SKILLS_EXPLANATION = {
                   Arma mágica
                 </th>
               )}
+              {!!extraBonus.length &&
+                extraBonus.map(([bonusName]) => (
+                  <th
+                    key={bonusName}
+                    className="inventory-item__table-cell-level"
+                  >
+                    {getItem(bonusName).translation}
+                  </th>
+                ))}
               <th className="inventory-item__table-cell-extra">Total</th>
             </tr>
           </thead>
@@ -245,8 +260,27 @@ export const SKILLS_EXPLANATION = {
                   {increment(magicBonus)}
                 </td>
               )}
+              {!!extraBonus.length &&
+                extraBonus.map(([bonusName, bonus]) => (
+                  <td
+                    key={bonusName}
+                    className="inventory-item__table-cell-level"
+                  >
+                    ({increment(bonus)})
+                  </td>
+                ))}
               <td className="inventory-item__table-cell-extra">
-                {getTotalAttackBonus(pc, weapons, weapon)}
+                {increment(baseTotalAttackBonus)}
+                {!!totalAttackBonusWithExtras.length && (
+                  <>
+                    {' '}
+                    (
+                    {totalAttackBonusWithExtras
+                      .map(bonus => increment(bonus))
+                      .join(', ')}
+                    )
+                  </>
+                )}
               </td>
             </tr>
           </tbody>
