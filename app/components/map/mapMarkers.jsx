@@ -1,25 +1,36 @@
 import { Link, useSubmit } from '@remix-run/react';
 import { useRef, useState } from 'react';
 import MapPopup from '~/components/map/mapPopup';
+import { t } from '~/domain/translations';
 
 function SettlementMarker(props) {
   const { L, settlement, locationOver, setLocationOver } = props;
+  const {
+    id,
+    location,
+    name,
+    population,
+    government,
+    security,
+    securityType,
+    magicShops,
+    commerces,
+  } = settlement;
 
   return (
     <L.CircleMarker
-      key={settlement.id}
+      key={id}
       pane="settlementsPane"
-      center={[settlement.location.lat, settlement.location.lng]}
+      center={[location.lat, location.lng]}
       pathOptions={{
         color:
-          locationOver?.lat === settlement.location.lat &&
-          locationOver?.lng === settlement.location.lng
+          locationOver?.lat === location.lat &&
+          locationOver?.lng === location.lng
             ? '#2b8c47'
             : '#dd2a2a',
       }}
       radius={
-        locationOver?.lat === settlement.location.lat &&
-        locationOver?.lng === settlement.location.lng
+        locationOver?.lat === location.lat && locationOver?.lng === location.lng
           ? 6
           : 5
       }
@@ -28,17 +39,37 @@ function SettlementMarker(props) {
         mouseout: () => setLocationOver(null),
       }}
     >
-      <MapPopup L={L} title={settlement.name}>
+      <MapPopup L={L} title={name}>
         <ul className="map__popup-options">
           <li>
             <Link
-              to={`/places/settlement/${settlement.id}`}
+              to={`/places/settlement/${id}`}
               target="_blank"
               className="places__save"
             >
-              {settlement.name || 'Sin nombre'}
+              {name || 'Sin nombre'}
             </Link>
           </li>
+          <li>
+            <span>Población: ~{population}</span>
+            {!!government && <span>{t(government.type)}</span>}
+          </li>
+          <li>
+            <span>
+              {security} {t(securityType)}
+            </span>
+            {!!magicShops && <span>{magicShops} tiendas</span>}
+          </li>
+          {!!commerces?.length && (
+            <li>
+              Comercio:{' '}
+              <ul>
+                {commerces.map(com => (
+                  <li key={com}>{t(com)}</li>
+                ))}
+              </ul>
+            </li>
+          )}
         </ul>
       </MapPopup>
     </L.CircleMarker>

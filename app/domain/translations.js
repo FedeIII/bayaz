@@ -393,6 +393,10 @@ export function t(key) {
     Devotion: 'Juramento de Devoción',
     Ancients: 'Juramento de los Ancestros',
     Vengeance: 'Juramento de Venganza',
+
+    // Security
+    militia: 'milicias',
+    guards: 'guardias',
   }[key];
 
   if (translation) return translation;

@@ -75,6 +75,12 @@
   row-gap: 8px;
 }
 
+.map__popup-options > li {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .map__popup-text-input {
   background: transparent;
   border: 1px solid var(--color-gray);
