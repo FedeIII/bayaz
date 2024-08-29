@@ -53,6 +53,8 @@ npx prisma migrate dev
 
 ## TO DOs
 
+- Autofill Dominion and Subdominion when creating a settlement from the map
+- Save last position in the map
 - Keep names of monsters for nicks as default
 - Remove magic-items and deps
 - Bug: right click on spells during character creation advances to next step

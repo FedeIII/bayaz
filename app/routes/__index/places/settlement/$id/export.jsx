@@ -67,7 +67,7 @@ function ExportSettlement() {
 
         {!!government?.type ? (
           <li>
-            Su sitema de gobierno es {t(government.type)}.{' '}
+            Su sistema de gobierno es {t(government.type)}.{' '}
             {t(government.situation)}
           </li>
         ) : (
