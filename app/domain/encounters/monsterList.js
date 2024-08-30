@@ -7699,6 +7699,17 @@ const ONLY_MONSTERS = {
     environment: {},
     xp: '450',
   },
+  'Githzerai Arcanist': {
+    type: 'Humanoid',
+    tags: 'gith',
+    challenge: '2',
+    size: 'Medium',
+    name: 'Githzerai Arcanist',
+    alignment: 'LN',
+    page: 'mm 161',
+    environment: {},
+    xp: '450',
+  },
   'Githyanki Warrior': {
     challenge: '3',
     size: 'Medium',

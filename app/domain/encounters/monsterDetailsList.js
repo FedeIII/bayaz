@@ -9322,8 +9322,9 @@ export const MONSTER_DETAILS_LIST = {
   },
   'Githzerai Monk': {
     actions: {
-      'Multiattack.': '',
-      'Unarmed Strike.': '',
+      'Ataque múltiple.': 'El githzerai realiza dos ataques sin armas',
+      'Ataque sin armas':
+        ' Ataque con arma cuerpo a cuerpo: +4 a impactar, alcance 5 pies, un objetivo. Impacto: 6 (1d8 + 2) de daño contundente y 9 (2d8) de daño psíquico. Este se considera un ataque de arma mágica.',
     },
     legendaryActions: {},
     notes: 'Medium humanoid (gith), lawful neutral',
@@ -9343,8 +9344,77 @@ export const MONSTER_DETAILS_LIST = {
     Senses: 'passive Perception 14',
     Languages: 'Gith',
     Challenge: '2 (450 XP)',
-    'Innate Spellcasting (Psionics).': '',
-    'Psychic Defense.': '',
+    'Lanzamiento de Conjuros Innato (Psiónica)':
+      'La aptitud mágica innata del githzerai es Sabiduría. Puede lanzar de forma innata los siguientes conjuros, sin necesidad de componentes:',
+    'A voluntad': 'mano de mago (la mano es invisible)',
+    '3/día cada uno': 'caída de pluma, escudo, salto, ver invisibilidad',
+    'Defensea Psíquica':
+      'Si el githzerai no está portando armadura ni embrazando un escudo, podrá sumar su modificador por Sabiduría a su CA.',
+  },
+  'Githzerai Arcanist': {
+    actions: {
+      'Espada corta':
+        '<em>Ataque con arma cuerpo a cuerpo:</em> +2 a impactar, alcance 5 pies, un objetivo. <em>Impacto:</em> 4 (1d6 +1) de daño perforante.',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (gith), lawful neutral',
+    stats: {
+      str: '10',
+      dex: '12',
+      con: '12',
+      int: '14',
+      wis: '11',
+      cha: '13',
+    },
+    'Armor Class': '13 (Armadura de mago)',
+    'Hit Points': '27 (5d8 + 5)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Int +4, Wis +2',
+    Skills: 'Arcana +4, Perception +2',
+    Senses: 'darkvision 60 ft., passive Perception 12',
+    'Damage Resistances': 'psychic',
+    Languages: 'Gith, Common',
+    Challenge: '2 (450 XP)',
+    'Lanzamiento de Conjuros Innato (Psiónica)':
+      'La aptitud mágica innata del githzerai es Sabiduría. Puede lanzar de forma innata los siguientes conjuros, sin necesidad de componentes:',
+    'A voluntad': 'mano de mago (la mano es invisible)',
+    '3/día cada uno': 'caída de pluma, escudo, salto, ver invisibilidad',
+    'Defensea Psíquica':
+      'Si el githzerai no está portando armadura ni embrazando un escudo, podrá sumar su modificador por Sabiduría a su CA.',
+    'Lanzamiento de Conjuros':
+      'El githzerai es un lanzador de conjuros de nivel 2. Su aptitud mágica es Inteligencia (salvación de conjuros CD 12, +4 a impactar con ataques de conjuro). Tiene los siguientes conjuros de mago preparados:',
+    'Trucos (a voluntad)': '<em>saeta de fuego, luz, ilusión menor</em>',
+    'Nivel 1 (3 huecos)': '<em>armadura de mago, proyectil mágico</em>',
+    'Competencia Marcial':
+      'Un Arcanista githzerai es compente con la espada corta y puede usarla como arma de combate cuerpo a cuerpo',
+  },
+  'Githyanki Warrior': {
+    actions: {
+      'Ataque múltiple.': 'El githzerai realiza dos ataques con su espadón',
+      Espadón:
+        'Ataque con arma cuerpo a cuerpo: +4 a impactar, alcance 5 pies, un objetivo. Impacto: 9 (2d6 + 2) de daño cortante y 7 (2d6) de daño psíquico.',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (gith), lawful neutral',
+    stats: {
+      str: '15',
+      dex: '14',
+      con: '12',
+      int: '13',
+      wis: '13',
+      cha: '10',
+    },
+    'Armor Class': '17 (Media armadura)',
+    'Hit Points': '49 (9d8 + 9)',
+    Speed: '30 ft.',
+    'Saving Throws': 'Con +3, Int +3, Wis +3',
+    Senses: 'passive Perception 12',
+    Languages: 'Gith',
+    Challenge: '2 (450 XP)',
+    'Lanzamiento de Conjuros Innato (Psiónica)':
+      'La aptitud mágica innata del githzerai es Sabiduría. Puede lanzar de forma innata los siguientes conjuros, sin necesidad de componentes:',
+    'A voluntad': 'mano de mago (la mano es invisible)',
+    '3/día cada uno': 'indetectable (solo lanzador), paso brumoso, salto',
   },
   'Gnoll Pack Lord': {
     actions: {},
@@ -9762,30 +9832,6 @@ export const MONSTER_DETAILS_LIST = {
     Challenge: '3 (700 XP)',
     'Avoidance.': '',
     'Displacement.': '',
-  },
-  'Githyanki Warrior': {
-    actions: {},
-    legendaryActions: {},
-    notes: 'Medium humanoid (gith), lawful evil',
-    stats: {
-      str: '15',
-      dex: '14',
-      con: '12',
-      int: '13',
-      wis: '13',
-      cha: '10',
-    },
-    'Armor Class': '17 (half plate)',
-    'Hit Points': '49 (9d8 + 9)',
-    Speed: '30 ft.',
-    'Saving Throws': 'Con +3, Int +3, Wis +3',
-    Senses: 'passive Perception 11',
-    Languages: 'Gith',
-    Challenge: '3 (700 XP)',
-    'At will: ': '',
-    ' (the hand is invisible)': '',
-    '3/day each: ': '',
-    ' (self only)': '',
   },
   Grell: {
     actions: {},

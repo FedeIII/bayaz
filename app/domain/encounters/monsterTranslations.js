@@ -137,6 +137,7 @@ export const MONSTER_TRANSLATIONS = {
   'giant constrictor snake': 'Serpiente constrictora gigante',
   'giant elk': 'Alce gigante',
   'gibbering mouther': 'Bocón barbotante',
+  'githzerai arcanist': 'Arcanista githzerai',
   'githzerai monk': 'Monje githzerai',
   'gnoll pack lord': 'Lider de manada gnoll',
   'green dragon wyrmling': 'Cria de dragón verde',
