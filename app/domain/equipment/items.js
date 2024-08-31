@@ -1,8 +1,9 @@
 import { ARMORS } from './armors';
 import { WEAPONS } from './weapons';
-import { isAmmo, isArmor, isShield, isWeapon } from './equipment';
+import { getItem, isAmmo, isArmor, isShield, isWeapon } from './equipment';
 import { itemWithAmount } from '../display';
 import { t } from '../translations';
+import { WONDROUS } from './magicItems';
 
 export const ITEM_RARITY = [
   'common',
@@ -123,4 +124,23 @@ export function hasBagOfHolding(pc) {
 
 export function hasBagOfHoldingContents(pc) {
   return hasBagOfHolding(pc) && !!pc.items.treasure.bagOfHolding?.length;
+}
+
+export function getBagOfHoldingContentsWeight(pc) {
+  return (
+    pc.items.treasure.bagOfHolding?.reduce(
+      (totalWeight, item) => totalWeight + (getItem(item).weight || 0),
+      0
+    ) || 0
+  );
+}
+
+export function fitsInBagOfHolding(pc, item) {
+  const pBag = pc.items.treasure.others.find(
+    item => item.name === 'bagOfHolding'
+  );
+  const bag = pBag ? getItem(pBag) : WONDROUS.bagOfHolding();
+
+  const weightLeft = bag.bonus.encumbrance - getBagOfHoldingContentsWeight(pc);
+  return weightLeft >= getItem(item).weight;
 }

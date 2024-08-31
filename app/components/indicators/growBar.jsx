@@ -2,6 +2,8 @@
 // ██████████████████████████▒▒▒▒▒▓▓▓▓▓▓
 // ██████████████████████████████████▓▓▓
 
+import { useMemo } from 'react';
+
 export function GrowBar(props) {
   const { cursorPos, cursorValue, softLimit, softValue, hardLimit, hardValue } =
     props;
@@ -33,6 +35,16 @@ export function GrowBar(props) {
     heavy -= red;
   }
 
+  const cursorValueColor = useMemo(
+    () =>
+      cursorPos > softLimit
+        ? cursorPos > hardLimit
+          ? 'red'
+          : 'orange'
+        : 'iniital',
+    [cursorPos, cursorValue, softLimit, hardLimit]
+  );
+
   return (
     <div className="bar">
       <span className="bar__blueBar">
@@ -63,12 +75,7 @@ export function GrowBar(props) {
         className="bar__cursorValue"
         style={{
           left: `calc(${cursorPos}% - 4px)`,
-          color:
-            cursorPos > softLimit
-              ? cursorPos > hardLimit
-                ? 'red'
-                : 'orange'
-              : 'iniital',
+          color: cursorValueColor,
         }}
       >
         {cursorValue}

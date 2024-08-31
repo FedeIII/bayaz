@@ -1097,6 +1097,19 @@ export async function dropTreasureItem(id, itemName, scrollSpellName) {
   return updatedPc;
 }
 
+export async function dropBagOfHoldingItem(id, itemName, scrollSpellName) {
+  const query = {
+    $pull: { 'items.treasure.bagOfHolding': { name: itemName } },
+  };
+  if (scrollSpellName) {
+    query.$pull['items.treasure.bagOfHolding'].spellName = scrollSpellName;
+  }
+
+  const updatedPc = await Pc.findOneAndUpdate({ id }, query, { new: true });
+
+  return updatedPc;
+}
+
 export async function dropCustomItem(id, itemName) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id },

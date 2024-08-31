@@ -20,6 +20,7 @@ import {
   changeItemCharges,
   putInBagOfHolding,
   putOutOfBagOfHolding,
+  dropBagOfHoldingItem,
 } from '~/services/pc.server';
 import { getPackItems } from '~/domain/equipment/packs';
 import { getItem, translatePack } from '~/domain/equipment/equipment';
@@ -39,6 +40,7 @@ import { isDm } from '~/domain/user';
 import { useSearchResults } from '~/components/hooks/useSearchResults';
 import NumericInput from '~/components/inputs/numeric';
 import {
+  fitsInBagOfHolding,
   getSectionPath,
   hasBagOfHolding,
   hasBagOfHoldingContents,
@@ -136,6 +138,12 @@ async function dropItemAction(formData) {
 
   if (section === 'custom') {
     return await dropCustomItem(id, itemName);
+  } else if (section === 'bagOfHolding') {
+    return await dropBagOfHoldingItem(
+      id,
+      itemName,
+      scrollSpellName !== 'undefined' ? scrollSpellName : null
+    );
   } else {
     return await dropTreasureItem(
       id,
@@ -305,6 +313,7 @@ function ItemModalContent(props) {
   } = props;
 
   const hasBag = !!pc && hasBagOfHolding(pc);
+  const fitsInBag = hasBag && fitsInBagOfHolding(pc, pItem);
   const item = getItem(pItem);
 
   function onIdentifyClick(e) {
@@ -488,7 +497,7 @@ function ItemModalContent(props) {
             </li>
           )}
 
-          {!!(toBagOfHolding && hasBag) && (
+          {!!(toBagOfHolding && fitsInBag) && (
             <li>
               <button
                 type="button"
