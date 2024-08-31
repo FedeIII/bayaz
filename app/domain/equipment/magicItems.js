@@ -182,10 +182,35 @@ const WANDS = {
   },
 };
 
+export const WONDROUS = {
+  bagOfHolding(props) {
+    return {
+      name: 'bagOfHolding',
+      type: 'wondrous',
+      inventory: 'treasure',
+      translation: 'Bolsa de Contención',
+      unidentifiedName: 'Bolsa misteriosa',
+      rarity: 'uncommon',
+      price: { gp: 2000 },
+      weight: 7,
+      bonus: {
+        encumbrance: 227,
+      },
+      description: () =>
+        `<p>Esta bolsa posee un espacio interior considerablemente mayor que sus dimensiones exteriores, que son de 60cm de diámetro en la abertura y 1.3m de profundidad. La bolsa puede contener hasta 227 kg, con un volumen máximo de 64 pies cúbicos. Siempre pesará 15 libras, independientemente del contenido. Sacar un objeto de la bolsa cuesta una acción</p>`,
+      dmDescription:
+        () => `<p>Si se sobrecarga, perfora o rasga la bolsa. esta se rompe por completo y queda destruida, quedando sus contenidos dispersos por el Plano Astral. Si se pone la bolsa del revés, los contenidos serán volcados al exterior, sin quedar dañados, pero la bolsa debe volver a pone rse en su posición inicial antes de poder ser usada de nuevo. Las criaturas dentro de la bolsa que necesiten respirar pueden sobrevivir un número de minutos igual a 10 dividido entre el número de criaturas albergadas (mínimo 1 minuto), tiempo tras el cual comenzarán a a hogarse.</p>
+      <p>Poner una bolsa de contención dentro del espacio extradimensional creado por un morral práctico de Heward, un agujero portátil u objeto similar destruye instantáneamente ambos objetos y abre un portal al Plano Astral. Se creará en el sitio donde un objeto se metió de ntro del otro. Cualquier criatura que se encuentre a 10 pies del portal será absorbida a través de este a una localización aleatoria en el Plano Astral. Después, el portal se cierra. Solo funciona en un sentido y no puede ser reabierto.</p>`,
+      ...props,
+    };
+  },
+};
+
 export const MAGIC_ITEMS = {
   ...POTIONS,
   ...SCROLLS,
   ...LOCKETS,
   ...RINGS,
   ...WANDS,
+  ...WONDROUS,
 };

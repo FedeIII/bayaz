@@ -43,6 +43,7 @@ export function getItem(item) {
 
   if (!itemBuilder) {
     return {
+      _id: item._id,
       name: itemName,
       amount: item.amount || 1,
       weight: item.weight || 0,

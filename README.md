@@ -53,6 +53,12 @@ npx prisma migrate dev
 
 ## TO DOs
 
+TODO
+  acciones dentro de la bolsa de contención
+  calcular peso con objetos de la bolsa de contención
+  enseñar "Poner en la Bolsa de contención" si no se ha superado el peso máximo
+TODO
+
 - Autofill Dominion and Subdominion when creating a settlement from the map
 - Save last position in the map
 - Keep names of monsters for nicks as default

@@ -66,6 +66,8 @@ import {
 import { ROGISH_ARCHETYPES } from '~/domain/classes/rogue/rogue';
 import { getter } from '~/utils/objects';
 import { isSameScroll } from '~/domain/equipment/magicItems';
+import { getSectionPath } from '~/domain/equipment/items';
+import { getItem } from '~/domain/equipment/equipment';
 
 const backgroundSchema = new mongoose.Schema({
   name: { type: String, enum: Object.keys(BACKGROUNDS) },
@@ -366,6 +368,7 @@ const pcSchema = new mongoose.Schema({
       armors: [itemSchema],
       others: [itemSchema],
       custom: [itemSchema],
+      bagOfHolding: [itemSchema],
     },
   },
   pack: String,
@@ -1271,6 +1274,55 @@ export async function addCustomTreasure(id, itemName) {
     { id },
     {
       $push: { 'items.treasure.custom': { name: itemName, amount: 1 } },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
+export async function putInBagOfHolding(id, section, itemId) {
+  const pc = await Pc.findOne(
+    {
+      id,
+      [`items.treasure.${section}._id`]: itemId,
+    },
+    { [`items.treasure.${section}.$`]: 1 }
+  );
+
+  const pItem = pc.items.treasure[section][0];
+
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    {
+      $pull: { [`items.treasure.${section}`]: { _id: itemId } },
+      $push: { 'items.treasure.bagOfHolding': pItem },
+    },
+    { new: true }
+  );
+
+  return updatedPc;
+}
+
+export async function putOutOfBagOfHolding(id, itemId) {
+  const pc = await Pc.findOne(
+    {
+      id,
+      'items.treasure.bagOfHolding._id': itemId,
+    },
+    { 'items.treasure.bagOfHolding.$': 1 }
+  );
+
+  const pItem = pc.items.treasure.bagOfHolding[0];
+  console.log('pItem', pItem);
+  const section = getSectionPath(getItem(pItem.toJSON()));
+  console.log('section', section);
+
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    {
+      $pull: { 'items.treasure.bagOfHolding': { _id: itemId } },
+      $push: { [`items.${section}`]: pItem },
     },
     { new: true }
   );

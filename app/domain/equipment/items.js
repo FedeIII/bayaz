@@ -69,7 +69,8 @@ export function isEquipmentItem(item) {
     item.type === 'potion' ||
     item.type === 'locket' ||
     item.type === 'ring' ||
-    item.type === 'wand'
+    item.type === 'wand' ||
+    item.inventory === 'equipment'
   );
 }
 
@@ -108,5 +109,15 @@ export function getSectionPath(item) {
   if (isEquipmentItem(item)) {
     return 'equipment.others';
   }
+  if (item.custom) {
+    return 'treasure.custom';
+  }
   return 'treasure.others';
+}
+
+export function hasBagOfHolding(pc) {
+  return (
+    !!pc.items.treasure.others.find(pItem => pItem.name === 'bagOfHolding') &&
+    !!pc.items.treasure.bagOfHolding?.length
+  );
 }

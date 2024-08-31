@@ -227,13 +227,12 @@ export async function addItemToPc(
   const pc = await getPc(id);
   const item = getItem(itemName);
   const stash = getter(pc.items, sectionPath);
-  console.log('FEDE');
+
   const existingItem = stash.find(
     pItem =>
       pItem.name === itemName &&
       (item.type !== 'scroll' || pItem.spellName === item.spellName)
   );
-  console.log('FEDE');
 
   if (existingItem) {
     return await increaseItemAmount(

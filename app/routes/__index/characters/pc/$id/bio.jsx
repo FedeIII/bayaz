@@ -18,6 +18,8 @@ import {
   changeItemWeight,
   identifyItem,
   changeItemCharges,
+  putInBagOfHolding,
+  putOutOfBagOfHolding,
 } from '~/services/pc.server';
 import { getPackItems } from '~/domain/equipment/packs';
 import { getItem, translatePack } from '~/domain/equipment/equipment';
@@ -38,11 +40,13 @@ import { useSearchResults } from '~/components/hooks/useSearchResults';
 import NumericInput from '~/components/inputs/numeric';
 import {
   getSectionPath,
+  hasBagOfHolding,
   renderItemName,
   renderItemNameWithAmount,
 } from '~/domain/equipment/items';
 import { ALL_SPELLS_BY_LEVEL } from '~/domain/spells/getSpells';
 import { t } from '~/domain/translations';
+import { WONDROUS } from '~/domain/equipment/magicItems';
 
 import styles from '~/components/bio.css';
 export const links = () => {
@@ -52,6 +56,8 @@ export const links = () => {
 export const meta = ({ data }) => ({
   title: data.pc.name,
 });
+
+const bagOfHolding = WONDROUS.bagOfHolding();
 
 export const loader = async ({ request, params }) => {
   const pc = await getPc(params.id);
@@ -200,6 +206,21 @@ async function addArbitraryItemAction(formData) {
   return await addCustomTreasure(id, itemName);
 }
 
+async function putIntoBagOfHoldingAction(formData) {
+  const id = formData.get('id');
+  const section = formData.get('section');
+  const itemId = formData.get('itemId');
+
+  return await putInBagOfHolding(id, section, itemId);
+}
+
+async function putItemOutAction(formData) {
+  const id = formData.get('id');
+  const itemId = formData.get('itemId');
+
+  return await putOutOfBagOfHolding(id, itemId);
+}
+
 async function updateFreeTextsAction(formData) {
   const id = formData.get('id');
   const fieldName = formData.get('fieldName');
@@ -248,6 +269,10 @@ export const action = async ({ request }) => {
     updatedPc = await addItemToPcAction(formData);
   } else if (action === 'addArbitraryItem') {
     updatedPc = await addArbitraryItemAction(formData);
+  } else if (action === 'putIntoBagOfHolding') {
+    updatedPc = await putIntoBagOfHoldingAction(formData);
+  } else if (action === 'putItemOut') {
+    updatedPc = await putItemOutAction(formData);
   } else if (action === 'textChange') {
     updatedPc = await updateFreeTextsAction(formData);
   }
@@ -269,6 +294,8 @@ function ItemModalContent(props) {
     changeAmount,
     changeCharges,
     changeWeight,
+    toBagOfHolding,
+    putItemOut,
     addItem,
     closeModal,
     setOnCloseModalCallback,
@@ -331,7 +358,10 @@ function ItemModalContent(props) {
     chargesLeft,
     changeCharges,
     getSectionPath,
-    item,
+    item.type,
+    item.subtype,
+    item.inventory,
+    item.custom,
   ]);
 
   const itemDisplay = renderItemName(item);
@@ -453,6 +483,30 @@ function ItemModalContent(props) {
                 styleName="inventory-item__amount-input"
               />{' '}
               kg
+            </li>
+          )}
+
+          {!!toBagOfHolding && (
+            <li>
+              <button
+                type="button"
+                className="inventory-item__drop-item-button"
+                onClick={() => toBagOfHolding(section, pItem._id)}
+              >
+                Poner en la {bagOfHolding.translation}
+              </button>
+            </li>
+          )}
+
+          {!!putItemOut && (
+            <li>
+              <button
+                type="button"
+                className="inventory-item__drop-item-button"
+                onClick={() => putItemOut(pItem._id)}
+              >
+                Sacar de la {bagOfHolding.translation}
+              </button>
             </li>
           )}
 
@@ -846,6 +900,29 @@ function PcBio() {
     );
   }
 
+  function putIntoBagOfHolding(section, itemId) {
+    submit(
+      {
+        action: 'putIntoBagOfHolding',
+        id,
+        section,
+        itemId,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function putItemOut(itemId) {
+    submit(
+      {
+        action: 'putItemOut',
+        id,
+        itemId,
+      },
+      { method: 'post' }
+    );
+  }
+
   const [actionModalContent, setActionModalContent] = useState(null);
 
   const [itemSearch, setItemSearch] = useState('');
@@ -863,6 +940,7 @@ function PcBio() {
     others: treasure.others.map(createRef),
     custom: treasure.custom.map(createRef),
     pack: getPackItems(pack).map(createRef),
+    bagOfHolding: treasure.bagOfHolding?.map(createRef),
     inventorySearchResults: itemResults.map(createRef),
   });
 
@@ -873,6 +951,7 @@ function PcBio() {
       others: treasure.others.map(createRef),
       custom: treasure.custom.map(createRef),
       pack: getPackItems(pack).map(createRef),
+      bagOfHolding: treasure.bagOfHolding?.map(createRef),
       inventorySearchResults: itemResults.map(createRef),
     });
   }, [
@@ -880,6 +959,7 @@ function PcBio() {
     treasure.armors.length,
     treasure.others.length,
     treasure.custom.length,
+    treasure.bagOfHolding?.length,
     itemResults.length,
   ]);
 
@@ -901,7 +981,19 @@ function PcBio() {
       setSelectedItemRef(itemRefs[itemType][itemIndex]);
 
       let content;
-      if (itemType === 'custom') {
+      if (itemType === 'bagOfHolding') {
+        content = props => (
+          <ItemModalContent
+            pc={pc}
+            item={item}
+            section={itemType}
+            dropItem={dropItem}
+            putItemOut={putItemOut}
+            closeModal={() => setActionModalContent(null)}
+            setOnCloseModalCallback={setOnCloseModalCallback}
+          />
+        );
+      } else if (itemType === 'custom') {
         content = props => (
           <ItemModalContent
             pc={pc}
@@ -910,6 +1002,7 @@ function PcBio() {
             dropItem={dropItem}
             changeAmount={changeAmount}
             changeWeight={changeWeight}
+            toBagOfHolding={putIntoBagOfHolding}
             closeModal={() => setActionModalContent(null)}
             setOnCloseModalCallback={setOnCloseModalCallback}
           />
@@ -924,6 +1017,7 @@ function PcBio() {
             identifyItem={identifyItem}
             changeAmount={changeAmount}
             changeCharges={changeCharges}
+            toBagOfHolding={putIntoBagOfHolding}
             closeModal={() => setActionModalContent(null)}
             setOnCloseModalCallback={setOnCloseModalCallback}
             isDm={isDm}
@@ -1150,6 +1244,22 @@ function PcBio() {
                     openModal={openItemModal('pack', i)}
                     closeModal={closeItemModal}
                     key={packItem.name}
+                  />
+                ))}
+              </li>
+            )}
+            {hasBagOfHolding(pc) && (
+              <li className="bio__treasure-item">
+                <u>{bagOfHolding.translation}:</u>{' '}
+                {treasure.bagOfHolding.map((bagItem, i, bagItems) => (
+                  <InventoryItem
+                    ref={itemRefs.bagOfHolding[i]}
+                    pItem={bagItem}
+                    isLast={i === treasure.bagOfHolding.length - 1}
+                    onItemClick={onItemClick('bagOfHolding', i)}
+                    openModal={openItemModal('bagOfHolding', i)}
+                    closeModal={closeItemModal}
+                    key={bagItem.name}
                   />
                 ))}
               </li>
