@@ -41,6 +41,7 @@ import NumericInput from '~/components/inputs/numeric';
 import {
   getSectionPath,
   hasBagOfHolding,
+  hasBagOfHoldingContents,
   renderItemName,
   renderItemNameWithAmount,
 } from '~/domain/equipment/items';
@@ -303,6 +304,7 @@ function ItemModalContent(props) {
     isInventorySearchResults,
   } = props;
 
+  const hasBag = !!pc && hasBagOfHolding(pc);
   const item = getItem(pItem);
 
   function onIdentifyClick(e) {
@@ -486,7 +488,7 @@ function ItemModalContent(props) {
             </li>
           )}
 
-          {!!toBagOfHolding && (
+          {!!(toBagOfHolding && hasBag) && (
             <li>
               <button
                 type="button"
@@ -1248,7 +1250,7 @@ function PcBio() {
                 ))}
               </li>
             )}
-            {hasBagOfHolding(pc) && (
+            {hasBagOfHoldingContents(pc) && (
               <li className="bio__treasure-item">
                 <u>{bagOfHolding.translation}:</u>{' '}
                 {treasure.bagOfHolding.map((bagItem, i, bagItems) => (

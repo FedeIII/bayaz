@@ -1084,12 +1084,15 @@ export async function dropTreasureArmor(id, armorName) {
 }
 
 export async function dropTreasureItem(id, itemName, scrollSpellName) {
-  const selector = { $pull: { 'items.treasure.others': { name: itemName } } };
+  const query = { $pull: { 'items.treasure.others': { name: itemName } } };
   if (scrollSpellName) {
-    selector.$pull['items.treasure.others'].spellName = scrollSpellName;
+    query.$pull['items.treasure.others'].spellName = scrollSpellName;
+  }
+  if (itemName === 'bagOfHolding') {
+    query.$set = { 'items.treasure.bagOfHolding': [] };
   }
 
-  const updatedPc = await Pc.findOneAndUpdate({ id }, selector, { new: true });
+  const updatedPc = await Pc.findOneAndUpdate({ id }, query, { new: true });
 
   return updatedPc;
 }

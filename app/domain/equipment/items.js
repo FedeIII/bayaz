@@ -116,8 +116,11 @@ export function getSectionPath(item) {
 }
 
 export function hasBagOfHolding(pc) {
-  return (
-    !!pc.items.treasure.others.find(pItem => pItem.name === 'bagOfHolding') &&
-    !!pc.items.treasure.bagOfHolding?.length
+  return !!pc.items.treasure.others.find(
+    pItem => pItem.name === 'bagOfHolding' && !!pItem.identified
   );
+}
+
+export function hasBagOfHoldingContents(pc) {
+  return hasBagOfHolding(pc) && !!pc.items.treasure.bagOfHolding?.length;
 }
