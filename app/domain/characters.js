@@ -3088,19 +3088,25 @@ export function getEquipmentWeight(pc) {
     Object.values(pc.items).reduce((encumbrance, section) => {
       return (
         encumbrance +
-        Object.values(section).reduce((sectionEncumbrance, subsection) => {
-          return (
-            sectionEncumbrance +
-            (Array.isArray(subsection)
-              ? subsection.reduce((subsectionEncumbrance, item) => {
-                  return (
-                    subsectionEncumbrance +
-                    (getItem(item)?.weight || 0) * (item?.amount || 1)
-                  );
-                }, 0)
-              : (getItem(subsection)?.weight || 0) * (subsection?.amount || 1))
-          );
-        }, 0)
+        Object.entries(section)
+          .filter(([subsectionName]) => subsectionName !== 'bagOfHolding')
+          .reduce(
+            (sectionEncumbrance, [subsectionName, subsectionContents]) => {
+              return (
+                sectionEncumbrance +
+                (Array.isArray(subsectionContents)
+                  ? subsectionContents.reduce((subsectionEncumbrance, item) => {
+                      return (
+                        subsectionEncumbrance +
+                        (getItem(item)?.weight || 0) * (item?.amount || 1)
+                      );
+                    }, 0)
+                  : (getItem(subsectionContents)?.weight || 0) *
+                    (subsectionContents?.amount || 1))
+              );
+            },
+            0
+          )
       );
     }, 0) +
     getPackItems(pc.pack).reduce(

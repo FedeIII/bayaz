@@ -54,8 +54,6 @@ npx prisma migrate dev
 ## TO DOs
 
 TODO
-  acciones dentro de la bolsa de contención
-  calcular peso con objetos de la bolsa de contención
   enseñar "Poner en la Bolsa de contención" si no se ha superado el peso máximo
 TODO
 
