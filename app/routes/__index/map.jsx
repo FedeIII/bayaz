@@ -84,7 +84,7 @@ export const action = async ({ request }) => {
 
     await createRegion({
       name: regionName,
-      type: 'subdomain',
+      type: 'subdominion',
       color: regionColor,
       vertices: vertices.split('|').map(latLng => {
         const [lat, lng] = latLng.split(',');

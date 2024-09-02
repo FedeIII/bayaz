@@ -93,7 +93,7 @@ export const DOMINIONS = {
 
 export const DOMINION_NAMES = Object.keys(DOMINIONS);
 export const SUBDOMINION_NAMES = Object.values(DOMINIONS).reduce(
-  (names, subdomains) => [...names, ...subdomains]
+  (names, subdominions) => [...names, ...subdominions]
 );
 
 export function getSubdominionNames(dominion) {
