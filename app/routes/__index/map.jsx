@@ -4,6 +4,7 @@ import { json, redirect } from '@remix-run/node';
 import {
   createSettlement,
   getSettlements,
+  updateSettlement,
 } from '~/services/settlements.server';
 import {
   createRegion,
@@ -31,7 +32,7 @@ export const links = () => {
 
 const bounds = [
   [0, 0],
-  [120, 100],
+  [129, 109],
 ];
 
 const initZoom = 6;
@@ -101,8 +102,20 @@ export const action = async ({ request }) => {
     const vertexId = formData.get('vertexId');
     const lat = formData.get('lat');
     const lng = formData.get('lng');
+    const isMovingRegion = formData.get('isMovingRegion');
 
-    await editVertex(regionId, vertexId, parseLocation(lat, lng));
+    await editVertex(
+      regionId,
+      vertexId,
+      parseLocation(lat, lng),
+      isMovingRegion === 'true'
+    );
+  } else if (action === 'editSettlementLocation') {
+    const id = formData.get('id');
+    const lat = formData.get('lat');
+    const lng = formData.get('lng');
+
+    await updateSettlement(id, { location: parseLocation(lat, lng) });
   } else if (action === 'moveRegionName') {
     const regionId = formData.get('id');
     const lat = formData.get('lat');
@@ -118,6 +131,8 @@ function Map() {
   const { center: initCenter, settlements, regions } = useLoaderData();
   const [L, setL] = useState(null);
   const [Lb, setLb] = useState(null);
+  const [crs, setCrs] = useState(null);
+
   const [zoom, setZoom] = useState(initZoom);
   const [newLocation, setNewLocation] = useState(null);
   const [newRegion, setNewRegion] = useState([]);
@@ -166,23 +181,32 @@ function Map() {
 
   useEffect(() => {
     if (!Lb) import('leaflet').then(leaflet => setLb(leaflet));
+    if (Lb) {
+      setCrs(
+        Lb.default.Util.extend(Lb.default.CRS.Simple, {
+          transformation: new Lb.default.Transformation(1, 0, 1, 0),
+        })
+      );
+      // setCrs(Lb.default.CRS.Simple);
+    }
   }, [Lb]);
 
   return (
     <Form method="post" style={{ width: '100vw', height: '100vh' }}>
-      {!!L && !!Lb && (
+      {!!L && !!Lb && !!crs && (
         <L.MapContainer
           // center={[y^, x>]}
           center={center}
           zoom={initZoom}
           minZoom="2"
-          maxZoom="10"
+          maxZoom="8"
           scrollWheelZoom={true}
-          crs={Lb.default.CRS.Simple}
+          crs={crs}
           style={{ height: '100%' }}
         >
-          <L.ImageOverlay url="/images/map_raw.png" bounds={bounds} />
+          {/* <L.ImageOverlay url="/images/map_raw.png" bounds={bounds} /> */}
 
+          <L.Pane name="tilesPane" style={{ zIndex: 400 }} />
           <L.Pane name="dominionsPane" style={{ zIndex: 500 }} />
           <L.Pane name="subdominionsPane" style={{ zIndex: 600 }} />
           <L.Pane name="otherRegionsPane" style={{ zIndex: 700 }} />
@@ -191,6 +215,15 @@ function Map() {
           <L.Pane name="textPane" style={{ zIndex: 1000 }} />
           <L.Pane name="newElementsPane" style={{ zIndex: 1100 }} />
           <L.Pane name="popupsPane" style={{ zIndex: 1200 }} />
+
+          <L.TileLayer
+            // getTileUrl={getTileUrl}
+            url="/images/tiles/{z}/{x}/{y}.png" // The path to your tile images
+            attribution="&copy; Your Map Attribution" // Add any attribution required
+            pane="tilesPane"
+            zIndex={1}
+            style={{ transform: 'translateY(-500px)' }}
+          />
 
           <MapMarkers
             L={L}

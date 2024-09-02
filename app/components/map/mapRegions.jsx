@@ -1,27 +1,15 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useSubmit } from '@remix-run/react';
 import MapPopup from './mapPopup';
 import { RegionPaneMap } from '~/domain/places/regions';
-
-const labelOffsetMap = {
-  4: 0.035,
-  5: 0.035,
-  6: 0.025,
-  7: 0.035,
-  8: 0.035,
-  9: 0.03,
-  10: 0.022,
-};
-
-function getLabelOffset(zoom) {
-  return labelOffsetMap[zoom];
-}
+import { getLabelX, getLabelY } from '~/utils/map';
 
 function RegionVertexMarker(props) {
   const {
     L,
     vertex,
     isEditingVertices,
+    isMovingRegion,
     vertexOver,
     region,
     onMapClick,
@@ -33,6 +21,10 @@ function RegionVertexMarker(props) {
   const regionVertexPopupRef = useRef(null);
   const markerRef = useRef(null);
   const [position, setPosition] = useState([vertex.lat, vertex.lng]);
+  useEffect(() => {
+    setPosition([vertex.lat, vertex.lng]);
+  }, [vertex.lat, vertex.lng]);
+
   const submit = useSubmit();
   function placeVertex(id, location) {
     submit(
@@ -42,6 +34,7 @@ function RegionVertexMarker(props) {
         vertexId: id,
         lat: location.lat,
         lng: location.lng,
+        isMovingRegion,
       },
       { method: 'post' }
     );
@@ -63,7 +56,6 @@ function RegionVertexMarker(props) {
       draggable
       eventHandlers={{
         click: onMapClick,
-        // dragend: e => placeVertex(e, e.latlng),
         dragend() {
           const marker = markerRef.current;
           if (marker != null) {
@@ -130,6 +122,7 @@ function Region(props) {
   const regionPopupRef = useRef(null);
   const typeRef = useRef(null);
   const [isEditingVertices, setIsEditingVertices] = useState(false);
+  const [isMovingRegion, setIsMovingRegion] = useState(false);
   const [isEditingLabel, setIsEditingLabel] = useState(false);
   const submit = useSubmit();
 
@@ -159,6 +152,7 @@ function Region(props) {
             L={L}
             vertex={vertex}
             isEditingVertices={isEditingVertices}
+            isMovingRegion={isMovingRegion}
             vertexOver={vertexOver}
             region={region}
             onMapClick={onMapClick}
@@ -178,6 +172,7 @@ function Region(props) {
               : regionOver === region.id
               ? 0.5
               : 0.2,
+          fillOpacity: isMovingRegion ? 0.66 : 0.2,
         }}
         positions={region.vertices}
         eventHandlers={{
@@ -244,15 +239,27 @@ function Region(props) {
                 Añadir vértice
               </button>{' '}
               {isEditingVertices ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsEditingVertices(false);
-                    regionPopupRef.current._closeButton.click();
-                  }}
-                >
-                  Parar edición
-                </button>
+                <>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsEditingVertices(false);
+                      setIsMovingRegion(false);
+                      regionPopupRef.current._closeButton.click();
+                    }}
+                  >
+                    Parar edición
+                  </button>
+                  <button
+                    type="button"
+                    onClick={e => {
+                      setIsMovingRegion(true);
+                      regionPopupRef.current._closeButton.click();
+                    }}
+                  >
+                    Mover región
+                  </button>
+                </>
               ) : (
                 <button
                   type="button"
@@ -316,21 +323,18 @@ function ExistingRegions(props) {
                   key={region.name}
                   // x >
                   // y v
-                  x={`${
-                    ((region.nameLocation || region.vertices[0]).lng /
-                      bounds[1][1]) *
-                      100 -
-                    0.1 +
-                    getLabelOffset(zoom) * (zoom - initZoom)
-                  }%`}
-                  y={`${
-                    (1 -
-                      (region.nameLocation || region.vertices[0]).lat /
-                        bounds[1][0]) *
-                      100 -
-                    0.1 +
-                    getLabelOffset(zoom) * (zoom - initZoom)
-                  }%`}
+                  x={getLabelX(
+                    region.nameLocation || region.vertices[0],
+                    zoom,
+                    initZoom,
+                    bounds
+                  )}
+                  y={getLabelY(
+                    region.nameLocation || region.vertices[0],
+                    zoom,
+                    initZoom,
+                    bounds
+                  )}
                   textAnchor="end"
                   fontFamily="Rosarivo"
                   fontSize="22px"

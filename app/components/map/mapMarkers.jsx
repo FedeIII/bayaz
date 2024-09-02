@@ -17,29 +17,59 @@ function SettlementMarker(props) {
     commerces,
   } = settlement;
 
+  const popupRef = useRef(null);
+  const markerRef = useRef(null);
+  const [isEditingLocation, setIsEditingLocation] = useState(false);
+  const [position, setPosition] = useState([location.lat, location.lng]);
+
+  const MarkerComponent = isEditingLocation ? L.Marker : L.CircleMarker;
+
+  const submit = useSubmit();
+  function placeSettlement(location) {
+    submit(
+      {
+        action: 'editSettlementLocation',
+        id,
+        lat: location.lat,
+        lng: location.lng,
+      },
+      { method: 'post' }
+    );
+  }
+
   return (
-    <L.CircleMarker
+    <MarkerComponent
       key={id}
+      ref={markerRef}
       pane="settlementsPane"
-      center={[location.lat, location.lng]}
+      center={position}
+      position={position}
+      draggable
       pathOptions={{
         color:
-          locationOver?.lat === location.lat &&
-          locationOver?.lng === location.lng
+          locationOver?.lat === position[0] && locationOver?.lng === position[1]
             ? '#2b8c47'
             : '#dd2a2a',
       }}
       radius={
-        locationOver?.lat === location.lat && locationOver?.lng === location.lng
+        locationOver?.lat === position[0] && locationOver?.lng === position[1]
           ? 6
           : 5
       }
       eventHandlers={{
+        dragend() {
+          const marker = markerRef.current;
+          if (marker != null) {
+            const newPosition = marker.getLatLng();
+            setPosition(marker.getLatLng());
+            placeSettlement(newPosition);
+          }
+        },
         mouseover: e => setLocationOver(e.latlng),
         mouseout: () => setLocationOver(null),
       }}
     >
-      <MapPopup L={L} title={name}>
+      <MapPopup L={L} title={name} ref={popupRef}>
         <ul className="map__popup-options">
           <li>
             <Link
@@ -70,9 +100,30 @@ function SettlementMarker(props) {
               </ul>
             </li>
           )}
+          {isEditingLocation ? (
+            <button
+              type="button"
+              onClick={() => {
+                setIsEditingLocation(false);
+                popupRef.current._closeButton.click();
+              }}
+            >
+              Parar edición
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                setIsEditingLocation(true);
+                popupRef.current._closeButton.click();
+              }}
+            >
+              Editar posición
+            </button>
+          )}
         </ul>
       </MapPopup>
-    </L.CircleMarker>
+    </MarkerComponent>
   );
 }
 
