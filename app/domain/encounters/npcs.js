@@ -181,6 +181,23 @@ export const NPCS = {
     size: 'Medium',
     name: 'Guard',
   },
+  GuardCaptain: {
+    environment: {
+      Grassland: 'yes',
+      Mountain: 'yes',
+      Hill: 'yes',
+      Coastal: 'yes',
+      Urban: 'yes',
+      Desert: 'yes',
+      Forest: 'yes',
+    },
+    type: 'Humanoid',
+    challenge: '1/2',
+    page: 'custom',
+    xp: '100',
+    size: 'Medium',
+    name: 'GuardCaptain',
+  },
   Abjurer: {
     page: 'motm 260, vgm 209',
     size: 'Medium',
