@@ -204,6 +204,22 @@ export const WONDROUS = {
       ...props,
     };
   },
+  hatOfDisguise(props) {
+    return {
+      name: 'hatOfDisguise',
+      type: 'wondrous',
+      inventory: 'equipment',
+      translation: 'Sombrero de disfraz',
+      unidentifiedName: 'Sombrero andrajoso',
+      rarity: 'uncommon',
+      price: { gp: 2500 },
+      weight: 0.25,
+      description: () =>
+        `<p>Requiere sintonización</p>
+        <p>Mientras lleves este sombrero, puedes utilizar una acción para lanzar a voluntad el conjuro <u>disfrazarse</u> sobre ti mismo. El conjuro termina si dejas de vestir el sombrero.</p>`,
+      ...props,
+    };
+  },
 };
 
 export const MAGIC_ITEMS = {

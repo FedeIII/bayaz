@@ -194,6 +194,20 @@ export function ARMORS() {
         ...props,
       };
     },
+    shield1(props) {
+      return ARMORS().shield({
+        name: 'shield1',
+        translation: 'Escudo (+1)',
+        type: 'armor',
+        subtype: 'shield',
+        price: { gp: 500, sp: 0, cp: 0 },
+        weight: 3,
+        properties: {
+          AC: () => 3,
+        },
+        ...props,
+      });
+    },
   };
 }
 
