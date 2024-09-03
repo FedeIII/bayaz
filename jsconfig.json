@@ -1,5 +1,12 @@
 {
-  "exclude": ["./cypress", "./cypress.config.ts", "./node_modules"],
+  "exclude": [
+    "./cypress",
+    "./cypress.config.ts",
+    "./node_modules",
+    "/public",
+    "/db_backups",
+    "/build"
+  ],
   "include": [
     "remix.env.d.ts",
     "**/*.js",
@@ -21,7 +28,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
-      "~/services/*": ["./app/services/*"],
+      "~/services/*": ["./app/services/*"]
     },
     "skipLibCheck": true,
 

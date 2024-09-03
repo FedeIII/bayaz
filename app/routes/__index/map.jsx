@@ -156,7 +156,7 @@ function Map() {
     resetRegion();
   }, [regions.length]);
 
-  const center = initCenter || [52, 35];
+  const center = initCenter || [70.385009765625, 34.26859054483621];
 
   function onMapClick(e) {
     console.log('Click', [e.latlng.lat, e.latlng.lng], e);
