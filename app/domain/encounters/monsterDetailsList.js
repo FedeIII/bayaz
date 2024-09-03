@@ -8153,6 +8153,33 @@ export const MONSTER_DETAILS_LIST = {
     Languages: 'any one language (usually Common)',
     Challenge: '1/8 (25 XP)',
   },
+  'Guard Captain': {
+    actions: {
+      'Espada larga':
+        '<em>Melee Weapon Attack</em>: +2 to hit, reach 5 ft., one target. <em>Hit</em>: 1 slashing damage.',
+      'Arco corto':
+        '<em>Ranged Weapon Attack</em>: +4 to hit, range 80/320 ft., one target. <em>Hit</em>: 5 (1d6 + 2) piercing damage.',
+      'Liderazgo (se recarga tras un descanso corto o largo)':
+        'Durante 1 minuto, el caballero puede pronunciar una orden o advertencia especial cada vez que una criatura no hostil que pueda ver, y que se encuentre a 30 pies o menos de distancia de él, haga una tirada de ataque o de salvación. Si puede oír y entender al caballero, la criatura añadirá un d4 a su tirada, pero solo podrá beneficiarse de un dado de liderazgo al mismo tiempo. Este efecto termina si el caballero resulta incapacitado.',
+    },
+    legendaryActions: {},
+    notes: 'Medium humanoid (any race), any alignment',
+    stats: {
+      str: '14',
+      dex: '12',
+      con: '13',
+      int: '10',
+      wis: '11',
+      cha: '12',
+    },
+    'Armor Class': '17 (coraza, escudo)',
+    'Hit Points': '11 (5d8 + 10)',
+    Speed: '30 ft.',
+    Skills: 'Perception +2',
+    Senses: 'passive Perception 12',
+    Languages: 'any one language (usually Common)',
+    Challenge: '1/2 (100 XP)',
+  },
   Manes: {
     actions: {},
     legendaryActions: {},
@@ -9904,7 +9931,19 @@ export const MONSTER_DETAILS_LIST = {
     Challenge: '3 (700 XP)',
   },
   Knight: {
-    actions: {},
+    actions: {
+      'Ataque múltiple': 'El caballero realiza dos ataques cuerpo a cuerpo.',
+      Espadón:
+        'Ataque con arma cuerpo a cuerpo: +5 a impactar, alcance 5 pies, un objetivo. Impacto: 10 (2d6 + 3) de daño cortante.',
+      'Ballesta pesada':
+        'Ataque con arma a distancia: +2 a impactar, alcance 35/130 m, un objetivo. Impacto: 5 (1d10) de daño perforante.',
+      'Liderazgo (se recarga tras un descanso corto o largo)':
+        'Durante 1 minuto, el caballero puede pronunciar una orden o advertencia especial cada vez que una criatura no hostil que pueda ver, y que se encuentre a 30 pies o menos de distancia de él, haga una tirada de ataque o de salvación. Si puede oír y entender al caballero, la criatura añadirá un d4 a su tirada, pero solo podrá beneficiarse de un dado de liderazgo al mismo tiempo. Este efecto termina si el caballero resulta incapacitado.',
+    },
+    reactions: {
+      Parada:
+        'El caballero añade 2 a su CA contra un ataque cuerpo a cuerpo que le fuera a impactar. Para poder hacer esto debe ver a su atacante y estar empuñando un arma cuerpo a cuerpo.',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (any race), any alignment',
     stats: {
@@ -9915,7 +9954,7 @@ export const MONSTER_DETAILS_LIST = {
       wis: '11',
       cha: '15',
     },
-    'Armor Class': '18 (plate)',
+    'Armor Class': '18 (armadura de placas)',
     'Hit Points': '52 (8d8 + 16)',
     Speed: '30 ft.',
     'Saving Throws': 'Con +4, Wis +2',
