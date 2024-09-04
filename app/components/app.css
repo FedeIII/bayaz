@@ -416,12 +416,12 @@ html {
   margin: 0 !important;
 }
 
-.green-text {
-  color: var(--color-green) !important;
+.x-green-text {
+  color: var(--color-x-green) !important;
 }
 
-.orange-text {
-  color: var(--color-orange) !important;
+.x-orange-text {
+  color: var(--color-x-orange) !important;
 }
 
 .x-blue-ink-text {
@@ -429,7 +429,7 @@ html {
 }
 
 .x-purple-text {
-  color: var(--color-purple) !important;
+  color: var(--color-x-purple) !important;
 }
 
 @keyframes bouncing_trait {

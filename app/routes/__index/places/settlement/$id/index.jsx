@@ -57,10 +57,10 @@ const TYPES = {
 };
 
 const GOD_COLOR_CLASSES = {
-  Matter: 'green-text',
-  Energy: 'orange-text',
+  Matter: 'x-green-text',
+  Energy: 'x-orange-text',
   Spirit: 'x-blue-ink-text',
-  Space: 'purple-text',
+  Space: 'x-purple-text',
 };
 
 function useAmount(array, randomElement, setNewArray, MAX = Infinity) {
