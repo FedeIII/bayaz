@@ -414,7 +414,7 @@ export function randomSettlementName() {
 
 export function randomDeityName() {
   const deity = random.split(NPC_DEITIES.filter(d => d[1] !== 'None'));
-  return `${random.split(NPC_DEITIES_NAMES[deity])} (${t(deity)})`;
+  return `${random.split(NPC_DEITIES_NAMES[deity])}`;
 }
 
 export function randomSettlementImage(type, ...args) {

@@ -416,6 +416,22 @@ html {
   margin: 0 !important;
 }
 
+.green-text {
+  color: var(--color-green) !important;
+}
+
+.orange-text {
+  color: var(--color-orange) !important;
+}
+
+.x-blue-ink-text {
+  color: var(--color-x-blue-ink) !important;
+}
+
+.x-purple-text {
+  color: var(--color-purple) !important;
+}
+
 @keyframes bouncing_trait {
   0% {
     margin-top: 2px;

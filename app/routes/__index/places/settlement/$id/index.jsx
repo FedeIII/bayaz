@@ -47,11 +47,20 @@ import { getSettlementImages } from '~/services/s3.server';
 import { getVillageSecurityType } from '~/domain/places/village';
 import NumericInput from '~/components/inputs/numeric';
 import HtmlInput from '~/components/inputs/htmlInput';
+import classNames from 'classnames';
+import { getDeity } from '~/domain/npc/attrs/npcFaith';
 
 const TYPES = {
   city: CITY,
   town: TOWN,
   village: VILLAGE,
+};
+
+const GOD_COLOR_CLASSES = {
+  Matter: 'green-text',
+  Energy: 'orange-text',
+  Spirit: 'x-blue-ink-text',
+  Space: 'purple-text',
 };
 
 function useAmount(array, randomElement, setNewArray, MAX = Infinity) {
@@ -767,7 +776,10 @@ function SettlementScreen() {
                         name="temples[]"
                         value={deityName}
                         onChange={e => onTempleNameChange(i, e)}
-                        className="places__trait-input"
+                        className={classNames(
+                          'places__trait-input',
+                          GOD_COLOR_CLASSES[getDeity(deityName)]
+                        )}
                       />
                     </li>
                   ))}
@@ -797,7 +809,10 @@ function SettlementScreen() {
                         name="shrines[]"
                         value={deityName}
                         onChange={e => onShrineNameChange(i, e)}
-                        className="places__trait-input"
+                        className={classNames(
+                          'places__trait-input',
+                          GOD_COLOR_CLASSES[getDeity(deityName)]
+                        )}
                       />
                     </li>
                   ))}
