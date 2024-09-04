@@ -181,7 +181,7 @@ export const NPCS = {
     size: 'Medium',
     name: 'Guard',
   },
-  GuardCaptain: {
+  'Guard Captain': {
     environment: {
       Grassland: 'yes',
       Mountain: 'yes',
@@ -196,7 +196,7 @@ export const NPCS = {
     page: 'custom',
     xp: '100',
     size: 'Medium',
-    name: 'GuardCaptain',
+    name: 'Guard Captain',
   },
   Abjurer: {
     page: 'motm 260, vgm 209',

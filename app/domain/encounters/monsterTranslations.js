@@ -43,7 +43,7 @@ export const MONSTER_TRANSLATIONS = {
   'giant rat': 'Rata gigante',
   'giant weasel': 'Comadreja gigante',
   guard: 'Guardia',
-  guardCaptain: 'Capitán de la guardia',
+  'guard captain': 'Capitán de la guardia',
   kobold: 'Kobold',
   manes: 'Manes',
   mastiff: 'Mastín',
