@@ -96,6 +96,7 @@ export function t(key) {
     ['En su lecho de muerte, los herederos compiten por el poder']:
       'Líder en su lecho de muerte, los herederos compiten por el poder',
     ['Respetado, justo y equitativo']: 'Gobierno respetado, justo y equitativo',
+    ['Gobernado desde las sombras']: 'Gobernado desde las sombras',
     ['De voluntad férrea pero respetado']:
       'Gobierno de voluntad férrea pero respetado',
     ['Líder religioso']: 'Gobernada por un líder religioso',

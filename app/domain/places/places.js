@@ -157,6 +157,7 @@ export const GOVERNMENT_SITUATION = [
   [1, 'En su lecho de muerte, los herederos compiten por el poder'],
   [2, 'De voluntad férrea pero respetado'],
   [2, 'Líder religioso'],
+  [1, 'Gobernado desde las sombras'],
 ];
 
 export const PLACE_CHARACTERISTICS = [
