@@ -295,7 +295,7 @@ export const RACES = {
   },
   ['half-elf']: {
     subrace: {
-      age: [16, 90],
+      age: [16, 180],
       height: [150, 180],
       weight: [55, 120],
       size: 'M',
