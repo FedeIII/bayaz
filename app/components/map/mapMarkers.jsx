@@ -2,6 +2,7 @@ import { Link, useSubmit } from '@remix-run/react';
 import { useRef, useState } from 'react';
 import MapPopup from '~/components/map/mapPopup';
 import { t } from '~/domain/translations';
+import { getSettlementRadius } from '~/utils/map';
 
 function SettlementMarker(props) {
   const { L, settlement, locationOver, setLocationOver } = props;
@@ -37,6 +38,9 @@ function SettlementMarker(props) {
     );
   }
 
+  const isActive =
+    locationOver?.lat === position[0] && locationOver?.lng === position[1];
+
   return (
     <MarkerComponent
       key={id}
@@ -46,16 +50,9 @@ function SettlementMarker(props) {
       position={position}
       draggable
       pathOptions={{
-        color:
-          locationOver?.lat === position[0] && locationOver?.lng === position[1]
-            ? '#2b8c47'
-            : '#dd2a2a',
+        color: isActive ? '#2b8c47' : '#dd2a2a',
       }}
-      radius={
-        locationOver?.lat === position[0] && locationOver?.lng === position[1]
-          ? 6
-          : 5
-      }
+      radius={getSettlementRadius(settlement) + (isActive ? 1 : 0)}
       eventHandlers={{
         dragend() {
           const marker = markerRef.current;

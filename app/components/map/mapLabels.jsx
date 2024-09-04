@@ -1,27 +1,27 @@
-import { getLabelX, getLabelY } from '~/utils/map';
+import { getLabelX, getLabelY, shouldShowSettlementName } from '~/utils/map';
 
 export default function MapLabels(props) {
   const { zoom, settlements, initZoom, newLocation, bounds } = props;
 
   return (
     <>
-      {/* {zoom > 4 && (
-        <> */}
-      {settlements.map(settlement => (
-        <text
-          key={settlement.id}
-          // x >
-          // y vç
-          x={getLabelX(settlement.location, zoom, initZoom, bounds)}
-          y={getLabelY(settlement.location, zoom, initZoom, bounds)}
-          textAnchor="end"
-          fontFamily="Rosarivo"
-          fontSize="16px"
-          stroke="#d84343"
-        >
-          {settlement.name}
-        </text>
-      ))}
+      {settlements
+        .filter(settlement => shouldShowSettlementName(settlement, zoom))
+        .map(settlement => (
+          <text
+            key={settlement.id}
+            // x >
+            // y v
+            x={getLabelX(settlement.location, zoom, initZoom, bounds)}
+            y={getLabelY(settlement.location, zoom, initZoom, bounds)}
+            textAnchor="end"
+            fontFamily="Rosarivo"
+            fontSize="16px"
+            stroke="#d84343"
+          >
+            {settlement.name}
+          </text>
+        ))}
       {!!newLocation && (
         <text
           // x >
@@ -36,8 +36,6 @@ export default function MapLabels(props) {
           New
         </text>
       )}
-      {/* </>
-      )} */}
     </>
   );
 }
