@@ -8,6 +8,7 @@ const menuLinks = [
   { name: 'Lugares', url: '/places', level: 0, isForPlayers: false },
   { name: 'Mapa', url: '/map', level: 0, isForPlayers: false },
   { name: 'Personajes', url: '/characters', level: 0, isForPlayers: true },
+  { name: 'NPCs', url: '/characters/npc', level: 0, isForPlayers: false },
   { name: 'Party', url: '/party', level: 0, isForPlayers: false },
   { name: 'Encuentros', url: '/encounters', level: 0, isForPlayers: false },
   { name: 'Items', url: '/items', level: 0, isForPlayers: false },
