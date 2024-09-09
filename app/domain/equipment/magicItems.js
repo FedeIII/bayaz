@@ -110,11 +110,11 @@ export function isSameScroll(item1, item2) {
   );
 }
 
-const LOCKETS = {
+const AMULETS = {
   burningShadows(props) {
     return {
       name: 'burningShadows',
-      type: 'locket',
+      type: 'amulet',
       translation: 'Colgante de Sombras Abrasadoras',
       unidentifiedName: 'Colgante misterioso',
       rarity: 'rare',
@@ -130,7 +130,7 @@ const LOCKETS = {
   hobgoblinAmuletOfLuck(props) {
     return {
       name: 'hobgoblinAmuletOfLuck',
-      type: 'locket',
+      type: 'amulet',
       translation: 'Amuleto Hobgoblin de la Suerte',
       unidentifiedName: 'Amuleto Hobgoblin',
       rarity: 'rare',
@@ -141,6 +141,22 @@ const LOCKETS = {
       ...props,
     };
   },
+  amuletOfTheDead(props) {
+    return {
+      name: 'amuletOfTheDead',
+      type: 'amulet',
+      translation: 'Amuleto de los Muertos',
+      unidentifiedName: 'Amuleto de Calavera',
+      rarity: 'rare',
+      price: { gp: 400 },
+      weight: 0.02,
+      maxCharges: 1,
+      description: () => `<p>Require sintonización</p>
+      <p>Este amuleto posee una carga. Mientras lleves puesto este amuleto, puedes usar una acción y gastar su carga para lanzar el conjuro <i>hablar con los muertos</i></p>
+      <p>El amuleto tiene un 20% de probabilidades de recuperar su carga cada mañana. Cada vez que se quede sin cargas, tira 1d20. Con un 1 el amuleto se destruye.</p>`,
+      ...props,
+    };
+  }
 };
 
 const RINGS = {
@@ -225,7 +241,7 @@ export const WONDROUS = {
 export const MAGIC_ITEMS = {
   ...POTIONS,
   ...SCROLLS,
-  ...LOCKETS,
+  ...AMULETS,
   ...RINGS,
   ...WANDS,
   ...WONDROUS,

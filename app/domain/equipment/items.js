@@ -68,7 +68,7 @@ export function isEquipmentItem(item) {
     isAmmo(item) ||
     item.type === 'scroll' ||
     item.type === 'potion' ||
-    item.type === 'locket' ||
+    item.type === 'amulet' ||
     item.type === 'ring' ||
     item.type === 'wand' ||
     item.inventory === 'equipment'
