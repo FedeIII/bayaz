@@ -82,9 +82,9 @@ export const action = async ({ request }) => {
   if (action === 'set-notes') {
     let notesEntries = [];
     try {
-      notesEntries = formData
-        .entries()
-        .filter(([key]) => key !== 'action' && key !== 'encounterId');
+      notesEntries = Array.from(formData.entries()).filter(
+        ([key]) => key !== 'action' && key !== 'encounterId'
+      );
     } catch (e) {
       console.log('formData.entries() = ', formData.entries());
       console.log('formData.entries().filter = ', formData.entries().filter);
