@@ -3326,25 +3326,25 @@ export const MONSTER_DETAILS_LIST = {
   },
   Specter: {
     actions: {
-      'Life Drain':
-        'Melee Spell Attack: +4 to hit, reach 5 ft., one creature. <em>Hit</em>: 10 (3d6) necrotic damage. The target must succeed on a DC 10 Constitution saving throw or its hit point maximum is reduced by an amount equal to the damage taken. This reduction lasts until the creature finishes a long rest. The target dies if this effect reduces its hit point maximum to 0.',
+      'Consumir Vida':
+        'Ataque de conjuro cuerpo a cuerpo: +4 a impactar, alcance 5 pies, una criatura. Impacto: 10 (3d6) de daño necrótico. El objetivo deberá superar una tirada de salvación de Constitución CD 10 o sus puntos de golpe máximos se reducirán en la cantidad de daño recibida. Esta reducción permanecerá hasta que la criatura finalice un descanso largo. Si este ataque reduce los puntos de golpe máximos de la criatura a 0, morirá.',
     },
     legendaryActions: {},
     'Armor Class': '12',
     'Hit Points': '22 (5d8)',
     Speed: '0 ft., fly 50 ft. (hover)',
     'Damage Resistances':
-      'acid, cold, fire, lightning, thunder; bludgeoning, piercing, and slashing from nonmagical attacks',
-    'Damage Immunities': 'necrotic, poison',
+      'ácido, frío, fuego, relámpago, trueno; contundente, cortante y perforante de ataques no mágicos',
+    'Damage Immunities': 'necrótico, veneno',
     'Condition Immunities':
-      '<em>charmed</em>, <em>exhaustion</em>, <em>grappled</em>, <em>paralyzed</em>, <em>petrified</em>, <em>poisoned</em>, <em>prone</em>, <em>restrained</em>, <em>unconscious</em>',
-    Senses: 'darkvision 60 ft., passive Perception 10',
-    Languages: "understands all languages it knew in life but can't speak",
+      'agarrado, apresado, cansancio, derribado, envenenado, hechizado, inconsciente, paralizado, petrificado',
+    Senses: 'visión en la oscuridad 60 pies, Percepción pasiva 10 ',
+    Languages: 'entiende los idiomas que conoció en vida, pero no puede hablar',
     Challenge: '1 (200 XP)',
-    'Incorporeal Movement':
-      'The specter can move through other creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage if it ends its turn inside an object.',
-    'Sunlight Sensitivity':
-      'While in sunlight, the specter has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight.',
+    'Movimiento Incorpóreo':
+      'El espectro puede moverse a través de otras criaturas y objetos como si fueran terreno difícil. Recibe 5 (1d10) de daño de fuerza si acaba su turno dentro de un objeto.',
+    'Sensibilidad a la Luz Solar':
+      'El espectro tiene desventaja en las tiradas de ataque y las pruebas de Sabiduría (Percepción) que dependan de la vista hechas bajo la luz del sol.',
     stats: {
       str: '1',
       dex: '14',
@@ -3353,7 +3353,7 @@ export const MONSTER_DETAILS_LIST = {
       wis: '10',
       cha: '11',
     },
-    notes: 'Medium undead, chaotic evil',
+    notes: 'Muerto viviente Mediano, caótico malvado',
   },
   'Swarm of Quippers': {
     actions: {
