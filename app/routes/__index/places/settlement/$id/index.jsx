@@ -565,7 +565,7 @@ function SettlementScreen() {
                 </select>
               </span>
               <span>
-                <label for="subdominion">
+                <label htmlFor="subdominion">
                   Subdominio:{' '}
                   <select
                     type="text"

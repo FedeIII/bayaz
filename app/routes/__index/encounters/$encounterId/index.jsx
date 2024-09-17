@@ -80,9 +80,14 @@ export const action = async ({ request }) => {
   }
 
   if (action === 'set-notes') {
-    const notesEntries = formData
-      .entries()
-      .filter(([key]) => key !== 'action' && key !== 'encounterId');
+    let notesEntries = [];
+    try {
+      notesEntries = formData
+        .entries()
+        .filter(([key]) => key !== 'action' && key !== 'encounterId');
+    } catch (e) {
+      console.log('formData.entries() = ', formData.entries());
+    }
 
     return await updateEncounterNotes(
       encounterId,
