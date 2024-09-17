@@ -186,6 +186,8 @@ export const MONSTER_TRANSLATIONS = {
   satyr: 'Satiro',
   scout: 'Batidor',
   shadow: 'Sombra',
+  'shadow mastiff': 'Mastín sombrío',
+  'shadow mastiff alpha': 'Mastín sombrío alpha',
   'swarm of insects': 'Enjambre de insectos',
   thug: 'Matón',
   tridrone: 'Tridron',

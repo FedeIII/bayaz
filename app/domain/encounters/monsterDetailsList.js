@@ -2562,6 +2562,74 @@ export const MONSTER_DETAILS_LIST = {
     },
     notes: 'Medium undead, chaotic evil',
   },
+  'Shadow Mastiff Alpha': {
+    actions: {
+      Mordisco:
+        'Ataque con arma cuerpo a cuerpo: +5 a impactar, alcance 5 pies, un objetivo. Impacto: 10 (2d6 + 3) de daño perforante. Si el objetivo es una criatura, deberá superar una tirada de salvación de Fuerza CD 13 o estará derribada.',
+      'Aullido aterrador':
+        'El mastín sombrío aúlla. Cualquier bestia o humanoide situado a 300 pies o menos del alfa y que sea capaz de escuchar su aullido deberá tener éxito en una tirada de salvación de Sabiduría CD 11 o estará asustado durante 1 minuto. Un objetivo asustado puede repetir la tirada de salvación al final de cada uno de sus turnos, finalizando el efecto si la supera. Si tiene éxito o el efecto termina, el objetivo será inmune al aullido aterrador de cualquier mastín sombrío durante las próximas 24 horas.',
+    },
+    legendaryActions: {},
+    'Armor Class': '12',
+    'Hit Points': '48 (4d4 + 38)',
+    Speed: '40 ft.',
+    Skills: 'Percepción +3, Sigilo +6',
+    'Damage Resistances':
+      'contundente, cortante y perforante de ataques no mágicos mientras esté en luz tenue u oscuridad',
+    Senses: 'visión en la oscuridad 60 pies, Percepción pasiva 13',
+    Languages: '---',
+    Challenge: '2 (450 PX)',
+    'Debilidad a la Luz Solar':
+      'Mientras esté bajo la luz brillante creada por el sol, el mastín sombrío cuenta con desventaja en las tiradas de ataque, las pruebas de característica y las tiradas de salvación.',
+    'Consciencia Etérea':
+      'El mastín sombrío puede ver criaturas y objetos etéreos.',
+    'Oído y Olfato Agudos':
+      'El mastín sombrío tiene ventaja en las pruebas de Sabiduría (Percepción) que dependan del oído o del olfato.',
+    'Fundirse en las Sombras':
+      'Mientras está en condiciones de luz tenue u oscuridad, el mastín sombrío puede usar una acción adicional para hacerse invisible, junto con cualquier cosa que esté utilizando o llevando. La invisibilidad dura hasta que el can emplee una acción adicional para finalizarla o hasta que ataque, esté bajo luz brillante o incapacitado',
+    stats: {
+      str: '16',
+      dex: '14',
+      con: '13',
+      int: '6',
+      wis: '12',
+      cha: '5',
+    },
+    notes: 'Monstruosidad Mediana, neutral malvado',
+  },
+  'Shadow Mastiff': {
+    actions: {
+      Mordisco:
+        'Ataque con arma cuerpo a cuerpo: +5 a impactar, alcance 5 pies, un objetivo. Impacto: 10 (2d6 + 3) de daño perforante. Si el objetivo es una criatura, deberá superar una tirada de salvación de Fuerza CD 13 o estará derribada.',
+    },
+    legendaryActions: {},
+    'Armor Class': '12',
+    'Hit Points': '33 (6d8 + 6)',
+    Speed: '40 ft.',
+    Skills: 'Percepción +3, Sigilo +6',
+    'Damage Resistances':
+      'contundente, cortante y perforante de ataques no mágicos mientras esté en luz tenue u oscuridad',
+    Senses: 'visión en la oscuridad 60 pies, Percepción pasiva 13',
+    Languages: '---',
+    Challenge: '2 (450 PX)',
+    'Debilidad a la Luz Solar':
+      'Mientras esté bajo la luz brillante creada por el sol, el mastín sombrío cuenta con desventaja en las tiradas de ataque, las pruebas de característica y las tiradas de salvación.',
+    'Consciencia Etérea':
+      'El mastín sombrío puede ver criaturas y objetos etéreos.',
+    'Oído y Olfato Agudos':
+      'El mastín sombrío tiene ventaja en las pruebas de Sabiduría (Percepción) que dependan del oído o del olfato.',
+    'Fundirse en las Sombras':
+      'Mientras está en condiciones de luz tenue u oscuridad, el mastín sombrío puede usar una acción adicional para hacerse invisible, junto con cualquier cosa que esté utilizando o llevando. La invisibilidad dura hasta que el can emplee una acción adicional para finalizarla o hasta que ataque, esté bajo luz brillante o incapacitado',
+    stats: {
+      str: '16',
+      dex: '14',
+      con: '13',
+      int: '5',
+      wis: '12',
+      cha: '5',
+    },
+    notes: 'Monstruosidad Mediana, neutral malvado',
+  },
   'Swarm of Insects': {
     actions: {
       Bites:
