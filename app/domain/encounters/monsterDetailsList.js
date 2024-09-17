@@ -8157,7 +8157,10 @@ export const MONSTER_DETAILS_LIST = {
     Challenge: '1/8 (25 XP)',
   },
   Cultist: {
-    actions: {},
+    actions: {
+      Cimitarra:
+        'Ataque con arma cuerpo a cuerpo: +3 a impactar, alcance 5 pies, una criatura. Impacto: 4 (1d6 + 1) de daño cortante.',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (any race), any non-good alignment',
     stats: {
@@ -8168,13 +8171,15 @@ export const MONSTER_DETAILS_LIST = {
       wis: '11',
       cha: '10',
     },
-    'Armor Class': '12 (leather armor)',
+    'Armor Class': ' 12 (armadura de cuero)',
     'Hit Points': '9 (2d8)',
     Speed: '30 ft.',
-    Skills: 'Deception +2, Religion +2',
+    Skills: 'Engaño +2, Religión +2',
     Senses: 'passive Perception 10',
     Languages: 'any one language (usually Common)',
     Challenge: '1/8 (25 XP)',
+    'Devoción Oscura':
+      'El sectario tiene ventaja en las tiradas de salvación para evitar ser hechizado o asustado.',
   },
   Flumph: {
     actions: {
@@ -9381,7 +9386,10 @@ export const MONSTER_DETAILS_LIST = {
     'Spider Climb.': '',
   },
   'Cult Fanatic': {
-    actions: {},
+    actions: {
+      'Ataque múltiple': 'El fanático realiza dos ataques cuerpo a cuerpo',
+      Daga: 'Ataque con arma cuerpo a cuerpo o a distancia: +4 a impactar, alcance 5 pies o alcance 20/60 pies, una criatura. Impacto: 4 (1d4 + 2) de daño perforante.',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (any race), any non-good alignment',
     stats: {
@@ -9392,14 +9400,14 @@ export const MONSTER_DETAILS_LIST = {
       wis: '13',
       cha: '14',
     },
-    'Armor Class': '13 (leather armor)',
+    'Armor Class': '13 (armadura de cuero)',
     'Hit Points': '33 (6d8 + 6)',
     Speed: '30 ft.',
-    Skills: 'Deception +4, Persuasion +4, Religion +2',
+    Skills: 'Engaño +4, Persuasión +4, Religión +2',
     Senses: 'passive Perception 11',
     Languages: 'any one language (usually Common)',
     'Devoción Oscura':
-      ' El fanático tiene ventaja en las tiradas de salvación para evitar ser hechizado o asustado.',
+      'El fanático tiene ventaja en las tiradas de salvación para evitar ser hechizado o asustado.',
     Challenge: '2 (450 XP)',
     Spellcasting:
       'El fanático es un lanzador de conjuros de nivel 4. Su aptitud mágica es Sabiduría (salvación de conjuros CD 11, +3 a impactar con ataques de conjuro). Tiene preparados los conjuros de clérigo siguientes',
