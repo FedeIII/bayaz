@@ -2529,29 +2529,29 @@ export const MONSTER_DETAILS_LIST = {
   },
   Shadow: {
     actions: {
-      'Strength Drain':
-        "<em>Melee Weapon Attack</em>: +4 to hit, reach 5 ft., one creature. <em>Hit</em>: 9 (2d6 + 2) necrotic damage, and the target's Strength score is reduced by 1d4. The target dies if this reduces its Strength to 0. Otherwise, the reduction lasts until the target finishes a short or long rest. If a non-evil humanoid dies from this attack, a new shadow rises from the corpse 1d4 hours later.",
+      'Consumir fuerza':
+        'Ataque con arma cuerpo a cuerpo: +4 a impactar, alcance 5 pies, una criatura. Impacto: 9 (2d6 + 2) de daño necrótico, y la puntuación de Fuerza del objetivo se reduce en 1d4. Si su Fuerza se reduce a 0, morirá. De lo contrario, esta reducción permanece hasta que la criatura finaliza un descanso corto o largo. Si un humanoide no malvado muere a consecuencia de este ataque, una nueva sombra se alzará de su cadáver después de 1d4 horas.',
     },
     legendaryActions: {},
     'Armor Class': '12',
     'Hit Points': '16 (3d8 + 3)',
     Speed: '40 ft.',
-    Skills: 'Stealth +4 (+6 in dim light or darkness)',
-    'Damage Vulnerabilities': 'radiant',
+    Skills: 'Sigilo +4 (+6 en luz tenue u oscuridad)',
+    'Damage Vulnerabilities': 'radiante',
     'Damage Resistances':
-      'acid, cold, fire, lightning, thunder; bludgeoning, piercing, and slashing from nonmagical attacks',
-    'Damage Immunities': 'necrotic, poison',
+      'ácido, frío, fuego, relámpago, trueno; contundente, cortante y perforante de ataques no mágicos',
+    'Damage Immunities': 'necrótico, veneno',
     'Condition Immunities':
-      '<em>exhaustion</em>, <em>frightened</em>, <em>grappled</em>, <em>paralyzed</em>, <em>petrified</em>, <em>poisoned</em>, <em>prone</em>, <em>restrained</em>',
-    Senses: 'darkvision 60 ft., passive Perception 10',
+      'agarrado, apresado, asustado, cansancio, derribado, envenenado, paralizado, petrificado',
+    Senses: 'visión en la oscuridad 60 pies, Percepción pasiva 10',
     Languages: '---',
     Challenge: '1/2 (100 XP)',
-    Amorphous:
-      'The shadow can move through a space as narrow as 1 inch wide without squeezing.',
-    'Shadow Stealth':
-      'While in dim light or darkness, the shadow can take the Hide action as a bonus action.',
-    'Sunlight Weakness':
-      'While in sunlight, the shadow has disadvantage on attack rolls, ability checks, and saving throws.',
+    Amorfa:
+      'La sombra puede moverse a través de espacios de tan solo 1 pulgada de ancho sin apretarse.',
+    'Esconderse en las Sombras':
+      'Mientras se encuentra bajo luz tenue o en oscuridad, la sombra puede Esconderse usando una acción adicional.',
+    'Debilidad a la Luz Solar':
+      'La sombra sufre desventaja en las tiradas de ataque y pruebas de característica hechas bajo la luz del sol.',
     stats: {
       str: '6',
       dex: '14',
