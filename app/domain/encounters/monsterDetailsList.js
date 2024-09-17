@@ -8065,7 +8065,12 @@ export const MONSTER_DETAILS_LIST = {
     'Sun Sickness.': '',
   },
   Bandit: {
-    actions: {},
+    actions: {
+      Cimitarra:
+        'Ataque con arma cuerpo a cuerpo: +3 a impactar, alcance 5 pies, un objetivo. Impacto: 4 (1d6 + 1) de daño cortante.',
+      'Ballesta ligera':
+        'Ataque con arma a distancia: +3 a impactar, alcance 80/320 pies, un objetivo. Impacto: 5 (1d8 + 1) de daño perforante.',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (any race), any non-lawful alignment',
     stats: {
@@ -9232,7 +9237,17 @@ export const MONSTER_DETAILS_LIST = {
     Challenge: '2 (450 XP)',
   },
   'Bandit Captain': {
-    actions: {},
+    actions: {
+      'Ataque múltiple':
+        'El capitán realiza tres ataques cuerpo a cuerpo; dos con su cimitarra y uno con su daga. En vez de esto, el capitán puede realizar dos ataques a distancia con sus dagas.',
+      Cimitarra:
+        'Ataque con arma cuerpo a cuerpo: +5 a impactar, alcance 5 pies, un objetivo. Impacto: 6 (1d6 + 3) de daño cortante',
+      Daga: 'Ataque con arma cuerpo a cuerpo o a distancia: +5 a impactar, alcance 5 pies o alcance 20 pies/60 pies, un objetivo. Impacto: 5 (1d4 + 3) de daño perforante.',
+    },
+    reactions: {
+      Parada:
+        'El capitán añade 2 a su CA contra un ataque cuerpo a cuerpo que le fuera a impactar. Para poder hacer esto debe ver a su atacante y estar empuñando un arma cuerpo a cuerpo.',
+    },
     legendaryActions: {},
     notes: 'Medium humanoid (any race), any non-lawful alignment',
     stats: {

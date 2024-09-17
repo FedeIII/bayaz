@@ -2,7 +2,7 @@ export const NPC_RACES = {
   human: {
     name: 'human',
     translation: 'Humano',
-    probabilityWeight: 300,
+    probabilityWeight: 200,
     names: ['Dragonborn', 'Human', 'Tiefling'],
   },
   dwarf: {
