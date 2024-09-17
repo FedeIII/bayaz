@@ -87,6 +87,7 @@ export const action = async ({ request }) => {
         .filter(([key]) => key !== 'action' && key !== 'encounterId');
     } catch (e) {
       console.log('formData.entries() = ', formData.entries());
+      console.log('formData.entries().filter = ', formData.entries().filter);
     }
 
     return await updateEncounterNotes(
