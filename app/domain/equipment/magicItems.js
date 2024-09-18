@@ -148,7 +148,7 @@ const AMULETS = {
       translation: 'Amuleto de los Muertos',
       unidentifiedName: 'Amuleto de Calavera',
       rarity: 'rare',
-      price: { gp: 400 },
+      price: { gp: 500 },
       weight: 0.02,
       maxCharges: 1,
       description: () => `<p>Require sintonización</p>
@@ -156,7 +156,7 @@ const AMULETS = {
       <p>El amuleto tiene un 20% de probabilidades de recuperar su carga cada mañana. Cada vez que se quede sin cargas, tira 1d20. Con un 1 el amuleto se destruye.</p>`,
       ...props,
     };
-  }
+  },
 };
 
 const RINGS = {
@@ -207,7 +207,7 @@ export const WONDROUS = {
       translation: 'Bolsa de Contención',
       unidentifiedName: 'Bolsa misteriosa',
       rarity: 'uncommon',
-      price: { gp: 2000 },
+      price: { gp: 600 },
       weight: 7,
       bonus: {
         encumbrance: 227,
@@ -228,11 +228,27 @@ export const WONDROUS = {
       translation: 'Sombrero de disfraz',
       unidentifiedName: 'Sombrero andrajoso',
       rarity: 'uncommon',
-      price: { gp: 2500 },
+      price: { gp: 400 },
       weight: 0.25,
       description: () =>
         `<p>Requiere sintonización</p>
         <p>Mientras lleves este sombrero, puedes utilizar una acción para lanzar a voluntad el conjuro <u>disfrazarse</u> sobre ti mismo. El conjuro termina si dejas de vestir el sombrero.</p>`,
+      ...props,
+    };
+  },
+  cloakOfElvenkind(props) {
+    return {
+      name: 'cloakOfElvenkind',
+      type: 'wondrous',
+      inventory: 'equipment',
+      translation: 'Capa élfica',
+      unidentifiedName: 'Capa cambiante',
+      rarity: 'uncommon',
+      price: { gp: 500 },
+      weight: 0.25,
+      description: () =>
+        `<p>Requiere sintonización</p>
+        <p>Mientras lleves esta capa y tengas la capucha puesta, las pruebas de Sabiduría (Percepción) para verte sufrirán desventaja, mientras que tú tendrás ventaja en pruebas de Destreza (Sigilo) para esconderte, ya que el color de la capa varía para camuflarte. Es necesaria una acción para ponerte o quita rte la capucha.</p>`,
       ...props,
     };
   },
