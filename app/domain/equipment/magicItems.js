@@ -245,10 +245,27 @@ export const WONDROUS = {
       unidentifiedName: 'Capa cambiante',
       rarity: 'uncommon',
       price: { gp: 500 },
-      weight: 0.25,
+      weight: 0.5,
       description: () =>
         `<p>Requiere sintonización</p>
         <p>Mientras lleves esta capa y tengas la capucha puesta, las pruebas de Sabiduría (Percepción) para verte sufrirán desventaja, mientras que tú tendrás ventaja en pruebas de Destreza (Sigilo) para esconderte, ya que el color de la capa varía para camuflarte. Es necesaria una acción para ponerte o quita rte la capucha.</p>`,
+      ...props,
+    };
+  },
+  pearlOfPower(props) {
+    return {
+      name: 'pearlOfPower',
+      type: 'wondrous',
+      inventory: 'equipment',
+      translation: 'Perla de poder',
+      unidentifiedName: 'Perla iridiscente',
+      rarity: 'uncommon',
+      price: { gp: 600 },
+      weight: 0.02,
+      maxCharges: 1,
+      description: () =>
+        `<p>Requiere sintonización con un lanzador de conjuros</p>
+        <p>Mientras esta perla esté en tu poder, puedes usar una acción para pronunciar su palabra de activación y recuperar un espacio de conjuro empleado. Si el espacio era de nivel 4 o más, el que recuperas es de nivel 3. Esta propiedad no puede volver a utilizarse hasta el siguiente amanecer.</p>`,
       ...props,
     };
   },
