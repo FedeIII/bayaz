@@ -176,6 +176,23 @@ const RINGS = {
       ...props,
     };
   },
+  ringOfSpellStoring(props) {
+    return {
+      name: 'ringOfSpellStoring',
+      type: 'ring',
+      translation: 'Anillo de almacenamiento de conjuros',
+      unidentifiedName: 'Anillo difuso',
+      rarity: 'rare',
+      price: { gp: 4500 },
+      weight: 0.02,
+      maxCharges: 5,
+      description: () => `<p>Require sintonización</p>
+      <p>Este anillo almacena conjuros lanzados sobre él, hasta que un portador sintonizado con este objeto decida usarlos. Puede guardar conjuros que sumen en total 5 niveles de conjuro. Cuando lo encuentras, tiene 1d6 - 1 niveles de conjuros elegidos por el DM.</p>
+      <p>Cualquier criatura puede lanzar un conjuro de niveles 1 a 5 en el anillo tocándolo mientras lanza el conjuro. Este no tendrá efecto, pero quedará almacenado en el anillo. Si no puede almacenarse el conjuro, este se desperdicia sin efecto. El nivel del espacio utilizado para lanzar el conjuro determina cuanto espacio utiliza.</p>
+      <p>Mientras lleves puesto el anillo, puedes lanzar cualquiera de los conjuros almacenados. El conjuro emplea el nivel del espacio, CD de la salvación ele conjuro, bonificador de ataque y aptitud mágica del lanzador original, pero por lo demás se comporta como si tú lo hubieras lanzado. Un conjuro lanzado desde el anillo deja de ocupar espacio en él.</p>`,
+      ...props,
+    };
+  },
 };
 
 const WANDS = {
