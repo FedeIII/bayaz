@@ -235,6 +235,118 @@ export const TABLES = [
   },
 
   {
+    name: 'Armas de cuerpo a cuerpo sencillas',
+    keywords: ['equipo', 'equipamiento'],
+    rows: [
+      {
+        Nombre: 'Bastón',
+        Precio: '2 pp',
+        Daño: '1d6 contundente',
+        Peso: '2 kg',
+        Propiedades: 'Versátil (1d8)',
+      },
+      {
+        Nombre: 'Daga',
+        Precio: '2 po',
+        Daño: '1d4 perforante',
+        Peso: '0.5 kg',
+        Propiedades: 'Arrojadiza (alcance 20/60), ligera, sutil',
+      },
+      {
+        Nombre: 'Garrote',
+        Precio: '1 pp',
+        Daño: '1d4 contundente',
+        Peso: '1 kg',
+        Propiedades: 'Ligero',
+      },
+      {
+        Nombre: 'Garrote grande',
+        Precio: '2 pp',
+        Daño: '1d8 contundente',
+        Peso: '5 kg',
+        Propiedades: 'A dos manos',
+      },
+      {
+        Nombre: 'Hacha de mano',
+        Precio: '5 po',
+        Daño: '1d6 cortante',
+        Peso: '1 kg',
+        Propiedades: 'Arrojadiza (alcance 20/60), ligera',
+      },
+      {
+        Nombre: 'Hoz',
+        Precio: '1 po',
+        Daño: '1d4 cortante',
+        Peso: '1 kg',
+        Propiedades: 'Ligera',
+      },
+      {
+        Nombre: 'Jabalina',
+        Precio: '5 pp',
+        Daño: '1d6 perforante',
+        Peso: '1 kg',
+        Propiedades: 'Arrojadiza (alcance 30/120)',
+      },
+      {
+        Nombre: 'Lanza',
+        Precio: '1 po',
+        Daño: '1d6 perforante',
+        Peso: '1.5 kg',
+        Propiedades: 'Arrojadiza (alcance 20/60), versátil (1d8)',
+      },
+      {
+        Nombre: 'Martillo ligero',
+        Precio: '2 po',
+        Daño: '1d4 contundente',
+        Peso: '1 kg',
+        Propiedades: 'Arrojadizo (alcance 20/60), ligero',
+      },
+      {
+        Nombre: 'Maza',
+        Precio: '5 po',
+        Daño: '1d6 contundente',
+        Peso: '2 kg',
+        Propiedades: '---',
+      },
+    ],
+  },
+
+  {
+    name: 'Armas a distancia sencillas',
+    keywords: ['equipo', 'equipamiento'],
+    rows: [
+      {
+        Nombre: 'Arco corto',
+        Precio: '25 po',
+        Daño: '1d6 perforante',
+        Peso: '1 kg',
+        Propiedades: 'A dos manos, munición (alcance 80/ 320)',
+      },
+      {
+        Nombre: 'Ballesta ligera',
+        Precio: '25 po',
+        Daño: '1d8 perforante',
+        Peso: '2.5 kg',
+        Propiedades: 'A dos manos, munición (alcance 80/320), recarga',
+      },
+      {
+        Nombre: 'Dardo',
+        Precio: '5 pc',
+        Daño: '1d4 contundente',
+        Peso: '0.13 kg',
+        Propiedades: 'Arrojadizo (alcance 20/60), sutil',
+      },
+      {
+        Nombre: 'Honda',
+        Precio: '1 pp',
+        Daño: '1d4 contundente',
+        Peso: '---',
+        Propiedades: 'Munición (alcance 30/120)',
+      },
+    ],
+  },
+
+  {
     name: 'Tesoro Personal - CR 0-4 (Res / 2)',
     keywords: ['recompensa', 'loot'],
     rows: [

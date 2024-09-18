@@ -462,6 +462,19 @@ export function WEAPONS() {
         ...props,
       };
     },
+    warhammer1(props) {
+      return WEAPONS().warhammer({
+        name: 'warhammer1',
+        translation: 'Martillo de guerra (+1)',
+        rarity: 'uncommon',
+        price: { gp: 250 },
+        identified: true,
+        bonus: {
+          damage: 1,
+        },
+        ...props,
+      });
+    },
     whip(props) {
       return {
         name: 'whip',
@@ -552,7 +565,7 @@ export function WEAPONS() {
     },
 
     // MAGIC WEAPONS
-    
+
     sylvanBlade(props) {
       return WEAPONS().dagger({
         name: 'sylvanBlade',
