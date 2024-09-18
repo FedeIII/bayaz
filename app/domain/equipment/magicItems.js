@@ -286,6 +286,22 @@ export const WONDROUS = {
       ...props,
     };
   },
+  bootsOfElvenkind(props) {
+    return {
+      name: 'bootsOfElvenkind',
+      type: 'wondrous',
+      inventory: 'equipment',
+      translation: 'Botas élficas',
+      unidentifiedName: 'Botas adornadas con hojas',
+      rarity: 'uncommon',
+      price: { gp: 500 },
+      weight: 0.5,
+      maxCharges: 1,
+      description: () =>
+        `<p>Mientras calces estas botas, tus pasos no harán ruido, independientemente de la superficie que pises. También tendrás ventaja en pruebas de Destreza (Sigilo) que requieran moverse silenciosamente.</p>`,
+      ...props,
+    };
+  },
 };
 
 export const MAGIC_ITEMS = {
