@@ -296,7 +296,6 @@ export const WONDROUS = {
       rarity: 'uncommon',
       price: { gp: 500 },
       weight: 0.5,
-      maxCharges: 1,
       description: () =>
         `<p>Mientras calces estas botas, tus pasos no harán ruido, independientemente de la superficie que pises. También tendrás ventaja en pruebas de Destreza (Sigilo) que requieran moverse silenciosamente.</p>`,
       ...props,
