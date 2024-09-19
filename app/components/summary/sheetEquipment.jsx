@@ -327,7 +327,7 @@ function ItemModalContent(props) {
             </li>
           )}
 
-          {!!changeCost && (
+          {!!(isDm && changeCost) && (
             <li>
               Coste{' '}
               <NumericInput
