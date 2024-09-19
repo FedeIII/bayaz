@@ -8,6 +8,7 @@ TODO
   enseñar "Poner en la Bolsa de contención" si no se ha superado el peso máximo
 TODO
 
+- Make settlements and places notes easier editable
 - Encounter list filters and sorting
 - Table with filtersto show properties from the Party: AC, characteristics, skills, equipment, etc
 - Autofill Dominion and Subdominion when creating a settlement from the map

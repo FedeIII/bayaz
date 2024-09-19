@@ -89,7 +89,7 @@ function PactBoon() {
       )}
       {selectedBoon === 'pactOfTheBlade' && (
         <>
-          <h3 className="app__pale-text">Pacto de la Espada</h3>
+          <h3 className="app__pale-text">Pacto del Filo</h3>
           <p className="app__paragraph">
             Puedes usar tu acción para crear un arma de pacto en tu mano vacía.
             Puedes elegir la forma que el arma cuerpo a cuerpo toma cada vez que
@@ -121,7 +121,7 @@ function PactBoon() {
       )}
       {selectedBoon === 'pactOfTheTome' && (
         <>
-          <h3 className="app__pale-text">Pacto del Tomo</h3>
+          <h3 className="app__pale-text">Pacto del Grimorio</h3>
           <p className="app__paragraph">
             Tu patrón te da un grimorio llamado Libro de las Sombras. Cuando
             ganas este rasgo, elige tres trucos de la lista de cualquier clase.

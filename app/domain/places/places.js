@@ -296,6 +296,7 @@ export const TAVERN_NAMES = [
     'El Peregrino',
     'La Pluma',
     'La Lanza',
+    'El Sarmiento',
   ],
   [
     'Plateado/a',

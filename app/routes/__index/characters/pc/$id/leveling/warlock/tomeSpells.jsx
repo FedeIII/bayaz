@@ -24,11 +24,11 @@ export const loader = async ({ params }) => {
   }
 
   if (!hasToLearnTomeSpells(pc)) {
-    throw new Error('Ya has escogido Trucos del Pacto del Tomo');
+    throw new Error('Ya has escogido Trucos del Pacto del Grimorio');
   }
 
   if (pc.pClass !== 'warlock') {
-    throw new Error('Solo los brujos pueden escoger Trucos del Pacto del Tomo');
+    throw new Error('Solo los brujos pueden escoger Trucos del Pacto del Grimorio');
   }
 
   return json({ pc });
@@ -97,7 +97,7 @@ function TomeSpells() {
         hidden
       />
 
-      <h2 className="app__pale-text">Escoge Trucos del Pacto del Tomo</h2>
+      <h2 className="app__pale-text">Escoge Trucos del Pacto del Grimorio</h2>
 
       {skillModalContent && (
         <SkillModal

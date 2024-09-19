@@ -24,12 +24,12 @@ export const loader = async ({ params }) => {
   }
 
   if (!hasToLearnTomeRituals(pc)) {
-    throw new Error('Ya has escogido Rituales del Pacto del Tomo');
+    throw new Error('Ya has escogido Rituales del Pacto del Grimorio');
   }
 
   if (pc.pClass !== 'warlock') {
     throw new Error(
-      'Solo los brujos pueden escoger Rituales del Pacto del Tomo'
+      'Solo los brujos pueden escoger Rituales del Pacto del Grimorio'
     );
   }
 
@@ -102,7 +102,7 @@ function TomeRituals() {
         hidden
       />
 
-      <h2 className="app__pale-text">Escoge Rituales del Pacto del Tomo</h2>
+      <h2 className="app__pale-text">Escoge Rituales del Pacto del Grimorio</h2>
 
       {skillModalContent && (
         <SkillModal

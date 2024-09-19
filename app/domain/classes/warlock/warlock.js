@@ -313,8 +313,8 @@ export const PACT_BOONS = ['pactOfTheChain', 'pactOfTheBlade', 'pactOfTheTome'];
 
 export function translatePactBoon(boon) {
   if (boon === 'pactOfTheChain') return 'Pacto de la Cadena';
-  if (boon === 'pactOfTheBlade') return 'Pacto de la Espada';
-  if (boon === 'pactOfTheTome') return 'Pacto del Tomo';
+  if (boon === 'pactOfTheBlade') return 'Pacto del Filo';
+  if (boon === 'pactOfTheTome') return 'Pacto del Grimorio';
   return 'unknown pact boon';
 }
 
