@@ -2903,30 +2903,32 @@ export const MONSTER_DETAILS_LIST = {
   },
   Dryad: {
     actions: {
-      Club: '<em>Melee Weapon Attack</em>: +2 to hit (+6 to hit with <em>shillelagh</em>), reach 5 ft., one target. <em>Hit</em>: 2 (1d4) bludgeoning damage, or 8 (1d8 + 4) bludgeoning damage with <em>shillelagh</em>.',
-      'Fey Charm':
-        "The dryad targets one humanoid or beast that she can see within 30 feet of her. If the target can see the dryad, it must succeed on a DC 14 Wisdom saving throw or be magically <em>charmed</em>. The <em>charmed</em> creature regards the dryad as a trusted friend to be heeded and protected. Although the target isn't under the dryad's control, it takes the dryad's requests or actions in the most favorable way it can. Each time the dryad or its allies do anything harmful to the target, it can repeat the saving throw, ending the effect on itself on a success. Otherwise, the effect lasts 24 hours or until the dryad dies, is on a different plane of existence from the target, or ends the effect as a bonus action. If a target's saving throw is successful, the target is immune to the dryad's Fey Charm for the next 24 hours.",
+      Garrote:
+        'Ataque con arma cuerpo a cuerpo: +2 a impactar (+6 a impactar con shillelagh), alcance 5 pies, un objetivo. Impacto: 2 (1d4) de daño contundente, o 8 (1d8 + 4) de daño contundente con shillelagh.',
+      'Encanto Feérico': `<p>La dríade elige como objetivo a un humanoide o bestia al que pueda ver y se encuentre a 30 pies o menos de ella. Si la criatura puede observar a la dríade, deberá superar una tirada de salvación de Sabiduría CD 14 o estará hechizada mágicamente. El objetivo hechizado considera a la dríade una amiga de confianza, a la que prestar atención y proteger. Aunque la criatura no está, estrictamente hablando, bajo el control de la dríade, se tomará las sugerencias o acciones de esta de la mejor forma posible.</p>
+        <p>Cada vez que la dríade o sus aliados hagan cualquier acto dañino hacia el objetivo, este podrá repetir la tirada de salvación, librándose del efecto si tiene éxito. De lo contrario, este dura 24 horas o hasta que la dríade muera, se encuentre en un plano de existencia diferente al del objetivo o dé el efecto por terminado usando una acción adicional. Si el objetivo tiene éxito en la tirada de salvación, será inmune al encanto feérico de la dríade durante las próximas 24 horas.</p>
+        <p>La dríade solo puede tener hechizados al mismo tiempo a un humanoide y hasta tres bestias.</p>`,
     },
     legendaryActions: {},
-    'Armor Class': '11 (16 with <em>barkskin</em>)',
+    'Armor Class': ': 11(16 con piel robliza))',
     'Hit Points': '22 (5d8)',
     Speed: '30 ft.',
-    Skills: 'Perception +4, Stealth +5',
-    Senses: 'darkvision 60 ft., passive Perception 14',
-    Languages: 'Elvish, Sylvan',
+    Skills: 'Percepción +4, Sigilo +5',
+    Senses: 'visión en la oscuridad 60 pies, Percepción pasiva 14',
+    Languages: 'elfo, silvano',
     Challenge: '1 (200 XP)',
-    'Innate Spellcasting':
-      "The dryad's innate spellcasting ability is Charisma (spell save DC 14). The dryad can innately cast the following spells, requiring no material components:",
-    'At will': '<em>druidcraft</em>',
-    '3/day each': '<em>entangle</em>, <em>goodberry</em>',
-    '1/day each':
-      '<em>barkskin</em>, <em>pass without trace</em>, <em>shillelagh</em>',
-    'Magic Resistance':
-      'The dryad has advantage on saving throws against spells and other magical effects.',
-    'Speak with Beasts and Plants':
-      'The dryad can communicate with beasts and plants as if they shared a language.',
-    'Tree Stride':
-      'Once on her turn, the dryad can use 10 feet of her movement to step magically into one living tree within her reach and emerge from a second living tree within 60 feet of the first tree, appearing in an unoccupied space within 5 feet of the second tree. Both trees must be Large or bigger.',
+    'Lanzamiento de Conjuros Innato':
+      ' La aptitud mágica de la dríade es Carisma (salvación de conjuros CD 14). Puede lanzar de forma innata los siguientes conjuros, sin necesidad de componentes materiales:',
+    'A voluntad': '<em>saber druídico</em>',
+    '3/día cada uno': '<em>buenas bayas</em>, <em>enmarañar</em>',
+    '1/día cada uno':
+      '<em>pasar sin rastr</em>, <em>piel robliza</em>, <em>shillelagh</em>',
+    'Resistencia Mágica':
+      'La dríade tiene ventaja en las tiradas de salvación contra conjuros y otros efectos mágicos.',
+    'Hablar con Bestias y Plantas':
+      ' La dríade puede comunicarse con bestias y plantas como si tuvieran un idioma en común.',
+    'Paso Arbóreo':
+      'Durante su turno, la dríade puede utilizar 10 pies de su movimiento para, mágicamente, entrar en un árbol vivo dentro de su alcance y surgir del interior de otro árbol vivo que se encuentre a 60 pies o menos del primero. Aparecerá en un espacio desocupado a 5 pies o menos del segundo árbol. Ambos árboles deben ser de tamaño Grande o mayor.',
     stats: {
       str: '10',
       dex: '12',
@@ -2935,7 +2937,7 @@ export const MONSTER_DETAILS_LIST = {
       wis: '15',
       cha: '18',
     },
-    notes: 'Medium fey, neutral',
+    notes: 'Feérico Mediano, neutral',
   },
   Duergar: {
     actions: {

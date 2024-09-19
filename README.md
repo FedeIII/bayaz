@@ -8,6 +8,8 @@ TODO
   enseñar "Poner en la Bolsa de contención" si no se ha superado el peso máximo
 TODO
 
+- Encounter list filters and sorting
+- Table with filtersto show properties from the Party: AC, characteristics, skills, equipment, etc
 - Autofill Dominion and Subdominion when creating a settlement from the map
 - Save last position in the map
 - Keep names of monsters for nicks as default
