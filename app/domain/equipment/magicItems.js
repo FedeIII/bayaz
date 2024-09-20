@@ -157,6 +157,21 @@ const AMULETS = {
       ...props,
     };
   },
+  periaptOfWoundClosure(props) {
+    return {
+      name: 'periaptOfWoundClosure',
+      type: 'amulet',
+      translation: 'Amuleto de Cerrar Heridas',
+      unidentifiedName: 'Amuleto con manos y rubí',
+      rarity: 'rare',
+      price: { gp: 500 },
+      weight: 0.02,
+      maxCharges: 1,
+      description: () => `<p>Require sintonización</p>
+      <p>Mientras lleves este talismán, te estabilizas automáticamente si al principio de tu turno estás agonizando. Además, cuando tires un Dado de Golpe pa ra recuperar puntos de golpe, duplica el número de puntos de golpe que recuperas.</p>`,
+      ...props,
+    };
+  },
 };
 
 const RINGS = {
