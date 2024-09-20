@@ -452,6 +452,7 @@ function PcSummary() {
     ac: useRef([createRef()]),
     hp: useRef([createRef()]),
     remainingHitDice: useRef([createRef()]),
+    rangerConclave: useRef([createRef()]),
     attackBonus: useRef([createRef(), createRef(), createRef()]),
     movingModal: useRef([createRef()]),
   });
