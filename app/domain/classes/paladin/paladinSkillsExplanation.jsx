@@ -620,6 +620,20 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
+  naturesWrath: (skill, pc) => {
+    return (
+      <>
+        {PALADIN_SKILLS_EXPLANATION.naturesWrath_text(skill, pc)}
+        <SpendTrait
+          pc={pc}
+          traitName="channelDivinity"
+          submit={submit}
+          traitGetter={getChannelDivinity}
+        />
+      </>
+    );
+  },
+
   naturesWrath_text: (skill, pc) => {
     return (
       <p>
@@ -632,20 +646,6 @@ export const PALADIN_SKILLS_EXPLANATION = {
         al final de cada uno de sus turnos. Si la supera se libera y las
         enredaderas desaparecen.
       </p>
-    );
-  },
-
-  turnTheUnholy: (skill, pc, submit) => {
-    return (
-      <>
-        {PALADIN_SKILLS_EXPLANATION.naturesWrath_text(skill, pc)}
-        <SpendTrait
-          pc={pc}
-          traitName="channelDivinity"
-          submit={submit}
-          traitGetter={getChannelDivinity}
-        />
-      </>
     );
   },
 
