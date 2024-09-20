@@ -208,6 +208,22 @@ export function ARMORS() {
         ...props,
       });
     },
+    shieldOfMissileAttraction(props) {
+      return ARMORS().shield({
+        name: 'shieldOfMissileAttraction',
+        translation: 'Escudo de defensa de proyectiles',
+        unidentifiedName: 'Escudo de tela de araña',
+        type: 'armor',
+        subtype: 'shield',
+        price: { gp: 800, sp: 0, cp: 0 },
+        weight: 3,
+        description: () =>
+          `<p>Mientras empuñes este escudo, tendrás resistencia al daño de ataques de arma a distancia.</p>`,
+        dmDescription: () =>
+          `<p>Este escudo está maldito. Sintonizarse con él te maldice hasta que seas objetivo del conjuro levantar maldición o un efecto mágico similar. Quitarse el escudo no acaba con la maldición. Cuando un atacante realice un ataque de arma a distancia contra un objetivo que se encuentre a 10 pies o menos de ti, la maldición provocará que tú te conviertas en el objetivo del ataque.</p>`,
+        ...props,
+      });
+    },
   };
 }
 

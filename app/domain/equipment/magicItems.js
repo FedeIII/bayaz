@@ -164,7 +164,7 @@ const AMULETS = {
       translation: 'Amuleto de Cerrar Heridas',
       unidentifiedName: 'Amuleto con manos y rubí',
       rarity: 'rare',
-      price: { gp: 500 },
+      price: { gp: 200 },
       weight: 0.02,
       maxCharges: 1,
       description: () => `<p>Require sintonización</p>
@@ -225,6 +225,36 @@ const WANDS = {
     <p>Esta varita tiene 7 cargas, utilizables para las propiedades siguientes. Recupera 1d6 + 1 cargas empleadas cada día, al amanecer. Si gastas la última carga, tira 1d20. Si obtienes un 1, la varita se convierte en cenizas y es destruida.</p>
     <p><b><u>Conjuros.</u></b> Mientras empuñes la varita, puedes usar una acción para gastar algunas de sus cargas en lanzar uno de los siguientes conjuros (con salvación CD 17): inmovilizar monstruo (5 cargas) o inmovilizar persona (2 cargas).</p>
     <p><b><u>Escape asistido.</u></b> Mientras empuñes la varita, puedes usar tu reacción para gastar 1 carga y disfrutar de ventaja en una tirada de salvación que realices para evitar quedar paralizado o apresado, o puedes emplear 1 carga para obtener ventaja en cualquier prueba hecha para escapar de un agarre.</p>`,
+      ...props,
+    };
+  },
+  wandOfMagicMissile(props) {
+    return {
+      name: 'wandOfMagicMissile',
+      type: 'wand',
+      translation: 'Varita de Proyectiles Mágicos',
+      unidentifiedName: 'Varita terminada en fuego azul',
+      rarity: 'uncommon',
+      price: { gp: 500 },
+      weight: 0.2,
+      maxCharges: 7,
+      description: () => `<p>Requiere sintonización</p>
+        <p>Esta varita tiene 7 cargas. Mientras la empuñes, puedes usar una acción para gastar 1 o más de sus cargas en lanzar el conjuro proyectil mágico desde ella. Si utilizas 1 carga, se tratará de la versión de nivel 1 del conjuro. Puedes subir el nivel del espacio de conjuro en uno por cada carga adicional que emplees.</p>
+        <p>La varita recupera ld6 + 1 cargas usadas cada día, al amanecer. Si gastas la última carga, tira ld20. Si obtienes un 1, la varita se convierte en cenizas y es destruida.</p>`,
+      ...props,
+    };
+  },
+  immovableRod(props) {
+    return {
+      name: 'immovableRod',
+      type: 'wand',
+      translation: 'Vara Inamovible',
+      unidentifiedName: 'Vara con caballo metálico',
+      rarity: 'uncommon',
+      price: { gp: 650 },
+      weight: 1,
+      description: () =>
+        `<p>Esta vara de hierro posee un botón en uno de sus extremos. Puedes usar una acción para pulsar el botón, haciendo que la vara se fije mágicamente en el sitio. Hasta que otra criatura o tú utilicéis una acción para pulsar de nuevo el botón, la vara no se moverá, desafiando a la gravedad si es necesario. Puede aguantar hasta 8.000 libras de peso; una cantidad mayor provocará que se desactive y caiga. Una criatura puede invertir su acción en realizar una prueba de Fuerza CD 30, moviendo la va ra hasta 10 pies si tiene éxito.</p>`,
       ...props,
     };
   },
@@ -313,6 +343,71 @@ export const WONDROUS = {
       weight: 0.5,
       description: () =>
         `<p>Mientras calces estas botas, tus pasos no harán ruido, independientemente de la superficie que pises. También tendrás ventaja en pruebas de Destreza (Sigilo) que requieran moverse silenciosamente.</p>`,
+      ...props,
+    };
+  },
+  glovesOfThievery(props) {
+    return {
+      name: 'glovesOfThievery',
+      type: 'wondrous',
+      inventory: 'equipment',
+      translation: 'Guantes de Ladrón',
+      unidentifiedName: 'Guantes reflectantes',
+      rarity: 'rare',
+      price: { gp: 250 },
+      weight: 0.25,
+      bonus: {
+        'sleight-of-hand': 5,
+      },
+      description: () =>
+        `<p>Estos guantes son invisibles mientras los lleves puestos. Si los vistes, ganas un bonificaclor de +5 a pruebas de Destreza (Juego de Manos) y pruebas de Destreza para forzar cerraduras.</p>`,
+      ...props,
+    };
+  },
+  luckstone(props) {
+    return {
+      name: 'luckstone',
+      type: 'wondrous',
+      inventory: 'equipment',
+      translation: 'Piedra de la Buena Fortuna',
+      unidentifiedName: 'Ágata iridiscente',
+      rarity: 'uncommon',
+      price: { gp: 350 },
+      weight: 0.02,
+      description: () =>
+        `<p>Requiere sintonización</p>
+        <p>Cuando tienes esta ágata pulida en tu poder, obtienes un +1 a las pruebas de característica y tiradas de salvación.</p>`,
+      ...props,
+    };
+  },
+  dustOfDisappearance(props) {
+    return {
+      name: 'dustOfDisappearance',
+      type: 'wondrous',
+      inventory: 'equipment',
+      translation: 'Polvo de desaparición',
+      unidentifiedName: 'Frasco de hada',
+      rarity: 'uncommon',
+      price: { gp: 500 },
+      weight: 0.02,
+      description: () =>
+        `<p>Este polvo, que se encuentra en pequeños paquetes, parece arena muy fina. Hay suficiente para un solo uso. Cuando empleas una acción para esparcir el polvo, tú y cada criatura y objeto que se encuentre a 10 pies o menos de ti os volvéis invisibles durante 2d4 minutos. La duración es la misma para todos los afectados, y el polvo es consumido cuando la magia tiene efecto. Si una criatura a fectada por el polvo ataca o lanza un conjuro, la invisibilidad termina para esa criatura.</p>`,
+      ...props,
+    };
+  },
+  cloakOfProtection(props) {
+    return {
+      name: 'cloakOfProtection',
+      type: 'wondrous',
+      inventory: 'equipment',
+      translation: 'Capa de Protección',
+      unidentifiedName: 'Capa elegante',
+      rarity: 'uncommon',
+      price: { gp: 650 },
+      weight: 0.5,
+      description: () =>
+        `<p>Requiere sintonización</p>
+        <p>Obtienes un bonificador de +1 a la CA y a las tiradas de salvación mientras lleves puesta esta capa.</p>`,
       ...props,
     };
   },
