@@ -620,7 +620,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  naturesWrath: (skill, pc) => {
+  naturesWrath: (skill, pc, submit) => {
     return (
       <>
         {PALADIN_SKILLS_EXPLANATION.naturesWrath_text(skill, pc)}
