@@ -237,7 +237,7 @@ function PcSpells() {
       resetSpellSlots: Array.from(Array(10), createRef),
       copySpell: [createRef()],
     });
-  }, [spellsByLevel]);
+  }, [spellsByLevel.length]);
 
   const [
     skillModalContent,
