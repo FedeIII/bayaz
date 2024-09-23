@@ -202,13 +202,27 @@ export const RANGER_SKILLS_EXPLANATION = {
     );
   },
 
+  primevalAwareness: (skill, pc) => (
+    <p>
+      A partir de nivel 3, puedes usar tu acción y gastar uno de tus espacios de
+      conjuro de explorador para concentrar tu percepción en la región en la que
+      te encuentras. Durante 1 minuto por cada nivel del espacio de conjuro que
+      hayas invertido, puedes sentir si los siguientes tipos de criatura están
+      presentes a, como mucho, 1 milla de distancia de ti: aberraciones,
+      celestiales, dragones, elementales, feéricos, infernales y muertos
+      vivientes. Esta percepción se extiende a 6 millas si estás en tu terreno
+      predilecto. Este rasgo no revela ni el número de criaturas ni su
+      ubicación.
+    </p>
+  ),
+
   rangerConclave: (skill, pc) => (
     <>
       <p>
         A nivel 3 eliges un arquetipo que te esfuerzas en emular: Cazador o
-        Señor de las Bestias, ambos detallados al final de la descripción de la
-        clase. Tu elección te proporciona rasgos a nivel 3 y de nuevo a los
-        niveles 7, 11, y 15.
+        Señor de las Bestias, ambos detallados en la siguiente pantalla. Tu
+        elección te proporciona rasgos a nivel 3 y de nuevo a los niveles 7, 11,
+        y 15.
       </p>
 
       <div className="inventory-item__modal-buttons">

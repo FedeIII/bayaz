@@ -1527,6 +1527,7 @@ export function CLASSES() {
         },
         3: {
           traits: {
+            primevalAwareness: 'Percepción Primigenia',
             rangerConclave: 'Arquetipo de Explorador',
           },
           rangerConclave: {
