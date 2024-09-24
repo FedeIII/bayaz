@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Fragment } from 'react';
 import {
   STATS,
@@ -30,10 +31,16 @@ function SheetStats(props) {
       </span>
       {STATS().map(statName => (
         <Fragment key={statName}>
-          {isProficientStat(statName, pClass) && (
-            <span className={`sheet__data sheet__${statName}Prof`}>◍</span>
-          )}
-          <span className={`sheet__data sheet__${statName}Saving`}>
+          <span
+            className={classNames(
+              'sheet__data',
+              'sheet__saving',
+              `sheet__${statName}Saving`,
+              {
+                'sheet__prof-skill': isProficientStat(statName, pClass),
+              }
+            )}
+          >
             {increment(
               statSavingThrow(statName, getStat(pc, statName), pClass, level)
             )}

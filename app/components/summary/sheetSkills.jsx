@@ -1,6 +1,8 @@
+import classNames from 'classnames';
 import {
   SKILLS,
   getConditionalSkills,
+  getExpertSkills,
   getPassivePerception,
   getSkills,
   skillCheckBonus,
@@ -12,23 +14,16 @@ function SheetSkills(props) {
 
   const allSkills = getSkills(pc);
   const conditionalSkills = getConditionalSkills(pc);
+  const expertSkills = getExpertSkills(pc);
 
   return (
     <>
-      {SKILLS().map(
-        skill =>
-          allSkills.includes(skill.name) && (
-            <span
-              className={`sheet__data sheet__${skill.name}Prof`}
-              key={skill.name}
-            >
-              ◍
-            </span>
-          )
-      )}
       {SKILLS().map(skill => (
         <span
-          className={`sheet__data sheet__${skill.name}Saving`}
+          className={classNames('sheet__data', 'sheet__saving', `sheet__${skill.name}Saving`, {
+            'sheet__prof-skill': allSkills.includes(skill.name),
+            'sheet__prof-skill--expert': expertSkills.includes(skill.name),
+          })}
           key={skill.name}
         >
           {increment(skillCheckBonus(pc, skill.name))}

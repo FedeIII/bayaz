@@ -5,8 +5,18 @@
   bottom: 4px;
   font-family: var(--font-family);
   display: grid;
-  grid-template-columns: 8.5% 3.5% 5% 2.5% 19% 4.5% 2% 2% 5.5% 4% 5.5% 1% 5.5% 10% 13% 1% 2%;
-  grid-template-rows: 7% 1% 1% 1% 1% 1.2% 5% 1% 1% 1% 2% 1% 1% 1.5% 1% 1% 0.7% 0.9% 0.8% 0.9% 0.8% 0.7% 0.9% 0.9% 0.8% 0.8% 2% 2.6% 0.4% 0.9% 0.8% 0.9% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.9% 0.8% 0.9% 0.7% 0.9% 1% 3% 1% 1% 1% 1.2% 2% 1.2% 2% 1.2% 2% 1.2% 2% 3.9% 5%;
+  grid-template-columns:
+    8.5% 3.5% 5% 2.5% 19% 4.5% 2% 2% 5.5% 4%
+    5.5% 1% 5.5% 10% 13% 1% 2%;
+  grid-template-rows:
+    7% 1% 1% 1% 1% 1.2% 5% 1% 1% 1%
+    2% 1% 1% 1.5% 1% 1% 0.7% 0.9% 0.8% 0.9%
+    0.8% 0.7% 0.9% 0.9% 0.8% 0.8% 2% 2.6% 0.4% 0.9%
+    0.8% 0.8% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.8%
+    0.8% 0.8% 0.8% 0.9% 0.8% 0.8% 0.8% 0.9% 0.8% 0.9%
+    0.8% 0.8% 0.8% 0.8% 0.8% 0.8% 0.8% 0.9% 0.8% 0.9%
+    0.8% 0.8% 0.8% 0.9% 1% 3% 1% 1% 1% 1.2%
+    2% 1.2% 2% 1.2% 2% 1.2% 2% 3.9% 5%;
   /* prettier-ignore */
   grid-template-areas:
     /*******  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12  13  14  15  16  17 */
@@ -25,55 +35,55 @@
     /* 13 */ '.   .   .   pro .   .   .   .   .   .   .   .   .   ity ity ity .  ' /* 13 */
     /* 14 */ '.   stM .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 14 */
     /* 15 */ '.   .   .   .   .   .   .   .   mhp mhp mhp .   .   .   .   .   .  ' /* 15 */
-    /* 16 */ '.   .   .   stP stS .   .   .   .   .   .   .   .   .   .   .   .  ' /* 16 */
+    /* 16 */ '.   .   .   .   stS .   .   .   .   .   .   .   .   .   .   .   .  ' /* 16 */
     /* 17 */ '.   .   .   .   .   hps hps hps hps hps hps .   .   ide ide ide .  ' /* 17 */
-    /* 18 */ '.   dex .   deP deS hps hps hps hps hps hps .   .   ide ide ide .  ' /* 18 */
+    /* 18 */ '.   dex .   .   deS hps hps hps hps hps hps .   .   ide ide ide .  ' /* 18 */
     /* 19 */ '.   dex .   .   .   hps hps hps hps hps hps .   .   ide ide ide .  ' /* 19 */
-    /* 20 */ '.   dex .   coP coS hps hps hps hps hps hps .   .   ide ide ide .  ' /* 20 */
+    /* 20 */ '.   dex .   .   coS hps hps hps hps hps hps .   .   ide ide ide .  ' /* 20 */
     /* 21 */ '.   dex .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 21 */
-    /* 22 */ '.   .   .   inP inS .   .   .   .   .   .   .   .   .   .   .   .  ' /* 22 */
+    /* 22 */ '.   .   .   .   inS .   .   .   .   .   .   .   .   .   .   .   .  ' /* 22 */
     /* 23 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 23 */
-    /* 24 */ '.   deM .   wiP wiS .   .   .   .   .   .   .   .   bnd bnd bnd .  ' /* 24 */
+    /* 24 */ '.   deM .   .   wiS .   .   .   .   .   .   .   .   bnd bnd bnd .  ' /* 24 */
     /* 25 */ '.   .   .   .   .   thp thp thp thp thp thp .   .   bnd bnd bnd .  ' /* 25 */
-    /* 26 */ '.   .   .   chP chS thp thp thp thp thp thp .   .   bnd bnd bnd .  ' /* 26 */
+    /* 26 */ '.   .   .   .   chS thp thp thp thp thp thp .   .   bnd bnd bnd .  ' /* 26 */
     /* 27 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   bnd bnd bnd .  ' /* 27 */
     /* 28 */ '.   con .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 28 */
     /* 29 */ '.   con .   .   .   hiD hiD hiD .   .   dsS .   .   flw flw flw .  ' /* 29 */
-    /* 30 */ '.   .   .   sP1 sS1 hiD hiD hiD .   .   dsS .   .   flw flw flw .  ' /* 30 */
+    /* 30 */ '.   .   .   .   sS1 hiD hiD hiD .   .   dsS .   .   flw flw flw .  ' /* 30 */
     /* 31 */ '.   coM .   .   .   exH exH exH .   .   .   .   .   flw flw flw .  ' /* 31 */
-    /* 32 */ '.   coM .   sP2 sS2 exH exH exH .   .   dsF .   .   flw flw flw .  ' /* 32 */
+    /* 32 */ '.   coM .   .   sS2 exH exH exH .   .   dsF .   .   flw flw flw .  ' /* 32 */
     /* 33 */ '.   .   .   .   .   exH exH exH .   .   .   .   .   flw flw flw .  ' /* 33 */
-    /* 34 */ '.   .   .   sP3 sS3 .   .   .   .   .   .   .   .   .   .   .   .  ' /* 34 */
+    /* 34 */ '.   .   .   .   sS3 .   .   .   .   .   .   .   .   .   .   .   .  ' /* 34 */
     /* 35 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 35 */
-    /* 36 */ '.   .   .   sP4 sS4 .   .   .   .   .   .   .   .   .   .   .   .  ' /* 36 */
+    /* 36 */ '.   .   .   .   sS4 .   .   .   .   .   .   .   .   .   .   .   .  ' /* 36 */
     /* 37 */ '.   int .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 37 */
-    /* 38 */ '.   int .   sP5 sS5 .   .   .   .   .   .   .   .   .   .   .   .  ' /* 38 */
+    /* 38 */ '.   int .   .   sS5 .   .   .   .   .   .   .   .   .   .   .   .  ' /* 38 */
     /* 39 */ '.   int .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  ' /* 39 */
-    /* 40 */ '.   int .   sP6 sS6 aN0 aN0 aN0 aB0 aT0 aT0 aT0 .   FnT FnT FnT FnT' /* 40 */
+    /* 40 */ '.   int .   .   sS6 aN0 aN0 aN0 aB0 aT0 aT0 aT0 .   FnT FnT FnT FnT' /* 40 */
     /* 41 */ '.   .   .   .   .   aN0 aN0 aN0 aB0 aT0 aT0 aT0 .   FnT FnT FnT FnT' /* 41 */
-    /* 42 */ '.   inM .   sP7 sS7 .   .   .   .   .   .   .   .   FnT FnT FnT FnT' /* 42 */
+    /* 42 */ '.   inM .   .   sS7 .   .   .   .   .   .   .   .   FnT FnT FnT FnT' /* 42 */
     /* 43 */ '.   .   .   .   .   aN1 aN1 aN1 aB1 aT1 aT1 aT1 .   FnT FnT FnT FnT' /* 43 */
-    /* 44 */ '.   .   .   sP8 sS8 aN1 aN1 aN1 aB1 aT1 aT1 aT1 .   FnT FnT FnT FnT' /* 44 */
+    /* 44 */ '.   .   .   .   sS8 aN1 aN1 aN1 aB1 aT1 aT1 aT1 .   FnT FnT FnT FnT' /* 44 */
     /* 45 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT FnT' /* 45 */
-    /* 46 */ '.   .   .   sP9 sS9 aN2 aN2 aN2 aB2 aT2 aT2 aT2 .   FnT FnT FnT FnT' /* 46 */
+    /* 46 */ '.   .   .   .   sS9 aN2 aN2 aN2 aB2 aT2 aT2 aT2 .   FnT FnT FnT FnT' /* 46 */
     /* 47 */ '.   .   .   .   .   aN2 aN2 aN2 aB2 aT2 aT2 aT2 .   FnT FnT FnT FnT' /* 47 */
-    /* 48 */ '.   wis .   sP0 sS0 .   .   .   .   .   .   .   .   FnT FnT FnT FnT' /* 48 */
+    /* 48 */ '.   wis .   .   sS0 .   .   .   .   .   .   .   .   FnT FnT FnT FnT' /* 48 */
     /* 49 */ '.   wis .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT FnT' /* 49 */
-    /* 50 */ '.   wis .   sPA sSA sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 50 */
+    /* 50 */ '.   wis .   .   sSA sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 50 */
     /* 51 */ '.   .   .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 51 */
-    /* 52 */ '.   wiM .   sPB sSB sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 52 */
+    /* 52 */ '.   wiM .   .   sSB sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 52 */
     /* 53 */ '.   wiM .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 53 */
-    /* 54 */ '.   .   .   sPC sSC sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 54 */
+    /* 54 */ '.   .   .   .   sSC sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 54 */
     /* 55 */ '.   .   .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 55 */
-    /* 56 */ '.   .   .   sPD sSD sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 56 */
+    /* 56 */ '.   .   .   .   sSD sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 56 */
     /* 57 */ '.   .   .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 57 */
-    /* 58 */ '.   cha .   sPE sSE sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 58 */
+    /* 58 */ '.   cha .   .   sSE sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 58 */
     /* 59 */ '.   cha .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 59 */
-    /* 60 */ '.   cha .   sPF sSF sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 60 */
+    /* 60 */ '.   cha .   .   sSF sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 60 */
     /* 61 */ '.   cha .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 61 */
-    /* 62 */ '.   .   .   sPG sSG sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 62 */
+    /* 62 */ '.   .   .   .   sSG sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 62 */
     /* 63 */ '.   chM .   .   .   sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 63 */
-    /* 64 */ '.   chM .   sPH sSH sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 64 */
+    /* 64 */ '.   chM .   .   sSH sAt sAt sAt sAt sAt sAt sAt .   FnT FnT FnT FnT' /* 64 */
     /* 65 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT FnT' /* 65 */
     /* 66 */ '.   .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT FnT' /* 66 */
     /* 67 */ 'per .   .   .   .   .   .   .   .   .   .   .   .   FnT FnT FnT FnT' /* 67 */
@@ -249,23 +259,9 @@
   font-size: var(--font-size-big);
 }
 
-.sheet__strProf {
-  grid-area: stP;
-  transform: rotate(45deg);
-  margin: 6px 0px 0px 4px;
-  align-items: flex-start;
-}
-
 .sheet__strSaving {
   grid-area: stS;
   align-items: center;
-}
-
-.sheet__dexProf {
-  grid-area: deP;
-  transform: rotate(45deg);
-  margin: 6px 0px 0px 4px;
-  align-items: flex-start;
 }
 
 .sheet__dexSaving {
@@ -273,23 +269,9 @@
   align-items: center;
 }
 
-.sheet__conProf {
-  grid-area: coP;
-  transform: rotate(45deg);
-  margin: 6px 0px 0px 4px;
-  align-items: flex-start;
-}
-
 .sheet__conSaving {
   grid-area: coS;
   align-items: center;
-}
-
-.sheet__intProf {
-  grid-area: inP;
-  transform: rotate(45deg);
-  margin: 3px 0px 0px 5px;
-  align-items: flex-start;
 }
 
 .sheet__intSaving {
@@ -297,23 +279,9 @@
   align-items: center;
 }
 
-.sheet__wisProf {
-  grid-area: wiP;
-  transform: rotate(45deg);
-  margin: 4px 0px 0px 4px;
-  align-items: flex-start;
-}
-
 .sheet__wisSaving {
   grid-area: wiS;
   align-items: center;
-}
-
-.sheet__chaProf {
-  grid-area: chP;
-  transform: rotate(45deg);
-  margin: 3px 0px 0px 4px;
-  align-items: flex-start;
 }
 
 .sheet__chaSaving {
@@ -586,202 +554,93 @@
   text-align: left;
 }
 
-.sheet__acrobaticsProf {
-  grid-area: sP1;
-  transform: rotate(45deg);
-  margin: 0px 0px -4px 3px;
-  line-height: 0.6;
+.sheet__saving {
 }
 
 .sheet__acrobaticsSaving {
   grid-area: sS1;
 }
 
-.sheet__athleticsProf {
-  grid-area: sP2;
-  transform: rotate(45deg);
-  margin: 0px 0px -3px 3px;
-  line-height: 0.6;
-}
-
 .sheet__athleticsSaving {
   grid-area: sS2;
-}
-
-.sheet__arcanaProf {
-  grid-area: sP3;
-  transform: rotate(45deg);
-  margin: 0px 0px -2px 3px;
-  line-height: 0.6;
 }
 
 .sheet__arcanaSaving {
   grid-area: sS3;
 }
 
-.sheet__deceptionProf {
-  grid-area: sP4;
-  transform: rotate(45deg);
-  margin: 0px 0px -2px 3px;
-  line-height: 0.6;
-}
-
 .sheet__deceptionSaving {
   grid-area: sS4;
-}
-
-.sheet__historyProf {
-  grid-area: sP5;
-  transform: rotate(45deg);
-  margin: 0px 0px -2px 3px;
-  line-height: 0.6;
 }
 
 .sheet__historySaving {
   grid-area: sS5;
 }
 
-.sheet__performanceProf {
-  grid-area: sP6;
-  transform: rotate(45deg);
-  margin: 0px 0px -2px 2px;
-  line-height: 0.6;
-}
-
 .sheet__performanceSaving {
   grid-area: sS6;
-}
-
-.sheet__intimidationProf {
-  grid-area: sP7;
-  transform: rotate(45deg);
-  margin: 0px 0px -2px 2px;
-  line-height: 0.6;
 }
 
 .sheet__intimidationSaving {
   grid-area: sS7;
 }
 
-.sheet__investigationProf {
-  grid-area: sP8;
-  transform: rotate(45deg);
-  margin: 0px 0px -4px 1px;
-  line-height: 1;
-}
-
 .sheet__investigationSaving {
   grid-area: sS8;
-}
-
-.sheet__sleight-of-handProf {
-  grid-area: sP9;
-  transform: rotate(45deg);
-  margin: 0px 0px -5px 0px;
-  line-height: 1;
 }
 
 .sheet__sleight-of-handSaving {
   grid-area: sS9;
 }
 
-.sheet__medicineProf {
-  grid-area: sP0;
-  transform: rotate(45deg);
-  margin: 0px 0px -4px 1px;
-  line-height: 1;
-}
-
 .sheet__medicineSaving {
   grid-area: sS0;
-}
-
-.sheet__natureProf {
-  grid-area: sPA;
-  transform: rotate(45deg);
-  margin: 0px 0px -3px 0px;
-  line-height: 1;
 }
 
 .sheet__natureSaving {
   grid-area: sSA;
 }
 
-.sheet__perceptionProf {
-  grid-area: sPB;
-  transform: rotate(45deg);
-  margin: 0px 0px -3px 0px;
-  line-height: 1;
-}
-
 .sheet__perceptionSaving {
   grid-area: sSB;
-}
-
-.sheet__insightProf {
-  grid-area: sPC;
-  transform: rotate(45deg);
-  margin: 0px 0px -3px 0px;
-  line-height: 1;
 }
 
 .sheet__insightSaving {
   grid-area: sSC;
 }
 
-.sheet__persuasionProf {
-  grid-area: sPD;
-  transform: rotate(45deg);
-  margin: 0px 0px -4px 0px;
-  line-height: 1;
-}
-
 .sheet__persuasionSaving {
   grid-area: sSD;
-}
-
-.sheet__religionProf {
-  grid-area: sPE;
-  transform: rotate(45deg);
-  margin: 0px 0px -3px 0px;
-  line-height: 1;
 }
 
 .sheet__religionSaving {
   grid-area: sSE;
 }
 
-.sheet__stealthProf {
-  grid-area: sPF;
-  transform: rotate(45deg);
-  margin: 0px 0px -2px 0px;
-  line-height: 1;
-}
-
 .sheet__stealthSaving {
   grid-area: sSF;
-}
-
-.sheet__survivalProf {
-  grid-area: sPG;
-  transform: rotate(45deg);
-  margin: 0px 0px -1px 0px;
-  line-height: 1;
 }
 
 .sheet__survivalSaving {
   grid-area: sSG;
 }
 
-.sheet__animal-handlingProf {
-  grid-area: sPH;
-  transform: rotate(45deg);
-  margin: 0px 0px -2px 0px;
-  line-height: 1;
-}
-
 .sheet__animal-handlingSaving {
   grid-area: sSH;
+}
+
+.sheet__prof-skill::before {
+  content: '◍';
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  left: -1.7em;
+  top: -0.2em;
+}
+
+.sheet__prof-skill--expert::before {
+  border: 1px solid var(--color-blue-ink);
+  border-radius: 50%;
 }
 
 .sheet__passive-perception {
