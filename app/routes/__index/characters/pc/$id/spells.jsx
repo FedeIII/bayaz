@@ -188,7 +188,11 @@ function PcSpells() {
 
   function onUsedSpellsChange(level) {
     return e => {
-      const amount = parseInt(e.target.value, 10);
+      const numberAmount = parseInt(e.target.value, 10);
+      let amount = '';
+      if (Number.isFinite(numberAmount)) {
+        amount = numberAmount;
+      }
       if (amount <= spellSlots[level] && !isUsingSpell) {
         setUsedSpellSlots(old => replaceAt(level, old, amount));
 
@@ -333,7 +337,7 @@ function PcSpells() {
                 )}
               >
                 <NumericInput
-                  value={usedSpellSlots[level] || 0}
+                  value={usedSpellSlots[level]}
                   min="0"
                   max={spellSlots[level]}
                   onChange={onUsedSpellsChange(level)}

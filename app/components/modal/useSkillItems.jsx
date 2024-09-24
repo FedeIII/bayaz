@@ -45,7 +45,7 @@ export function useSkillItems(
         { method: 'post' }
       );
 
-      setSelectedSkillRef(skillRefs[sectionName].current[skillIndex]);
+      setSelectedSkillRef(skillRefs[sectionName][skillIndex]);
 
       setTimeout(() => {
         const setModalContent = bigModal
