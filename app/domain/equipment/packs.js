@@ -301,7 +301,8 @@ export const ENTERTAINERS_PACK = {
         ...props,
       };
     },
-    rations: props => rations({ ...props, amount: 5 }),
+    rations: props =>
+      rations({ ...props, amount: (props && props.amount) || 5 }),
     waterskin,
     disguiseKit(props) {
       return {
@@ -434,7 +435,8 @@ export const PRIESTS_PACK = {
         ...props,
       };
     },
-    rations: props => rations({ ...props, amount: 2 }),
+    rations: props =>
+      rations({ ...props, amount: (props && props.amount) || 2 }),
     waterskin,
   },
 };
@@ -511,7 +513,8 @@ export const BURGLARS_PACK = {
         ...props,
       };
     },
-    rations: props => rations({ ...props, amount: 5 }),
+    rations: props =>
+      rations({ ...props, amount: (props && props.amount) || 5 }),
     tinderbox,
     waterskin,
     hempenRope,

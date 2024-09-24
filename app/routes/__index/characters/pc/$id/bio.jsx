@@ -388,20 +388,21 @@ function ItemModalContent(props) {
         <ul className="inventory-item__modal-options">
           {!!addItem && (
             <li>
-              <button
-                type="button"
-                className="inventory-item__drop-item-button"
-                onClick={onAddToTreasureClick}
-              >
-                Añadir items
-              </button>{' '}
+              <span>{itemDisplay} x</span>
               <NumericInput
                 name="amount"
                 min="1"
                 value={amount}
                 onChange={e => setAmount(e.target.value)}
                 styleName="inventory-item__amount-input"
-              />
+              />{' '}
+              <button
+                type="button"
+                className="inventory-item__drop-item-button"
+                onClick={onAddToTreasureClick}
+              >
+                Añadir
+              </button>{' '}
             </li>
           )}
 
