@@ -196,7 +196,7 @@ const RINGS = {
       name: 'ringOfSpellStoring',
       type: 'ring',
       translation: 'Anillo de almacenamiento de conjuros',
-      unidentifiedName: 'Anillo difuso',
+      unidentifiedName: 'Anillo doble difuso',
       rarity: 'rare',
       price: { gp: 4500 },
       weight: 0.02,
@@ -205,6 +205,50 @@ const RINGS = {
       <p>Este anillo almacena conjuros lanzados sobre él, hasta que un portador sintonizado con este objeto decida usarlos. Puede guardar conjuros que sumen en total 5 niveles de conjuro. Cuando lo encuentras, tiene 1d6 - 1 niveles de conjuros elegidos por el DM.</p>
       <p>Cualquier criatura puede lanzar un conjuro de niveles 1 a 5 en el anillo tocándolo mientras lanza el conjuro. Este no tendrá efecto, pero quedará almacenado en el anillo. Si no puede almacenarse el conjuro, este se desperdicia sin efecto. El nivel del espacio utilizado para lanzar el conjuro determina cuanto espacio utiliza.</p>
       <p>Mientras lleves puesto el anillo, puedes lanzar cualquiera de los conjuros almacenados. El conjuro emplea el nivel del espacio, CD de la salvación ele conjuro, bonificador de ataque y aptitud mágica del lanzador original, pero por lo demás se comporta como si tú lo hubieras lanzado. Un conjuro lanzado desde el anillo deja de ocupar espacio en él.</p>`,
+      ...props,
+    };
+  },
+  ringOfWarmth(props) {
+    return {
+      name: 'ringOfWarmth',
+      type: 'ring',
+      translation: 'Anillo de calidez',
+      unidentifiedName: 'Anillo rojo brillante',
+      rarity: 'uncommon',
+      price: { gp: 120 },
+      weight: 0.02,
+      description: () => `<p>Require sintonización</p>
+      <p>Tienes resistencia al daño de frío cuando llevas puesto este anillo. Además, tú y todo lo que lleves y vistas no se ve dañado por el frío provocado por temperaturas de hasta -45 ºC. Por debajo de esta temperatura os veréis afectados normalmente.</p>`,
+      ...props,
+    };
+  },
+  ringOfJumping(props) {
+    return {
+      name: 'ringOfJumping',
+      type: 'ring',
+      translation: 'Anillo de salto',
+      unidentifiedName: 'Anillo de muelle',
+      rarity: 'uncommon',
+      price: { gp: 230 },
+      maxCharges: 3,
+      weight: 0.02,
+      description: () => `<p>Require sintonización</p>
+      <p>Mientras lleves este anillo, puedes lanzar a voluntad el conjuro "salto" (La distancia de salto que puedes cubrir es triplicada durante un minuto) desde él usando una carga y una acción adicional, pero solo tú podrás ser el objetivo.</p>
+      <p>Tiene 3 cargas que se recargan tras cada descanso largo</p>`,
+      ...props,
+    };
+  },
+  ringOfMinorProtection(props) {
+    return {
+      name: 'ringOfMinorProtection',
+      type: 'ring',
+      translation: 'Anillo de protección menor',
+      unidentifiedName: 'Anillo con un pequeño escudo',
+      rarity: 'common',
+      price: { gp: 50 },
+      weight: 0.02,
+      description: () => `<p>Require sintonización</p>
+      <p>El portador gana un bonus de +1 a la CA, pero sólo contra los ataques de oportunidad</p>`,
       ...props,
     };
   },
