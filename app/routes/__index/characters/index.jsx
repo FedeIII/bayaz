@@ -3,6 +3,7 @@ import { Link, useLoaderData } from '@remix-run/react';
 
 import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
+import withLoading from '~/components/HOCs/withLoading';
 
 import styles from '~/components/characters/characters.css';
 export const links = () => {
@@ -37,4 +38,4 @@ function CharactersMenu() {
   ));
 }
 
-export default CharactersMenu;
+export default withLoading(CharactersMenu);

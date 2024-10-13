@@ -7,6 +7,7 @@ import { translateClass, translateRace } from '~/domain/characters';
 import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
 import { getUser } from '~/services/user.server';
+import withLoading from '~/components/HOCs/withLoading';
 
 import styles from '~/components/party.css';
 export const links = () => {
@@ -159,4 +160,4 @@ function AllPCs() {
   );
 }
 
-export default AllPCs;
+export default withLoading(AllPCs);
