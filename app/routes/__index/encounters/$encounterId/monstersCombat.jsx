@@ -16,10 +16,12 @@ import { CharacterItem } from '~/components/modal/characterItem';
 import { useTitle } from '~/components/hooks/useTitle';
 import NumericInput from '~/components/inputs/numeric';
 import { useState } from 'react';
+import { getMonstersFromEnvironment } from '~/domain/encounters/monsters';
 
 export function MonstersCombat(props) {
   const {
     refsList,
+    MAX_SEARCH_MOBS,
     openCharacterModal,
     initiativesList,
     initiatives,
@@ -35,6 +37,7 @@ export function MonstersCombat(props) {
     pcs,
     partyId,
     updatePcs,
+    addMonsterToEncounter,
   } = props;
 
   const { encounter } = useLoaderData();
@@ -54,6 +57,16 @@ export function MonstersCombat(props) {
   );
 
   const [notes, setNotes] = useState(initNotes);
+  const [newMonsterName, setNewMonsterName] = useState('');
+  const allMonsters = getMonstersFromEnvironment();
+
+  const filteredMonsters = allMonsters.filter(
+    monster =>
+      monster.name.toLowerCase().includes(newMonsterName.toLowerCase()) ||
+      Monster(monster)
+        .translation?.toLowerCase()
+        .includes(newMonsterName.toLowerCase())
+  );
 
   function onNotesChange(characterId, newNotes) {
     setNotes(old => ({ ...old, [characterId]: newNotes }));
@@ -61,6 +74,11 @@ export function MonstersCombat(props) {
 
   function saveNotes() {
     setEncounterNotes(encounterId, notes);
+  }
+
+  function handleAddMonster(monsterName) {
+    setNewMonsterName('');
+    addMonsterToEncounter(monsterName);
   }
 
   return (
@@ -109,6 +127,39 @@ export function MonstersCombat(props) {
             ))}
           </ol>
         </Card>
+        <Card title="Añadir NPC">
+          <input
+            type="text"
+            value={newMonsterName}
+            onChange={e => setNewMonsterName(e.target.value)}
+            placeholder="Buscar NPC..."
+            className="encounters__monster-search"
+          />
+          <ul className="encounters__initiative-list">
+            {newMonsterName &&
+              filteredMonsters
+                .slice(0, MAX_SEARCH_MOBS)
+                .map((monster, monsterIndex) => (
+                  <li
+                    key={monster.name}
+                    onClick={() => handleAddMonster(monster.name)}
+                    className="encounters__initiative-item"
+                  >
+                    <CharacterItem
+                      ref={refsList.searchMobs.current[monsterIndex]}
+                      character={Monster(monster)}
+                      nick={monster.nick}
+                      openModal={openCharacterModal(
+                        Monster(monster),
+                        'searchMobs',
+                        monsterIndex
+                      )}
+                      openOnRightClick
+                    />
+                  </li>
+                ))}
+          </ul>
+        </Card>
       </div>
 
       <div className="encounters__container">
@@ -129,13 +180,12 @@ export function MonstersCombat(props) {
                     ref={refsList.mobs.current[monsterIndex]}
                     character={Monster(monster.name)}
                     nick={monster.nick}
-                    charSection="mobs"
-                    charIndex={monsterIndex}
                     openModal={openCharacterModal(
                       Monster(monster.name),
                       'mobs',
                       monsterIndex
                     )}
+                    openOnRightClick
                   />
                 )}
                 className={`encounters__character-card ${

@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { createMonsterForEncounter } from '~/domain/encounters/monsters';
 
 import { mongoose } from '~/services/db.server';
 
@@ -103,6 +104,13 @@ export async function healMonster(encounterId, monsterId, healing) {
   }
 
   return updatedEncounter;
+}
+
+export async function addMonsterToEncounter(encounterId, monsterName) {
+  const encounter = await getEncounter(encounterId);
+  const monster = createMonsterForEncounter(monsterName);
+  encounter.monsters.push(monster);
+  return await encounter.save();
 }
 
 export async function updateEncounterNotes(encounterId, notes) {

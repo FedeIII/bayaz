@@ -11,8 +11,9 @@ import {
 
 import { getPc, healPc, updatePc } from '~/services/pc.server';
 import { addMonstersKilled, getParty } from '~/services/party.server';
-import { health } from '~/domain/encounters/monsters';
+import { health, Monster, sortByXp } from '~/domain/encounters/monsters';
 import {
+  addMonsterToEncounter,
   damageMonster,
   getEncounter,
   healMonster,
@@ -43,12 +44,19 @@ export const links = () => {
   ];
 };
 
+const MAX_SEARCH_MOBS = 5;
+
 export const loader = async ({ params }) => {
-  const encounter = await getEncounter(params.encounterId);
+  const encounterModel = await getEncounter(params.encounterId);
+  const encounter = encounterModel.toJSON();
 
   let npcs;
   if (encounter.npcs?.length) {
     npcs = await Promise.all(encounter.npcs.map(getPc));
+  }
+
+  if (encounter.monsters?.length) {
+    encounter.monsters = sortByXp(encounter.monsters.map(Monster));
   }
 
   return json({ encounter, npcs });
@@ -62,6 +70,7 @@ export const action = async ({ request }) => {
   const partyId = formData.get('partyId');
   const isNpcs = formData.get('isNpcs');
   const action = formData.get('action');
+  const monsterName = formData.get('monsterName');
 
   if (action === 'set-initiative') {
     const pcId = formData.get('id');
@@ -74,6 +83,10 @@ export const action = async ({ request }) => {
   }
 
   const encounter = await getEncounter(encounterId);
+
+  if (action === 'add-monster') {
+    return await addMonsterToEncounter(encounterId, monsterName);
+  }
 
   if (action === 'set-initiative') {
     return encounter;
@@ -190,6 +203,7 @@ function PartyCombat() {
 
   const [refsList, setRefsList] = useState({
     mobs: useRef(monsters.map(createRef)),
+    searchMobs: useRef(Array(MAX_SEARCH_MOBS).fill(createRef())),
   });
 
   const [
@@ -263,6 +277,13 @@ function PartyCombat() {
       }));
   }
 
+  function addMonsterToEncounter(monsterName) {
+    submit(
+      { action: 'add-monster', encounterId, monsterName },
+      { method: 'post' }
+    );
+  }
+
   function setEncounterNotes(encounterId, notes) {
     submit({ action: 'set-notes', encounterId, ...notes }, { method: 'post' });
   }
@@ -320,6 +341,8 @@ function PartyCombat() {
       {!isNpcs && (
         <MonstersCombat
           refsList={refsList}
+          MAX_SEARCH_MOBS={MAX_SEARCH_MOBS}
+          addMonsterToEncounter={addMonsterToEncounter}
           openCharacterModal={openCharacterModal}
           initiativesList={initiativesList}
           initiatives={initiatives}

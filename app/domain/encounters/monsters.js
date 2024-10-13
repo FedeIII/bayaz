@@ -1,3 +1,4 @@
+import { rollDice } from '../random';
 import { getXpMultiplierForMonsters } from './encounters';
 import { MONSTER_DETAILS_LIST } from './monsterDetailsList';
 import { MONSTER_IMAGES } from './monsterImages';
@@ -6,6 +7,7 @@ import { translateMonster } from './monsterTranslations';
 
 export function Monster(monster) {
   if (isString(monster)) monster = getMonster(monster);
+  if (!monster.xp) monster = { ...monster, ...getMonster(monster.name) };
   return {
     ...monster,
     xp: parseInt(monster.xp, 10),
@@ -207,4 +209,16 @@ export function getSpecialSkills(monster) {
     }),
     {}
   );
+}
+
+export function createMonsterForEncounter(monsterName, monsterNick) {
+  const monster = getMonster(monsterName, monsterNick);
+  const maxHp = rollDice(getMonsterHitPoints(monster));
+
+  return {
+    name: monster.name,
+    nick: monster.nick,
+    maxHp,
+    hp: maxHp,
+  };
 }

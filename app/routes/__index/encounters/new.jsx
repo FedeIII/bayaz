@@ -66,15 +66,9 @@ export const action = async ({ request }) => {
   const monstersNames = formData.get('monsters');
   const monsterNicks = formData.get('monsterNicks').split('|');
 
-  const monsters = getMonsters(monstersNames).map((monster, i) => {
-    const maxHp = rollDice(getMonsterHitPoints(monster));
-    return {
-      name: monster.name,
-      nick: monsterNicks[i] || null,
-      maxHp,
-      hp: maxHp,
-    };
-  });
+  const monsters = getMonsters(monstersNames).map((monster, i) =>
+    createMonsterForEncounter(monster.name, monsterNicks[i])
+  );
 
   const encounter = await createEncounter({
     group: encounterGroup,
@@ -557,9 +551,10 @@ function NewEncounter() {
       monsterList.filter(m => {
         const mob = isMonster(m) ? Monster(m) : m;
         return (
-          mob.translation
+          (mob.translation
             ?.toLowerCase()
-            .includes(filters.mobName.toLowerCase()) &&
+            .includes(filters.mobName.toLowerCase()) ||
+            mob.name.toLowerCase().includes(filters.mobName.toLowerCase())) &&
           (!filters.xp || mob.xp <= filters.xp) &&
           (!filters.cr || mob.challenge >= filters.cr) &&
           (!filters.size || mob.size === filters.size)
