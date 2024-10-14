@@ -11,7 +11,8 @@ export function ARMORS() {
         price: { gp: 5, sp: 0, cp: 0 },
         weight: 4,
         properties: {
-          AC: ({ dex }) => 11 + getStatMod(dex),
+          baseAC: 11,
+          extraAC: ({ dex }) => getStatMod(dex),
           stealthDisadvantage: true,
         },
         ...props,
@@ -26,7 +27,8 @@ export function ARMORS() {
         price: { gp: 10, sp: 0, cp: 0 },
         weight: 5,
         properties: {
-          AC: ({ dex }) => 11 + getStatMod(dex),
+          baseAC: 11,
+          extraAC: ({ dex }) => getStatMod(dex),
         },
         ...props,
       };
@@ -40,7 +42,8 @@ export function ARMORS() {
         price: { gp: 45, sp: 0, cp: 0 },
         weight: 6.5,
         properties: {
-          AC: ({ dex }) => 12 + getStatMod(dex),
+          baseAC: 12,
+          extraAC: ({ dex }) => getStatMod(dex),
         },
         ...props,
       };
@@ -54,7 +57,8 @@ export function ARMORS() {
         price: { gp: 10, sp: 0, cp: 0 },
         weight: 6,
         properties: {
-          AC: ({ dex }) => 12 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+          baseAC: 12,
+          extraAC: ({ dex }) => (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
         },
         ...props,
       };
@@ -68,7 +72,8 @@ export function ARMORS() {
         price: { gp: 50, sp: 0, cp: 0 },
         weight: 10,
         properties: {
-          AC: ({ dex }) => 13 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+          baseAC: 13,
+          extraAC: ({ dex }) => (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
         },
         ...props,
       };
@@ -82,7 +87,8 @@ export function ARMORS() {
         price: { gp: 50, sp: 0, cp: 0 },
         weight: 22,
         properties: {
-          AC: ({ dex }) => 14 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+          baseAC: 14,
+          extraAC: ({ dex }) => (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
           stealthDisadvantage: true,
         },
         ...props,
@@ -97,7 +103,8 @@ export function ARMORS() {
         price: { gp: 400, sp: 0, cp: 0 },
         weight: 10,
         properties: {
-          AC: ({ dex }) => 14 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+          baseAC: 14,
+          extraAC: ({ dex }) => (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
         },
         ...props,
       };
@@ -111,7 +118,8 @@ export function ARMORS() {
         price: { gp: 750, sp: 0, cp: 0 },
         weight: 20,
         properties: {
-          AC: ({ dex }) => 15 + (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
+          baseAC: 15,
+          extraAC: ({ dex }) => (getStatMod(dex) > 2 ? 2 : getStatMod(dex)),
           stealthDisadvantage: true,
         },
         ...props,
@@ -126,7 +134,7 @@ export function ARMORS() {
         price: { gp: 30, sp: 0, cp: 0 },
         weight: 20,
         properties: {
-          AC: () => 14,
+          baseAC: 14,
           stealthDisadvantage: true,
         },
         ...props,
@@ -141,7 +149,7 @@ export function ARMORS() {
         price: { gp: 75, sp: 0, cp: 0 },
         weight: 25,
         properties: {
-          AC: () => 16,
+          baseAC: 16,
           stealthDisadvantage: true,
           strength: 13,
         },
@@ -157,7 +165,7 @@ export function ARMORS() {
         price: { gp: 200, sp: 0, cp: 0 },
         weight: 30,
         properties: {
-          AC: () => 17,
+          baseAC: 17,
           stealthDisadvantage: true,
           strength: 15,
         },
@@ -173,7 +181,7 @@ export function ARMORS() {
         price: { gp: 1500, sp: 0, cp: 0 },
         weight: 32,
         properties: {
-          AC: () => 18,
+          baseAC: 18,
           stealthDisadvantage: true,
           strength: 15,
         },
@@ -189,7 +197,7 @@ export function ARMORS() {
         price: { gp: 10, sp: 0, cp: 0 },
         weight: 3,
         properties: {
-          AC: () => 2,
+          baseAC: 2,
         },
         ...props,
       };
@@ -203,7 +211,7 @@ export function ARMORS() {
         price: { gp: 500, sp: 0, cp: 0 },
         weight: 3,
         properties: {
-          AC: () => 3,
+          baseAC: 3,
         },
         ...props,
       });

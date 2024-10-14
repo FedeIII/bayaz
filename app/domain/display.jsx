@@ -20,6 +20,8 @@ import {
   hasToImproveAbilityScore,
   translateClass,
   translateSavingThrowStatus,
+  getItemExtraArmorClass,
+  getItemBaseArmorClass,
 } from './characters';
 import {
   getAllHeavyArmors,
@@ -625,8 +627,21 @@ export function getAcBreakdown(pc) {
       : armor
       ? {
           title: 'Armadura',
-          base: getItemArmorClass(pc, armor.name),
+          base: getItemBaseArmorClass(armor.name),
           extras: [
+            ...(getItemExtraArmorClass(armor.name, pc)
+              ? [
+                  {
+                    title: 'DEX',
+                    ac:
+                      increment(getItemExtraArmorClass(armor.name, pc)) +
+                      (getStatMod(getStat(pc, 'dex')) >
+                      getItemExtraArmorClass(armor.name, pc)
+                        ? ' (max)'
+                        : ''),
+                  },
+                ]
+              : []),
             ...(pClass === 'fighter' && getFightingStyle(pc) === 'defense'
               ? [
                   {

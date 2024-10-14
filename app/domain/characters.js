@@ -2748,7 +2748,15 @@ export function getItemProficiencies(pc) {
 }
 
 export function getItemArmorClass(pc, itemName) {
-  return getItem(itemName).properties.AC(getStats(pc));
+  return getItemBaseArmorClass(itemName) + getItemExtraArmorClass(itemName, pc);
+}
+
+export function getItemBaseArmorClass(itemName) {
+  return getItem(itemName).properties.baseAC;
+}
+
+export function getItemExtraArmorClass(itemName, pc) {
+  return getItem(itemName).properties.extraAC?.(getStats(pc)) || 0;
 }
 
 export function getArmorClass(pc) {
@@ -2793,7 +2801,11 @@ export function getArmorClass(pc) {
 
 export function getExtraArmorClass(pc) {
   const shield = getItem(pc.items.equipment.shield);
-  if (shield) return shield.properties.AC(getStats(pc));
+  if (shield)
+    return (
+      shield.properties.baseAC +
+      (shield.properties.extraAC?.(getStats(pc)) || 0)
+    );
   else return 0;
 }
 
