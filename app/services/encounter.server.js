@@ -63,9 +63,14 @@ export async function getEncounters() {
   return encounters;
 }
 
-export async function getEncounter(id) {
-  const encounter = await Encounter.findOne({ id }).exec();
+export async function getEncounterModel(id) {
+  const encounter = await Encounter.findOne({ id });
   return encounter;
+}
+
+export async function getEncounter(id) {
+  const encounterModel = await getEncounterModel(id);
+  return encounterModel.toJSON();
 }
 
 export async function deleteEncounter(id) {
@@ -84,7 +89,7 @@ export async function damageMonster(encounterId, monsterId, damage) {
 }
 
 export async function healMonster(encounterId, monsterId, healing) {
-  const encounter = await getEncounter(encounterId);
+  const encounter = await getEncounterModel(encounterId);
 
   const monster = encounter.monsters.find(m => m.id === monsterId);
 
@@ -107,14 +112,18 @@ export async function healMonster(encounterId, monsterId, healing) {
 }
 
 export async function addMonsterToEncounter(encounterId, monsterName) {
-  const encounter = await getEncounter(encounterId);
-  const monster = createMonsterForEncounter(monsterName);
+  const encounter = await getEncounterModel(encounterId);
+  const monster = createMonsterForEncounter(
+    monsterName,
+    null,
+    encounter.monsters
+  );
   encounter.monsters.push(monster);
   return await encounter.save();
 }
 
 export async function updateEncounterNotes(encounterId, notes) {
-  const encounter = await getEncounter(encounterId);
+  const encounter = await getEncounterModel(encounterId);
   if (!encounter.notes) {
     encounter.notes = {};
     await encounter.save();

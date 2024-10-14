@@ -47,8 +47,7 @@ export const links = () => {
 const MAX_SEARCH_MOBS = 5;
 
 export const loader = async ({ params }) => {
-  const encounterModel = await getEncounter(params.encounterId);
-  const encounter = encounterModel.toJSON();
+  const encounter = await getEncounter(params.encounterId);
 
   let npcs;
   if (encounter.npcs?.length) {

@@ -15,9 +15,10 @@ import {
 } from '~/domain/encounters/encounters';
 import { getPartyMaxLevel } from '~/domain/party/party';
 import {
-  getMonsterHitPoints,
+  createMonsterForEncounter,
   getMonsters,
   getMonstersFromEnvironment,
+  getNewMonsterNickForEncounter,
   groupByCR,
   isMonster,
   isMonsterSuitable,
@@ -41,6 +42,7 @@ import { getNpcs } from '~/services/pc.server';
 import { npcsToMonsters } from '~/domain/npc/npc';
 import { useArrayState } from '~/components/hooks/useArrayState';
 import NumericInput from '~/components/inputs/numeric';
+import withLoading from '~/components/HOCs/withLoading';
 
 import styles from '~/components/newEncounter.css';
 import placesStyles from '~/components/places.css';
@@ -63,11 +65,15 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const encounterGroup = formData.get('encounterGroup');
   const encounterName = formData.get('encounterName');
-  const monstersNames = formData.get('monsters');
+  const monstersNames = formData.get('monsters').split('|');
   const monsterNicks = formData.get('monsterNicks').split('|');
 
   const monsters = getMonsters(monstersNames).map((monster, i) =>
-    createMonsterForEncounter(monster.name, monsterNicks[i])
+    createMonsterForEncounter(
+      monster.name,
+      monsterNicks[i],
+      monstersNames.map((name, i) => ({ name, nick: monsterNicks[i] }))
+    )
   );
 
   const encounter = await createEncounter({
@@ -273,10 +279,11 @@ function SelectedMonsters(props) {
   const [getEditNick, setEditNick] = useArrayState(
     encounterMonsters.map(() => false)
   );
+  const [getNick, setNick] = useArrayState(encounterMonsters.map(m => m.nick));
 
   function onEditNickBlur(i) {
-    return e => {
-      setMonsterNick(i, e.target.value);
+    return () => {
+      setMonsterNick(i, getNick(i));
       setEditNick(i, false);
     };
   }
@@ -286,6 +293,7 @@ function SelectedMonsters(props) {
       e.stopPropagation();
       e.preventDefault();
       setEditNick(i, true);
+      setNick(i, Monster(encounterMonsters[i]).nick);
     };
   }
 
@@ -354,10 +362,12 @@ function SelectedMonsters(props) {
           {sortByXp(encounterMonsters).map((m, i, all) =>
             !!getEditNick(i) ? (
               <input
+                className="cards__button-card"
                 key={m.nick || m.name + i}
-                value={m.nick}
+                value={getNick(i)}
                 style={getMonsterPositionStyle(i, all.length)}
                 onBlur={onEditNickBlur(i)}
+                onChange={e => setNick(i, e.target.value)}
               />
             ) : (
               <div
@@ -444,46 +454,47 @@ function MonsterCatalog(props) {
             </div>
           </div>
           <ul className="encounter__cr-monsters">
-            {monstersByCr.map((monster, i) => (
-              <li
-                className="encounter__monster-button"
-                data-suitable={isMonsterSuitable(
-                  monster,
-                  encounterMonsters.length,
-                  numberOfPcs,
-                  xpThreshold,
-                  encounterXp,
-                  partyMaxLevel
-                )}
-                onClick={() => addMonsterToEncounter(monster)}
-                key={monster.name + i}
-              >
-                <div className="encounter__monster-info">
-                  <span className="encounter__monster-name">
-                    <CharacterItem
-                      ref={monsterRefs[Monster(monster).name].current[0]}
-                      character={Monster(monster)}
-                      charSection={Monster(monster).name}
-                      openModal={openMonsterModal(
-                        Monster(monster),
-                        Monster(monster).name
-                      )}
-                      openOnRightClick
-                    />
-                  </span>{' '}
-                  <div className="encounter__monster-stats">
-                    <span className="encounter__monster-xp">
-                      {Monster(monster).xp}
-                    </span>
-                    {crIndex === 0 && (
-                      <span className="encounter__monster-cr">
-                        {Monster(monster).challenge}
+            {monstersByCr.map((monsterName, i) => {
+              const monster = Monster(monsterName);
+
+              return (
+                <li
+                  className="encounter__monster-button"
+                  data-suitable={isMonsterSuitable(
+                    monsterName,
+                    encounterMonsters.length,
+                    numberOfPcs,
+                    xpThreshold,
+                    encounterXp,
+                    partyMaxLevel
+                  )}
+                  onClick={() => addMonsterToEncounter(monsterName)}
+                  key={monsterName + i}
+                >
+                  <div className="encounter__monster-info">
+                    <span className="encounter__monster-name">
+                      <CharacterItem
+                        ref={monsterRefs[monster.name].current[0]}
+                        character={monster}
+                        charSection={monsterName}
+                        openModal={openMonsterModal(monster, monsterName)}
+                        openOnRightClick
+                      />
+                    </span>{' '}
+                    <div className="encounter__monster-stats">
+                      <span className="encounter__monster-xp">
+                        {monster.xp}
                       </span>
-                    )}
+                      {crIndex === 0 && (
+                        <span className="encounter__monster-cr">
+                          {monster.challenge}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         </div>
       ))}
@@ -533,6 +544,10 @@ function NewEncounter() {
 
   function addMonsterToEncounter(monster) {
     setEncounterMonsters(list => [...list, monster]);
+
+    const nick = getNewMonsterNickForEncounter(encounterMonsters, monster);
+
+    setMonsterNick(encounterMonsters.length, nick);
   }
 
   function removeMonsterFromEncounter(monsterIndex) {
@@ -639,4 +654,4 @@ function NewEncounter() {
   );
 }
 
-export default NewEncounter;
+export default withLoading(NewEncounter);

@@ -5,20 +5,17 @@ import { isDm } from './user';
 const menuLinks = [
   { name: 'Perfil', url: '/', level: 0, isForPlayers: true },
   { name: 'Dados', url: '/dice', level: 0, isForPlayers: true },
-  { name: 'Lugares', url: '/places', level: 0, isForPlayers: false },
-  { name: 'Mapa', url: '/map', level: 0, isForPlayers: false },
+  { name: 'Lugares', url: '/places', level: 0 },
+  { name: 'Mapa', url: '/map', level: 0 },
   { name: 'Personajes', url: '/characters', level: 0, isForPlayers: true },
-  { name: 'NPCs', url: '/characters/npc', level: 1, isForPlayers: false },
-  {
-    name: 'Quick NPC',
-    url: '/characters/npc/quick',
-    level: 2,
-    isForPlayers: false,
-  },
-  { name: 'Party', url: '/party', level: 0, isForPlayers: false },
-  { name: 'Encuentros', url: '/encounters', level: 0, isForPlayers: false },
-  { name: 'Items', url: '/items', level: 0, isForPlayers: false },
-  { name: 'Glosario', url: '/glossary', level: 0, isForPlayers: false },
+  /**/ { name: 'NPCs', url: '/characters/npc/list', level: 1 },
+  /**/ { name: 'Quick NPC', url: '/characters/npc/quick', level: 2 },
+  { name: 'Party', url: '/party', level: 0 },
+  { name: 'Encuentros', url: '/encounters', level: 0 },
+  /**/ { name: 'Crear', url: '/encounters/new', level: 1 },
+  /**/ { name: 'Lista', url: '/encounters/list', level: 1 },
+  { name: 'Items', url: '/items', level: 0 },
+  { name: 'Glosario', url: '/glossary', level: 0 },
 ];
 
 export function getBasicMenuItems(user) {

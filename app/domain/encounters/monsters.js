@@ -7,7 +7,8 @@ import { translateMonster } from './monsterTranslations';
 
 export function Monster(monster) {
   if (isString(monster)) monster = getMonster(monster);
-  if (!monster.xp) monster = { ...monster, ...getMonster(monster.name) };
+  if (!monster.xp)
+    monster = { ...getMonster(monster.name, monster.nick), ...monster };
   return {
     ...monster,
     xp: parseInt(monster.xp, 10),
@@ -211,13 +212,37 @@ export function getSpecialSkills(monster) {
   );
 }
 
-export function createMonsterForEncounter(monsterName, monsterNick) {
+export function getNewMonsterNickForEncounter(encounterMonsters, monster) {
+  const monsterWithSameName = encounterMonsters.filter(
+    m => m.name === monster.name
+  );
+  const biggestIndex = monsterWithSameName.reduce((biggest, m) => {
+    const index = /^.* (\d*)$/.exec(m.nick)?.[1] || 1;
+    return Number.isNaN(index)
+      ? biggest
+      : biggest < index
+      ? parseInt(index, 10)
+      : biggest;
+  }, 0);
+
+  return `${Monster(monster).translation}${
+    biggestIndex > 0 ? ' ' + (biggestIndex + 1) : ''
+  }`;
+}
+
+export function createMonsterForEncounter(
+  monsterName,
+  monsterNick,
+  encounterMonsters = []
+) {
   const monster = getMonster(monsterName, monsterNick);
   const maxHp = rollDice(getMonsterHitPoints(monster));
+  const nick =
+    monsterNick || getNewMonsterNickForEncounter(encounterMonsters, monster);
 
   return {
     name: monster.name,
-    nick: monster.nick,
+    nick,
     maxHp,
     hp: maxHp,
   };

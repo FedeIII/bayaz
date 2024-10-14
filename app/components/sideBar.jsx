@@ -38,7 +38,6 @@ export function SideBar(props) {
                 <span className="app__button-label">{menuItem.header}</span>
               )}
               <Link
-                key={menuItem.url}
                 to={menuItem.url}
                 className={`app__button ${
                   menuItem.level === 0 ? 'app__main-button' : ''

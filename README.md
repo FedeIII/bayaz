@@ -9,7 +9,6 @@
 - Table with filtersto show properties from the Party: AC, characteristics, skills, equipment, etc
 - Autofill Dominion and Subdominion when creating a settlement from the map
 - Save last position in the map
-- Keep names of monsters for nicks as default
 - Remove magic-items and deps
 - Bug: right click on spells during character creation advances to next step
 - Extract textarea component

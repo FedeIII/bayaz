@@ -15,6 +15,7 @@ import {
 import usePcsFromSession from '~/components/hooks/usePcsFromSession';
 import { useContext } from 'react';
 import PartyTemplateContext from '~/components/contexts/partyTemplateContext';
+import withLoading from '~/components/HOCs/withLoading';
 
 import styles from '~/components/encounterList.css';
 export const links = () => {
@@ -112,4 +113,4 @@ function EncounterList() {
   );
 }
 
-export default EncounterList;
+export default withLoading(EncounterList);
