@@ -29,8 +29,8 @@ import { translateMonster } from '~/domain/encounters/monsterTranslations';
 import { rollDice } from '~/domain/random';
 import { npcHealth } from '~/domain/npc/npc';
 import { endPartyEncounter } from '~/domain/mutations/partyMutations';
-import { NpcsCombat } from './npcsCombat';
-import { MonstersCombat } from './monstersCombat';
+import { NpcsCombat } from '~/routes/__index/encounters/$encounterId/npcsCombat';
+import { MonstersCombat } from '~/routes/__index/encounters/$encounterId/monstersCombat';
 import { replaceAt } from '~/utils/array';
 import { getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
@@ -179,9 +179,10 @@ function PartyCombat() {
   const { encounter, npcs } = useLoaderData();
   const { id: encounterId, monsters } = encounter;
   const [pcs, partyId, updatePcs] = usePcsFromSession();
+  const pcsPlusNpcs = useMemo(() => [...pcs, ...npcs], [pcs, npcs]);
   const submit = useSubmit();
 
-  const isNpcs = !!npcs?.length;
+  const isNpcs = !!npcs?.length && !monsters?.length;
   const mobs = isNpcs ? npcs : monsters;
 
   const monsterContext = useContext(MonstersContext) || {};
@@ -215,15 +216,15 @@ function PartyCombat() {
 
   const [initiatives, setInitiatives] = useState({
     mobs: mobs.map((_, i) => monstersState?.[i]?.initiative || 0),
-    pcs: pcs.map(pc => pc.initiative || 0),
+    pcs: pcsPlusNpcs.map(pc => pc.initiative || 0),
   });
 
   useEffect(() => {
     setInitiatives(old => ({
       mobs: mobs.map((_, i) => old.mobs[i] || 0),
-      pcs: pcs.map(pc => pc.initiative || 0),
+      pcs: pcsPlusNpcs.map(pc => pc.initiative || 0),
     }));
-  }, [mobs, pcs]);
+  }, [mobs, pcsPlusNpcs]);
 
   useEffect(() => {
     setEncounterIdState(encounterId);
@@ -251,13 +252,13 @@ function PartyCombat() {
       ...initiatives.pcs
         .map((pcInitiative, i) => ({
           type: 'pcs',
-          name: pcs[i].name,
+          name: pcsPlusNpcs[i].name,
           value: pcInitiative,
           index: i,
         }))
-        .filter((_, i) => pcs[i].hitPoints > 0),
+        .filter((_, i) => pcsPlusNpcs[i].hitPoints > 0),
     ].sort((a, b) => b.value - a.value);
-  }, [initiatives.mobs, initiatives.pcs, mobs, pcs]);
+  }, [initiatives.mobs, initiatives.pcs, mobs, pcsPlusNpcs]);
 
   function resetInitiatives() {
     setInitiatives({
@@ -371,8 +372,9 @@ function PartyCombat() {
             submit(
               {
                 action: 'set-initiative',
-                id: pcs[i].id,
+                id: pcsPlusNpcs[i].id,
                 value: e.target.value,
+                encounterId,
               },
               { method: 'post' }
             );
@@ -382,7 +384,7 @@ function PartyCombat() {
           setHover={setHover}
           resetInitiatives={resetInitiatives}
           setMobInitiatives={setMobInitiatives}
-          pcs={pcs}
+          pcs={pcsPlusNpcs}
           partyId={partyId}
           updatePcs={updatePcs}
         />

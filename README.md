@@ -4,6 +4,7 @@
 
 ## TO DOs
 
+- Review Npcs combat (monstersCombat uses mobs + npcs)
 - Make settlements and places notes easier editable
 - Encounter list filters and sorting
 - Table with filtersto show properties from the Party: AC, characteristics, skills, equipment, etc
