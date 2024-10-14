@@ -431,6 +431,11 @@ export async function getNpcs() {
   return pcs;
 }
 
+export async function getNpcByName(name) {
+  const npc = await Pc.findOne({ name }).exec();
+  return npc;
+}
+
 export async function getUserPcs(userId) {
   const pcs = await Pc.find({ userId });
   return pcs;

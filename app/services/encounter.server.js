@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { createMonsterForEncounter } from '~/domain/encounters/monsters';
+import { getNpcByName } from './pc.server';
 
 import { mongoose } from '~/services/db.server';
 
@@ -119,6 +120,13 @@ export async function addMonsterToEncounter(encounterId, monsterName) {
     encounter.monsters
   );
   encounter.monsters.push(monster);
+  return await encounter.save();
+}
+
+export async function addNpcToEncounter(encounterId, npcName) {
+  const encounter = await getEncounterModel(encounterId);
+  const npc = await getNpcByName(npcName);
+  encounter.npcs.push(npc.id);
   return await encounter.save();
 }
 

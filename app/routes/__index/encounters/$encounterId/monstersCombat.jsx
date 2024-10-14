@@ -38,9 +38,10 @@ export function MonstersCombat(props) {
     partyId,
     updatePcs,
     addMonsterToEncounter,
+    addNpcToEncounter,
   } = props;
 
-  const { encounter } = useLoaderData();
+  const { encounter, allNpcs } = useLoaderData();
   const {
     id: encounterId,
     monsters: monstersStats,
@@ -68,6 +69,10 @@ export function MonstersCombat(props) {
         .includes(newMonsterName.toLowerCase())
   );
 
+  const filteredNpcs = allNpcs.filter(npc =>
+    npc.name.toLowerCase().includes(newMonsterName.toLowerCase())
+  );
+
   function onNotesChange(characterId, newNotes) {
     setNotes(old => ({ ...old, [characterId]: newNotes }));
   }
@@ -79,6 +84,11 @@ export function MonstersCombat(props) {
   function handleAddMonster(monsterName) {
     setNewMonsterName('');
     addMonsterToEncounter(monsterName);
+  }
+
+  function handleAddNpc(npcName) {
+    setNewMonsterName('');
+    addNpcToEncounter(npcName);
   }
 
   return (
@@ -158,6 +168,16 @@ export function MonstersCombat(props) {
                     />
                   </li>
                 ))}
+            {newMonsterName &&
+              filteredNpcs.map(npc => (
+                <li
+                  key={npc.id}
+                  onClick={() => handleAddNpc(npc.name)}
+                  className="encounters__initiative-item"
+                >
+                  {npc.name}
+                </li>
+              ))}
           </ul>
         </Card>
       </div>

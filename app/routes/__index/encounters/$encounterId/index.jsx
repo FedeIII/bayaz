@@ -9,11 +9,12 @@ import {
   useState,
 } from 'react';
 
-import { getPc, healPc, updatePc } from '~/services/pc.server';
+import { getNpcs, getPc, healPc, updatePc } from '~/services/pc.server';
 import { addMonstersKilled, getParty } from '~/services/party.server';
 import { health, Monster, sortByXp } from '~/domain/encounters/monsters';
 import {
   addMonsterToEncounter,
+  addNpcToEncounter,
   damageMonster,
   getEncounter,
   healMonster,
@@ -47,7 +48,10 @@ export const links = () => {
 const MAX_SEARCH_MOBS = 5;
 
 export const loader = async ({ params }) => {
-  const encounter = await getEncounter(params.encounterId);
+  const [encounter, allNpcs] = await Promise.all([
+    getEncounter(params.encounterId),
+    getNpcs(),
+  ]);
 
   let npcs;
   if (encounter.npcs?.length) {
@@ -58,7 +62,7 @@ export const loader = async ({ params }) => {
     encounter.monsters = sortByXp(encounter.monsters.map(Monster));
   }
 
-  return json({ encounter, npcs });
+  return json({ encounter, npcs, allNpcs });
 };
 
 export const action = async ({ request }) => {
@@ -70,6 +74,7 @@ export const action = async ({ request }) => {
   const isNpcs = formData.get('isNpcs');
   const action = formData.get('action');
   const monsterName = formData.get('monsterName');
+  const npcName = formData.get('npcName');
 
   if (action === 'set-initiative') {
     const pcId = formData.get('id');
@@ -85,6 +90,10 @@ export const action = async ({ request }) => {
 
   if (action === 'add-monster') {
     return await addMonsterToEncounter(encounterId, monsterName);
+  }
+
+  if (action === 'add-npc') {
+    return await addNpcToEncounter(encounterId, npcName);
   }
 
   if (action === 'set-initiative') {
@@ -284,6 +293,10 @@ function PartyCombat() {
     );
   }
 
+  function addNpcToEncounter(npcName) {
+    submit({ action: 'add-npc', encounterId, npcName }, { method: 'post' });
+  }
+
   function setEncounterNotes(encounterId, notes) {
     submit({ action: 'set-notes', encounterId, ...notes }, { method: 'post' });
   }
@@ -343,6 +356,7 @@ function PartyCombat() {
           refsList={refsList}
           MAX_SEARCH_MOBS={MAX_SEARCH_MOBS}
           addMonsterToEncounter={addMonsterToEncounter}
+          addNpcToEncounter={addNpcToEncounter}
           openCharacterModal={openCharacterModal}
           initiativesList={initiativesList}
           initiatives={initiatives}
