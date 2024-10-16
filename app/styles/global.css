@@ -32,6 +32,7 @@ body {
   --color-gray: #dadad8;
   --color-x-gray: #eaeaea;
 
+  --font-size-xxxs: 0.7vw;
   --font-size-xxs: 0.8vw;
   --font-size-xs: 0.9vw;
   --font-size-s: 1vw;

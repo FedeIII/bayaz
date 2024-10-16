@@ -253,7 +253,6 @@ export const MONSTER_TRANSLATIONS = {
   'hook horror': 'Horror ganchudo',
   'killer whale': 'Orca',
   knight: 'Caballero',
-  'kuo-toa monitor': 'Vigilante kuo-toa',
   manticore: 'Manticora',
   minotaur: 'Minotauro',
   mummy: 'Momia',

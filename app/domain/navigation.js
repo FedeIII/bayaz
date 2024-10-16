@@ -41,17 +41,8 @@ export function getAllMenuItems({
 
   if (isDm && partyIdState) {
     items = insertAfter(item => item.name === 'Party', items, [
-      { name: partyIdState, url: `/party/${partyIdState}`, level: 1 },
-    ]);
-  }
-
-  if (isDm && partyIdState && encounterIdState) {
-    items = insertAfter(item => item.name === 'Encuentros', items, [
-      {
-        name: 'Combate',
-        url: `/party/${partyIdState}/encounters/${encounterIdState}`,
-        level: 2,
-      },
+      { name: 'Sesión', url: `/party/${partyIdState}`, level: 1 },
+      { name: 'PCs', url: `/party/${partyIdState}/pcs`, level: 1 },
     ]);
   }
 

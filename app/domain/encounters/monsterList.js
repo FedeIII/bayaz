@@ -1969,7 +1969,7 @@ const ONLY_MONSTERS = {
     name: 'Hobgoblin Devastator',
     size: 'Medium',
     challenge: '4',
-    page: 'vgm 158',
+    page: 'motm 153, vgm 161',
     alignment: 'LE',
     xp: '1100',
     environment: {
@@ -7659,21 +7659,6 @@ const ONLY_MONSTERS = {
     challenge: '5',
     name: 'Hill Giant',
     type: 'Giant',
-  },
-  'Hobgoblin Devastator': {
-    environment: {
-      Grassland: 'yes',
-      Forest: 'yes',
-      Hill: 'yes',
-    },
-    xp: '1100',
-    alignment: 'LE',
-    page: 'motm 153, vgm 161',
-    challenge: '4',
-    size: 'Medium',
-    name: 'Hobgoblin Devastator',
-    type: 'Humanoid',
-    tags: 'goblinoid',
   },
   Zombie: {
     type: 'Undead',

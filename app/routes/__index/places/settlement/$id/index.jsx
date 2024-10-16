@@ -144,7 +144,6 @@ export const action = async ({ request }) => {
     knownFor: formData.get('knownFor'),
     calamity: formData.get('calamity'),
     notes: formData.get('notes'),
-    notes: formData.get('notes'),
     location,
   };
 

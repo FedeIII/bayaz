@@ -359,3 +359,117 @@
     transition: margin ease-out;
   }
 }
+
+.party__pcs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.party__pcs-table th {
+  padding: 8px 16px;
+  text-align: center;
+  background-color: var(--color-light);
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+.party__pcs-table tr {
+  background-color: var(--color-base);
+}
+
+.party__pcs-table th:last-child {
+  border-right: none;
+}
+
+.party__pcs-table tr:last-child {
+  border-bottom: none;
+}
+
+.party__pcs-table .party__pcs-table-selected-row {
+  border: 2px solid white;
+  background-color: var(--color-x-light);
+}
+
+.party__pcs-table-supertitle {
+  border-bottom: 1px solid white;
+}
+
+.party__pcs-table-name-link {
+  text-decoration: none;
+  color: white;
+}
+
+.party__pcs-table-name-link:hover {
+  color: var(--color-x-pale);
+}
+
+.party__pcs-table-cell {
+  padding: 8px;
+  text-align: center;
+  border-right: 1px solid white;
+}
+
+.party__pcs-table-cell--xxxs {
+  padding: 0;
+  font-size: var(--font-size-xxxs);
+}
+
+.party__pcs-table-cell--xxs {
+  padding: 0;
+  font-size: var(--font-size-xxs);
+}
+
+.party__pcs-table-cell--pale {
+  color: var(--color-x-pale);
+}
+
+.party__pcs-table-cell--hidden {
+  display: none;
+}
+
+.party__pcs-table-cell:last-child {
+  border-right: none;
+}
+
+.party__pcs-table-cell--name {
+  text-align: right;
+  padding-right: 16px;
+}
+
+.party__pcs-table-cell--name:hover {
+  background-color: var(--color-light);
+  cursor: pointer;
+}
+
+.party__pcs-table tr:hover {
+  background-color: var(--color-light);
+  border-radius: 10px;
+  border: 1px solid white;
+  padding: 7px;
+}
+
+.party__pcs-table .party__pcs-table-selected-row:hover {
+  border: 2px solid white;
+  background-color: var(--color-pale);
+}
+
+.party__pcs-table-cell--collapsed {
+  width: 20px;
+  padding: 8px 0;
+  border: none;
+}
+
+.party__pcs-table th.party__pcs-table-cell--collapsed {
+  padding: 0;
+  border: none;
+}
+
+.column-collapse {
+  cursor: pointer;
+  font-size: var(--font-size-xxxs);
+}
+
+.party__pcs-table-cell--collapsed .column-collapse {
+  display: block;
+  width: 100%;
+}

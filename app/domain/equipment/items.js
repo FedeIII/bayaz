@@ -144,3 +144,22 @@ export function fitsInBagOfHolding(pc, item) {
   const weightLeft = bag.bonus.encumbrance - getBagOfHoldingContentsWeight(pc);
   return weightLeft >= getItem(item).weight;
 }
+
+export function getAllPcItems(pc) {
+  return [
+    ...pc.items.weapons,
+    ...(pc.items.equipment.armor ? [pc.items.equipment.armor] : []),
+    ...(pc.items.equipment.shield ? [pc.items.equipment.shield] : []),
+    ...pc.items.equipment.ammunition,
+    ...pc.items.equipment.others,
+    ...pc.items.treasure.weapons,
+    ...pc.items.treasure.armors,
+    ...pc.items.treasure.others,
+    ...pc.items.treasure.custom,
+    ...pc.items.treasure.bagOfHolding,
+  ];
+}
+
+export function getAllIdentifiedItems(pc) {
+  return getAllPcItems(pc).filter(item => item.identified);
+}

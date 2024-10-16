@@ -1,5 +1,7 @@
 ## Tools
+
 ### Tile the map:
+
 `gdal2tiles -p 'raster' --zoom=2-8 --s_srs EPSG:6576 --xyz map_raw.png tiles`
 
 ## TO DOs
@@ -7,7 +9,6 @@
 - Review Npcs combat (monstersCombat uses mobs + npcs)
 - Make settlements and places notes easier editable
 - Encounter list filters and sorting
-- Table with filtersto show properties from the Party: AC, characteristics, skills, equipment, etc
 - Autofill Dominion and Subdominion when creating a settlement from the map
 - Save last position in the map
 - Remove magic-items and deps
