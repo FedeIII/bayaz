@@ -4,7 +4,15 @@ export const links = () => {
 };
 
 export function Card(props) {
-  const { title, style, children, className, titleClass, singleCard } = props;
+  const {
+    title,
+    style,
+    children,
+    className,
+    bodyClassName,
+    titleClass,
+    singleCard,
+  } = props;
 
   return (
     <div
@@ -14,7 +22,7 @@ export function Card(props) {
       <h3 className={`cards__card-title ${titleClass}`}>
         {typeof title === 'function' ? title() : title}
       </h3>
-      <div className="cards__card-body">{children}</div>
+      <div className={`cards__card-body ${bodyClassName}`}>{children}</div>
     </div>
   );
 }

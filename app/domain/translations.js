@@ -1,4 +1,5 @@
 import { translateLanguage, translateSkill } from './characters';
+import { translateMonster } from './encounters/monsterTranslations';
 import { getItem } from './equipment/equipment';
 import { translateDamage } from './equipment/weapons';
 import { NPC_RACES } from './npc/attrs/npcRaces';
@@ -418,6 +419,9 @@ export function t(key) {
   if (translation && translation !== 'unknown skill') return translation;
 
   translation = translateSchool(key);
+  if (translation) return translation;
+
+  translation = translateMonster(key);
   if (translation) return translation;
 
   translation = getItem(key)?.translation;

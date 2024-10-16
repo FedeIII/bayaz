@@ -17,6 +17,7 @@ import { useTitle } from '~/components/hooks/useTitle';
 import NumericInput from '~/components/inputs/numeric';
 import { useState } from 'react';
 import { getMonstersFromEnvironment } from '~/domain/encounters/monsters';
+import classNames from 'classnames';
 
 export function MonstersCombat(props) {
   const {
@@ -59,6 +60,24 @@ export function MonstersCombat(props) {
 
   const [notes, setNotes] = useState(initNotes);
   const [newMonsterName, setNewMonsterName] = useState('');
+  const [isCombatStarted, setIsCombatStarted] = useState(false);
+  const [turn, setTurn] = useState(null);
+
+  function nextTurn() {
+    if (turn === null) {
+      setTurn(0);
+    } else {
+      setTurn(t => {
+        const nextTurn = t + 1;
+        if (nextTurn >= initiativesList.length) {
+          return 0;
+        } else {
+          return nextTurn;
+        }
+      });
+    }
+    setIsCombatStarted(true);
+  }
   const allMonsters = getMonstersFromEnvironment();
 
   const filteredMonsters = allMonsters.filter(
@@ -94,6 +113,24 @@ export function MonstersCombat(props) {
   return (
     <>
       <div className="encounters__initiative-menu">
+        <p className="encounters__buttons-row">
+          <button
+            type="button"
+            name="startCombat"
+            className="encounters__damage-button cards__button-card"
+            onClick={nextTurn}
+          >
+            {turn === null ? 'Empezar Combate' : 'Siguiente Turno'}
+          </button>
+          <button
+            name="endCombat"
+            value="true"
+            className="encounters__damage-button cards__button-card"
+            disabled={!isCombatStarted}
+          >
+            Terminar Combate
+          </button>
+        </p>
         <Card title="Iniciativa">
           <div className="encounters__initiative-buttons">
             <button
@@ -123,7 +160,9 @@ export function MonstersCombat(props) {
           <ol className="encounters__initiative-list">
             {initiativesList.map((obj, initiativeIndex) => (
               <li
-                className="encounters__initiative-item"
+                className={classNames('encounters__initiative-item', {
+                  'encounters__initiative-item--turn': initiativeIndex === turn,
+                })}
                 onMouseEnter={() =>
                   setHover(old => ({ ...old, [obj.type]: obj.index }))
                 }
@@ -211,6 +250,9 @@ export function MonstersCombat(props) {
                 className={`encounters__character-card ${
                   hover.mobs === monsterIndex
                     ? 'encounters__character-card--highlight'
+                    : Object.values(initiativesList)[turn]?.name ===
+                      monster.nick
+                    ? 'encounters__character-card--turn'
                     : ''
                 }`}
                 titleClass="encounters__character-name"
@@ -307,8 +349,8 @@ export function MonstersCombat(props) {
             <div className="cards encounters__monster-list">
               {pcs.map((pc, pcIndex, all) => {
                 const maxHitPoints = getMaxHitPoints(pc);
-                const isAlive = pc.hitPoints > -maxHitPoints;
                 const acBreakdown = getAcBreakdown(pc);
+                const isAlive = pc.hitPoints > -maxHitPoints;
                 let tag = acBreakdown.base;
                 const levels = [
                   ...(tag > 10
@@ -358,113 +400,93 @@ export function MonstersCombat(props) {
                     className={`encounters__character-card ${
                       hover.pcs === pcIndex
                         ? 'encounters__character-card--highlight'
+                        : Object.values(initiativesList)[turn]?.name === pc.name
+                        ? 'encounters__character-card--turn'
                         : ''
                     }`}
                     titleClass="encounters__character-name"
                     key={pc.id}
                     style={getMonsterPositionStyle(pcIndex, all.length)}
                   >
-                    {isAlive && (
-                      <>
-                        {' '}
-                        <div className="encounters__bar">
-                          HP{' '}
-                          <ShrinkBar
-                            cursorPos={pc.hitPoints}
-                            extraValue={pc.temporaryHitPoints}
-                            maxValue={maxHitPoints}
-                            midValue={maxHitPoints / 2}
-                            lowValue={maxHitPoints / 5}
+                    {' '}
+                    <div className="encounters__bar">
+                      HP{' '}
+                      <ShrinkBar
+                        cursorPos={pc.hitPoints}
+                        extraValue={pc.temporaryHitPoints}
+                        maxValue={maxHitPoints}
+                        midValue={maxHitPoints / 2}
+                        lowValue={maxHitPoints / 5}
+                      />
+                    </div>
+                    <div className="encounters__bar">
+                      AC <MultiLevelBar levels={levels} />
+                    </div>
+                    {!isAlive && (
+                      <div className="encounters__death">
+                        <span className="encounters__death-icon">☠</span> Muerto
+                      </div>
+                    )}
+                    <div className="encounters__buttons">
+                      <div className="encounters__buttons-column">
+                        <div className="encounters__button-container">
+                          <button
+                            name="pc-damage"
+                            value={pc.id}
+                            className="encounters__damage-button cards__button-card"
+                          >
+                            Daño
+                          </button>
+                          <input
+                            type="text"
+                            name={`pc-damage-${pc.id}`}
+                            className="encounters__damage-input cards__button-card"
                           />
                         </div>
-                        <div className="encounters__bar">
-                          AC <MultiLevelBar levels={levels} />
+                        <div className="encounters__buttons-container">
+                          <button
+                            name="pc-heal"
+                            value={pc.id}
+                            className="encounters__damage-button cards__button-card"
+                          >
+                            Curación
+                          </button>
+                          <input
+                            type="text"
+                            name={`pc-heal-${pc.id}`}
+                            className="encounters__damage-input cards__button-card"
+                          />
                         </div>
-                        {!isAlive && (
-                          <div className="encounters__death">
-                            <span className="encounters__death-icon">☠</span>{' '}
-                            Muerto
-                          </div>
-                        )}
-                        <div className="encounters__buttons">
-                          <div className="encounters__buttons-column">
-                            <div className="encounters__button-container">
-                              <button
-                                name="pc-damage"
-                                value={pc.id}
-                                className="encounters__damage-button cards__button-card"
-                              >
-                                Daño
-                              </button>
-                              <input
-                                type="text"
-                                name={`pc-damage-${pc.id}`}
-                                className="encounters__damage-input cards__button-card"
-                              />
-                            </div>
-                            <div className="encounters__buttons-container">
-                              <button
-                                name="pc-heal"
-                                value={pc.id}
-                                className="encounters__damage-button cards__button-card"
-                              >
-                                Curación
-                              </button>
-                              <input
-                                type="text"
-                                name={`pc-heal-${pc.id}`}
-                                className="encounters__damage-input cards__button-card"
-                              />
-                            </div>
-                          </div>
-                          <div className="encounters__buttons-column">
-                            <div className="encounters__button-container">
-                              <label
-                                htmlFor={`initiative-${pc.id}`}
-                                className="encounters__initiative-label"
-                              >
-                                Iniciativa{' '}
-                                <NumericInput
-                                  name={`initiative-${pc.id}`}
-                                  value={initiatives.pcs[pcIndex]}
-                                  onChange={setLocalPcInitiative(pcIndex)}
-                                  onBlur={setRemotePcInitiative(pcIndex)}
-                                  styleName="encounters__initiative-input cards__button-card"
-                                />
-                              </label>
-                            </div>
-                          </div>
+                      </div>
+                      <div className="encounters__buttons-column">
+                        <div className="encounters__button-container">
+                          <label
+                            htmlFor={`initiative-${pc.id}`}
+                            className="encounters__initiative-label"
+                          >
+                            Iniciativa{' '}
+                            <NumericInput
+                              name={`initiative-${pc.id}`}
+                              value={initiatives.pcs[pcIndex]}
+                              onChange={setLocalPcInitiative(pcIndex)}
+                              onBlur={setRemotePcInitiative(pcIndex)}
+                              styleName="encounters__initiative-input cards__button-card"
+                            />
+                          </label>
                         </div>
-                        <textarea
-                          className="encounters__notes"
-                          name={`notes-${pc.id}`}
-                          value={notes[pc.id]}
-                          onChange={e => onNotesChange(pc.id, e.target.value)}
-                          onBlur={saveNotes}
-                        ></textarea>
-                      </>
-                    )}
+                      </div>
+                    </div>
+                    <textarea
+                      className="encounters__notes"
+                      name={`notes-${pc.id}`}
+                      value={notes[pc.id]}
+                      onChange={e => onNotesChange(pc.id, e.target.value)}
+                      onBlur={saveNotes}
+                    ></textarea>
                   </Card>
                 );
               })}
             </div>
-
-            <p className="encounters__buttons-row">
-              <Link
-                to={`/party/${partyId}/encounters/${encounterId}/players`}
-                className="encounters__damage-button cards__button-card"
-                target="_blank"
-              >
-                Mostrar Combate
-              </Link>
-              <button
-                name="endCombat"
-                value="true"
-                className="encounters__damage-button cards__button-card"
-              >
-                Terminar Combate
-              </button>
-            </p>
           </>
         )}
       </div>

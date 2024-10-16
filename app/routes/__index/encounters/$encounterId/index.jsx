@@ -188,7 +188,7 @@ function PartyCombat() {
   const { encounter, npcs } = useLoaderData();
   const { id: encounterId, monsters } = encounter;
   const [pcs, partyId, updatePcs] = usePcsFromSession();
-  const pcsPlusNpcs = useMemo(() => [...pcs, ...npcs], [pcs, npcs]);
+  const pcsPlusNpcs = useMemo(() => [...pcs, ...(npcs || [])], [pcs, npcs]);
   const submit = useSubmit();
 
   const isNpcs = !!npcs?.length && !monsters?.length;
@@ -258,14 +258,12 @@ function PartyCombat() {
           index: i,
         }))
         .filter((_, i) => (isNpcs ? npcs[i].hitPoints : monsters[i].hp > 0)),
-      ...initiatives.pcs
-        .map((pcInitiative, i) => ({
-          type: 'pcs',
-          name: pcsPlusNpcs[i].name,
-          value: pcInitiative,
-          index: i,
-        }))
-        .filter((_, i) => pcsPlusNpcs[i].hitPoints > 0),
+      ...initiatives.pcs.map((pcInitiative, i) => ({
+        type: 'pcs',
+        name: pcsPlusNpcs[i].name,
+        value: pcInitiative,
+        index: i,
+      })),
     ].sort((a, b) => b.value - a.value);
   }, [initiatives.mobs, initiatives.pcs, mobs, pcsPlusNpcs]);
 

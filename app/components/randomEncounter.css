@@ -1,19 +1,20 @@
 .encounters__form {
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   column-gap: 16px;
+  padding: 0 32px 0 0;
 }
 
 .encounters__container {
   display: flex;
   flex-direction: column;
-  margin: 0 0 0 18%;
+  margin: 0 0 0 20vw;
   flex-grow: 1;
 }
 
 .encounters__initiative-menu {
-  margin: 100px 0 0 0;
+  margin: 30px 0 0 0;
   position: fixed;
 }
 
@@ -31,8 +32,12 @@
 .encounters__initiative-item {
 }
 
-.encounters__initiative-item:hover {
+.encounters__initiative-item--turn {
   background-color: var(--color-pale);
+}
+
+.encounters__initiative-item:hover {
+  background-color: var(--color-x-light);
 }
 
 .encounters {
@@ -114,7 +119,8 @@
   display: flex;
   justify-content: space-evenly;
   width: 80%;
-  margin: 16px auto;
+  margin: 16px auto 32px;
+  column-gap: 8px;
 }
 
 .encounters__monster-list {
@@ -126,6 +132,10 @@
 }
 
 .encounters__character-card--highlight {
+  background-color: var(--color-x-light);
+}
+
+.encounters__character-card--turn {
   background-color: var(--color-pale);
 }
 
@@ -178,7 +188,8 @@
 
 .encounters__damage-button {
   padding: 2px 4px;
-  height: 24px;
+  height: fit-content;
+  min-height: 24px;
 }
 
 .encounters__damage-button:hover {
