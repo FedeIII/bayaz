@@ -465,7 +465,7 @@ export const MONSTER_TRANSLATIONS = {
   'deep gnome (svirfneblin)': 'Gnomo de las profundidades (Svirfneblin)',
 };
 
-export function translateMonster(monsterName) {
+export function translateMonster(monsterName = '') {
   return (
     MONSTER_TRANSLATIONS[monsterName.toLowerCase()] || `[---${monsterName}---]`
   );
