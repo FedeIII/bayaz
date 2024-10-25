@@ -6,6 +6,7 @@ import { getPlace, getPlaceByName, updatePlace } from '~/services/place.server';
 import { getRegions } from '~/services/regions.server';
 import { Title } from '~/components/form/title';
 import HtmlInput from '~/components/inputs/htmlInput';
+import withLoading from '~/components/HOCs/withLoading';
 
 import styles from '~/components/filters.css';
 import encounterStyles from '~/components/newEncounter.css';
@@ -274,4 +275,4 @@ function GenericPlace() {
   );
 }
 
-export default GenericPlace;
+export default withLoading(GenericPlace);

@@ -16,6 +16,7 @@ import {
 import MapMarkers from '~/components/map/mapMarkers';
 import MapLabels from '~/components/map/mapLabels';
 import MapRegions from '~/components/map/mapRegions';
+import withLoading from '~/components/HOCs/withLoading';
 import { removeItem } from '~/utils/array';
 
 import styles from '~/components/map/map.css';
@@ -265,4 +266,4 @@ function Map() {
   );
 }
 
-export default Map;
+export default withLoading(Map);

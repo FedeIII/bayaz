@@ -3,7 +3,7 @@ import { Link, useLoaderData } from '@remix-run/react';
 import { getPlacesByGroup } from '~/services/place.server';
 import { json } from '@remix-run/node';
 import { useTitle } from '~/components/hooks/useTitle';
-
+import withLoading from '~/components/HOCs/withLoading';
 import styles from '~/components/party.css';
 import encounterListStyles from '~/components/encounterList.css';
 export const links = () => {
@@ -76,4 +76,4 @@ export function ErrorBoundary({ error }) {
   );
 }
 
-export default GenericPlaceList;
+export default withLoading(GenericPlaceList);
