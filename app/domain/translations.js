@@ -427,5 +427,5 @@ export function t(key) {
   translation = getItem(key)?.translation;
   if (translation) return translation;
 
-  return key;
+  return `[---${key}---]`;
 }

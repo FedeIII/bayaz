@@ -466,7 +466,5 @@ export const MONSTER_TRANSLATIONS = {
 };
 
 export function translateMonster(monsterName = '') {
-  return (
-    MONSTER_TRANSLATIONS[monsterName.toLowerCase()] || `[---${monsterName}---]`
-  );
+  return MONSTER_TRANSLATIONS[monsterName.toLowerCase()];
 }

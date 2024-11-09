@@ -6,6 +6,8 @@
 
 ## TO DOs
 
+- Rules searcher:
+  - Conditions
 - Review Npcs combat (monstersCombat uses mobs + npcs)
 - Make settlements and places notes easier editable
 - Encounter list filters and sorting
