@@ -1,20 +1,47 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
 import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
 import { getDeity, GOD_COLOR_CLASSES } from '~/domain/npc/attrs/npcFaith';
+
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
   textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
 }
 
-export function CharacterInfo({ formData, onChange }) {
+const SUCCESS_MESSAGE_TIMEOUT = 3000;
+const ERROR_MESSAGE_TIMEOUT = 5000;
+
+export function CharacterInfo(props) {
+  const { formData, onChange, actionData } = props;
+
   const ref = useRef();
 
   useEffect(() => {
     textareaCallback({ target: ref.current });
   }, [formData.looks]);
+
+  const [successMessage, setSuccessMessage] = useState(actionData?.success);
+  const [errorMessage, setErrorMessage] = useState(actionData?.error);
+
+  useEffect(() => {
+    if (actionData?.success) {
+      setSuccessMessage('NPC guardado correctamente');
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, SUCCESS_MESSAGE_TIMEOUT);
+    }
+  }, [actionData?.success]);
+
+  useEffect(() => {
+    if (actionData?.error) {
+      setErrorMessage(actionData.error);
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, ERROR_MESSAGE_TIMEOUT);
+    }
+  }, [actionData?.error]);
 
   return (
     <div className="characters__container">
@@ -26,6 +53,10 @@ export function CharacterInfo({ formData, onChange }) {
         value={formData.name}
         onChange={onChange}
       />
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       <hr className="characters__section-divider" />
 

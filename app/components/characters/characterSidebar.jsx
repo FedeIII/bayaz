@@ -67,7 +67,10 @@ export function CharacterSidebar(props) {
                 className="cards__button-card"
                 onClick={onCreateRandomClick}
               >
-                Crear Random NPC
+                ⟳ Random
+              </button>
+              <button type="submit" className="cards__button-card">
+                ⇧ Guardar
               </button>
             </div>
           </div>

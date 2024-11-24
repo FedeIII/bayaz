@@ -145,18 +145,10 @@ function QuickNpc() {
         />
         <div className="filters__results">
           <CharacterInfo 
+            actionData={actionData}
             formData={formData}
             onChange={handleInputChange}
           />
-          <button type="submit" className="cards__button-card">
-            Guardar NPC
-          </button>
-          {actionData?.success && (
-            <div className="success-message">NPC guardado correctamente</div>
-          )}
-          {actionData?.error && (
-            <div className="error-message">{actionData.error}</div>
-          )}
         </div>
       </div>
     </Form>

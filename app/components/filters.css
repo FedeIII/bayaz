@@ -91,6 +91,9 @@
 .filters__filterOptions {
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }
 
 .filters__filterOption {
@@ -110,7 +113,7 @@
 .filters__filterOption--secondary {
   margin: 0 0 0 16px;
   font-size: var(--font-size-s);
-  transition: height .2s ease-out;
+  transition: height 0.2s ease-out;
   overflow: hidden;
   display: block;
   height: 22px;
