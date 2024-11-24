@@ -1,59 +1,74 @@
+import { useEffect, useRef } from 'react';
+import classNames from 'classnames';
 import { t } from '~/domain/translations';
-import { Fragment } from 'react';
+import { Title } from '~/components/form/title';
+import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
+import { getDeity, GOD_COLOR_CLASSES } from '~/domain/npc/attrs/npcFaith';
+function textareaCallback(textareaNode) {
+  textareaNode.target.style.height = '';
+  textareaNode.target.style.height = textareaNode.target.scrollHeight + 'px';
+}
 
-import styles from './characters.css';
-export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
-};
+export function CharacterInfo({ formData, onChange }) {
+  const ref = useRef();
 
-export function CharacterInfo(props) {
-  const {
-    name,
-    race,
-    gender,
-    alignment,
-    looks,
-    behavior,
-    faith,
-    ideals,
-    bonds,
-    flaws,
-    talent,
-  } = props;
-
-  const nameParts = name.split(' ');
+  useEffect(() => {
+    textareaCallback({ target: ref.current });
+  }, [formData.looks]);
 
   return (
     <div className="characters__container">
-      <h1 className="characters__title">
-        {nameParts.map(part => (
-          <Fragment key={part}>
-            <span className="characters__title-capital">
-              {part.slice(0, 1)}
-            </span>
-            {part.slice(1)}{' '}
-          </Fragment>
-        ))}
-      </h1>
+      <Title
+        inputName="name"
+        className="characters__group"
+        inputClass="characters__title"
+        placeholder="Nombre del NPC"
+        value={formData.name}
+        onChange={onChange}
+      />
 
       <hr className="characters__section-divider" />
 
       <div className="characters__subtitle">
-        <span>
-          {t(race)} {t(gender).toLowerCase()}
-        </span>
-        <span>{t(alignment.join(''))}</span>
+        <select
+          name="race"
+          className="characters__input characters__input--no-border"
+          value={formData.race}
+          onChange={onChange}
+        >
+          {NPC_RACES_LIST.map(race => (
+            <option key={race} value={race}>
+              {t(race)}
+            </option>
+          ))}
+        </select>
+        <select
+          name="gender"
+          className="characters__input characters__input--no-border"
+          value={formData.gender}
+          onChange={onChange}
+        >
+          <option value="Male">{t('Male')}</option>
+          <option value="Female">{t('Female')}</option>
+        </select>
       </div>
 
       <hr className="characters__section-divider" />
 
       <div className="characters__attrs">
         <h2 className="characters__attrs-title">Apariencia</h2>
-        <div className="characters__trait-columns">
-          {looks.map(trait => (
-            <li key={trait}>{trait}</li>
-          ))}
-        </div>
+        <textarea
+          ref={ref}
+          name="looks"
+          className="characters__textarea"
+          placeholder="Descripción de la apariencia"
+          rows="4"
+          value={formData.looks?.join?.('\n') || ''}
+          onChange={e => {
+            onChange(e);
+            textareaCallback(e);
+          }}
+        />
       </div>
 
       <hr className="characters__section-divider" />
@@ -62,31 +77,56 @@ export function CharacterInfo(props) {
         <h2 className="characters__attrs-title">Comportamiento</h2>
         <div className="characters__trait-sections">
           <div className="characters__trait">
-            <span className="characters__trait-title">Ánimo actual: </span>
-            <u className="characters__trait-description">{behavior.mood}</u>
+            <span className="characters__trait-title characters__trait-title--no-border">
+              Ánimo actual:
+            </span>
+            <input
+              name="behavior.mood"
+              className="characters__input characters__input--no-border characters__input--inline"
+              placeholder="Ánimo"
+              value={formData.behavior.mood}
+              onChange={onChange}
+            />
           </div>
           <div className="characters__trait">
             <div>
-              <span className="characters__trait-title">
-                En calma, su actitud es
-              </span>{' '}
-              <u className="characters__trait-description">
-                {behavior.calm.toLowerCase()}
-              </u>
+              <span className="characters__trait-title characters__trait-title--no-border">
+                En calma:
+              </span>
+              <input
+                name="behavior.calm"
+                className="characters__input characters__input--no-border characters__input--inline"
+                placeholder="Comportamiento en calma"
+                value={formData.behavior.calm}
+                onChange={onChange}
+              />
             </div>
             <div>
-              <span className="characters__trait-title">
-                En estrés, su actitud es
-              </span>{' '}
-              <u className="characters__trait-description">
-                {behavior.stress.toLowerCase()}
-              </u>
+              <span className="characters__trait-title characters__trait-title--no-border">
+                En estrés:
+              </span>
+              <input
+                name="behavior.stress"
+                className="characters__input characters__input--no-border characters__input--inline"
+                placeholder="Comportamiento en estrés"
+                value={formData.behavior.stress}
+                onChange={onChange}
+              />
             </div>
           </div>
         </div>
-        {!!talent && (
+        {formData.talent && (
           <div className="characters__trait-description">
-            <span className="characters__trait-title">Talento:</span> {talent}
+            <span className="characters__trait-title characters__trait-title--no-border">
+              Talento:
+            </span>
+            <input
+              name="talent"
+              className="characters__input characters__input--no-border characters__input--inline"
+              placeholder="Talento especial"
+              value={formData.talent}
+              onChange={onChange}
+            />
           </div>
         )}
       </div>
@@ -97,15 +137,26 @@ export function CharacterInfo(props) {
         <div className="characters__left-attr">
           <h2 className="characters__attrs-title">Fe</h2>
           <div className="characters__parallel-traits">
-            {!!faith.description && faith.description + ' de '}
-            {faith.deity === 'None' && faith.deityName}
-            {faith.deity !== 'None' && (
-              <>
-                <u className="characters__trait-description">
-                  {faith.deityName}
-                </u>{' '}
-                ({t(faith.deity)})
-              </>
+            {formData.faith.description && (
+              <input
+                name="faith.description"
+                className="characters__input characters__input--no-border"
+                placeholder="Descripción de fe"
+                value={formData.faith.description}
+                onChange={onChange}
+              />
+            )}
+            {formData.faith.deityName && (
+              <input
+                name="faith.deityName"
+                className={classNames(
+                  'characters__input characters__input--no-border',
+                  GOD_COLOR_CLASSES[getDeity(formData.faith.deityName)]
+                )}
+                placeholder="Nombre de deidad"
+                value={formData.faith.deityName}
+                onChange={onChange}
+              />
             )}
           </div>
         </div>
@@ -113,31 +164,65 @@ export function CharacterInfo(props) {
           <h2 className="characters__attrs-title">
             Ideales, Vínculos y Defectos
           </h2>
-          {!!(flaws || ideals || bonds) && (
-            <div className="characters__parallel-traits">
-              {!!ideals && (
-                <div className="characters__trait">
-                  <span className="characters__trait-title">Ideales:</span>{' '}
-                  <span className="characters__trait-description">
-                    {ideals}
-                  </span>
-                </div>
-              )}
-              {!!bonds && (
-                <div className="characters__trait">
-                  <span className="characters__trait-title">Vínculos:</span>{' '}
-                  <span className="characters__trait-description">{bonds}</span>
-                </div>
-              )}
-              {!!flaws && (
-                <div className="characters__trait">
-                  <span className="characters__trait-title">Defectos:</span>{' '}
-                  <span className="characters__trait-description">{flaws}</span>
-                </div>
-              )}
-            </div>
-          )}
+          <div className="characters__parallel-traits">
+            {formData.ideals && (
+              <div className="characters__trait">
+                <span className="characters__trait-title characters__trait-title--no-border">
+                  Ideales:
+                </span>
+                <input
+                  name="ideals"
+                  className="characters__input characters__input--no-border"
+                  placeholder="Ideales"
+                  value={formData.ideals}
+                  onChange={onChange}
+                />
+              </div>
+            )}
+            {formData.bonds && (
+              <div className="characters__trait">
+                <span className="characters__trait-title characters__trait-title--no-border">
+                  Vínculos:
+                </span>
+                <input
+                  name="bonds"
+                  className="characters__input characters__input--no-border"
+                  placeholder="Vínculos"
+                  value={formData.bonds}
+                  onChange={onChange}
+                />
+              </div>
+            )}
+            {formData.flaws && (
+              <div className="characters__trait">
+                <span className="characters__trait-title characters__trait-title--no-border">
+                  Defectos:
+                </span>
+                <input
+                  name="flaws"
+                  className="characters__input characters__input--no-border"
+                  placeholder="Defectos"
+                  value={formData.flaws}
+                  onChange={onChange}
+                />
+              </div>
+            )}
+          </div>
         </div>
+      </div>
+
+      <hr className="characters__section-divider" />
+
+      <div className="characters__attrs">
+        <h2 className="characters__attrs-title">Notas</h2>
+        <textarea
+          name="notes"
+          className="characters__textarea"
+          placeholder="Notas adicionales sobre el personaje"
+          rows="4"
+          value={formData.notes || ''}
+          onChange={onChange}
+        />
       </div>
     </div>
   );

@@ -133,9 +133,9 @@
 .places__title {
   margin: 0;
   color: var(--color-x-pale);
+  font-family: var(--font-family);
   text-transform: uppercase;
   font-size: var(--font-size-xl);
-  font-family: var(--font-family);
   padding: 0 0 0 18px;
 }
 
@@ -147,11 +147,12 @@
 }
 
 .places__title-input {
-  color: var(--color-x-pale);
+  font-family: var(--font-family);
+  text-transform: uppercase;
   font-size: var(--font-size-xl);
+  color: var(--color-x-pale);
   background: transparent;
   border: none;
-  font-family: var(--font-family);
   margin: 8px 0px 5px 8px;
   padding: 0;
 }

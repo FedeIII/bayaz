@@ -48,19 +48,12 @@ import { getVillageSecurityType } from '~/domain/places/village';
 import NumericInput from '~/components/inputs/numeric';
 import HtmlInput from '~/components/inputs/htmlInput';
 import classNames from 'classnames';
-import { getDeity } from '~/domain/npc/attrs/npcFaith';
+import { getDeity, GOD_COLOR_CLASSES } from '~/domain/npc/attrs/npcFaith';
 
 const TYPES = {
   city: CITY,
   town: TOWN,
   village: VILLAGE,
-};
-
-const GOD_COLOR_CLASSES = {
-  Matter: 'x-green-text',
-  Energy: 'x-orange-text',
-  Spirit: 'x-blue-ink-text',
-  Space: 'x-purple-text',
 };
 
 function useAmount(array, randomElement, setNewArray, MAX = Infinity) {

@@ -250,7 +250,7 @@ export const NPC_BONDS = [
   'Protector de su familia cercana',
   'Protector de compañeros y compatriotas',
   'Leal a su benefactor, patrón o empleador',
-  'Capturado por su interés roámtico',
+  'Capturado por su interés romántico',
   'Atado a un lugar especial',
   'Protector de un recuerdo sentimental',
   'Protector de una posesión valiosa',

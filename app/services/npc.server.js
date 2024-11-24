@@ -6,25 +6,23 @@ const npcSchema = new mongoose.Schema({
   id: String,
   name: String,
   race: String,
-  subrace: String,
   gender: String,
-  age: Number,
-  height: Number,
-  weight: Number,
-  eyes: String,
-  skin: String,
-  hair: String,
-  deity: String,
-  personality: String,
-  appearance: String,
+  looks: [String],
+  behavior: {
+    mood: String,
+    calm: String,
+    stress: String
+  },
   talent: String,
-  mannerism: String,
-  interaction: String,
-  ideal: String,
-  bond: String,
-  flaw: String,
-  occupation: String,
-  voice: String,
+  faith: {
+    description: String,
+    deity: String,
+    deityName: String
+  },
+  ideals: String,
+  bonds: String,
+  flaws: String,
+  notes: String
 });
 
 const Npc = mongoose.models.Npc || mongoose.model('Npc', npcSchema);

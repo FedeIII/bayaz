@@ -17,6 +17,13 @@ export const NPC_DEITIES = [
   [30, 'None'],
 ];
 
+export const GOD_COLOR_CLASSES = {
+  Matter: 'x-green-text',
+  Energy: 'x-orange-text',
+  Spirit: 'x-blue-ink-text',
+  Space: 'x-purple-text',
+};
+
 export function getDeity(deityName) {
   return Object.keys(NPC_DEITIES_NAMES).find(deity =>
     NPC_DEITIES_NAMES[deity].find(
@@ -72,8 +79,8 @@ export const NPC_DEITIES_NAMES = {
     [10, 'Ilmun (Conocimiento)'],
   ],
   None: [
-    [50, 'Indiferente con los dioses'],
-    [35, 'Seguidor de todos los dioses'],
+    [50, 'Indiferente'],
+    [35, 'Todos los dioses'],
     [15, 'Contra todos los dioses'],
   ],
 };

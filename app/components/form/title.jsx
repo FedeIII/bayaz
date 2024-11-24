@@ -68,36 +68,33 @@ function getCapitalizedTitle(title) {
   return capitalizedTitle.capitalized;
 }
 
-export function Title(props) {
-  const { className = '', tag = 'h1' } = props;
-
-  switch (tag) {
-    case 'h1':
-    default:
-      return (
-        <h1 className={`places__title ${className}`}>
-          <TitleContent {...props} />
-        </h1>
-      );
-    case 'h2':
-      return (
-        <h2 className={`places__title ${className}`}>
-          <TitleContent {...props} />
-        </h2>
-      );
-    case 'h3':
-      return (
-        <h3 className={`places__title ${className}`}>
-          <TitleContent {...props} />
-        </h3>
-      );
-  }
+export function Title({
+  inputName,
+  className,
+  inputClass,
+  placeholder,
+  value,
+  onChange,
+  onReroll,
+  tag: Tag = 'h1',
+}) {
+  return (
+    <Tag className={className}>
+      <TitleContent
+        inputName={inputName}
+        inputClass={inputClass}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        onReroll={onReroll}
+      />
+    </Tag>
+  );
 }
 
 function TitleContent(props) {
   const {
     value,
-    defaultValue,
     placeholder,
     onChange,
     onBlur,
@@ -106,14 +103,17 @@ function TitleContent(props) {
     onReroll,
   } = props;
 
-  const title = value || defaultValue;
-
-  const [showTypeInput, setShowTypeInput] = useState(!title);
-  const [showInputHighlight, setShowInputHighlight] = useState(!title);
-  useEffect(() => {
-    setShowTypeInput(!title);
-  }, [!title]);
+  const [showTypeInput, setShowTypeInput] = useState(!value);
+  const [isFocused, setIsFocused] = useState(false);
+  const [showInputHighlight, setShowInputHighlight] = useState(!value);
   const typeRef = useRef();
+
+  useEffect(() => {
+    if (!isFocused) {
+      setShowTypeInput(!value);
+    }
+  }, [value, isFocused]);
+
   useEffect(() => {
     if (showTypeInput) {
       typeRef.current?.focus();
@@ -122,51 +122,36 @@ function TitleContent(props) {
 
   return (
     <>
-      {!!title && (
+      {!!value && (
         <span
           style={{ display: showTypeInput ? 'none' : 'inline' }}
+          className="places__title-input"
           onClick={() => setShowTypeInput(true)}
         >
-          {getCapitalizedTitle(title)}
+          {getCapitalizedTitle(value)}
         </span>
       )}
-      {!!inputName &&
-        (value ? (
-          <input
-            ref={typeRef}
-            type="text"
-            name={inputName}
-            placeholder={placeholder || value}
-            value={value || ''}
-            className={`places__title-input ${inputClass} ${
-              showInputHighlight ? 'places__title-input--empty' : ''
-            }`}
-            style={{ display: showTypeInput ? 'inline' : 'none' }}
-            onBlur={() => {
-              if (title) {
-                setShowTypeInput(false);
-              }
-              onBlur?.();
-            }}
-            onChange={onChange}
-          />
-        ) : (
-          <input
-            ref={typeRef}
-            type="text"
-            name={inputName}
-            placeholder={placeholder}
-            defaultValue={defaultValue || ''}
-            className={`places__title-input ${inputClass} ${
-              showInputHighlight ? 'places__title-input--empty' : ''
-            }`}
-            style={{ display: showTypeInput ? 'inline' : 'none' }}
-            onBlur={e => {
-              title && setShowTypeInput(false);
-              setShowInputHighlight(!e.target.value);
-            }}
-          />
-        ))}
+      <input
+        ref={typeRef}
+        type="text"
+        name={inputName}
+        placeholder={placeholder}
+        value={value}
+        className={`places__title-input ${inputClass} ${
+          showInputHighlight ? 'places__title-input--empty' : ''
+        }`}
+        style={{ display: showTypeInput ? 'inline' : 'none' }}
+        onFocus={() => setIsFocused(true)}
+        onBlur={e => {
+          if (value) {
+            setShowTypeInput(false);
+          }
+          setShowInputHighlight(!e.target.value);
+          setIsFocused(false);
+          onBlur?.(e);
+        }}
+        onChange={onChange}
+      />
       {!!onReroll && (
         <span className="places__title-reroll" onClick={onReroll}>
           ⟳

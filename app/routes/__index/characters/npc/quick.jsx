@@ -1,23 +1,44 @@
 import { Form, useActionData, useSubmit } from '@remix-run/react';
 import { json } from '@remix-run/node';
-import { useRef, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { createRandomNpc } from '~/domain/npc/npc';
-import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
-import { NPC_DEITIES } from '~/domain/npc/attrs/npcFaith';
-import { t } from '~/domain/translations';
-import { removeItem } from '~/utils/array';
+import { CharacterSidebar } from '~/components/characters/characterSidebar';
 import { CharacterInfo } from '~/components/characters/characterInfo';
 import { createNpc } from '~/services/npc.server';
 
 import styles from '~/components/filters.css';
+import { getDeity } from '~/domain/npc/attrs/npcFaith';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const npcData = JSON.parse(formData.get('npcData'));
-  
+  const rawData = Object.fromEntries(formData);
+
+  // Convert the flat formData structure into nested objects
+  const npcData = {
+    name: rawData.name,
+    race: rawData.race,
+    gender: rawData.gender,
+    looks: rawData.looks ? rawData.looks.split('\n') : [],
+    behavior: {
+      mood: rawData['behavior.mood'],
+      calm: rawData['behavior.calm'],
+      stress: rawData['behavior.stress']
+    },
+    talent: rawData.talent,
+    faith: {
+      description: rawData['faith.description'],
+      deity: getDeity(rawData['faith.deityName']),
+      deityName: rawData['faith.deityName']
+    },
+    ideals: rawData.ideals,
+    bonds: rawData.bonds,
+    flaws: rawData.flaws,
+    notes: rawData.notes || ''
+  };
+
   try {
     const npc = await createNpc(npcData);
     return json({ success: true, npc });
@@ -26,223 +47,110 @@ export const action = async ({ request }) => {
   }
 };
 
-function Sidebar(props) {
-  const { onCreateRandomClick, filters, setFilters } = props;
-
-  function onRaceSelect(e) {
-    const race = e.target.value;
-    if (race === 'all') {
-      setFilters(f => ({
-        ...f,
-        races: e.target.checked ? NPC_RACES_LIST : [],
-      }));
-    }
-
-    if (filters.races.includes(race)) {
-      return setFilters(f => ({
-        ...f,
-        races: removeItem(r => r === race, f.races),
-      }));
-    }
-
-    return setFilters(f => ({ ...f, races: [...f.races, race] }));
-  }
-
-  function onGenderSelect(e) {
-    const gender = e.target.value;
-    if (filters.genders.includes(gender)) {
-      return setFilters(f => ({
-        ...f,
-        genders: removeItem(r => r === gender, f.genders),
-      }));
-    }
-
-    return setFilters(f => ({ ...f, genders: [...f.genders, gender] }));
-  }
-
-  function onDeitySelect(e) {
-    const deity = e.target.value;
-    if (deity === 'all') {
-      setFilters(f => ({
-        ...f,
-        deities: e.target.checked ? NPC_DEITIES.map(([_, deity]) => deity) : [],
-      }));
-    }
-
-    if (filters.deities.includes(deity)) {
-      return setFilters(f => ({
-        ...f,
-        deities: removeItem(r => r === deity, f.deities),
-      }));
-    }
-
-    return setFilters(f => ({ ...f, deities: [...f.deities, deity] }));
-  }
-
-  return (
-    <div className="filters__sidebar">
-      <div className="filters__sidebarContent">
-        <div className="filters__sidebarSection">
-          <div className="filters__filterVertical">
-            <div className="filters__filterOptions">
-              <button
-                type="button"
-                className="cards__button-card"
-                onClick={onCreateRandomClick}
-              >
-                Crear Random NPC
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="filters__sidebarSection">
-          <div className="filters__filterVertical">
-            <div className="filters__filterLabel">
-              <span className="filters__filterTitle">Razas:</span>{' '}
-              <label className="filters__filterOption">
-                <input
-                  type="checkbox"
-                  name="race[]"
-                  value="all"
-                  className="cards__button-card"
-                  onClick={onRaceSelect}
-                />
-                <span>Todas</span>
-              </label>
-            </div>{' '}
-            <div className="filters__filterOptionsTwoColumns">
-              {NPC_RACES_LIST.map(race => {
-                return (
-                  <label className="filters__filterOption" key={race}>
-                    <input
-                      key={race}
-                      type="checkbox"
-                      name="race[]"
-                      value={race}
-                      checked={filters.races.includes(race)}
-                      className="cards__button-card"
-                      onChange={onRaceSelect}
-                    />
-                    <span>{t(race)}</span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="filters__filter">
-            <span className={`$"filters__filterLabel" $"filters__filterTitle"`}>
-              Género:
-            </span>{' '}
-            <div className="filters__filterOptionsTwoColumns">
-              <label className="filters__filterOption">
-                <input
-                  type="checkbox"
-                  name="gender[]"
-                  value="Male"
-                  className="cards__button-card"
-                  onClick={onGenderSelect}
-                />
-                <span>{t('Male')}</span>
-              </label>
-              <label className="filters__filterOption">
-                <input
-                  type="checkbox"
-                  name="gender[]"
-                  value="Female"
-                  className="cards__button-card"
-                  onClick={onGenderSelect}
-                />
-                <span>{t('Female')}</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="filters__filterVertical">
-            <div className="filters__filterLabel">
-              <span className="filters__filterTitle">Dioses:</span>{' '}
-              <label className="filters__filterOption">
-                <input
-                  type="checkbox"
-                  name="deity[]"
-                  value="all"
-                  className="cards__button-card"
-                  onClick={onDeitySelect}
-                />
-                <span>Todos</span>
-              </label>
-            </div>{' '}
-            <div className="filters__filterOptionsTwoColumns">
-              {NPC_DEITIES.map(([_, deity]) => {
-                return (
-                  <label className="filters__filterOption" key={deity}>
-                    <input
-                      key={deity}
-                      type="checkbox"
-                      name="deity[]"
-                      value={deity}
-                      checked={filters.deities.includes(deity)}
-                      className="cards__button-card"
-                      onChange={onDeitySelect}
-                    />
-                    <span>{t(deity)}</span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function QuickNpc() {
   const formRef = useRef();
   const submit = useSubmit();
   const actionData = useActionData();
-
-  const [npc, setNpc] = useState(null);
   const [filters, setFilters] = useState({
     races: [],
     genders: [],
     deities: [],
   });
 
-  function onCreateRandomClick() {
-    setNpc(createRandomNpc(filters));
+  const [formData, setFormData] = useState({
+    name: '',
+    race: '',
+    gender: '',
+    looks: '',
+    behavior: {
+      mood: '',
+      calm: '',
+      stress: ''
+    },
+    talent: '',
+    faith: {
+      description: '',
+      deity: '',
+      deityName: ''
+    },
+    ideals: '',
+    bonds: '',
+    flaws: '',
+    notes: ''
+  });
+
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    if (name.includes('.')) {
+      const [parent, child] = name.split('.');
+      setFormData(prev => ({
+        ...prev,
+        [parent]: {
+          ...prev[parent],
+          [child]: value
+        }
+      }));
+    } else if (name === 'looks') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value.split('\n')
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   }
 
-  function onSaveNpc() {
-    if (!npc) return;
+  function generateRandomNpc() {
+    const randomNpc = createRandomNpc(filters);
+    
+    const newFormData = {
+      ...formData,
+      ...randomNpc,
+      behavior: {
+        ...formData.behavior,
+        ...(randomNpc.behavior || {})
+      },
+      faith: {
+        ...formData.faith,
+        ...(randomNpc.faith || {})
+      }
+    };
+    
+    setFormData(newFormData);
+  }
 
-    const formData = new FormData();
-    formData.append('npcData', JSON.stringify(npc));
-    submit(formData, { method: 'post' });
+  useEffect(() => {
+    generateRandomNpc();
+  }, []);
+
+  function onCreateRandomClick() {
+    generateRandomNpc();
+  }
+
+  function onSaveNpc(e) {
+    e.preventDefault();
+    submit(formRef.current, { method: 'post' });
   }
 
   return (
-    <Form method="post" ref={formRef}>
+    <Form method="post" ref={formRef} onSubmit={onSaveNpc}>
       <div className="filters__container">
-        <Sidebar
+        <CharacterSidebar
           onCreateRandomClick={onCreateRandomClick}
           filters={filters}
           setFilters={setFilters}
         />
         <div className="filters__results">
-          {!!npc && (
-            <>
-              <CharacterInfo {...npc} />
-              <button
-                type="button"
-                className="cards__button-card"
-                onClick={onSaveNpc}
-              >
-                Guardar NPC
-              </button>
-            </>
-          )}
+          <CharacterInfo 
+            formData={formData}
+            onChange={handleInputChange}
+          />
+          <button type="submit" className="cards__button-card">
+            Guardar NPC
+          </button>
           {actionData?.success && (
             <div className="success-message">NPC guardado correctamente</div>
           )}

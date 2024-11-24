@@ -14,6 +14,11 @@
 .characters__trait-title {
   border-bottom: 1px solid var(--color-x-pale);
   margin: 0 0 8px 0;
+  color: var(--color-x-pale);
+}
+
+.characters__trait-title--no-border {
+  border-bottom: none;
 }
 
 .characters__trait-label {
@@ -243,12 +248,19 @@
   margin: 12px 0 0;
 }
 
+.characters__group {
+  font-family: var(--font-family);
+  text-transform: uppercase;
+  font-size: var(--font-size-xl);
+}
+
 .characters__title {
   color: var(--color-x-pale);
   font-size: var(--font-size-xl);
   text-transform: uppercase;
   margin: 0;
   font-weight: bolder;
+  width: 100%;
 }
 
 .characters__title-capital {
@@ -267,9 +279,22 @@
 }
 
 .characters__parallel-attrs {
+  padding: 0 2em;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.characters__left-attr {
+  flex-basis: 40%;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+
+.characters__right-attr {
+  flex-basis: 60%;
+  flex-grow: 1;
+  flex-shrink: 0;
 }
 
 .characters__attrs-title {
@@ -342,10 +367,6 @@
   text-align: start;
 }
 
-.characters__trait-title {
-  color: var(--color-x-pale);
-}
-
 .characters__single-select {
   width: 50%;
   margin: auto;
@@ -390,4 +411,45 @@
 .characters__equipment-card--wide > .characters__traits {
   margin: 8px;
   font-size: 12px;
+}
+
+.characters__input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: transparent;
+  padding: 4px;
+  font-size: inherit;
+  color: inherit;
+  width: 100%;
+}
+
+.characters__input:focus {
+  outline: none;
+  border-bottom-color: #666;
+}
+
+.characters__input--no-border {
+  border: none;
+}
+
+.characters__input--inline {
+  width: auto;
+}
+
+.characters__textarea {
+  width: 100%;
+  min-height: 80px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-family: inherit;
+  font-size: inherit;
+  background: transparent;
+  color: inherit;
+  resize: vertical;
+}
+
+.characters__textarea:focus {
+  outline: none;
+  border-color: #666;
 }

@@ -333,9 +333,9 @@ export function createRandomNpc(filters) {
   const npcAlignment = getRandomAlignment();
 
   return {
+    name: npcName,
     race: npcRace,
     gender: npcGender,
-    name: npcName,
     alignment: npcAlignment,
     looks: getRandomAppearance(),
     behavior: {
