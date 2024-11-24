@@ -8,7 +8,7 @@ const menuLinks = [
   { name: 'Lugares', url: '/places', level: 0 },
   { name: 'Mapa', url: '/map', level: 0 },
   { name: 'Personajes', url: '/characters', level: 0, isForPlayers: true },
-  /**/ { name: 'NPCs', url: '/characters/npc/list', level: 1 },
+  /**/ { name: 'NPCs', url: '/characters/npc', level: 1 },
   /**/ { name: 'Quick NPC', url: '/characters/npc/quick', level: 2 },
   { name: 'Party', url: '/party', level: 0 },
   { name: 'Encuentros', url: '/encounters', level: 0 },

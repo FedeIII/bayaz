@@ -1,245 +1,63 @@
 import { v4 as uuid } from 'uuid';
 import { mongoose } from '~/services/db.server';
-import {
-  RACES,
-  STATS,
-  SKILLS,
-  LANGUAGES,
-  EXOTIC_LANGUAGES,
-  CHARACTER_CLASSES,
-} from '~/domain/characters';
-import {
-  BACKGROUNDS,
-  ARTISAN_GUILDS,
-  ENTERTAINER_ROUTINES,
-  CHARLATAN_FAVORITE_SCHEMES,
-  CRIMINAL_SPECIALTY,
-  OUTLANDER_ORIGIN,
-  SAGE_SPECIALTY,
-  SOLDIER_SPECIALTY,
-} from '~/domain/backgrounds/backgrounds';
-import { NPC_RACES_LIST } from '~/domain/npc/npc';
 
-const statsSchema = new mongoose.Schema({
-  ...STATS().reduce(
-    (stats, statName) => ({
-      ...stats,
-      [statName]: Number,
-    }),
-    {}
-  ),
-});
-
-const backgroundSchema = new mongoose.Schema({
-  name: { type: String, enum: Object.keys(BACKGROUNDS) },
-  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
-  guild: { type: String, enum: ARTISAN_GUILDS },
-  routines: [{ type: String, enum: ENTERTAINER_ROUTINES }],
-  favoriteScheme: { type: String, enum: CHARLATAN_FAVORITE_SCHEMES },
-  criminalSpecialty: { type: String, enum: CRIMINAL_SPECIALTY },
-  outlanderOrigin: { type: String, enum: OUTLANDER_ORIGIN },
-  sageSpecialty: { type: String, enum: SAGE_SPECIALTY },
-  soldierSpecialty: { type: String, enum: SOLDIER_SPECIALTY },
-});
-
-const freeTextSchema = new mongoose.Schema({
-  roleplay: String,
-  looks: String,
-  behavior: String,
-  ideals: String,
-  bonds: String,
-  flaws: String,
-});
-
-const skillSchema = new mongoose.Schema({
-  name: { type: String, enum: SKILLS().map(s => s.name) },
-  value: Number,
-});
-
-const abilitySchema = new mongoose.Schema({
-  name: String,
-  description: String,
-});
-
-const faithSchema = new mongoose.Schema({
-  description: String,
-  deity: String,
-  deityName: String,
-});
-
-const spellSchema = new mongoose.Schema({
-  name: String,
-  type: { type: String, enum: CHARACTER_CLASSES() },
-  subtype: String,
-});
-
-///////////
-/// NPC ///
-///////////
-
-const quickNpcSchema = new mongoose.Schema({
-  // BASIC ATTRS
+// Simple schema for quick NPCs
+const npcSchema = new mongoose.Schema({
   id: String,
   name: String,
-  race: {
-    type: String,
-    enum: NPC_RACES_LIST,
-  },
-  subrace: {
-    type: String,
-    enum: [
-      'hills',
-      'mountains',
-      'high',
-      'wood',
-      'drow',
-      'lightfoot',
-      'stout',
-      'subrace',
-    ],
-  },
-  alignment: [
-    { type: String, enum: ['L', 'N', 'C'] },
-    { type: String, enum: ['G', 'N', 'E'] },
-  ],
-  pClass: {
-    type: String,
-    enum: [
-      'barbarian',
-      'bard',
-      'cleric',
-      'druid',
-      'fighter',
-      'monk',
-      'paladin',
-      'ranger',
-      'rogue',
-      'sorcerer',
-      'warlock',
-      'wizard',
-    ],
-  },
-  AC: String,
-  gender: { type: String, enum: ['Male', 'Female'] },
-  level: Number,
-  background: backgroundSchema,
-  npc: Boolean,
-
-  // STATS
-  stats: statsSchema,
-
-  // SKILLS
-  skills: [skillSchema],
-  senses: [String],
-
-  // COMBAT ATTRS
-  speed: Number,
-  totalHitPoints: [Number],
-  hitPoints: Number,
-  temporaryHitPoints: Number,
-  abilities: [abilitySchema],
-  actions: [abilitySchema],
-  reactions: [abilitySchema],
-  legendaryActions: [abilitySchema],
-
-  // EQUIPMENT
-  items: {
-    weapons: {
-      type: [itemSchema],
-      validate: [weaponLimit, '{PATH} exceeds the limit of 3'],
-    },
-    equipment: {
-      armor: itemSchema,
-      shield: itemSchema,
-      ammunition: [itemSchema],
-      others: [itemSchema],
-    },
-    treasure: {
-      weapons: [itemSchema],
-      armors: [itemSchema],
-      others: [itemSchema],
-      custom: [itemSchema],
-    },
-  },
-  money: {
-    cp: Number,
-    sp: Number,
-    ep: Number,
-    gp: Number,
-    pp: Number,
-  },
-
-  // FREETEXT
-  freeText: freeTextSchema,
-
-  // PROFICIENCIES & LANGUAGES
-  languages: [{ type: String, enum: [...LANGUAGES(), ...EXOTIC_LANGUAGES()] }],
-
-  // ADDITIONAL FEATURES
+  race: String,
+  subrace: String,
+  gender: String,
   age: Number,
   height: Number,
   weight: Number,
-  size: {
-    type: String,
-    enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-  },
-  faith: faithSchema,
-
-  // SPELLS
-  spells: [spellSchema],
+  eyes: String,
+  skin: String,
+  hair: String,
+  deity: String,
+  personality: String,
+  appearance: String,
+  talent: String,
+  mannerism: String,
+  interaction: String,
+  ideal: String,
+  bond: String,
+  flaw: String,
+  occupation: String,
+  voice: String,
 });
 
-function weaponLimit(val) {
-  return val.length <= 3;
+const Npc = mongoose.models.Npc || mongoose.model('Npc', npcSchema);
+
+export async function createNpc(npcData) {
+  const npc = await Npc.create({
+    ...npcData,
+    id: uuid(),
+  });
+
+  return npc;
 }
 
-const QuickNpc =
-  mongoose.models.QuickNpc || mongoose.model('Npc', quickNpcSchema);
-
-export async function getAllQuickNpcs() {
-  const npcs = await QuickNpc.find();
+export async function getNpcs() {
+  const npcs = await Npc.find();
   return npcs;
 }
 
-export async function getQuickNpc(id) {
-  const npc = await QuickNpc.findOne({ id }).exec();
+export async function getNpc(id) {
+  const npc = await Npc.findOne({ id }).exec();
   return npc;
 }
 
-export async function createQuickNpc(npc) {
-  const { race, subrace } = npc;
-
-  const newNpc = await Pc.create({
-    id: uuid(),
-    size: RACES[race][subrace].size,
-    speed: RACES[race][subrace].speed,
-    items: {
-      weapons: [],
-      equipment: {
-        armor: null,
-        shield: null,
-        ammunition: [],
-        others: [],
-      },
-      treasure: {
-        weapons: [],
-        armors: [],
-        others: [],
-        custom: [],
-      },
-    },
-    ...npc,
-  });
-
-  return newNpc;
-}
-
-export async function updateQuickNpc(attrs) {
-  const npc = await QuickNpc.findOneAndUpdate(
-    { id: attrs.id },
-    { $set: attrs },
+export async function updateNpc(id, npcData) {
+  const updatedNpc = await Npc.findOneAndUpdate(
+    { id },
+    { $set: npcData },
     { new: true }
   ).exec();
 
-  return npc;
+  return updatedNpc;
+}
+
+export async function deleteNpc(id) {
+  await Npc.deleteOne({ id });
 }

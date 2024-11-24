@@ -3,8 +3,11 @@ import { Link } from '@remix-run/react';
 function NpcMenu() {
   return (
     <>
-      <Link to="./list" className="menus__main-option">
+      <Link to="./main/list" className="menus__main-option">
         <span className="menus__option-label">Lista de NPCs</span>
+      </Link>
+      <Link to="./quick/list" className="menus__main-option">
+        <span className="menus__option-label">Lista de NPCs Rápidos</span>
       </Link>
       <Link to="./quick" className="menus__main-option">
         <span className="menus__option-label">Crear NPC Rápido</span>

@@ -1,5 +1,5 @@
-import { Form } from '@remix-run/react';
-
+import { Form, useActionData, useSubmit } from '@remix-run/react';
+import { json } from '@remix-run/node';
 import { useRef, useState } from 'react';
 import { createRandomNpc } from '~/domain/npc/npc';
 import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
@@ -7,10 +7,23 @@ import { NPC_DEITIES } from '~/domain/npc/attrs/npcFaith';
 import { t } from '~/domain/translations';
 import { removeItem } from '~/utils/array';
 import { CharacterInfo } from '~/components/characters/characterInfo';
+import { createNpc } from '~/services/npc.server';
 
 import styles from '~/components/filters.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
+};
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const npcData = JSON.parse(formData.get('npcData'));
+  
+  try {
+    const npc = await createNpc(npcData);
+    return json({ success: true, npc });
+  } catch (error) {
+    return json({ success: false, error: error.message });
+  }
 };
 
 function Sidebar(props) {
@@ -187,18 +200,27 @@ function Sidebar(props) {
 
 function QuickNpc() {
   const formRef = useRef();
+  const submit = useSubmit();
+  const actionData = useActionData();
 
   const [npc, setNpc] = useState(null);
-
-  function onCreateRandomClick() {
-    setNpc(createRandomNpc(filters));
-  }
-
   const [filters, setFilters] = useState({
     races: [],
     genders: [],
     deities: [],
   });
+
+  function onCreateRandomClick() {
+    setNpc(createRandomNpc(filters));
+  }
+
+  function onSaveNpc() {
+    if (!npc) return;
+
+    const formData = new FormData();
+    formData.append('npcData', JSON.stringify(npc));
+    submit(formData, { method: 'post' });
+  }
 
   return (
     <Form method="post" ref={formRef}>
@@ -209,7 +231,24 @@ function QuickNpc() {
           setFilters={setFilters}
         />
         <div className="filters__results">
-          {!!npc && <CharacterInfo {...npc} />}
+          {!!npc && (
+            <>
+              <CharacterInfo {...npc} />
+              <button
+                type="button"
+                className="cards__button-card"
+                onClick={onSaveNpc}
+              >
+                Guardar NPC
+              </button>
+            </>
+          )}
+          {actionData?.success && (
+            <div className="success-message">NPC guardado correctamente</div>
+          )}
+          {actionData?.error && (
+            <div className="error-message">{actionData.error}</div>
+          )}
         </div>
       </div>
     </Form>

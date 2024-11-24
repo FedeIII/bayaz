@@ -44,7 +44,7 @@ export const NPC_DEITIES_NAMES = {
     [40, 'Giru (Tech)'],
     [30, 'Ilu (Fuego)'],
     [20, 'Dshim (Viento)'],
-    [10, 'Nusku (Luz)'],
+    [10, 'Nuska (Luz)'],
     [10, 'Hefesto (Minería)'],
     [10, 'Kothar (Poder)'],
   ],
