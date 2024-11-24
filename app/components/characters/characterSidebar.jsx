@@ -2,9 +2,10 @@ import { t } from '~/domain/translations';
 import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
 import { NPC_DEITIES } from '~/domain/npc/attrs/npcFaith';
 import { removeItem } from '~/utils/array';
+import { downloadNpcData } from '~/utils/exportHelpers';
 
 export function CharacterSidebar(props) {
-  const { onCreateRandomClick, filters, setFilters } = props;
+  const { onCreateRandomClick, filters, setFilters, formData } = props;
 
   function onRaceSelect(e) {
     const race = e.target.value;
@@ -71,6 +72,13 @@ export function CharacterSidebar(props) {
               </button>
               <button type="submit" className="cards__button-card">
                 ⇧ Guardar
+              </button>
+              <button
+                type="button"
+                className="cards__button-card"
+                onClick={() => downloadNpcData(formData)}
+              >
+                ⇪ Exportar
               </button>
             </div>
           </div>

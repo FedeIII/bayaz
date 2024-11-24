@@ -142,6 +142,7 @@ function QuickNpc() {
           onCreateRandomClick={onCreateRandomClick}
           filters={filters}
           setFilters={setFilters}
+          formData={formData}
         />
         <div className="filters__results">
           <CharacterInfo 
