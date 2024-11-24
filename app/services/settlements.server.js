@@ -123,3 +123,13 @@ export async function deleteSettlement(id) {
   const { deletedCount } = await Settlement.deleteOne({ id });
   return deletedCount;
 }
+
+export async function getSettlementMap(ids) {
+  const settlements = {};
+  const settlementsPromise = ids.map(getSettlement);
+  const results = await Promise.all(settlementsPromise);
+  results.forEach(settlement => {
+    settlements[settlement.id] = settlement;
+  });
+  return settlements;
+}

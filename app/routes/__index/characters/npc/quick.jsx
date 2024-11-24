@@ -1,13 +1,19 @@
-import { Form, useActionData, useSubmit } from '@remix-run/react';
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useSubmit,
+} from '@remix-run/react';
 import { json } from '@remix-run/node';
 import { useRef, useEffect, useState } from 'react';
 import { createRandomNpc } from '~/domain/npc/npc';
 import { CharacterSidebar } from '~/components/characters/characterSidebar';
 import { CharacterInfo } from '~/components/characters/characterInfo';
 import { createNpc } from '~/services/npc.server';
+import { getSettlements } from '~/services/settlements.server';
+import { getDeity } from '~/domain/npc/attrs/npcFaith';
 
 import styles from '~/components/filters.css';
-import { getDeity } from '~/domain/npc/attrs/npcFaith';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
@@ -21,22 +27,23 @@ export const action = async ({ request }) => {
     name: rawData.name,
     race: rawData.race,
     gender: rawData.gender,
+    settlementId: rawData.settlementId,
     looks: rawData.looks ? rawData.looks.split('\n') : [],
     behavior: {
       mood: rawData['behavior.mood'],
       calm: rawData['behavior.calm'],
-      stress: rawData['behavior.stress']
+      stress: rawData['behavior.stress'],
     },
     talent: rawData.talent,
     faith: {
       description: rawData['faith.description'],
       deity: getDeity(rawData['faith.deityName']),
-      deityName: rawData['faith.deityName']
+      deityName: rawData['faith.deityName'],
     },
     ideals: rawData.ideals,
     bonds: rawData.bonds,
     flaws: rawData.flaws,
-    notes: rawData.notes || ''
+    notes: rawData.notes || '',
   };
 
   try {
@@ -47,10 +54,16 @@ export const action = async ({ request }) => {
   }
 };
 
+export const loader = async () => {
+  const settlements = await getSettlements();
+  return json({ settlements });
+};
+
 function QuickNpc() {
+  const { settlements } = useLoaderData();
+  const actionData = useActionData();
   const formRef = useRef();
   const submit = useSubmit();
-  const actionData = useActionData();
   const [filters, setFilters] = useState({
     races: [],
     genders: [],
@@ -61,22 +74,23 @@ function QuickNpc() {
     name: '',
     race: '',
     gender: '',
+    settlementId: '',
     looks: '',
     behavior: {
       mood: '',
       calm: '',
-      stress: ''
+      stress: '',
     },
     talent: '',
     faith: {
       description: '',
       deity: '',
-      deityName: ''
+      deityName: '',
     },
     ideals: '',
     bonds: '',
     flaws: '',
-    notes: ''
+    notes: '',
   });
 
   function handleInputChange(e) {
@@ -87,38 +101,38 @@ function QuickNpc() {
         ...prev,
         [parent]: {
           ...prev[parent],
-          [child]: value
-        }
+          [child]: value,
+        },
       }));
     } else if (name === 'looks') {
       setFormData(prev => ({
         ...prev,
-        [name]: value.split('\n')
+        [name]: value.split('\n'),
       }));
     } else {
       setFormData(prev => ({
         ...prev,
-        [name]: value
+        [name]: value,
       }));
     }
   }
 
   function generateRandomNpc() {
     const randomNpc = createRandomNpc(filters);
-    
+
     const newFormData = {
       ...formData,
       ...randomNpc,
       behavior: {
         ...formData.behavior,
-        ...(randomNpc.behavior || {})
+        ...(randomNpc.behavior || {}),
       },
       faith: {
         ...formData.faith,
-        ...(randomNpc.faith || {})
-      }
+        ...(randomNpc.faith || {}),
+      },
     };
-    
+
     setFormData(newFormData);
   }
 
@@ -145,9 +159,10 @@ function QuickNpc() {
           formData={formData}
         />
         <div className="filters__results">
-          <CharacterInfo 
+          <CharacterInfo
             actionData={actionData}
             formData={formData}
+            settlements={settlements}
             onChange={handleInputChange}
           />
         </div>

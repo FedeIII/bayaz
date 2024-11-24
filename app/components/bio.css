@@ -6,7 +6,7 @@
   font-family: var(--font-family);
   display: grid;
   grid-template-columns: 6% 3% 24.5% 3% 5% 3% 18% 2.5% 4% 9% 13% 2.5%;
-  grid-template-rows: 7% 1.5% 1.5% 1% 1% 4% 3% 2% 14.5% 7.8% 3% 1% 24.2% 2.5% 19% 2%;
+  grid-template-rows: 7% 1.5% 1.5% 1% 1% 4% 3% 2% 14.5% 7.8% 3% 1% 24.2% 2.5% 14.5% 1.5% 1.5% 1.5% 2%;
   /* prettier-ignore */
   grid-template-areas:
     /*******  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12 */
@@ -25,7 +25,10 @@
     /* 13 */ '.   bst bst .   eT1 eT1 eT1 eT1 eT2 eT2 eT2 eT2 ' /* 13 */
     /* 14 */ '.   bst bst .   .   .   suT .   .   .   .   .   ' /* 14 */
     /* 15 */ '.   bst bst .   tre tre tre tre tre tre tre tre ' /* 15 */
-    /* 16 */ '.   .   .   suL .   .   .   .   .   .   .   .   '; /* 16 */
+    /* 16 */ '.   frm frm .   .   .   .   .   .   .   .   .   ' /* 16 */
+    /* 17 */ '.   lst lst .   .   .   .   .   .   .   .   .   ' /* 17 */
+    /* 18 */ '.   gng gng .   .   .   .   .   .   .   .   .   ' /* 18 */
+    /* 19 */ '.   .   .   .   .   .   .   .   .   .   .   .   '; /* 19 */
   /*********  1 . 2 . 3 . 4 . 5 . 6 . 7 . 8 . 9  10  11  12 */
 }
 
@@ -129,6 +132,17 @@
   line-height: 1.54;
   hyphens: auto;
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bio__text-input {
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
+  background-color: rgba(255, 255, 255, 0.5);
+  color: var(--color-blue-ink);
+  line-height: 1.54;
+  hyphens: auto;
+  border: none;
+  outline: none;
 }
 
 .bio__extra-traits1 {
@@ -325,6 +339,8 @@
   background-color: var(--color-gray);
 }
 
+
+
 .bio__other-item-input {
   font-family: var(--font-family);
   font-size: var(--font-size-s);
@@ -370,4 +386,35 @@
   100% {
     transform: scale(1);
   }
+}
+
+.bio__location-inputs {
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bio__location-input--natural-from {
+  grid-area: frm;
+}
+
+.bio__location-input--last-location {
+  grid-area: lst;
+}
+
+.bio__location-input--going-to {
+  grid-area: gng;
+}
+
+.bio__location-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bio__location-input label {
+  color: var(--color-blue-ink);
+  font-size: var(--font-size-s);
+  white-space: nowrap;
 }

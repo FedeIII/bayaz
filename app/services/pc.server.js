@@ -294,6 +294,12 @@ const customTraitSchema = new mongoose.Schema({
   text: String,
 });
 
+const locationSchema = new mongoose.Schema({
+  naturalFrom: String,
+  lastLocation: String,
+  goingTo: String,
+});
+
 ///////////////////////
 ///////////////////////
 ////               ////
@@ -409,6 +415,9 @@ const pcSchema = new mongoose.Schema({
   },
   spells: [spellSchema],
   preparedSpells: [spellSchema],
+
+  // LOCATION
+  location: locationSchema,
 });
 
 function weaponLimit(val) {

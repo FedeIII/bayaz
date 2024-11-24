@@ -32,6 +32,11 @@ export function getDeity(deityName) {
   );
 }
 
+export function getDeityColorClass(deityName) {
+  const deity = getDeity(deityName);
+  return deity ? GOD_COLOR_CLASSES[deity] : '';
+}
+
 export const NPC_DEITIES_NAMES = {
   Matter: [
     [60, 'Simtu (Naturaleza)'],

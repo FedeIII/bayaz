@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 import { json, redirect } from '@remix-run/node';
+import classNames from 'classnames';
 
 import {
   CITY,
@@ -47,8 +48,7 @@ import { getSettlementImages } from '~/services/s3.server';
 import { getVillageSecurityType } from '~/domain/places/village';
 import NumericInput from '~/components/inputs/numeric';
 import HtmlInput from '~/components/inputs/htmlInput';
-import classNames from 'classnames';
-import { getDeity, GOD_COLOR_CLASSES } from '~/domain/npc/attrs/npcFaith';
+import { getDeityColorClass } from '~/domain/npc/attrs/npcFaith';
 
 const TYPES = {
   city: CITY,
@@ -770,7 +770,7 @@ function SettlementScreen() {
                         onChange={e => onTempleNameChange(i, e)}
                         className={classNames(
                           'places__trait-input',
-                          GOD_COLOR_CLASSES[getDeity(deityName)]
+                          getDeityColorClass(deityName)
                         )}
                       />
                     </li>
@@ -803,7 +803,7 @@ function SettlementScreen() {
                         onChange={e => onShrineNameChange(i, e)}
                         className={classNames(
                           'places__trait-input',
-                          GOD_COLOR_CLASSES[getDeity(deityName)]
+                          getDeityColorClass(deityName)
                         )}
                       />
                     </li>

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
 import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
-import { getDeity, GOD_COLOR_CLASSES } from '~/domain/npc/attrs/npcFaith';
+import { getDeityColorClass } from '~/domain/npc/attrs/npcFaith';
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
@@ -14,7 +14,7 @@ const SUCCESS_MESSAGE_TIMEOUT = 3000;
 const ERROR_MESSAGE_TIMEOUT = 5000;
 
 export function CharacterInfo(props) {
-  const { formData, onChange, actionData } = props;
+  const { formData, onChange, actionData, settlements = [] } = props;
 
   const ref = useRef();
 
@@ -81,6 +81,19 @@ export function CharacterInfo(props) {
         >
           <option value="Male">{t('Male')}</option>
           <option value="Female">{t('Female')}</option>
+        </select>
+        <select
+          name="settlementId"
+          className="characters__input characters__input--no-border"
+          value={formData.settlementId || ''}
+          onChange={onChange}
+        >
+          <option value="">Sin asentamiento</option>
+          {settlements.map(settlement => (
+            <option key={settlement.id} value={settlement.id}>
+              {settlement.name}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -182,7 +195,7 @@ export function CharacterInfo(props) {
                 name="faith.deityName"
                 className={classNames(
                   'characters__input characters__input--no-border',
-                  GOD_COLOR_CLASSES[getDeity(formData.faith.deityName)]
+                  getDeityColorClass(formData.faith.deityName)
                 )}
                 placeholder="Nombre de deidad"
                 value={formData.faith.deityName}

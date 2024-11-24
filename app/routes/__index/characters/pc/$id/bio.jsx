@@ -241,6 +241,17 @@ async function updateFreeTextsAction(formData) {
   });
 }
 
+async function updateLocationAction(formData) {
+  const id = formData.get('id');
+  const fieldName = formData.get('fieldName');
+  const text = formData.get('text');
+
+  return await updatePc({
+    id,
+    [`location.${fieldName}`]: text,
+  });
+}
+
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
@@ -284,6 +295,8 @@ export const action = async ({ request }) => {
     updatedPc = await putItemOutAction(formData);
   } else if (action === 'textChange') {
     updatedPc = await updateFreeTextsAction(formData);
+  } else if (action === 'locationChange') {
+    updatedPc = await updateLocationAction(formData);
   }
 
   if (!updatedPc) {
@@ -719,6 +732,8 @@ function PcBio() {
     height,
     weight,
     pack,
+    npc,
+    location: { naturalFrom, lastLocation, goingTo } = {},
     items: { treasure = {} } = {},
     freeText: {
       eyes,
@@ -739,6 +754,18 @@ function PcBio() {
     submit(
       {
         action: 'textChange',
+        id,
+        fieldName,
+        text,
+      },
+      { method: 'post' }
+    );
+  }
+
+  function onLocationChange(fieldName, text) {
+    submit(
+      {
+        action: 'locationChange',
         id,
         fieldName,
         text,
@@ -1176,11 +1203,43 @@ function PcBio() {
         ></textarea>
 
         <textarea
-          className="bio__data bio__backstory"
+          className="bio__backstory"
           name="backstory"
           defaultValue={backstory}
           onBlur={e => onTextChange('backstory', e.target.value)}
         ></textarea>
+
+        {npc && (
+          <>
+            <div className="bio__location-input bio__location-input--natural-from">
+              <label>Natural de: </label>
+              <input
+                type="text"
+                value={naturalFrom || ''}
+                className="bio__text-input"
+                onChange={e => onLocationChange('naturalFrom', e.target.value)}
+              />
+            </div>
+            <div className="bio__location-input bio__location-input--last-location">
+              <label>Última localización: </label>
+              <input
+                type="text"
+                value={lastLocation || ''}
+                className="bio__text-input"
+                onChange={e => onLocationChange('lastLocation', e.target.value)}
+              />
+            </div>
+            <div className="bio__location-input bio__location-input--going-to">
+              <label>Yendo a: </label>
+              <input
+                type="text"
+                value={goingTo || ''}
+                className="bio__text-input"
+                onChange={e => onLocationChange('goingTo', e.target.value)}
+              />
+            </div>
+          </>
+        )}
 
         <textarea
           className="bio__data bio__extra-traits1"

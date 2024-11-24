@@ -1,8 +1,11 @@
 import { json } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
+import classNames from 'classnames';
 
 import { getNpcs } from '~/services/npc.server';
-import { translateClass, translateRace } from '~/domain/characters';
+import { translateRace } from '~/domain/characters';
+import { getSettlementMap } from '~/services/settlements.server';
+import { getDeityColorClass } from '~/domain/npc/attrs/npcFaith';
 
 import styles from '~/components/party.css';
 export const links = () => {
@@ -14,11 +17,14 @@ export const loader = async ({ params }) => {
   if (!npcs?.length) {
     throw new Error('NPCs not found');
   }
-  return json({ npcs });
+  const settlements = await getSettlementMap(
+    Array.from(new Set(npcs.map(npc => npc.settlementId)))
+  );
+  return json({ npcs, settlements });
 };
 
 function NpcList() {
-  const { npcs } = useLoaderData();
+  const { npcs, settlements } = useLoaderData();
 
   return (
     <>
@@ -29,20 +35,20 @@ function NpcList() {
       <ul className="party__character-list">
         {npcs.map(npc => (
           <li className="party__character" key={npc.id}>
-            <Link
-              to={`/characters/npc/${npc.id}/summary`}
-              className="party__pc-link"
-            >
+            <Link to={`/characters/npc/${npc.id}`} className="party__pc-link">
               <div className="party__character-name">{npc.name}</div>
+              <div className="party__party-data">{translateRace(npc.race)}</div>
               <div className="party__party-data">
-                {translateRace(npc.race)}
-                {npc.subrace !== 'subrace' &&
-                  ` - ${translateRace(npc.subrace)}`}
+                {settlements[npc.settlementId]?.name}
               </div>
-              <div className="party__party-data">
-                {translateClass(npc.pClass)}
+              <div
+                className={classNames(
+                  'party__party-data',
+                  getDeityColorClass(npc.faith.deityName)
+                )}
+              >
+                {npc.faith.deityName}
               </div>
-              <div className="party__party-data">Nivel {npc.level}</div>
             </Link>
           </li>
         ))}
