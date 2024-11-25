@@ -158,7 +158,6 @@ export async function getSettlementMap(ids) {
   const settlements = {};
   const settlementsPromise = ids.map(getSettlement);
   const results = await Promise.all(settlementsPromise);
-  console.log('results', results);
   results.forEach(settlement => {
     settlements[settlement.id] = settlement;
   });

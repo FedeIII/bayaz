@@ -7,8 +7,6 @@ connect();
 async function connect() {
   if (db) return db;
 
-  console.log('Fedes MONGODB_URI:', process.env.MONGODB_URI);
-
   if (process.env.NODE_ENV === 'production') {
     db = await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,

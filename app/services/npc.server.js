@@ -80,14 +80,12 @@ export async function getNpc(id) {
 }
 
 export async function updateNpc(npcData) {
-  console.log('updateNpc', npcData);
   const updatedNpc = await Npc.findOneAndUpdate(
     { id: npcData.id },
     { $set: npcData },
     { new: true }
   ).exec();
 
-  console.log('updatedNpc', updatedNpc);
   return updatedNpc;
 }
 

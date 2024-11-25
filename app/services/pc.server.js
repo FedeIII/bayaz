@@ -1155,7 +1155,6 @@ export async function changeCustomItemAmount(id, itemName, itemAmount) {
 }
 
 export async function changeItemCharges(id, itemName, newCharges, sectionPath) {
-  console.log('FEDE');
   const updatedPc = await Pc.findOneAndUpdate(
     { id, [`items.${sectionPath}.name`]: itemName },
     {
@@ -1344,9 +1343,7 @@ export async function putOutOfBagOfHolding(id, itemId) {
   );
 
   const pItem = pc.items.treasure.bagOfHolding[0];
-  console.log('pItem', pItem);
   const section = getSectionPath(getItem(pItem.toJSON()));
-  console.log('section', section);
 
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
