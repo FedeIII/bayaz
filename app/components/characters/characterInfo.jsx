@@ -4,6 +4,7 @@ import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
 import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
 import { getDeityColorClass } from '~/domain/npc/attrs/npcFaith';
+import SettlementByDominionSelector from '../places/settlementByDominionSelector';
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
@@ -82,19 +83,13 @@ export function CharacterInfo(props) {
           <option value="Male">{t('Male')}</option>
           <option value="Female">{t('Female')}</option>
         </select>
-        <select
+        <SettlementByDominionSelector
+          settlementsByDominion={settlements}
           name="settlementId"
           className="characters__input characters__input--no-border"
           value={formData.settlementId || ''}
           onChange={onChange}
-        >
-          <option value="">Sin asentamiento</option>
-          {settlements.map(settlement => (
-            <option key={settlement.id} value={settlement.id}>
-              {settlement.name}
-            </option>
-          ))}
-        </select>
+        />
       </div>
 
       <hr className="characters__section-divider" />

@@ -114,6 +114,36 @@ export async function getSettlements() {
   return settlements;
 }
 
+export async function getSettlementsByDominionAndName() {
+  const settlements = await Settlement.find().exec();
+  const dominionMap = {};
+
+  settlements.forEach(settlement => {
+    const { dominion, subdominion, name } = settlement;
+    if (!dominionMap[dominion]) {
+      dominionMap[dominion] = {};
+    }
+    if (!dominionMap[dominion][subdominion]) {
+      dominionMap[dominion][subdominion] = [];
+    }
+    dominionMap[dominion][subdominion].push(settlement);
+  });
+
+  const result = Object.entries(dominionMap).map(
+    ([dominionName, subdominions]) => {
+      const subdominionEntries = Object.entries(subdominions).map(
+        ([subdominionName, settlements]) => {
+          settlements.sort((a, b) => a.name.localeCompare(b.name));
+          return [subdominionName, settlements];
+        }
+      );
+      return [dominionName, subdominionEntries];
+    }
+  );
+
+  return result;
+}
+
 export async function getSettlement(id) {
   const settlement = await Settlement.findOne({ id }).exec();
   return settlement;
@@ -128,6 +158,7 @@ export async function getSettlementMap(ids) {
   const settlements = {};
   const settlementsPromise = ids.map(getSettlement);
   const results = await Promise.all(settlementsPromise);
+  console.log('results', results);
   results.forEach(settlement => {
     settlements[settlement.id] = settlement;
   });

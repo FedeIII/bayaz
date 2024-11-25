@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { mongoose } from '~/services/db.server';
-import { getSettlements } from './settlements.server';
+import { getSettlementMap } from './settlements.server';
 
 // Simple schema for quick NPCs
 const npcSchema = new mongoose.Schema({
@@ -43,6 +43,37 @@ export async function getNpcs() {
   return npcs;
 }
 
+export async function getNpcsBySubdominions() {
+  const npcs = await getNpcs();
+  const settlements = await getSettlementMap(
+    Array.from(new Set(npcs.map(npc => npc.settlementId)))
+  );
+
+  const npcsBySubdominions = Object.values(settlements).reduce(
+    (acc, settlement) => {
+      const subdominionName = settlement.subdominion;
+      if (!acc[subdominionName]) {
+        acc[subdominionName] = [];
+      }
+      const npcsInSettlement = npcs.filter(
+        npc => npc.settlementId === settlement.id
+      );
+      acc[subdominionName].push(...npcsInSettlement);
+      return acc;
+    },
+    {}
+  );
+
+  const result = Object.entries(npcsBySubdominions).map(
+    ([subdominionName, npcs]) => [
+      subdominionName,
+      npcs.sort((a, b) => a.name.localeCompare(b.name)),
+    ]
+  );
+
+  return result;
+}
+
 export async function getNpc(id) {
   const npc = await Npc.findOne({ id }).exec();
   return npc;
@@ -62,12 +93,4 @@ export async function updateNpc(npcData) {
 
 export async function deleteNpc(id) {
   await Npc.deleteOne({ id });
-}
-
-export async function getNpcWithSettlements(id) {
-  const [npc, settlements] = await Promise.all([
-    Npc.findOne({ id }).exec(),
-    getSettlements(),
-  ]);
-  return { npc, settlements };
 }

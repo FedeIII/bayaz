@@ -10,7 +10,7 @@ import { createRandomNpc } from '~/domain/npc/npc';
 import { CharacterSidebar } from '~/components/characters/characterSidebar';
 import { CharacterInfo } from '~/components/characters/characterInfo';
 import { createNpc } from '~/services/npc.server';
-import { getSettlements } from '~/services/settlements.server';
+import { getSettlementsByDominionAndName } from '~/services/settlements.server';
 import { getDeity } from '~/domain/npc/attrs/npcFaith';
 
 import styles from '~/components/filters.css';
@@ -55,7 +55,7 @@ export const action = async ({ request }) => {
 };
 
 export const loader = async () => {
-  const settlements = await getSettlements();
+  const settlements = await getSettlementsByDominionAndName();
   return json({ settlements });
 };
 

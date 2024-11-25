@@ -2,7 +2,8 @@ import { Form, useLoaderData, useSubmit, Link } from '@remix-run/react';
 import { json } from '@remix-run/node';
 import { useRef, useState } from 'react';
 import { CharacterInfo } from '~/components/characters/characterInfo';
-import { updateNpc, getNpcWithSettlements } from '~/services/npc.server';
+import { getNpc, updateNpc } from '~/services/npc.server';
+import { getSettlementsByDominionAndName } from '~/services/settlements.server';
 import { downloadNpcData } from '~/utils/exportHelpers';
 
 import styles from '~/components/filters.css';
@@ -11,7 +12,8 @@ export const links = () => {
 };
 
 export const loader = async ({ params }) => {
-  const { npc, settlements } = await getNpcWithSettlements(params.id);
+  const npc = await getNpc(params.id);
+  const settlements = await getSettlementsByDominionAndName();
   if (!npc) {
     throw new Error('NPC not found');
   }

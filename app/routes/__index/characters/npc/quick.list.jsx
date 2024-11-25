@@ -2,7 +2,7 @@ import { json } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 import classNames from 'classnames';
 
-import { getNpcs } from '~/services/npc.server';
+import { getNpcsBySubdominions } from '~/services/npc.server';
 import { translateRace } from '~/domain/characters';
 import { getSettlementMap } from '~/services/settlements.server';
 import { getDeityColorClass } from '~/domain/npc/attrs/npcFaith';
@@ -13,18 +13,24 @@ export const links = () => {
 };
 
 export const loader = async ({ params }) => {
-  const npcs = await getNpcs();
-  if (!npcs?.length) {
+  const npcsBySubdominions = await getNpcsBySubdominions();
+  if (!npcsBySubdominions?.length) {
     throw new Error('NPCs not found');
   }
   const settlements = await getSettlementMap(
-    Array.from(new Set(npcs.map(npc => npc.settlementId)))
+    Array.from(
+      new Set(
+        npcsBySubdominions.flatMap(([_, npcs]) =>
+          npcs.map(npc => npc.settlementId)
+        )
+      )
+    )
   );
-  return json({ npcs, settlements });
+  return json({ npcsBySubdominions, settlements });
 };
 
 function NpcList() {
-  const { npcs, settlements } = useLoaderData();
+  const { npcsBySubdominions, settlements } = useLoaderData();
 
   return (
     <>
@@ -33,23 +39,35 @@ function NpcList() {
       </Link>
 
       <ul className="party__character-list">
-        {npcs.map(npc => (
-          <li className="party__character" key={npc.id}>
-            <Link to={`/characters/npc/${npc.id}`} className="party__pc-link">
-              <div className="party__character-name">{npc.name}</div>
-              <div className="party__party-data">{translateRace(npc.race)}</div>
-              <div className="party__party-data">
-                {settlements[npc.settlementId]?.name}
-              </div>
-              <div
-                className={classNames(
-                  'party__party-data',
-                  getDeityColorClass(npc.faith.deityName)
-                )}
-              >
-                {npc.faith.deityName}
-              </div>
-            </Link>
+        {npcsBySubdominions.map(([subdominionName, npcs]) => (
+          <li className="party__character-npc-group" key={subdominionName}>
+            <h2 className="party__character-list-title">{subdominionName}</h2>
+            <ul>
+              {npcs.map(npc => (
+                <li className="party__character" key={npc.id}>
+                  <Link
+                    to={`/characters/npc/${npc.id}`}
+                    className="party__pc-link"
+                  >
+                    <div className="party__character-name">{npc.name}</div>
+                    <div className="party__party-data">
+                      {translateRace(npc.race)}
+                    </div>
+                    <div className="party__party-data">
+                      {settlements[npc.settlementId]?.name}
+                    </div>
+                    <div
+                      className={classNames(
+                        'party__party-data',
+                        getDeityColorClass(npc.faith.deityName)
+                      )}
+                    >
+                      {npc.faith.deityName}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </li>
         ))}
       </ul>
