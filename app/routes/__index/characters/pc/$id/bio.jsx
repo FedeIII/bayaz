@@ -50,6 +50,8 @@ import {
 import { ALL_SPELLS_BY_LEVEL } from '~/domain/spells/getSpells';
 import { t } from '~/domain/translations';
 import { WONDROUS } from '~/domain/equipment/magicItems';
+import SettlementByDominionSelector from '~/components/places/settlementByDominionSelector';
+import { getSettlementsByDominionAndName } from '~/services/settlements.server';
 
 import styles from '~/components/bio.css';
 export const links = () => {
@@ -69,8 +71,9 @@ export const loader = async ({ request, params }) => {
   }
 
   const user = await getSessionUser(request);
+  const settlements = await getSettlementsByDominionAndName();
 
-  return json({ pc, isDm: isDm(user) });
+  return json({ pc, settlements, isDm: isDm(user) });
 };
 
 async function equipWeaponAction(formData) {
@@ -724,7 +727,7 @@ function ArmorModalContent(props) {
 }
 
 function PcBio() {
-  const { pc, isDm } = useLoaderData();
+  const { pc, settlements, isDm } = useLoaderData();
   const {
     id,
     name,
@@ -1213,28 +1216,31 @@ function PcBio() {
           <>
             <div className="bio__location-input bio__location-input--natural-from">
               <label>Natural de: </label>
-              <input
-                type="text"
-                value={naturalFrom || ''}
+              <SettlementByDominionSelector
+                settlementsByDominion={settlements}
                 className="bio__text-input"
+                name="naturalFrom"
+                value={naturalFrom || ''}
                 onChange={e => onLocationChange('naturalFrom', e.target.value)}
               />
             </div>
             <div className="bio__location-input bio__location-input--last-location">
-              <label>Última localización: </label>
-              <input
-                type="text"
-                value={lastLocation || ''}
+              <label>En: </label>
+              <SettlementByDominionSelector
+                settlementsByDominion={settlements}
                 className="bio__text-input"
+                name="lastLocation"
+                value={lastLocation || ''}
                 onChange={e => onLocationChange('lastLocation', e.target.value)}
               />
             </div>
             <div className="bio__location-input bio__location-input--going-to">
               <label>Yendo a: </label>
-              <input
-                type="text"
-                value={goingTo || ''}
+              <SettlementByDominionSelector
+                settlementsByDominion={settlements}
                 className="bio__text-input"
+                name="goingTo"
+                value={goingTo || ''}
                 onChange={e => onLocationChange('goingTo', e.target.value)}
               />
             </div>
