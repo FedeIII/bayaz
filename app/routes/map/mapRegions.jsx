@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useSubmit } from '@remix-run/react';
-import MapPopup from './mapPopup';
-import { RegionPaneMap } from '~/domain/places/regions';
+import { SVGOverlay, CircleMarker, Marker, Polygon } from 'react-leaflet';
+
 import { getLabelX, getLabelY } from '~/utils/map';
+import { RegionPaneMap } from '~/domain/places/regions';
+import MapPopup from './mapPopup';
 
 function RegionVertexMarker(props) {
   const {
-    L,
     vertex,
     isEditingVertices,
     isMovingRegion,
@@ -40,7 +41,7 @@ function RegionVertexMarker(props) {
     );
   }
 
-  const MarkerComponent = isEditingVertices ? L.Marker : L.CircleMarker;
+  const MarkerComponent = isEditingVertices ? Marker : CircleMarker;
 
   return (
     <MarkerComponent
@@ -68,7 +69,7 @@ function RegionVertexMarker(props) {
         mouseout: () => setVertexOver(null),
       }}
     >
-      <MapPopup L={L} title={region.name} ref={regionVertexPopupRef}>
+      <MapPopup title={region.name} ref={regionVertexPopupRef}>
         <ul className="map__popup-options">
           <li>
             <button
@@ -106,7 +107,6 @@ function RegionVertexMarker(props) {
 
 function Region(props) {
   const {
-    L,
     selectedRegion,
     region,
     vertexOver,
@@ -149,7 +149,6 @@ function Region(props) {
         region.vertices.map(vertex => (
           <RegionVertexMarker
             key={vertex._id}
-            L={L}
             vertex={vertex}
             isEditingVertices={isEditingVertices}
             isMovingRegion={isMovingRegion}
@@ -162,7 +161,7 @@ function Region(props) {
           />
         ))}
 
-      <L.Polygon
+      <Polygon
         pane={RegionPaneMap[region.type]}
         pathOptions={{
           color: region.color,
@@ -181,7 +180,7 @@ function Region(props) {
           mouseout: () => setRegionOver(null),
         }}
       >
-        <MapPopup L={L} title={region.name} ref={regionPopupRef}>
+        <MapPopup title={region.name} ref={regionPopupRef}>
           <ul className="map__popup-options">
             <li>
               <Link
@@ -274,14 +273,13 @@ function Region(props) {
             </li>
           </ul>
         </MapPopup>
-      </L.Polygon>
+      </Polygon>
     </>
   );
 }
 
 function ExistingRegions(props) {
   const {
-    L,
     regions = [],
     bounds,
     zoom,
@@ -301,7 +299,6 @@ function ExistingRegions(props) {
         regions.map(region => (
           <Region
             key={region.id}
-            L={L}
             selectedRegion={selectedRegion}
             region={region}
             vertexOver={vertexOver}
@@ -314,7 +311,7 @@ function ExistingRegions(props) {
             setRegionOver={setRegionOver}
           />
         ))}
-      <L.SVGOverlay bounds={bounds} pane="textPane">
+      <SVGOverlay bounds={bounds} pane="textPane">
         {!!regions.length &&
           regions.map(
             region =>
@@ -345,14 +342,13 @@ function ExistingRegions(props) {
                 </text>
               )
           )}
-      </L.SVGOverlay>
+      </SVGOverlay>
     </>
   );
 }
 
 function NewRegion(props) {
   const {
-    L,
     newRegion,
     newLocation,
     onMapClick,
@@ -369,13 +365,13 @@ function NewRegion(props) {
   return (
     <>
       {newRegion.map(vertex => (
-        <L.CircleMarker
+        <CircleMarker
           key={`${vertex.lat}-${vertex.lng}`}
           pane="newElementsPane"
           center={[vertex.lat, vertex.lng]}
           radius={5}
         >
-          <MapPopup L={L} title="Nueva región">
+          <MapPopup title="Nueva región">
             <ul className="map__popup-options">
               <li>
                 <button
@@ -387,15 +383,15 @@ function NewRegion(props) {
               </li>
             </ul>
           </MapPopup>
-        </L.CircleMarker>
+        </CircleMarker>
       ))}
-      <L.Polygon
+      <Polygon
         pane="newElementsPane"
         pathOptions={{ color: regionColor }}
         positions={newRegion}
         eventHandlers={{ click: onMapClick }}
       >
-        <MapPopup L={L} title="Nueva región" ref={newRegionPopupRef}>
+        <MapPopup title="Nueva región" ref={newRegionPopupRef}>
           <ul className="map__popup-options">
             <li>
               Nombre:{' '}
@@ -452,14 +448,13 @@ function NewRegion(props) {
             </li>
           </ul>
         </MapPopup>
-      </L.Polygon>
+      </Polygon>
     </>
   );
 }
 
 export default function MapRegions(props) {
   const {
-    L,
     regions,
     newRegion,
     newLocation,
@@ -475,7 +470,6 @@ export default function MapRegions(props) {
   return (
     <>
       <ExistingRegions
-        L={L}
         regions={regions}
         bounds={bounds}
         zoom={zoom}
@@ -486,7 +480,6 @@ export default function MapRegions(props) {
       />
       {!!newRegion.length && (
         <NewRegion
-          L={L}
           newRegion={newRegion}
           newLocation={newLocation}
           onMapClick={onMapClick}
