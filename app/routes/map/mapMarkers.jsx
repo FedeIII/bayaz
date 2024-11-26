@@ -1,11 +1,13 @@
 import { Link, useSubmit } from '@remix-run/react';
 import { useRef, useState } from 'react';
-import MapPopup from '~/components/map/mapPopup';
+import { CircleMarker, Marker } from 'react-leaflet';
+
 import { t } from '~/domain/translations';
 import { getSettlementRadius } from '~/utils/map';
+import MapPopup from './mapPopup';
 
 function SettlementMarker(props) {
-  const { L, settlement, locationOver, setLocationOver } = props;
+  const { settlement, locationOver, setLocationOver } = props;
   const {
     id,
     location,
@@ -23,7 +25,7 @@ function SettlementMarker(props) {
   const [isEditingLocation, setIsEditingLocation] = useState(false);
   const [position, setPosition] = useState([location.lat, location.lng]);
 
-  const MarkerComponent = isEditingLocation ? L.Marker : L.CircleMarker;
+  const MarkerComponent = isEditingLocation ? Marker : CircleMarker;
 
   const submit = useSubmit();
   function placeSettlement(location) {
@@ -66,7 +68,7 @@ function SettlementMarker(props) {
         mouseout: () => setLocationOver(null),
       }}
     >
-      <MapPopup L={L} title={name} ref={popupRef}>
+      <MapPopup title={name} ref={popupRef}>
         <ul className="map__popup-options">
           <li>
             <Link
@@ -126,7 +128,6 @@ function SettlementMarker(props) {
 
 export default function MapMarkers(props) {
   const {
-    L,
     settlements,
     newLocation,
     region,
@@ -144,20 +145,19 @@ export default function MapMarkers(props) {
       {settlements.map(settlement => (
         <SettlementMarker
           key={settlement.id}
-          L={L}
           settlement={settlement}
           locationOver={locationOver}
           setLocationOver={setLocationOver}
         />
       ))}
       {!!newLocation && (
-        <L.CircleMarker
+        <CircleMarker
           pane="newElementsPane"
           center={[newLocation.lat, newLocation.lng]}
           pathOptions={{ color: '#d84343' }}
           radius={5}
         >
-          <MapPopup L={L} title="Nuevo asentamiento" ref={newLocationPopupRef}>
+          <MapPopup title="Nuevo asentamiento" ref={newLocationPopupRef}>
             <ul className="map__popup-options">
               <li>
                 <select name="type" defaultValue="village" ref={typeRef}>
@@ -208,7 +208,7 @@ export default function MapMarkers(props) {
               </li>
             </ul>
           </MapPopup>
-        </L.CircleMarker>
+        </CircleMarker>
       )}
     </>
   );
