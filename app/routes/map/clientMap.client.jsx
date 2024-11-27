@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form, useLoaderData, useSubmit } from '@remix-run/react';
 import { Util, CRS, Transformation } from 'leaflet';
 import {
   useMapEvents,
@@ -10,10 +10,10 @@ import {
 } from 'react-leaflet';
 
 import withLoading from '~/components/HOCs/withLoading';
+import { areSameCoords, getCellCorner } from '~/utils/map';
 import MapMarkers from './mapMarkers';
 import MapLabels from './mapLabels';
 import MapRegions from './mapRegions';
-import { getPolygonsFromPoints } from '~/utils/map';
 
 // x c [0, 100] left to right
 // y c [0, 120] bottom to top
@@ -27,40 +27,113 @@ const initZoom = 6;
 
 function ClientMap() {
   const { center: initCenter, settlements, regions } = useLoaderData();
+  const submit = useSubmit();
 
   const [zoom, setZoom] = useState(initZoom);
   const [newLocation, setNewLocation] = useState(null);
+
+  const [selectedRegion, setSelectedRegion] = useState(null);
+
   // new region defined as an array of points
   const [newRegion, setNewRegion] = useState([]);
   const [regionCreationStarted, setRegionCreationStarted] = useState(false);
+
+  const [editingRegion, setEditingRegion] = useState(null);
+  const [editingRegionPoints, setEditingRegionPoints] = useState([]);
+
+  const [tool, setTool] = useState(null); // paint, delete
+  useEffect(() => {
+    const mapContainer = document.querySelector('.leaflet-container');
+    if (!mapContainer) return;
+
+    if (tool) {
+      // Only override cursor when a tool is selected
+      const cursor =
+        tool === 'paint' ? 'crosshair' : tool === 'delete' ? 'no-drop' : 'auto';
+
+      mapContainer.style.cursor = cursor;
+    } else {
+      // Remove our cursor override when no tool is selected
+      mapContainer.style.removeProperty('cursor');
+    }
+  }, [tool]);
 
   function startRegionCreation(location) {
     setRegionCreationStarted(true);
   }
 
-  function addLocationToRegion(location) {
-    const x = Math.round((location.lng - 0.425) / 0.85) * 0.85;
-    const y = Math.round((location.lat - 0.425) / 0.85) * 0.85;
+  function addLocationToNewRegion(location) {
+    const [y, x] = getCellCorner(location);
 
     setNewRegion(old => [...old, [y, x]]);
   }
 
-  function removeLocationFromRegion(point) {
-    // setNewRegion(old =>
-    //   removeItem(
-    //     vertex => vertex.lat === location.lat && vertex.lng === location.lng,
-    //     old
-    //   )
-    // );
+  function startRegionEditing() {
+    setEditingRegion(selectedRegion);
+    setEditingRegionPoints(regions.find(r => r.id === selectedRegion).points);
   }
 
-  function resetRegion(e) {
+  function stopRegionEditing() {
+    setEditingRegion(null);
+    setEditingRegionPoints([]);
+  }
+
+  function editRegion(location) {
+    const [y, x] = getCellCorner(location);
+    switch (tool) {
+      case 'paint':
+        setEditingRegionPoints(old => [...old, [y, x]]);
+        break;
+      case 'delete':
+        setEditingRegionPoints(old =>
+          old.filter(point => !areSameCoords(point, [y, x]))
+        );
+        break;
+    }
+  }
+
+  function addLocationToRegion(location) {
+    const [y, x] = getCellCorner(location);
+
+    if (editingRegionPoints.some(point => areSameCoords(point, [y, x]))) {
+      setNewLocation({ lat: y, lng: x });
+    } else {
+      setEditingRegionPoints(old => [...old, [y, x]]);
+    }
+  }
+
+  function removeLocationFromRegion() {
+    const [y, x] = getCellCorner(newLocation);
+
+    setEditingRegionPoints(old =>
+      old.filter(point => !areSameCoords(point, [y, x]))
+    );
+  }
+
+  function saveLocationsToRegion() {
+    if (!editingRegion) return;
+
+    submit(
+      {
+        action: 'setPointsForRegion',
+        regionId: editingRegion,
+        points: editingRegionPoints.map(point => point.join(',')).join('|'),
+      },
+      { method: 'post' }
+    );
+
+    stopRegionEditing();
+  }
+
+  function resetNewRegion(e) {
     e?.preventDefault();
+    e?.stopPropagation();
     setNewRegion([]);
+    setRegionCreationStarted(false);
   }
 
   useEffect(() => {
-    resetRegion();
+    resetNewRegion();
   }, [regions.length]);
 
   const center = initCenter || [70.385009765625, 34.26859054483621];
@@ -68,7 +141,9 @@ function ClientMap() {
   function onMapClick(e) {
     console.log('Click', [e.latlng.lat, e.latlng.lng], e);
     if (regionCreationStarted) {
-      addLocationToRegion(e.latlng);
+      addLocationToNewRegion(e.latlng);
+    } else if (editingRegion) {
+      editRegion(e.latlng);
     } else {
       setNewLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
     }
@@ -81,13 +156,22 @@ function ClientMap() {
         console.log('Zoom', e.target._zoom, e);
         setZoom(e.target._zoom);
       },
+      mousedown: e => {
+        console.log('Mousedown', e.latlng);
+      },
+      mousemove: e => {
+        console.log('Mousemove', e.latlng);
+      },
     });
 
     return null;
   }
 
   return (
-    <Form method="post" style={{ width: '100vw', height: '100vh' }}>
+    <Form
+      method="post"
+      style={{ width: '100vw', height: '100vh', cursor: 'inherit' }}
+    >
       <MapContainer
         // center={[y^, x>]}
         center={center}
@@ -98,7 +182,7 @@ function ClientMap() {
         crs={Util.extend(CRS.Simple, {
           transformation: new Transformation(1, 0, 1, 0),
         })}
-        style={{ height: '100%' }}
+        style={{ height: '100%', cursor: 'inherit' }}
       >
         {/* <L.ImageOverlay url="/images/map_raw.png" bounds={bounds} /> */}
 
@@ -126,7 +210,6 @@ function ClientMap() {
           newLocation={newLocation}
           region={newRegion}
           startRegionCreation={startRegionCreation}
-          removeLocationFromRegion={removeLocationFromRegion}
         />
 
         <SVGOverlay bounds={bounds} pane="textPane">
@@ -147,13 +230,48 @@ function ClientMap() {
           zoom={zoom}
           initZoom={initZoom}
           onMapClick={onMapClick}
-          resetRegion={resetRegion}
-          addLocationToRegion={addLocationToRegion}
-          removeLocationFromRegion={removeLocationFromRegion}
+          resetNewRegion={resetNewRegion}
+          editingRegion={editingRegion}
+          editingRegionPoints={editingRegionPoints}
+          selectedRegion={selectedRegion}
+          setSelectedRegion={setSelectedRegion}
         />
 
         <MapEvents />
       </MapContainer>
+      <div className="map__edit-menu">
+        {editingRegion && (
+          <button type="button" onClick={() => setTool('paint')}>
+            🖌
+          </button>
+        )}
+        {editingRegion && (
+          // <button type="button" onClick={removeLocationFromRegion}>
+          <button type="button" onClick={() => setTool('delete')}>
+            ⌫
+          </button>
+        )}
+        {editingRegion && (
+          <button type="button" onClick={() => setTool(null)}>
+            ✊
+          </button>
+        )}
+        {selectedRegion && !editingRegion && (
+          <button type="button" onClick={startRegionEditing}>
+            Editar {regions.find(r => r.id === selectedRegion).name}
+          </button>
+        )}
+        {selectedRegion && editingRegion && (
+          <button type="button" onClick={stopRegionEditing}>
+            Cancelar
+          </button>
+        )}
+        {editingRegion && (
+          <button type="button" onClick={saveLocationsToRegion}>
+            Guardar
+          </button>
+        )}
+      </div>
     </Form>
   );
 }

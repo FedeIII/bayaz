@@ -6,7 +6,7 @@ import {
 } from '~/services/settlements.server';
 import {
   createRegion,
-  editNameLocation,
+  updateRegion,
   getRegions,
 } from '~/services/regions.server';
 import ClientMap from './clientMap.client';
@@ -68,36 +68,32 @@ export const action = async ({ request }) => {
   } else if (action === 'createRegion') {
     const regionName = formData.get('regionName');
     const regionColor = formData.get('regionColor');
-    const points = formData.get('points');
+    const pointsString = formData.get('points');
+
+    const points = pointsString
+      .split('|')
+      .map(latLng => latLng.split(',').map(parseFloat));
 
     await createRegion({
       name: regionName,
       type: 'subdominion',
       color: regionColor,
-      points: points.split('|').map(latLng => latLng.split(',')),
+      points,
+      nameLocation: { lat: points[0][0], lng: points[0][1] },
     });
-  } else if (action === 'deleteVertex') {
-    // const id = formData.get('id');
-    // const vertexId = formData.get('vertexId');
-    // await deleteVertex(id, vertexId);
-  } else if (action === 'editVertex') {
-    // const regionId = formData.get('regionId');
-    // const vertexId = formData.get('vertexId');
-    // const lat = formData.get('lat');
-    // const lng = formData.get('lng');
-    // const isMovingRegion = formData.get('isMovingRegion');
-    // await editVertex(
-    //   regionId,
-    //   vertexId,
-    //   parseLocation(lat, lng),
-    //   isMovingRegion === 'true'
-    // );
   } else if (action === 'editSettlementLocation') {
     const id = formData.get('id');
     const lat = formData.get('lat');
     const lng = formData.get('lng');
 
     await updateSettlement(id, { location: parseLocation(lat, lng) });
+  } else if (action === 'setPointsForRegion') {
+    const regionId = formData.get('regionId');
+    const points = formData.get('points');
+
+    await updateRegion(regionId, {
+      points: points.split('|').map(point => point.split(',')),
+    });
   } else if (action === 'moveRegionName') {
     const regionId = formData.get('id');
     const lat = formData.get('lat');

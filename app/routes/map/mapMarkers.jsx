@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { CircleMarker, Marker } from 'react-leaflet';
 
 import { t } from '~/domain/translations';
-import { getSettlementRadius } from '~/utils/map';
+import { closeMapPopup, getSettlementRadius } from '~/utils/map';
 import MapPopup from './mapPopup';
 
 function SettlementMarker(props) {
@@ -102,9 +102,9 @@ function SettlementMarker(props) {
           {isEditingLocation ? (
             <button
               type="button"
-              onClick={() => {
+              onClick={e => {
                 setIsEditingLocation(false);
-                popupRef.current._closeButton.click();
+                closeMapPopup(popupRef, e);
               }}
             >
               Parar edición
@@ -112,9 +112,9 @@ function SettlementMarker(props) {
           ) : (
             <button
               type="button"
-              onClick={() => {
+              onClick={e => {
                 setIsEditingLocation(true);
-                popupRef.current._closeButton.click();
+                closeMapPopup(popupRef, e);
               }}
             >
               Editar posición
@@ -127,13 +127,7 @@ function SettlementMarker(props) {
 }
 
 export default function MapMarkers(props) {
-  const {
-    settlements,
-    newLocation,
-    region,
-    startRegionCreation,
-    removeLocationFromRegion,
-  } = props;
+  const { settlements, newLocation, region, startRegionCreation } = props;
 
   const submit = useSubmit();
   const typeRef = useRef(null);
@@ -197,9 +191,9 @@ export default function MapMarkers(props) {
                 ) : (
                   <button
                     type="button"
-                    onClick={() => {
+                    onClick={e => {
                       startRegionCreation();
-                      newLocationPopupRef.current._closeButton.click();
+                      closeMapPopup(newLocationPopupRef, e);
                     }}
                   >
                     Nueva región

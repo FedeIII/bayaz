@@ -55,19 +55,11 @@ export function getPointFromLocation(location) {
   return [location.lat, location.lng];
 }
 
-function calculateNearestCell(location) {
-  const x = location.lng;
-  const y = location.lat;
-
-  const cellX = Math.floor(x / 0.85) * 0.85;
-  const cellY = Math.floor(y / 0.85) * 0.85;
-
-  return { lat: cellY, lng: cellX };
-}
-
 export function getCellCorner(location) {
-  const x = Math.round(location.lng / 0.85) * 0.85;
-  const y = Math.round(location.lat / 0.85) * 0.85;
+  let x = Math.round((location.lng - 0.425) / 0.85) * 0.85;
+  x = Math.round(x * 100) / 100;
+  let y = Math.round((location.lat - 0.425) / 0.85) * 0.85;
+  y = Math.round(y * 100) / 100;
 
   return [y, x];
 }
@@ -142,4 +134,19 @@ export function getPolygonsFromPoints(points) {
   });
 
   return polygons;
+}
+
+export function closeMapPopup(popupRef, e) {
+  e?.stopPropagation();
+  if (popupRef.current) {
+    popupRef.current._closeButton?.click() ||
+      popupRef.current.closePopup?.() ||
+      popupRef.current.close?.();
+  }
+}
+
+export function areSameCoords(a, b) {
+  const [a0, a1] = a.map(e => Math.round(e * 100));
+  const [b0, b1] = b.map(e => Math.round(e * 100));
+  return a0 === b0 && a1 === b1;
 }
