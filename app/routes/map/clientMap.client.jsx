@@ -40,6 +40,7 @@ function ClientMap() {
 
   const [editingRegion, setEditingRegion] = useState(null);
   const [editingRegionPoints, setEditingRegionPoints] = useState([]);
+  const [isUsingTool, setIsUsingTool] = useState(false);
 
   const [tool, setTool] = useState(null); // paint, delete
   useEffect(() => {
@@ -74,6 +75,8 @@ function ClientMap() {
   }
 
   function stopRegionEditing() {
+    setTool(null);
+    setIsUsingTool(false);
     setEditingRegion(null);
     setEditingRegionPoints([]);
   }
@@ -82,32 +85,12 @@ function ClientMap() {
     const [y, x] = getCellCorner(location);
     switch (tool) {
       case 'paint':
-        setEditingRegionPoints(old => [...old, [y, x]]);
-        break;
+        return setEditingRegionPoints(old => [...old, [y, x]]);
       case 'delete':
-        setEditingRegionPoints(old =>
+        return setEditingRegionPoints(old =>
           old.filter(point => !areSameCoords(point, [y, x]))
         );
-        break;
     }
-  }
-
-  function addLocationToRegion(location) {
-    const [y, x] = getCellCorner(location);
-
-    if (editingRegionPoints.some(point => areSameCoords(point, [y, x]))) {
-      setNewLocation({ lat: y, lng: x });
-    } else {
-      setEditingRegionPoints(old => [...old, [y, x]]);
-    }
-  }
-
-  function removeLocationFromRegion() {
-    const [y, x] = getCellCorner(newLocation);
-
-    setEditingRegionPoints(old =>
-      old.filter(point => !areSameCoords(point, [y, x]))
-    );
   }
 
   function saveLocationsToRegion() {
@@ -142,15 +125,13 @@ function ClientMap() {
     console.log('Click', [e.latlng.lat, e.latlng.lng], e);
     if (regionCreationStarted) {
       addLocationToNewRegion(e.latlng);
-    } else if (editingRegion) {
-      editRegion(e.latlng);
-    } else {
+    } else if (!editingRegion) {
       setNewLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
     }
   }
 
   function MapEvents() {
-    useMapEvents({
+    const map = useMapEvents({
       click: onMapClick,
       zoom: e => {
         console.log('Zoom', e.target._zoom, e);
@@ -158,11 +139,43 @@ function ClientMap() {
       },
       mousedown: e => {
         console.log('Mousedown', e.latlng);
+        // Disable dragging when editing with paint/delete tools
+        if (editingRegion && (tool === 'paint' || tool === 'delete')) {
+          map.dragging.disable();
+          setIsUsingTool(true);
+          editRegion(e.latlng);
+        }
+      },
+      mouseup: () => {
+        // Re-enable dragging when mouse is released
+        if (!map.dragging.enabled()) {
+          map.dragging.enable();
+        }
+
+        if (
+          editingRegion &&
+          (tool === 'paint' || tool === 'delete') &&
+          isUsingTool
+        ) {
+          setIsUsingTool(false);
+        }
       },
       mousemove: e => {
-        console.log('Mousemove', e.latlng);
+        if (isUsingTool) {
+          console.log('Using tool', [e.latlng.lat, e.latlng.lng], e);
+          editRegion(e.latlng);
+        }
       },
     });
+
+    useEffect(() => {
+      return () => {
+        // Cleanup: ensure dragging is enabled when component unmounts
+        if (map && !map.dragging.enabled()) {
+          map.dragging.enable();
+        }
+      };
+    }, [map]);
 
     return null;
   }
@@ -241,34 +254,57 @@ function ClientMap() {
       </MapContainer>
       <div className="map__edit-menu">
         {editingRegion && (
-          <button type="button" onClick={() => setTool('paint')}>
-            🖌
+          <button
+            type="button"
+            className="map__button"
+            onClick={() => setTool('paint')}
+          >
+            🖌 Pintar
           </button>
         )}
         {editingRegion && (
-          // <button type="button" onClick={removeLocationFromRegion}>
-          <button type="button" onClick={() => setTool('delete')}>
-            ⌫
+          <button
+            type="button"
+            className="map__button"
+            onClick={() => setTool('delete')}
+          >
+            ⌫ Borrar
           </button>
         )}
         {editingRegion && (
-          <button type="button" onClick={() => setTool(null)}>
-            ✊
+          <button
+            type="button"
+            className="map__button"
+            onClick={() => setTool(null)}
+          >
+            ✊ Navegar
           </button>
         )}
         {selectedRegion && !editingRegion && (
-          <button type="button" onClick={startRegionEditing}>
-            Editar {regions.find(r => r.id === selectedRegion).name}
+          <button
+            type="button"
+            className="map__button"
+            onClick={startRegionEditing}
+          >
+            ✎ Editar {regions.find(r => r.id === selectedRegion).name}
           </button>
         )}
         {selectedRegion && editingRegion && (
-          <button type="button" onClick={stopRegionEditing}>
-            Cancelar
+          <button
+            type="button"
+            className="map__button"
+            onClick={stopRegionEditing}
+          >
+            ✗ Cancelar
           </button>
         )}
         {editingRegion && (
-          <button type="button" onClick={saveLocationsToRegion}>
-            Guardar
+          <button
+            type="button"
+            className="map__button"
+            onClick={saveLocationsToRegion}
+          >
+            💾 Guardar
           </button>
         )}
       </div>

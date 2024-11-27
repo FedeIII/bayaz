@@ -28,9 +28,14 @@ export async function createRegion(attrs) {
 }
 
 export async function updateRegion(id, attrs) {
+  const points = attrs.points
+    ? Array.from(new Set(attrs.points.map(point => JSON.stringify(point)))).map(
+        point => JSON.parse(point)
+      )
+    : undefined;
   const updatedRegion = await Region.findOneAndUpdate(
     { id },
-    { $set: { ...attrs } },
+    { $set: { ...attrs, points } },
     { new: true }
   ).exec();
 

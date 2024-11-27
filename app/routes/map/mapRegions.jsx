@@ -20,6 +20,7 @@ function Region(props) {
     regionOver,
     setSelectedRegion,
     setRegionOver,
+    editingRegion,
     editingRegionPoints,
   } = props;
 
@@ -71,51 +72,57 @@ function Region(props) {
         mouseout: () => setRegionOver(null),
       }}
     >
-      <MapPopup title={region.name} ref={regionPopupRef}>
-        <ul className="map__popup-options">
-          <li>
-            <Link
-              to={`/places/generic/${region.name}`}
-              target="_blank"
-              className="places__save"
-            >
-              {region.name || 'Sin nombre'}
-            </Link>{' '}
-            <button
-              type="button"
-              onClick={e => {
-                setIsEditingLabel(true);
-                closeMapPopup(regionPopupRef, e);
-              }}
-            >
-              Colocar nombre
-            </button>
-          </li>
-          <li>
-            <select name="settlementType" defaultValue="village" ref={typeRef}>
-              <option value="village">Aldea</option>
-              <option value="town">Pueblo</option>
-              <option value="city">Ciudad</option>
-            </select>
-            <button
-              type="button"
-              onClick={() =>
-                submit(
-                  {
-                    action: 'createSettlement',
-                    lat: newLocation.lat,
-                    lng: newLocation.lng,
-                    type: typeRef.current.value,
-                  },
-                  { method: 'post' }
-                )
-              }
-            >
-              Crear asentamiento
-            </button>
-          </li>
-        </ul>
-      </MapPopup>
+      {!editingRegion && (
+        <MapPopup title={region.name} ref={regionPopupRef}>
+          <ul className="map__popup-options">
+            <li>
+              <Link
+                to={`/places/generic/${region.name}`}
+                target="_blank"
+                className="places__save"
+              >
+                {region.name || 'Sin nombre'}
+              </Link>{' '}
+              <button
+                type="button"
+                onClick={e => {
+                  setIsEditingLabel(true);
+                  closeMapPopup(regionPopupRef, e);
+                }}
+              >
+                Colocar nombre
+              </button>
+            </li>
+            <li>
+              <select
+                name="settlementType"
+                defaultValue="village"
+                ref={typeRef}
+              >
+                <option value="village">Aldea</option>
+                <option value="town">Pueblo</option>
+                <option value="city">Ciudad</option>
+              </select>
+              <button
+                type="button"
+                onClick={() =>
+                  submit(
+                    {
+                      action: 'createSettlement',
+                      lat: newLocation.lat,
+                      lng: newLocation.lng,
+                      type: typeRef.current.value,
+                    },
+                    { method: 'post' }
+                  )
+                }
+              >
+                Crear asentamiento
+              </button>
+            </li>
+          </ul>
+        </MapPopup>
+      )}
     </Polygon>
   ));
 }
@@ -152,6 +159,7 @@ function ExistingRegions(props) {
             editingRegionPoints={
               editingRegion === region.id ? editingRegionPoints : []
             }
+            editingRegion={editingRegion}
           />
         ))}
       <SVGOverlay bounds={bounds} pane="textPane">
