@@ -10,10 +10,10 @@ import {
 } from 'react-leaflet';
 
 import withLoading from '~/components/HOCs/withLoading';
-import { removeItem } from '~/utils/array';
 import MapMarkers from './mapMarkers';
 import MapLabels from './mapLabels';
 import MapRegions from './mapRegions';
+import { getPolygonsFromPoints } from '~/utils/map';
 
 // x c [0, 100] left to right
 // y c [0, 120] bottom to top
@@ -30,18 +30,30 @@ function ClientMap() {
 
   const [zoom, setZoom] = useState(initZoom);
   const [newLocation, setNewLocation] = useState(null);
+  // new region defined as an array of points
   const [newRegion, setNewRegion] = useState([]);
+  const [regionCreationStarted, setRegionCreationStarted] = useState(false);
+
+  function startRegionCreation(location) {
+    setRegionCreationStarted(true);
+  }
+
   function addLocationToRegion(location) {
-    setNewRegion(old => [...old, location]);
+    const x = Math.round((location.lng - 0.425) / 0.85) * 0.85;
+    const y = Math.round((location.lat - 0.425) / 0.85) * 0.85;
+
+    setNewRegion(old => [...old, [y, x]]);
   }
-  function removeLocationFromRegion(location) {
-    setNewRegion(old =>
-      removeItem(
-        vertex => vertex.lat === location.lat && vertex.lng === location.lng,
-        old
-      )
-    );
+
+  function removeLocationFromRegion(point) {
+    // setNewRegion(old =>
+    //   removeItem(
+    //     vertex => vertex.lat === location.lat && vertex.lng === location.lng,
+    //     old
+    //   )
+    // );
   }
+
   function resetRegion(e) {
     e?.preventDefault();
     setNewRegion([]);
@@ -55,7 +67,11 @@ function ClientMap() {
 
   function onMapClick(e) {
     console.log('Click', [e.latlng.lat, e.latlng.lng], e);
-    setNewLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
+    if (regionCreationStarted) {
+      addLocationToRegion(e.latlng);
+    } else {
+      setNewLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
+    }
   }
 
   function MapEvents() {
@@ -109,7 +125,7 @@ function ClientMap() {
           settlements={settlements}
           newLocation={newLocation}
           region={newRegion}
-          addLocationToRegion={addLocationToRegion}
+          startRegionCreation={startRegionCreation}
           removeLocationFromRegion={removeLocationFromRegion}
         />
 

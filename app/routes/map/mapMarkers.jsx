@@ -131,7 +131,7 @@ export default function MapMarkers(props) {
     settlements,
     newLocation,
     region,
-    addLocationToRegion,
+    startRegionCreation,
     removeLocationFromRegion,
   } = props;
 
@@ -198,11 +198,11 @@ export default function MapMarkers(props) {
                   <button
                     type="button"
                     onClick={() => {
-                      addLocationToRegion(newLocation);
+                      startRegionCreation();
                       newLocationPopupRef.current._closeButton.click();
                     }}
                   >
-                    Añadir vértice;
+                    Nueva región
                   </button>
                 )}
               </li>

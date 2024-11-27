@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useSubmit } from '@remix-run/react';
 import { SVGOverlay, CircleMarker, Marker, Polygon } from 'react-leaflet';
 
-import { getLabelX, getLabelY } from '~/utils/map';
+import { getLabelX, getLabelY, getPolygonsFromPoints } from '~/utils/map';
 import { RegionPaneMap } from '~/domain/places/regions';
 import MapPopup from './mapPopup';
 
@@ -96,7 +96,7 @@ function RegionVertexMarker(props) {
                 regionVertexPopupRef.current._closeButton.click();
               }}
             >
-              Añadir vértice
+              Añadir vértice 1
             </button>
           </li>
         </ul>
@@ -143,137 +143,144 @@ function Region(props) {
     }
   }
 
+  const polygons = getPolygonsFromPoints(region.points);
+
   return (
     <>
       {selectedRegion === region.id &&
-        region.vertices.map(vertex => (
-          <RegionVertexMarker
-            key={vertex._id}
-            vertex={vertex}
-            isEditingVertices={isEditingVertices}
-            isMovingRegion={isMovingRegion}
-            vertexOver={vertexOver}
-            region={region}
-            onMapClick={onMapClick}
-            setVertexOver={setVertexOver}
-            addLocationToRegion={addLocationToRegion}
-            newLocation={newLocation}
-          />
-        ))}
+        polygons.map(polygon =>
+          polygon.map(point => (
+            <RegionVertexMarker
+              key={`${point[0]}-${point[1]}`}
+              vertex={{ lat: point[1], lng: point[0] }}
+              isEditingVertices={isEditingVertices}
+              isMovingRegion={isMovingRegion}
+              vertexOver={vertexOver}
+              region={region}
+              onMapClick={onMapClick}
+              setVertexOver={setVertexOver}
+              addLocationToRegion={addLocationToRegion}
+              newLocation={newLocation}
+            />
+          ))
+        )}
 
-      <Polygon
-        pane={RegionPaneMap[region.type]}
-        pathOptions={{
-          color: region.color,
-          opacity:
-            selectedRegion === region.id
-              ? 1.0
-              : regionOver === region.id
-              ? 0.5
-              : 0.2,
-          fillOpacity: isMovingRegion ? 0.66 : 0.2,
-        }}
-        positions={region.vertices}
-        eventHandlers={{
-          click: onRegionClick,
-          mouseover: () => setRegionOver(region.id),
-          mouseout: () => setRegionOver(null),
-        }}
-      >
-        <MapPopup title={region.name} ref={regionPopupRef}>
-          <ul className="map__popup-options">
-            <li>
-              <Link
-                to={`/places/generic/${region.name}`}
-                target="_blank"
-                className="places__save"
-              >
-                {region.name || 'Sin nombre'}
-              </Link>{' '}
-              <button
-                type="button"
-                onClick={() => {
-                  setIsEditingLabel(true);
-                  regionPopupRef.current._closeButton.click();
-                }}
-              >
-                Colocar nombre
-              </button>
-            </li>
-            <li>
-              <select
-                name="settlementType"
-                defaultValue="village"
-                ref={typeRef}
-              >
-                <option value="village">Aldea</option>
-                <option value="town">Pueblo</option>
-                <option value="city">Ciudad</option>
-              </select>
-              <button
-                type="button"
-                onClick={() =>
-                  submit(
-                    {
-                      action: 'createSettlement',
-                      lat: newLocation.lat,
-                      lng: newLocation.lng,
-                      type: typeRef.current.value,
-                    },
-                    { method: 'post' }
-                  )
-                }
-              >
-                Crear asentamiento
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  addLocationToRegion(newLocation);
-                  regionPopupRef.current._closeButton.click();
-                }}
-              >
-                Añadir vértice
-              </button>{' '}
-              {isEditingVertices ? (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsEditingVertices(false);
-                      setIsMovingRegion(false);
-                      regionPopupRef.current._closeButton.click();
-                    }}
-                  >
-                    Parar edición
-                  </button>
-                  <button
-                    type="button"
-                    onClick={e => {
-                      setIsMovingRegion(true);
-                      regionPopupRef.current._closeButton.click();
-                    }}
-                  >
-                    Mover región
-                  </button>
-                </>
-              ) : (
+      {polygons.map(polygon => (
+        <Polygon
+          key={polygon._id}
+          pane={RegionPaneMap[region.type]}
+          pathOptions={{
+            color: region.color,
+            opacity: 0,
+            fillOpacity:
+              selectedRegion === region.id
+                ? 0.5
+                : regionOver === region.id
+                ? 0.35
+                : 0.2,
+          }}
+          positions={polygon.map(point => ({ lat: point[0], lng: point[1] }))}
+          eventHandlers={{
+            click: onRegionClick,
+            mouseover: () => setRegionOver(region.id),
+            mouseout: () => setRegionOver(null),
+          }}
+        >
+          <MapPopup title={region.name} ref={regionPopupRef}>
+            <ul className="map__popup-options">
+              <li>
+                <Link
+                  to={`/places/generic/${region.name}`}
+                  target="_blank"
+                  className="places__save"
+                >
+                  {region.name || 'Sin nombre'}
+                </Link>{' '}
                 <button
                   type="button"
                   onClick={() => {
-                    setIsEditingVertices(true);
+                    setIsEditingLabel(true);
                     regionPopupRef.current._closeButton.click();
                   }}
                 >
-                  Editar vértices
+                  Colocar nombre
                 </button>
-              )}
-            </li>
-          </ul>
-        </MapPopup>
-      </Polygon>
+              </li>
+              <li>
+                <select
+                  name="settlementType"
+                  defaultValue="village"
+                  ref={typeRef}
+                >
+                  <option value="village">Aldea</option>
+                  <option value="town">Pueblo</option>
+                  <option value="city">Ciudad</option>
+                </select>
+                <button
+                  type="button"
+                  onClick={() =>
+                    submit(
+                      {
+                        action: 'createSettlement',
+                        lat: newLocation.lat,
+                        lng: newLocation.lng,
+                        type: typeRef.current.value,
+                      },
+                      { method: 'post' }
+                    )
+                  }
+                >
+                  Crear asentamiento
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    addLocationToRegion(newLocation);
+                    regionPopupRef.current._closeButton.click();
+                  }}
+                >
+                  Añadir vértice 2
+                </button>{' '}
+                {isEditingVertices ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsEditingVertices(false);
+                        setIsMovingRegion(false);
+                        regionPopupRef.current._closeButton.click();
+                      }}
+                    >
+                      Parar edición
+                    </button>
+                    <button
+                      type="button"
+                      onClick={e => {
+                        setIsMovingRegion(true);
+                        regionPopupRef.current._closeButton.click();
+                      }}
+                    >
+                      Mover región
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsEditingVertices(true);
+                      regionPopupRef.current._closeButton.click();
+                    }}
+                  >
+                    Editar vértices
+                  </button>
+                )}
+              </li>
+            </ul>
+          </MapPopup>
+        </Polygon>
+      ))}
     </>
   );
 }
@@ -321,13 +328,13 @@ function ExistingRegions(props) {
                   // x >
                   // y v
                   x={getLabelX(
-                    region.nameLocation || region.vertices[0],
+                    region.nameLocation || region.points[0],
                     zoom,
                     initZoom,
                     bounds
                   )}
                   y={getLabelY(
-                    region.nameLocation || region.vertices[0],
+                    region.nameLocation || region.points[0],
                     zoom,
                     initZoom,
                     bounds
@@ -362,93 +369,99 @@ function NewRegion(props) {
   const nameRef = useRef(null);
   const newRegionPopupRef = useRef(null);
 
+  const newRegionPolygons = getPolygonsFromPoints(newRegion);
+
   return (
     <>
-      {newRegion.map(vertex => (
-        <CircleMarker
-          key={`${vertex.lat}-${vertex.lng}`}
+      {newRegionPolygons.map(polygon =>
+        polygon.map(point => (
+          <CircleMarker
+            key={`${point[0]}-${point[1]}`}
+            pane="newElementsPane"
+            center={[point[0], point[1]]}
+            radius={5}
+          >
+            <MapPopup title="Nueva región">
+              <ul className="map__popup-options">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => removeLocationFromRegion(point)}
+                  >
+                    Quitar vértice
+                  </button>
+                </li>
+              </ul>
+            </MapPopup>
+          </CircleMarker>
+        ))
+      )}
+
+      {newRegionPolygons.map(polygon => (
+        <Polygon
+          key={polygon._id}
           pane="newElementsPane"
-          center={[vertex.lat, vertex.lng]}
-          radius={5}
+          pathOptions={{ color: regionColor }}
+          positions={polygon}
+          eventHandlers={{ click: onMapClick }}
         >
-          <MapPopup title="Nueva región">
+          <MapPopup title="Nueva región" ref={newRegionPopupRef}>
             <ul className="map__popup-options">
+              <li>
+                Nombre:{' '}
+                <input
+                  ref={nameRef}
+                  name="regionName"
+                  type="text"
+                  className="map__popup-text-input"
+                />
+              </li>
+              <li>
+                Color:{' '}
+                <input
+                  name="regionColor"
+                  type="text"
+                  className="map__popup-text-input"
+                  value={regionColor}
+                  onChange={e => setRegionColor(e.target.value)}
+                />
+              </li>
               <li>
                 <button
                   type="button"
-                  onClick={() => removeLocationFromRegion(vertex)}
+                  onClick={() =>
+                    submit(
+                      {
+                        action: 'createRegion',
+                        regionName: nameRef.current.value,
+                        regionColor: regionColor,
+                        points: newRegion.map(p => `${p[0]},${p[1]}`).join('|'),
+                      },
+                      { method: 'post' }
+                    )
+                  }
                 >
-                  Quitar vértice
+                  Crear región
+                </button>{' '}
+                <button type="button" onClick={resetRegion}>
+                  Borrar región
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    addLocationToRegion(newLocation);
+                    newRegionPopupRef.current._closeButton.click();
+                  }}
+                >
+                  Añadir vértice 3
                 </button>
               </li>
             </ul>
           </MapPopup>
-        </CircleMarker>
+        </Polygon>
       ))}
-      <Polygon
-        pane="newElementsPane"
-        pathOptions={{ color: regionColor }}
-        positions={newRegion}
-        eventHandlers={{ click: onMapClick }}
-      >
-        <MapPopup title="Nueva región" ref={newRegionPopupRef}>
-          <ul className="map__popup-options">
-            <li>
-              Nombre:{' '}
-              <input
-                ref={nameRef}
-                name="regionName"
-                type="text"
-                className="map__popup-text-input"
-              />
-            </li>
-            <li>
-              Color:{' '}
-              <input
-                name="regionColor"
-                type="text"
-                className="map__popup-text-input"
-                value={regionColor}
-                onChange={e => setRegionColor(e.target.value)}
-              />
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() =>
-                  submit(
-                    {
-                      action: 'createRegion',
-                      regionName: nameRef.current.value,
-                      regionColor: regionColor,
-                      vertices: newRegion
-                        .map(v => `${v.lat},${v.lng}`)
-                        .join('|'),
-                    },
-                    { method: 'post' }
-                  )
-                }
-              >
-                Crear región
-              </button>{' '}
-              <button type="button" onClick={resetRegion}>
-                Borrar región
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  addLocationToRegion(newLocation);
-                  newRegionPopupRef.current._closeButton.click();
-                }}
-              >
-                Añadir vértice
-              </button>
-            </li>
-          </ul>
-        </MapPopup>
-      </Polygon>
     </>
   );
 }

@@ -6,9 +6,7 @@ import {
 } from '~/services/settlements.server';
 import {
   createRegion,
-  deleteVertex,
   editNameLocation,
-  editVertex,
   getRegions,
 } from '~/services/regions.server';
 import ClientMap from './clientMap.client';
@@ -70,35 +68,30 @@ export const action = async ({ request }) => {
   } else if (action === 'createRegion') {
     const regionName = formData.get('regionName');
     const regionColor = formData.get('regionColor');
-    const vertices = formData.get('vertices');
+    const points = formData.get('points');
 
     await createRegion({
       name: regionName,
       type: 'subdominion',
       color: regionColor,
-      vertices: vertices.split('|').map(latLng => {
-        const [lat, lng] = latLng.split(',');
-        return parseLocation(lat, lng);
-      }),
+      points: points.split('|').map(latLng => latLng.split(',')),
     });
   } else if (action === 'deleteVertex') {
-    const id = formData.get('id');
-    const vertexId = formData.get('vertexId');
-
-    await deleteVertex(id, vertexId);
+    // const id = formData.get('id');
+    // const vertexId = formData.get('vertexId');
+    // await deleteVertex(id, vertexId);
   } else if (action === 'editVertex') {
-    const regionId = formData.get('regionId');
-    const vertexId = formData.get('vertexId');
-    const lat = formData.get('lat');
-    const lng = formData.get('lng');
-    const isMovingRegion = formData.get('isMovingRegion');
-
-    await editVertex(
-      regionId,
-      vertexId,
-      parseLocation(lat, lng),
-      isMovingRegion === 'true'
-    );
+    // const regionId = formData.get('regionId');
+    // const vertexId = formData.get('vertexId');
+    // const lat = formData.get('lat');
+    // const lng = formData.get('lng');
+    // const isMovingRegion = formData.get('isMovingRegion');
+    // await editVertex(
+    //   regionId,
+    //   vertexId,
+    //   parseLocation(lat, lng),
+    //   isMovingRegion === 'true'
+    // );
   } else if (action === 'editSettlementLocation') {
     const id = formData.get('id');
     const lat = formData.get('lat');
@@ -110,7 +103,7 @@ export const action = async ({ request }) => {
     const lat = formData.get('lat');
     const lng = formData.get('lng');
 
-    await editNameLocation(regionId, parseLocation(lat, lng));
+    await updateRegion(regionId, { nameLocation: parseLocation(lat, lng) });
   }
 
   return json({ regions: await getRegions() });

@@ -46,3 +46,100 @@ export function shouldShowSettlementName(settlement, zoom) {
     return true;
   }
 }
+
+export function getLocationFromPoint(point) {
+  return { lat: point[0], lng: point[1] };
+}
+
+export function getPointFromLocation(location) {
+  return [location.lat, location.lng];
+}
+
+function calculateNearestCell(location) {
+  const x = location.lng;
+  const y = location.lat;
+
+  const cellX = Math.floor(x / 0.85) * 0.85;
+  const cellY = Math.floor(y / 0.85) * 0.85;
+
+  return { lat: cellY, lng: cellX };
+}
+
+export function getCellCorner(location) {
+  const x = Math.round(location.lng / 0.85) * 0.85;
+  const y = Math.round(location.lat / 0.85) * 0.85;
+
+  return [y, x];
+}
+
+export function getPolygonsFromPoints(points) {
+  // First, create a 2D grid to track which points are occupied
+  const grid = {};
+  points.forEach(point => {
+    const x = point[1];
+    const y = point[0];
+    if (!grid[y]) grid[y] = {};
+    grid[y][x] = true;
+  });
+
+  // Function to check if a point is in the grid
+  const isOccupied = (y, x) => grid[y]?.[x];
+
+  // Function to find the width of a rectangle starting at (y,x)
+  const findWidth = (y, x) => {
+    let width = 1;
+    while (isOccupied(y, x + width)) width++;
+    return width;
+  };
+
+  // Function to check if a rectangle is valid
+  const isValidRectangle = (y, x, width, height) => {
+    for (let dy = 0; dy < height; dy++) {
+      for (let dx = 0; dx < width; dx++) {
+        if (!isOccupied(y + dy, x + dx)) return false;
+      }
+    }
+    return true;
+  };
+
+  // Function to mark cells as used
+  const markUsed = (y, x, width, height) => {
+    for (let dy = 0; dy < height; dy++) {
+      for (let dx = 0; dx < width; dx++) {
+        grid[y + dy][x + dx] = false;
+      }
+    }
+  };
+
+  const polygons = [];
+
+  // Find all rectangles
+  Object.keys(grid).forEach(y => {
+    y = parseFloat(y);
+    Object.keys(grid[y]).forEach(x => {
+      x = parseFloat(x);
+      if (!grid[y][x]) return;
+
+      const width = findWidth(y, x);
+      let height = 1;
+
+      // Try to extend rectangle vertically
+      while (isValidRectangle(y, x, width, height + 1)) {
+        height++;
+      }
+
+      // Convert grid coordinates to lat/lng
+      const polygon = [
+        [y, x], // top-left
+        [y, x + width * 0.85], // top-right
+        [y + height * 0.85, x + width * 0.85], // bottom-right
+        [y + height * 0.85, x], // bottom-left
+      ];
+
+      polygons.push(polygon);
+      markUsed(y, x, width, height);
+    });
+  });
+
+  return polygons;
+}
