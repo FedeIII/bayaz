@@ -5,11 +5,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useFetcher,
+  useLoaderData,
 } from '@remix-run/react';
-
+import classNames from 'classnames';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useEffect, useState } from 'react';
+import { json, redirect } from '@remix-run/node';
 
 import MenuContext from './components/contexts/menuContext';
 import PartyContext from './components/contexts/partyContext';
@@ -21,6 +24,11 @@ import {
 import MonstersContext from './components/contexts/monstersContext';
 import PartyTemplateContext from './components/contexts/partyTemplateContext';
 import { links as titleLinks } from '~/components/form/title';
+import { SideBar } from '~/components/sideBar';
+import { getSessionUser } from '~/services/session.server';
+import { getBasicMenuItems } from '~/domain/navigation';
+import { getCurrentPcPage } from '~/utils/paths';
+
 
 import styles from '~/styles/global.css';
 import menuStyles from '~/components/menus.css';
@@ -32,11 +40,13 @@ import appStyles from '~/components/app.css';
 import profileStyles from '~/components/profile.css';
 import partyStyles from '~/components/party.css';
 
-export const meta = () => ({
-  charset: 'utf-8',
-  title: 'Bayaz',
-  viewport: 'width=device-width,initial-scale=1',
-});
+export const meta = () => [
+  {
+    charset: 'utf-8',
+    title: 'Bayaz',
+    viewport: 'width=device-width,initial-scale=1',
+  },
+];
 
 export const links = () => [
   ...titleLinks(),
@@ -69,6 +79,31 @@ function useStateValue(key) {
   return [stateValue, setValue, deleteValue];
 }
 
+export const loader = async ({ request }) => {
+  const url = new URL(request.url);
+  const pathname = url.pathname;
+
+  if (pathname === '/login') {
+    return json({ menuItems: [], location: pathname });
+  }
+
+  const user = await getSessionUser(request);
+
+  if (!user) {
+    return redirect('/login');
+  }
+
+  const menuItems = getBasicMenuItems(user);
+  const normalizedPathname =
+    pathname === '/'
+      ? '/'
+      : pathname[pathname.length - 1] === '/'
+      ? pathname.slice(0, -1)
+      : pathname;
+
+  return json({ menuItems, location: normalizedPathname });
+};
+
 export default function App() {
   const [hasMenu, setHasMenu] = useState(true);
   const [menuTitle, setMenuTitle] = useState('Bayaz');
@@ -85,6 +120,34 @@ export default function App() {
   useEffect(() => {
     setHasMenu(true);
   }, []);
+
+  const { menuItems: initMenuItems, location } = useLoaderData();
+  const fetcher = useFetcher();
+
+  const [menuItems, setMenuItems] = useState(initMenuItems);
+  const pcId = getCurrentPcPage();
+
+  useEffect(() => {
+    fetcher.load(
+      `/menu-items?partyIdState=${partyIdState}&pcIdsState=${JSON.stringify(
+        pcIdsState
+      )}&encounterIdState=${encounterIdState}&pcId=${pcId}`
+    );
+  }, [partyIdState, pcIdsState, encounterIdState, pcId]);
+
+  useEffect(() => {
+    if (fetcher.data) {
+      setMenuItems(fetcher.data);
+    }
+  }, [fetcher.data]);
+
+  const [sidebarState, setSidebarState] = useState(true);
+  function closeSidebar() {
+    setSidebarState(false);
+  }
+  function openSidebar() {
+    setSidebarState(true);
+  }
 
   return (
     <html lang="es-ES">
@@ -130,7 +193,42 @@ export default function App() {
                     deletePartyTemplateState,
                   }}
                 >
-                  <Outlet />
+                  <div className="app">
+                    {hasMenu && (
+                      <header className="app__header">{menuTitle}</header>
+                    )}
+                    <div
+                      className={classNames('app__body', {
+                        'app__body--full-screen': !hasMenu,
+                        'app__body--closed-sidebar': !sidebarState,
+                      })}
+                    >
+                      <SideBar
+                        menuItems={menuItems}
+                        location={location}
+                        state={sidebarState}
+                      />
+                      {hasMenu && (
+                        <span
+                          className={classNames('app__sidebar-action', {
+                            'app__sidebar-action--closed-sidebar':
+                              !sidebarState,
+                          })}
+                          onClick={sidebarState ? closeSidebar : openSidebar}
+                        >
+                          {sidebarState ? '←' : '→'}
+                        </span>
+                      )}
+                      <div
+                        className={classNames('app__content', {
+                          'app__content--fullscreen': !hasMenu,
+                          'app__content--closed-sidebar': !sidebarState,
+                        })}
+                      >
+                        <Outlet />
+                      </div>
+                    </div>
+                  </div>
                   <ScrollRestoration />
                   <Scripts />
                   <LiveReload />

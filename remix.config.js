@@ -1,30 +1,21 @@
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
   serverBuildTarget: 'vercel',
-  // Specify where Remix should look for static assets
-  // Adjust the paths as needed based on your project structure
-  // This is an example assuming your images are in the 'public' folder
-  staticFiles: {
-    include: ['public/**/*'],
-  },
-  // When running locally in development mode, we use the built in remix
-  // server. This does not understand the vercel lambda module format,
-  // so we default back to the standard build output.
   server: process.env.NODE_ENV === 'development' ? undefined : './server.js',
   ignoredRouteFiles: ['**/.*'],
-  // appDirectory: "app",
-  // assetsBuildDirectory: "public/build",
-  // serverBuildPath: "api/index.js",
-  // publicPath: "/build/",
-  future: {
-    v2_dev: true,
-    unstable_cssModules: true,
-  },
+  publicPath: '/build/',
+  serverModuleFormat: 'cjs',
   serverDependenciesToBundle: [
     'react-dnd',
     'dnd-core',
     /^@react-dnd\//,
     'react-dnd-html5-backend',
   ],
+  browserNodeBuiltinsPolyfill: { modules: { 'fs/promises': true, path: true } },
+  future: {
+    v3_fetcherPersist: true,
+    v3_relativeSplatPath: true,
+    v3_throwAbortReason: true,
+  },
   sourcemap: true,
 };

@@ -96,6 +96,11 @@
   gap: 8px;
 }
 
+.filters__filterOptions--column {
+  flex-direction: column;
+  gap: 0;
+}
+
 .filters__filterOption {
   display: flex;
   align-items: start;
