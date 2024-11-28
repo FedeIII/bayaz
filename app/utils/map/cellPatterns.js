@@ -158,4 +158,42 @@ export const radiusGenerator = {
                                               [yMinus3, xMinus2], [yMinus3, xMinus1], [yMinus3, x], [yMinus3, xPlus1], 
     ];
   },
+
+  _radius9Cells(x, y) {
+    const yRange = Array.from({ length: 33 }, (_, i) => this.get(y, -16 + i));
+    const xRange = Array.from({ length: 33 }, (_, i) => this.get(x, -16 + i));
+
+    return yRange.reduce(
+      (cells, y, j) =>
+        cells.concat(
+          xRange.reduce((cellsForX, x, i) => {
+            // 22 = 16 + 6
+            if (Math.abs(i - 16) + Math.abs(j - 16) <= 22) {
+              cellsForX.push([y, x]);
+            }
+            return cellsForX;
+          }, [])
+        ),
+      []
+    );
+  },
+
+  _radius10Cells(x, y) {
+    const yRange = Array.from({ length: 49 }, (_, i) => this.get(y, -24 + i));
+    const xRange = Array.from({ length: 49 }, (_, i) => this.get(x, -24 + i));
+
+    return yRange.reduce(
+      (cells, y, j) =>
+        cells.concat(
+          xRange.reduce((cellsForX, x, i) => {
+            // 34 = 24 + 10
+            if (Math.abs(i - 24) + Math.abs(j - 24) <= 34) {
+              cellsForX.push([y, x]);
+            }
+            return cellsForX;
+          }, [])
+        ),
+      []
+    );
+  },
 };

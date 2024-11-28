@@ -282,11 +282,11 @@ function ClientMap() {
       <div className="map__edit-menu">
         {editingRegion && tool && (
           <label>
-            Tamaño: {toolSize}
+            Tamaño: {toolSize == 10 ? 48 : toolSize == 9 ? 32 : toolSize}
             <input
               type="range"
               min="1"
-              max="8"
+              max="10"
               value={toolSize}
               onChange={e => setToolSize(Number(e.target.value))}
               className="map__slider"
