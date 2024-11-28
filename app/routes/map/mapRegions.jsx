@@ -7,7 +7,7 @@ import {
   getLabelX,
   getLabelY,
   getPolygonsFromPoints,
-} from '~/utils/map';
+} from '~/utils/map/map';
 import { RegionPaneMap } from '~/domain/places/regions';
 import MapPopup from './mapPopup';
 
@@ -188,6 +188,7 @@ function ExistingRegions(props) {
                   fontSize="22px"
                   stroke="black"
                   fill={region.color}
+                  style={{ userSelect: 'none' }}
                 >
                   {region.name}
                 </text>

@@ -8,9 +8,11 @@ import {
   TileLayer,
   SVGOverlay,
 } from 'react-leaflet';
+import classNames from 'classnames';
 
 import withLoading from '~/components/HOCs/withLoading';
-import { areSameCoords, getCellCorner } from '~/utils/map';
+import { areSameCoords, getCellCorner } from '~/utils/map/map';
+import { radiusGenerator } from '~/utils/map/cellPatterns';
 import MapMarkers from './mapMarkers';
 import MapLabels from './mapLabels';
 import MapRegions from './mapRegions';
@@ -42,6 +44,7 @@ function ClientMap() {
   const [editingRegionPoints, setEditingRegionPoints] = useState([]);
   const [isUsingTool, setIsUsingTool] = useState(false);
 
+  const [toolSize, setToolSize] = useState(5);
   const [tool, setTool] = useState(null); // paint, delete
   useEffect(() => {
     const mapContainer = document.querySelector('.leaflet-container');
@@ -81,15 +84,33 @@ function ClientMap() {
     setEditingRegionPoints([]);
   }
 
+  function paintCellsInRegion(y, x) {
+    return setEditingRegionPoints(old => [
+      ...old,
+      ...radiusGenerator.radiusCells(toolSize, x, y),
+    ]);
+  }
+
+  function deleteCellsFromRegion(y, x) {
+    return setEditingRegionPoints(old =>
+      old.filter(
+        point =>
+          !radiusGenerator
+            .radiusCells(toolSize, x, y)
+            .some(cell => areSameCoords(point, cell))
+      )
+    );
+  }
+
   function editRegion(location) {
     const [y, x] = getCellCorner(location);
     switch (tool) {
       case 'paint':
-        return setEditingRegionPoints(old => [...old, [y, x]]);
+        return paintCellsInRegion(y, x);
       case 'delete':
-        return setEditingRegionPoints(old =>
-          old.filter(point => !areSameCoords(point, [y, x]))
-        );
+        return deleteCellsFromRegion(y, x);
+      default:
+        return;
     }
   }
 
@@ -106,6 +127,13 @@ function ClientMap() {
     );
 
     stopRegionEditing();
+  }
+
+  function deleteRegion() {
+    submit(
+      { action: 'deleteRegion', regionId: selectedRegion },
+      { method: 'post' }
+    );
   }
 
   function resetNewRegion(e) {
@@ -162,7 +190,6 @@ function ClientMap() {
       },
       mousemove: e => {
         if (isUsingTool) {
-          console.log('Using tool', [e.latlng.lat, e.latlng.lng], e);
           editRegion(e.latlng);
         }
       },
@@ -253,10 +280,25 @@ function ClientMap() {
         <MapEvents />
       </MapContainer>
       <div className="map__edit-menu">
+        {editingRegion && tool && (
+          <label>
+            Tamaño: {toolSize}
+            <input
+              type="range"
+              min="1"
+              max="8"
+              value={toolSize}
+              onChange={e => setToolSize(Number(e.target.value))}
+              className="map__slider"
+            />
+          </label>
+        )}
         {editingRegion && (
           <button
             type="button"
-            className="map__button"
+            className={classNames('map__button', {
+              'map__button--selected': tool === 'paint',
+            })}
             onClick={() => setTool('paint')}
           >
             🖌 Pintar
@@ -265,7 +307,9 @@ function ClientMap() {
         {editingRegion && (
           <button
             type="button"
-            className="map__button"
+            className={classNames('map__button', {
+              'map__button--selected': tool === 'delete',
+            })}
             onClick={() => setTool('delete')}
           >
             ⌫ Borrar
@@ -274,7 +318,9 @@ function ClientMap() {
         {editingRegion && (
           <button
             type="button"
-            className="map__button"
+            className={classNames('map__button', {
+              'map__button--selected': tool === null,
+            })}
             onClick={() => setTool(null)}
           >
             ✊ Navegar
@@ -287,6 +333,11 @@ function ClientMap() {
             onClick={startRegionEditing}
           >
             ✎ Editar {regions.find(r => r.id === selectedRegion).name}
+          </button>
+        )}
+        {selectedRegion && !editingRegion && (
+          <button type="button" className="map__button" onClick={deleteRegion}>
+            ☠ Borrar {regions.find(r => r.id === selectedRegion).name}
           </button>
         )}
         {selectedRegion && editingRegion && (

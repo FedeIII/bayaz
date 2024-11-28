@@ -115,4 +115,16 @@
   border: 1px solid white;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
+
+.map__button:hover {
+  background-color: var(--color-x-light);
+}
+
+.map__button--selected {
+  background-color: var(--color-x-pale);
+  color: var(--color-base);
+  transform: scale(1.05);
+}
+

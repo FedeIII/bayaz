@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { CircleMarker, Marker } from 'react-leaflet';
 
 import { t } from '~/domain/translations';
-import { closeMapPopup, getSettlementRadius } from '~/utils/map';
+import { closeMapPopup, getSettlementRadius } from '~/utils/map/map';
 import MapPopup from './mapPopup';
 
 function SettlementMarker(props) {

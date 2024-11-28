@@ -1,3 +1,6 @@
+export const CELL_SIZE = 0.04;
+export const HALF_CELL_SIZE = 0.02;
+
 const labelOffsetMap = {
   3: 0.035,
   4: 0.035,
@@ -55,13 +58,19 @@ export function getPointFromLocation(location) {
   return [location.lat, location.lng];
 }
 
-export function getCellCorner(location) {
-  let x = Math.round((location.lng - 0.425) / 0.85) * 0.85;
-  x = Math.round(x * 100) / 100;
-  let y = Math.round((location.lat - 0.425) / 0.85) * 0.85;
-  y = Math.round(y * 100) / 100;
+export function round(value) {
+  return Math.round(value * 100) / 100;
+}
 
-  return [y, x];
+export function roundCoords(y, x) {
+  return [round(y), round(x)];
+}
+
+export function getCellCorner(location) {
+  return roundCoords(
+    Math.round((location.lat - HALF_CELL_SIZE) / CELL_SIZE) * CELL_SIZE,
+    Math.round((location.lng - HALF_CELL_SIZE) / CELL_SIZE) * CELL_SIZE
+  );
 }
 
 export function getPolygonsFromPoints(points) {
@@ -79,15 +88,15 @@ export function getPolygonsFromPoints(points) {
 
   // Function to find the width of a rectangle starting at (y,x)
   const findWidth = (y, x) => {
-    let width = 1;
-    while (isOccupied(y, x + width)) width++;
+    let width = CELL_SIZE;
+    while (isOccupied(y, x + width)) width += CELL_SIZE;
     return width;
   };
 
   // Function to check if a rectangle is valid
   const isValidRectangle = (y, x, width, height) => {
-    for (let dy = 0; dy < height; dy++) {
-      for (let dx = 0; dx < width; dx++) {
+    for (let dy = 0; dy < height; dy += CELL_SIZE) {
+      for (let dx = 0; dx < width; dx += CELL_SIZE) {
         if (!isOccupied(y + dy, x + dx)) return false;
       }
     }
@@ -96,8 +105,8 @@ export function getPolygonsFromPoints(points) {
 
   // Function to mark cells as used
   const markUsed = (y, x, width, height) => {
-    for (let dy = 0; dy < height; dy++) {
-      for (let dx = 0; dx < width; dx++) {
+    for (let dy = 0; dy < height; dy += CELL_SIZE) {
+      for (let dx = 0; dx < width; dx += CELL_SIZE) {
         grid[y + dy][x + dx] = false;
       }
     }
@@ -113,19 +122,20 @@ export function getPolygonsFromPoints(points) {
       if (!grid[y][x]) return;
 
       const width = findWidth(y, x);
-      let height = 1;
+      let height = CELL_SIZE;
 
       // Try to extend rectangle vertically
-      while (isValidRectangle(y, x, width, height + 1)) {
-        height++;
+      while (isValidRectangle(y, x, width, height + CELL_SIZE)) {
+        height += CELL_SIZE;
       }
 
       // Convert grid coordinates to lat/lng
+      const [deltaY, deltaX] = roundCoords(y + height, x + width);
       const polygon = [
         [y, x], // top-left
-        [y, x + width * 0.85], // top-right
-        [y + height * 0.85, x + width * 0.85], // bottom-right
-        [y + height * 0.85, x], // bottom-left
+        [y, deltaX], // top-right
+        [deltaY, deltaX], // bottom-right
+        [deltaY, x], // bottom-left
       ];
 
       polygons.push(polygon);

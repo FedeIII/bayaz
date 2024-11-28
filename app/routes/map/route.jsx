@@ -8,6 +8,7 @@ import {
   createRegion,
   updateRegion,
   getRegions,
+  deleteRegion,
 } from '~/services/regions.server';
 import ClientMap from './clientMap.client';
 import LoadingSpinner from '~/components/util/pageSpinner';
@@ -100,6 +101,9 @@ export const action = async ({ request }) => {
     const lng = formData.get('lng');
 
     await updateRegion(regionId, { nameLocation: parseLocation(lat, lng) });
+  } else if (action === 'deleteRegion') {
+    const regionId = formData.get('regionId');
+    await deleteRegion(regionId);
   }
 
   return json({ regions: await getRegions() });

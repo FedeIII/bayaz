@@ -1,4 +1,4 @@
-import { getLabelX, getLabelY, shouldShowSettlementName } from '~/utils/map';
+import { getLabelX, getLabelY, shouldShowSettlementName } from '~/utils/map/map';
 
 export default function MapLabels(props) {
   const { zoom, settlements, initZoom, newLocation, bounds } = props;
@@ -18,6 +18,7 @@ export default function MapLabels(props) {
             fontFamily="Rosarivo"
             fontSize="16px"
             stroke="#d84343"
+            style={{ userSelect: 'none' }}
           >
             {settlement.name}
           </text>
@@ -32,6 +33,7 @@ export default function MapLabels(props) {
           fontFamily="Rosarivo"
           fontSize="16px"
           stroke="#d84343"
+          style={{ userSelect: 'none' }}
         >
           New
         </text>
