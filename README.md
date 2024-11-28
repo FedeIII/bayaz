@@ -4,6 +4,19 @@
 
 `gdal2tiles -p 'raster' --zoom=2-8 --s_srs EPSG:6576 --xyz map_raw.png tiles`
 
+## Versions
+
+- **v0.2.0:**
+  - remix 2.15.0
+  - leaflet and react-leaflet as npm libraries
+  - regions stored as group of points for cells
+
+- **v0.1.0:**
+  - first alpha release
+  - remix 1.19.3
+  - leaflet and react-leaflet as local libraries
+  - regions stored like polygons
+
 ## TO DOs
 
 - Rules searcher:
