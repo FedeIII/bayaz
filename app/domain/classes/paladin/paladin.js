@@ -1,4 +1,5 @@
 import { CLASSES, getStat, getStatMod } from '~/domain/characters';
+import { displayTrait } from '~/domain/display';
 import { ARMORS } from '~/domain/equipment/armors';
 import { EXPLORERS_PACK, PRIESTS_PACK } from '~/domain/equipment/packs';
 import { TOOLS } from '~/domain/equipment/tools';
