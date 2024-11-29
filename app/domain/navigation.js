@@ -6,10 +6,13 @@ const menuLinks = [
   { name: 'Perfil', url: '/', level: 0, isForPlayers: true },
   { name: 'Dados', url: '/dice', level: 0, isForPlayers: true },
   { name: 'Lugares', url: '/places', level: 0 },
+  /**/ { name: 'Asentamientos', url: '/places/list', level: 1 },
+  /**/ { name: 'Lugares', url: '/places/generic/list', level: 1 },
   { name: 'Mapa', url: '/map', level: 0 },
   { name: 'Personajes', url: '/characters', level: 0, isForPlayers: true },
-  /**/ { name: 'NPCs', url: '/characters/npc', level: 1 },
-  /**/ { name: 'Quick NPC', url: '/characters/npc/quick/new', level: 2 },
+  /**/ { name: 'NPCs', url: '/characters/npc/main/list', level: 1 },
+  /**/ { name: 'Quick NPCs', url: '/characters/npc/quick/list', level: 1 },
+  /****/ { name: 'Crear NPC', url: '/characters/npc/quick/new', level: 2 },
   { name: 'Party', url: '/party', level: 0 },
   { name: 'Encuentros', url: '/encounters', level: 0 },
   /**/ { name: 'Crear', url: '/encounters/new', level: 1 },
@@ -42,15 +45,12 @@ export function getAllMenuItems({
   if (isDm && partyIdState) {
     items = insertAfter(item => item.name === 'Party', items, [
       { name: 'Sesión', url: `/party/${partyIdState}`, level: 1 },
-      { name: 'PCs', url: `/party/${partyIdState}/pcs`, level: 1 },
     ]);
   }
 
   if (allPcIds?.length) {
-    items = insertAfter(
-      item => (isDm ? item.name === 'Quick NPC' : item.name === 'Personajes'),
-      items,
-      allPcIds.reduce(
+    items.push(
+      ...allPcIds.reduce(
         (newItems, id, i) => [
           ...newItems,
           {

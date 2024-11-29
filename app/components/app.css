@@ -51,8 +51,12 @@ html {
   color: white;
   align-items: flex-start;
   transition: width 0.5s ease-out;
-  overflow-y: scroll;
+  overflow-y: hidden;
   height: calc(92vh - 16px);
+}
+
+.app__sidebar:hover {
+  overflow-y: scroll;
 }
 
 .app__sidebar--closed {
@@ -120,9 +124,15 @@ html {
 }
 
 .app__button-label {
+  text-align: left;
   font-size: var(--font-size-xs);
-  color: var(--color-x-pale);
+  color: var(--color-pale);
+  text-decoration: underline;
   margin: 4px 0 0 14px;
+}
+
+.app__button-label--collapsed {
+  font-size: var(--font-size-xxxs);
 }
 
 .app__button {
@@ -171,6 +181,8 @@ html {
 .app__secondary-button {
   margin: 0px 0 4px 12px;
   width: calc(100% - 12px);
+  font-size: var(--font-size-s);
+  color: var(--color-x-pale);
 }
 
 .app__secondary-button .app__button-shadow {

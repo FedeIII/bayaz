@@ -4,7 +4,7 @@ import { useContext, Fragment } from 'react';
 import MenuContext from '~/components/contexts/menuContext';
 
 export function SideBar(props) {
-  const { menuItems, location: staticLocation, state } = props;
+  const { menuItems, location: staticLocation, state, isDm } = props;
 
   const menuContext = useContext(MenuContext) || {};
   const { hasMenu } = menuContext;
@@ -67,20 +67,25 @@ export function SideBar(props) {
               (menuItem.url !== '/' && location.includes(menuItem.url));
 
             return (
-              <Link
-                key={menuItem.url}
-                to={menuItem.url}
-                className={classNames(
-                  'app__button',
-                  'app__secondary-button',
-                  'app__button--closed-sidebar',
-                  { 'app__button-selected': isSelected }
+              <Fragment key={menuItem.url}>
+                {!!menuItem.header && isDm && (
+                  <span className="app__button-label app__button-label--collapsed">{menuItem.header}</span>
                 )}
-              >
-                <span className="app__button-shadow app__button-shadow--closed-sidebar">
-                  {menuItem.collapsedIcon}
-                </span>
-              </Link>
+                <Link
+                  key={menuItem.url}
+                  to={menuItem.url}
+                  className={classNames(
+                    'app__button',
+                    'app__secondary-button',
+                    'app__button--closed-sidebar',
+                    { 'app__button-selected': isSelected }
+                  )}
+                >
+                  <span className="app__button-shadow app__button-shadow--closed-sidebar">
+                    {menuItem.collapsedIcon}
+                  </span>
+                </Link>
+              </Fragment>
             );
           })}
     </div>

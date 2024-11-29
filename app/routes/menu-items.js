@@ -1,4 +1,3 @@
-import { json } from '@remix-run/node';
 import { getAllMenuItems } from '~/domain/navigation';
 import { isDm } from '~/domain/user';
 import { getPcName } from '~/services/pc.server';
@@ -43,5 +42,5 @@ export const loader = async ({ request }) => {
     encounterIdState,
   });
 
-  return json(menuItems);
+  return menuItems;
 };

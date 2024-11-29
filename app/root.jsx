@@ -38,6 +38,7 @@ import checkboxStyles from '~/components/checkbox.css';
 import appStyles from '~/components/app.css';
 import profileStyles from '~/components/profile.css';
 import partyStyles from '~/components/party/party.css';
+import { isDm } from './domain/user';
 
 export const meta = () => [
   {
@@ -59,8 +60,8 @@ export const links = () => [
   { rel: 'stylesheet', href: profileStyles },
   { rel: 'stylesheet', href: partyStyles },
   {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+    rel: 'stylesheet',
+    href: 'https://fonts.googleapis.com/icon?family=Material+Icons',
   },
 ];
 
@@ -104,7 +105,7 @@ export const loader = async ({ request }) => {
       ? pathname.slice(0, -1)
       : pathname;
 
-  return { menuItems, location: normalizedPathname };
+  return { menuItems, location: normalizedPathname, isDm: isDm(user) };
 };
 
 export default function App() {
@@ -124,7 +125,7 @@ export default function App() {
     setHasMenu(true);
   }, []);
 
-  const { menuItems: initMenuItems, location } = useLoaderData();
+  const { menuItems: initMenuItems, location, isDm } = useLoaderData();
   const fetcher = useFetcher();
 
   const [menuItems, setMenuItems] = useState(initMenuItems);
@@ -210,6 +211,7 @@ export default function App() {
                         menuItems={menuItems}
                         location={location}
                         state={sidebarState}
+                        isDm={isDm}
                       />
                       {hasMenu && (
                         <span
