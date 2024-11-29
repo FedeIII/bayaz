@@ -532,7 +532,7 @@ function SettlementScreen() {
                     <option value="">-</option>
                     {getSubdominionNames(dominion).map(domName => (
                       <option key={domName} value={domName}>
-                        {t(domName)}
+                        {domName}
                       </option>
                     ))}
                   </select>
