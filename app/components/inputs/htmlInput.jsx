@@ -19,6 +19,16 @@ const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
 
 const DEFAULT_NOTES = [{ type: 'paragraph', children: [{ text: '' }] }];
+const textToSlate = text => {
+  if (!text) return DEFAULT_NOTES;
+  if (text[0] === '[') {
+    return JSON.parse(text);
+  }
+  return text.split('\n').map(line => ({
+    type: 'paragraph',
+    children: [{ text: line }],
+  }));
+};
 
 function HtmlInput(props) {
   const { name, value, onChange } = props;
@@ -39,7 +49,7 @@ function HtmlInput(props) {
       Transforms.removeNodes(editor, {
         at: [0],
       });
-      Transforms.insertNodes(editor, value ? JSON.parse(value) : DEFAULT_NOTES);
+      Transforms.insertNodes(editor, textToSlate(value));
       setIsExternalChange(false);
     }
   }, [value, isExternalChange]);
