@@ -58,6 +58,10 @@ export const links = () => [
   { rel: 'stylesheet', href: appStyles },
   { rel: 'stylesheet', href: profileStyles },
   { rel: 'stylesheet', href: partyStyles },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+  },
 ];
 
 function useStateValue(key) {

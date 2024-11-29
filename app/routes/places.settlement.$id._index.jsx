@@ -150,12 +150,12 @@ function createRandomPlace(type, files) {
     knownFor: getSettlementKnownFor(type),
     calamity: getSettlementCalamity(type),
     location: null,
+    notes: '',
   };
 }
 
 function SettlementScreen() {
   const { place, id, typeParam, files, rng } = useOutletContext();
-
 
   const [showNameInput, setShowNameInput] = useState(false);
   const nameRef = useRef();
@@ -164,8 +164,6 @@ function SettlementScreen() {
       nameRef.current.focus();
     }
   }, [showNameInput]);
-
-  const notesRef = useRef();
 
   const [placeState, setPlaceState] = useState({
     type: typeParam,
@@ -186,6 +184,7 @@ function SettlementScreen() {
     knownFor: '',
     calamity: '',
     location: null,
+    notes: null,
   });
 
   const {
@@ -277,7 +276,7 @@ function SettlementScreen() {
           placeCharacteristics: place.placeCharacteristics,
           knownFor: place.knownFor,
           calamity: place.calamity,
-          notes: place.notes,
+          notes: place.notes || '',
           location: place.location,
         }));
       } else {
@@ -391,8 +390,8 @@ function SettlementScreen() {
     setPlaceState(p => ({ ...p, calamity: e.target.value }));
   }
 
-  function onNotesChange(e) {
-    setPlaceState(p => ({ ...p, notes: e.target.value }));
+  function onNotesChange(value) {
+    setPlaceState(p => ({ ...p, notes: value }));
   }
 
   function onLatChange(e) {
@@ -868,13 +867,7 @@ function SettlementScreen() {
 
         <div className="places__notes">
           <h2 className="places__notes-title">Notas</h2>
-          <HtmlInput
-            name="notes"
-            value={notes}
-            htmlInputRef={notesRef}
-            className="places__notes-text"
-            onChange={onNotesChange}
-          />
+          <HtmlInput name="notes" value={notes} onChange={onNotesChange} />
         </div>
       </div>
     </Form>
