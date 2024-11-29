@@ -1,4 +1,3 @@
-import { json } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 
 import { getSessionUser } from '~/services/session.server';
@@ -10,6 +9,12 @@ export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
+export const meta = () => [
+  {
+    title: 'Kandrax - Personajes',
+  },
+];
+
 const menuLinks = [
   { name: 'Nuevo Jugador', url: 'pc/new', isForPlayers: true },
   { name: 'Todos los Jugadores', url: 'pc/all', isForPlayers: true },
@@ -20,10 +25,10 @@ export const loader = async ({ request }) => {
   const user = await getSessionUser(request);
 
   if (isDm(user)) {
-    return json({ menuItems: menuLinks });
+    return { menuItems: menuLinks };
   }
 
-  return json({ menuItems: menuLinks.filter(item => item.isForPlayers) });
+  return { menuItems: menuLinks.filter(item => item.isForPlayers) };
 };
 
 function CharactersMenu() {

@@ -1,14 +1,21 @@
 import { Form, Link, useLoaderData } from '@remix-run/react';
-import { json, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 import { useEffect, useRef, useState } from 'react';
 import { createPlace } from '~/services/place.server';
 import { getRegions } from '~/services/regions.server';
 import { Title } from '~/components/form/title';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/newEncounter.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = () => [
+  {
+    title: 'Kandrax - Nuevo lugar',
+  },
+];
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
@@ -18,7 +25,7 @@ function textareaCallback(textareaNode) {
 export const loader = async () => {
   const regions = await getRegions();
 
-  return json({ regions });
+  return { regions };
 };
 
 export const action = async ({ request }) => {
@@ -50,6 +57,7 @@ export const action = async ({ request }) => {
 
 function GenerateGenericPlace() {
   const { regions } = useLoaderData();
+  useTitle('Nuevo lugar');
   const formRef = useRef();
 
   const [place, setPlace] = useState({

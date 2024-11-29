@@ -1,5 +1,4 @@
-import { json } from '@remix-run/node';
-import { Form, useLoaderData, useSubmit } from '@remix-run/react';
+import { Form, useOutletContext, useSubmit } from '@remix-run/react';
 import {
   Fragment,
   createRef,
@@ -8,12 +7,9 @@ import {
   useRef,
   useState,
 } from 'react';
+import classNames from 'classnames';
 
-import {
-  addPreparedSpell,
-  deletePreparedSpell,
-  getPc,
-} from '~/services/pc.server';
+import { addPreparedSpell, deletePreparedSpell } from '~/services/pc.server';
 import { canCopySpells, translateClass } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import {
@@ -44,34 +40,14 @@ import {
   resetSpellSlots,
   changeSpellSlot,
 } from '~/domain/mutations/characterMutations';
-import { isDm } from '~/domain/user';
-import { getSessionUser } from '~/services/session.server';
 import { translateSchool } from '~/domain/spells/spellTranslations';
 import NumericInput from '~/components/inputs/numeric';
 import { replaceAt } from '~/utils/array';
-import classNames from 'classnames';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/spells.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
-};
-
-export const meta = ({ data }) => [
-  {
-    title: data.pc.name,
-  },
-];
-
-export const loader = async ({ request, params }) => {
-  const pc = await getPc(params.id);
-
-  if (!pc) {
-    throw new Error('pc not found');
-  }
-
-  const user = await getSessionUser(request);
-
-  return json({ pc, isDm: isDm(user) });
 };
 
 async function prepareSpellAction(formData) {
@@ -132,8 +108,10 @@ export const action = async ({ request }) => {
 };
 
 function PcSpells() {
-  const { pc, isDm } = useLoaderData();
+  const { pc, isDm } = useOutletContext();
   const { pClass, id, name, preparedSpells, magic } = pc;
+
+  useTitle(`${name} - Conjuros`);
 
   const submit = useSubmit();
 

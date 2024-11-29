@@ -19,6 +19,7 @@
 
 ## TO DOs
 
+- Move Regions to canvas
 - Rules searcher:
   - Conditions
 - Review Npcs combat (monstersCombat uses mobs + npcs)

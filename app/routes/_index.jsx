@@ -6,16 +6,23 @@ import { getSessionUser } from '~/services/session.server';
 import { updateUser } from '~/services/user.server';
 import { getUserPcs } from '~/services/pc.server';
 import { t } from '~/domain/translations';
+import { translateClass, translateRace } from '~/domain/characters';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/profile.css';
 import cardStyles from '~/components/cards/cards.css';
 import partyStyles from '~/components/party.css';
-import { translateClass, translateRace } from '~/domain/characters';
 export const links = () => [
   ...titleLinks(),
   { rel: 'stylesheet', href: styles },
   { rel: 'stylesheet', href: cardStyles },
   { rel: 'stylesheet', href: partyStyles },
+];
+
+export const meta = () => [
+  {
+    title: 'Kandrax',
+  },
 ];
 
 export const loader = async ({ request }) => {
@@ -38,6 +45,8 @@ export const action = async ({ request }) => {
 
 export default function Index() {
   const { user, pcs } = useLoaderData();
+
+  useTitle('Kandrax');
 
   return (
     <Form method="post" className="profile">

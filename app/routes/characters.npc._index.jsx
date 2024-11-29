@@ -1,6 +1,15 @@
 import { Link } from '@remix-run/react';
+import { useTitle } from '~/components/hooks/useTitle';
+
+export const meta = () => [
+  {
+    title: 'Kandrax - NPCs',
+  },
+];
 
 function NpcMenu() {
+  useTitle('NPCs');
+
   return (
     <>
       <Link to="./main/list" className="menus__main-option">

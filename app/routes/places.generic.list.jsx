@@ -14,6 +14,12 @@ export const links = () => {
   ];
 };
 
+export const meta = ({ data }) => [
+  {
+    title: 'Kandrax - Lugares',
+  },
+];
+
 export const loader = async ({ request }) => {
   const placesByGroup = await getPlacesByGroup();
 

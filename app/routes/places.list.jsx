@@ -3,12 +3,19 @@ import { Link, useLoaderData } from '@remix-run/react';
 import { getSettlements } from '~/services/settlements.server';
 import { t } from '~/domain/translations';
 import { json } from '@remix-run/node';
+import { useTitle } from '~/components/hooks/useTitle';
 import { classifySettlementsByDomains } from '~/domain/places/places';
 
 import styles from '~/components/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = () => [
+  {
+    title: 'Kandrax - Asentamientos',
+  },
+];
 
 export const loader = async ({ request }) => {
   const settlements = await getSettlements();
@@ -24,6 +31,8 @@ export const loader = async ({ request }) => {
 
 function PlacesList() {
   const { settlementsByDomain } = useLoaderData();
+
+  useTitle('Asentamientos');
 
   return (
     <>

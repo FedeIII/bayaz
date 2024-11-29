@@ -1,5 +1,10 @@
-import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData, useSubmit } from '@remix-run/react';
+import { redirect } from '@remix-run/node';
+import {
+  Form,
+  useLoaderData,
+  useOutletContext,
+  useSubmit,
+} from '@remix-run/react';
 import { createRef, useEffect, useRef, useState } from 'react';
 
 import {
@@ -35,8 +40,6 @@ import { InventoryItem } from '~/components/modal/inventoryItem';
 import { useInventoryItems } from '~/components/modal/useInventoryItems';
 import { GrowBar } from '~/components/indicators/growBar';
 import { addItemToPc } from '~/domain/mutations/characterMutations';
-import { getSessionUser } from '~/services/session.server';
-import { isDm } from '~/domain/user';
 import { useSearchResults } from '~/components/hooks/useSearchResults';
 import NumericInput from '~/components/inputs/numeric';
 import {
@@ -52,30 +55,19 @@ import { t } from '~/domain/translations';
 import { WONDROUS } from '~/domain/equipment/magicItems';
 import SettlementByDominionSelector from '~/components/places/settlementByDominionSelector';
 import { getSettlementsByDominionAndName } from '~/services/settlements.server';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/bio.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
-export const meta = ({ data }) => [
-  {
-    title: data.pc.name,
-  },
-];
-
 const bagOfHolding = WONDROUS.bagOfHolding();
 
-export const loader = async ({ request, params }) => {
-  const pc = await getPc(params.id);
-  if (!pc) {
-    throw new Error('pc not found');
-  }
-
-  const user = await getSessionUser(request);
+export const loader = async () => {
   const settlements = await getSettlementsByDominionAndName();
 
-  return json({ pc, settlements, isDm: isDm(user) });
+  return { settlements };
 };
 
 async function equipWeaponAction(formData) {
@@ -308,7 +300,7 @@ export const action = async ({ request }) => {
     updatedPc = getPc(id);
   }
 
-  return json({ pc: updatedPc });
+  return { pc: updatedPc };
 };
 
 function ItemModalContent(props) {
@@ -729,7 +721,8 @@ function ArmorModalContent(props) {
 }
 
 function PcBio() {
-  const { pc, settlements, isDm } = useLoaderData();
+  const { pc, isDm } = useOutletContext();
+  const { settlements } = useLoaderData();
   const {
     id,
     name,
@@ -750,6 +743,8 @@ function PcBio() {
       extraTraits2,
     } = {},
   } = pc;
+
+  useTitle(`${name} - Inventario`);
 
   function onFormSubmit(e) {}
 

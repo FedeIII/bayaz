@@ -6,11 +6,18 @@ import { getParty } from '~/services/party.server';
 import { translateClass, translateRace } from '~/domain/characters';
 import { concurrentRequests } from '~/utils/concurrentRequests';
 import { createNpcsEncounter } from '~/domain/mutations/partyMutations';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = ({ data }) => [
+  {
+    title: `Kandrax - ${data.group?.name}`,
+  },
+];
 
 export const loader = async ({ params }) => {
   const group = await getParty(params.id);
@@ -42,6 +49,8 @@ export const action = async ({ request }) => {
 function GroupInfo() {
   const { group, npcs } = useLoaderData();
   const { id, name } = group;
+
+  useTitle(name);
 
   return (
     <Form method="post">

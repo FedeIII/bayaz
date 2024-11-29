@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { json } from '@remix-run/node';
 import { Link, useLoaderData, useSubmit } from '@remix-run/react';
 
 import { deletePc, getPcs, getUserPcs, updatePc } from '~/services/pc.server';
@@ -8,11 +7,18 @@ import { getSessionUser } from '~/services/session.server';
 import { isDm } from '~/domain/user';
 import { getUser } from '~/services/user.server';
 import withLoading from '~/components/HOCs/withLoading';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = () => [
+  {
+    title: 'Kandrax - PCs',
+  },
+];
 
 export const loader = async ({ request }) => {
   const user = await getSessionUser(request);
@@ -30,7 +36,7 @@ export const loader = async ({ request }) => {
   if (!pcs?.length) {
     throw new Error('PCs not found');
   }
-  return json({ pcs, userNames, showUserName: isDm(user) });
+  return { pcs, userNames, showUserName: isDm(user) };
 };
 
 export const action = async ({ request }) => {
@@ -46,11 +52,12 @@ export const action = async ({ request }) => {
     await updatePc({ id: pcId, level });
   }
 
-  return json({ pcs: await getPcs() });
+  return { pcs: await getPcs() };
 };
 
 function AllPCs() {
   const { pcs, userNames, showUserName } = useLoaderData();
+  useTitle('PCs');
 
   const submit = useSubmit();
 

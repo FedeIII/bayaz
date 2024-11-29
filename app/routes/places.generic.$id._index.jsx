@@ -1,9 +1,8 @@
-import { Form, Link, useLoaderData } from '@remix-run/react';
+import { Form, Link, useOutletContext } from '@remix-run/react';
 import { useEffect, useRef, useState } from 'react';
-import { json, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 
-import { getPlace, getPlaceByName, updatePlace } from '~/services/place.server';
-import { getRegions } from '~/services/regions.server';
+import { updatePlace } from '~/services/place.server';
 import { Title } from '~/components/form/title';
 import HtmlInput from '~/components/inputs/htmlInput';
 import withLoading from '~/components/HOCs/withLoading';
@@ -15,20 +14,6 @@ export const links = () => {
     { rel: 'stylesheet', href: styles },
     { rel: 'stylesheet', href: encounterStyles },
   ];
-};
-
-export const loader = async ({ params }) => {
-  let [place, regions] = await Promise.all([getPlace(params.id), getRegions()]);
-
-  if (!place) {
-    place = await getPlaceByName(params.id);
-    if (!place) {
-      throw new Error('Place not found');
-    }
-    return redirect(`/places/generic/${place.id}`);
-  }
-
-  return json({ place, regions });
 };
 
 export const action = async ({ request }) => {
@@ -60,7 +45,7 @@ export const action = async ({ request }) => {
 };
 
 function GenericPlace() {
-  const { place: initPlace, regions } = useLoaderData();
+  const { place: initPlace, regions } = useOutletContext();
 
   const formRef = useRef();
 

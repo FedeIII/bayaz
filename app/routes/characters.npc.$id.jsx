@@ -1,15 +1,21 @@
 import { Form, useLoaderData, useSubmit, Link } from '@remix-run/react';
-import { json } from '@remix-run/node';
 import { useRef, useState } from 'react';
 import { CharacterInfo } from '~/components/characters/characterInfo';
 import { getNpc, updateNpc } from '~/services/npc.server';
 import { getSettlementsByDominionAndName } from '~/services/settlements.server';
 import { downloadNpcData } from '~/utils/exportHelpers';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/filters.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = ({ data }) => [
+  {
+    title: data.npc?.name,
+  },
+];
 
 export const loader = async ({ params }) => {
   const npc = await getNpc(params.id);
@@ -17,7 +23,7 @@ export const loader = async ({ params }) => {
   if (!npc) {
     throw new Error('NPC not found');
   }
-  return json({ npc, settlements });
+  return { npc, settlements };
 };
 
 export const action = async ({ request, params }) => {
@@ -50,9 +56,9 @@ export const action = async ({ request, params }) => {
 
   try {
     const npc = await updateNpc(npcData);
-    return json({ success: true, npc });
+    return { success: true, npc };
   } catch (error) {
-    return json({ success: false, error: error.message });
+    return { success: false, error: error.message };
   }
 };
 
@@ -61,6 +67,8 @@ function NpcDetail() {
   const formRef = useRef();
   const submit = useSubmit();
   const [formData, setFormData] = useState(npc);
+
+  useTitle(npc.name);
 
   function handleInputChange(e) {
     const { name, value } = e.target;

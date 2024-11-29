@@ -1,4 +1,3 @@
-import { json } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 import classNames from 'classnames';
 
@@ -6,11 +5,18 @@ import { getNpcsBySubdominions } from '~/services/npc.server';
 import { translateRace } from '~/domain/characters';
 import { getSettlementMap } from '~/services/settlements.server';
 import { getDeityColorClass } from '~/domain/npc/attrs/npcFaith';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = () => [
+  {
+    title: 'Kandrax - NPCs Rápidos',
+  },
+];
 
 export const loader = async ({ params }) => {
   const npcsBySubdominions = await getNpcsBySubdominions();
@@ -26,11 +32,13 @@ export const loader = async ({ params }) => {
       )
     )
   );
-  return json({ npcsBySubdominions, settlements });
+  return { npcsBySubdominions, settlements };
 };
 
 function NpcList() {
   const { npcsBySubdominions, settlements } = useLoaderData();
+
+  useTitle('NPCs Rápidos');
 
   return (
     <>

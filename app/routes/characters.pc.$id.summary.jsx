@@ -1,9 +1,8 @@
-import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData, useSubmit } from '@remix-run/react';
+import { redirect } from '@remix-run/node';
+import { Form, useOutletContext, useSubmit } from '@remix-run/react';
 import { createRef, useEffect, useRef, useState } from 'react';
 
 import {
-  getPc,
   updatePc,
   updateNotes,
   deleteNote,
@@ -106,9 +105,6 @@ import ProficienciesAndLanguages from '~/components/summary/proficienciesAndLang
 import CustomTraits, {
   actions as customTraitsActions,
 } from '~/components/summary/customTraits';
-import { isDm } from '~/domain/user';
-import { getUser } from '~/services/user.server';
-import { getSessionUser } from '~/services/session.server';
 import processAction from '~/utils/remix/processAction';
 import { actions as hitDiceActions } from '~/components/skills/hitDiceActions';
 import { actions as skillsExplanationActions } from '~/domain/skillsExplanation';
@@ -123,25 +119,6 @@ export const links = () => {
     { rel: 'stylesheet', href: spellsStyles },
     { rel: 'stylesheet', href: noteStyles },
   ];
-};
-
-export const meta = ({ data }) => [
-  {
-    title: data.pc.name,
-  },
-];
-
-export const loader = async ({ request, params }) => {
-  const pc = await getPc(params.id);
-
-  if (!pc) {
-    throw new Error('pc not found');
-  }
-
-  const owner = await getUser({ id: pc.userId });
-  const user = await getSessionUser(request);
-
-  return json({ pc, playerName: owner.name, isDm: isDm(user) });
 };
 
 async function deleteNoteAction(formData) {
@@ -251,11 +228,11 @@ export const action = async ({ request }) => {
     });
   }
 
-  return json({ pc });
+  return { pc };
 };
 
 function PcSummary() {
-  const { pc, playerName, isDm } = useLoaderData();
+  const { pc, playerName, isDm } = useOutletContext();
   const {
     id,
     name,
@@ -265,6 +242,7 @@ function PcSummary() {
   } = pc;
 
   const [pcName, setPcName] = useState(name);
+  useTitle(`${pcName} - Principal`);
   useEffect(() => {
     setPcName(name);
   }, [name]);

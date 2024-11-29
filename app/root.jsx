@@ -12,7 +12,7 @@ import classNames from 'classnames';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useEffect, useState } from 'react';
-import { json, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 
 import MenuContext from './components/contexts/menuContext';
 import PartyContext from './components/contexts/partyContext';
@@ -29,7 +29,6 @@ import { getSessionUser } from '~/services/session.server';
 import { getBasicMenuItems } from '~/domain/navigation';
 import { getCurrentPcPage } from '~/utils/paths';
 
-
 import styles from '~/styles/global.css';
 import menuStyles from '~/components/menus.css';
 import cardStyles from '~/components/cards/cards.css';
@@ -43,7 +42,7 @@ import partyStyles from '~/components/party.css';
 export const meta = () => [
   {
     charset: 'utf-8',
-    title: 'Bayaz',
+    title: 'Kandrax',
     viewport: 'width=device-width,initial-scale=1',
   },
 ];
@@ -84,7 +83,7 @@ export const loader = async ({ request }) => {
   const pathname = url.pathname;
 
   if (pathname === '/login') {
-    return json({ menuItems: [], location: pathname });
+    return { menuItems: [], location: pathname };
   }
 
   const user = await getSessionUser(request);
@@ -101,12 +100,12 @@ export const loader = async ({ request }) => {
       ? pathname.slice(0, -1)
       : pathname;
 
-  return json({ menuItems, location: normalizedPathname });
+  return { menuItems, location: normalizedPathname };
 };
 
 export default function App() {
   const [hasMenu, setHasMenu] = useState(true);
-  const [menuTitle, setMenuTitle] = useState('Bayaz');
+  const [menuTitle, setMenuTitle] = useState('Kandrax');
   const [partyIdState, setPartyIdState, deletePartyIdState] =
     useStateValue('partyId');
   const [pcIdsState, setPcIdsState, deletePcIdsState] = useStateValue('pcIds');

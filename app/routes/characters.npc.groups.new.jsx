@@ -1,14 +1,21 @@
 import { Form, Link, useLoaderData } from '@remix-run/react';
-import { json, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 
 import { getNpcs } from '~/services/pc.server';
 import { createParty } from '~/services/party.server';
 import { translateClass, translateRace } from '~/domain/characters';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = () => [
+  {
+    title: 'Kandrax - Nuevo grupo de NPCs',
+  },
+];
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -25,11 +32,12 @@ export const loader = async ({ params }) => {
   if (!npcs?.length) {
     throw new Error('PCs not found');
   }
-  return json({ npcs });
+  return { npcs };
 };
 
 function NewGroup() {
   const { npcs } = useLoaderData();
+  useTitle('Nuevo grupo de NPCs');
 
   return (
     <>

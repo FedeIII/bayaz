@@ -1,4 +1,4 @@
-import { json, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 import {
   createSettlement,
   getSettlements,
@@ -12,6 +12,7 @@ import {
 } from '~/services/regions.server';
 import ClientMap from './clientMap.client';
 import LoadingSpinner from '~/components/util/pageSpinner';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/map/map.css';
 import placesStyles from '~/components/places.css';
@@ -21,6 +22,12 @@ export const links = () => {
     { rel: 'stylesheet', href: placesStyles },
   ];
 };
+
+export const meta = () => [
+  {
+    title: 'Mapa',
+  },
+];
 
 // x c [0, 100] left to right
 // y c [0, 120] bottom to top
@@ -43,11 +50,11 @@ export const loader = async ({ request }) => {
     getRegions(),
   ]);
 
-  return json({
+  return {
     center,
     settlements: settlements.filter(settlement => !!settlement.location),
     regions,
-  });
+  };
 };
 
 export const action = async ({ request }) => {
@@ -106,10 +113,12 @@ export const action = async ({ request }) => {
     await deleteRegion(regionId);
   }
 
-  return json({ regions: await getRegions() });
+  return { regions: await getRegions() };
 };
 
 function Map() {
+  useTitle('Mapa');
+
   if (typeof window !== 'undefined') {
     return <ClientMap />;
   }

@@ -1,24 +1,32 @@
-import { json } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 
 import { getNpcs } from '~/services/pc.server';
 import { translateClass, translateRace } from '~/domain/characters';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
+export const meta = () => [
+  {
+    title: 'Kandrax - NPCs Principales',
+  },
+];
+
 export const loader = async ({ params }) => {
   const npcs = await getNpcs();
   if (!npcs?.length) {
     throw new Error('PCs not found');
   }
-  return json({ npcs });
+  return { npcs };
 };
 
 function NpcList() {
   const { npcs } = useLoaderData();
+
+  useTitle('NPCs Principales');
 
   return (
     <>

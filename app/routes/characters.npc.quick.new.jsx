@@ -4,19 +4,26 @@ import {
   useLoaderData,
   useSubmit,
 } from '@remix-run/react';
-import { json } from '@remix-run/node';
 import { useRef, useEffect, useState } from 'react';
+
 import { createRandomNpc } from '~/domain/npc/npc';
 import { CharacterSidebar } from '~/components/characters/characterSidebar';
 import { CharacterInfo } from '~/components/characters/characterInfo';
 import { createNpc } from '~/services/npc.server';
 import { getSettlementsByDominionAndName } from '~/services/settlements.server';
 import { getDeity } from '~/domain/npc/attrs/npcFaith';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/filters.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = () => [
+  {
+    title: 'Kandrax - Nuevo NPC rápido',
+  },
+];
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -48,20 +55,23 @@ export const action = async ({ request }) => {
 
   try {
     const npc = await createNpc(npcData);
-    return json({ success: true, npc });
+    return { success: true, npc };
   } catch (error) {
-    return json({ success: false, error: error.message });
+    return { success: false, error: error.message };
   }
 };
 
 export const loader = async () => {
   const settlements = await getSettlementsByDominionAndName();
-  return json({ settlements });
+  return { settlements };
 };
 
 function QuickNpc() {
   const { settlements } = useLoaderData();
   const actionData = useActionData();
+
+  useTitle('Nuevo NPC rápido');
+
   const formRef = useRef();
   const submit = useSubmit();
   const [filters, setFilters] = useState({

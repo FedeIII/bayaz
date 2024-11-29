@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import { json } from '@remix-run/node';
 import { Form, Link, useLoaderData, useSubmit } from '@remix-run/react';
 
 import { getPc } from '~/services/pc.server';
 import { getNpcParties, setPartyName } from '~/services/party.server';
 import { concurrentRequests } from '~/utils/concurrentRequests';
 import { Title } from '~/components/form/title';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = () => [
+  {
+    title: 'Kandrax - Grupos de NPCs',
+  },
+];
 
 export const loader = async ({ params }) => {
   const groups = await getNpcParties();
@@ -23,7 +29,7 @@ export const loader = async ({ params }) => {
     groups.map(group => concurrentRequests(group.players, id => getPc(id)))
   );
 
-  return json({ groups, groupsNpcs });
+  return { groups, groupsNpcs };
 };
 
 export const action = async ({ request }) => {
@@ -39,6 +45,8 @@ export const action = async ({ request }) => {
 
 function NpcGroups() {
   const { groups, groupsNpcs } = useLoaderData();
+
+  useTitle('Grupos de NPCs');
 
   return (
     <Form method="post">

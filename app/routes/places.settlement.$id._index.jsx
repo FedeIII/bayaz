@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Form, Link, useLoaderData } from '@remix-run/react';
-import { json, redirect } from '@remix-run/node';
+import { Form, Link, useOutletContext } from '@remix-run/react';
+import { redirect } from '@remix-run/node';
 import classNames from 'classnames';
 
 import {
@@ -38,13 +38,11 @@ import {
 } from '~/domain/places/places';
 import {
   createSettlement,
-  getSettlement,
   updateSettlement,
 } from '~/services/settlements.server';
 import { changeLength, replaceAt } from '~/utils/array';
 import { t } from '~/domain/translations';
 import { Title } from '~/components/form/title';
-import { getSettlementImages } from '~/services/s3.server';
 import { getVillageSecurityType } from '~/domain/places/village';
 import NumericInput from '~/components/inputs/numeric';
 import HtmlInput from '~/components/inputs/htmlInput';
@@ -73,41 +71,6 @@ function useAmount(array, randomElement, setNewArray, MAX = Infinity) {
 
   return [setAmount, reduceAmount, increaseAmount];
 }
-
-export const loader = async ({ params, request }) => {
-  const url = new URL(request.url);
-  let rng = url.searchParams.get('rng');
-
-  let place;
-  let files;
-  let type;
-  let id;
-  if (['city', 'town', 'village'].includes(params.id)) {
-    id = null;
-    place = null;
-    type = params.id;
-    try {
-      files = await getSettlementImages(type);
-    } catch {
-      files = [];
-    }
-  } else {
-    id = params.id;
-    place = await getSettlement(id);
-    if (!place) {
-      throw new Error('Village not found');
-    }
-    try {
-      files = await getSettlementImages(place.type);
-    } catch {
-      files = [];
-    }
-  }
-
-  if (!rng) rng = Math.random();
-
-  return json({ place, id, typeParam: type, files, rng });
-};
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -191,7 +154,8 @@ function createRandomPlace(type, files) {
 }
 
 function SettlementScreen() {
-  const { place, id, typeParam, files, rng } = useLoaderData();
+  const { place, id, typeParam, files, rng } = useOutletContext();
+
 
   const [showNameInput, setShowNameInput] = useState(false);
   const nameRef = useRef();

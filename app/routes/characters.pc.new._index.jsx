@@ -1,4 +1,4 @@
-import { json, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 import {
   Form,
   useActionData,
@@ -22,18 +22,25 @@ import { getSessionUser } from '~/services/session.server';
 import { Title, links as buildingDetailsLinks } from '~/components/form/title';
 import NumericInput from '~/components/inputs/numeric';
 import { isDm } from '~/domain/user';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/cards/cards.css';
 export const links = () => {
   return [...buildingDetailsLinks(), { rel: 'stylesheet', href: styles }];
 };
 
+export const meta = ({ data }) => [
+  {
+    title: 'Kandrax - Nuevo personaje',
+  },
+];
+
 const NUMBER_OF_AGE_MARKS = 5;
 
 export const loader = async ({ request }) => {
   const user = await getSessionUser(request);
 
-  return json({ isDm: isDm(user) });
+  return { isDm: isDm(user) };
 };
 
 export const action = async ({ request }) => {
@@ -53,7 +60,7 @@ export const action = async ({ request }) => {
   };
   const hasErrors = Object.values(errors).some(errorMessage => errorMessage);
   if (hasErrors) {
-    return json(errors);
+    return errors;
   }
 
   invariant(typeof name === 'string', 'name must be a string');
@@ -119,8 +126,10 @@ function PcRace() {
   const { isDm } = useLoaderData();
   const errors = useActionData();
 
+  useTitle('Nuevo personaje');
+
   const navigation = useNavigation();
-  const isCreating = navigation.state === "submitting";
+  const isCreating = navigation.state === 'submitting';
 
   const [name, setName] = useState('');
   const [race, setRace] = useState('human');

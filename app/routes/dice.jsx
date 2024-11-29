@@ -1,11 +1,18 @@
 import { useState, Fragment } from 'react';
 import random from '~/domain/random';
 import { signed } from '~/domain/display';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/dice.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = () => [
+  {
+    title: 'Kandrax - Dados',
+  },
+];
 
 function rollLevel(value, faces, isAccounted) {
   if (!isAccounted) {
@@ -87,6 +94,8 @@ function Line(props) {
 }
 
 function RollDice() {
+  useTitle('Dados');
+
   const [command, setCommand] = useState('');
   const [history, setHistory] = useState([]);
 

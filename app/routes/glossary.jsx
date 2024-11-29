@@ -12,12 +12,12 @@ import { Monster } from '~/domain/encounters/monsters';
 import { useSearchResults } from '~/components/hooks/useSearchResults';
 import { getSessionUser } from '~/services/session.server';
 import { useLoaderData, useSearchParams } from '@remix-run/react';
-import { json } from '@remix-run/node';
 import { isDm } from '~/domain/user';
 import { useSearchTable } from '~/components/hooks/useSearchTable';
 import { TABLE_MAP } from '~/domain/tables/tables';
 import Sidebar from '~/components/glossary/sidebar';
 import SelectedTable from '~/components/glossary/selectedTable';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/glossary.css';
 import charactersStyles from '~/components/characters/characters.css';
@@ -30,16 +30,24 @@ export const links = () => {
   ];
 };
 
+export const meta = ({ data }) => [
+  {
+    title: 'Kandrax - Glosario',
+  },
+];
+
 const ITEM_HEIGHT = 67;
 
 export const loader = async ({ request }) => {
   const user = await getSessionUser(request);
 
-  return json({ isDm: isDm(user) });
+  return { isDm: isDm(user) };
 };
 
 function Glossary() {
   const { isDm } = useLoaderData();
+  useTitle('Glosario');
+
   const [filters, setFilters] = useState({ search: '', table: '' });
   const { search, table } = filters;
 
