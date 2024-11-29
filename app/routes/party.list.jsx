@@ -1,4 +1,3 @@
-import { json } from '@remix-run/node';
 import { useContext } from 'react';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
@@ -17,7 +16,7 @@ export const loader = async ({ params }) => {
     parties.map(party => concurrentRequests(party.players, id => getPc(id)))
   );
 
-  return json({ parties, partiesPcs });
+  return { parties, partiesPcs };
 };
 
 export const action = async ({ request }) => {
@@ -42,7 +41,12 @@ function PartyList() {
               data-selected={party.id === partyContext.partyIdState}
             >
               <h3 className="party__party-session-title">
-                {party.id === partyContext.partyIdState && 'Sesión activa'}
+                {party.name}{' '}
+                {party.id === partyContext.partyIdState && (
+                  <span className="party__party-session-title-active">
+                    (Sesión activa)
+                  </span>
+                )}
               </h3>
               <ul className="party__party-members">
                 {partiesPcs[i].map(pc => (

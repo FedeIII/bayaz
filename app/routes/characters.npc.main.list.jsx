@@ -4,7 +4,7 @@ import { getNpcs } from '~/services/pc.server';
 import { translateClass, translateRace } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 
-import styles from '~/components/party.css';
+import styles from '~/components/party/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };

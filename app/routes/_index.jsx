@@ -11,7 +11,7 @@ import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/profile.css';
 import cardStyles from '~/components/cards/cards.css';
-import partyStyles from '~/components/party.css';
+import partyStyles from '~/components/party/party.css';
 export const links = () => [
   ...titleLinks(),
   { rel: 'stylesheet', href: styles },

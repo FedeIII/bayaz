@@ -9,7 +9,7 @@ import { getUser } from '~/services/user.server';
 import withLoading from '~/components/HOCs/withLoading';
 import { useTitle } from '~/components/hooks/useTitle';
 
-import styles from '~/components/party.css';
+import styles from '~/components/party/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };

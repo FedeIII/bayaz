@@ -5,7 +5,7 @@ import { useTitle } from '~/components/hooks/useTitle';
 import { getItems } from '~/services/item.server';
 import { t } from '~/domain/translations';
 
-import styles from '~/components/party.css';
+import styles from '~/components/party/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };

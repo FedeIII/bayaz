@@ -13,6 +13,7 @@ const sessionSchema = new mongoose.Schema(
     finished: Boolean,
     monstersKilled: [[String]],
     eventsCompleted: [eventSchema],
+    notes: String,
   },
   { timestamps: true }
 );
@@ -113,6 +114,15 @@ export async function addEventCompleted(
 
 export async function setPartyName(id, name) {
   const updatedParty = await Party.findOneAndUpdate({ id }, { name });
+
+  return updatedParty;
+}
+
+export async function setNotesToSession(partyId, sessionId, notes) {
+  const updatedParty = await Party.findOneAndUpdate(
+    { id: partyId, 'sessions.id': sessionId },
+    { 'sessions.$.notes': notes }
+  );
 
   return updatedParty;
 }

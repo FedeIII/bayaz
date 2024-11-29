@@ -161,5 +161,5 @@ export function getAllPcItems(pc) {
 }
 
 export function getAllIdentifiedItems(pc) {
-  return getAllPcItems(pc).filter(item => item.identified);
+  return getAllPcItems(pc).filter(item => item?.identified);
 }

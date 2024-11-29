@@ -37,7 +37,7 @@ import barStyles from '~/components/indicators/bar.css';
 import checkboxStyles from '~/components/checkbox.css';
 import appStyles from '~/components/app.css';
 import profileStyles from '~/components/profile.css';
-import partyStyles from '~/components/party.css';
+import partyStyles from '~/components/party/party.css';
 
 export const meta = () => [
   {

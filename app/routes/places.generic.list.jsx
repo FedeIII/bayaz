@@ -5,7 +5,7 @@ import { json } from '@remix-run/node';
 import { useTitle } from '~/components/hooks/useTitle';
 import withLoading from '~/components/HOCs/withLoading';
 
-import styles from '~/components/party.css';
+import styles from '~/components/party/party.css';
 import encounterListStyles from '~/components/encounterList.css';
 export const links = () => {
   return [

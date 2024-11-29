@@ -7,7 +7,7 @@ import { concurrentRequests } from '~/utils/concurrentRequests';
 import { Title } from '~/components/form/title';
 import { useTitle } from '~/components/hooks/useTitle';
 
-import styles from '~/components/party.css';
+import styles from '~/components/party/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };

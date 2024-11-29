@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import MenuContext from '~/components/contexts/menuContext';
 
-import styles from '~/components/party.css';
+import styles from '~/components/party/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };

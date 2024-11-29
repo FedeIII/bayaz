@@ -4,7 +4,7 @@ import { json } from '@remix-run/node';
 import { getBuildings } from '~/services/building.server';
 import { useTitle } from '~/components/hooks/useTitle';
 
-import styles from '~/components/party.css';
+import styles from '~/components/party/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };

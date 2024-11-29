@@ -7,7 +7,7 @@ import { getSettlementMap } from '~/services/settlements.server';
 import { getDeityColorClass } from '~/domain/npc/attrs/npcFaith';
 import { useTitle } from '~/components/hooks/useTitle';
 
-import styles from '~/components/party.css';
+import styles from '~/components/party/party.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
