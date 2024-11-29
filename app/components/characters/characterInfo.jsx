@@ -5,6 +5,7 @@ import { Title } from '~/components/form/title';
 import { NPC_RACES_LIST } from '~/domain/npc/attrs/npcRaces';
 import { getDeityColorClass } from '~/domain/npc/attrs/npcFaith';
 import SettlementByDominionSelector from '../places/settlementByDominionSelector';
+import HtmlInput from '../inputs/htmlInput';
 
 function textareaCallback(textareaNode) {
   textareaNode.target.style.height = '';
@@ -254,13 +255,10 @@ export function CharacterInfo(props) {
 
       <div className="characters__attrs">
         <h2 className="characters__attrs-title">Notas</h2>
-        <textarea
+        <HtmlInput
           name="notes"
-          className="characters__textarea"
-          placeholder="Notas adicionales sobre el personaje"
-          rows="4"
-          value={formData.notes || ''}
-          onChange={onChange}
+          value={formData.notes}
+          onChange={value => onChange({ target: { name: 'notes', value } })}
         />
       </div>
     </div>

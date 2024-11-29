@@ -40,17 +40,20 @@ function HtmlInput(props) {
 
   useEffect(() => {
     if (typeof value === 'string' && isExternalChange) {
-      Transforms.delete(editor, {
-        at: {
-          anchor: Editor.start(editor, []),
-          focus: Editor.end(editor, []),
-        },
-      });
-      Transforms.removeNodes(editor, {
-        at: [0],
-      });
-      Transforms.insertNodes(editor, textToSlate(value));
-      setIsExternalChange(false);
+      // Avoid "Cannot resolve a DOM node from Slate node" error
+      setTimeout(() => {
+        Transforms.delete(editor, {
+          at: {
+            anchor: Editor.start(editor, []),
+            focus: Editor.end(editor, []),
+          },
+        });
+        Transforms.removeNodes(editor, {
+          at: [0],
+        });
+        Transforms.insertNodes(editor, textToSlate(value));
+        setIsExternalChange(false);
+      }, 0);
     }
   }, [value, isExternalChange]);
 
@@ -250,7 +253,7 @@ function Leaf({ attributes, children, leaf }) {
   return <span {...attributes}>{children}</span>;
 }
 
-function BlockButton({ format, icon }) {
+function BlockButton({ format, icon, children }) {
   const editor = useSlate();
   return (
     <Button
@@ -266,11 +269,12 @@ function BlockButton({ format, icon }) {
       }}
     >
       <Icon>{icon}</Icon>
+      {children}
     </Button>
   );
 }
 
-function MarkButton({ format, icon }) {
+function MarkButton({ format, icon, children }) {
   const editor = useSlate();
   return (
     <Button
@@ -282,6 +286,7 @@ function MarkButton({ format, icon }) {
       }}
     >
       <Icon>{icon}</Icon>
+      {children}
     </Button>
   );
 }

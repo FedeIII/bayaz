@@ -224,12 +224,10 @@ function GenericPlace() {
                 <HtmlInput
                   name="description"
                   value={place?.description}
-                  htmlInputRef={descriptionRef}
-                  className="places__trait-input"
-                  onChange={() =>
+                  onChange={value =>
                     setPlace(p => ({
                       ...p,
-                      description: descriptionRef.current?.innerHTML,
+                      description: value,
                     }))
                   }
                 />
@@ -245,12 +243,10 @@ function GenericPlace() {
           <HtmlInput
             name="notes"
             value={place?.notes}
-            htmlInputRef={notesRef}
-            className="places__notes-text"
-            onChange={() =>
+            onChange={value =>
               setPlace(p => ({
                 ...p,
-                notes: notesRef.current?.innerHTML,
+                notes: value,
               }))
             }
           />

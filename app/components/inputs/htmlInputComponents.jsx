@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 export const Button = React.forwardRef(
-  ({ className, active, reversed, ...props }, ref) => (
+  ({ className, active, reversed, children, ...props }, ref) => (
     <span
       {...props}
       ref={ref}
@@ -19,11 +19,14 @@ export const Button = React.forwardRef(
           : 'var(--color-x-gray)',
         margin: '0 2px',
       }}
-    />
+    >
+      {children}
+    </span>
   )
 );
+
 export const EditorValue = React.forwardRef(
-  ({ className, value, ...props }, ref) => {
+  ({ className, value, children, ...props }, ref) => {
     const textLines = value.document.nodes
       .map(node => node.text)
       .toArray()
@@ -62,64 +65,80 @@ export const EditorValue = React.forwardRef(
     );
   }
 );
-export const Icon = React.forwardRef(({ className, ...props }, ref) => (
-  <span
-    {...props}
-    ref={ref}
-    className={classNames('material-icons', className)}
-    style={{
-      fontSize: '18px',
-      verticalAlign: 'text-bottom',
-    }}
-  />
-));
-export const Instruction = React.forwardRef(({ className, ...props }, ref) => (
-  <div
-    {...props}
-    ref={ref}
-    className={className}
-    style={{
-      whiteSpace: 'pre-wrap',
-      margin: '0 -20px 10px',
-      padding: '10px 20px',
-      fontSize: '14px',
-      background: '#f8f8e8',
-    }}
-  />
-));
-export const Menu = React.forwardRef(({ className, ...props }, ref) => (
-  <div
-    {...props}
-    data-test-id="menu"
-    ref={ref}
-    className={className}
-    style={{
-      margin: '0 0 4px',
-      '& > *': {
-        display: 'inline-block',
-      },
-      '& > * + *': {
-        marginLeft: '15px',
-      },
-    }}
-  />
-));
+export const Icon = React.forwardRef(
+  ({ className, children, ...props }, ref) => (
+    <span
+      {...props}
+      ref={ref}
+      className={classNames('material-icons', className)}
+      style={{
+        fontSize: '18px',
+        verticalAlign: 'text-bottom',
+      }}
+    >
+      {children}
+    </span>
+  )
+);
+export const Instruction = React.forwardRef(
+  ({ className, children, ...props }, ref) => (
+    <div
+      {...props}
+      ref={ref}
+      className={className}
+      style={{
+        whiteSpace: 'pre-wrap',
+        margin: '0 -20px 10px',
+        padding: '10px 20px',
+        fontSize: '14px',
+        background: '#f8f8e8',
+      }}
+    >
+      {children}
+    </div>
+  )
+);
+export const Menu = React.forwardRef(
+  ({ className, children, ...props }, ref) => (
+    <div
+      {...props}
+      data-test-id="menu"
+      ref={ref}
+      className={className}
+      style={{
+        margin: '0 0 4px',
+        '& > *': {
+          display: 'inline-block',
+        },
+        '& > * + *': {
+          marginLeft: '15px',
+        },
+      }}
+    >
+      {children}
+    </div>
+  )
+);
 export const Portal = ({ children }) => {
   return typeof document === 'object'
     ? ReactDOM.createPortal(children, document.body)
     : null;
 };
-export const Toolbar = React.forwardRef(({ className, ...props }, ref) => (
-  <Menu
-    {...props}
-    ref={ref}
-    className={className}
-    style={{
-      position: 'relative',
-      padding: '1px 18px 17px',
-      margin: '0 -20px',
-      borderBottom: '2px solid #eee',
-      marginBottom: '20px',
-    }}
-  />
-));
+export const Toolbar = React.forwardRef(
+  ({ className, children, ...props }, ref) => (
+    <Menu
+      {...props}
+      ref={ref}
+      className={className}
+      style={{
+        position: 'relative',
+        padding: '1px 18px 17px',
+        margin: '0 -20px',
+        borderBottom: '2px solid #eee',
+        marginBottom: '20px',
+      }}
+    >
+      {children}
+    </Menu>
+  )
+);

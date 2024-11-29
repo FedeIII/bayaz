@@ -276,6 +276,7 @@
 
 .characters__attrs {
   margin: 0 8%;
+  text-align: left;
 }
 
 .characters__parallel-attrs {
