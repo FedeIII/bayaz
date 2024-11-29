@@ -48,6 +48,7 @@ const settlementSchema = new mongoose.Schema({
   subdominion: String,
   notes: String,
   location: { type: locationSchema, default: null },
+  doc: String
 });
 
 const Settlement =
@@ -86,6 +87,7 @@ function attrToSchema(attrs) {
   if (attrs.calamity) newAttrs.calamity = attrs.calamity;
   if (attrs.notes) newAttrs.notes = attrs.notes;
   if (attrs.location) newAttrs.location = attrs.location;
+  if (attrs.doc) newAttrs.doc = attrs.doc;
 
   return newAttrs;
 }

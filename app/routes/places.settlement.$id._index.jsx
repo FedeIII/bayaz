@@ -101,6 +101,7 @@ export const action = async ({ request }) => {
     calamity: formData.get('calamity'),
     notes: formData.get('notes'),
     location,
+    doc: formData.get('doc'),
   };
 
   let settlement;
@@ -185,6 +186,7 @@ function SettlementScreen() {
     calamity: '',
     location: null,
     notes: null,
+    doc: null,
   });
 
   const {
@@ -206,6 +208,7 @@ function SettlementScreen() {
     knownFor,
     calamity,
     notes,
+    doc,
     location,
   } = placeState;
 
@@ -278,6 +281,7 @@ function SettlementScreen() {
           calamity: place.calamity,
           notes: place.notes || '',
           location: place.location,
+          doc: place.doc,
         }));
       } else {
         randomPlace = createRandomPlace(typeParam || place.type, files);
@@ -408,6 +412,10 @@ function SettlementScreen() {
     }));
   }
 
+  function onDocChange(e) {
+    setPlaceState(p => ({ ...p, doc: e.target.value }));
+  }
+
   function onImageClick() {
     setPlaceState(p => ({
       ...p,
@@ -447,6 +455,14 @@ function SettlementScreen() {
         <Link to={`export`} target="_blank" className="places__save">
           ⇪ Exportar
         </Link>
+        {doc && (
+          <a href={doc} target="_blank" className="places__save">
+            <span className="app__text-big" style={{ marginTop: '-10px' }}>
+              ⇫
+            </span>{' '}
+            Doc
+          </a>
+        )}
       </div>
 
       <div className="places__horizontal-sections">
@@ -469,36 +485,57 @@ function SettlementScreen() {
                 onChange={onNameChange}
                 onReroll={onNameReroll}
               />
-              {!!placeState.location && (
-                <Link
-                  to={`/map?lat=${placeState.location.lat}&lng=${placeState.location.lng}`}
-                  className="places__save"
-                >
-                  Mapa
-                </Link>
-              )}
-              <div className="places__trait-inputs-vertical">
-                <label htmlFor="lat">
-                  Lat:{' '}
-                  <NumericInput
-                    name="lat"
-                    step="any"
-                    value={location?.lat}
-                    onChange={onLatChange}
-                    styleName="places__trait-input places__trait-input--highlight"
-                  />
-                </label>
-                <label htmlFor="lng">
-                  Lng:{' '}
-                  <NumericInput
-                    name="lng"
-                    step="any"
-                    value={location?.lng}
-                    onChange={onLngChange}
-                    styleName="places__trait-input places__trait-input--highlight"
-                  />
-                </label>
+              <div className="places__trait-inputs-horizontal">
+                <div className="places__trait-inputs-vertical">
+                  <label htmlFor="lat">
+                    <span className="places__trait-title">Lat:</span>{' '}
+                    <NumericInput
+                      name="lat"
+                      step="any"
+                      value={location?.lat}
+                      onChange={onLatChange}
+                      styleName="places__trait-input places__trait-input--highlight"
+                      style={{ width: '50%' }}
+                    />
+                  </label>
+                  <label htmlFor="lng">
+                    <span className="places__trait-title">Lng:</span>{' '}
+                    <NumericInput
+                      name="lng"
+                      step="any"
+                      value={location?.lng}
+                      onChange={onLngChange}
+                      styleName="places__trait-input places__trait-input--highlight"
+                      style={{ width: '50%' }}
+                    />
+                  </label>
+                </div>
+                {!!placeState.location && (
+                  <Link
+                    to={`/map?lat=${placeState.location.lat}&lng=${placeState.location.lng}`}
+                    className="places__save cards__button-card"
+                    target="_blank"
+                  >
+                    Go!
+                  </Link>
+                )}
               </div>
+            </div>
+
+            <div className="places__subtitle places__subtitle--right">
+              <span
+                className="places__trait-title"
+                style={{ marginRight: '8px' }}
+              >
+                Doc:
+              </span>
+              <input
+                type="text"
+                name="doc"
+                value={doc}
+                onChange={onDocChange}
+                className="places__trait-input"
+              />
             </div>
 
             <hr className="places__section-divider" />

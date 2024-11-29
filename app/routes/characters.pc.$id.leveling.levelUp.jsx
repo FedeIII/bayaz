@@ -91,7 +91,7 @@ function LevelUp() {
           name="hitPoints"
           disabled={!isIdle}
           value="random"
-          className="cards__button-card app__button-big"
+          className="cards__button-card app__button-large"
         >
           Lanzar Dado ({CLASSES()[pClass].hitDice})
         </button>
@@ -100,7 +100,7 @@ function LevelUp() {
           name="hitPoints"
           disabled={!isIdle}
           value={getFixedHealthForLevelUp(pc)}
-          className="cards__button-card app__button-big"
+          className="cards__button-card app__button-large"
         >
           Utilizar valor fijo ({increment(getFixedHealthForLevelUp(pc))})
         </button>
@@ -115,7 +115,7 @@ function LevelUp() {
           <button
             type="submit"
             disabled={!isIdle}
-            className="cards__button-card app__button-big"
+            className="cards__button-card app__button-large"
           >
             Lanzar Dado Real ({CLASSES()[pClass].hitDice})
           </button>

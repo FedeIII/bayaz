@@ -53,6 +53,7 @@ html {
   transition: width 0.5s ease-out;
   overflow-y: hidden;
   height: calc(92vh - 16px);
+  scrollbar-width: none;
 }
 
 .app__sidebar:hover {
@@ -305,12 +306,16 @@ html {
   column-gap: 16px;
 }
 
-.app__button-big {
+.app__button-large {
   font-size: var(--font-size-l);
 }
 
-.app__big-text {
+.app__text-xxxl {
   font-size: var(--font-size-xxxl);
+}
+
+.app__text-big {
+  font-size: var(--font-size-big);
 }
 
 .app__small-text {

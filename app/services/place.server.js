@@ -13,6 +13,7 @@ const placeSchema = new mongoose.Schema({
   isRegion: Boolean,
   isDominion: Boolean,
   region: String,
+  doc: String,
 });
 
 const Place = mongoose.models.Place || mongoose.model('Place', placeSchema);

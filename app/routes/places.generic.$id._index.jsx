@@ -28,6 +28,7 @@ export const action = async ({ request }) => {
   const isRegion = formData.get('isRegion') === 'true';
   const isDominion = formData.get('isDominion') === 'true';
   const region = formData.get('region') || null;
+  const doc = formData.get('doc') || null;
 
   const place = await updatePlace(id, {
     group,
@@ -39,6 +40,7 @@ export const action = async ({ request }) => {
     isRegion,
     isDominion,
     region,
+    doc,
   });
 
   return redirect(`/places/generic/${place.id}`);
@@ -56,9 +58,6 @@ function GenericPlace() {
       setPlace(initPlace);
     }
   }, [initPlace]);
-
-  const descriptionRef = useRef(null);
-  const notesRef = useRef(null);
 
   return (
     <Form method="post" ref={formRef}>
@@ -80,6 +79,14 @@ function GenericPlace() {
         <Link to={`export`} target="_blank" className="places__save">
           ⇪ Exportar
         </Link>
+        {place?.doc && (
+          <a href={place.doc} target="_blank" className="places__save">
+            <span className="app__text-big" style={{ marginTop: '-10px' }}>
+              ⇫
+            </span>{' '}
+            Doc
+          </a>
+        )}
       </div>
 
       <div className="places__horizontal-sections">
@@ -129,6 +136,24 @@ function GenericPlace() {
                   }
                 />
               </label>
+            </div>
+
+            <hr className="places__section-divider" />
+
+            <div className="places__subtitle places__subtitle--left">
+              <span
+                className="places__trait-title"
+                style={{ marginRight: '8px' }}
+              >
+                Doc:
+              </span>
+              <input
+                type="text"
+                name="doc"
+                value={place?.doc}
+                onChange={e => setPlace(p => ({ ...p, doc: e.target.value }))}
+                className="places__trait-input"
+              />
             </div>
 
             <hr className="places__section-divider" />

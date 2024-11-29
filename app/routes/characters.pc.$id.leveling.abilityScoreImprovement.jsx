@@ -122,21 +122,21 @@ function AbilityScoreImprovement() {
       <div className="stats card">
         {STATS().map(statName => (
           <div key={statName} className="stat">
-            <div className="stats__cell stats__leftCell app__big-text">
+            <div className="stats__cell stats__leftCell app__text-xxxl">
               <span className="stats__statName">{translateStat(statName)}</span>
               <span className="stats__statValue card">{stats[statName]}</span>
             </div>
             {!!(pExtraStats?.[statName] || halfElfExtraStats?.[statName]) && (
               <>
-                <span className="stats__cell app__big-text">+</span>
-                <span className="stats__cell app__big-text">
+                <span className="stats__cell app__text-xxxl">+</span>
+                <span className="stats__cell app__text-xxxl">
                   {(pExtraStats?.[statName] || 0) +
                     (halfElfExtraStats?.[statName] || 0)}
                 </span>
               </>
             )}
-            <span className="stats__cell app__big-text">+</span>
-            <span className="stats__cell stats__rightCell app__big-text">
+            <span className="stats__cell app__text-xxxl">+</span>
+            <span className="stats__cell stats__rightCell app__text-xxxl">
               <NumericInput
                 id={statName}
                 name={statName}
