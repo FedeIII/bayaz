@@ -481,6 +481,7 @@ function SettlementScreen() {
             <div className="places__header">
               <Title
                 inputName="name"
+                className="places__title"
                 value={name}
                 onChange={onNameChange}
                 onReroll={onNameReroll}

@@ -51,13 +51,9 @@ html {
   color: white;
   align-items: flex-start;
   transition: width 0.5s ease-out;
-  overflow-y: hidden;
+  overflow-y: scroll;
   height: calc(92vh - 16px);
   scrollbar-width: none;
-}
-
-.app__sidebar:hover {
-  overflow-y: scroll;
 }
 
 .app__sidebar--closed {
