@@ -416,6 +416,10 @@ function SettlementScreen() {
     setPlaceState(p => ({ ...p, doc: e.target.value }));
   }
 
+  function onImageChange(e) {
+    setPlaceState(p => ({ ...p, img: e.target.value }));
+  }
+
   function onImageClick() {
     setPlaceState(p => ({
       ...p,
@@ -436,7 +440,7 @@ function SettlementScreen() {
   }
 
   return (
-    <Form method="post">
+    <Form method="post" className="places__container">
       {!!id && <input readOnly type="text" name="id" value={id} hidden />}
       <input readOnly type="text" name="type" value={type} hidden />
       <div className="places__buttons">
@@ -473,7 +477,6 @@ function SettlementScreen() {
                 ⟳
               </span>
               <img src={img} className="places__image" width="100%" />
-              <input readOnly type="text" name="img" value={img} hidden />
             </div>
           )}
 
@@ -523,20 +526,39 @@ function SettlementScreen() {
               </div>
             </div>
 
-            <div className="places__subtitle places__subtitle--right">
-              <span
-                className="places__trait-title"
-                style={{ marginRight: '8px' }}
-              >
-                Doc:
-              </span>
-              <input
-                type="text"
-                name="doc"
-                value={doc}
-                onChange={onDocChange}
-                className="places__trait-input"
-              />
+            <hr className="places__section-divider" />
+
+            <div className="places__vertical-sections">
+              <div className="places__subtitle places__subtitle--left">
+                <span
+                  className="places__trait-title"
+                  style={{ marginRight: '8px' }}
+                >
+                  Img:
+                </span>
+                <input
+                  type="text"
+                  name="img"
+                  value={img}
+                  onChange={onImageChange}
+                  className="places__trait-input"
+                />
+              </div>
+              <div className="places__subtitle places__subtitle--right">
+                <span
+                  className="places__trait-title"
+                  style={{ marginRight: '8px' }}
+                >
+                  Doc:
+                </span>
+                <input
+                  type="text"
+                  name="doc"
+                  value={doc}
+                  onChange={onDocChange}
+                  className="places__trait-input"
+                />
+              </div>
             </div>
 
             <hr className="places__section-divider" />
@@ -559,7 +581,7 @@ function SettlementScreen() {
               </span>
               <span>
                 <label htmlFor="subdominion">
-                  Subdominio:{' '}
+                  <span className="places__trait-title">Subdominio:</span>{' '}
                   <select
                     type="text"
                     name="subdominion"

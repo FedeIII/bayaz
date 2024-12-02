@@ -50,11 +50,7 @@ function Settlement() {
   const { place, id, typeParam, files, rng } = useLoaderData();
   useTitle(place?.name || t(typeParam));
 
-  return (
-    <div className="places__container">
-      <Outlet context={{ place, id, typeParam, files, rng }} />
-    </div>
-  );
+  return <Outlet context={{ place, id, typeParam, files, rng }} />;
 }
 
 export default Settlement;

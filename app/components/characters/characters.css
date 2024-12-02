@@ -224,6 +224,7 @@
 
 .characters__section-divider {
   border-color: var(--color-x-pale);
+  width: 100%;
 }
 
 .characters__attr-section {
@@ -364,8 +365,16 @@
 }
 
 .characters__trait {
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-align: start;
+  flex-grow: 1;
+}
+
+.characters__trait-line {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 }
 
 .characters__single-select {
@@ -375,6 +384,7 @@
 
 .characters__trait-description {
   text-align: start;
+  display: flex;
 }
 
 .characters__card-title {
@@ -422,6 +432,8 @@
   font-size: inherit;
   color: inherit;
   width: 100%;
+  margin: 0 0 8px;
+  padding: 2px;
 }
 
 .characters__input:focus {
@@ -435,6 +447,7 @@
 
 .characters__input--inline {
   width: auto;
+  flex-grow: 1;
 }
 
 .characters__textarea {

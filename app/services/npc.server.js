@@ -6,6 +6,8 @@ import { getSettlementMap } from './settlements.server';
 const npcSchema = new mongoose.Schema({
   id: String,
   name: String,
+  img: String,
+  doc: String,
   race: String,
   gender: String,
   settlementId: { type: String, required: false },

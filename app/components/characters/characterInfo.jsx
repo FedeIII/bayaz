@@ -47,68 +47,116 @@ export function CharacterInfo(props) {
 
   return (
     <div className="characters__container">
-      <Title
-        inputName="name"
-        className="characters__group"
-        inputClass="characters__title"
-        placeholder="Nombre del NPC"
-        value={formData.name}
-        onChange={onChange}
-      />
-      {successMessage && (
-        <div className="success-message">{successMessage}</div>
-      )}
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      <div className="places__vertical-sections">
+        <div className="places__horizontal-sections">
+          <div className="places__image-container">
+            {formData.img && (
+              <img src={formData.img} className="places__image" width="100%" />
+            )}
+          </div>
+        </div>
 
-      <hr className="characters__section-divider" />
+        <div className="places__horizontal-sections">
+          <Title
+            inputName="name"
+            className="characters__group"
+            inputClass="characters__title"
+            placeholder="Nombre del NPC"
+            value={formData.name}
+            onChange={onChange}
+          />
+          {successMessage && (
+            <div className="success-message">{successMessage}</div>
+          )}
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-      <div className="characters__subtitle">
-        <select
-          name="race"
-          className="characters__input characters__input--no-border"
-          value={formData.race}
-          onChange={onChange}
-        >
-          {NPC_RACES_LIST.map(race => (
-            <option key={race} value={race}>
-              {t(race)}
-            </option>
-          ))}
-        </select>
-        <select
-          name="gender"
-          className="characters__input characters__input--no-border"
-          value={formData.gender}
-          onChange={onChange}
-        >
-          <option value="Male">{t('Male')}</option>
-          <option value="Female">{t('Female')}</option>
-        </select>
-        <SettlementByDominionSelector
-          settlementsByDominion={settlements}
-          name="settlementId"
-          className="characters__input characters__input--no-border"
-          value={formData.settlementId || ''}
-          onChange={onChange}
-        />
-      </div>
+          <hr className="characters__section-divider" />
 
-      <hr className="characters__section-divider" />
+          <div className="characters__subtitle">
+            <select
+              name="race"
+              className="characters__input characters__input--no-border"
+              value={formData.race}
+              onChange={onChange}
+            >
+              {NPC_RACES_LIST.map(race => (
+                <option key={race} value={race}>
+                  {t(race)}
+                </option>
+              ))}
+            </select>
+            <select
+              name="gender"
+              className="characters__input characters__input--no-border"
+              value={formData.gender}
+              onChange={onChange}
+            >
+              <option value="Male">{t('Male')}</option>
+              <option value="Female">{t('Female')}</option>
+            </select>
+            <SettlementByDominionSelector
+              settlementsByDominion={settlements}
+              name="settlementId"
+              className="characters__input characters__input--no-border"
+              value={formData.settlementId || ''}
+              onChange={onChange}
+            />
+          </div>
 
-      <div className="characters__attrs">
-        <h2 className="characters__attrs-title">Apariencia</h2>
-        <textarea
-          ref={ref}
-          name="looks"
-          className="characters__textarea"
-          placeholder="Descripción de la apariencia"
-          rows="4"
-          value={formData.looks?.join?.('\n') || ''}
-          onChange={e => {
-            onChange(e);
-            textareaCallback(e);
-          }}
-        />
+          <hr className="characters__section-divider" />
+
+          <div className="places__vertical-sections">
+            <div className="characters__subtitle places__subtitle--left">
+              <span
+                className="places__trait-title"
+                style={{ marginRight: '8px' }}
+              >
+                Img:
+              </span>
+              <input
+                type="text"
+                name="img"
+                value={formData.img}
+                onChange={onChange}
+                className="places__trait-input"
+              />
+            </div>
+
+            <div className="places__subtitle places__subtitle--right">
+              <span
+                className="places__trait-title"
+                style={{ marginRight: '8px' }}
+              >
+                Doc:
+              </span>
+              <input
+                type="text"
+                name="doc"
+                value={formData.doc}
+                onChange={onChange}
+                className="places__trait-input"
+              />
+            </div>
+          </div>
+
+          <hr className="characters__section-divider" />
+
+          <div className="characters__attrs">
+            <h2 className="characters__attrs-title">Apariencia</h2>
+            <textarea
+              ref={ref}
+              name="looks"
+              className="characters__textarea"
+              placeholder="Descripción de la apariencia"
+              rows="4"
+              value={formData.looks?.join?.('\n') || ''}
+              onChange={e => {
+                onChange(e);
+                textareaCallback(e);
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <hr className="characters__section-divider" />
@@ -117,19 +165,21 @@ export function CharacterInfo(props) {
         <h2 className="characters__attrs-title">Comportamiento</h2>
         <div className="characters__trait-sections">
           <div className="characters__trait">
-            <span className="characters__trait-title characters__trait-title--no-border">
-              Ánimo actual:
-            </span>
-            <input
-              name="behavior.mood"
-              className="characters__input characters__input--no-border characters__input--inline"
-              placeholder="Ánimo"
-              value={formData.behavior.mood}
-              onChange={onChange}
-            />
+            <div className="characters__trait-line">
+              <span className="characters__trait-title characters__trait-title--no-border">
+                Ánimo actual:
+              </span>
+              <input
+                name="behavior.mood"
+                className="characters__input characters__input--no-border characters__input--inline"
+                placeholder="Ánimo"
+                value={formData.behavior.mood}
+                onChange={onChange}
+              />
+            </div>
           </div>
           <div className="characters__trait">
-            <div>
+            <div className="characters__trait-line">
               <span className="characters__trait-title characters__trait-title--no-border">
                 En calma:
               </span>
@@ -141,7 +191,7 @@ export function CharacterInfo(props) {
                 onChange={onChange}
               />
             </div>
-            <div>
+            <div className="characters__trait-line">
               <span className="characters__trait-title characters__trait-title--no-border">
                 En estrés:
               </span>

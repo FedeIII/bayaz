@@ -248,7 +248,7 @@ function GenerateBuilding() {
   });
 
   return (
-    <Form method="post" ref={formRef}>
+    <Form method="post" ref={formRef} className="places__container">
       <div className="places__buttons">
         <Link to="../" className="menus__back-button">
           ⇦ Volver

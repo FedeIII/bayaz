@@ -125,7 +125,7 @@ function TitleContent(props) {
       {!!value && (
         <span
           style={{ display: showTypeInput ? 'none' : 'inline' }}
-          className="places__title-input"
+          className="places__title-input places__title-input--uppercase"
           onClick={() => setShowTypeInput(true)}
         >
           {getCapitalizedTitle(value)}

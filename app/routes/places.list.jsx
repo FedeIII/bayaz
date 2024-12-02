@@ -35,7 +35,7 @@ function PlacesList() {
   useTitle('Asentamientos');
 
   return (
-    <>
+    <div className="places__container">
       <Link to="../" className="menus__back-button">
         {'<<'} Volver
       </Link>
@@ -64,7 +64,7 @@ function PlacesList() {
           </ul>
         </>
       ))}
-    </>
+    </div>
   );
 }
 

@@ -19,11 +19,7 @@ export const meta = () => [
 function Places() {
   useTitle('Lugares');
 
-  return (
-    <div className="places__container">
-      <Outlet />
-    </div>
-  );
+  return <Outlet />;
 }
 
 export default Places;

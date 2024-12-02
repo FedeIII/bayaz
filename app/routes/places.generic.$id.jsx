@@ -27,11 +27,7 @@ function GenericPlace() {
   const { place, regions } = useLoaderData();
   useTitle(place.name);
 
-  return (
-    <div className="places__container">
-      <Outlet context={{ place, regions }} />
-    </div>
-  );
+  return <Outlet context={{ place, regions }} />;
 }
 
 export default GenericPlace;

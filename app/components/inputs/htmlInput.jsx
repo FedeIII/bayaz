@@ -104,7 +104,6 @@ function HtmlInput(props) {
           renderLeaf={renderLeaf}
           placeholder="Enter some rich text…"
           spellCheck
-          autoFocus
           onKeyDown={event => {
             for (const hotkey in HOTKEYS) {
               if (isHotkey(hotkey, event)) {

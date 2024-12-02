@@ -7,8 +7,12 @@ import { downloadNpcData } from '~/utils/exportHelpers';
 import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/filters.css';
+import placesStyles from '~/components/places.css';
 export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [
+    { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: placesStyles },
+  ];
 };
 
 export const meta = ({ data }) => [
@@ -35,6 +39,8 @@ export const action = async ({ request, params }) => {
     name: rawData.name,
     race: rawData.race,
     gender: rawData.gender,
+    img: rawData.img,
+    doc: rawData.doc,
     settlementId: rawData.settlementId,
     looks: rawData.looks ? rawData.looks.split('\n') : [],
     behavior: {
@@ -111,6 +117,9 @@ function NpcDetail() {
         <button type="submit" className="places__save">
           ⇧ Guardar
         </button>
+        <Link to="players" target="_blank" className="places__save">
+          ⇨ Presentar
+        </Link>
         <button
           type="button"
           className="places__save"

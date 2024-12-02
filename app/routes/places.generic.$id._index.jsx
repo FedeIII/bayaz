@@ -60,7 +60,7 @@ function GenericPlace() {
   }, [initPlace]);
 
   return (
-    <Form method="post" ref={formRef}>
+    <Form method="post" ref={formRef} className="places__container">
       <input readOnly type="text" name="id" value={place?.id || ''} hidden />
 
       <div className="places__buttons">
@@ -73,7 +73,7 @@ function GenericPlace() {
         <Link to="/places/generic/new" className="menus__back-button">
           ⇩ Nuevo Lugar
         </Link>
-        <Link to="./present" target="_blank" className="places__save">
+        <Link to="./players" target="_blank" className="places__save">
           ⇨ Presentar
         </Link>
         <Link to={`export`} target="_blank" className="places__save">
@@ -92,21 +92,8 @@ function GenericPlace() {
       <div className="places__horizontal-sections">
         <div className="places__vertical-sections">
           <div className="places__image-container">
-            {place?.img ? (
-              <>
-                <img src={place?.img} className="places__image" width="100%" />
-                <input
-                  readOnly
-                  type="text"
-                  name="img"
-                  value={place?.img || ''}
-                  hidden
-                />
-              </>
-            ) : (
-              <>
-                Imagen: <input type="text" name="img" />
-              </>
+            {place?.img && (
+              <img src={place?.img} className="places__image" width="100%" />
             )}
           </div>
 
@@ -140,20 +127,38 @@ function GenericPlace() {
 
             <hr className="places__section-divider" />
 
-            <div className="places__subtitle places__subtitle--left">
-              <span
-                className="places__trait-title"
-                style={{ marginRight: '8px' }}
-              >
-                Doc:
-              </span>
-              <input
-                type="text"
-                name="doc"
-                value={place?.doc}
-                onChange={e => setPlace(p => ({ ...p, doc: e.target.value }))}
-                className="places__trait-input"
-              />
+            <div className="places__vertical-sections">
+              <div className="places__subtitle places__subtitle--left">
+                <span
+                  className="places__trait-title"
+                  style={{ marginRight: '8px' }}
+                >
+                  Img:
+                </span>
+                <input
+                  type="text"
+                  name="img"
+                  value={place?.img}
+                  onChange={e => setPlace(p => ({ ...p, img: e.target.value }))}
+                  className="places__trait-input"
+                />
+              </div>
+
+              <div className="places__subtitle places__subtitle--right">
+                <span
+                  className="places__trait-title"
+                  style={{ marginRight: '8px' }}
+                >
+                  Doc:
+                </span>
+                <input
+                  type="text"
+                  name="doc"
+                  value={place?.doc}
+                  onChange={e => setPlace(p => ({ ...p, doc: e.target.value }))}
+                  className="places__trait-input"
+                />
+              </div>
             </div>
 
             <hr className="places__section-divider" />

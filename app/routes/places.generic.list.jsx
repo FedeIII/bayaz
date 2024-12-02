@@ -34,7 +34,7 @@ function GenericPlaceList() {
   const { placesByGroup } = useLoaderData();
 
   return (
-    <>
+    <div className="places__container">
       <Link to="../" className="menus__back-button">
         {'<<'} Volver
       </Link>
@@ -68,7 +68,7 @@ function GenericPlaceList() {
           </div>
         );
       })}
-    </>
+    </div>
   );
 }
 
