@@ -104,6 +104,7 @@ html {
 .app__content--fullscreen {
   align-items: center;
   width: 100vw;
+  background-color: black;
 }
 
 .app__content--closed-sidebar {
