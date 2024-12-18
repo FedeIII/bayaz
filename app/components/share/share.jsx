@@ -12,13 +12,17 @@ export default function Share(props) {
     !animationInactive
   );
 
+  const [showTitle, setShowTitle] = useState(true);
+
   return (
     <div className="share__container">
       <h1 className="share__title">
-        <span>
-          <span className="share__title-capital">{title?.slice(0, 1)}</span>
-          {title?.slice(1)}
-        </span>
+        {showTitle && (
+          <span onClick={() => setShowTitle(false)}>
+            <span className="share__title-capital">{title?.slice(0, 1)}</span>
+            {title?.slice(1)}
+          </span>
+        )}
       </h1>
       <div className="share__image-container-float">
         <img
