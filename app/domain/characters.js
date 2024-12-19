@@ -2358,6 +2358,8 @@ export function translateClass(pClass) {
       return 'Brujo';
     case 'wizard':
       return 'Mago';
+    case 'ritual caster':
+      return 'Conjurador ritual';
 
     default:
       return 'unknown class';
