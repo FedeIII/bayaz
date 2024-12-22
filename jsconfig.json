@@ -5,7 +5,8 @@
     "./node_modules",
     "/public",
     "/db_backups",
-    "/build"
+    "/build",
+    ".cache"
   ],
   "include": [
     "remix.env.d.ts",

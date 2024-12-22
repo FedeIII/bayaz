@@ -92,7 +92,7 @@ export async function setPcStats(pcParams) {
 
 export async function shortRest(id, diceAmount, dieValue) {
   let pc = await getPc(id);
-  const { remainingHitDice, pClass } = pc;
+  const { remainingHitDice, pClass, magic } = pc;
 
   if (remainingHitDice === 0) {
     return pc;
@@ -113,6 +113,12 @@ export async function shortRest(id, diceAmount, dieValue) {
   if (pClass === 'paladin') {
     pc = await updateAttrsForClass(id, 'paladin', {
       channelDivinity: getMaxChannelDivinity(),
+    });
+  }
+
+  if (pClass === 'warlock') {
+    pc = await updatePc(id, {
+      magic: { ...magic, spentSpellSlots: Array(10).fill(0) },
     });
   }
 
