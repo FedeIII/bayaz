@@ -352,7 +352,6 @@ export function isPreparedSpell(pc, spellName) {
 
   const preparedInvocationSpells = getInvocations(pc)
     .map(getInvocation)
-    .filter(s => s.preparedSpell)
     .map(s => s.spell)
     .map(getSpell);
   const knightSpells = getKnightSpells(pc);

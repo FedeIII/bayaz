@@ -428,3 +428,8 @@
   width: 3vw;
   font-size: var(--font-size-big);
 }
+
+.spells__tooltip {
+  font-size: var(--font-size-xs);
+  color: var(--color-x-blue-ink);
+}

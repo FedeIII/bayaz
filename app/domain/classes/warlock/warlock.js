@@ -75,10 +75,6 @@ export function hasToSelectInvocations(pc) {
 }
 
 export const INVOCATIONS = {
-  armorOfShadows: {
-    translation: 'Armadura de Sombras',
-    spell: 'mageArmor',
-  },
   chainsOfCarceri: {
     translation: 'Cadenas de Carceri',
     reqs: {
@@ -87,12 +83,45 @@ export const INVOCATIONS = {
     },
     spell: 'holdMonster',
   },
+  armorOfShadows: {
+    translation: 'Capa de Sombras',
+    spell: 'mageArmor',
+    spendSlot: false
+  },
+  agonizingBlast: {
+    translation: 'Descarga Agónica',
+    reqs: {
+      trait: 'eldritchBlast',
+    },
+  },
+  repellingBlast: {
+    translation: 'Descarga Ahuyentadora',
+    reqs: {
+      trait: 'eldritchBlast',
+    },
+  },
   lifedrinker: {
-    translation: 'Chupavidas',
+    translation: 'Devorador de Vida',
     reqs: {
       level: 12,
       pactBoon: 'pactOfTheBlade',
     },
+  },
+  mireTheMind: {
+    translation: 'Enfangar la Mente',
+    reqs: {
+      level: 5,
+    },
+    spell: 'slow',
+    spendSlot: true,
+  },
+  minionsOfChaos: {
+    translation: 'Esbirros del Caos',
+    reqs: {
+      level: 9,
+    },
+    spell: 'conjureElemental',
+    spendSlot: true,
   },
   sculptorOfFlesh: {
     translation: 'Escultor de Carne',
@@ -100,7 +129,7 @@ export const INVOCATIONS = {
       level: 7,
     },
     spell: 'polymorph',
-    preparedSpell: true,
+    spendSlot: true,
   },
   thirstingBlade: {
     translation: 'Espada Sedienta',
@@ -109,17 +138,10 @@ export const INVOCATIONS = {
       pactBoon: 'pactOfTheBlade',
     },
   },
-  agonizingBlast: {
-    translation: 'Estallido Agonizante',
-    reqs: {
-      trait: 'eldritchBlast',
-    },
-  },
-  repellingBlast: {
-    translation: 'Estallido Repulsor',
-    reqs: {
-      trait: 'eldritchBlast',
-    },
+  beastSpeech: {
+    translation: 'Habla Bestial',
+    spell: 'speakWithAnimals',
+    spendSlot: false,
   },
   beguilingInfluence: {
     translation: 'Influciencia Seductora',
@@ -127,48 +149,54 @@ export const INVOCATIONS = {
   thiefOfFiveFates: {
     translation: 'Ladrón de los Cinco Destinos',
     spell: 'bane',
-    preparedSpell: true,
+    spendSlot: true,
   },
   eldritchSpear: {
-    translation: 'Lanza Arcana',
+    translation: 'Lanza Sobrenatural',
     reqs: {
       trait: 'eldritchBlast',
     },
   },
-  beastSpeech: {
-    translation: 'Lengua de las Bestias',
-    spell: 'speakWithAnimals',
-  },
   bookOfAncientSecrets: {
-    translation: 'Libro de los Secretos Antiguos',
+    translation: 'Libro de los Secretos Ancestrales',
     reqs: {
       pactBoon: 'pactOfTheTome',
     },
   },
   masterOfMyriadForms: {
-    translation: 'Maestro de Innumerables Formas',
+    translation: 'Maestro de Formas Innumerables',
     reqs: {
       level: 15,
     },
     spell: 'alterSelf',
+    spendSlot: false,
+  },
+  signOfIllOmen: {
+    translation: 'Marca del Mal Augurio',
+    reqs: {
+      level: 5,
+    },
+    spell: 'bestowCurse',
+    spendSlot: true,
   },
   maskOfManyFaces: {
-    translation: 'Máscara de Muchos Rostros',
+    translation: 'Máscara de los Mil Rostros',
     spell: 'disguiseSelf',
+    spendSlot: false,
   },
   gazeOfTwoMinds: {
-    translation: 'Mirada de Dos Mentes',
+    translation: 'Mirada de las Dos Mentes',
   },
   eyesOfTheRuneKeeper: {
     translation: 'Ojos del Guardián de las Runas',
   },
   dreadfulWord: {
-    translation: 'Palabra Pavorosa',
+    translation: 'Palabra Aterradora',
     reqs: {
       level: 7,
     },
     spell: 'confusion',
-    preparedSpell: true,
+    spendSlot: true,
   },
   ascendantStep: {
     translation: 'Paso Ascendente',
@@ -176,6 +204,7 @@ export const INVOCATIONS = {
       level: 9,
     },
     spell: 'levitate',
+    spendSlot: false,
   },
   otherworldlyLeap: {
     translation: 'Salto de Otro Mundo',
@@ -183,45 +212,23 @@ export const INVOCATIONS = {
       level: 9,
     },
     spell: 'jump',
-  },
-  signOfIllOmen: {
-    translation: 'Señal de Mal Agüero',
-    reqs: {
-      level: 5,
-    },
-    spell: 'bestowCurse',
-    preparedSpell: true,
-  },
-  minionsOfChaos: {
-    translation: 'Sirvientes del Caos',
-    reqs: {
-      level: 9,
-    },
-    spell: 'conjureElemental',
-    preparedSpell: true,
-  },
-  mireTheMind: {
-    translation: 'Sumir la Mente',
-    reqs: {
-      level: 5,
-    },
-    spell: 'slow',
-    preparedSpell: true,
+    spendSlot: false,
   },
   whispersOfTheGrave: {
-    translation: 'Susurros de la Tumbra',
+    translation: 'Susurros del Sepulcro',
     reqs: {
       level: 9,
     },
     spell: 'speakWithDead',
+    spendSlot: false,
   },
   bewitchingWhispers: {
-    translation: 'Susurros Encantadores',
+    translation: 'Susurros Embrujados',
     reqs: {
       level: 7,
     },
     spell: 'compulsion',
-    preparedSpell: true,
+    spendSlot: true,
   },
   oneWithShadows: {
     translation: 'Uno con las Sombras',
@@ -230,29 +237,33 @@ export const INVOCATIONS = {
     },
   },
   fiendishVigor: {
-    translation: 'Vigor Diabólico',
+    translation: 'Vigor Infernal',
     spell: 'falseLife',
+    spendSlot: false,
   },
-  mistyVisions: {
-    translation: 'Visiones Brumosas',
-    spell: 'silentImage',
+  witchSight: {
+    translation: 'Visión de Bruja',
+    reqs: {
+      level: 15,
+    },
+  },
+  eldritchSight: {
+    translation: 'Visión Sobrenatural',
+    spell: 'detectMagic',
+    spendSlot: false,
   },
   visionsOfDistantRealms: {
-    translation: 'Visión de Reinos Distantes',
+    translation: 'Visión de Reinos Remotos',
     reqs: {
       level: 15,
     },
     spell: 'arcaneEye',
+    spendSlot: false,
   },
-  eldritchSight: {
-    translation: 'Visión Arcana',
-    spell: 'detectMagic',
-  },
-  witchSight: {
-    translation: 'Vista de Bruja',
-    reqs: {
-      level: 15,
-    },
+  mistyVisions: {
+    translation: 'Visiones Brumosas',
+    spell: 'silentImage',
+    spendSlot: false,
   },
   "devil'sSight": {
     translation: 'Vista del Diablo',

@@ -28,7 +28,8 @@ import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import {
   getArcanum,
-  getInvocationsSpells,
+  getInvocation,
+  getInvocations,
   getPactSpells,
   getTomeRituals,
 } from '~/domain/classes/warlock/warlock';
@@ -119,8 +120,11 @@ function PcSpells() {
   const spellSlots = getSpellSlots(pc);
 
   const initIsSpellPrepared = useMemo(
-    () => spellsByLevel.map(ss => ss.map(s => isPreparedSpell(pc, s.name))),
-    []
+    () =>
+      spellsByLevel.map(ss => {
+        return ss.map(s => isPreparedSpell(pc, s.name));
+      }),
+    [pc.id]
   );
   const [isSpellPrepared, setIsSpellPrepared] = useState(initIsSpellPrepared);
   const [usedSpellSlots, setUsedSpellSlots] = useState(magic.spentSpellSlots);
@@ -235,7 +239,7 @@ function PcSpells() {
 
   const loreSpells = getLoreSpells(pc);
   const magicalSecretsSpells = getMagicalSecretsSpells(pc);
-  const invocationsSpells = getInvocationsSpells(pc);
+  const invocations = getInvocations(pc).map(getInvocation);
   const pactSpells = getPactSpells(pc);
   const tomeRituals = getTomeRituals(pc);
   const arcanum = getArcanum(pc);
@@ -289,6 +293,7 @@ function PcSpells() {
 
         {spellsByLevel.map((spells, level) => (
           <Fragment key={level}>
+            {/* TOTAL SLOTS */}
             {level > 0 && (
               <span className={`spells__data spells__total-spaces-${level}`}>
                 <SkillItem
@@ -305,6 +310,7 @@ function PcSpells() {
                 </SkillItem>
               </span>
             )}
+            {/* SPENT SLOTS */}
             {level > 0 && (
               <div
                 className={classNames(
@@ -335,6 +341,7 @@ function PcSpells() {
                 )}
               </div>
             )}
+            {/* SPELL LIST */}
             <ul className={`spells__data spells__level spells__${level}`}>
               {spells.map((spell, i) => (
                 <li
@@ -343,7 +350,7 @@ function PcSpells() {
                   }`}
                   key={spell.name}
                 >
-                  {!!(level > 0) && (
+                  {level > 0 && (
                     <>
                       <input
                         type="checkbox"
@@ -383,23 +390,56 @@ function PcSpells() {
                         {translateSpell(spell.name)}
                         <span className="tooltiptext">
                           {translateSchool(spell.school)}
+                          {(function () {
+                            const invocation = invocations.find(
+                              inv => inv.spell === spell.name
+                            );
+                            if (invocation) {
+                              return (
+                                <span className="spells__data spells__tooltip">
+                                  (Invocación,{' '}
+                                  {invocation.spendSlot
+                                    ? 'Consume hueco'
+                                    : 'No consume hueco'}
+                                  )
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                          {loreSpells.map(s => s.name).includes(spell.name) && (
+                            <span className="spells__data spells__tooltip">
+                              {' '}
+                              (Colegio del Conocimiento)
+                            </span>
+                          )}
+                          {magicalSecretsSpells
+                            .map(s => s.name)
+                            .includes(spell.name) && (
+                            <span className="spells__data spells__tooltip">
+                              {' '}
+                              (Secretos Mágicos)
+                            </span>
+                          )}
+                          {pactSpells.map(s => s.name).includes(spell.name) && (
+                            <span className="spells__data spells__tooltip">
+                              {' '}
+                              (Don del Pacto)
+                            </span>
+                          )}
+                          {tomeRituals.includes(spell.name) && (
+                            <span className="spells__data spells__tooltip">
+                              (Ritual)
+                            </span>
+                          )}
+                          {arcanum.includes(spell.name) && (
+                            <span className="spells__data spells__tooltip">
+                              (Arcanum)
+                            </span>
+                          )}
                         </span>
                       </span>
                     </SkillItem>{' '}
-                    {loreSpells.map(s => s.name).includes(spell.name) && (
-                      <> (Colegio del Conocimiento)</>
-                    )}
-                    {magicalSecretsSpells
-                      .map(s => s.name)
-                      .includes(spell.name) && <> (Secretos Mágicos)</>}
-                    {invocationsSpells
-                      .map(s => s.name)
-                      .includes(spell.name) && <> (Invocación)</>}
-                    {pactSpells.map(s => s.name).includes(spell.name) && (
-                      <> (Don del Pacto)</>
-                    )}
-                    {tomeRituals.includes(spell.name) && <>(Ritual)</>}
-                    {arcanum.includes(spell.name) && <>(Arcanum)</>}
                   </span>
                 </li>
               ))}
