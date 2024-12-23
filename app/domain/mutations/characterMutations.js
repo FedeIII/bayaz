@@ -92,23 +92,22 @@ export async function setPcStats(pcParams) {
 
 export async function shortRest(id, diceAmount, dieValue) {
   let pc = await getPc(id);
-  const { remainingHitDice, pClass, magic } = pc;
+  const { remainingHitDice, pClass, magic: magicModel } = pc;
+  const magic = magicModel.toObject();
 
-  if (remainingHitDice === 0) {
-    return pc;
+  if (remainingHitDice > 0) {
+    if (!dieValue) {
+      dieValue = rollDice(`${diceAmount}${CLASSES()[pClass].hitDice.slice(1)}`);
+    }
+
+    dieValue += diceAmount * getStatMod(getStat(pc, 'con'));
+
+    pc = await updatePc({
+      id,
+      remainingHitDice: remainingHitDice - diceAmount,
+    });
+    pc = await healPc(id, dieValue);
   }
-
-  if (!dieValue) {
-    dieValue = rollDice(`${diceAmount}${CLASSES()[pClass].hitDice.slice(1)}`);
-  }
-
-  dieValue += diceAmount * getStatMod(getStat(pc, 'con'));
-
-  pc = await updatePc({
-    id,
-    remainingHitDice: remainingHitDice - diceAmount,
-  });
-  pc = await healPc(id, dieValue);
 
   if (pClass === 'paladin') {
     pc = await updateAttrsForClass(id, 'paladin', {
@@ -117,7 +116,8 @@ export async function shortRest(id, diceAmount, dieValue) {
   }
 
   if (pClass === 'warlock') {
-    pc = await updatePc(id, {
+    pc = await updatePc({
+      id,
       magic: { ...magic, spentSpellSlots: Array(10).fill(0) },
     });
   }
