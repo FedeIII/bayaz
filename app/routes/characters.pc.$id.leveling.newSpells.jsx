@@ -5,7 +5,6 @@ import {
   forgetSpell,
   getPc,
   learnSpells,
-  prepareSpells,
   updateAttrsForClass,
   updatePc,
 } from '~/services/pc.server';
@@ -20,7 +19,6 @@ import {
   hasNewCantrips,
   hasNewLevelSpells,
   hasToLearnSpells,
-  hasToPrepareSpells,
   maxSpellLevel,
   translateSpell,
 } from '~/domain/spells/spells';
@@ -56,7 +54,6 @@ export const action = async ({ request }) => {
 
   const forget = formData.get('forget');
   const learn = formData.getAll('learn[]');
-  const prepare = formData.getAll('prepare[]');
 
   // Knight Spells
   let pKnightSpells = formData.get('pKnightSpells');
@@ -67,7 +64,6 @@ export const action = async ({ request }) => {
       .map(s => ({ name: s }));
 
   const learnKnight = formData.get('learnKnight');
-  const prepareKnight = formData.getAll('prepareKnight[]');
   // Knight Spells
 
   // Arcane Trickster Spells
@@ -81,16 +77,10 @@ export const action = async ({ request }) => {
       .map(s => ({ name: s }));
 
   const learnArcaneTrickster = formData.get('learnArcaneTrickster');
-  const prepareArcaneTrickster = formData.getAll('prepareArcaneTrickster[]');
   // Arcane Trickster Spells
 
   await Promise.all([
     learnSpells(id, learn),
-    prepareSpells(id, [
-      ...prepare,
-      ...prepareKnight,
-      ...prepareArcaneTrickster,
-    ]),
     updatePc({
       id,
       'magic.hasLearnedSpells': Array.from(
@@ -544,18 +534,6 @@ function NewSpells() {
                                     )
                                   }
                                 />
-                                {!hasToPrepareSpells(pc) && (
-                                  <input
-                                    hidden
-                                    type="checkbox"
-                                    id={spell.name}
-                                    name="prepare[]"
-                                    value={spell.name}
-                                    checked={
-                                      toLearn[spellLevel - 1][spellIndex]
-                                    }
-                                  />
-                                )}
                                 <SkillItem
                                   ref={skillRefs[i].current[spellIndex]}
                                   pc={pc}
@@ -645,44 +623,6 @@ function NewSpells() {
                                     }
                                     onChange={e =>
                                       setSpellToLearnWizard(
-                                        spellLevel - 1,
-                                        spellIndex,
-                                        e.target.checked
-                                      )
-                                    }
-                                  />
-                                )}
-                                {pClass === 'fighter' && (
-                                  <input
-                                    hidden
-                                    type="checkbox"
-                                    id={spell.name}
-                                    name="prepareKnight[]"
-                                    value={spell.name}
-                                    checked={
-                                      toLearnWizard[spellLevel - 1][spellIndex]
-                                    }
-                                    onChange={e =>
-                                      setSpellToLearn(
-                                        spellLevel - 1,
-                                        spellIndex,
-                                        e.target.checked
-                                      )
-                                    }
-                                  />
-                                )}
-                                {pClass === 'rogue' && (
-                                  <input
-                                    hidden
-                                    type="checkbox"
-                                    id={spell.name}
-                                    name="prepareArcaneTrickster[]"
-                                    value={spell.name}
-                                    checked={
-                                      toLearnWizard[spellLevel - 1][spellIndex]
-                                    }
-                                    onChange={e =>
-                                      setSpellToLearn(
                                         spellLevel - 1,
                                         spellIndex,
                                         e.target.checked

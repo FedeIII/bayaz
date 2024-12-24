@@ -1,11 +1,7 @@
 import { createRef, useRef, useState } from 'react';
-import { json, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import {
-  getPc,
-  learnBardLoreSpells,
-  prepareSpells,
-} from '~/services/pc.server';
+import { getPc, learnBardLoreSpells } from '~/services/pc.server';
 import { translateClass } from '~/domain/characters';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
@@ -43,7 +39,7 @@ export const loader = async ({ params }) => {
     );
   }
 
-  return json({ pc });
+  return { pc };
 };
 
 export const action = async ({ request }) => {
@@ -51,7 +47,7 @@ export const action = async ({ request }) => {
   const id = formData.get('id');
   const learn = formData.getAll('learn[]');
 
-  await Promise.all([learnBardLoreSpells(id, learn), prepareSpells(id, learn)]);
+  await learnBardLoreSpells(id, learn);
 
   return redirect(`/characters/pc/${id}/summary`);
 };

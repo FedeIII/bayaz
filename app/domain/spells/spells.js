@@ -350,19 +350,9 @@ export function divideSpells(pc) {
 export function isPreparedSpell(pc, spellName) {
   const { preparedSpells } = pc;
 
-  const preparedInvocationSpells = getInvocations(pc)
-    .map(getInvocation)
-    .map(s => s.spell)
-    .map(getSpell);
-  const knightSpells = getKnightSpells(pc);
-  const arcaneTricksterSpells = getArcaneTricksterSpells(pc);
+  if (doesNotHaveToPrepareSpells(pc)) return true;
 
-  return !![
-    ...preparedSpells,
-    ...preparedInvocationSpells,
-    ...knightSpells,
-    ...arcaneTricksterSpells,
-  ].find(spell => spell.name === spellName);
+  return !!preparedSpells.find(spell => spell.name === spellName);
 }
 
 export function getNewCantripsAmount(pc) {

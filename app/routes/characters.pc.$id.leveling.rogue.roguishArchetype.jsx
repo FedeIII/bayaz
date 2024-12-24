@@ -1,11 +1,6 @@
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import {
-  getPc,
-  learnSpells,
-  prepareSpells,
-  updateAttrsForClass,
-} from '~/services/pc.server';
+import { getPc, learnSpells, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import {
   ROGISH_ARCHETYPES,
@@ -39,10 +34,7 @@ export const action = async ({ request }) => {
   await updateAttrsForClass(id, 'rogue', { roguishArchetype });
 
   if (roguishArchetype === 'arcaneTrickster') {
-    await Promise.all([
-      learnSpells(id, ['mageHand']),
-      prepareSpells(id, ['mageHand']),
-    ]);
+    await learnSpells(id, ['mageHand']);
   }
 
   return redirect(`/characters/pc/${id}/summary`);
@@ -110,9 +102,7 @@ function RoguishArchetype() {
       </div>
 
       <div className="app__paragraph">
-        <h3 className="app__pale-text">
-          {translateRoguishArchetype('thief')}
-        </h3>
+        <h3 className="app__pale-text">{translateRoguishArchetype('thief')}</h3>
         Perfeccionas tus habilidades en las artes del robo. Ladrones, bandidos,
         rateros, y otros criminales son los que normalmente siguen este
         arquetipo, pero también lo hacen los pícaros que prefieren pensar en

@@ -156,7 +156,7 @@ export const action = async ({ request }) => {
 
   let preparedSpells;
   if (doesNotHaveToPrepareSpells(updatedPc))
-    preparedSpells = [...pcAttrs.spells, ...getExtraPreparedSpells(updatedPc)];
+    preparedSpells = [];
   if (hasToPrepareSpells(updatedPc))
     preparedSpells = getExtraPreparedSpells(updatedPc);
 
