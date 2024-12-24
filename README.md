@@ -27,7 +27,6 @@
 - Autofill Dominion and Subdominion when creating a settlement from the map
 - Save last position in the map
 - Remove magic-items and deps
-- Bug: right click on spells during character creation advances to next step
 - Extract textarea component
 - Add notes to items
 - Add temporary hitpoints to combats

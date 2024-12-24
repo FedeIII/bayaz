@@ -600,6 +600,38 @@ export function WEAPONS() {
         ...props,
       });
     },
+
+    sylvanThorn(props) {
+      return WEAPONS().sylvanBlade({
+        name: 'sylvanThorn',
+        translation: 'Espina Silvana',
+        unidentifiedName: 'Daga ceremonial oscura',
+        rarity: 'rare',
+        price: { gp: 650, sp: 0, cp: 0 },
+        description: pc => {
+          let wIndex = null;
+          const pWeapon = pc.items.weapons.find((pW, i) => {
+            if (pW.name === 'sylvanThorn') {
+              wIndex = i;
+              return true;
+            }
+            return false;
+          });
+          return `<p>Bonificador de +1 al ataque y al daño</p>
+          <p>Una vez al día, puedes usar un ataque exitoso con la daga para lanzar Enmarañar (tirada de salvación DC${
+            8 +
+            getTotalAttackBonus(
+              pc,
+              pc.items.weapons,
+              WEAPONS().sylvanBlade(pWeapon),
+              wIndex
+            )
+          }). Si Enmarañar no falla, el objetivo sufre 1d4 de daño Perforante adicional.</p>
+            <p>Adicionalmente, tienes ventaja en las pruebas de Naturaleza mientras lleves la daga.</p>`;
+        },
+        ...props,
+      });
+    },
   };
 }
 
