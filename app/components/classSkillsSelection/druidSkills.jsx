@@ -54,7 +54,12 @@ function DruidSkills(props) {
                   traitName={spell.name}
                   trait="spell"
                   openOnRightClick
-                  openModal={openSkillModal(spell.level, spell.name)}
+                  openModal={openSkillModal(
+                    spell.level,
+                    spell.name,
+                    {},
+                    'dontTriggerSeeTrait'
+                  )}
                 >
                   <span className="tooltip">
                     {translateSpell(spell.name)}

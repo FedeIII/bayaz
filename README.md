@@ -23,7 +23,6 @@
 - Rules searcher:
   - Conditions
 - Review Npcs combat (monstersCombat uses mobs + npcs)
-- Make settlements and places notes easier editable
 - Encounter list filters and sorting
 - Autofill Dominion and Subdominion when creating a settlement from the map
 - Save last position in the map

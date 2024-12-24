@@ -193,7 +193,12 @@ function ArcaneTricksterSpells() {
                         pc={pc}
                         traitName={spellName}
                         trait="spell"
-                        openModal={openSkillModal('known', i)}
+                        openModal={openSkillModal(
+                          'known',
+                          i,
+                          {},
+                          'dontTriggerSeeTrait'
+                        )}
                         openOnRightClick
                       >
                         <span className="tooltip">
@@ -263,7 +268,9 @@ function ArcaneTricksterSpells() {
                               trait="spell"
                               openModal={openSkillModal(
                                 spellLevel - 1,
-                                spellIndex
+                                spellIndex,
+                                {},
+                                'dontTriggerSeeTrait'
                               )}
                               openOnRightClick
                             >

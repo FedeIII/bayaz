@@ -387,7 +387,12 @@ function NewSpells() {
                         pc={pc}
                         traitName={spell.name}
                         trait="spell"
-                        openModal={openSkillModal('cantrips', cantripIndex)}
+                        openModal={openSkillModal(
+                          'cantrips',
+                          cantripIndex,
+                          {},
+                          'dontTriggerSeeTrait'
+                        )}
                         openOnRightClick
                       >
                         <span className="tooltip">
@@ -457,7 +462,12 @@ function NewSpells() {
                             pc={pc}
                             traitName={spell.name}
                             trait="spell"
-                            openModal={openSkillModal('known', spellIndex)}
+                            openModal={openSkillModal(
+                              'known',
+                              spellIndex,
+                              {},
+                              'dontTriggerSeeTrait'
+                            )}
                             openOnRightClick
                           >
                             <span className="tooltip">
@@ -539,7 +549,12 @@ function NewSpells() {
                                   pc={pc}
                                   traitName={spell.name}
                                   trait="spell"
-                                  openModal={openSkillModal(i, spellIndex)}
+                                  openModal={openSkillModal(
+                                    i,
+                                    spellIndex,
+                                    {},
+                                    'dontTriggerSeeTrait'
+                                  )}
                                   openOnRightClick
                                 >
                                   <span className="tooltip">
@@ -639,7 +654,9 @@ function NewSpells() {
                                   trait="spell"
                                   openModal={openSkillModal(
                                     'w' + i,
-                                    'w' + spellIndex
+                                    'w' + spellIndex,
+                                    {},
+                                    'dontTriggerSeeTrait'
                                   )}
                                   openOnRightClick
                                 >

@@ -366,7 +366,12 @@ function SheetAttacks(props) {
                   traitName="attackBonus"
                   trait="Bonificador de ataque"
                   pc={pc}
-                  openModal={openSkillModal('attackBonus', slot)}
+                  openModal={openSkillModal(
+                    'attackBonus',
+                    slot,
+                    {},
+                    'dontTriggerSeeTrait'
+                  )}
                 >
                   {attackBonusText}
                 </SkillItem>

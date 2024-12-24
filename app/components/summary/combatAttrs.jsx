@@ -89,7 +89,7 @@ function CombatAttrs(props) {
           traitName="armorClass"
           trait="Clase de Armadura"
           pc={pc}
-          openModal={openSkillModal('ac', 0)}
+          openModal={openSkillModal('ac', 0, {}, 'dontTriggerSeeTrait')}
         >
           {getArmorClass(pc)}
           <span className="sheet__data sheet__extra-armor-class">
@@ -116,7 +116,7 @@ function CombatAttrs(props) {
           traitName="maxHitPoints"
           trait="Puntos de Golpe máximos"
           pc={pc}
-          openModal={openSkillModal('hp', 0)}
+          openModal={openSkillModal('hp', 0, {}, 'dontTriggerSeeTrait')}
         >
           {maxHitPoints}
         </SkillItem>
@@ -150,7 +150,12 @@ function CombatAttrs(props) {
           traitName="remainingHitDice"
           trait="Dados de golpe"
           pc={pc}
-          openModal={openSkillModal('remainingHitDice', 0)}
+          openModal={openSkillModal(
+            'remainingHitDice',
+            0,
+            {},
+            'dontTriggerSeeTrait'
+          )}
         >
           {getRemainingHitDice(pc)}
         </SkillItem>

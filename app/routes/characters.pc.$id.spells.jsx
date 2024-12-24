@@ -269,7 +269,12 @@ function PcSpells() {
               pc={pc}
               traitName="copySpell"
               trait="Copiar conjuro"
-              openModal={openSkillModal('copySpell', 0)}
+              openModal={openSkillModal(
+                'copySpell',
+                0,
+                {},
+                'dontTriggerSeeTrait'
+              )}
             >
               Copiar Conjuro
             </SkillItem>
@@ -301,9 +306,14 @@ function PcSpells() {
                   pc={pc}
                   traitName="resetSpellSlots"
                   trait={level}
-                  openModal={openSkillModal('resetSpellSlots', level, {
-                    resetSlots: onResetSlotsClick(level),
-                  })}
+                  openModal={openSkillModal(
+                    'resetSpellSlots',
+                    level,
+                    {
+                      resetSlots: onResetSlotsClick(level),
+                    },
+                    'dontTriggerSeeTrait'
+                  )}
                   disabled={!isDm}
                 >
                   {spellSlots[level] || 0}
@@ -384,7 +394,12 @@ function PcSpells() {
                       ref={skillRefs[level][i]}
                       traitName={spell.name}
                       trait="spell"
-                      openModal={openSkillModal(level, i)}
+                      openModal={openSkillModal(
+                        level,
+                        i,
+                        {},
+                        'dontTriggerSeeTrait'
+                      )}
                     >
                       <span className="tooltip">
                         {translateSpell(spell.name)}

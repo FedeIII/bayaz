@@ -177,25 +177,28 @@ function ClericSkills(props) {
                 Selecciona 2 idiomas extra
               </span>
               <div className="characters__traits">
-                {LANGUAGES().filter(l => !languages.includes(l)).map(language => (
-                  <label
-                    htmlFor={language}
-                    key={language}
-                    className="characters__skill-label"
-                  >
-                    <input
-                      type="checkbox"
-                      name="languages[]"
-                      value={language}
-                      id={language}
-                      onChange={e => {
-                        if (e.target.checked) setLanguagesSelected(v => v + 1);
-                        else setLanguagesSelected(v => v - 1);
-                      }}
-                    />
-                    {translateLanguage(language)}
-                  </label>
-                ))}
+                {LANGUAGES()
+                  .filter(l => !languages.includes(l))
+                  .map(language => (
+                    <label
+                      htmlFor={language}
+                      key={language}
+                      className="characters__skill-label"
+                    >
+                      <input
+                        type="checkbox"
+                        name="languages[]"
+                        value={language}
+                        id={language}
+                        onChange={e => {
+                          if (e.target.checked)
+                            setLanguagesSelected(v => v + 1);
+                          else setLanguagesSelected(v => v - 1);
+                        }}
+                      />
+                      {translateLanguage(language)}
+                    </label>
+                  ))}
               </div>
             </div>
           )}
@@ -242,7 +245,12 @@ function ClericSkills(props) {
                     traitName={spell.name}
                     trait="spell"
                     openOnRightClick
-                    openModal={openSkillModal(spell.level, spell.name)}
+                    openModal={openSkillModal(
+                      spell.level,
+                      spell.name,
+                      {},
+                      'dontTriggerSeeTrait'
+                    )}
                   >
                     <span className="tooltip">
                       {translateSpell(spell.name)}
@@ -286,7 +294,12 @@ function ClericSkills(props) {
                       traitName={spell.name}
                       trait="spell"
                       openOnRightClick
-                      openModal={openSkillModal(spell.level, spell.name)}
+                      openModal={openSkillModal(
+                        spell.level,
+                        spell.name,
+                        {},
+                        'dontTriggerSeeTrait'
+                      )}
                     >
                       <span className="tooltip">
                         {translateSpell(spell.name)}

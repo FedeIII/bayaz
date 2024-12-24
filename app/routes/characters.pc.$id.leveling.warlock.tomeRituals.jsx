@@ -145,7 +145,12 @@ function TomeRituals() {
                     pc={pc}
                     traitName={spell.name}
                     trait="spell"
-                    openModal={openSkillModal(spellIndex)}
+                    openModal={openSkillModal(
+                      spellIndex,
+                      0,
+                      {},
+                      'dontTriggerSeeTrait'
+                    )}
                     openOnRightClick
                   >
                     <span className="tooltip">

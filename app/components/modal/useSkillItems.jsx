@@ -34,16 +34,23 @@ export function useSkillItems(
     setSkillBigModalContent(null);
   };
 
-  function openSkillModal(sectionName, skillIndex = 0, actions) {
+  function openSkillModal(
+    sectionName,
+    skillIndex = 0,
+    actions,
+    dontTriggerSeeTrait
+  ) {
     return (skillName, skill, bigModal, position) => {
-      submit(
-        {
-          action: 'seeTrait',
-          trait: skillName,
-          id: pc.id,
-        },
-        { method: 'post' }
-      );
+      if (!dontTriggerSeeTrait) {
+        submit(
+          {
+            action: 'seeTrait',
+            trait: skillName,
+            id: pc.id,
+          },
+          { method: 'post' }
+        );
+      }
 
       setSelectedSkillRef(skillRefs[sectionName][skillIndex]);
 

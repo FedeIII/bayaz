@@ -15,6 +15,7 @@ import { getInvocation } from '~/domain/classes/warlock/warlock';
 import { translateCombatSuperiorityManeuvers } from '~/domain/classes/fighter/fighter';
 import { displayManeuver } from '~/domain/classes/fighter/fighterSkillsExplanation';
 import { getSelfLeftX, getSelfTopY } from './modalPosition';
+import { t } from '~/domain/translations';
 
 export function SkillModalContent(props) {
   const {
@@ -136,7 +137,7 @@ export function SpellModalContent(props) {
         {!!spell.archetype?.warlock && (
           <div>
             <strong>Patrón: </strong>
-            {spell.archetype.warlock}
+            {spell.archetype.warlock.map(t)}
           </div>
         )}
         {spell.archetype && (

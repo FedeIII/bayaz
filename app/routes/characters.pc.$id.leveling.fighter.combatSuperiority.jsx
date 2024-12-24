@@ -164,7 +164,12 @@ function CombatSuperiorityManeuvers() {
                         pc={pc}
                         traitName={maneuverName}
                         trait="maneuver"
-                        openModal={openSkillModal('known', i)}
+                        openModal={openSkillModal(
+                          'known',
+                          i,
+                          {},
+                          'dontTriggerSeeTrait'
+                        )}
                         openOnRightClick
                       />
                     </label>
@@ -210,7 +215,12 @@ function CombatSuperiorityManeuvers() {
                         pc={pc}
                         traitName={maneuverName}
                         trait="maneuver"
-                        openModal={openSkillModal(i, 0)}
+                        openModal={openSkillModal(
+                          i,
+                          0,
+                          {},
+                          'dontTriggerSeeTrait'
+                        )}
                         openOnRightClick
                       />
                     </label>

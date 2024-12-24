@@ -481,7 +481,7 @@ function PcSummary() {
         traitName="notes"
         trait="Notas"
         pc={pc}
-        openModal={openSkillModal('movingModal', 0)}
+        openModal={openSkillModal('movingModal', 0, {}, 'dontTriggerSeeTrait')}
         position={mousePos[0] ? mousePos : []}
       />
       <Form method="post" className="sheet__summary" ref={formRef}>

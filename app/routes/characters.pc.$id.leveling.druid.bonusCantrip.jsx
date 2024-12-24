@@ -124,7 +124,12 @@ function BonusCantrip() {
                     traitName={spell.name}
                     trait="spell"
                     pc={pc}
-                    openModal={openSkillModal(spellIndex)}
+                    openModal={openSkillModal(
+                      spellIndex,
+                      0,
+                      {},
+                      'dontTriggerSeeTrait'
+                    )}
                     openOnRightClick
                   >
                     <span className="tooltip">

@@ -210,7 +210,12 @@ function Glossary() {
                       ref={refsList.spells.current[i]}
                       traitName={spell.name}
                       trait="spell"
-                      openModal={openSkillModal('spells', i)}
+                      openModal={openSkillModal(
+                        'spells',
+                        i,
+                        {},
+                        'dontTriggerSeeTrait'
+                      )}
                       key={spell.name}
                     />
                   </li>
@@ -254,7 +259,12 @@ function Glossary() {
                       ref={refsList.traits.current[i]}
                       traitName={traitName}
                       trait={trait}
-                      openModal={openSkillModal('traits', i)}
+                      openModal={openSkillModal(
+                        'traits',
+                        i,
+                        {},
+                        'dontTriggerSeeTrait'
+                      )}
                     />
                   </li>
                 ))}

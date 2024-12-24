@@ -166,7 +166,12 @@ function EldritchInvocations() {
                     pc={pc}
                     traitName={invocationName}
                     trait="invocation"
-                    openModal={openSkillModal('known', i)}
+                    openModal={openSkillModal(
+                      'known',
+                      i,
+                      {},
+                      'dontTriggerSeeTrait'
+                    )}
                     openOnRightClick
                   />
                 </label>
@@ -213,7 +218,12 @@ function EldritchInvocations() {
                           pc={pc}
                           traitName={invocationName}
                           trait="invocation"
-                          openModal={openSkillModal(invocationName)}
+                          openModal={openSkillModal(
+                            invocationName,
+                            0,
+                            {},
+                            'dontTriggerSeeTrait'
+                          )}
                           openOnRightClick
                         />
                       </label>

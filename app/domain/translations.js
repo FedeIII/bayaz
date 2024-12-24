@@ -1,4 +1,5 @@
 import { translateLanguage, translateSkill } from './characters';
+import { translatePatron } from './classes/warlock/warlock';
 import { translateMonster } from './encounters/monsterTranslations';
 import { getItem } from './equipment/equipment';
 import { translateDamage } from './equipment/weapons';
@@ -425,6 +426,9 @@ export function t(key) {
   if (translation) return translation;
 
   translation = getItem(key)?.translation;
+  if (translation) return translation;
+
+  translation = translatePatron(key);
   if (translation) return translation;
 
   return `[---${key}---]`;

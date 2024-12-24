@@ -146,7 +146,12 @@ function ImprovedMinorIllusionSpell() {
                           pc={pc}
                           traitName={spell.name}
                           trait="spell"
-                          openModal={openSkillModal('cantrips', spellIndex)}
+                          openModal={openSkillModal(
+                            'cantrips',
+                            spellIndex,
+                            {},
+                            'dontTriggerSeeTrait'
+                          )}
                           openOnRightClick
                         >
                           <span className="tooltip">

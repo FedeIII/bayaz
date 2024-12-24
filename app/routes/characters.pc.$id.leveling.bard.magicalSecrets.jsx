@@ -152,7 +152,12 @@ function MagicalSecretsSpells() {
                           pc={pc}
                           traitName={spell.name}
                           trait="spell"
-                          openModal={openSkillModal('known', spellIndex)}
+                          openModal={openSkillModal(
+                            'known',
+                            spellIndex,
+                            {},
+                            'dontTriggerSeeTrait'
+                          )}
                         >
                           <span className="tooltip">
                             {translateSpell(spell.name)}
@@ -257,7 +262,12 @@ function MagicalSecretsSpells() {
                           pc={pc}
                           traitName={spell.name}
                           trait="spell"
-                          openModal={openSkillModal(i, spellIndex)}
+                          openModal={openSkillModal(
+                            i,
+                            spellIndex,
+                            {},
+                            'dontTriggerSeeTrait'
+                          )}
                           openOnRightClick
                         >
                           <span className="tooltip">

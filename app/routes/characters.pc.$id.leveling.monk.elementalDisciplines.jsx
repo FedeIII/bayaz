@@ -168,7 +168,12 @@ function ElementalDisciplines() {
                         pc={pc}
                         traitName={disciplineName}
                         trait="discipline"
-                        openModal={openSkillModal('known', i)}
+                        openModal={openSkillModal(
+                          'known',
+                          i,
+                          {},
+                          'dontTriggerSeeTrait'
+                        )}
                         openOnRightClick
                       />
                     </label>
@@ -220,7 +225,12 @@ function ElementalDisciplines() {
                           pc={pc}
                           traitName={discipline.name}
                           trait="discipline"
-                          openModal={openSkillModal(i, 0)}
+                          openModal={openSkillModal(
+                            i,
+                            0,
+                            {},
+                            'dontTriggerSeeTrait'
+                          )}
                           openOnRightClick
                         />{' '}
                         {discipline.level > 1 && `(nivel ${discipline.level})`}

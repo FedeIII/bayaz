@@ -105,7 +105,12 @@ function PcElfSkills() {
                       pc={pc}
                       traitName={spell.name}
                       trait="spell"
-                      openModal={openSkillModal('cantrips', cantripIndex)}
+                      openModal={openSkillModal(
+                        'cantrips',
+                        cantripIndex,
+                        {},
+                        'dontTriggerSeeTrait'
+                      )}
                       openOnRightClick
                     >
                       <span className="tooltip">
@@ -123,8 +128,9 @@ function PcElfSkills() {
               Selecciona un idioma extra
             </span>
             <div className="characters__traits">
-              {LANGUAGES().filter(l => !RACES.elf.high.languages.includes(l)).map(
-                language => (
+              {LANGUAGES()
+                .filter(l => !RACES.elf.high.languages.includes(l))
+                .map(language => (
                   <label
                     htmlFor={language}
                     key={language}
@@ -139,8 +145,7 @@ function PcElfSkills() {
                     />
                     {translateLanguage(language)}
                   </label>
-                )
-              )}
+                ))}
             </div>
           </div>
         </div>

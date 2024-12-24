@@ -28,7 +28,9 @@ export const loader = async ({ params }) => {
   }
 
   if (pc.pClass !== 'warlock') {
-    throw new Error('Solo los brujos pueden escoger Trucos del Pacto del Grimorio');
+    throw new Error(
+      'Solo los brujos pueden escoger Trucos del Pacto del Grimorio'
+    );
   }
 
   return json({ pc });
@@ -138,7 +140,12 @@ function TomeSpells() {
                     pc={pc}
                     traitName={spell.name}
                     trait="spell"
-                    openModal={openSkillModal(spellIndex)}
+                    openModal={openSkillModal(
+                      spellIndex,
+                      0,
+                      {},
+                      'dontTriggerSeeTrait'
+                    )}
                     openOnRightClick
                   >
                     <span className="tooltip">

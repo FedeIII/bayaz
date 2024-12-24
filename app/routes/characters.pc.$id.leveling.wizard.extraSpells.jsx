@@ -137,7 +137,12 @@ function ExtraSpells() {
                           pc={pc}
                           traitName={spell.name}
                           trait="spell"
-                          openModal={openSkillModal(i, spellIndex)}
+                          openModal={openSkillModal(
+                            i,
+                            spellIndex,
+                            {},
+                            'dontTriggerSeeTrait'
+                          )}
                           openOnRightClick
                         >
                           <span className="tooltip">
