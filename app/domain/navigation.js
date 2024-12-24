@@ -7,7 +7,7 @@ const menuLinks = [
   { name: 'Dados', url: '/dice', level: 0, isForPlayers: true },
   { name: 'Lugares', url: '/places', level: 0 },
   /**/ { name: 'Asentamientos', url: '/places/list', level: 1 },
-  /**/ { name: 'Lugares', url: '/places/generic/list', level: 1 },
+  /**/ { name: 'Genéricos', url: '/places/generic/list', level: 1 },
   { name: 'Mapa', url: '/map', level: 0 },
   { name: 'Personajes', url: '/characters', level: 0, isForPlayers: true },
   /**/ { name: 'NPCs', url: '/characters/npc/main/list', level: 1 },
