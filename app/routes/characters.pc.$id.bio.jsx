@@ -1203,7 +1203,7 @@ function PcBio() {
         ></textarea>
 
         <textarea
-          className="bio__backstory"
+          className="bio__data bio__backstory"
           name="backstory"
           defaultValue={backstory}
           onBlur={e => onTextChange('backstory', e.target.value)}
