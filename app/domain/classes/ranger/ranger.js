@@ -307,7 +307,9 @@ export function getAttackBonusForRangerFightingStyles(
     weaponIndex === 1 &&
     subtype === 'simpleMelee' &&
     light
-  )
-    return getDamageBonus(pc, weapons, weapon);
+  ) {
+    const [baseDamageBonus, magicBonus] = getDamageBonus(pc, weapons, weapon);
+    return baseDamageBonus + magicBonus;
+  }
   return 0;
 }

@@ -1,6 +1,5 @@
 import {
   CLASSES,
-  getDamageBonus,
   getProficiencyBonus,
   getStat,
   getStatMod,

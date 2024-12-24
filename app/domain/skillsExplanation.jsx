@@ -201,7 +201,7 @@ export const SKILLS_EXPLANATION = {
     else if (subtype === 'simpleRanged' || subtype === 'martialRanged')
       selectedStat = 'dex';
 
-    const { statMod, proficiencyBonus, classBonus, magicBonus } =
+    const { statMod, magicBonus, proficiencyBonus, classBonus } =
       getAttackBonus(pc, weapons, weapon);
 
     const extraBonus = getAttackExtraBonus(pc, weapon);
@@ -217,9 +217,11 @@ export const SKILLS_EXPLANATION = {
               <th className="inventory-item__table-cell-level">
                 {selectedStat.toUpperCase()}
               </th>
-              <th className="inventory-item__table-cell-level inventory-item__table-cell-small">
-                Competencia en {subcategoryTranslation || translation}
-              </th>
+              {!!proficiencyBonus && (
+                <th className="inventory-item__table-cell-level inventory-item__table-cell-small">
+                  Competencia en {subcategoryTranslation || translation}
+                </th>
+              )}
               {!!classBonus && (
                 <th className="inventory-item__table-cell-level">
                   Bonificación de Clase
@@ -245,11 +247,13 @@ export const SKILLS_EXPLANATION = {
           <tbody>
             <tr>
               <td className="inventory-item__table-cell-level">
-                {statMod === 0 ? '- (Segunda arma)' : increment(statMod)}
+                {statMod === 0 ? '-' : increment(statMod)}
               </td>
-              <td className="inventory-item__table-cell-level">
-                {increment(proficiencyBonus)}
-              </td>
+              {!!proficiencyBonus && (
+                <td className="inventory-item__table-cell-level">
+                  {increment(proficiencyBonus)}
+                </td>
+              )}
               {!!classBonus && (
                 <td className="inventory-item__table-cell-level">
                   {increment(classBonus)}

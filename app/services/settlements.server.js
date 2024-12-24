@@ -48,7 +48,7 @@ const settlementSchema = new mongoose.Schema({
   subdominion: String,
   notes: String,
   location: { type: locationSchema, default: null },
-  doc: String
+  doc: String,
 });
 
 const Settlement =
@@ -135,7 +135,7 @@ export async function getSettlementsByDominionAndName() {
     ([dominionName, subdominions]) => {
       const subdominionEntries = Object.entries(subdominions).map(
         ([subdominionName, settlements]) => {
-          settlements.sort((a, b) => a.name.localeCompare(b.name));
+          settlements.sort((a, b) => (a.name || '').localeCompare(b.name));
           return [subdominionName, settlements];
         }
       );

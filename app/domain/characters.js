@@ -2812,7 +2812,7 @@ export function getExtraArmorClass(pc) {
 }
 
 export function getAttackBonus(pc, weapons, weapon, weaponIndex) {
-  const statMod = getDamageBonus(pc, weapons, weapon);
+  const [statMod, magicBonus] = getDamageBonus(pc, weapons, weapon);
 
   const proficiencyBonus = isProficientWithWeapon(pc, weapon)
     ? getProficiencyBonus(pc.level)
@@ -2820,7 +2820,7 @@ export function getAttackBonus(pc, weapons, weapon, weaponIndex) {
 
   const classBonus = getAttackClassBonus(pc, weapons, weapon, weaponIndex);
 
-  return { statMod, proficiencyBonus, classBonus };
+  return { statMod, magicBonus, proficiencyBonus, classBonus };
 }
 
 export function getAttackExtraBonus(pc, weapon) {
@@ -2908,13 +2908,15 @@ export function getDamageBonus(pc, weapons, w, weaponIndex) {
   const strMod = getStatMod(getStat(pc, 'str'));
   const dexMod = getStatMod(getStat(pc, 'dex'));
 
+  const magicBonus = bonus?.damage && identified ? bonus.damage : 0;
+
   if (
     weaponIndex === 1 &&
     subtype === 'simpleMelee' &&
     light &&
     !isTwoWeaponFighterSecondWeapon(pc, weapon, weaponIndex)
   ) {
-    return 0;
+    return [0, magicBonus];
   }
 
   if (finesse) statMod = strMod > dexMod ? strMod : dexMod;
@@ -2936,9 +2938,7 @@ export function getDamageBonus(pc, weapons, w, weaponIndex) {
     statMod += 2;
   }
 
-  const magicBonus = bonus?.damage && identified ? bonus.damage : 0;
-
-  return statMod + magicBonus;
+  return [statMod, magicBonus];
 }
 
 export function translateSavingThrowStatus(status) {

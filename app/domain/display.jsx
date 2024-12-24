@@ -219,7 +219,13 @@ export function getItemDisplayList(itemNames) {
 export function displayDamage(pc, weapons, weapon, weaponIndex) {
   const { properties: { versatile } = {} } = weapon;
   const damageDice = getDamageDice(pc, weapon);
-  const damageBonus = getDamageBonus(pc, weapons, weapon, weaponIndex);
+  const [baseDamageBonus, magicBonus] = getDamageBonus(
+    pc,
+    weapons,
+    weapon,
+    weaponIndex
+  );
+  const damageBonus = baseDamageBonus + magicBonus;
   const extraDamageBonus = getAttackExtraBonus(pc, weapon);
   const bonusOperator = damageBonus >= 0 ? '+' : '';
   const extraBonusOperators = extraDamageBonus.map(([_, bonus]) =>

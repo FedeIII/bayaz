@@ -618,7 +618,7 @@ export function WEAPONS() {
             return false;
           });
           return `<p>Bonificador de +1 al ataque y al daño</p>
-          <p>Una vez al día, puedes usar un ataque exitoso con la daga para lanzar Enmarañar (tirada de salvación DC${
+          <p>Una vez al día, puedes usar un ataque exitoso con la daga para lanzar <u>Enmarañar (tirada de salvación DC${
             8 +
             getTotalAttackBonus(
               pc,
@@ -626,7 +626,7 @@ export function WEAPONS() {
               WEAPONS().sylvanBlade(pWeapon),
               wIndex
             )
-          }). Si Enmarañar no falla, el objetivo sufre 1d4 de daño Perforante adicional.</p>
+          })</u>. Si el objetivo falla la tirada, sufre también <u>1d4</u> de daño <u>Perforante</u> adicional.</p>
             <p>Adicionalmente, tienes ventaja en las pruebas de Naturaleza mientras lleves la daga.</p>`;
         },
         ...props,

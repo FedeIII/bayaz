@@ -69,7 +69,7 @@ export async function getNpcsBySubdominions() {
   const result = Object.entries(npcsBySubdominions).map(
     ([subdominionName, npcs]) => [
       subdominionName,
-      npcs.sort((a, b) => a.name.localeCompare(b.name)),
+      npcs.sort((a, b) => (a.name || '').localeCompare(b.name)),
     ]
   );
 
