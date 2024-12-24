@@ -127,6 +127,7 @@ export const action = async ({ request }) => {
       if (mobsKilled.length) {
         await Promise.all([
           addMonstersKilled(partyId, activeSession.id, mobsKilled),
+          ...party.players.map(pcId => updatePc(pcId, { initiative: null })),
         ]);
       }
 
