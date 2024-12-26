@@ -6,11 +6,18 @@ import {
   usePresentTab,
   WINDOW_CHANNEL,
 } from '~/components/contexts/presentTabContext';
+import { useTitle } from '~/components/hooks/useTitle';
 
 import styles from '~/components/share/share.css';
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
+
+export const meta = () => [
+  {
+    title: 'Kandrax - Para jugadores',
+  },
+];
 
 export const loader = async ({ request, params }) => {
   const url = new URL(request.url);
@@ -63,6 +70,8 @@ function CurrentImage() {
   const img = presentTabData?.img || initialImg;
   const animationInactive =
     presentTabData?.animationInactive || initialAnimationInactive;
+
+  useTitle(title);
 
   return (
     <Share title={title} img={img} animationInactive={animationInactive} />
