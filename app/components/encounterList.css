@@ -1,3 +1,9 @@
+.encounterList__container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 32px;
+}
+
 .encounterList {
   display: flex;
   flex-direction: column;
@@ -88,4 +94,23 @@
   to {
     color: var(--color-x-red);
   }
+}
+
+.encounterList__filters {
+  margin-bottom: 1rem;
+}
+
+.encounterList__filter-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--color-pale);
+  border-radius: 4px;
+  background-color: var(--color-base);
+  color: white;
+}
+
+.encounterList__filter-input:focus {
+  color: var(--color-pale);
 }
