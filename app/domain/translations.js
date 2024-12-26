@@ -143,10 +143,13 @@ export function t(key) {
     versatile: 'Versátil',
     stealthDisadvantage: 'Desventaja al sigilo',
 
-    //Settlements
+    //Places
     village: 'Aldea',
     town: 'Pueblo',
     city: 'Ciudad',
+    place: 'Lugar',
+    npc: 'NPC',
+    settlement: 'Asentamiento',
 
     //Buildings
     //  types
