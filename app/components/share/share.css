@@ -1,8 +1,22 @@
+:root {
+  --fade-transition-duration: 1000ms;
+}
+
 .share__container {
   width: 85vw;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+}
+
+.share__title span {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity var(--fade-transition-duration) ease-in-out;
+}
+
+.share__title span.fade-out {
+  opacity: 0;
 }
 
 .share__title {
@@ -29,6 +43,12 @@
 
 .share__image {
   object-fit: contain;
+  opacity: 1;
+  transition: opacity var(--fade-transition-duration) ease-in-out;
+}
+
+.share__image.fade-out {
+  opacity: 0;
 }
 
 .share__image--float {
