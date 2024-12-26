@@ -24,6 +24,12 @@ const partySchema = new mongoose.Schema({
   players: [String],
   sessions: [sessionSchema],
   npcs: Boolean,
+  images: [{
+    type: { type: String, enum: ['place', 'settlement', 'npc'] },
+    referenceId: String,
+    title: String,
+    img: String
+  }]
 });
 
 const Party = mongoose.models.Party || mongoose.model('Party', partySchema);
@@ -122,6 +128,34 @@ export async function setNotesToSession(partyId, sessionId, notes) {
   const updatedParty = await Party.findOneAndUpdate(
     { id: partyId, 'sessions.id': sessionId },
     { 'sessions.$.notes': notes }
+  );
+
+  return updatedParty;
+}
+
+export async function addImageToParty(partyId, imageData) {
+  const updatedParty = await Party.findOneAndUpdate(
+    { id: partyId },
+    {
+      $push: {
+        images: imageData
+      }
+    },
+    { new: true }
+  );
+
+  return updatedParty;
+}
+
+export async function removeImageFromParty(partyId, imageId) {
+  const updatedParty = await Party.findOneAndUpdate(
+    { id: partyId },
+    {
+      $pull: {
+        images: { referenceId: imageId }
+      }
+    },
+    { new: true }
   );
 
   return updatedParty;

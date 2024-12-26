@@ -564,3 +564,150 @@
 .party__pcs-column-select {
   font-size: var(--font-size-xxs) !important;
 }
+
+.party__images {
+  padding: 1rem;
+}
+
+.party__images-search-section {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.party__images-search-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--color-pale);
+  border-radius: 4px;
+  background-color: var(--color-base);
+  color: white;
+}
+
+.party__images-search-input::placeholder {
+  color: var(--color-pale);
+}
+
+.party__images-search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-base);
+  border: 1px solid var(--color-pale);
+  border-radius: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.party__images-search-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--color-pale);
+  gap: 1rem;
+  color: white;
+}
+
+.party__images-search-item:hover {
+  background-color: var(--color-light);
+}
+
+.party__images-search-item-image {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;  /* Prevents image from shrinking */
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.party__images-search-item button {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-light);
+  border: 1px solid var(--color-pale);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto; /* Pushes button to the right */
+}
+
+.party__images-search-item button:hover {
+  background-color: var(--color-pale);
+}
+
+.party__images-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.party__images-item {
+  border: 1px solid var(--color-pale);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: var(--color-base);
+}
+
+.party__images-item:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Make delete button more visible on hover */
+.party__images-item:hover .party__images-delete-button {
+  opacity: 0.8;
+}
+
+.party__images-item:hover .party__images-delete-button:hover {
+  opacity: 1;
+}
+
+.party__images-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.party__images-thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.party__images-title {
+  display: block;
+  padding: 0.5rem;
+  font-weight: bold;
+}
+
+.party__images-delete-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  opacity: 0.5;
+  background-color: var(--color-x-red);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  z-index: 1;
+}
+
+.party__images-delete-button:hover {
+  opacity: 0.8;
+}
+
+.party__images-delete-button svg {
+  width: 16px;
+  height: 16px;
+}

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { redirect } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form, useLoaderData, Link } from '@remix-run/react';
 
 import { addXp, getPc } from '~/services/pc.server';
 import {
@@ -129,8 +129,8 @@ function PartyInfo() {
         <PcsTable pcs={pcs} />
       </div>
 
-      {!activeSession && (
-        <div className="party__party-section">
+      <div className="party__party-section">
+        {!activeSession && (
           <button
             type="submit"
             name="sessionStart"
@@ -140,10 +140,8 @@ function PartyInfo() {
           >
             Empezar sesión
           </button>
-        </div>
-      )}
-      {!!activeSession && (
-        <div className="party__party-section">
+        )}
+        {!!activeSession && (
           <button
             type="submit"
             name="sessionEnd"
@@ -153,8 +151,11 @@ function PartyInfo() {
           >
             Terminar sesión
           </button>
-        </div>
-      )}
+        )}
+        <Link to="images" className="cards__button-card">
+          Gestionar imágenes
+        </Link>
+      </div>
 
       {isActiveSessionFromThisParty && !!activeSession && (
         <CurrentSession session={activeSession} pcs={pcs} />

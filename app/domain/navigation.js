@@ -45,6 +45,7 @@ export function getAllMenuItems({
   if (isDm && partyIdState) {
     items = insertAfter(item => item.name === 'Party', items, [
       { name: 'Sesión', url: `/party/${partyIdState}`, level: 1 },
+      { name: 'Imágenes', url: `/party/${partyIdState}/images`, level: 1 },
     ]);
   }
 
