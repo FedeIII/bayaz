@@ -16,11 +16,7 @@ import { redirect } from '@remix-run/node';
 
 import MenuContext from './components/contexts/menuContext';
 import PartyContext from './components/contexts/partyContext';
-import {
-  deleteFromStore,
-  useValueFromStore,
-  writeIntoStore,
-} from './components/hooks/useStore';
+import { useStateValue } from './components/hooks/useStore';
 import MonstersContext from './components/contexts/monstersContext';
 import PartyTemplateContext from './components/contexts/partyTemplateContext';
 import { links as titleLinks } from '~/components/form/title';
@@ -28,6 +24,7 @@ import { SideBar } from '~/components/sideBar';
 import { getSessionUser } from '~/services/session.server';
 import { getBasicMenuItems } from '~/domain/navigation';
 import { getCurrentPcPage } from '~/utils/paths';
+import { PresentTabProvider } from './components/contexts/presentTabContext';
 
 import styles from '~/styles/global.css';
 import menuStyles from '~/components/menus.css';
@@ -64,24 +61,6 @@ export const links = () => [
     href: 'https://fonts.googleapis.com/icon?family=Material+Icons',
   },
 ];
-
-function useStateValue(key) {
-  const [stateValue, setStateValue] = useValueFromStore(key);
-
-  function setValue(value) {
-    setStateValue(value);
-    const parsedValue =
-      typeof value === 'object' ? JSON.stringify(value) : value;
-    writeIntoStore(key, parsedValue);
-  }
-
-  function deleteValue() {
-    setStateValue(null);
-    deleteFromStore(key);
-  }
-
-  return [stateValue, setValue, deleteValue];
-}
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
@@ -167,80 +146,82 @@ export default function App() {
       </head>
       <body>
         <DndProvider backend={HTML5Backend}>
-          <MenuContext.Provider
-            value={{ hasMenu, setHasMenu, menuTitle, setMenuTitle }}
-          >
-            <PartyContext.Provider
-              value={{
-                partyIdState,
-                setPartyIdState,
-                deletePartyIdState,
-                pcIdsState,
-                setPcIdsState,
-                deletePcIdsState,
-              }}
+          <PresentTabProvider>
+            <MenuContext.Provider
+              value={{ hasMenu, setHasMenu, menuTitle, setMenuTitle }}
             >
-              <MonstersContext.Provider
+              <PartyContext.Provider
                 value={{
-                  monstersState,
-                  setMonstersState,
-                  deleteMonstersState,
-                  encounterIdState,
-                  setEncounterIdState,
-                  deleteEncounterIdState,
+                  partyIdState,
+                  setPartyIdState,
+                  deletePartyIdState,
+                  pcIdsState,
+                  setPcIdsState,
+                  deletePcIdsState,
                 }}
               >
-                <PartyTemplateContext.Provider
+                <MonstersContext.Provider
                   value={{
-                    partyTemplateState,
-                    setPartyTemplateState,
-                    deletePartyTemplateState,
+                    monstersState,
+                    setMonstersState,
+                    deleteMonstersState,
+                    encounterIdState,
+                    setEncounterIdState,
+                    deleteEncounterIdState,
                   }}
                 >
-                  <div className="app">
-                    {hasMenu && (
-                      <header className="app__header">{menuTitle}</header>
-                    )}
-                    <div
-                      className={classNames('app__body', {
-                        'app__body--full-screen': !hasMenu,
-                        'app__body--closed-sidebar': !sidebarState,
-                      })}
-                    >
-                      <SideBar
-                        menuItems={menuItems}
-                        location={location}
-                        state={sidebarState}
-                        isDm={isDm}
-                      />
+                  <PartyTemplateContext.Provider
+                    value={{
+                      partyTemplateState,
+                      setPartyTemplateState,
+                      deletePartyTemplateState,
+                    }}
+                  >
+                    <div className="app">
                       {hasMenu && (
-                        <span
-                          className={classNames('app__sidebar-action', {
-                            'app__sidebar-action--closed-sidebar':
-                              !sidebarState,
-                          })}
-                          onClick={sidebarState ? closeSidebar : openSidebar}
-                        >
-                          {sidebarState ? '←' : '→'}
-                        </span>
+                        <header className="app__header">{menuTitle}</header>
                       )}
                       <div
-                        className={classNames('app__content', {
-                          'app__content--fullscreen': !hasMenu,
-                          'app__content--closed-sidebar': !sidebarState,
+                        className={classNames('app__body', {
+                          'app__body--full-screen': !hasMenu,
+                          'app__body--closed-sidebar': !sidebarState,
                         })}
                       >
-                        <Outlet />
+                        <SideBar
+                          menuItems={menuItems}
+                          location={location}
+                          state={sidebarState}
+                          isDm={isDm}
+                        />
+                        {hasMenu && (
+                          <span
+                            className={classNames('app__sidebar-action', {
+                              'app__sidebar-action--closed-sidebar':
+                                !sidebarState,
+                            })}
+                            onClick={sidebarState ? closeSidebar : openSidebar}
+                          >
+                            {sidebarState ? '←' : '→'}
+                          </span>
+                        )}
+                        <div
+                          className={classNames('app__content', {
+                            'app__content--fullscreen': !hasMenu,
+                            'app__content--closed-sidebar': !sidebarState,
+                          })}
+                        >
+                          <Outlet />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <ScrollRestoration />
-                  <Scripts />
-                  <LiveReload />
-                </PartyTemplateContext.Provider>
-              </MonstersContext.Provider>
-            </PartyContext.Provider>
-          </MenuContext.Provider>
+                    <ScrollRestoration />
+                    <Scripts />
+                    <LiveReload />
+                  </PartyTemplateContext.Provider>
+                </MonstersContext.Provider>
+              </PartyContext.Provider>
+            </MenuContext.Provider>
+          </PresentTabProvider>
         </DndProvider>
       </body>
     </html>

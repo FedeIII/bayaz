@@ -47,6 +47,8 @@ import { getVillageSecurityType } from '~/domain/places/village';
 import NumericInput from '~/components/inputs/numeric';
 import HtmlInput from '~/components/inputs/htmlInput';
 import { getDeityColorClass } from '~/domain/npc/attrs/npcFaith';
+import { usePresentTab } from '~/components/contexts/presentTabContext';
+import { getFromStore } from '~/components/hooks/useStore';
 
 const TYPES = {
   city: CITY,
@@ -439,6 +441,22 @@ function SettlementScreen() {
     setPlaceState(p => ({ ...p, name: randomSettlementName() }));
   }
 
+  const { showInPresentationWindow } = usePresentTab();
+  const partyId = getFromStore('partyId');
+
+  const handlePresent = () => {
+    if (partyId) {
+      showInPresentationWindow(
+        'settlement',
+        placeState.name,
+        placeState.img,
+        partyId
+      );
+    } else if (place?.id) {
+      window.open(`./${place?.id}/players`, '_blank');
+    }
+  };
+
   return (
     <Form method="post" className="places__container">
       {!!id && <input readOnly type="text" name="id" value={id} hidden />}
@@ -453,9 +471,9 @@ function SettlementScreen() {
         <Link to={`./?rng=${rng}`} className="menus__back-button">
           ⇩ Nuevo
         </Link>
-        <Link to={`players`} target="_blank" className="places__save">
+        <button type="button" onClick={handlePresent} className="places__save">
           ⇨ Presentar
-        </Link>
+        </button>
         <Link to={`export`} target="_blank" className="places__save">
           ⇪ Exportar
         </Link>

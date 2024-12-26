@@ -5,6 +5,8 @@ import { getNpc, updateNpc } from '~/services/npc.server';
 import { getSettlementsByDominionAndName } from '~/services/settlements.server';
 import { downloadNpcData } from '~/utils/exportHelpers';
 import { useTitle } from '~/components/hooks/useTitle';
+import { getFromStore } from '~/components/hooks/useStore';
+import { usePresentTab } from '~/components/contexts/presentTabContext';
 
 import styles from '~/components/filters.css';
 import placesStyles from '~/components/places.css';
@@ -73,6 +75,8 @@ function NpcDetail() {
   const formRef = useRef();
   const submit = useSubmit();
   const [formData, setFormData] = useState(npc);
+  const { showInPresentationWindow } = usePresentTab();
+  const partyId = getFromStore('partyId');
 
   useTitle(npc.name);
 
@@ -105,6 +109,14 @@ function NpcDetail() {
     submit(formRef.current, { method: 'post' });
   }
 
+  const handlePresent = () => {
+    if (partyId) {
+      showInPresentationWindow('npc', formData.name, formData.img, partyId);
+    } else if (npc?.id) {
+      window.open(`./${npc?.id}/players`, '_blank');
+    }
+  };
+
   return (
     <Form method="post" ref={formRef} onSubmit={onSaveNpc}>
       <div className="places__buttons">
@@ -117,9 +129,9 @@ function NpcDetail() {
         <button type="submit" className="places__save">
           ⇧ Guardar
         </button>
-        <Link to="players" target="_blank" className="places__save">
+        <button type="button" onClick={handlePresent} className="places__save">
           ⇨ Presentar
-        </Link>
+        </button>
         <button
           type="button"
           className="places__save"

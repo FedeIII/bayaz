@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useLoaderData, useSubmit, useParams } from '@remix-run/react';
-import { Link } from '@remix-run/react';
 import {
   getParty,
   addImageToParty,
@@ -9,20 +8,7 @@ import {
 import { getPlaces } from '~/services/place.server';
 import { getSettlements } from '~/services/settlements.server';
 import { getNpcs } from '~/services/npc.server';
-
-function getDeepLink(type, id) {
-  switch (type) {
-    case 'place':
-      return `/places/generic/${id}/players`;
-    case 'settlement':
-    case 'city':
-    case 'town':
-    case 'village':
-      return `/places/settlement/${id}/players`;
-    case 'npc':
-      return `/characters/npc/${id}/players`;
-  }
-}
+import { usePresentTab } from '~/components/contexts/presentTabContext';
 
 export const loader = async ({ params }) => {
   const party = await getParty(params.id);
@@ -69,6 +55,8 @@ export default function PartyImages() {
     item.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const { showInPresentationWindow } = usePresentTab();
+
   const handleAdd = item => {
     const formData = new FormData();
     formData.append('action', 'add');
@@ -86,6 +74,10 @@ export default function PartyImages() {
     formData.append('partyId', partyId);
     formData.append('imageId', imageId);
     submit(formData, { method: 'post' });
+  };
+
+  const handleImageClick = image => {
+    showInPresentationWindow(image.type, image.title, image.img, partyId);
   };
 
   return (
@@ -118,10 +110,10 @@ export default function PartyImages() {
       <div className="party__images-list">
         {party.images?.map(image => (
           <div key={image.referenceId} className="party__images-item">
-            <Link
-              to={getDeepLink(image.type, image.referenceId)}
+            <div
               className="party__images-link"
-              target="_blank"
+              onClick={() => handleImageClick(image)}
+              style={{ cursor: 'pointer' }}
             >
               <img
                 src={image.img}
@@ -129,7 +121,7 @@ export default function PartyImages() {
                 className="party__images-thumbnail"
               />
               <span className="party__images-title">{image.title}</span>
-            </Link>
+            </div>
             <button
               onClick={() => handleRemove(image.referenceId)}
               className="party__images-delete-button"

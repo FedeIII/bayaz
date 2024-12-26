@@ -6,6 +6,8 @@ import { updatePlace } from '~/services/place.server';
 import { Title } from '~/components/form/title';
 import HtmlInput from '~/components/inputs/htmlInput';
 import withLoading from '~/components/HOCs/withLoading';
+import { getFromStore } from '~/components/hooks/useStore';
+import { usePresentTab } from '~/components/contexts/presentTabContext';
 
 import styles from '~/components/filters.css';
 import encounterStyles from '~/components/newEncounter.css';
@@ -53,11 +55,22 @@ function GenericPlace() {
 
   const [place, setPlace] = useState(null);
 
+  const { showInPresentationWindow } = usePresentTab();
+  const partyId = getFromStore('partyId');
+
   useEffect(() => {
     if (initPlace?.id) {
       setPlace(initPlace);
     }
   }, [initPlace]);
+
+  const handlePresent = () => {
+    if (partyId) {
+      showInPresentationWindow('place', place.name, place.img, partyId);
+    } else if (place?.id) {
+      window.open(`./${place?.id}/players`, '_blank');
+    }
+  };
 
   return (
     <Form method="post" ref={formRef} className="places__container">
@@ -73,9 +86,9 @@ function GenericPlace() {
         <Link to="/places/generic/new" className="menus__back-button">
           ⇩ Nuevo Lugar
         </Link>
-        <Link to="./players" target="_blank" className="places__save">
+        <button type="button" onClick={handlePresent} className="places__save">
           ⇨ Presentar
-        </Link>
+        </button>
         <Link to={`export`} target="_blank" className="places__save">
           ⇪ Exportar
         </Link>

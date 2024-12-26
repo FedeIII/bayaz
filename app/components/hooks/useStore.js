@@ -16,14 +16,23 @@ export function useValueFromStore(key) {
   useEffect(() => {
     const handler = () => {
       const value = getFromStore(key);
-      setStoreValue(value);
+      setStoreValueState(value);
     };
     window.addEventListener('storage', handler);
 
     return () => window.removeEventListener('storage', handler);
   }, [key, doc?.location.pathname]);
 
-  const [storeValue, setStoreValue] = useState(getFromStore(key));
+  const [storeValue, setStoreValueState] = useState(getFromStore(key));
+
+  function setStoreValue(value) {
+    setStoreValueState(value);
+    if (typeof value === 'object') {
+      writeIntoStore(key, JSON.stringify(value));
+    } else {
+      writeIntoStore(key, value);
+    }
+  }
 
   return [storeValue, setStoreValue];
 }
@@ -34,4 +43,22 @@ export function writeIntoStore(key, value) {
 
 export function deleteFromStore(key) {
   store?.removeItem(key);
+}
+
+export function useStateValue(key) {
+  const [stateValue, setStateValue] = useValueFromStore(key);
+
+  function setValue(value) {
+    setStateValue(value);
+    const parsedValue =
+      typeof value === 'object' ? JSON.stringify(value) : value;
+    writeIntoStore(key, parsedValue);
+  }
+
+  function deleteValue() {
+    setStateValue(null);
+    deleteFromStore(key);
+  }
+
+  return [stateValue, setValue, deleteValue];
 }
