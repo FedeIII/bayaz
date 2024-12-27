@@ -135,6 +135,8 @@ export default function App() {
   return (
     <html lang="es-ES">
       <head>
+        <meta charSet="UTF-8" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
         <Meta />
         <Links />
         <link
