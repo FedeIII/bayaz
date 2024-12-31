@@ -25,6 +25,7 @@ import {
 } from '../classes/paladin/paladin';
 import { getMaxTidesOfChaos } from '../classes/sorcerer/sorcerer';
 import { getter } from '~/utils/objects';
+import { getFeat } from '../feats/featUtils';
 
 export async function setPcStats(pcParams) {
   const {
@@ -256,4 +257,32 @@ export async function addItemToPc(
     pItem.spellName = scrollSpellName;
   }
   return await addItemToSection(id, pItem, ...sectionPath.split('.'));
+}
+
+export async function addFeatToPc(id, featId) {
+  const pc = await getPc(id);
+
+  if (!pc.feats) {
+    pc.feats = {
+      list: [],
+      extraStats: {},
+      elementalAdept: [],
+      martialAdept: [],
+    };
+  }
+
+  const feats = pc.feats;
+
+  if (featId === 'elementalAdept' || !feats.list.includes(featId)) {
+    feats.list.push(featId);
+
+    const feat = getFeat(featId);
+    if (feat?.bonus?.stats) {
+      Object.entries(feat.bonus.stats).forEach(([stat, value]) => {
+        feats.extraStats[stat] += value;
+      });
+    }
+  }
+
+  return await pc.save();
 }

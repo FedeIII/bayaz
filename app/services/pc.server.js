@@ -68,6 +68,7 @@ import { getter } from '~/utils/objects';
 import { isSameScroll } from '~/domain/equipment/magicItems';
 import { getSectionPath } from '~/domain/equipment/items';
 import { getItem } from '~/domain/equipment/equipment';
+import { isFeat } from '~/domain/feats/featUtils';
 
 const backgroundSchema = new mongoose.Schema({
   name: { type: String, enum: Object.keys(BACKGROUNDS) },
@@ -300,6 +301,14 @@ const locationSchema = new mongoose.Schema({
   goingTo: String,
 });
 
+// FEATS
+const featsSchema = new mongoose.Schema({
+  list: [String],
+  extraStats: statsSchema,
+  elementalAdept: [String],
+  martialAdept: [String],
+});
+
 ///////////////////////
 ///////////////////////
 ////               ////
@@ -394,6 +403,7 @@ const pcSchema = new mongoose.Schema({
   // FEATS & TRAITS
   halfElf: halfElfSchema,
   classAttrs: classAttrsSchema,
+  feats: featsSchema,
 
   // PROFICIENCIES & LANGUAGES
   proficientItems: [itemSchema],
@@ -597,9 +607,9 @@ export async function addXp(id, xp) {
   return updatedPc;
 }
 
-/////////////////
-// CLASS ATTRS //
-/////////////////
+/////////////////////////
+// FEATS & CLASS ATTRS //
+/////////////////////////
 
 export async function updateClassAttrs(id, classAttrs) {
   const updatedPc = await Pc.findOneAndUpdate(
@@ -678,6 +688,20 @@ export async function addImprovedStatsLevel(id, level) {
     { id },
     { $push: { improvedStatsLevels: level } },
     { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function updateFeatAttr(id, featAttrName, featAttrValue) {
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    {
+      $set: {
+        ['feats.' + featAttrName]: featAttrValue,
+      },
+    },
+    { new: true }
   ).exec();
 
   return updatedPc;
@@ -1527,7 +1551,7 @@ export async function spendTrait(id, pClass, traitName, amount = 1) {
 }
 
 export async function markTraitSeen(id, traitName) {
-  const isRegularTrait = isTrait(traitName);
+  const isRegularTrait = isTrait(traitName) || isFeat(traitName);
 
   let updatedPc;
 

@@ -95,6 +95,8 @@ import {
 import { getChildrenText } from '~/utils/getChildrenText';
 import { t } from './translations';
 import { parseGoldToMoney } from './equipment/money';
+import { getFeat, getFeatTraits, isFeat } from './feats/featUtils';
+import { FEATS_EXPLANATION } from './feats/featExplanations';
 
 export const RACES = {
   dwarf: {
@@ -2973,6 +2975,7 @@ export function getTraits(pc) {
     ...(BACKGROUNDS[background.name]?.traits || {}),
     ...CLASSES()[pClass].traits,
     ...getLevelingTraits(pc),
+    ...getFeatTraits(pc),
   }).filter(([traitName, trait]) => displayTrait(traitName, trait, pc));
 }
 
@@ -3254,6 +3257,7 @@ export function getSkillExplanation({
       ...PALADIN_SKILLS_EXPLANATION,
       ...ROGUE_SKILLS_EXPLANATION,
       ...METAMAGIC_EXPLANATION_GETTERS,
+      ...FEATS_EXPLANATION,
     }[skillName]?.(
       skill,
       pc,
@@ -3262,7 +3266,7 @@ export function getSkillExplanation({
       skillIndex,
       position,
       isDm,
-      actions
+      actions,
     ) || skill
   );
 }
@@ -3429,7 +3433,9 @@ export function isTraitSeen(pc, traitName) {
     return true;
   }
 
-  return isTrait(traitName) ? pc.classAttrs.seen?.includes(traitName) : true;
+  return isTrait(traitName) || isFeat(traitName)
+    ? pc.classAttrs.seen?.includes(traitName)
+    : true;
 }
 
 export function canCopySpells(pc) {
@@ -3459,4 +3465,22 @@ export function getExperience(pc) {
 
 export function getCharacterAmmo(pc) {
   return pc.items.equipment.ammunition.map(getItem);
+}
+
+export function isHighElf(pc) {
+  return pc.race === 'elf' && pc.subrace === 'high';
+}
+
+export function isDrow(pc) {
+  return pc.race === 'elf' && pc.subrace === 'drow';
+}
+
+export function getInitiativeBonus(pc) {
+  let initiative = getStatMod(getStat(pc, 'dex'));
+  pc.feats?.list?.forEach(feat => {
+    if (getFeat(feat)?.bonus?.initiative) {
+      initiative += getFeat(feat)?.bonus?.initiative;
+    }
+  });
+  return initiative;
 }

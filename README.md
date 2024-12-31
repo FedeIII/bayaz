@@ -19,6 +19,7 @@
 
 ## TO DOs
 
+- Review bigModal prop
 - Move Regions to canvas
 - Rules searcher:
   - Conditions

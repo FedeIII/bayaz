@@ -1,4 +1,5 @@
 import { translateLanguage, translateSkill } from './characters';
+import { translateCombatSuperiorityManeuvers } from './classes/fighter/fighter';
 import { translatePatron } from './classes/warlock/warlock';
 import { translateMonster } from './encounters/monsterTranslations';
 import { getItem } from './equipment/equipment';
@@ -403,6 +404,57 @@ export function t(key) {
     // Security
     militia: 'milicias',
     guards: 'guardias',
+
+    // Feats
+    skulker: 'Acechador',
+    actor: 'Actor',
+    lucky: 'Afortunado',
+    alert: 'Alerta',
+    grappler: 'Apresador',
+    charger: 'Cargador',
+    savageAttacker: 'Atacante salvaje',
+    athlete: 'Atleta',
+    mageSlayer: 'Azote de magos',
+    sentinel: 'Centinela',
+    dualWielder: 'Combatienten con Dos Armas',
+    mountedCombatant: 'Combatiente Montado',
+    defensiveDuelist: 'Duelista Defensivo',
+    tough: 'Duro',
+    crossbowExpert: 'Experto en Ballestas',
+    dungeonDelver: 'Explorador de Mazmorras',
+    skilled: 'Habilidoso',
+    magicInitiate: 'Iniciado en Magia',
+    warCaster: 'Luchador en Combate',
+    spellSniper: 'Lanzador preciso',
+    ritualCaster: 'Lanzador Ritual',
+    inspiringLeader: 'Líder Inspirador',
+    lightlyArmored: 'Ligeramente Acorazado',
+    linguist: 'Lingüista',
+    weaponMaster: 'Maestro de Armas',
+    mediumArmorMaster: 'Maestro end Armaduras Medias',
+    heavyArmorMaster: 'Maestro end Armaduras Pesadas',
+    polearmMaster: 'Maestro en Armas de Asta',
+    greatWeaponMaster: 'Maestro en Armas Pesadas',
+    shieldMaster: 'Maestro en Escudos',
+    tavernBrawler: 'Matón de Taberna',
+    keenMind: 'Mente Aguda',
+    moderatelyArmored: 'Moderadamente Acorazado',
+    mobile: 'Móvil',
+    heavilyArmored: 'Muy Acorazado',
+    observant: 'Observador',
+    resilient: 'Resiliente',
+    durable: 'Resistente',
+    healer: 'Sanador',
+    sharpShooter: 'Tirador de Primera',
+    martialAdept: 'Versado en las Armas',
+    elementalAdept: 'Versado en un Elemento',
+
+    // Elements
+    acid: 'Ácido',
+    cold: 'Frío',
+    fire: 'Fuego',
+    lightning: 'Relámpago',
+    thunder: 'Trueno',
   }[key];
 
   if (translation) return translation;
@@ -432,6 +484,9 @@ export function t(key) {
   if (translation) return translation;
 
   translation = translatePatron(key);
+  if (translation) return translation;
+
+  translation = translateCombatSuperiorityManeuvers(key);
   if (translation) return translation;
 
   return `[---${key}---]`;

@@ -69,13 +69,20 @@ export const SKILLS_EXPLANATION = {
           incrementar una puntuación de característica por encima de 20 usando
           este procedimiento.
         </p>
+        <p>
+          Alternativamente, puedes escoger una dote. Una dote representa un
+          talento o una materia en la que el personaje es experto y le
+          proporciona capacidades especiales. Encarna el entrenamiento, la
+          experiencia y las facultades que van más lejos de lo que una clase
+          puede proporcionar.
+        </p>
 
         <div className="inventory-item__modal-buttons">
           <Link
             to={`/characters/pc/${pc.id}/leveling/abilityScoreImprovement`}
             className="inventory-item__modal-button"
           >
-            Escoge puntos de caracterísitica
+            Escoge puntos de caracterísitica o dote
           </Link>
         </div>
       </>

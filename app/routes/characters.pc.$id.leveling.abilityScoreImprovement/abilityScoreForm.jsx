@@ -1,76 +1,22 @@
+import { Form } from '@remix-run/react';
 import { useState } from 'react';
-import { json, redirect } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
-import {
-  addImprovedStatsLevel,
-  getPc,
-  increaseStats,
-} from '~/services/pc.server';
-import {
-  getPendingImproveAbilityLevels,
-  getStatMod,
-  hasToImproveAbilityScore,
-  STATS,
-  translateClass,
-  translateStat,
-} from '~/domain/characters';
-import { useTitle } from '~/components/hooks/useTitle';
+
+import { STATS, translateStat, getStatMod } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import NumericInput from '~/components/inputs/numeric';
 
-import styles from '~/components/stats.css';
-export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }];
-};
-
-export const loader = async ({ params }) => {
-  const pc = await getPc(params.id);
-  if (!pc) {
-    throw new Error('PC not found');
-  }
-
-  if (!hasToImproveAbilityScore(pc)) {
-    throw new Error(
-      `Ya has escogido la Mejora de Puntuación de Característica del nivel ${pc.level}`
-    );
-  }
-
-  return json({ pc });
-};
-
-export const action = async ({ request }) => {
-  const formData = await request.formData();
-
-  const id = formData.get('id');
-  const level = parseInt(formData.get('level'), 10);
-
-  const statsIncrease = STATS().reduce(
-    (s, statName) => ({
-      ...s,
-      [statName]: parseInt(formData.get(statName), 10),
-    }),
-    {}
-  );
-
-  await Promise.all([
-    increaseStats(id, statsIncrease),
-    addImprovedStatsLevel(id, level),
-  ]);
-
-  return redirect(`/characters/pc/${id}/summary`);
-};
-
-function AbilityScoreImprovement() {
-  const { pc } = useLoaderData();
+export function AbilityScoreForm(props) {
   const {
-    pClass,
-    level,
+    pc,
+    improvementLevel,
+    onBack,
+  } = props;
+
+  const {
     stats,
     extraStats: pExtraStats,
     halfElf: { extraStats: halfElfExtraStats },
   } = pc;
-
-  useTitle(`${translateClass(pClass)} nivel ${level}`);
 
   const [extraStats, setExtraStats] = useState({
     str: 0,
@@ -97,8 +43,6 @@ function AbilityScoreImprovement() {
     );
   }
 
-  const improvementLevel = getPendingImproveAbilityLevels(pc)[0];
-
   return (
     <Form method="post">
       <input readOnly type="text" name="id" value={pc.id} hidden />
@@ -109,6 +53,7 @@ function AbilityScoreImprovement() {
         value={improvementLevel}
         hidden
       />
+      <input readOnly type="text" name="type" value="abilities" hidden />
 
       <h2 className="app__pale-text">Escoge puntos extra de caracterísitica</h2>
 
@@ -174,32 +119,14 @@ function AbilityScoreImprovement() {
         ))}
       </div>
 
-      <p>
+      <div className="cards__buttons">
+        <button type="button" onClick={onBack} className="cards__button-card">
+          Volver
+        </button>
         <button type="submit" className="cards__button-card">
           Escoger
         </button>
-      </p>
+      </div>
     </Form>
   );
 }
-
-export function ErrorBoundary({ error }) {
-  useTitle('Error');
-
-  return (
-    <div>
-      <h2 className="app__error-text">{error.message}</h2>
-
-      <p className="app__paragraph">
-        Incrementa una puntuación de característica de tu elección en 2 puntos,
-        o dos puntuaciones de característica de tu elección en 1 punto. Como es
-        habitual, no puedes incrementar una puntuación de característica por
-        encima de 20 usando este procedimiento.
-      </p>
-
-      <p className="app__error-stack">{error.stack}</p>
-    </div>
-  );
-}
-
-export default AbilityScoreImprovement;

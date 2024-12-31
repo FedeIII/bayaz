@@ -526,3 +526,13 @@ html {
     transition: margin ease-out;
   }
 }
+
+.app__sticky-title {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 16px 8px;
+  background-color: var(--color-dark);
+  border-bottom: 1px solid white;
+  margin: 0 0 8px;
+}

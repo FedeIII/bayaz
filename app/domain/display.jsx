@@ -61,6 +61,7 @@ import { getRangerFightingStyle } from './classes/ranger/ranger';
 import { t } from './translations';
 import { ChooseTrait } from '~/components/summary/skillStates';
 import { renderItemNameWithAmount } from './equipment/items';
+import { displayFeat } from './feats/featUtils';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -565,6 +566,10 @@ export function displayTrait(traitName, trait, pc) {
 
     default:
   }
+
+  const displayedFeat = displayFeat(traitName, pc);
+  if (displayedFeat) return displayedFeat;
+  else if (displayedFeat === false) return null;
 
   const classDisplay = displayClassTrait(traitName, trait, pc);
   if (classDisplay) return classDisplay;

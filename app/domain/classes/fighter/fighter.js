@@ -178,7 +178,7 @@ export function translateCombatSuperiorityManeuvers(maneuver) {
       return 'Parada';
 
     default:
-      return 'unknown combat superiority maneuver';
+      return null;
   }
 }
 

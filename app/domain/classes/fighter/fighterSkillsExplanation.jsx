@@ -591,8 +591,7 @@ export function displayManeuver(maneuver, trait, pc) {
         <p>
           Cuando una criatura te hace daño con un ataque cuerpo a cuerpo, puedes
           usar tu reacción y gastar un dado de superioridad para{' '}
-          <u>reducir el daño</u>
-          un número igual a la tirada de tu{' '}
+          <u>reducir el daño</u> un número igual a la tirada de tu{' '}
           <u>dado de superioridad + {getStatMod(getStat(pc, 'dex'))}</u> (tu
           modificador de Destreza).
         </p>

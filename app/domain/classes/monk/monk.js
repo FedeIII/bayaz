@@ -168,6 +168,10 @@ export function hasToLearnElementalDiscipline(pc) {
   }
 }
 
+export function isWayOfTheFourElements(pc) {
+  return getMonasticTradition(pc) === 'wayOfTheFourElements';
+}
+
 /* prettier-ignore */
 export const ELEMENTAL_DISCIPLINES = {
   breathOfWinter: {

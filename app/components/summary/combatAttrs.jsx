@@ -4,11 +4,10 @@ import {
   getArmorClass,
   getExtraArmorClass,
   getHitDice,
+  getInitiativeBonus,
   getMaxHitPoints,
   getRemainingHitDice,
   getSpeed,
-  getStat,
-  getStatMod,
 } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import { SkillItem } from '../modal/skillItem';
@@ -105,7 +104,7 @@ function CombatAttrs(props) {
           name="initiative"
           onBlur={onPcInitiativeChange}
           defaultValue={initiative || null}
-          placeholder={increment(getStatMod(getStat(pc, 'dex')))}
+          placeholder={increment(getInitiativeBonus(pc))}
           className="sheet__initiativeInput"
         />
       </span>
