@@ -18,8 +18,8 @@ export const links = () => {
 };
 
 export const classTraitActions = {
-  ...createSpendActions('sorcerer', 'fontOfMagic'),
-  ...createSpendActions('sorcerer', 'tidesOfChaos'),
+  ...createSpendActions('classAttrs.sorcerer', 'fontOfMagic'),
+  ...createSpendActions('classAttrs.sorcerer', 'tidesOfChaos'),
 };
 
 export const SORCERER_SKILLS_EXPLANATION = {
@@ -140,7 +140,17 @@ export const SORCERER_SKILLS_EXPLANATION = {
     </>
   ),
 
-  tidesOfChaos: (skill, pc, submit) => (
+  tidesOfChaos: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => (
     <>
       {SORCERER_SKILLS_EXPLANATION.tidesOfChaos_text(skill, pc)}
 
@@ -149,6 +159,7 @@ export const SORCERER_SKILLS_EXPLANATION = {
         traitName="tidesOfChaos"
         submit={submit}
         traitGetter={getTidesOfChaos}
+        openModal={openModal}
       />
     </>
   ),
@@ -240,7 +251,17 @@ export const SORCERER_SKILLS_EXPLANATION = {
     </>
   ),
 
-  fontOfMagic: (skill, pc, submit) => (
+  fontOfMagic: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => (
     <>
       {SORCERER_SKILLS_EXPLANATION.fontOfMagic_text1(skill, pc)}
       <SpendTrait
@@ -248,12 +269,23 @@ export const SORCERER_SKILLS_EXPLANATION = {
         traitName="fontOfMagic"
         submit={submit}
         traitGetter={getCurrentSorcereryPoints}
+        openModal={openModal}
       />
       {SORCERER_SKILLS_EXPLANATION.fontOfMagic_text2(skill, pc)}
     </>
   ),
 
-  metamagic: (skill, pc, submit) => (
+  metamagic: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => (
     <>
       <p>
         A nivel 3 ganas la habilidad de moldear tus conjuros para que se adapten
@@ -286,6 +318,7 @@ export const SORCERER_SKILLS_EXPLANATION = {
               submit={submit}
               atHeader
               traitGetter={getCurrentSorcereryPoints}
+              openModal={openModal}
             />
           )}
           {METAMAGIC_EXPLANATION[metamagic]}

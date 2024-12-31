@@ -12,6 +12,7 @@ import {
   healPc,
   increaseItemAmount,
   updateAttrsForClass,
+  updateFeatAttr,
   updatePc,
 } from '~/services/pc.server';
 import { rollDice } from '~/domain/random';
@@ -25,7 +26,7 @@ import {
 } from '../classes/paladin/paladin';
 import { getMaxTidesOfChaos } from '../classes/sorcerer/sorcerer';
 import { getter } from '~/utils/objects';
-import { getFeat } from '../feats/featUtils';
+import { getFeat, MAX_LUCK_POINTS } from '../feats/featUtils';
 
 export async function setPcStats(pcParams) {
   const {
@@ -128,7 +129,7 @@ export async function shortRest(id, diceAmount, dieValue) {
 
 export async function longRest(id) {
   let pc = await getPc(id);
-  const { remainingHitDice, hitDice, magic, pClass } = pc;
+  const { remainingHitDice, hitDice, magic, pClass, feats } = pc;
 
   let newRemainingHitDice =
     remainingHitDice + (hitDice / 2 >= 1 ? Math.floor(hitDice / 2) : 1);
@@ -161,6 +162,10 @@ export async function longRest(id) {
       fontOfMagic: getMaxSorcereryPoints(pc),
       tidesOfChaos: getMaxTidesOfChaos(),
     });
+  }
+
+  if (feats?.list?.includes('lucky')) {
+    pc = await updateFeatAttr(id, 'lucky', MAX_LUCK_POINTS);
   }
 
   return pc;
@@ -282,6 +287,10 @@ export async function addFeatToPc(id, featId) {
         feats.extraStats[stat] += value;
       });
     }
+  }
+
+  if (featId === 'lucky') {
+    feats.lucky = MAX_LUCK_POINTS;
   }
 
   return await pc.save();

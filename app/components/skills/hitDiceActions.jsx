@@ -21,7 +21,7 @@ export const actions = {
 };
 
 function HitDiceActions(props) {
-  const { pc, submit, closeModal } = props;
+  const { pc, submit, closeModal, selectedAction = '' } = props;
   const { pClass, remainingHitDice, hitDice } = pc;
 
   function onVirtualDieClick() {
@@ -62,7 +62,7 @@ function HitDiceActions(props) {
 
   const [realDie, setRealDie] = useState(null);
   const [amountOfDice, setAmountOfDice] = useState(1);
-  const [action, setAction] = useState('');
+  const [action, setAction] = useState(selectedAction);
 
   const extraConHp = amountOfDice * getStatMod(getStat(pc, 'con'));
   const hpRecoveredNotation = `${amountOfDice}${CLASSES()[pClass].hitDice.slice(

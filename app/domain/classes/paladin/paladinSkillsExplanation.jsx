@@ -24,9 +24,9 @@ export const links = () => {
 };
 
 export const classTraitActions = {
-  ...createSpendActions('paladin', 'layOnHands', 'hp'),
-  ...createSpendActions('paladin', 'divineSense'),
-  ...createSpendActions('paladin', 'channelDivinity'),
+  ...createSpendActions('classAttrs.paladin', 'layOnHands', 'hp'),
+  ...createSpendActions('classAttrs.paladin', 'divineSense'),
+  ...createSpendActions('classAttrs.paladin', 'channelDivinity'),
 
   settlePaladinFightingStyle: async formData => {
     const id = formData.get('id');
@@ -45,7 +45,17 @@ export const classTraitActions = {
 };
 
 export const PALADIN_SKILLS_EXPLANATION = {
-  divineSense: (skill, pc, submit, closeModal) => {
+  divineSense: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => {
     return (
       <>
         {PALADIN_SKILLS_EXPLANATION.divineSense_text(skill, pc)}
@@ -55,6 +65,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
           traitName="divineSense"
           submit={submit}
           traitGetter={getDivineSense}
+          openModal={openModal}
         />
       </>
     );
@@ -533,7 +544,17 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  channelDivinity: (skill, pc, submit) => {
+  channelDivinity: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => {
     return (
       <>
         {PALADIN_SKILLS_EXPLANATION.channelDivinity_text(skill, pc)}
@@ -542,6 +563,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
           traitName="channelDivinity"
           submit={submit}
           traitGetter={getChannelDivinity}
+          openModal={openModal}
         />
       </>
     );
@@ -568,7 +590,17 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  sacredWeapon: (skill, pc, submit) => {
+  sacredWeapon: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => {
     return (
       <>
         {PALADIN_SKILLS_EXPLANATION.sacredWeapon_text(skill, pc)}
@@ -577,6 +609,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
           traitName="channelDivinity"
           submit={submit}
           traitGetter={getChannelDivinity}
+          openModal={openModal}
         />
       </>
     );
@@ -606,7 +639,17 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  turnTheUnholy: (skill, pc, submit) => {
+  turnTheUnholy: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => {
     return (
       <>
         {PALADIN_SKILLS_EXPLANATION.turnTheUnholy_text(skill, pc)}
@@ -615,12 +658,23 @@ export const PALADIN_SKILLS_EXPLANATION = {
           traitName="channelDivinity"
           submit={submit}
           traitGetter={getChannelDivinity}
+          openModal={openModal}
         />
       </>
     );
   },
 
-  naturesWrath: (skill, pc, submit) => {
+  naturesWrath: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => {
     return (
       <>
         {PALADIN_SKILLS_EXPLANATION.naturesWrath_text(skill, pc)}
@@ -629,6 +683,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
           traitName="channelDivinity"
           submit={submit}
           traitGetter={getChannelDivinity}
+          openModal={openModal}
         />
       </>
     );
@@ -676,7 +731,17 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  turnTheFaithless: (skill, pc, submit) => {
+  turnTheFaithless: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => {
     return (
       <>
         {PALADIN_SKILLS_EXPLANATION.turnTheFaithless_text(skill, pc)}
@@ -685,6 +750,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
           traitName="channelDivinity"
           submit={submit}
           traitGetter={getChannelDivinity}
+          openModal={openModal}
         />
       </>
     );
@@ -716,7 +782,17 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  abjureEnemy: (skill, pc, submit) => {
+  abjureEnemy: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => {
     return (
       <>
         {PALADIN_SKILLS_EXPLANATION.abjureEnemy_text(skill, pc)}
@@ -725,6 +801,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
           traitName="channelDivinity"
           submit={submit}
           traitGetter={getChannelDivinity}
+          openModal={openModal}
         />
       </>
     );
@@ -742,7 +819,17 @@ export const PALADIN_SKILLS_EXPLANATION = {
     );
   },
 
-  vowOfEnmity: (skill, pc, submit) => {
+  vowOfEnmity: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => {
     return (
       <>
         {PALADIN_SKILLS_EXPLANATION.vowOfEnmity_text(skill, pc)}
@@ -751,6 +838,7 @@ export const PALADIN_SKILLS_EXPLANATION = {
           traitName="channelDivinity"
           submit={submit}
           traitGetter={getChannelDivinity}
+          openModal={openModal}
         />
       </>
     );

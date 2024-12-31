@@ -5,11 +5,11 @@ import { spendTrait } from '~/services/pc.server';
 
 const capitalize = name => name.slice(0, 1).toUpperCase() + name.slice(1);
 
-export function createSpendActions(pClass, traitName, amountPropName) {
+export function createSpendActions(context, traitName, amountPropName) {
   return {
     [`spend${capitalize(traitName)}`]: async formData => {
       const id = formData.get('id');
-      const restArgs = [pClass, traitName];
+      const restArgs = [context, traitName];
       if (amountPropName) {
         const amount = formData.get(amountPropName);
         restArgs.push(amount);
@@ -21,7 +21,7 @@ export function createSpendActions(pClass, traitName, amountPropName) {
 }
 
 export default function SpendTrait(props) {
-  const { pc, traitName, submit, traitGetter, atHeader } = props;
+  const { pc, traitName, submit, traitGetter, atHeader, openModal } = props;
 
   const navigation = useNavigation();
   const isIdle = navigation.state === 'idle';
@@ -55,6 +55,22 @@ export default function SpendTrait(props) {
       {trait > 0 && (
         <button type="button" disabled={!isIdle} onClick={onSpendTraitClick}>
           Gastar
+        </button>
+      )}
+      {openModal && (
+        <button
+          type="button"
+          onClick={() =>
+            openModal(
+              'remainingHitDice',
+              0,
+              {},
+              'dontTriggerSeeTrait',
+              'longRest'
+            )('remainingHitDice', 'Dados de golpe')
+          }
+        >
+          Descanso prolongado
         </button>
       )}
     </div>

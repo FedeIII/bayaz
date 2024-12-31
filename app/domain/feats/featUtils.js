@@ -114,3 +114,9 @@ export function displayFeat(featId, pc) {
 export function isFeat(traitName) {
   return !!FEATS[traitName];
 }
+
+export function getLucky(pc) {
+  return pc.feats?.lucky || 0;
+}
+
+export const MAX_LUCK_POINTS = 3;

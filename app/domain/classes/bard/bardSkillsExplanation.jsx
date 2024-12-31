@@ -22,7 +22,7 @@ export const links = () => {
 };
 
 export const classTraitActions = {
-  ...createSpendActions('bard', 'bardicInspiration'),
+  ...createSpendActions('classAttrs.bard', 'bardicInspiration'),
 };
 
 export const BARD_SKILLS_EXPLANATION = {
@@ -65,7 +65,17 @@ export const BARD_SKILLS_EXPLANATION = {
     </>
   ),
 
-  bardicInspiration: (skill, pc, submit) => (
+  bardicInspiration: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal
+  ) => (
     <>
       {BARD_SKILLS_EXPLANATION.bardicInspiration_text(skill, pc)}
 
@@ -81,6 +91,7 @@ export const BARD_SKILLS_EXPLANATION = {
         traitName="bardicInspiration"
         submit={submit}
         traitGetter={getBardicInspiration}
+        openModal={openModal}
       />
     </>
   ),

@@ -307,6 +307,7 @@ const featsSchema = new mongoose.Schema({
   extraStats: statsSchema,
   elementalAdept: [String],
   martialAdept: [String],
+  lucky: Number,
 });
 
 ///////////////////////
@@ -1540,10 +1541,10 @@ export async function spendLayOnHands(id, hp) {
   return updatedPc;
 }
 
-export async function spendTrait(id, pClass, traitName, amount = 1) {
+export async function spendTrait(id, context, traitName, amount = 1) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
-    { $inc: { [`classAttrs.${pClass}.${traitName}`]: -amount } },
+    { $inc: { [`${context}.${traitName}`]: -amount } },
     { new: true, upsert: true }
   ).exec();
 

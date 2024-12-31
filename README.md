@@ -69,3 +69,32 @@
 - Some class skills can be piled up if you go back and forth in the browser navigation
 - Conditions for equiped items
 - When equipping a weapon from the summary screen, the correct slot is not used
+
+## GUIDES
+### SpendTrait
+Shows and manages remaining uses of a trait or feat
+- In trait explanation add to the end:
+    ```jsx
+    <SpendTrait
+      pc={pc}
+      traitName="traitName"
+      submit={submit}
+      traitGetter={getTraitName}
+      openModal={openModal}
+    />
+    ```
+- In the Pc Schema, add the trait as `traitName` under a `context` (like `classAttrs` or `feats`)
+    ```js
+      const featsSchema = new mongoose.Schema({
+        ...
+        traitName: Number,
+      });
+    ```
+- Create the trait actions in the explanation file (for example `featsExplanation.jsx`):
+    ```js
+    export const featsActions = {
+      ...createSpendActions('feats', 'traitName'),
+    };
+    ```
+- Initialize the trait with its max value. For example in the class initialization file (`characters.pc.new.$id.class.jsx`), or the trait selection file (`characters.pc.new.$id.leveling.abilityScoreImprovement/route.jsx`)
+- Reset the trait value on short or long rest (in `characterMutations.js`)

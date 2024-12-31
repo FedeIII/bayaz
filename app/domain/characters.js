@@ -96,7 +96,7 @@ import { getChildrenText } from '~/utils/getChildrenText';
 import { t } from './translations';
 import { parseGoldToMoney } from './equipment/money';
 import { getFeat, getFeatTraits, isFeat } from './feats/featUtils';
-import { FEATS_EXPLANATION } from './feats/featExplanations';
+import { FEATS_EXPLANATION, featsActions } from './feats/featExplanations';
 
 export const RACES = {
   dwarf: {
@@ -3238,6 +3238,8 @@ export function getSkillExplanation({
   position,
   isDm,
   actions,
+  openModal,
+  selectedAction,
 }) {
   return (
     {
@@ -3267,6 +3269,8 @@ export function getSkillExplanation({
       position,
       isDm,
       actions,
+      openModal,
+      selectedAction
     ) || skill
   );
 }
@@ -3277,6 +3281,7 @@ export function getTraitActions() {
     ...paladinTraitActions,
     ...rangerTraitActions,
     ...sorcererTraitActions,
+    ...featsActions,
   };
 }
 

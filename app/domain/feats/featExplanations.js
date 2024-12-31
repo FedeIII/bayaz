@@ -1,11 +1,17 @@
 import { Link } from '@remix-run/react';
 import {
+  getLucky,
   hasToSelectElement,
   hasToSelectMartialAdeptManeuvers,
 } from './featUtils';
 import { t } from '../translations';
 import { displayManeuver } from '../classes/fighter/fighterSkillsExplanation';
 import { getProficiencyBonus, getStat, getStatMod } from '../characters';
+import SpendTrait, { createSpendActions } from '~/components/spendTrait';
+
+export const featsActions = {
+  ...createSpendActions('feats', 'lucky'),
+};
 
 export const FEATS = {
   skulker: {
@@ -73,7 +79,8 @@ export const FEATS = {
   },
   lucky: {
     name: 'lucky',
-    description: (skill, pc) => (
+    extraDisplay: pc => <>. {pc.feats?.lucky || 0} puntos</>,
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => (
       <>
         <p>
           Tienes una suerte inexplicable que suele aparecer siempre en el
@@ -101,6 +108,16 @@ export const FEATS = {
           Recuperas tus puntos de suerte gastados cuando terminas un descanso
           prolongado.
         </p>
+
+        {!dontShowChooseTrait && (
+          <SpendTrait
+            pc={pc}
+            traitName="lucky"
+            submit={submit}
+            traitGetter={getLucky}
+            openModal={openModal}
+          />
+        )}
       </>
     ),
   },
@@ -982,7 +999,7 @@ export const FEATS = {
           . {pc.feats?.martialAdept.map(t).join(', ')}
         </>
       ),
-    description: (skill, pc, dontShowChooseTrait) => {
+    description: (skill, pc, submit, dontShowChooseTrait) => {
       const hasToSelect =
         !dontShowChooseTrait && hasToSelectMartialAdeptManeuvers(pc);
 
@@ -1052,7 +1069,7 @@ export const FEATS = {
     requirements: {
       spellcaster: true,
     },
-    description: (skill, pc, dontShowChooseTrait) => {
+    description: (skill, pc, submit, dontShowChooseTrait) => {
       const hasToSelect = !dontShowChooseTrait && hasToSelectElement(pc);
 
       return (
@@ -1097,7 +1114,17 @@ export const FEATS_LIST = Object.values(FEATS);
 
 export const FEATS_EXPLANATION = Object.values(FEATS).reduce(
   (explanations, feat) => {
-    explanations[feat.name] = (skill, pc) => feat.description(skill, pc, false);
+    explanations[feat.name] = (
+      skill,
+      pc,
+      submit,
+      closeModal,
+      skillIndex,
+      position,
+      isDm,
+      actions,
+      openModal
+    ) => feat.description(skill, pc, submit, false, openModal);
     return explanations;
   },
   {}

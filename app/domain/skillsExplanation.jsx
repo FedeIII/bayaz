@@ -145,13 +145,25 @@ export const SKILLS_EXPLANATION = {
     );
   },
 
-  remainingHitDice: (skill, pc, submit, closeModal) => {
+  remainingHitDice: (
+    skill,
+    pc,
+    submit,
+    closeModal,
+    skillIndex,
+    position,
+    isDm,
+    actions,
+    openModal,
+    selectedAction
+  ) => {
     return (
       <HitDiceActions
         skill={skill}
         pc={pc}
         submit={submit}
         closeModal={closeModal}
+        selectedAction={selectedAction}
       />
     );
   },

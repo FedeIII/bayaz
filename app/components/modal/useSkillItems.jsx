@@ -38,7 +38,8 @@ export function useSkillItems(
     sectionName,
     skillIndex = 0,
     actions,
-    dontTriggerSeeTrait
+    dontTriggerSeeTrait,
+    selectedAction
   ) {
     return (skillName, skill, bigModal, position) => {
       if (!dontTriggerSeeTrait) {
@@ -88,6 +89,8 @@ export function useSkillItems(
                 position={position}
                 isDm={isDm}
                 actions={actions}
+                openModal={openSkillModal}
+                selectedAction={selectedAction}
                 {...props}
               />
             )
