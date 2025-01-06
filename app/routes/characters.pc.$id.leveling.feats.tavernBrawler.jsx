@@ -4,7 +4,7 @@ import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateFeatSelection } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import { FEATS } from '~/domain/feats/featExplanations';
-import { t } from '~/domain/translations';ƒ
+import { t } from '~/domain/translations';
 
 const noOp = () => {};
 
