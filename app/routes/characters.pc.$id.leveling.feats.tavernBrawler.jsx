@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { getPc, updateFeatSelection } from '~/services/pc.server';
+
+import { getPc, updateFeatStat } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import { FEATS } from '~/domain/feats/featExplanations';
 import { t } from '~/domain/translations';
@@ -23,7 +24,7 @@ export const action = async ({ request }) => {
   const id = formData.get('id');
   const selectedStat = formData.get('selectedStat');
 
-  await updateFeatSelection(id, 'tavernBrawler', selectedStat);
+  await updateFeatStat(id, 'tavernBrawler', selectedStat);
 
   return redirect(`/characters/pc/${id}/summary`);
 };

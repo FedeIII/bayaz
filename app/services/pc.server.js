@@ -308,7 +308,12 @@ const featsSchema = new mongoose.Schema({
   martialAdept: [String],
   lucky: Number,
   extraStats: {
-    tavernBrawler: String,
+    type: Map,
+    of: String,
+  },
+  cantrips: {
+    type: Map,
+    of: String,
   },
 });
 
@@ -1605,7 +1610,7 @@ export async function modifyCustomTrait(id, traitId, trait) {
   return updatedPc;
 }
 
-export async function updateFeatSelection(id, featName, selectedStat) {
+export async function updateFeatStat(id, featName, selectedStat) {
   if (!isFeat(featName)) {
     throw new Error('Feat no válido');
   }
@@ -1626,6 +1631,25 @@ export async function updateFeatSelection(id, featName, selectedStat) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
     { $set: update },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function updateFeatCantrip(id, featName, selectedCantrip) {
+  if (!isFeat(featName)) {
+    throw new Error('Feat no válido');
+  }
+
+  const feat = getFeat(featName);
+  if (!feat?.bonus?.cantrip) {
+    throw new Error('El feat no requiere selección de truco');
+  }
+
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    { $set: { [`feats.cantrips.${featName}`]: selectedCantrip } },
     { new: true }
   ).exec();
 

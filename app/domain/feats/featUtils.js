@@ -65,13 +65,16 @@ export function getFeat(featId) {
 }
 
 export function getExtraStatForFeat(pc, statName) {
-  return Object.keys(pc.feats?.extraStats || {}).reduce((extraValue, featName) => {
-    if (pc.feats?.extraStats?.[featName] === statName) {
-      return extraValue + 1;
-    }
+  return Object.keys(pc.feats?.extraStats || {}).reduce(
+    (extraValue, featName) => {
+      if (pc.feats?.extraStats?.[featName] === statName) {
+        return extraValue + 1;
+      }
 
-    return extraValue;
-  }, 0);
+      return extraValue;
+    },
+    0
+  );
 }
 
 export function hasToSelectElement(pc) {
@@ -136,4 +139,11 @@ export function hasToSelectFeatStat(pc, featName) {
   if (!feat || !feat.bonus || !feat.requiredStatSelection) return false;
 
   return !pc.feats?.extraStats?.[featName];
+}
+
+export function hasToSelectCantrip(pc, featName) {
+  const feat = getFeat(featName);
+  if (!feat.bonus?.cantrip) return false;
+
+  return !pc.feats.cantrips?.[featName];
 }

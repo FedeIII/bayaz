@@ -1,6 +1,7 @@
 import { createRef, useRef, useState } from 'react';
-import { json, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
+
 import { getPc, updateAttrsForClass } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import { Card } from '~/components/cards/card';
@@ -8,7 +9,7 @@ import { replaceAt } from '~/utils/array';
 import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
-import { SPELL_LIST } from '~/domain/spells/spellList';
+import { ALL_CANTRIPS } from '~/domain/spells/spellList';
 import {
   getTomeSpells,
   hasToLearnTomeSpells,
@@ -33,7 +34,7 @@ export const loader = async ({ params }) => {
     );
   }
 
-  return json({ pc });
+  return { pc };
 };
 
 export const action = async ({ request }) => {
@@ -59,9 +60,7 @@ function TomeSpells() {
 
   useTitle('Brujo nivel ' + level);
 
-  const allCantrips = SPELL_LIST.filter(s => s.level === 0);
-
-  const [toLearn, setToLearn] = useState(allCantrips.map(() => false));
+  const [toLearn, setToLearn] = useState(ALL_CANTRIPS.map(() => false));
 
   function setSpellToLearn(spellIndex, checked) {
     setToLearn(oldToLearn => {

@@ -4,6 +4,7 @@ import {
   hasToSelectElement,
   hasToSelectMartialAdeptManeuvers,
   hasToSelectFeatStat,
+  hasToSelectCantrip,
 } from './featUtils';
 import { t } from '../translations';
 import { displayManeuver } from '../classes/fighter/fighterSkillsExplanation';
@@ -201,6 +202,13 @@ export const FEATS = {
   },
   athlete: {
     name: 'athlete',
+    requiredStatSelection: true,
+    bonus: {
+      stats: {
+        str: 1,
+        dex: 1,
+      },
+    },
     description: (skill, pc) => (
       <>
         <p>
@@ -476,32 +484,59 @@ export const FEATS = {
     requirements: {
       spellcaster: true,
     },
-    description: (skill, pc) => (
-      <>
-        <p>
-          Has aprendido técnicas para mejorar tus ataques con ciertos tipos de
-          conjuros, ganando los siguientes beneficios:
-        </p>
-        <ul>
-          <li>
-            Cuando lanzas un conjuro que requiere que hagas una tirada de
-            ataque, el alcance del conjuro se dobla.
-          </li>
-          <li>
-            Tus ataques con conjuros a distancia ignoran la cobertura normal y
-            superior.
-          </li>
-          <li>
-            Aprendes un truco que requiera una tirada de ataque. Puedes escoger
-            el truco de la lista de conjuros del bardo, brujo, clérigo, druida,
-            hechicero o mago. Tu característica de lanzamiento de conjuros para
-            este truco depende de la lista de conjuros de la que lo elijas:
-            Carisma para bardo, brujo, o hechicero; Sabiduría para clérigo o
-            druida; o Inteligencia para mago.
-          </li>
-        </ul>
-      </>
-    ),
+    bonus: {
+      cantrip: ['bard', 'warlock', 'cleric', 'druid', 'sorcerer', 'wizard'],
+    },
+    chooseTrait: pc => hasToSelectCantrip(pc, 'spellSniper'),
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
+      const hasToSelect =
+        !dontShowChooseTrait && hasToSelectCantrip(pc, 'spellSniper');
+
+      return (
+        <>
+          <p>
+            Has aprendido técnicas para mejorar tus ataques con ciertos tipos de
+            conjuros, ganando los siguientes beneficios:
+          </p>
+          <ul>
+            <li>
+              Cuando lanzas un conjuro que requiere que hagas una tirada de
+              ataque, el alcance del conjuro se dobla.
+            </li>
+            <li>
+              Tus ataques con conjuros a distancia ignoran la cobertura normal y
+              superior.
+            </li>
+            <li>
+              Aprendes un truco que requiera una tirada de ataque. Puedes
+              escoger el truco de la lista de conjuros del bardo, brujo,
+              clérigo, druida, hechicero o mago. Tu característica de
+              lanzamiento de conjuros para este truco depende de la lista de
+              conjuros de la que lo elijas: Carisma para bardo, brujo, o
+              hechicero; Sabiduría para clérigo o druida; o Inteligencia para
+              mago.
+            </li>
+          </ul>
+
+          {hasToSelect && (
+            <div className="inventory-item__modal-buttons">
+              <Link
+                to={`/characters/pc/${pc.id}/leveling/feats/spellSniper`}
+                className="inventory-item__modal-button"
+              >
+                Escoge Truco
+              </Link>
+            </div>
+          )}
+
+          {!hasToSelect && (
+            <div className="app__paragraph">
+              <u>Truco seleccionado:</u> {t(pc.feats?.cantrips.spellSniper)}
+            </div>
+          )}
+        </>
+      );
+    },
   },
   ritualCaster: {
     name: 'ritualCaster',
