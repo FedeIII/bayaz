@@ -26,7 +26,7 @@ import {
 } from '../classes/paladin/paladin';
 import { getMaxTidesOfChaos } from '../classes/sorcerer/sorcerer';
 import { getter } from '~/utils/objects';
-import { getFeat, MAX_LUCK_POINTS } from '../feats/featUtils';
+import { getFeat, hasToSelectFeatStat, MAX_LUCK_POINTS } from '../feats/featUtils';
 
 export async function setPcStats(pcParams) {
   const {
@@ -282,7 +282,7 @@ export async function addFeatToPc(id, featId) {
     feats.list.push(featId);
 
     const feat = getFeat(featId);
-    if (feat?.bonus?.stats) {
+    if (feat?.bonus?.stats && !hasToSelectFeatStat(pc, featId)) {
       Object.entries(feat.bonus.stats).forEach(([stat, value]) => {
         feats.extraStats[stat] += value;
       });

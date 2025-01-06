@@ -64,6 +64,16 @@ export function getFeat(featId) {
   return FEATS[featId];
 }
 
+export function getExtraStatForFeat(pc, statName) {
+  return Object.keys(pc.feats?.extraStats || {}).reduce((extraValue, featName) => {
+    if (pc.feats?.extraStats?.[featName] === statName) {
+      return extraValue + 1;
+    }
+
+    return extraValue;
+  }, 0);
+}
+
 export function hasToSelectElement(pc) {
   const numberOfElementalAdeptElementss =
     pc.feats?.list?.filter(featId => featId === 'elementalAdept')?.length || 0;
@@ -120,3 +130,10 @@ export function getLucky(pc) {
 }
 
 export const MAX_LUCK_POINTS = 3;
+
+export function hasToSelectFeatStat(pc, featName) {
+  const feat = getFeat(featName);
+  if (!feat || !feat.bonus || !feat.requiredStatSelection) return false;
+
+  return !pc.feats?.extraStats?.[featName];
+}

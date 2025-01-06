@@ -3,6 +3,7 @@ import {
   getLucky,
   hasToSelectElement,
   hasToSelectMartialAdeptManeuvers,
+  hasToSelectFeatStat,
 } from './featUtils';
 import { t } from '../translations';
 import { displayManeuver } from '../classes/fighter/fighterSkillsExplanation';
@@ -504,13 +505,13 @@ export const FEATS = {
   },
   ritualCaster: {
     name: 'ritualCaster',
-    chooseTrait: pc => true,
     requirements: {
       stats: {
         int: 13,
         wis: 13,
       },
     },
+    chooseTrait: pc => true,
     description: (skill, pc) => (
       <>
         <p>
@@ -730,58 +731,109 @@ export const FEATS = {
   },
   shieldMaster: {
     name: 'shieldMaster',
-    description: (skill, pc) => (
-      <>
-        <p>
-          Usas escudos no sólo como protección sino también ofensivamente. Ganas
-          los siguientes beneficios mientras estés empuñando un escudo:
-        </p>
-        <ul>
-          <li>
-            Si usas la acción de Ataque en tu turno, puedes usar una acción
-            adicional para intentar embestir con tu escudo a una criatura a 5
-            pies de tí.
-          </li>
-          <li>
-            Si no estás incapacitado, puedes añadir el modificador a la CA de tu
-            escudo a cualquier tirada de salvación de Destreza que hagas contra
-            un conjuro o cualquier otro efecto dañino que te tenga como objetivo
-            sólo a tí.
-          </li>
-          <li>
-            Si te ves sometido a algún efecto que te permita hacer una tirada de
-            salvación de Destreza para llevarte sólo la mitad del daño, puedes
-            usar tu reacción para no llevarte ningún daño si tienes éxito en la
-            tirada de salvación, interponiendo tu escudo entre tí y la fuente
-            del efecto.
-          </li>
-        </ul>
-      </>
-    ),
+    requiredStatSelection: true,
+    bonus: {
+      stats: {
+        con: 1,
+        dex: 1,
+      },
+    },
+    chooseTrait: pc => hasToSelectFeatStat(pc, 'shieldMaster'),
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
+      const hasToSelect =
+        !dontShowChooseTrait && hasToSelectFeatStat(pc, 'shieldMaster');
+
+      return (
+        <>
+          <p>
+            Usas escudos no sólo como protección sino también ofensivamente.
+            Ganas los siguientes beneficios mientras estés empuñando un escudo:
+          </p>
+          <ul>
+            <li>
+              Si usas la acción de Ataque en tu turno, puedes usar una acción
+              adicional para intentar embestir con tu escudo a una criatura a 5
+              pies de tí.
+            </li>
+            <li>
+              Si no estás incapacitado, puedes añadir el modificador a la CA de
+              tu escudo a cualquier tirada de salvación de Destreza que hagas
+              contra un conjuro o cualquier otro efecto dañino que te tenga como
+              objetivo sólo a tí.
+            </li>
+            <li>
+              Si te ves sometido a algún efecto que te permita hacer una tirada
+              de salvación de Destreza para llevarte sólo la mitad del daño,
+              puedes usar tu reacción para no llevarte ningún daño si tienes
+              éxito en la tirada de salvación, interponiendo tu escudo entre tí
+              y la fuente del efecto.
+            </li>
+          </ul>
+          {hasToSelect && (
+            <div className="inventory-item__modal-buttons">
+              <Link
+                to={`/characters/pc/${pc.id}/leveling/feats/shieldMaster`}
+                className="inventory-item__modal-button"
+              >
+                Escoge Atributo
+              </Link>
+            </div>
+          )}
+        </>
+      );
+    },
   },
   tavernBrawler: {
     name: 'tavernBrawler',
-    description: (skill, pc) => (
-      <>
-        <p>
-          Acostumbrado a peleas sucias y frenéticas usando cualquiera que sea el
-          arma que caiga en tus manos, ganas los siguientes beneficios:
-        </p>
-        <ul>
-          <li>
-            Aumenta tu puntuación de Fuerza o Constitución en 1, hasta un máximo
-            de 20.
-          </li>
-          <li>Ganas competencia con armas improvisadas.</li>
-          <li>Tu golpe sin armas causa un d4 de daño.</li>
-          <li>
-            Cuando golpeas a una criatura con un golpe sin armas o un arma
-            improvisada en tu turno, puedes usar una acción adicional para
-            intentar apresar a dicha criatura.
-          </li>
-        </ul>
-      </>
-    ),
+    requiredStatSelection: true,
+    bonus: {
+      stats: {
+        str: 1,
+        con: 1,
+      },
+    },
+    chooseTrait: pc => hasToSelectFeatStat(pc, 'tavernBrawler'),
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
+      const hasToSelect =
+        !dontShowChooseTrait && hasToSelectFeatStat(pc, 'tavernBrawler');
+
+      return (
+        <>
+          <p>
+            Acostumbrado a peleas sucias y frenéticas usando cualquiera que sea
+            el arma que caiga en tus manos, ganas los siguientes beneficios:
+          </p>
+          <ul>
+            <li>
+              Aumenta tu puntuación de Fuerza o Constitución en 1, hasta un
+              máximo de 20.
+            </li>
+            <li>Ganas competencia con armas improvisadas.</li>
+            <li>Tu golpe sin armas causa un d4 de daño.</li>
+            <li>
+              Cuando golpeas a una criatura con un golpe sin armas o un arma
+              improvisada en tu turno, puedes usar una acción adicional para
+              intentar apresar a dicha criatura.
+            </li>
+          </ul>
+          {hasToSelect && (
+            <div className="inventory-item__modal-buttons">
+              <Link
+                to={`/characters/pc/${pc.id}/leveling/feats/tavernBrawler`}
+                className="inventory-item__modal-button"
+              >
+                Escoge Atributo
+              </Link>
+            </div>
+          )}
+          {!hasToSelect && (
+            <div className="app__paragraph">
+              +1 a {t(pc.feats?.extraStats?.tavernBrawler)}
+            </div>
+          )}
+        </>
+      );
+    },
   },
   keenMind: {
     name: 'keenMind',

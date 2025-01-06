@@ -4,6 +4,8 @@ import { getAvailableFeats } from '~/domain/feats/featUtils';
 import { Card } from '~/components/cards/card';
 import { t } from '~/domain/translations';
 
+const noOp = () => {};
+
 export function FeatForm(props) {
   const { pc, improvementLevel, onBack } = props;
   const [selectedFeat, setSelectedFeat] = useState(null);
@@ -44,7 +46,7 @@ export function FeatForm(props) {
               titleClass="cards__title"
               bodyClassName="cards__body"
             >
-              {feat.description(null, pc)}
+              {feat.description(null, pc, noOp, 'dontShowChooseTrait')}
             </Card>
           </label>
         ))}

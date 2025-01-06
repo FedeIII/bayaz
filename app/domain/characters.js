@@ -95,7 +95,7 @@ import {
 import { getChildrenText } from '~/utils/getChildrenText';
 import { t } from './translations';
 import { parseGoldToMoney } from './equipment/money';
-import { getFeat, getFeatTraits, isFeat } from './feats/featUtils';
+import { getExtraStatForFeat, getFeat, getFeatTraits, isFeat } from './feats/featUtils';
 import { FEATS_EXPLANATION, featsActions } from './feats/featExplanations';
 
 export const RACES = {
@@ -2425,7 +2425,8 @@ export function getStat(pc, statName) {
   let totalStat =
     (stats[statName] || 0) +
     (extraStats[statName] || 0) +
-    (halfElfExtraStats[statName] || 0);
+    (halfElfExtraStats[statName] || 0) +
+    getExtraStatForFeat(pc, statName);
 
   if (
     level === 20 &&

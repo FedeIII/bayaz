@@ -68,7 +68,7 @@ import { getter } from '~/utils/objects';
 import { isSameScroll } from '~/domain/equipment/magicItems';
 import { getSectionPath } from '~/domain/equipment/items';
 import { getItem } from '~/domain/equipment/equipment';
-import { isFeat } from '~/domain/feats/featUtils';
+import { getFeat, isFeat } from '~/domain/feats/featUtils';
 
 const backgroundSchema = new mongoose.Schema({
   name: { type: String, enum: Object.keys(BACKGROUNDS) },
@@ -304,10 +304,12 @@ const locationSchema = new mongoose.Schema({
 // FEATS
 const featsSchema = new mongoose.Schema({
   list: [String],
-  extraStats: statsSchema,
   elementalAdept: [String],
   martialAdept: [String],
   lucky: Number,
+  extraStats: {
+    tavernBrawler: String,
+  },
 });
 
 ///////////////////////
@@ -1598,6 +1600,33 @@ export async function modifyCustomTrait(id, traitId, trait) {
     { id, 'customTraits.id': traitId },
     { $set: { 'customTraits.$.text': trait } },
     { new: true, upsert: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function updateFeatSelection(id, featName, selectedStat) {
+  if (!isFeat(featName)) {
+    throw new Error('Feat no válido');
+  }
+
+  const feat = getFeat(featName);
+  if (!feat?.requiredStatSelection || !feat?.bonus?.stats) {
+    throw new Error('El feat no requiere selección de atributo');
+  }
+
+  const availableStats = Object.keys(feat.bonus.stats);
+  if (!availableStats.includes(selectedStat)) {
+    throw new Error('Atributo no válido para este feat');
+  }
+
+  const update = {};
+  update[`feats.extraStats.${featName}`] = selectedStat;
+
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    { $set: update },
+    { new: true }
   ).exec();
 
   return updatedPc;
