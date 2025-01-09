@@ -408,7 +408,7 @@ export function t(key) {
     // Feats
     skulker: 'Acechador',
     actor: 'Actor',
-    lucky: 'Afortunado',
+    luckyFeat: 'Afortunado',
     alert: 'Alerta',
     grappler: 'Apresador',
     charger: 'Cargador',

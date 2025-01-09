@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react';
 import {
-  getLucky,
+  getLuckyFeat,
   hasToSelectElement,
   hasToSelectMartialAdeptManeuvers,
   hasToSelectFeatStat,
@@ -12,7 +12,7 @@ import { getProficiencyBonus, getStat, getStatMod } from '../characters';
 import SpendTrait, { createSpendActions } from '~/components/spendTrait';
 
 export const featsActions = {
-  ...createSpendActions('feats', 'lucky'),
+  ...createSpendActions('feats', 'luckyFeat'),
 };
 
 export const FEATS = {
@@ -79,9 +79,9 @@ export const FEATS = {
       </>
     ),
   },
-  lucky: {
-    name: 'lucky',
-    extraDisplay: pc => <>. {pc.feats?.lucky || 0} puntos</>,
+  luckyFeat: {
+    name: 'luckyFeat',
+    extraDisplay: pc => <>. {pc.feats?.luckyFeat || 0} puntos</>,
     description: (skill, pc, submit, dontShowChooseTrait, openModal) => (
       <>
         <p>
@@ -114,9 +114,9 @@ export const FEATS = {
         {!dontShowChooseTrait && (
           <SpendTrait
             pc={pc}
-            traitName="lucky"
+            traitName="luckyFeat"
             submit={submit}
-            traitGetter={getLucky}
+            traitGetter={getLuckyFeat}
             openModal={openModal}
           />
         )}
@@ -529,7 +529,7 @@ export const FEATS = {
             </div>
           )}
 
-          {!hasToSelect && (
+          {!hasToSelect && !dontShowChooseTrait && (
             <div className="app__paragraph">
               <u>Truco seleccionado:</u> {t(pc.feats?.cantrips.spellSniper)}
             </div>
@@ -861,7 +861,7 @@ export const FEATS = {
               </Link>
             </div>
           )}
-          {!hasToSelect && (
+          {!hasToSelect && !dontShowChooseTrait && (
             <div className="app__paragraph">
               +1 a {t(pc.feats?.extraStats?.tavernBrawler)}
             </div>
@@ -1121,7 +1121,7 @@ export const FEATS = {
               dados de superioridad gastados al finalizar un descanso corto o
               prolongado.
             </li>
-            {!hasToSelect && (
+            {!hasToSelect && !dontShowChooseTrait && (
               <li>
                 <u>Maniobras conocidas:</u>{' '}
                 <ul>

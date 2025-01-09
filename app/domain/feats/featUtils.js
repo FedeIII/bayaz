@@ -1,10 +1,9 @@
 import { ChooseTrait } from '~/components/summary/skillStates';
-import { getStat } from '../characters';
-import { isEldritchknight } from '../classes/fighter/fighter';
-import { isWayOfTheFourElements } from '../classes/monk/monk';
-import { isArcaneTrickster } from '../classes/rogue/rogue';
+import { CLASSES, getStat, getStatMod } from '../characters';
 import { FEATS, FEATS_LIST } from './featExplanations';
 import { t } from '~/domain/translations';
+import { getSpell } from '../spells/getSpells';
+import { canCastSpells, getSpellcastingAbility } from '../spells/spells';
 
 export function getAvailableFeats(pc) {
   return FEATS_LIST.filter(feat => {
@@ -27,17 +26,7 @@ export function getAvailableFeats(pc) {
       }
 
       if (featData.requirements.spellcaster) {
-        isAvailable =
-          ['wizard', 'sorcerer', 'cleric', 'druid', 'bard', 'warlock'].includes(
-            pc.pClass
-          ) ||
-          (pc.pClass === 'ranger' && pc.level >= 2) ||
-          (pc.pClass === 'paladin' && pc.level >= 2) ||
-          (pc.pClass === 'fighter' && isEldritchknight(pc)) ||
-          (pc.pClass === 'rogue' && isArcaneTrickster(pc)) ||
-          (pc.pClass === 'monk' && isWayOfTheFourElements(pc)) ||
-          isHighElf(pc) ||
-          isDrow(pc);
+        isAvailable = canCastSpells(pc);
 
         if (!isAvailable) {
           return false;
@@ -128,8 +117,8 @@ export function isFeat(traitName) {
   return !!FEATS[traitName];
 }
 
-export function getLucky(pc) {
-  return pc.feats?.lucky || 0;
+export function getLuckyFeat(pc) {ƒ
+  return pc.feats?.luckyFeat || 0;
 }
 
 export const MAX_LUCK_POINTS = 3;
@@ -146,4 +135,46 @@ export function hasToSelectCantrip(pc, featName) {
   if (!feat.bonus?.cantrip) return false;
 
   return !pc.feats.cantrips?.[featName];
+}
+
+export function getSpellSniperCantrip(pc) {
+  if (!pc.feats?.list?.includes('spellSniper')) return null;
+
+  const spellSniperCantrip = getSpell(pc.feats?.cantrips?.spellSniper);
+
+  if (!spellSniperCantrip) return null;
+
+  let castingStat = null;
+
+  if (canCastSpells(pc)) {
+    const pcCastStat = getSpellcastingAbility(pc);
+
+    spellSniperCantrip.class.forEach(sClass => {
+      if (pc.pClass === sClass) {
+        castingStat = pcCastStat;
+      }
+    });
+
+    if (!castingStat) {
+      spellSniperCantrip.class.forEach(sClass => {
+        const spellCastingStat = CLASSES()[sClass].spellcastingAbility;
+        if (spellCastingStat === pcCastStat) {
+          castingStat = spellCastingStat;
+        }
+      });
+    }
+  }
+
+  if (!castingStat) {
+    const classesWithMods = spellSniperCantrip.class.map(sClass => ({
+      sClass,
+      mod: getStatMod(getStat(pc, CLASSES()[sClass].spellcastingAbility)),
+    }));
+    const maxClass = classesWithMods.reduce((max, curr) =>
+      curr.mod > max.mod ? curr : max
+    );
+    castingStat = CLASSES()[maxClass.sClass].spellcastingAbility;
+  }
+
+  return { ...spellSniperCantrip, castingStat };
 }

@@ -19,6 +19,8 @@
 
 ## TO DOs
 
+- Spell lists: make them one single column when number < X
+- "Ligera" translation: conflict between the armor and the spell
 - Review bigModal prop
 - Move Regions to canvas
 - Rules searcher:

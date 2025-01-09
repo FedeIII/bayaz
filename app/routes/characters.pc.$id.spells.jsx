@@ -13,7 +13,8 @@ import { addPreparedSpell, deletePreparedSpell } from '~/services/pc.server';
 import { canCopySpells, translateClass } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import {
-  divideSpells,
+  displayAlternativeBonus,
+  divideSpellsByLevel,
   getMaxPreparedSpells,
   getSpellAttackBonus,
   getSpellcastingAbility,
@@ -116,7 +117,7 @@ function PcSpells() {
 
   const submit = useSubmit();
 
-  const spellsByLevel = divideSpells(pc);
+  const spellsByLevel = divideSpellsByLevel(pc);
   const spellSlots = getSpellSlots(pc);
 
   const initIsSpellPrepared = useMemo(
@@ -296,7 +297,7 @@ function PcSpells() {
           {increment(getSpellAttackBonus(pc))}
         </span>
 
-        {spellsByLevel.map((spells, level) => (
+        {spellsByLevel.map((spellsForLevel, level) => (
           <Fragment key={level}>
             {/* TOTAL SLOTS */}
             {level > 0 && (
@@ -353,7 +354,7 @@ function PcSpells() {
             )}
             {/* SPELL LIST */}
             <ul className={`spells__data spells__level spells__${level}`}>
-              {spells.map((spell, i) => (
+              {spellsForLevel.map((spell, i) => (
                 <li
                   className={`spells__data ${
                     level === 0 ? 'spells__cantrip' : 'spells__spell'
@@ -403,6 +404,9 @@ function PcSpells() {
                     >
                       <span className="tooltip">
                         {translateSpell(spell.name)}
+                        {spell.castingStat
+                          ? displayAlternativeBonus(pc, spell)
+                          : ''}
                         <span className="tooltiptext">
                           {translateSchool(spell.school)}
                           {(function () {

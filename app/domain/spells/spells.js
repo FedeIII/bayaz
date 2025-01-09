@@ -3,6 +3,8 @@ import {
   getProficiencyBonus,
   getStat,
   getStatMod,
+  isDrow,
+  isHighElf,
   RACES,
 } from '../characters';
 import {
@@ -126,6 +128,9 @@ import {
   ROGUE_SPELLS,
 } from './rogue';
 import { getKnownCantrips } from './getSpells';
+import { isWayOfTheFourElements } from '../classes/monk/monk';
+import { increment } from '../display';
+import { t } from '../translations';
 
 const zero = () => 0;
 
@@ -334,12 +339,14 @@ export function getSpellSavingThrow(pc, spellType) {
   return 8 + getSpellAttackBonus(pc, spellType);
 }
 
-export function divideSpells(pc) {
+export function divideSpellsByLevel(pc) {
   return [...getAllPcCantrips(pc), ...getAllPcSpells(pc)].reduce(
     (spellsByLevel, pSpell) => {
-      const spell = getSpell(pSpell.name);
+      const spell = getSpell(pSpell.name, pSpell);
       if (typeof spell?.level === 'number') {
         spellsByLevel[spell.level] = [...spellsByLevel[spell.level], spell];
+      } else {
+        console.error(`Spell ${pSpell.name} has no level`);
       }
       return spellsByLevel;
     },
@@ -456,4 +463,36 @@ export function getDeltaSpells(pc) {
     getCantripsNumber(pc) - getCantripsNumber({ ...pc, level: pc.level - 1 });
 
   return dSpells + dCantrips;
+}
+
+export function isSpellcaster(pc) {
+  return ['wizard', 'sorcerer', 'cleric', 'druid', 'bard', 'warlock'].includes(
+    pc.pClass
+  );
+}
+
+export function canCastSpells(pc) {
+  return (
+    isSpellcaster(pc) ||
+    (pc.pClass === 'ranger' && pc.level >= 2) ||
+    (pc.pClass === 'paladin' && pc.level >= 2) ||
+    (pc.pClass === 'fighter' && isEldritchknight(pc)) ||
+    (pc.pClass === 'rogue' && isArcaneTrickster(pc)) ||
+    (pc.pClass === 'monk' && isWayOfTheFourElements(pc)) ||
+    isHighElf(pc) ||
+    isDrow(pc)
+  );
+}
+
+export function displayAlternativeBonus(pc, spell) {
+  const alternativeBonus =
+    getProficiencyBonus(pc.level) + getStatMod(getStat(pc, spell.castingStat));
+
+  return (
+    <>
+      {' '}
+      ({t(spell.castingStat)}: CD{8 + alternativeBonus},{' '}
+      {increment(alternativeBonus)})
+    </>
+  );
 }

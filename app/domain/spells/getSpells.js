@@ -22,10 +22,16 @@ import {
   getMonkSpells,
 } from '../classes/monk/monk';
 import { getArcaneTricksterSpells } from '../classes/rogue/rogue';
+import { getSpellSniperCantrip } from '../feats/featUtils';
 
-export function getSpell(spellName) {
+export function getSpell(spellName, props) {
   if (!spellName) return null;
-  return SPELL_LIST.find(spell => spell.name === spellName) || {};
+  const baseSpell = SPELL_LIST.find(spell => spell.name === spellName) || {};
+
+  if (props) {
+    return { ...baseSpell, ...props };
+  }
+  return baseSpell;
 }
 
 export function getKnownCantrips(pc) {
@@ -47,16 +53,18 @@ export function getAllPcCantrips(pc) {
   const bonusCantrips = druidBonusCantrip ? [druidBonusCantrip] : [];
   const illusionCantrip = getImprovedMinorIllusionSpell(pc);
   const monasticTraditionCantrips = getMonasticTraditionCantrips(pc);
+  const spellSniperCantrip = getSpellSniperCantrip(pc);
 
   return (
     [
       ...spells,
       ...pactSpells,
       ...bonusCantrips,
+      ...(spellSniperCantrip ? [spellSniperCantrip] : []),
       ...(illusionCantrip ? [illusionCantrip] : []),
       ...monasticTraditionCantrips,
     ]
-      .map(pSpell => getSpell(pSpell.name))
+      .map(pSpell => getSpell(pSpell.name, pSpell))
       .filter(spell => spell.level === 0) || []
   );
 }

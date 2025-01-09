@@ -306,7 +306,7 @@ const featsSchema = new mongoose.Schema({
   list: [String],
   elementalAdept: [String],
   martialAdept: [String],
-  lucky: Number,
+  luckyFeat: Number,
   extraStats: {
     type: Map,
     of: String,

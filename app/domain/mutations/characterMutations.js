@@ -164,8 +164,8 @@ export async function longRest(id) {
     });
   }
 
-  if (feats?.list?.includes('lucky')) {
-    pc = await updateFeatAttr(id, 'lucky', MAX_LUCK_POINTS);
+  if (feats?.list?.includes('luckyFeat')) {
+    pc = await updateFeatAttr(id, 'luckyFeat', MAX_LUCK_POINTS);
   }
 
   return pc;
@@ -289,8 +289,8 @@ export async function addFeatToPc(id, featId) {
     }
   }
 
-  if (featId === 'lucky') {
-    feats.lucky = MAX_LUCK_POINTS;
+  if (featId === 'luckyFeat') {
+    feats.luckyFeat = MAX_LUCK_POINTS;
   }
 
   return await pc.save();
