@@ -485,14 +485,17 @@ export function canCastSpells(pc) {
 }
 
 export function displayAlternativeBonus(pc, spell) {
+  const pcCastingStat = getSpellcastingAbility(pc);
+
+  if (spell.castingStat === pcCastingStat) return '';
+
   const alternativeBonus =
     getProficiencyBonus(pc.level) + getStatMod(getStat(pc, spell.castingStat));
 
   return (
     <>
       {' '}
-      ({t(spell.castingStat)}: CD{8 + alternativeBonus},{' '}
-      {increment(alternativeBonus)})
+      (CD{8 + alternativeBonus}, {increment(alternativeBonus)})
     </>
   );
 }

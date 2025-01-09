@@ -46,6 +46,7 @@ import { translateSchool } from '~/domain/spells/spellTranslations';
 import NumericInput from '~/components/inputs/numeric';
 import { replaceAt } from '~/utils/array';
 import { useTitle } from '~/components/hooks/useTitle';
+import { t } from '~/domain/translations';
 
 import styles from '~/components/spells.css';
 export const links = () => {
@@ -245,6 +246,8 @@ function PcSpells() {
   const tomeRituals = getTomeRituals(pc);
   const arcanum = getArcanum(pc);
 
+  const pcCastingStat = getSpellcastingAbility(pc);
+
   return (
     <>
       <img src="/images/spells.jpg" className="spells__background" />
@@ -288,7 +291,7 @@ function PcSpells() {
           {')'}
         </span>
         <span className="spells__data spells__ability">
-          {getSpellcastingAbility(pc).toUpperCase()}
+          {pcCastingStat.toUpperCase()}
         </span>
         <span className="spells__data spells__saving-throw">
           {getSpellSavingThrow(pc)}
@@ -456,6 +459,12 @@ function PcSpells() {
                               (Arcanum)
                             </span>
                           )}
+                          {spell.castingStat &&
+                            spell.castingStat !== pcCastingStat && (
+                              <span className="spells__data spells__tooltip">
+                                ({t(spell.castingStat)})
+                              </span>
+                            )}
                         </span>
                       </span>
                     </SkillItem>{' '}
