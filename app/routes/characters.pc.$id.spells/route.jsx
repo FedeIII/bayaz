@@ -13,7 +13,6 @@ import { addPreparedSpell, deletePreparedSpell } from '~/services/pc.server';
 import { canCopySpells, translateClass } from '~/domain/characters';
 import { increment } from '~/domain/display';
 import {
-  displayAlternativeBonus,
   divideSpellsByLevel,
   getMaxPreparedSpells,
   getSpellAttackBonus,
@@ -28,17 +27,6 @@ import { SkillModal } from '~/components/modal/skillModal';
 import { useSkillItems } from '~/components/modal/useSkillItems';
 import { SkillItem } from '~/components/modal/skillItem';
 import {
-  getArcanum,
-  getInvocation,
-  getInvocations,
-  getPactSpells,
-  getTomeRituals,
-} from '~/domain/classes/warlock/warlock';
-import {
-  getLoreSpells,
-  getMagicalSecretsSpells,
-} from '~/domain/classes/bard/bard';
-import {
   resetSpellSlots,
   changeSpellSlot,
 } from '~/domain/mutations/characterMutations';
@@ -46,7 +34,16 @@ import { translateSchool } from '~/domain/spells/spellTranslations';
 import NumericInput from '~/components/inputs/numeric';
 import { replaceAt } from '~/utils/array';
 import { useTitle } from '~/components/hooks/useTitle';
-import { t } from '~/domain/translations';
+import {
+  AlternativeSpellBonus,
+  AlternativeSpellCastingStat,
+  WarlocksInvocation,
+  WarlocksPact,
+  WarlocksTomeRituals,
+  WarlocksArcanum,
+  BardsSchoolOfLore,
+  BardsMagicalSecrets,
+} from './spellTooltips';
 
 import styles from '~/components/spells.css';
 export const links = () => {
@@ -239,13 +236,6 @@ function PcSpells() {
 
   const formRef = useRef(null);
 
-  const loreSpells = getLoreSpells(pc);
-  const magicalSecretsSpells = getMagicalSecretsSpells(pc);
-  const invocations = getInvocations(pc).map(getInvocation);
-  const pactSpells = getPactSpells(pc);
-  const tomeRituals = getTomeRituals(pc);
-  const arcanum = getArcanum(pc);
-
   const pcCastingStat = getSpellcastingAbility(pc);
 
   return (
@@ -407,64 +397,19 @@ function PcSpells() {
                     >
                       <span className="tooltip">
                         {translateSpell(spell.name)}
-                        {spell.castingStat
-                          ? displayAlternativeBonus(pc, spell)
-                          : ''}
+                        <AlternativeSpellBonus pc={pc} spell={spell} />
+
                         <span className="tooltiptext">
                           {translateSchool(spell.school)}
-                          {(function () {
-                            const invocation = invocations.find(
-                              inv => inv.spell === spell.name
-                            );
-                            if (invocation) {
-                              return (
-                                <span className="spells__data spells__tooltip">
-                                  (Invocación,{' '}
-                                  {invocation.spendSlot
-                                    ? 'Consume hueco'
-                                    : 'No consume hueco'}
-                                  )
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                          {loreSpells.map(s => s.name).includes(spell.name) && (
-                            <span className="spells__data spells__tooltip">
-                              {' '}
-                              (Colegio del Conocimiento)
-                            </span>
-                          )}
-                          {magicalSecretsSpells
-                            .map(s => s.name)
-                            .includes(spell.name) && (
-                            <span className="spells__data spells__tooltip">
-                              {' '}
-                              (Secretos Mágicos)
-                            </span>
-                          )}
-                          {pactSpells.map(s => s.name).includes(spell.name) && (
-                            <span className="spells__data spells__tooltip">
-                              {' '}
-                              (Don del Pacto)
-                            </span>
-                          )}
-                          {tomeRituals.includes(spell.name) && (
-                            <span className="spells__data spells__tooltip">
-                              (Ritual)
-                            </span>
-                          )}
-                          {arcanum.includes(spell.name) && (
-                            <span className="spells__data spells__tooltip">
-                              (Arcanum)
-                            </span>
-                          )}
-                          {spell.castingStat &&
-                            spell.castingStat !== pcCastingStat && (
-                              <span className="spells__data spells__tooltip">
-                                ({t(spell.castingStat)})
-                              </span>
-                            )}
+                          <WarlocksInvocation pc={pc} spell={spell} />
+                          <WarlocksPact pc={pc} spell={spell} />
+                          <WarlocksTomeRituals pc={pc} spell={spell} />
+                          <WarlocksArcanum pc={pc} spell={spell} />
+
+                          <BardsSchoolOfLore pc={pc} spell={spell} />
+                          <BardsMagicalSecrets pc={pc} spell={spell} />
+
+                          <AlternativeSpellCastingStat pc={pc} spell={spell} />
                         </span>
                       </span>
                     </SkillItem>{' '}

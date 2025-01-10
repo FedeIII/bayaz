@@ -79,7 +79,6 @@ import {
   getForgottenLoreSpells,
   getForgottenMagicalSecretsSpells,
 } from '../classes/bard/bard';
-import { getInvocation, getInvocations } from '../classes/warlock/warlock';
 import { getDivineDomain } from '../classes/cleric/cleric';
 import { getDruidLandCircle } from '../classes/druid/druid';
 import {
@@ -92,7 +91,7 @@ import {
   maxRangerSpellLevel,
   RANGER_SPELLS,
 } from './ranger';
-import { getKnightSpells, isEldritchknight } from '../classes/fighter/fighter';
+import { isEldritchknight } from '../classes/fighter/fighter';
 import {
   FIGHTER_SPELLS,
   getFighterCantripsNumber,
@@ -113,10 +112,7 @@ import {
   PALADIN_SPELLS,
 } from './paladin';
 import { getSacredOath } from '../classes/paladin/paladin';
-import {
-  getArcaneTricksterSpells,
-  isArcaneTrickster,
-} from '../classes/rogue/rogue';
+import { isArcaneTrickster } from '../classes/rogue/rogue';
 import {
   getRogueCantripsNumber,
   getRogueSpellSlots,
@@ -129,8 +125,6 @@ import {
 } from './rogue';
 import { getKnownCantrips } from './getSpells';
 import { isWayOfTheFourElements } from '../classes/monk/monk';
-import { increment } from '../display';
-import { t } from '../translations';
 
 const zero = () => 0;
 
@@ -481,21 +475,5 @@ export function canCastSpells(pc) {
     (pc.pClass === 'monk' && isWayOfTheFourElements(pc)) ||
     isHighElf(pc) ||
     isDrow(pc)
-  );
-}
-
-export function displayAlternativeBonus(pc, spell) {
-  const pcCastingStat = getSpellcastingAbility(pc);
-
-  if (spell.castingStat === pcCastingStat) return '';
-
-  const alternativeBonus =
-    getProficiencyBonus(pc.level) + getStatMod(getStat(pc, spell.castingStat));
-
-  return (
-    <>
-      {' '}
-      (CD{8 + alternativeBonus}, {increment(alternativeBonus)})
-    </>
   );
 }

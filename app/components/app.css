@@ -270,6 +270,10 @@ html {
   color: var(--color-x-pale);
 }
 
+.app__semipale-text {
+  color: var(--color-pale);
+}
+
 .app__error-text {
   color: var(--color-red);
 }

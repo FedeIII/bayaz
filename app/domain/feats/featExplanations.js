@@ -5,6 +5,7 @@ import {
   hasToSelectMartialAdeptManeuvers,
   hasToSelectFeatStat,
   hasToSelectCantrip,
+  hasToSelectSpells,
 } from './featUtils';
 import { t } from '../translations';
 import { displayManeuver } from '../classes/fighter/fighterSkillsExplanation';
@@ -546,38 +547,74 @@ export const FEATS = {
         wis: 13,
       },
     },
-    chooseTrait: pc => true,
-    description: (skill, pc) => (
-      <>
-        <p>
-          Has aprendido un cierto número de conjuros que puedes lanzar como
-          rituales. Estos conjuros están escritos en un libro de rituales, que
-          debes de tener en la mano mientras lanzas algunos de ellos.
-        </p>
-        <p>
-          Cuando eliges esta dote, obtienes un libro de rituales que contiene
-          dos hechizos de nivel 1 de tu elección. Escoge una de las siguientes
-          clases: bardo, brujo, clérigo, druida, hechicero o mago. Debes de
-          elegir tus conjuros de la lista de conjuros de dicha clase, y los
-          conjuros que elijas deben de tener la etiqueta de ritual. La clase que
-          escojas también determina la característica de lanzamiento de conjuros
-          para estos conjuros: Carisma para bardo, brujo, o hechicero; Sabiduría
-          para clérigo o druida; o Inteligencia para mago.
-        </p>
-        <p>
-          Si te encuentras algún conjuro escrito, como un pergamino de conjuro o
-          un libro de conjuros de mago, puedes intentar añadirlo a tu libro de
-          rituales. El conjuro debe de estar en la lista de conjuros de la clase
-          que has escogido, el nivel de conjuro no puede ser más alto que la
-          mitad de tu nivel (redondeando hacia arriba), y debe de tener la
-          etiqueta de ritual. El proceso de copiar el conjuro en tu libro de
-          rituales lleva 2 horas por nivel de conjuro, y cuesta 50 po por nivel.
-          El coste representa los componentes materiales que gastas mientras
-          experimentas con el conjuro para dominarlo, y también la tinta de alta
-          calidad que necesitas para inscribirlo.
-        </p>
-      </>
-    ),
+    bonus: {
+      spells: [
+        {
+          amount: 2,
+          ritual: true,
+          class: ['bard', 'warlock', 'cleric', 'druid', 'sorcerer', 'wizard'],
+          maxSpellLevel: pc => Math.ceil(pc.level / 2),
+        },
+      ],
+    },
+    chooseTrait: pc => hasToSelectSpells(pc, 'ritualCaster'),
+    extraDisplay: pc =>
+      `: ${pc.feats?.spells.ritualCaster.map(s => t(s.name)).join(', ')}`,
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
+      const hasToSelect =
+        !dontShowChooseTrait && hasToSelectSpells(pc, 'ritualCaster');
+
+      return (
+        <>
+          <p>
+            Has aprendido un cierto número de conjuros que puedes lanzar como
+            rituales. Estos conjuros están escritos en un libro de rituales, que
+            debes de tener en la mano mientras lanzas algunos de ellos.
+          </p>
+          <p>
+            Cuando eliges esta dote, obtienes un libro de rituales que contiene
+            dos hechizos de nivel 1 de tu elección. Escoge una de las siguientes
+            clases: bardo, brujo, clérigo, druida, hechicero o mago. Debes de
+            elegir tus conjuros de la lista de conjuros de dicha clase, y los
+            conjuros que elijas deben de tener la etiqueta de ritual. La clase
+            que escojas también determina la característica de lanzamiento de
+            conjuros para estos conjuros: Carisma para bardo, brujo, o
+            hechicero; Sabiduría para clérigo o druida; o Inteligencia para
+            mago.
+          </p>
+          <p>
+            Si te encuentras algún conjuro escrito, como un pergamino de conjuro
+            o un libro de conjuros de mago, puedes intentar añadirlo a tu libro
+            de rituales. El conjuro debe de estar en la lista de conjuros de la
+            clase que has escogido, el nivel de conjuro no puede ser más alto
+            que la mitad de tu nivel (redondeando hacia arriba), y debe de tener
+            la etiqueta de ritual. El proceso de copiar el conjuro en tu libro
+            de rituales lleva 2 horas por nivel de conjuro, y cuesta 50 po por
+            nivel. El coste representa los componentes materiales que gastas
+            mientras experimentas con el conjuro para dominarlo, y también la
+            tinta de alta calidad que necesitas para inscribirlo.
+          </p>
+
+          {hasToSelect && (
+            <div className="inventory-item__modal-buttons">
+              <Link
+                to={`/characters/pc/${pc.id}/leveling/feats/ritualCaster`}
+                className="inventory-item__modal-button"
+              >
+                Escoge Conjuros
+              </Link>
+            </div>
+          )}
+
+          {!hasToSelect && !dontShowChooseTrait && (
+            <div className="app__paragraph">
+              <u>Conjuros seleccionados:</u>{' '}
+              {pc.feats?.spells.ritualCaster.map(s => t(s.name)).join(', ')}
+            </div>
+          )}
+        </>
+      );
+    },
   },
   inspiringLeader: {
     name: 'inspiringLeader',

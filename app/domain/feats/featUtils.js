@@ -117,7 +117,7 @@ export function isFeat(traitName) {
   return !!FEATS[traitName];
 }
 
-export function getLuckyFeat(pc) {ƒ
+export function getLuckyFeat(pc) {
   return pc.feats?.luckyFeat || 0;
 }
 
@@ -135,6 +135,15 @@ export function hasToSelectCantrip(pc, featName) {
   if (!feat.bonus?.cantrip) return false;
 
   return !pc.feats.cantrips?.[featName];
+}
+
+export function hasToSelectSpells(pc, featName) {
+  const feat = getFeat(featName);
+  if (!feat.bonus?.spells) return false;
+
+  return (
+    (pc.feats.spells?.[featName]?.length || 0) < (feat.bonus.spells.amount || 1)
+  );
 }
 
 export function getSpellSniperCantrip(pc) {
@@ -177,4 +186,8 @@ export function getSpellSniperCantrip(pc) {
   }
 
   return { ...spellSniperCantrip, castingStat };
+}
+
+export function getRitualCasterSpells(pc) {
+  return pc.feats?.spells?.ritualCaster || [];
 }

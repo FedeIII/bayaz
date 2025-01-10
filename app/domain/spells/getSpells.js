@@ -22,7 +22,10 @@ import {
   getMonkSpells,
 } from '../classes/monk/monk';
 import { getArcaneTricksterSpells } from '../classes/rogue/rogue';
-import { getSpellSniperCantrip } from '../feats/featUtils';
+import {
+  getRitualCasterSpells,
+  getSpellSniperCantrip,
+} from '../feats/featUtils';
 
 export function getSpell(spellName, props) {
   if (!spellName) return null;
@@ -113,6 +116,7 @@ export function getAllPcSpells(pc) {
   const wizardExtraSpells = getWizardExtraKnownSpells(pc);
   const monkSpells = getMonkSpells(pc);
   const rogueSpells = getArcaneTricksterSpells(pc);
+  const ritualCasterSpells = getRitualCasterSpells(pc);
 
   return unique(
     [
@@ -125,8 +129,9 @@ export function getAllPcSpells(pc) {
       ...wizardExtraSpells,
       ...monkSpells,
       ...rogueSpells,
+      ...ritualCasterSpells,
     ]
-      .map(pSpell => getSpell(pSpell.name))
+      .map(pSpell => getSpell(pSpell.name, pSpell))
       .filter(spell => spell.level > 0) || []
   );
 }

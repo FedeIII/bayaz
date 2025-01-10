@@ -315,6 +315,10 @@ const featsSchema = new mongoose.Schema({
     type: Map,
     of: String,
   },
+  spells: {
+    type: Map,
+    of: [spellSchema],
+  },
 });
 
 ///////////////////////
@@ -1650,6 +1654,32 @@ export async function updateFeatCantrip(id, featName, selectedCantrip) {
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
     { $set: { [`feats.cantrips.${featName}`]: selectedCantrip } },
+    { new: true }
+  ).exec();
+
+  return updatedPc;
+}
+
+export async function updateFeatSpells(id, featName, spells, spellClass) {
+  if (!isFeat(featName)) {
+    throw new Error('Feat no válido');
+  }
+
+  const feat = getFeat(featName);
+  if (!feat?.bonus?.spells) {
+    throw new Error('El feat no requiere selección de conjuros');
+  }
+
+  const updatedPc = await Pc.findOneAndUpdate(
+    { id },
+    {
+      $set: {
+        [`feats.spells.${featName}`]: spells.map(s => ({
+          name: s,
+          type: spellClass,
+        })),
+      },
+    },
     { new: true }
   ).exec();
 

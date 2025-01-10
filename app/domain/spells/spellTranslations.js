@@ -9,7 +9,7 @@ export const SPELL_TRANSLATIONS = {
   analyzeDweomer: 'Analizar esencia mágica',
   animalFriendship: 'Amistad con los animales',
   animalGrowth: 'Crecimiento animal',
-  animalMessenger: 'Animal mensajero',
+  animalMessenger: 'Mensajero animal',
   animalShapes: 'Formas de animal',
   animalTrance: 'Trance animal',
   animateDead: 'Reanimar a los muertos',

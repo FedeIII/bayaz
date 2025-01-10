@@ -35,10 +35,10 @@ export const action = async ({ request }) => {
   return redirect(`/characters/pc/${id}/summary`);
 };
 
-function TavernBrawlerSelection() {
+function SpellSniperSelection() {
   const { pc } = useLoaderData();
 
-  useTitle(t(FEATS.tavernBrawler.name));
+  useTitle(t(FEATS.spellSniper.name));
 
   const [selectedCantrip, setSelectedCantrip] = useState('');
 
@@ -148,16 +148,16 @@ export function ErrorBoundary({ error }) {
 
   return (
     <div>
-      <h2 className="app__error-text">{error.message}</h2>
+      <h2 className="app__error-text">{error?.message || 'Error'}</h2>
 
       <p className="app__paragraph">
         A veces, ocurren errores al intentar seleccionar una opción. Por favor,
         intenta nuevamente.
       </p>
 
-      <p className="app__error-stack">{error.stack}</p>
+      <p className="app__error-stack">{error?.stack || 'Error'}</p>
     </div>
   );
 }
 
-export default TavernBrawlerSelection;
+export default SpellSniperSelection;
