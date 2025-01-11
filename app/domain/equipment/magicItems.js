@@ -172,6 +172,21 @@ const AMULETS = {
       ...props,
     };
   },
+  pendantOfTheMoon(props) {
+    return {
+      name: 'pendantOfTheMoon',
+      type: 'amulet',
+      translation: 'Colgante de la Luna',
+      unidentifiedName: 'Colgante con una luna',
+      rarity: 'common',
+      price: { gp: 50 },
+      weight: 0.02,
+      description: () => `<p>Requiere sintonización</p>
+      <p>Cuando llevas este colgante, tienes ventaja en todas las tiradas de salvación y pruebas relacionadas con la Sabiduría mientras sea de noche sin luna nueva</p>
+      <p>Esto incluye las pruebas de Sabiduría, tiradas de salvación de Sabiduría y pruebas de Medicina, Percepción, Perspicacia, Supervivencia y Trato con Animales</p>`,
+      ...props,
+    };
+  },
 };
 
 const RINGS = {

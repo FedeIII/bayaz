@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { useRemoveMenu } from '~/components/hooks/useRemoveMenu';
 
 const FADE_TRANSITION_DURATION = 1000;
-const FADE_OUT_DURATION = FADE_TRANSITION_DURATION / 5;
+const FADE_OUT_DURATION = FADE_TRANSITION_DURATION / 2;
 
 export default function Share(props) {
   const { title: newTitle, img: newImg, animationInactive } = props;
