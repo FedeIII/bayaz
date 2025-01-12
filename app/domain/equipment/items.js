@@ -80,6 +80,7 @@ export function hasActions(item) {
 }
 
 export function renderItemName(item) {
+  if (!item) return '';
   return item.unidentifiedName && !item.identified
     ? item.unidentifiedName
     : item.translation || t(item.name);

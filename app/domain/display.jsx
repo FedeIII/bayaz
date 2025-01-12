@@ -11,7 +11,6 @@ import {
 import {
   getDamageBonus,
   getDamageDice,
-  getItemArmorClass,
   getStat,
   getStatMod,
   getStats,
@@ -22,6 +21,7 @@ import {
   translateSavingThrowStatus,
   getItemExtraArmorClass,
   getItemBaseArmorClass,
+  getProficiencyBonus,
 } from './characters';
 import {
   getAllHeavyArmors,
@@ -601,6 +601,7 @@ export function getAcBreakdown(pc) {
       equipment: { armor: pArmor = {}, shield: pShield = {} },
     },
     pClass,
+    feats: { list: feats },
   } = pc;
 
   const armor = pArmor && getItem(pArmor);
@@ -694,6 +695,13 @@ export function getAcBreakdown(pc) {
 
   if (shield) {
     acBreakdown.extras.push({ title: 'Escudo', ac: `(+2)` });
+  }
+
+  if (feats.includes('defensiveDuelist')) {
+    acBreakdown.extras.push({
+      title: t('defensiveDuelist'),
+      ac: `(+${getProficiencyBonus(pc.level)})`,
+    });
   }
 
   return acBreakdown;

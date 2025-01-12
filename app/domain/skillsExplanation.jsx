@@ -5,6 +5,7 @@ import {
   getArmorClass,
   getAttackBonus,
   getAttackExtraBonus,
+  getExtraArmorClass,
   getExtraHitPoints,
   getStat,
   getStatMod,
@@ -395,8 +396,7 @@ export const SKILLS_EXPLANATION = {
                 <td className="inventory-item__table-cell-level">{extra.ac}</td>
               ))}
               <td className="inventory-item__table-cell-extra">
-                {getArmorClass(pc)}
-                {shield ? ' (+2)' : ''}
+                {getArmorClass(pc)} ({increment(getExtraArmorClass(pc))})
               </td>
             </tr>
           </tbody>

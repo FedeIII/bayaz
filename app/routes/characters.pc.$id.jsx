@@ -37,11 +37,7 @@ function Pc() {
   const { pc, playerName, isDm } = useLoaderData();
   useTitle(pc.name);
 
-  return (
-    <div className="characters__container">
-      <Outlet context={{ pc, playerName, isDm }} />
-    </div>
-  );
+  return <Outlet context={{ pc, playerName, isDm }} />;
 }
 
 export default Pc;

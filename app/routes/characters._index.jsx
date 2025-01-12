@@ -36,15 +36,11 @@ function CharactersMenu() {
 
   if (!menuItems) return null;
 
-  return (
-    <div className="characters__container">
-      {menuItems.map(item => (
-        <Link to={item.url} className="menus__main-option">
-          <span className="menus__option-label">{item.name}</span>
-        </Link>
-      ))}
-    </div>
-  );
+  return menuItems.map(item => (
+    <Link to={item.url} className="menus__main-option">
+      <span className="menus__option-label">{item.name}</span>
+    </Link>
+  ));
 }
 
 export default withLoading(CharactersMenu);

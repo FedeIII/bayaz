@@ -95,7 +95,12 @@ import {
 import { getChildrenText } from '~/utils/getChildrenText';
 import { t } from './translations';
 import { parseGoldToMoney } from './equipment/money';
-import { getExtraStatForFeat, getFeat, getFeatTraits, isFeat } from './feats/featUtils';
+import {
+  getExtraStatForFeat,
+  getFeat,
+  getFeatTraits,
+  isFeat,
+} from './feats/featUtils';
 import { FEATS_EXPLANATION, featsActions } from './feats/featExplanations';
 
 export const RACES = {
@@ -2805,13 +2810,25 @@ export function getArmorClass(pc) {
 }
 
 export function getExtraArmorClass(pc) {
-  const shield = getItem(pc.items.equipment.shield);
+  const {
+    items: {
+      equipment: { shield: pShield = {} },
+    },
+    feats: { list: feats },
+  } = pc;
+
+  let extraAC = 0;
+
+  const shield = getItem(pShield);
   if (shield)
-    return (
+    extraAC +=
       shield.properties.baseAC +
-      (shield.properties.extraAC?.(getStats(pc)) || 0)
-    );
-  else return 0;
+      (shield.properties.extraAC?.(getStats(pc)) || 0);
+
+  if (feats.includes('defensiveDuelist'))
+    extraAC += getProficiencyBonus(pc.level);
+
+  return extraAC;
 }
 
 export function getAttackBonus(pc, weapons, weapon, weaponIndex) {

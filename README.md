@@ -19,6 +19,8 @@
 
 ## TO DOs
 
+- In combats, add spells of mobs in notes
+- Add quick npcs to combats
 - Spell lists: make them one single column when number < X
 - "Ligera" translation: conflict between the armor and the spell
 - Review bigModal prop
