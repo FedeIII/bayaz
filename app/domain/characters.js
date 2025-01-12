@@ -2289,11 +2289,17 @@ export function isProficientStat(stat, pClass) {
 }
 
 export function getExtraHitPoints(pc) {
-  const { race, subrace, pClass, level } = pc;
+  const {
+    race,
+    subrace,
+    level,
+    feats: { list: feats },
+  } = pc;
   return (
     (RACES[race][subrace].extraHitPoints || 0) +
     getStatMod(getStat(pc, 'con')) * level +
-    (isDraconicBloodline(pc) ? pc.level : 0)
+    (isDraconicBloodline(pc) ? pc.level : 0) +
+    (feats.includes('tough') ? level * 2 : 0)
   );
 }
 

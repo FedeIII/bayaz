@@ -137,7 +137,9 @@ export const SKILLS_EXPLANATION = {
                 {increment(conHp)} x {level}
               </td>
               {!!extraHp && (
-                <td className="inventory-item__table-cell-extra">{extraHp}</td>
+                <td className="inventory-item__table-cell-extra">
+                  {increment(extraHp)}
+                </td>
               )}
             </tr>
           </tbody>
