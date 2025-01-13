@@ -394,6 +394,14 @@ export const FEATS = {
   },
   dungeonDelver: {
     name: 'dungeonDelver',
+    extraDisplay: pc => (
+      <>
+        .{' '}
+        <span className="app__tiny-text">
+          Ventaja y resistencia para trampas.
+        </span>
+      </>
+    ),
     description: (skill, pc) => (
       <>
         <p>

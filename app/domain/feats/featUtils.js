@@ -102,10 +102,6 @@ export function getFeatTraits(pc) {
 }
 
 export function displayFeat(featId, pc) {
-  switch (featId) {
-    default:
-  }
-
   const feat = getFeat(featId);
 
   const displayed = t(featId);
@@ -114,7 +110,9 @@ export function displayFeat(featId, pc) {
 
   return (
     <>
-      {displayed}
+      <u>
+        <strong>{displayed}</strong>
+      </u>
       {feat?.chooseTrait?.(pc) && <ChooseTrait />}
       {feat?.extraDisplay?.(pc)}
     </>

@@ -395,6 +395,8 @@ export function getConditionalSkills(pc) {
     classAttrs: { skills: classSkills },
   } = pc;
 
+  const feats = getFeats(pc);
+
   return (
     {
       ...RACES[race][subrace].conditionalSkills,
@@ -412,6 +414,18 @@ export function getConditionalSkills(pc) {
       ...(hasStealthDisadvantage(getArmor(pc))
         ? {
             stealth: pc => ['Desventaja'],
+          }
+        : {}),
+      ...(feats.includes('actor')
+        ? {
+            deception: pc => ['Ventaja', 'imitar'],
+            performance: pc => ['Ventaja', 'imitar'],
+          }
+        : {}),
+      ...(feats.includes('dungeonDelver')
+        ? {
+            perception: pc => ['Ventaja', 'puertas secretas'],
+            investigation: pc => ['Ventaja', 'puertas secretas'],
           }
         : {}),
     } || {}
