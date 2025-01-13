@@ -22,11 +22,14 @@ import {
   getAllLightArmors,
   getAllMediumArmors,
   getShieldArmorClass,
+  hasStealthDisadvantage,
 } from './equipment/armors';
 import {
   canBeAlwaysEquipped,
   explodeEquipment,
+  getArmor,
   getItem,
+  hasMediumArmor,
   unifyEquipment,
 } from './equipment/equipment';
 import {
@@ -406,6 +409,11 @@ export function getConditionalSkills(pc) {
         }),
         {}
       ),
+      ...(hasStealthDisadvantage(getArmor(pc))
+        ? {
+            stealth: pc => ['Desventaja'],
+          }
+        : {}),
     } || {}
   );
 }
@@ -2815,7 +2823,18 @@ export function getItemBaseArmorClass(itemName) {
 }
 
 export function getItemExtraArmorClass(itemName, pc) {
-  return getItem(itemName).properties.extraAC?.(getStats(pc)) || 0;
+  const extraAC = getItem(itemName).properties.extraAC?.(getStats(pc)) || 0;
+
+  const feats = getFeats(pc);
+  if (
+    feats.includes('mediumArmorMaster') &&
+    hasMediumArmor(pc) &&
+    extraAC === 2
+  ) {
+    return 3;
+  }
+
+  return extraAC;
 }
 
 export function getArmorClass(pc) {

@@ -119,6 +119,7 @@
 
 .sheet__annotation {
   font-size: var(--font-size-xxs);
+  color: var(--color-x-blue-ink);
   position: absolute;
   top: -5px;
   left: 30px;

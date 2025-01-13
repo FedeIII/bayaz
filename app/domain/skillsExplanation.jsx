@@ -371,11 +371,6 @@ export const SKILLS_EXPLANATION = {
 
   armorClass: (skill, pc) => {
     const acs = getAcBreakdown(pc);
-    const {
-      items: {
-        equipment: { shield },
-      },
-    } = pc;
 
     return (
       <div className="inventory-item__hp-container">
@@ -384,7 +379,10 @@ export const SKILLS_EXPLANATION = {
             <tr>
               <th className="inventory-item__table-cell-level">{acs.title}</th>
               {acs.extras.map(extra => (
-                <th className="inventory-item__table-cell-level">
+                <th
+                  className="inventory-item__table-cell-level"
+                  key={extra.title}
+                >
                   {extra.title}
                 </th>
               ))}
@@ -395,7 +393,12 @@ export const SKILLS_EXPLANATION = {
             <tr>
               <td className="inventory-item__table-cell-level">{acs.base}</td>
               {acs.extras.map(extra => (
-                <td className="inventory-item__table-cell-level">{extra.ac}</td>
+                <td
+                  className="inventory-item__table-cell-level"
+                  key={extra.title}
+                >
+                  {extra.ac}
+                </td>
               ))}
               <td className="inventory-item__table-cell-extra">
                 {getArmorClass(pc)} ({increment(getExtraArmorClass(pc))})

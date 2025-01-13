@@ -174,3 +174,14 @@ export function hasHeavyArmor(pc) {
   const armor = getArmor(pc);
   return armor?.subtype === 'heavy';
 }
+
+export function hasMediumArmor(pc) {
+  const armor = getArmor(pc);
+  return armor?.subtype === 'medium';
+}
+
+export function hasLightArmor(pc) {
+  const armor = getArmor(pc);
+  return armor?.subtype === 'light';
+}
+

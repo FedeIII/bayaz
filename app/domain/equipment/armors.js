@@ -273,3 +273,7 @@ export function getShieldArmorClass(shield) {
     (shield.properties?.extraAC?.(getStats(pc)) || 0)
   );
 }
+
+export function hasStealthDisadvantage(armor) {
+  return !!armor.properties.stealthDisadvantage;
+}

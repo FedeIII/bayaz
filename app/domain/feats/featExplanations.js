@@ -11,7 +11,11 @@ import { t } from '../translations';
 import { displayManeuver } from '../classes/fighter/fighterSkillsExplanation';
 import { getProficiencyBonus, getStat, getStatMod } from '../characters';
 import SpendTrait, { createSpendActions } from '~/components/spendTrait';
-import { getArmor, hasHeavyArmor } from '../equipment/equipment';
+import {
+  getArmor,
+  hasHeavyArmor,
+  hasMediumArmor,
+} from '../equipment/equipment';
 
 export const featsActions = {
   ...createSpendActions('feats', 'luckyFeat'),
@@ -710,6 +714,12 @@ export const FEATS = {
     requirements: {
       proficiency: 'mediumArmors',
     },
+    extraDisplay: pc => (
+      <>
+        .{' '}
+        <span className="app__tiny-text">{hasMediumArmor(pc) ? '✓' : '✗'}</span>
+      </>
+    ),
     description: (skill, pc) => (
       <>
         <p>
@@ -726,6 +736,14 @@ export const FEATS = {
             2, a tu CA si tienes una puntuación de Destreza de 16 o superior.
           </li>
         </ul>
+        <span>
+          <u>Armadura equipada:</u> {getArmor(pc).translation}{' '}
+          {hasMediumArmor(pc) ? (
+            <span className="green-text">✓{t(getArmor(pc).subtype)}</span>
+          ) : (
+            <span className="red-text">✗{t(getArmor(pc).subtype)}</span>
+          )}
+        </span>
       </>
     ),
   },
@@ -740,12 +758,16 @@ export const FEATS = {
       },
     },
     extraDisplay: pc =>
-      hasHeavyArmor(pc) && (
+      hasHeavyArmor(pc) ? (
         <>
           .{' '}
           <span className="app__tiny-text">
-            -3 daño <u>contundente</u>, <u>cortante</u>, y <u>perforante</u>
+            ✓ -3 daño <u>contundente</u>, <u>cortante</u>, y <u>perforante</u>
           </span>
+        </>
+      ) : (
+        <>
+          . <span className="app__tiny-text">✗</span>
         </>
       ),
     description: (skill, pc) => (
