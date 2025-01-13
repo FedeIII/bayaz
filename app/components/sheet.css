@@ -267,6 +267,7 @@
 .sheet__dexSaving {
   grid-area: deS;
   align-items: center;
+  gap: 4em;
 }
 
 .sheet__conSaving {
@@ -287,6 +288,12 @@
 .sheet__chaSaving {
   grid-area: chS;
   align-items: center;
+}
+
+.sheet__saving-throw-note {
+  font-size: var(--font-size-xs);
+  margin-right: 25%;
+  text-align: start;
 }
 
 .sheet__armor-class {
@@ -555,6 +562,7 @@
 }
 
 .sheet__saving {
+  display: flex;
 }
 
 .sheet__acrobaticsSaving {

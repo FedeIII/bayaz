@@ -434,6 +434,14 @@ html {
   margin: 0 !important;
 }
 
+.green-text {
+  color: var(--color-green) !important;
+}
+
+.red-text {
+  color: var(--color-red) !important;
+}
+
 .x-green-text {
   color: var(--color-x-green) !important;
 }

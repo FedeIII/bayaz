@@ -21,6 +21,7 @@ import {
   getAllHeavyArmors,
   getAllLightArmors,
   getAllMediumArmors,
+  getShieldArmorClass,
 } from './equipment/armors';
 import {
   canBeAlwaysEquipped,
@@ -98,6 +99,7 @@ import { parseGoldToMoney } from './equipment/money';
 import {
   getExtraStatForFeat,
   getFeat,
+  getFeats,
   getFeatTraits,
   isFeat,
 } from './feats/featUtils';
@@ -160,6 +162,8 @@ export const RACES = {
         'handaxe',
         'lightHammer',
         'warhammer',
+        'lightArmors',
+        'mediumArmors',
         ...getAllLightArmors().map(armor => armor.name),
         ...getAllMediumArmors().map(armor => armor.name),
       ],
@@ -413,9 +417,12 @@ export function CLASSES() {
       hitDice: '1d12',
       proficientStats: ['str', 'con'],
       proficientItems: [
+        'lightArmors',
+        'mediumArmors',
         ...getAllLightArmors().map(armor => armor.name),
         ...getAllMediumArmors().map(armor => armor.name),
         'shield',
+        'allWeapons',
         ...getAllWeapons().map(weapon => weapon.name),
       ],
       pickSkills: 2,
@@ -570,7 +577,10 @@ export function CLASSES() {
         'persuasion',
       ],
       proficientItems: [
+        'lightArmors',
         ...getAllLightArmors().map(armor => armor.name),
+        'simpleMeleeWeapons',
+        'simpleRangedWeapons',
         ...getAllSimpleMelee().map(weapon => weapon.name),
         ...getAllSimpleRanged().map(weapon => weapon.name),
         'handCrossbow',
@@ -686,9 +696,13 @@ export function CLASSES() {
         'religion',
       ],
       proficientItems: [
+        'lightArmors',
+        'mediumArmors',
         ...getAllLightArmors().map(armor => armor.name),
         ...getAllMediumArmors().map(armor => armor.name),
         'shield',
+        'simpleMeleeWeapons',
+        'simpleRangedWeapons',
         ...getAllSimpleMelee().map(weapon => weapon.name),
         ...getAllSimpleRanged().map(weapon => weapon.name),
       ],
@@ -911,6 +925,8 @@ export function CLASSES() {
         'animal-handling',
       ],
       proficientItems: [
+        'lightArmors',
+        'mediumArmors',
         ...getAllLightArmors().map(armor => armor.name),
         ...getAllMediumArmors().map(armor => armor.name),
         'shield',
@@ -1033,10 +1049,17 @@ export function CLASSES() {
         'survival',
       ],
       proficientItems: [
+        'lightArmors',
+        'mediumArmors',
+        'heavyArmors',
         ...getAllLightArmors().map(armor => armor.name),
         ...getAllMediumArmors().map(armor => armor.name),
         ...getAllHeavyArmors().map(armor => armor.name),
         'shield',
+        'simpleMeleeWeapons',
+        'simpleRangedWeapons',
+        'martialMeleeWeapons',
+        'martialRangedWeapons',
         ...getAllSimpleMelee().map(weapon => weapon.name),
         ...getAllSimpleRanged().map(weapon => weapon.name),
         ...getAllMartialMelee().map(weapon => weapon.name),
@@ -1167,6 +1190,8 @@ export function CLASSES() {
         'stealth',
       ],
       proficientItems: [
+        'simpleMeleeWeapons',
+        'simpleRangedWeapons',
         ...getAllSimpleMelee().map(weapon => weapon.name),
         ...getAllSimpleRanged().map(weapon => weapon.name),
         'shortsword',
@@ -1340,10 +1365,17 @@ export function CLASSES() {
         'religion',
       ],
       proficientItems: [
+        'lightArmors',
+        'mediumArmors',
+        'heavyArmors',
         ...getAllLightArmors().map(armor => armor.name),
         ...getAllMediumArmors().map(armor => armor.name),
         ...getAllHeavyArmors().map(armor => armor.name),
         'shield',
+        'simpleMeleeWeapons',
+        'simpleRangedWeapons',
+        'martialMeleeWeapons',
+        'martialRangedWeapons',
         ...getAllSimpleMelee().map(weapon => weapon.name),
         ...getAllSimpleRanged().map(weapon => weapon.name),
         ...getAllMartialMelee().map(weapon => weapon.name),
@@ -1510,9 +1542,15 @@ export function CLASSES() {
         'survival',
       ],
       proficientItems: [
+        'lightArmors',
+        'mediumArmors',
         ...getAllLightArmors().map(armor => armor.name),
         ...getAllMediumArmors().map(armor => armor.name),
         'shield',
+        'simpleMeleeWeapons',
+        'simpleRangedWeapons',
+        'martialMeleeWeapons',
+        'martialRangedWeapons',
         ...getAllSimpleMelee().map(weapon => weapon.name),
         ...getAllSimpleRanged().map(weapon => weapon.name),
         ...getAllMartialMelee().map(weapon => weapon.name),
@@ -1648,7 +1686,10 @@ export function CLASSES() {
         'stealth',
       ],
       proficientItems: [
+        'lightArmors',
         ...getAllLightArmors().map(armor => armor.name),
+        'simpleMeleeWeapons',
+        'simpleRangedWeapons',
         ...getAllSimpleMelee().map(weapon => weapon.name),
         ...getAllSimpleRanged().map(weapon => weapon.name),
         'handCrossbow',
@@ -1938,7 +1979,10 @@ export function CLASSES() {
         'religion',
       ],
       proficientItems: [
+        'lightArmors',
         ...getAllLightArmors().map(armor => armor.name),
+        'simpleMeleeWeapons',
+        'simpleRangedWeapons',
         ...getAllSimpleMelee().map(armor => armor.name),
         ...getAllSimpleRanged().map(armor => armor.name),
       ],
@@ -2289,12 +2333,10 @@ export function isProficientStat(stat, pClass) {
 }
 
 export function getExtraHitPoints(pc) {
-  const {
-    race,
-    subrace,
-    level,
-    feats: { list: feats },
-  } = pc;
+  const { race, subrace, level } = pc;
+
+  const feats = getFeats(pc);
+
   return (
     (RACES[race][subrace].extraHitPoints || 0) +
     getStatMod(getStat(pc, 'con')) * level +
@@ -2340,8 +2382,9 @@ export function getRandomLevelUpHitPoints(pc) {
   return random.roll.calculateResult(result);
 }
 
-export function statSavingThrow(stat, statValue, pClass, lvl) {
-  const bonus = isProficientStat(stat, pClass) ? getProficiencyBonus(lvl) : 0;
+export function statSavingThrow(stat, statValue, pc) {
+  const { pClass, level } = pc;
+  const bonus = isProficientStat(stat, pClass) ? getProficiencyBonus(level) : 0;
   return getStatMod(statValue) + bonus;
 }
 
@@ -2820,16 +2863,14 @@ export function getExtraArmorClass(pc) {
     items: {
       equipment: { shield: pShield = {} },
     },
-    feats: { list: feats },
   } = pc;
+
+  const feats = getFeats(pc);
 
   let extraAC = 0;
 
   const shield = getItem(pShield);
-  if (shield)
-    extraAC +=
-      shield.properties.baseAC +
-      (shield.properties.extraAC?.(getStats(pc)) || 0);
+  if (shield) extraAC += getShieldArmorClass(shield);
 
   if (feats.includes('defensiveDuelist'))
     extraAC += getProficiencyBonus(pc.level);
@@ -3486,6 +3527,11 @@ export function isProficientWithWeapon(pc, weapon) {
     itemProficiencies.includes(weapon.name) ||
     itemProficiencies.includes(weapon.subcategory)
   );
+}
+
+export function isProficientWithHeavyArmor(pc) {
+  const itemProficiencies = getItemProficiencies(pc);
+  return itemProficiencies.includes('heavyArmor');
 }
 
 export function getExperience(pc) {

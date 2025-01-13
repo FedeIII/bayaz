@@ -1,9 +1,21 @@
 import { ChooseTrait } from '~/components/summary/skillStates';
-import { CLASSES, getStat, getStatMod } from '../characters';
+import {
+  CLASSES,
+  getItemProficiencies,
+  getStat,
+  getStatMod,
+  statSavingThrow,
+} from '../characters';
 import { FEATS, FEATS_LIST } from './featExplanations';
 import { t } from '~/domain/translations';
 import { getSpell } from '../spells/getSpells';
 import { canCastSpells, getSpellcastingAbility } from '../spells/spells';
+import { getShieldArmorClass } from '../equipment/armors';
+import { getItem } from '../equipment/equipment';
+
+export function getFeats(pc) {
+  return pc.feats?.list || [];
+}
 
 export function getAvailableFeats(pc) {
   return FEATS_LIST.filter(feat => {
@@ -34,9 +46,8 @@ export function getAvailableFeats(pc) {
       }
 
       if (featData.requirements.proficiency) {
-        isAvailable = pc.proficientItems.some(
-          proficientItem =>
-            proficientItem.name === featData.requirements.proficiency
+        isAvailable = getItemProficiencies(pc).includes(
+          featData.requirements.proficiency
         );
 
         if (!isAvailable) {
@@ -56,11 +67,8 @@ export function getFeat(featId) {
 export function getExtraStatForFeat(pc, statName) {
   return Object.keys(pc.feats?.extraStats || {}).reduce(
     (extraValue, featName) => {
-      if (pc.feats?.extraStats?.[featName] === statName) {
-        return extraValue + 1;
-      }
-
-      return extraValue;
+      const featStats = pc.feats?.extraStats?.[featName];
+      return extraValue + featStats.filter(s => s === statName).length;
     },
     0
   );
@@ -190,4 +198,19 @@ export function getSpellSniperCantrip(pc) {
 
 export function getRitualCasterSpells(pc) {
   return pc.feats?.spells?.ritualCaster || [];
+}
+
+export function getDexSavingThrowForShieldMaster(pc) {
+  const {
+    items: {
+      equipment: { shield: pShield = null },
+    },
+  } = pc;
+
+  if (!pc.feats?.list?.includes('shieldMaster') || !pShield) return 0;
+
+  return (
+    statSavingThrow('dex', getStat(pc, 'dex'), pc) +
+    getShieldArmorClass(getItem(pShield))
+  );
 }

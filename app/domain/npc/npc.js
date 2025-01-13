@@ -380,21 +380,20 @@ function singleNpcToMonster(npc) {
       'Hit Points': `${getMaxHitPoints(npc)} (${getHitDice(npc)})`,
       Speed: npc.speed,
       stats: getStats(npc),
-      'Saving Throws': STATS().map(
-        statName =>
-          `${statName} ${increment(
-            statSavingThrow(
-              statName,
-              getStat(npc, statName),
-              npc.pClass,
-              npc.level
-            )
-          )}`
-      ).join(', '),
-      Skills: SKILLS().map(
-        skill =>
-          `${t(skill.name)} ${increment(skillCheckBonus(npc, skill.name))}`
-      ).join(', '),
+      'Saving Throws': STATS()
+        .map(
+          statName =>
+            `${statName} ${increment(
+              statSavingThrow(statName, getStat(npc, statName), npc)
+            )}`
+        )
+        .join(', '),
+      Skills: SKILLS()
+        .map(
+          skill =>
+            `${t(skill.name)} ${increment(skillCheckBonus(npc, skill.name))}`
+        )
+        .join(', '),
       Senses: [
         `passive Perception ${getPassivePerception(npc)}`,
         RACES[npc.race][npc.subrace].traits?.darkvision

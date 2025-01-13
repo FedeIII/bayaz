@@ -23,20 +23,8 @@ import {
   getItemBaseArmorClass,
   getProficiencyBonus,
 } from './characters';
-import {
-  getAllHeavyArmors,
-  getAllLightArmors,
-  getAllMediumArmors,
-} from './equipment/armors';
 import { getItem, noItem } from './equipment/equipment';
-import {
-  WEAPONS,
-  getAllMartialMelee,
-  getAllMartialRanged,
-  getAllSimpleMelee,
-  getAllSimpleRanged,
-  translateDamage,
-} from './equipment/weapons';
+import { WEAPONS, isMeleeWeapon, translateDamage } from './equipment/weapons';
 import { displayBardTrait } from './classes/bard/displayBardTrait';
 import { displayBarbarianTrait } from './classes/barbarian/displayBarbarianTrait';
 import { displayWarlockTrait } from './classes/warlock/displayWarlockTrait';
@@ -61,7 +49,8 @@ import { getRangerFightingStyle } from './classes/ranger/ranger';
 import { t } from './translations';
 import { ChooseTrait } from '~/components/summary/skillStates';
 import { renderItemNameWithAmount } from './equipment/items';
-import { displayFeat } from './feats/featUtils';
+import { displayFeat, getFeats } from './feats/featUtils';
+import { removeItem, unique } from '~/utils/array';
 
 import styles from '~/components/sheet.css';
 export const links = () => {
@@ -125,62 +114,33 @@ export function itemWithAmount(translation, amount) {
 }
 
 function hasAllSimpleWeapons(itemNames) {
-  let has = true;
-  [...getAllSimpleMelee(), ...getAllSimpleRanged()].forEach(simpleWeapon => {
-    if (!itemNames.find(itemName => itemName === simpleWeapon.name)) {
-      has = false;
-    }
-  });
-
-  return has;
+  return (
+    itemNames.includes('simpleMeleeWeapons') &&
+    itemNames.includes('simpleRangedWeapons')
+  );
 }
 
 function hasAllMartialWeapons(itemNames) {
-  let has = true;
-  [...getAllMartialMelee(), ...getAllMartialRanged()].forEach(martialWeapon => {
-    if (!itemNames.find(itemName => itemName === martialWeapon.name)) {
-      has = false;
-    }
-  });
-
-  return has;
+  return (
+    itemNames.includes('martialMeleeWeapons') &&
+    itemNames.includes('martialRangedWeapons')
+  );
 }
 
 function hasAllLightArmors(itemNames) {
-  let has = true;
-  getAllLightArmors().forEach(lightArmor => {
-    if (!itemNames.find(itemName => itemName === lightArmor.name)) {
-      has = false;
-    }
-  });
-
-  return has;
+  return itemNames.includes('lightArmors');
 }
 
 function hasAllMediumArmors(itemNames) {
-  let has = true;
-  getAllMediumArmors().forEach(mediumArmor => {
-    if (!itemNames.find(itemName => itemName === mediumArmor.name)) {
-      has = false;
-    }
-  });
-
-  return has;
+  return itemNames.includes('mediumArmors');
 }
 
-function hasAllHeavyArmors(itemNames) {
-  let has = true;
-  getAllHeavyArmors().forEach(heavyArmor => {
-    if (!itemNames.find(itemName => itemName === heavyArmor.name)) {
-      has = false;
-    }
-  });
-
-  return has;
+export function hasAllHeavyArmors(itemNames) {
+  return itemNames.includes('heavyArmors');
 }
 
 export function getItemDisplayList(itemNames) {
-  const list = [];
+  let list = [];
   const includedSets = [];
 
   if (hasAllSimpleWeapons(itemNames)) {
@@ -194,17 +154,14 @@ export function getItemDisplayList(itemNames) {
   }
 
   if (hasAllLightArmors(itemNames)) {
-    list.push('lightArmors');
     includedSets.push('light');
   }
 
   if (hasAllMediumArmors(itemNames)) {
-    list.push('mediumArmors');
     includedSets.push('medium');
   }
 
   if (hasAllHeavyArmors(itemNames)) {
-    list.push('heavyArmors');
     includedSets.push('heavy');
   }
 
@@ -214,7 +171,37 @@ export function getItemDisplayList(itemNames) {
     }
   });
 
-  return list;
+  if (
+    list.includes('simpleMeleeWeapons') &&
+    list.includes('simpleRangedWeapons') &&
+    list.includes('simpleWeapons')
+  ) {
+    list = removeItem(e => e === 'simpleMeleeWeapons', list);
+    list = removeItem(e => e === 'simpleRangedWeapons', list);
+  }
+
+  if (
+    list.includes('martialMeleeWeapons') &&
+    list.includes('martialRangedWeapons') &&
+    list.includes('martialWeapons')
+  ) {
+    list = removeItem(e => e === 'martialMeleeWeapons', list);
+    list = removeItem(e => e === 'martialRangedWeapons', list);
+  }
+
+  if (
+    list.includes('lightArmors') &&
+    list.includes('mediumArmors') &&
+    list.includes('heavyArmors')
+  ) {
+    list = removeItem(e => e === 'lightArmors', list);
+    list = removeItem(e => e === 'mediumArmors', list);
+    list = removeItem(e => e === 'heavyArmors', list);
+
+    list.push('allArmors');
+  }
+
+  return unique(list);
 }
 
 export function displayDamage(pc, weapons, weapon, weaponIndex) {
@@ -328,8 +315,11 @@ function SpecialAttackFromWeapon(props) {
       finesse,
       versatile,
     } = {},
+    subsubtype,
   } = weapon;
   const { pClass } = pc;
+
+  const feats = getFeats(pc);
 
   const components = [];
 
@@ -385,6 +375,15 @@ function SpecialAttackFromWeapon(props) {
     components.push(
       <Fragment key="versatile">Versátil (una o dos manos). </Fragment>
     );
+
+  if (feats.includes('crossbowExpert') && subsubtype === 'crossbow')
+    components.push(<u key="crossbowExpert">{t('crossbowExpert')}.</u>);
+
+  if (feats.includes('polearmMaster') && subsubtype === 'polearm')
+    components.push(<u key="polearmMaster">{t('polearmMaster')}.</u>);
+
+  if (feats.includes('greatWeaponMaster') && heavy && isMeleeWeapon(weapon))
+    components.push(<u key="greatWeaponMaster">{t('greatWeaponMaster')}.</u>);
 
   return components;
 }
@@ -601,9 +600,9 @@ export function getAcBreakdown(pc) {
       equipment: { armor: pArmor = {}, shield: pShield = {} },
     },
     pClass,
-    feats: { list: feats },
   } = pc;
 
+  const feats = getFeats(pc);
   const armor = pArmor && getItem(pArmor);
   const shield = pShield && getItem(pShield);
 

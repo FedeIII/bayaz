@@ -11,6 +11,7 @@ import { t } from '../translations';
 import { displayManeuver } from '../classes/fighter/fighterSkillsExplanation';
 import { getProficiencyBonus, getStat, getStatMod } from '../characters';
 import SpendTrait, { createSpendActions } from '~/components/spendTrait';
+import { getArmor, hasHeavyArmor } from '../equipment/equipment';
 
 export const featsActions = {
   ...createSpendActions('feats', 'luckyFeat'),
@@ -733,6 +734,20 @@ export const FEATS = {
     requirements: {
       proficiency: 'heavyArmors',
     },
+    bonus: {
+      stats: {
+        str: 1,
+      },
+    },
+    extraDisplay: pc =>
+      hasHeavyArmor(pc) && (
+        <>
+          .{' '}
+          <span className="app__tiny-text">
+            -3 daño <u>contundente</u>, <u>cortante</u>, y <u>perforante</u>
+          </span>
+        </>
+      ),
     description: (skill, pc) => (
       <>
         <p>
@@ -747,6 +762,14 @@ export const FEATS = {
             3.
           </li>
         </ul>
+        <span>
+          <u>Armadura equipada:</u> {getArmor(pc).translation}{' '}
+          {hasHeavyArmor(pc) ? (
+            <span className="green-text">✓{t(getArmor(pc).subtype)}</span>
+          ) : (
+            <span className="red-text">✗{t(getArmor(pc).subtype)}</span>
+          )}
+        </span>
       </>
     ),
   },
@@ -761,8 +784,8 @@ export const FEATS = {
         <ul>
           <li>
             Cuando usas la acción de Ataque y atacas solamente con una alabarda,
-            bastón, o guja, puedes usar una acción adicional para hacer un
-            ataque cuerpo a cuerpo con el extremo opuesto del arma. El
+            bastón, guja, o lanza, puedes usar una acción adicional para hacer
+            un ataque cuerpo a cuerpo con el extremo opuesto del arma. El
             modificador de característica para este ataque adicional es el mismo
             que para el primer ataque, el dado de daño del arma para este ataque
             es un d4, y el ataque inflige daño contundente.
@@ -803,18 +826,7 @@ export const FEATS = {
   },
   shieldMaster: {
     name: 'shieldMaster',
-    requiredStatSelection: true,
-    bonus: {
-      stats: {
-        con: 1,
-        dex: 1,
-      },
-    },
-    chooseTrait: pc => hasToSelectFeatStat(pc, 'shieldMaster'),
     description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
-      const hasToSelect =
-        !dontShowChooseTrait && hasToSelectFeatStat(pc, 'shieldMaster');
-
       return (
         <>
           <p>
@@ -841,16 +853,6 @@ export const FEATS = {
               y la fuente del efecto.
             </li>
           </ul>
-          {hasToSelect && (
-            <div className="inventory-item__modal-buttons">
-              <Link
-                to={`/characters/pc/${pc.id}/leveling/feats/shieldMaster`}
-                className="inventory-item__modal-button"
-              >
-                Escoge Atributo
-              </Link>
-            </div>
-          )}
         </>
       );
     },

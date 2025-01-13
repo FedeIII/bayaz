@@ -309,7 +309,7 @@ const featsSchema = new mongoose.Schema({
   luckyFeat: Number,
   extraStats: {
     type: Map,
-    of: String,
+    of: [String],
   },
   cantrips: {
     type: Map,
@@ -1634,7 +1634,7 @@ export async function updateFeatStat(id, featName, selectedStat) {
 
   const updatedPc = await Pc.findOneAndUpdate(
     { id },
-    { $set: update },
+    { $push: update },
     { new: true }
   ).exec();
 

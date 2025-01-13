@@ -265,3 +265,11 @@ export function getAllShileds() {
     .filter(([name, builder]) => builder().subtype === 'shield')
     .map(([name, builder]) => builder());
 }
+
+export function getShieldArmorClass(shield) {
+  if (!shield) return 0;
+  return (
+    (shield.properties?.baseAC || 0) +
+    (shield.properties?.extraAC?.(getStats(pc)) || 0)
+  );
+}

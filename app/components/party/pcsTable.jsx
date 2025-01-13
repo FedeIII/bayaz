@@ -326,12 +326,7 @@ function PcsTable(props) {
                     <span className="party__pcs-table-cell--xxs party__pcs-table-cell--pale">
                       (
                       {increment(
-                        statSavingThrow(
-                          statName,
-                          getStat(pc, statName),
-                          pc.pClass,
-                          pc.level
-                        )
+                        statSavingThrow(statName, getStat(pc, statName), pc)
                       )}
                       )
                     </span>

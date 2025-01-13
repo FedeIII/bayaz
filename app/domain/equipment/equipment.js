@@ -165,3 +165,12 @@ export function hasArmorEquipped(pc) {
 export function hasShieldEquipped(pc) {
   return !!pc.items.equipment.shield;
 }
+
+export function getArmor(pc) {
+  return getItem(pc.items.equipment.armor);
+}
+
+export function hasHeavyArmor(pc) {
+  const armor = getArmor(pc);
+  return armor?.subtype === 'heavy';
+}
