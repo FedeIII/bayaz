@@ -13,7 +13,7 @@ import { canCastSpells, getSpellcastingAbility } from '../spells/spells';
 import { getShieldArmorClass } from '../equipment/armors';
 import { getItem } from '../equipment/equipment';
 
-export function getFeats(pc) {
+function getFeats(pc) {
   return pc.feats?.list || [];
 }
 

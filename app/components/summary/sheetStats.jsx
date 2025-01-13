@@ -9,13 +9,14 @@ import {
   statSavingThrow,
 } from '~/domain/characters';
 import { increment } from '~/domain/display';
-import { getDexSavingThrowForShieldMaster, getFeats } from '~/domain/feats/featUtils';
+import {
+  getDexSavingThrowForShieldMaster,
+  hasFeat,
+} from '~/domain/feats/featUtils';
 
 function SheetStats(props) {
   const { pc } = props;
   const { level, pClass } = pc;
-
-  const feats = getFeats(pc);
 
   return (
     <>
@@ -45,7 +46,7 @@ function SheetStats(props) {
             )}
           >
             {increment(statSavingThrow(statName, getStat(pc, statName), pc))}
-            {statName === 'dex' && feats.includes('shieldMaster') && (
+            {statName === 'dex' && hasFeat(pc, 'shieldMaster') && (
               <span className="sheet__data sheet__saving-throw-note">
                 ({increment(getDexSavingThrowForShieldMaster(pc))} contra daño)
               </span>

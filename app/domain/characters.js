@@ -102,7 +102,6 @@ import { parseGoldToMoney } from './equipment/money';
 import {
   getExtraStatForFeat,
   getFeat,
-  getFeats,
   getFeatTraits,
   hasFeat,
   isFeat,
@@ -396,8 +395,6 @@ export function getConditionalSkills(pc) {
     classAttrs: { skills: classSkills },
   } = pc;
 
-  const feats = getFeats(pc);
-
   return (
     {
       ...RACES[race][subrace].conditionalSkills,
@@ -417,13 +414,13 @@ export function getConditionalSkills(pc) {
             stealth: pc => ['Desventaja'],
           }
         : {}),
-      ...(feats.includes('actor')
+      ...(hasFeat(pc, 'actor')
         ? {
             deception: pc => ['Ventaja', 'imitar'],
             performance: pc => ['Ventaja', 'imitar'],
           }
         : {}),
-      ...(feats.includes('dungeonDelver')
+      ...(hasFeat(pc, 'dungeonDelver')
         ? {
             perception: pc => ['Ventaja', 'puertas secretas'],
             investigation: pc => ['Ventaja', 'puertas secretas'],
@@ -2358,13 +2355,11 @@ export function isProficientStat(stat, pClass) {
 export function getExtraHitPoints(pc) {
   const { race, subrace, level } = pc;
 
-  const feats = getFeats(pc);
-
   return (
     (RACES[race][subrace].extraHitPoints || 0) +
     getStatMod(getStat(pc, 'con')) * level +
     (isDraconicBloodline(pc) ? pc.level : 0) +
-    (feats.includes('tough') ? level * 2 : 0)
+    (hasFeat(pc, 'tough') ? level * 2 : 0)
   );
 }
 
@@ -2840,12 +2835,7 @@ export function getItemBaseArmorClass(itemName) {
 export function getItemExtraArmorClass(itemName, pc) {
   const extraAC = getItem(itemName).properties.extraAC?.(getStats(pc)) || 0;
 
-  const feats = getFeats(pc);
-  if (
-    feats.includes('mediumArmorMaster') &&
-    hasMediumArmor(pc) &&
-    extraAC === 2
-  ) {
+  if (hasFeat(pc, 'mediumArmorMaster') && hasMediumArmor(pc) && extraAC === 2) {
     return 3;
   }
 
@@ -2899,15 +2889,12 @@ export function getExtraArmorClass(pc) {
     },
   } = pc;
 
-  const feats = getFeats(pc);
-
   let extraAC = 0;
 
   const shield = getItem(pShield);
   if (shield) extraAC += getShieldArmorClass(shield);
 
-  if (feats.includes('defensiveDuelist'))
-    extraAC += getProficiencyBonus(pc.level);
+  if (hasFeat(pc, 'defensiveDuelist')) extraAC += getProficiencyBonus(pc.level);
 
   return extraAC;
 }

@@ -49,7 +49,7 @@ import { getRangerFightingStyle } from './classes/ranger/ranger';
 import { t } from './translations';
 import { ChooseTrait } from '~/components/summary/skillStates';
 import { renderItemNameWithAmount } from './equipment/items';
-import { displayFeat, getFeats } from './feats/featUtils';
+import { displayFeat, hasFeat } from './feats/featUtils';
 import { removeItem, unique } from '~/utils/array';
 
 import styles from '~/components/sheet.css';
@@ -319,8 +319,6 @@ function SpecialAttackFromWeapon(props) {
   } = weapon;
   const { pClass } = pc;
 
-  const feats = getFeats(pc);
-
   const components = [];
 
   if (pClass === 'monk' && isMonkWeapon(weapon)) {
@@ -376,13 +374,13 @@ function SpecialAttackFromWeapon(props) {
       <Fragment key="versatile">Versátil (una o dos manos). </Fragment>
     );
 
-  if (feats.includes('crossbowExpert') && subsubtype === 'crossbow')
+  if (hasFeat(pc, 'crossbowExpert') && subsubtype === 'crossbow')
     components.push(<u key="crossbowExpert">{t('crossbowExpert')}.</u>);
 
-  if (feats.includes('polearmMaster') && subsubtype === 'polearm')
+  if (hasFeat(pc, 'polearmMaster') && subsubtype === 'polearm')
     components.push(<u key="polearmMaster">{t('polearmMaster')}.</u>);
 
-  if (feats.includes('greatWeaponMaster') && heavy && isMeleeWeapon(weapon))
+  if (hasFeat(pc, 'greatWeaponMaster') && heavy && isMeleeWeapon(weapon))
     components.push(<u key="greatWeaponMaster">{t('greatWeaponMaster')}.</u>);
 
   return components;
@@ -602,7 +600,6 @@ export function getAcBreakdown(pc) {
     pClass,
   } = pc;
 
-  const feats = getFeats(pc);
   const armor = pArmor && getItem(pArmor);
   const shield = pShield && getItem(pShield);
 
@@ -696,7 +693,7 @@ export function getAcBreakdown(pc) {
     acBreakdown.extras.push({ title: 'Escudo', ac: `(+2)` });
   }
 
-  if (feats.includes('defensiveDuelist')) {
+  if (hasFeat(pc, 'defensiveDuelist')) {
     acBreakdown.extras.push({
       title: t('defensiveDuelist'),
       ac: `(+${getProficiencyBonus(pc.level)})`,
