@@ -70,16 +70,20 @@ import { getSectionPath } from '~/domain/equipment/items';
 import { getItem } from '~/domain/equipment/equipment';
 import { getFeat, isFeat } from '~/domain/feats/featUtils';
 
+function nullableEnum(enumValues) {
+  return { type: String, enum: [...enumValues, null] };
+}
+
 const backgroundSchema = new mongoose.Schema({
-  name: { type: String, enum: Object.keys(BACKGROUNDS) },
-  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
-  guild: { type: String, enum: ARTISAN_GUILDS },
-  routines: [{ type: String, enum: ENTERTAINER_ROUTINES }],
-  favoriteScheme: { type: String, enum: CHARLATAN_FAVORITE_SCHEMES },
-  criminalSpecialty: { type: String, enum: CRIMINAL_SPECIALTY },
-  outlanderOrigin: { type: String, enum: OUTLANDER_ORIGIN },
-  sageSpecialty: { type: String, enum: SAGE_SPECIALTY },
-  soldierSpecialty: { type: String, enum: SOLDIER_SPECIALTY },
+  name: nullableEnum(Object.keys(BACKGROUNDS)),
+  skills: [nullableEnum(SKILLS().map(s => s.name))],
+  guild: nullableEnum(ARTISAN_GUILDS),
+  routines: [nullableEnum(ENTERTAINER_ROUTINES)],
+  favoriteScheme: nullableEnum(CHARLATAN_FAVORITE_SCHEMES),
+  criminalSpecialty: nullableEnum(CRIMINAL_SPECIALTY),
+  outlanderOrigin: nullableEnum(OUTLANDER_ORIGIN),
+  sageSpecialty: nullableEnum(SAGE_SPECIALTY),
+  soldierSpecialty: nullableEnum(SOLDIER_SPECIALTY),
 });
 
 const statsSchema = new mongoose.Schema({
@@ -105,7 +109,7 @@ const itemSchema = new mongoose.Schema({
 
 const spellSchema = new mongoose.Schema({
   name: String,
-  type: { type: String, enum: CHARACTER_CLASSES() },
+  type: nullableEnum(CHARACTER_CLASSES()),
   subtype: String,
 });
 
@@ -115,49 +119,31 @@ const forgettableSpellSchema = new mongoose.Schema({
 });
 
 const barbarianSchema = new mongoose.Schema({
-  primalPath: {
-    type: String,
-    enum: ['berserker', 'totem-warrior'],
-  },
+  primalPath: nullableEnum(['berserker', 'totem-warrior']),
   spiritTotem: {
-    totemType: {
-      type: String,
-      enum: ['bear', 'eagle', 'wolf'],
-    },
+    totemType: nullableEnum(['bear', 'eagle', 'wolf']),
     animal: String,
   },
   aspectOfTheBeast: {
-    totemType: {
-      type: String,
-      enum: ['bear', 'eagle', 'wolf'],
-    },
+    totemType: nullableEnum(['bear', 'eagle', 'wolf']),
     animal: String,
   },
   totemicAttunement: {
-    totemType: {
-      type: String,
-      enum: ['bear', 'eagle', 'wolf'],
-    },
+    totemType: nullableEnum(['bear', 'eagle', 'wolf']),
     animal: String,
   },
 });
 
 const bardSchema = new mongoose.Schema({
-  bardCollege: {
-    type: String,
-    enum: ['lore', 'valor'],
-  },
-  loreCollegeProficiencies: [{ type: String, enum: SKILLS().map(s => s.name) }],
+  bardCollege: nullableEnum(['lore', 'valor']),
+  loreCollegeProficiencies: [nullableEnum(SKILLS().map(s => s.name))],
   loreSpells: [forgettableSpellSchema],
   magicalSecretsSpells: [forgettableSpellSchema],
   bardicInspiration: Number,
 });
 
 const warlockSchema = new mongoose.Schema({
-  patron: {
-    type: String,
-    enum: ['archfey', 'fiend', 'greatOldOne'],
-  },
+  patron: nullableEnum(['archfey', 'fiend', 'greatOldOne']),
   invocations: [String],
   pactBoon: String,
   tomeSpells: [spellSchema],
@@ -166,80 +152,69 @@ const warlockSchema = new mongoose.Schema({
 });
 
 const clericSchema = new mongoose.Schema({
-  divineDomain: {
-    type: String,
-    enum: Object.keys(DIVINE_DOMAINS),
-  },
+  divineDomain: nullableEnum(Object.keys(DIVINE_DOMAINS)),
 });
 
 const druidSchema = new mongoose.Schema({
-  druidCircle: {
-    type: String,
-    enum: DRUID_CIRCLES,
-  },
+  druidCircle: nullableEnum(DRUID_CIRCLES),
   bonusCantrip: spellSchema,
-  landCircle: {
-    type: String,
-    enum: LAND_CIRCLES,
-  },
+  landCircle: nullableEnum(LAND_CIRCLES),
 });
 
 const rangerSchema = new mongoose.Schema({
   favoredEnemies: [
-    { type: String, enum: [...FAVORED_ENEMIES, ...FAVORED_ENEMIES_HUMANOIDS] },
+    nullableEnum([...FAVORED_ENEMIES, ...FAVORED_ENEMIES_HUMANOIDS]),
   ],
   favoredEnemiesSelection: [Boolean],
-  favoredTerrains: [{ type: String, enum: FAVORED_TERRAINS }],
-  fightingStyle: { type: String, enum: RANGER_FIGHTING_STYLES },
+  favoredTerrains: [nullableEnum(FAVORED_TERRAINS)],
+  fightingStyle: nullableEnum(RANGER_FIGHTING_STYLES),
   isFightingStyleSettled: Boolean,
-  rangerConclave: { type: String, enum: RANGER_CONCLAVES },
-  huntersPrey: { type: String, enum: HUNTERS_PREY },
-  defensiveTactics: { type: String, enum: HUNTER_DEFENSIVE_TACTICS },
-  multiattack: { type: String, enum: HUNTER_MULTIATTACK },
-  superiorHuntersDefense: { type: String, enum: SUPERIOR_HUNTERS_DEFENSE },
+  rangerConclave: nullableEnum(RANGER_CONCLAVES),
+  huntersPrey: nullableEnum(HUNTERS_PREY),
+  defensiveTactics: nullableEnum(HUNTER_DEFENSIVE_TACTICS),
+  multiattack: nullableEnum(HUNTER_MULTIATTACK),
+  superiorHuntersDefense: nullableEnum(SUPERIOR_HUNTERS_DEFENSE),
 });
 
 const fighterSchema = new mongoose.Schema({
-  fightingStyle: { type: String, enum: FIGHTING_STYLES },
-  martialArchetype: { type: String, enum: MARTIAL_ARCHETYPES },
+  fightingStyle: nullableEnum(FIGHTING_STYLES),
+  martialArchetype: nullableEnum(MARTIAL_ARCHETYPES),
   knightSpells: [spellSchema],
-  combatSuperiority: [{ type: String, enum: COMBAT_SUPERIORITY_MANEUVERS }],
+  combatSuperiority: [nullableEnum(COMBAT_SUPERIORITY_MANEUVERS)],
   studentOfWar: itemSchema,
-  extraFightingStyle: { type: String, enum: FIGHTING_STYLES },
+  extraFightingStyle: nullableEnum(FIGHTING_STYLES),
 });
 
 const sorcererSchema = new mongoose.Schema({
-  sorcererOrigin: { type: String, enum: SORCERER_ORIGINS },
-  dragonAncestor: { type: String, enum: DRAGON_ANCESTORS },
+  sorcererOrigin: nullableEnum(SORCERER_ORIGINS),
+  dragonAncestor: nullableEnum(DRAGON_ANCESTORS),
   fontOfMagic: Number,
   tidesOfChaos: Number,
-  metamagic: [{ type: String, enum: METAMAGIC }],
+  metamagic: [nullableEnum(METAMAGIC)],
 });
 
 const wizardSchema = new mongoose.Schema({
-  arcaneTradition: { type: String, enum: SPELL_SCHOOLS },
+  arcaneTradition: nullableEnum(SPELL_SCHOOLS),
   improvedMinorIllusion: spellSchema,
   extraSpells: [spellSchema],
 });
 
 const monkSchema = new mongoose.Schema({
-  monasticTradition: { type: String, enum: MONASTIC_TRADITIONS },
-  elementalDisciplines: [
-    { type: String, enum: Object.keys(ELEMENTAL_DISCIPLINES) },
-  ],
+  monasticTradition: nullableEnum(MONASTIC_TRADITIONS),
+  elementalDisciplines: [nullableEnum(Object.keys(ELEMENTAL_DISCIPLINES))],
 });
 
 const paladinSchema = new mongoose.Schema({
-  fightingStyle: { type: String, enum: PALADIN_FIGHTING_STYLES },
+  fightingStyle: nullableEnum(PALADIN_FIGHTING_STYLES),
   isFightingStyleSettled: Boolean,
-  sacredOath: { type: String, enum: SACRED_OATHS },
+  sacredOath: nullableEnum(SACRED_OATHS),
   layOnHands: Number,
   divineSense: Number,
   channelDivinity: Number,
 });
 
 const rogueSchema = new mongoose.Schema({
-  roguishArchetype: { type: String, enum: ROGISH_ARCHETYPES },
+  roguishArchetype: nullableEnum(ROGISH_ARCHETYPES),
   spellcasting: [spellSchema],
 });
 
@@ -257,16 +232,14 @@ const classAttrsSchema = new mongoose.Schema({
   paladin: paladinSchema,
   rogue: rogueSchema,
   // ALL
-  expertSkills: [
-    { type: String, enum: [...SKILLS().map(s => s.name), 'thieves-tools'] },
-  ],
-  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
+  expertSkills: [nullableEnum([...SKILLS().map(s => s.name), 'thieves-tools'])],
+  skills: [nullableEnum(SKILLS().map(s => s.name))],
   seen: [String],
 });
 
 const halfElfSchema = new mongoose.Schema({
   extraStats: statsSchema,
-  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
+  skills: [nullableEnum(SKILLS().map(s => s.name))],
 });
 
 const freeTextSchema = new mongoose.Schema({
@@ -367,7 +340,7 @@ const pcSchema = new mongoose.Schema({
   improvedStatsLevels: [Number],
 
   // SKILLS
-  skills: [{ type: String, enum: SKILLS().map(s => s.name) }],
+  skills: [nullableEnum(SKILLS().map(s => s.name))],
 
   // COMBAT ATTRS
   initiative: Number,
@@ -419,16 +392,13 @@ const pcSchema = new mongoose.Schema({
 
   // PROFICIENCIES & LANGUAGES
   proficientItems: [itemSchema],
-  languages: [{ type: String, enum: [...LANGUAGES(), ...EXOTIC_LANGUAGES()] }],
+  languages: [nullableEnum([...LANGUAGES(), ...EXOTIC_LANGUAGES()])],
 
   // ADDITIONAL FEATURES
   age: Number,
   height: Number,
   weight: Number,
-  size: {
-    type: String,
-    enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-  },
+  size: nullableEnum(['XS', 'S', 'M', 'L', 'XL', 'XXL']),
 
   // SPELLS
   magic: {

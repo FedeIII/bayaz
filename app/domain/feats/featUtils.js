@@ -12,6 +12,7 @@ import { getSpell } from '../spells/getSpells';
 import { canCastSpells, getSpellcastingAbility } from '../spells/spells';
 import { getShieldArmorClass } from '../equipment/armors';
 import { getItem } from '../equipment/equipment';
+import { includesAll } from '~/utils/array';
 
 function getFeats(pc) {
   return pc.feats?.list || [];
@@ -57,6 +58,17 @@ export function getAvailableFeats(pc) {
         if (!isAvailable) {
           return false;
         }
+      }
+    }
+
+    if (featData.bonus?.proficiency?.length) {
+      isAvailable = !includesAll(
+        getItemProficiencies(pc),
+        featData.bonus?.proficiency
+      );
+
+      if (!isAvailable) {
+        return false;
       }
     }
 
@@ -216,4 +228,14 @@ export function getDexSavingThrowForShieldMaster(pc) {
     statSavingThrow('dex', getStat(pc, 'dex'), pc) +
     getShieldArmorClass(getItem(pShield))
   );
+}
+
+export function getFeatProficiencies(pc) {
+  return getFeats(pc).reduce((proficiencies, featId) => {
+    const feat = getFeat(featId);
+    if (feat?.bonus?.proficiency?.length) {
+      proficiencies.push(...feat.bonus.proficiency);
+    }
+    return proficiencies;
+  }, []);
 }

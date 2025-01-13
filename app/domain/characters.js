@@ -102,6 +102,7 @@ import { parseGoldToMoney } from './equipment/money';
 import {
   getExtraStatForFeat,
   getFeat,
+  getFeatProficiencies,
   getFeatTraits,
   hasFeat,
   isFeat,
@@ -2806,7 +2807,7 @@ export function getPassivePerception(pc) {
 }
 
 export function getItemProficiencies(pc) {
-  const { race, subrace, pClass, level } = pc;
+  const { race, subrace, pClass } = pc;
 
   const divineDomain = getDivineDomain(pc);
   const bardCollege = getBardCollege(pc);
@@ -2821,6 +2822,7 @@ export function getItemProficiencies(pc) {
     ...((bardCollege ? BARD_COLLEGES[bardCollege]?.proficientItems : []) || []),
     ...(studentOfWarTools ? [studentOfWarTools.name] : []),
     ...getRogueProficiencies(pc),
+    ...getFeatProficiencies(pc),
   ];
 }
 

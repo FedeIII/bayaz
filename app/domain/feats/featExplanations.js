@@ -215,23 +215,42 @@ export const FEATS = {
         dex: 1,
       },
     },
-    description: (skill, pc) => (
-      <>
-        <p>
-          Has pasado por un entrenamiento físico extraordinario para ganar los
-          siguientes beneficios:
-        </p>
-        <ul>
-          <li>Aumenta tu Fuerza o Destreza en 1, hasta un máximo de 20.</li>
-          <li>Cuando estás caído, levantarte solo usa 5 pies de movimiento.</li>
-          <li>Trepar no reduce a la mitad tu velocidad.</li>
-          <li>
-            Puedes realizar un salto largo o un salto alto después de moverte
-            solo 5 pies, en ligar de 10 pies.
-          </li>
-        </ul>
-      </>
-    ),
+    chooseTrait: pc => hasToSelectFeatStat(pc, 'athlete'),
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
+      const hasToSelect =
+        !dontShowChooseTrait && hasToSelectFeatStat(pc, 'athlete');
+
+      return (
+        <>
+          <p>
+            Has pasado por un entrenamiento físico extraordinario para ganar los
+            siguientes beneficios:
+          </p>
+          <ul>
+            <li>Aumenta tu Fuerza o Destreza en 1, hasta un máximo de 20.</li>
+            <li>
+              Cuando estás caído, levantarte solo usa 5 pies de movimiento.
+            </li>
+            <li>Trepar no reduce a la mitad tu velocidad.</li>
+            <li>
+              Puedes realizar un salto largo o un salto alto después de moverte
+              solo 5 pies, en ligar de 10 pies.
+            </li>
+          </ul>
+
+          {hasToSelect && (
+            <div className="inventory-item__modal-buttons">
+              <Link
+                to={`/characters/pc/${pc.id}/leveling/feats/selectStat?featId=athlete`}
+                className="inventory-item__modal-button"
+              >
+                Escoge Atributo
+              </Link>
+            </div>
+          )}
+        </>
+      );
+    },
   },
   mageSlayer: {
     name: 'mageSlayer',
@@ -655,21 +674,45 @@ export const FEATS = {
   },
   lightlyArmored: {
     name: 'lightlyArmored',
-    description: (skill, pc) => (
-      <>
-        <p>
-          Has entrenado para dominar el uso de la armadura ligera, ganando los
-          siguientes beneficios:
-        </p>
-        <ul>
-          <li>
-            Aumenta tu puntuación de Fuerza o Destreza en 1, hasta un máximo de
-            20.
-          </li>
-          <li>Ganas competencia con armadura ligera.</li>
-        </ul>
-      </>
-    ),
+    bonus: {
+      proficiency: ['lightArmors'],
+      stats: {
+        str: 1,
+        dex: 1,
+      },
+    },
+    requiredStatSelection: true,
+    chooseTrait: pc => hasToSelectFeatStat(pc, 'lightlyArmored'),
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
+      const hasToSelect =
+        !dontShowChooseTrait && hasToSelectFeatStat(pc, 'lightlyArmored');
+
+      return (
+        <>
+          <p>
+            Has entrenado para dominar el uso de la armadura ligera, ganando los
+            siguientes beneficios:
+          </p>
+          <ul>
+            <li>
+              Aumenta tu puntuación de Fuerza o Destreza en 1, hasta un máximo
+              de 20.
+            </li>
+            <li>Ganas competencia con armadura ligera.</li>
+          </ul>
+          {hasToSelect && (
+            <div className="inventory-item__modal-buttons">
+              <Link
+                to={`/characters/pc/${pc.id}/leveling/feats/selectStat?featId=lightlyArmored`}
+                className="inventory-item__modal-button"
+              >
+                Escoge Atributo
+              </Link>
+            </div>
+          )}
+        </>
+      );
+    },
   },
   linguist: {
     name: 'linguist',
@@ -728,32 +771,39 @@ export const FEATS = {
         <span className="app__tiny-text">{hasMediumArmor(pc) ? '✓' : '✗'}</span>
       </>
     ),
-    description: (skill, pc) => (
-      <>
-        <p>
-          Has practicado tu movimiento mientras vistes armadura intermedia para
-          ganar los siguientes beneficios:
-        </p>
-        <ul>
-          <li>
-            Llevar puesta armadura intermedia no te impone desventaja en tus
-            tiradas de Destreza(Sigilo).
-          </li>
-          <li>
-            Cuando llevas puesta armadura intermedia, puedes añadir 3, en vez de
-            2, a tu CA si tienes una puntuación de Destreza de 16 o superior.
-          </li>
-        </ul>
-        <span>
-          <u>Armadura equipada:</u> {getArmor(pc).translation}{' '}
-          {hasMediumArmor(pc) ? (
-            <span className="green-text">✓{t(getArmor(pc).subtype)}</span>
-          ) : (
-            <span className="red-text">✗{t(getArmor(pc).subtype)}</span>
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
+      return (
+        <>
+          <p>
+            Has practicado tu movimiento mientras vistes armadura intermedia
+            para ganar los siguientes beneficios:
+          </p>
+          <ul>
+            <li>
+              Llevar puesta armadura intermedia no te impone desventaja en tus
+              tiradas de Destreza(Sigilo).
+            </li>
+            <li>
+              Cuando llevas puesta armadura intermedia, puedes añadir 3, en vez
+              de 2, a tu CA si tienes una puntuación de Destreza de 16 o
+              superior.
+            </li>
+          </ul>
+          {!dontShowChooseTrait && (
+            <span>
+              <u>Armadura equipada:</u> {getArmor(pc)?.translation || 'Ninguna'}{' '}
+              {hasMediumArmor(pc) ? (
+                <span className="green-text">✓{t(getArmor(pc).subtype)}</span>
+              ) : (
+                <span className="red-text">
+                  ✗{getArmor(pc) ? t(getArmor(pc).subtype) : 'Ninguna'}
+                </span>
+              )}
+            </span>
           )}
-        </span>
-      </>
-    ),
+        </>
+      );
+    },
   },
   heavyArmorMaster: {
     name: 'heavyArmorMaster',
@@ -778,30 +828,38 @@ export const FEATS = {
           . <span className="app__tiny-text">✗</span>
         </>
       ),
-    description: (skill, pc) => (
-      <>
-        <p>
-          Puedes usar tu armadura para desviar golpes que matarían a otros.
-          Ganas los siguientes beneficios:
-        </p>
-        <ul>
-          <li>Aumenta tu puntuación de Fuerza en 1, hasta un máximo de 20.</li>
-          <li>
-            Mientras lleves puesta armadura pesada, el daño contundente,
-            cortante, y perforante que recibas de armas no mágicas se reduce en
-            3.
-          </li>
-        </ul>
-        <span>
-          <u>Armadura equipada:</u> {getArmor(pc).translation}{' '}
-          {hasHeavyArmor(pc) ? (
-            <span className="green-text">✓{t(getArmor(pc).subtype)}</span>
-          ) : (
-            <span className="red-text">✗{t(getArmor(pc).subtype)}</span>
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
+      return (
+        <>
+          <p>
+            Puedes usar tu armadura para desviar golpes que matarían a otros.
+            Ganas los siguientes beneficios:
+          </p>
+          <ul>
+            <li>
+              Aumenta tu puntuación de Fuerza en 1, hasta un máximo de 20.
+            </li>
+            <li>
+              Mientras lleves puesta armadura pesada, el daño contundente,
+              cortante, y perforante que recibas de armas no mágicas se reduce
+              en 3.
+            </li>
+          </ul>
+          {!dontShowChooseTrait && (
+            <span>
+              <u>Armadura equipada:</u> {getArmor(pc)?.translation || 'Ninguna'}{' '}
+              {hasHeavyArmor(pc) ? (
+                <span className="green-text">✓{t(getArmor(pc).subtype)}</span>
+              ) : (
+                <span className="red-text">
+                  ✗{getArmor(pc) ? t(getArmor(pc).subtype) : 'Ninguna'}
+                </span>
+              )}
+            </span>
           )}
-        </span>
-      </>
-    ),
+        </>
+      );
+    },
   },
   polearmMaster: {
     name: 'polearmMaster',
@@ -923,7 +981,7 @@ export const FEATS = {
           {hasToSelect && (
             <div className="inventory-item__modal-buttons">
               <Link
-                to={`/characters/pc/${pc.id}/leveling/feats/tavernBrawler`}
+                to={`/characters/pc/${pc.id}/leveling/feats/selectStat?featId=tavernBrawler`}
                 className="inventory-item__modal-button"
               >
                 Escoge Atributo
@@ -969,21 +1027,45 @@ export const FEATS = {
     requirements: {
       proficiency: 'lightArmors',
     },
-    description: (skill, pc) => (
-      <>
-        <p>
-          Has entrenado para dominar el uso de la armadura intermedia y los
-          escudos, ganando los siguiente beneficios:
-        </p>
-        <ul>
-          <li>
-            Incrementa tu puntuación de Fuerza o Destreza en 1, hasta un máximo
-            de 20.
-          </li>
-          <li>Ganas competencia con armaduras intermedias y escudos.</li>
-        </ul>
-      </>
-    ),
+    bonus: {
+      proficiency: ['mediumArmors', 'shield'],
+      stats: {
+        str: 1,
+        dex: 1,
+      },
+    },
+    requiredStatSelection: true,
+    chooseTrait: pc => hasToSelectFeatStat(pc, 'moderatelyArmored'),
+    description: (skill, pc, submit, dontShowChooseTrait, openModal) => {
+      const hasToSelect =
+        !dontShowChooseTrait && hasToSelectFeatStat(pc, 'moderatelyArmored');
+
+      return (
+        <>
+          <p>
+            Has entrenado para dominar el uso de la armadura intermedia y los
+            escudos, ganando los siguiente beneficios:
+          </p>
+          <ul>
+            <li>
+              Incrementa tu puntuación de Fuerza o Destreza en 1, hasta un
+              máximo de 20.
+            </li>
+            <li>Ganas competencia con armaduras intermedias y escudos.</li>
+          </ul>
+          {hasToSelect && (
+            <div className="inventory-item__modal-buttons">
+              <Link
+                to={`/characters/pc/${pc.id}/leveling/feats/selectStat?featId=moderatelyArmored`}
+                className="inventory-item__modal-button"
+              >
+                Escoge Atributo
+              </Link>
+            </div>
+          )}
+        </>
+      );
+    },
   },
   mobile: {
     name: 'mobile',
@@ -1011,6 +1093,12 @@ export const FEATS = {
     name: 'heavilyArmored',
     requirements: {
       proficiency: 'mediumArmors',
+    },
+    bonus: {
+      proficiency: ['heavyArmors'],
+      stats: {
+        str: 1,
+      },
     },
     description: (skill, pc) => (
       <>

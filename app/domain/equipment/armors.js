@@ -275,5 +275,5 @@ export function getShieldArmorClass(shield) {
 }
 
 export function hasStealthDisadvantage(armor) {
-  return !!armor.properties.stealthDisadvantage;
+  return !!armor?.properties.stealthDisadvantage;
 }

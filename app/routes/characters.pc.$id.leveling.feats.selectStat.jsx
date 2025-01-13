@@ -5,45 +5,61 @@ import { Form, useLoaderData } from '@remix-run/react';
 import { getPc, updateFeatStat } from '~/services/pc.server';
 import { useTitle } from '~/components/hooks/useTitle';
 import { FEATS } from '~/domain/feats/featExplanations';
+import { hasFeat } from '~/domain/feats/featUtils';
 import { t } from '~/domain/translations';
 
 const noOp = () => {};
 
-export const loader = async ({ params }) => {
+export const loader = async ({ params, request }) => {
   const pc = await getPc(params.id);
   if (!pc) {
     throw new Error('PC no encontrado');
   }
 
-  return { pc };
+  const { searchParams } = new URL(request.url);
+  const featId = searchParams.get('featId');
+
+  if (
+    !featId ||
+    !hasFeat(pc.toObject(), featId) ||
+    !FEATS[featId]?.requiredStatSelection
+  ) {
+    return redirect(`/characters/pc/${params.id}/summary`);
+  }
+
+  return { pc, featId };
 };
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const id = formData.get('id');
+  const featId = formData.get('featId');
   const selectedStat = formData.get('selectedStat');
 
-  await updateFeatStat(id, 'tavernBrawler', selectedStat);
+  await updateFeatStat(id, featId, selectedStat);
 
   return redirect(`/characters/pc/${id}/summary`);
 };
 
-function TavernBrawlerSelection() {
-  const { pc } = useLoaderData();
+function FeatStatSelection() {
+  const { pc, featId } = useLoaderData();
 
-  useTitle(t(FEATS.tavernBrawler.name));
+  useTitle(t(FEATS[featId].name));
 
   const [selectedStat, setSelectedStat] = useState('');
+
+  const stats = Object.keys(FEATS[featId].bonus.stats);
 
   return (
     <Form method="post">
       <input readOnly type="text" name="id" value={pc.id} hidden />
+      <input readOnly type="text" name="featId" value={featId} hidden />
 
-      <h2 className="app__pale-text">{t(FEATS.tavernBrawler.name)}</h2>
+      <h2 className="app__pale-text">{t(FEATS[featId].name)}</h2>
 
       <div className="app__paragraph">
-        {FEATS.tavernBrawler.description(null, pc, noOp, 'dontShowChooseTrait')}
+        {FEATS[featId].description(null, pc, noOp, 'dontShowChooseTrait')}
       </div>
 
       <p>
@@ -60,7 +76,7 @@ function TavernBrawlerSelection() {
             <option value="" disabled>
               -- Selecciona --
             </option>
-            {['str', 'con'].map(stat => (
+            {stats.map(stat => (
               <option value={stat} key={stat}>
                 {t(stat)}
               </option>
@@ -98,4 +114,4 @@ export function ErrorBoundary({ error }) {
   );
 }
 
-export default TavernBrawlerSelection;
+export default FeatStatSelection;
