@@ -1,5 +1,10 @@
-import { useState } from 'react';
-import { CLASSES, getStat, getStatMod } from '~/domain/characters';
+import { useEffect, useState } from 'react';
+import {
+  CLASSES,
+  getMinHpShortRest,
+  getStat,
+  getStatMod,
+} from '~/domain/characters';
 import { increment } from '~/domain/display';
 import NumericInput from '../inputs/numeric';
 import { longRest, shortRest } from '~/domain/mutations/characterMutations';
@@ -72,6 +77,14 @@ function HitDiceActions(props) {
   const hitDiceRecoveredForLongRest =
     hitDice / 2 >= 1 ? Math.floor(hitDice / 2) : 1;
 
+  const minHp = getMinHpShortRest(pc, amountOfDice);
+
+  useEffect(() => {
+    if (minHp > realDie) {
+      setRealDie(minHp);
+    }
+  }, [amountOfDice, minHp, realDie]);
+
   return (
     <div className="inventory-item__hp-container">
       <div className="inventory-item__modal-buttons-column">
@@ -134,7 +147,7 @@ function HitDiceActions(props) {
                 id="realDie"
                 name="hitPointsRealDie"
                 onKeyDown="return false"
-                min="0"
+                min={minHp}
                 value={realDie}
                 onChange={e => setRealDie(e.target.value)}
                 styleName="inventory-item__modal-input inventory-item__modal-input-small"

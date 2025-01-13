@@ -580,11 +580,12 @@ export async function updateNotePosition(id, noteId, position) {
 }
 
 export async function healPc(id, healing) {
-  const pc = await getPc(id);
+  const pcModel = await getPc(id);
+  const pc = pcModel.toObject();
   const maxHitPoints = getMaxHitPoints(pc);
   const { hitPoints } = pc;
 
-  let updatedPc = pc;
+  let updatedPc = pcModel;
 
   if (hitPoints + healing > maxHitPoints) {
     updatedPc = await Pc.findOneAndUpdate(
@@ -734,7 +735,7 @@ export async function spendSpellSlot(id, spellSlot) {
     return await pcModel.save();
   }
 
-  return pc;
+  return pcModel;
 }
 
 export async function learnSpells(id, toLearn) {
@@ -801,7 +802,8 @@ export async function learnRegularSpells(id, toLearn) {
 }
 
 export async function forgetSpell(id, spellName) {
-  const pc = await getPc(id);
+  const pcModel = await getPc(id);
+  const pc = pcModel.toObject();
 
   if (pc.spells.map(s => s.name).includes(spellName)) {
     return forgetRegularSpell(id, spellName);
@@ -998,10 +1000,11 @@ export async function forgetBardMagicalSecretsSpell(id, spellName) {
 }
 
 export async function addPreparedSpell(id, spell) {
-  const pc = await getPc(id);
+  const pcModel = await getPc(id);
+  const pc = pcModel.toObject();
   const maxPreparedSpells = getMaxPreparedSpells(pc);
   if (pc.preparedSpells.length >= maxPreparedSpells) {
-    return pc;
+    return pcModel;
   }
 
   const updatedPc = await Pc.updateOne(
@@ -1017,10 +1020,11 @@ export async function addPreparedSpell(id, spell) {
 }
 
 export async function deletePreparedSpell(id, spell) {
-  const pc = await getPc(id);
+  const pcModel = await getPc(id);
+  const pc = pcModel.toObject();
   const extraPreparedSpells = getExtraPreparedSpells(pc);
   if (extraPreparedSpells.map(s => s.name).includes(spell.name)) {
-    return pc;
+    return pcModel;
   }
 
   const updatedPc = await Pc.findOneAndUpdate(
@@ -1037,21 +1041,24 @@ export async function deletePreparedSpell(id, spell) {
 ///////////////
 
 export async function unequipWeapon(id, slot) {
-  const pc = await getPc(id);
+  const pcModel = await getPc(id);
+  const pc = pcModel.toObject();
 
   if (!Number.isInteger(slot) || slot < 0 || slot > 2) {
-    return pc;
+    return pcModel;
   }
 
   const weaponToUnequip = pc.items.weapons[slot];
   pc.items.treasure.weapons.push(weaponToUnequip);
   pc.items.weapons.pull(weaponToUnequip._id);
 
-  return await pc.save();
+  return await pcModel.save();
 }
 
 export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
-  const pc = await getPc(id);
+  const pcModel = await getPc(id);
+  const pc = pcModel.toObject();
+
   const {
     items: {
       weapons,
@@ -1084,7 +1091,7 @@ export async function equipWeaponInSlot(id, weaponToEquipName, slot) {
     }
   }
 
-  return await pc.save();
+  return await pcModel.save();
 }
 
 export async function unequipShield(id, shieldName) {

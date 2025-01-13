@@ -17,6 +17,10 @@ export function getFeats(pc) {
   return pc.feats?.list || [];
 }
 
+export function hasFeat(pc, featId) {
+  return getFeats(pc).includes(featId);
+}
+
 export function getAvailableFeats(pc) {
   return FEATS_LIST.filter(feat => {
     let isAvailable = true;
@@ -65,13 +69,14 @@ export function getFeat(featId) {
 }
 
 export function getExtraStatForFeat(pc, statName) {
-  return Object.keys(pc.feats?.extraStats || {}).reduce(
-    (extraValue, featName) => {
-      const featStats = pc.feats?.extraStats?.[featName];
-      return extraValue + featStats.filter(s => s === statName).length;
-    },
-    0
-  );
+  const extraStats = pc.feats?.extraStats || {};
+  const extraStatsObj =
+    extraStats instanceof Map ? Object.fromEntries(extraStats) : extraStats;
+
+  return Object.keys(extraStatsObj).reduce((extraValue, featName) => {
+    const featStats = extraStatsObj[featName];
+    return extraValue + featStats.filter(s => s === statName).length;
+  }, 0);
 }
 
 export function hasToSelectElement(pc) {

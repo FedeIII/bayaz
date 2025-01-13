@@ -1071,6 +1071,19 @@ export const FEATS = {
   },
   durable: {
     name: 'durable',
+    bonus: {
+      stats: {
+        con: 1,
+      },
+    },
+    extraDisplay: pc => (
+      <>
+        .{' '}
+        <span className="app__tiny-text">
+          Cada Dado de golpe {'>='} {2 * getStatMod(getStat(pc, 'con'))}
+        </span>
+      </>
+    ),
     description: (skill, pc) => (
       <>
         <p>Curtido y resistente, ganas los siguientes beneficios:</p>
@@ -1081,7 +1094,8 @@ export const FEATS = {
           <li>
             Cuando tiras un Dado de Golpe para recuperar puntos de golpe, el
             número mínimo de puntos de golpe que recuperas gracias a la tirada
-            es igual a dos veces tu modificador de constitución (mínimo 2).
+            es de {2 * getStatMod(getStat(pc, 'con'))} (igual a dos veces tu
+            modificador de constitución, mínimo 2).
           </li>
         </ul>
       </>

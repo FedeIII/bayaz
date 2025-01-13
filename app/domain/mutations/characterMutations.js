@@ -5,6 +5,7 @@ import {
   CLASSES,
   getStatMod,
   getStat,
+  getMinHpShortRest,
 } from '~/domain/characters';
 import {
   addItemToSection,
@@ -97,42 +98,49 @@ export async function setPcStats(pcParams) {
 }
 
 export async function shortRest(id, diceAmount, dieValue) {
-  let pc = await getPc(id);
-  const { remainingHitDice, pClass, magic: magicModel } = pc;
-  const magic = magicModel.toObject();
+  let pcModel = await getPc(id);
+  const pc = pcModel.toObject();
+
+  const { remainingHitDice, pClass, magic } = pc;
 
   if (remainingHitDice > 0) {
     if (!dieValue) {
       dieValue = rollDice(`${diceAmount}${CLASSES()[pClass].hitDice.slice(1)}`);
     }
 
+    const minHp = getMinHpShortRest(pc, diceAmount);
+    if (dieValue < minHp) {
+      dieValue = minHp;
+    }
+
     dieValue += diceAmount * getStatMod(getStat(pc, 'con'));
 
-    pc = await updatePc({
+    pcModel = await updatePc({
       id,
       remainingHitDice: remainingHitDice - diceAmount,
     });
-    pc = await healPc(id, dieValue);
+    pcModel = await healPc(id, dieValue);
   }
 
   if (pClass === 'paladin') {
-    pc = await updateAttrsForClass(id, 'paladin', {
+    pcModel = await updateAttrsForClass(id, 'paladin', {
       channelDivinity: getMaxChannelDivinity(),
     });
   }
 
   if (pClass === 'warlock') {
-    pc = await updatePc({
+    pcModel = await updatePc({
       id,
       magic: { ...magic, spentSpellSlots: Array(10).fill(0) },
     });
   }
 
-  return pc;
+  return pcModel;
 }
 
 export async function longRest(id) {
-  let pc = await getPc(id);
+  let pcModel = await getPc(id);
+  const pc = pcModel.toObject();
   const { remainingHitDice, hitDice, magic, pClass, feats } = pc;
 
   let newRemainingHitDice =
@@ -140,21 +148,21 @@ export async function longRest(id) {
   newRemainingHitDice =
     newRemainingHitDice > hitDice ? hitDice : newRemainingHitDice;
 
-  pc = await updatePc({
+  pcModel = await updatePc({
     id,
     remainingHitDice: newRemainingHitDice,
     magic: { ...magic, spentSpellSlots: Array(10).fill(0) },
   });
-  pc = await healPc(id, Infinity);
+  pcModel = await healPc(id, Infinity);
 
   if (pClass === 'bard') {
-    pc = await updateAttrsForClass(id, 'bard', {
+    pcModel = await updateAttrsForClass(id, 'bard', {
       bardicInspiration: getStatMod(getStat(pc, 'cha')),
     });
   }
 
   if (pClass === 'paladin') {
-    pc = await updateAttrsForClass(id, 'paladin', {
+    pcModel = await updateAttrsForClass(id, 'paladin', {
       layOnHands: getMaxLayOnHands(pc),
       divineSense: getMaxDivineSense(pc),
       channelDivinity: getMaxChannelDivinity(),
@@ -162,53 +170,56 @@ export async function longRest(id) {
   }
 
   if (pClass === 'sorcerer') {
-    pc = await updateAttrsForClass(id, 'sorcerer', {
+    pcModel = await updateAttrsForClass(id, 'sorcerer', {
       fontOfMagic: getMaxSorcereryPoints(pc),
       tidesOfChaos: getMaxTidesOfChaos(),
     });
   }
 
   if (feats?.list?.includes('luckyFeat')) {
-    pc = await updateFeatAttr(id, 'luckyFeat', MAX_LUCK_POINTS);
+    pcModel = await updateFeatAttr(id, 'luckyFeat', MAX_LUCK_POINTS);
   }
 
-  return pc;
+  return pcModel;
 }
 
 export async function changeSpellSlot(id, spellSlotLevel, amount) {
-  let pc = await getPc(id);
+  let pcModel = await getPc(id);
+  const pc = pcModel.toObject();
   const { magic } = pc;
   const spellSlots = getSpellSlots(pc);
 
   if (amount <= spellSlots[spellSlotLevel]) {
     const newSpentSpellSlots = magic.spentSpellSlots.slice();
     newSpentSpellSlots[spellSlotLevel] = amount;
-    pc = await updatePc({
+    pcModel = await updatePc({
       id,
       magic: { ...magic, spentSpellSlots: newSpentSpellSlots },
     });
   }
 
-  return pc;
+  return pcModel;
 }
 
 export async function resetSpellSlots(id, spellsLevel) {
-  let pc = await getPc(id);
+  let pcModel = await getPc(id);
+  const pc = pcModel.toObject();
   const { magic } = pc;
 
   const newSpentSpellSlots = magic.spentSpellSlots.slice();
   newSpentSpellSlots[spellsLevel] = 0;
 
-  pc = await updatePc({
+  pcModel = await updatePc({
     id,
     magic: { ...magic, spentSpellSlots: newSpentSpellSlots },
   });
 
-  return pc;
+  return pcModel;
 }
 
 export async function damagePc(id, damage) {
-  let pc = await getPc(id);
+  let pcModel = await getPc(id);
+  const pc = pcModel.toObject();
   const { hitPoints, temporaryHitPoints } = pc;
 
   if (temporaryHitPoints) {
@@ -216,19 +227,19 @@ export async function damagePc(id, damage) {
   }
 
   if (damage >= 0) {
-    pc = await updatePc({
+    pcModel = await updatePc({
       id,
       hitPoints: hitPoints - damage,
       temporaryHitPoints: 0,
     });
   } else {
-    pc = await updatePc({
+    pcModel = await updatePc({
       id,
       temporaryHitPoints: -damage,
     });
   }
 
-  return pc;
+  return pcModel;
 }
 
 export async function addItemToPc(
@@ -240,7 +251,8 @@ export async function addItemToPc(
   scrollSpellName
 ) {
   const amount = Number.isInteger(parseInt(itemAmount, 10)) ? itemAmount : 1;
-  const pc = await getPc(id);
+  const pcModel = await getPc(id);
+  const pc = pcModel.toObject();
   const item = getItem(itemName);
   const stash = getter(pc.items, sectionPath);
 
@@ -269,10 +281,11 @@ export async function addItemToPc(
 }
 
 export async function addFeatToPc(id, featId) {
-  const pc = await getPc(id);
+  const pcModel = await getPc(id);
+  const pc = pcModel.toObject();
 
-  if (!pc.feats) {
-    pc.feats = {
+  if (!pcModel.feats) {
+    pcModel.feats = {
       list: [],
       extraStats: {},
       elementalAdept: [],
@@ -280,7 +293,7 @@ export async function addFeatToPc(id, featId) {
     };
   }
 
-  const feats = pc.feats;
+  const feats = pcModel.feats;
 
   if (featId === 'elementalAdept' || !feats.list.includes(featId)) {
     feats.list.push(featId);
@@ -298,5 +311,5 @@ export async function addFeatToPc(id, featId) {
     feats.luckyFeat = MAX_LUCK_POINTS;
   }
 
-  return await pc.save();
+  return await pcModel.save();
 }

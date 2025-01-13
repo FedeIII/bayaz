@@ -104,6 +104,7 @@ import {
   getFeat,
   getFeats,
   getFeatTraits,
+  hasFeat,
   isFeat,
 } from './feats/featUtils';
 import { FEATS_EXPLANATION, featsActions } from './feats/featExplanations';
@@ -3591,4 +3592,12 @@ export function getInitiativeBonus(pc) {
     }
   });
   return initiative;
+}
+
+export function getMinHpShortRest(pc, amountOfDice) {
+  if (hasFeat(pc, 'durable')) {
+    return 2 * getStatMod(getStat(pc, 'con')) * amountOfDice;
+  } else {
+    return 2 * amountOfDice;
+  }
 }
